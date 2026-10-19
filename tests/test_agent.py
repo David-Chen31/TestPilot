@@ -131,3 +131,72 @@ def test_end_to_end_over_mcp(sample_repo: Path, tmp_path: Path):
     assert result.info["stop_reason"].startswith("全部测试通过")
     analyze = [e for e in result.trace if e["node"] == "analyze"][-1]
     assert analyze["coverage"]["line_rate"] == 0.6  # add + clamp 的 x < low 分支：10 条语句执行了 6 条
+
+
+# ---------------- B2：变异反馈 ----------------
+
+import os  # noqa: E402
+
+import pytest  # noqa: E402
+
+from testpilot.agent.graph import B2, TestPilotAgent  # noqa: E402
+from tests.test_repo_tools import STRONG_TEST, WEAK_TEST  # noqa: E402
+
+
+def _agent(config=B2) -> TestPilotAgent:
+    return TestPilotAgent(model=None, tools=LocalToolClient(RepoTools(".")), config=config)
+
+
+def _survivor(line, mutated, status="survived"):
+    return {"line": line, "original": "x", "mutated": mutated, "status": status}
+
+
+def test_mutation_feedback_prioritizes_unseen_and_unexecuted():
+    agent = _agent()
+    mutation = {
+        "error": "", "killed": 5, "survived": 3, "score": 5 / 8,
+        "survivors": [_survivor(3, "a"), _survivor(9, "b", "no tests"), _survivor(1, "c")],
+    }  # fmt: skip
+    validity = {"invalid": {}}
+    # line 1 已经展示过（多半是等价变异体），排到最后；没有测试执行到的 line 9 排最前
+    text, shown = agent._mutation_feedback("m.py", {"passed": 4}, validity, mutation, ["1|c"])
+    order = [text.index(f"line {n}:") for n in (9, 3, 1)]
+    assert order == sorted(order)
+    assert "(no test executes this line)" in text
+    assert "5 of 8 mutants were killed" in text
+    assert shown == ["1|c", "9|b", "3|a"]
+
+
+def test_mutation_feedback_reports_flaky_tests():
+    agent = _agent()
+    validity = {"invalid": {"t.py::test_x": "flaky, run 2: failed: boom"}}
+    text, _ = agent._mutation_feedback("m.py", {"passed": 4}, validity, None, [])
+    assert "did not pass consistently over 3 runs" in text and "t.py::test_x" in text
+
+
+@pytest.mark.parametrize(
+    "mutation,expected",
+    [
+        ({"error": "", "survived": 0}, "全部测试有效，且没有存活的变异体"),
+        ({"error": "mutmut 超时"}, "变异测试出错"),
+    ],
+)
+def test_decide_stop_reasons_for_b2(mutation, expected):
+    state = {"feedback": "", "mutation": mutation, "iteration": 1, "tokens": 0, "stale_rounds": 0, "run": {"all_passed": True}}
+    out = asyncio.run(_agent().decide(state))
+    assert out["next"] == "finalize" and out["stop_reason"].startswith(expected)
+
+
+@pytest.mark.skipif(os.name == "nt", reason="mutmut 不支持原生 Windows")
+def test_b2_feeds_back_survivors_and_stops_on_equivalent_mutants(sample_repo: Path, tmp_path: Path):
+    # 第 1 轮弱测试；第 2 轮强测试（只剩 2 个等价变异体）；之后两轮没有提升 → 按 patience 停止
+    replies = [_reply(WEAK_TEST), _reply(STRONG_TEST), _reply(STRONG_TEST), _reply(STRONG_TEST)]
+    result, code = _run(sample_repo, tmp_path, replies, B2)
+    writes = [e for e in result.trace if e["node"] == "write_tests"]
+    assert "line 9: `if low > high:` → `if low >= high:`" in writes[1]["llm"]["task"]
+    analyses = [e for e in result.trace if e["node"] == "analyze"]
+    assert [round(a["mutation"]["score"], 3) for a in analyses] == [round(1 / 7, 3), round(5 / 7, 3)] + [round(5 / 7, 3)] * 2
+    assert analyses[0]["validity"]["valid"] == 2  # 变异测试只用有效测试
+    assert result.info["stop_reason"] == "连续 2 轮没有提升"
+    assert result.info["best_iteration"] == 2
+    assert code == STRONG_TEST.lstrip()  # extract_code 去掉了首尾空行

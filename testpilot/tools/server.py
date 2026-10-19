@@ -21,6 +21,7 @@ TOOL_NAMES = [
     "search_code",
     "write_test_file",
     "run_pytest",
+    "check_validity",
     "coverage_report",
     "run_mutation",
 ]

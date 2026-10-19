@@ -73,8 +73,9 @@ def check_validity(
     python_paths: Sequence[str] = (".",),
     n_runs: int = N_VALIDITY_RUNS,
 ) -> Validity:
-    """在原代码上把测试跑 ``n_runs`` 次，返回哪些测试函数有效。"""
+    """在原代码上把测试跑 ``n_runs`` 次，返回哪些测试函数有效。``test_files`` 可以是文件或目录。"""
     workdir = Path(workdir)
+    test_files = _expand_test_files(workdir, test_files)
     v = Validity()
     for f in test_files:
         v.total += defined_test_functions((workdir / f).read_text(encoding="utf-8"), f)
@@ -207,6 +208,19 @@ def evaluate(
         }
         ev.durations["mutation"] = round(time.monotonic() - t0, 2)
     return ev
+
+
+def _expand_test_files(workdir: Path, paths: Sequence[str]) -> list[str]:
+    """目录展开成其中的测试文件（pytest 默认的 test_*.py / *_test.py），统一用正斜杠相对路径。"""
+    files: list[str] = []
+    for p in paths:
+        full = workdir / p
+        if full.is_dir():
+            found = sorted({*full.rglob("test_*.py"), *full.rglob("*_test.py")})
+            files += [f.relative_to(workdir).as_posix() for f in found]
+        else:
+            files.append(Path(p).as_posix())
+    return files
 
 
 def _error_line(text: str) -> str:

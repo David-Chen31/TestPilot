@@ -11,6 +11,7 @@ import re
 from pathlib import Path
 from typing import Sequence
 
+from testpilot.eval.metrics import check_validity
 from testpilot.retrieval.ast_index import extract_symbols
 from testpilot.sandbox.coverage_runner import measure_coverage
 from testpilot.sandbox.mutation import run_mutation as _run_mutation
@@ -147,6 +148,21 @@ class RepoTools:
             "output": res.exec.stdout if not res.cases else "",  # 没有用例结果时（收集失败 / 超时）才需要原始输出
         }
 
+    def check_validity(self, tests: list[str] | None = None) -> dict:
+        """Run the tests 3 times on the unmodified code and report which test functions are valid.
+
+        A test function is valid only if it passed in all 3 runs (all parametrized cases included).
+        Only valid tests should be used for coverage and mutation testing.
+        """
+        v = check_validity(self.root, self._tests(tests), python_paths=self.python_paths)
+        return {
+            "total": len(v.total),
+            "valid": len(v.valid),
+            "valid_ids": v.valid,
+            "invalid": dict(list(v.invalid.items())[:MAX_CASES]),
+            "flaky": v.flaky,
+        }
+
     def coverage_report(self, target: str, tests: list[str] | None = None) -> dict:
         """Measure line and branch coverage of one source file by the given tests (default: all generated tests).
 
@@ -169,7 +185,7 @@ class RepoTools:
             "error": cov.error,
         }
 
-    def run_mutation(self, target: str, tests: list[str] | None = None) -> dict:
+    def run_mutation(self, target: str, tests: list[str] | None = None, max_survivors: int = MAX_SURVIVORS) -> dict:
         """Run mutation testing on one source file and report the mutation score and surviving mutants.
 
         Each surviving mutant shows the line number, the original code and the mutated code:
@@ -178,8 +194,11 @@ class RepoTools:
 
         Args:
             target: source file path relative to the repository root.
+            tests: test files or pytest node ids to run against the mutants (default: all generated tests).
+            max_survivors: maximum number of surviving mutants to list (at most 200).
         """
         self._resolve(target)
+        limit = max(1, min(max_survivors, 200))
         rep = _run_mutation(
             self.root, target, self._tests(tests), timeout=self.mutation_timeout, python_paths=self.python_paths
         )
@@ -194,9 +213,9 @@ class RepoTools:
             "status_counts": rep.status_counts(),
             "survivors": [
                 {"line": m.line, "original": m.original.strip(), "mutated": m.mutated.strip(), "status": m.status}
-                for m in survivors[:MAX_SURVIVORS]
+                for m in survivors[:limit]
             ],
-            "survivors_truncated": len(survivors) > MAX_SURVIVORS,
+            "survivors_truncated": len(survivors) > limit,
             "error": rep.error,
         }
 
@@ -213,7 +232,7 @@ class RepoTools:
     def _tests(self, tests: list[str] | None) -> list[str]:
         tests = tests or [GENERATED_TESTS_DIR]
         for t in tests:
-            self._resolve(t)
+            self._resolve(t.split("::", 1)[0])  # 可以是 nodeid，检查文件部分
         return tests
 
     def _python_files(self, directory: Path) -> list[Path]:

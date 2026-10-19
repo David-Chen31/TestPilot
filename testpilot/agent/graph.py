@@ -10,7 +10,7 @@
 B0 / B1 / B2 是同一张图的三种配置：
 - B0：feedback 为空，只写一次（B0 的提示词就是 B1/B2 第一轮的提示词）；
 - B1：pytest 失败信息反馈；
-- B2：再加上存活变异体反馈（M5）。
+- B2：测试全部通过后，在有效测试上做变异测试，把存活变异体反馈回去。
 """
 
 from __future__ import annotations
@@ -34,6 +34,7 @@ from testpilot.retrieval.context import build_context
 
 MAX_FEEDBACK_ITEMS = 15
 MAX_MESSAGE_CHARS = 800
+MAX_SURVIVORS_FETCHED = 200  # 从工具取回的存活变异体上限；反馈里只放 MAX_FEEDBACK_ITEMS 个
 
 
 @dataclass(frozen=True)
@@ -48,6 +49,7 @@ class AgentConfig:
 
 B0 = AgentConfig("b0", feedback=frozenset(), max_iterations=1)
 B1 = AgentConfig("b1", feedback=frozenset({"pytest"}))
+B2 = AgentConfig("b2", feedback=frozenset({"pytest", "mutation"}))
 
 
 class AgentState(TypedDict, total=False):
@@ -65,7 +67,8 @@ class AgentState(TypedDict, total=False):
     run: dict  # 最近一次 pytest 结果
     coverage: dict | None
     mutation: dict | None
-    feedback: str  # 给下一轮 write_tests 的反馈
+    feedback: str  # 给下一轮 write_tests 的反馈；为空表示没有可改进之处
+    shown_mutants: list[str]  # 已经在反馈中展示过的变异体（行号 + 变异后代码）
     # 进度与终止
     score: list  # 进度分数（按字典序比较），见 progress_score
     best: dict  # 分数最高的一轮：code、score、iteration
@@ -85,6 +88,10 @@ def progress_score(run: dict, coverage: dict | None, mutation: dict | None) -> l
         (coverage or {}).get("line_rate") or 0.0,
         run.get("passed", 0),
     ]
+
+
+def _mutant_key(m: dict) -> str:
+    return f"{m['line']}|{m['mutated']}"
 
 
 EventHook = Callable[[dict], Awaitable[None]]
@@ -202,28 +209,59 @@ class TestPilotAgent:
         return {"run": run, "trace": [await self._event("run_tests", state, t0, summary)]}
 
     async def analyze(self, state: AgentState) -> dict:
-        """计算进度分数、更新最好的一轮，并准备给下一轮的反馈。"""
+        """计算进度分数、更新最好的一轮，并准备给下一轮的反馈。
+
+        启用变异反馈（B2）且测试全部通过时：先在原代码上跑 3 次确定有效测试，
+        覆盖率和变异测试都**只用有效测试**——在原代码上不稳定的测试会把变异得分虚高。
+        """
         t0 = time.monotonic()
         run = state["run"]
-        coverage = None
-        if run["all_passed"]:
-            coverage = await self.tools.call("coverage_report", {"target": state["target"], "tests": [state["test_file"]]})
-        score = progress_score(run, coverage, None)
+        target = state["target"]
+        coverage = mutation = validity = None
+        shown = list(state.get("shown_mutants", []))
+        if run["all_passed"] and "mutation" in self.config.feedback:
+            validity = await self.tools.call("check_validity", {"tests": [state["test_file"]]})
+            if validity["valid_ids"]:
+                tests = validity["valid_ids"]
+                coverage = await self.tools.call("coverage_report", {"target": target, "tests": tests})
+                mutation = await self.tools.call(
+                    "run_mutation", {"target": target, "tests": tests, "max_survivors": MAX_SURVIVORS_FETCHED}
+                )
+        elif run["all_passed"]:
+            coverage = await self.tools.call("coverage_report", {"target": target, "tests": [state["test_file"]]})
+
+        score = progress_score(run, coverage, mutation)
         best = state.get("best")
         improved = best is None or score > best["score"]
         if improved:
             best = {"code": state["test_code"], "score": score, "iteration": state["iteration"]}
         stale = 0 if improved else state["stale_rounds"] + 1
-        feedback = self._pytest_feedback(run) if "pytest" in self.config.feedback else ""
+
+        feedback = ""
+        if not run["all_passed"]:
+            feedback = self._pytest_feedback(run) if "pytest" in self.config.feedback else ""
+        elif "mutation" in self.config.feedback:
+            feedback, shown = self._mutation_feedback(target, run, validity, mutation, shown)
+
         cov = f"，行覆盖 {coverage['line_rate']:.1%}，分支覆盖 {coverage['branch_rate'] or 0:.1%}" if coverage else ""
-        summary = f"分数 {score}{'（提升）' if improved else f'（连续 {stale} 轮无提升）'}{cov}"
+        mut = f"，变异得分 {mutation['score']:.1%}（存活 {mutation['survived']}）" if mutation and mutation["score"] is not None else ""
+        summary = f"分数 {score}{'（提升）' if improved else f'（连续 {stale} 轮无提升）'}{cov}{mut}"
+        mutation_brief = {k: v for k, v in (mutation or {}).items() if k != "survivors"} or None
+        validity_brief = {k: v for k, v in (validity or {}).items() if k != "valid_ids"} or None
         return {
             "coverage": coverage,
+            "mutation": mutation_brief,
             "score": score,
             "best": best,
             "stale_rounds": stale,
             "feedback": feedback,
-            "trace": [await self._event("analyze", state, t0, summary, score=score, coverage=coverage)],
+            "shown_mutants": shown,
+            "trace": [
+                await self._event(
+                    "analyze", state, t0, summary,
+                    score=score, coverage=coverage, validity=validity_brief, mutation=mutation_brief,
+                )  # fmt: skip
+            ],
         }
 
     async def decide(self, state: AgentState) -> dict:
@@ -231,10 +269,17 @@ class TestPilotAgent:
         t0 = time.monotonic()
         cfg = self.config
         stop = None
+        mutation = state.get("mutation") or {}
         if not cfg.feedback:
             stop = "单次生成（无反馈）"
-        elif state["run"]["all_passed"] and "mutation" not in cfg.feedback:
-            stop = "全部测试通过，pytest 反馈已无可改进之处"
+        elif not state["feedback"]:
+            # 没有可反馈的问题了
+            if "mutation" not in cfg.feedback:
+                stop = "全部测试通过，pytest 反馈已无可改进之处"
+            elif mutation.get("error"):
+                stop = f"变异测试出错，无法继续反馈：{mutation['error'][:200]}"
+            else:
+                stop = "全部测试有效，且没有存活的变异体"
         elif state["iteration"] >= cfg.max_iterations:
             stop = f"达到最大迭代数 {cfg.max_iterations}"
         elif state["tokens"] >= cfg.token_budget:
@@ -261,6 +306,40 @@ class TestPilotAgent:
         return {"trace": [await self._event("finalize", state, t0, summary, best_iteration=best["iteration"])]}
 
     # ---------------- 辅助 ----------------
+
+    def _mutation_feedback(
+        self, target: str, run: dict, validity: dict, mutation: dict | None, shown: list[str]
+    ) -> tuple[str, list[str]]:
+        """把不稳定的测试和存活变异体整理成反馈。返回 (反馈文本, 更新后的“已展示变异体”列表)。"""
+        parts = []
+        if validity["invalid"]:
+            items = "\n".join(f"- `{t}`: {r}" for t, r in list(validity["invalid"].items())[:MAX_FEEDBACK_ITEMS])
+            parts.append(prompts.FEEDBACK_FLAKY.format(n=len(validity["invalid"]), items=items))
+        if mutation and not mutation["error"] and mutation["survivors"]:
+            # 排序：没展示过的优先（展示过还活着的，多半是等价变异体，不该一直占着反馈）；
+            # 其次是没有任何测试执行到的；最后按行号
+            def key(m: dict) -> tuple:
+                return (_mutant_key(m) in shown, m["status"] != "no tests", m["line"] or 0)
+
+            chosen = sorted(mutation["survivors"], key=key)[:MAX_FEEDBACK_ITEMS]
+            items = "\n".join(
+                f"- line {m['line']}: `{m['original']}` → `{m['mutated']}`"
+                + (" (no test executes this line)" if m["status"] == "no tests" else "")
+                for m in chosen
+            )
+            more = mutation["survived"] - len(chosen)
+            parts.append(
+                prompts.FEEDBACK_MUTATION.format(
+                    passed=run["passed"],
+                    target=target,
+                    killed=mutation["killed"],
+                    scorable=mutation["killed"] + mutation["survived"],
+                    score=mutation["score"] or 0.0,
+                    items=items + (f"\n... and {more} more surviving mutants not shown." if more > 0 else ""),
+                )
+            )
+            shown = shown + [k for k in map(_mutant_key, chosen) if k not in shown]
+        return "\n\n".join(parts), shown
 
     def _pytest_feedback(self, run: dict) -> str:
         if run.get("no_code"):

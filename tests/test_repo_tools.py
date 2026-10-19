@@ -173,3 +173,14 @@ def test_coverage_target_not_imported(tools: RepoTools):
     res = tools.coverage_report("sample/calc.py")
     assert res["line_rate"] is None
     assert res["error"]
+
+
+def test_check_validity_tool(tools: RepoTools):
+    tools.write_test_file(
+        f"{GENERATED_TESTS_DIR}/test_v.py",
+        "def test_ok():\n    assert True\n\ndef test_bad():\n    assert False\n",
+    )
+    res = tools.check_validity()
+    assert (res["total"], res["valid"]) == (2, 1)
+    assert res["valid_ids"] == [f"{GENERATED_TESTS_DIR}/test_v.py::test_ok"]
+    assert f"{GENERATED_TESTS_DIR}/test_v.py::test_bad" in res["invalid"]

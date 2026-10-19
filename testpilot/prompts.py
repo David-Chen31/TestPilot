@@ -51,6 +51,23 @@ Keep the tests that already pass. Return the complete revised test file in one `
 
 FEEDBACK_NO_CODE = "Your previous response did not contain a ```python code block, so no tests were written."
 
+FEEDBACK_FLAKY = """\
+{n} tests passed once but did not pass consistently over 3 runs on the unmodified code, so they are \
+excluded from scoring. Make them deterministic (no reliance on ordering, time, randomness or shared \
+state) or remove them:
+{items}"""
+
+FEEDBACK_MUTATION = """\
+All {passed} tests pass. Mutation testing on `{target}`: {killed} of {scorable} mutants were killed \
+(mutation score {score:.1%}). Each mutant below is a small change to the code under test that NO test \
+detected — the tests still pass when the line is changed as shown:
+{items}
+
+Add tests or strengthen assertions so that each of these changes would make at least one test FAIL, \
+while all tests still pass on the current code. Check exact return values, boundary inputs and exception \
+messages. Some mutants may be equivalent (the change has no observable effect); skip those rather than \
+writing tests that rely on implementation details. Keep all existing tests."""
+
 FEEDBACK_PYTEST_HEADER = (
     "Running pytest on the current implementation: {passed} passed, {failed} failed, {errors} errors."
 )

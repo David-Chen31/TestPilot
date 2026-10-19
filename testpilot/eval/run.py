@@ -27,7 +27,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import asyncio
 
-from testpilot.agent.graph import B0, B1, AgentConfig, run_agent
+from testpilot.agent.graph import B0, B1, B2, AgentConfig, run_agent
 from testpilot.config import PROJECT_ROOT, Settings
 from testpilot.eval.metrics import evaluate
 from testpilot.eval.repos import RepoSpec, eval_workspace, load_manifest, snapshot_commit
@@ -36,7 +36,7 @@ from testpilot.llm import make_chat_model
 log = logging.getLogger("testpilot.eval")
 
 # 所有方法都是同一张 Agent 图的不同配置
-METHODS: dict[str, AgentConfig] = {"b0": B0, "b1": B1}
+METHODS: dict[str, AgentConfig] = {"b0": B0, "b1": B1, "b2": B2}
 RESULTS_DIR = PROJECT_ROOT / "results"
 
 
