@@ -24,6 +24,28 @@ class Helper:
     assert defined_test_functions("def (:", F) == []
 
 
+def test_defined_test_functions_counts_unparsable_file():
+    # 一处语法错误让整个文件无法解析：测试仍按写出来的数量计数
+    # test_b 就是 M4 中 B0 真实出现过的错误：def test_merge_with_single_iterable':
+    code = """def test_a():
+    pass
+
+def test_b':
+    pass
+
+class TestX:
+    def test_c(self):
+        pass
+"""
+    assert defined_test_functions(code, F) == [f"{F}::test_a@L1", f"{F}::test_b@L4", f"{F}::test_c@L8"]
+
+
+def test_unparsable_file_all_invalid_with_reason(sample_repo: Path, tmp_path: Path):
+    v = _validity(sample_repo, tmp_path, "def test_a():\n    pass\n\ndef test_b':\n    pass\n")
+    assert len(v.total) == 2 and v.valid == []
+    assert all("SyntaxError" in reason for reason in v.invalid.values())
+
+
 def _validity(sample_repo: Path, tmp_path: Path, code: str, **kw):
     with Workspace(sample_repo, base_dir=tmp_path) as ws:
         ws.write_text(F, code)

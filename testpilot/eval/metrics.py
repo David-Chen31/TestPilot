@@ -12,6 +12,7 @@
 from __future__ import annotations
 
 import ast
+import re
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -24,6 +25,8 @@ from testpilot.sandbox.pytest_runner import DEFAULT_PER_TEST_TIMEOUT, run_pytest
 N_VALIDITY_RUNS = 3
 PER_TEST_TIMEOUT = DEFAULT_PER_TEST_TIMEOUT
 RUN_TIMEOUT = 300.0  # 一次 pytest 运行的硬上限（秒）
+# 不要求名字后面紧跟 "("：语法错误往往就出在函数头上
+_TEST_DEF = re.compile(r"^[ \t]*(?:async[ \t]+)?def[ \t]+(test\w*)", re.MULTILINE)
 
 
 def defined_test_functions(code: str, file: str) -> list[str]:
@@ -31,7 +34,9 @@ def defined_test_functions(code: str, file: str) -> list[str]:
     try:
         tree = ast.parse(code)
     except SyntaxError:
-        return []
+        # 文件解析失败时测试一个都跑不了，但仍要按写出来的数量计数（全部无效），
+        # 否则“生成测试数”会被算成 0，有效率变成 0/0
+        return [f"{file}::{m.group(1)}@L{code.count(chr(10), 0, m.start()) + 1}" for m in _TEST_DEF.finditer(code)]
     ids: list[str] = []
     for node in tree.body:
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test"):
