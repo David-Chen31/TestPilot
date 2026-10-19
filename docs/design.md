@@ -126,3 +126,62 @@
 ### 2.5 示例：覆盖率高 ≠ 能抓 bug
 
 对样例 `sample/calc.py`，只断言 `clamp(5, 0, 10) is not None` 的弱测试：行覆盖率 70%，变异得分 1/7。补上边界值和错误信息断言后：行 / 分支覆盖率 100%，变异得分 5/7，剩下两个是等价变异体。见 `tests/test_repo_tools.py` 与 `tests/test_mutation.py`。
+
+## 3. 基线 B0 与评测框架（M3）
+
+代码：`testpilot/eval/`、`testpilot/llm.py`、`testpilot/prompts.py`
+
+### 3.1 有效性规则的实现（`eval/metrics.py`）
+
+- **计数单位是测试函数**：用 AST 数出测试文件里定义的 `test*` 函数和 `Test*` 类中的 `test*` 方法。按 pytest 收集结果计数的话，一个 import 就失败的文件会被算成“0 个测试”，而不是“N 个测试全部无效”，有效率会虚高。
+- **有效 = 原代码上连续 3 次通过**。参数化测试的所有用例都通过，这个函数才算通过。第一次通过、后面失败的记为 flaky。某一轮之后已经没有候选测试时，提前结束。
+- **覆盖率与变异得分只用有效测试计算**：把有效测试的 pytest nodeid 直接传给 coverage 和 mutmut。单测 `test_coverage_counts_only_valid_tests` 构造了一个“执行了全部分支但最后 `assert False`”的测试，验证它的覆盖率不被计入。
+- **没有有效测试时**：覆盖率和变异得分记为 0，而不是缺失。否则“全部生成失败”的运行在求均值时会被悄悄丢掉。
+- **单测级超时**：用 pytest-timeout 设 10 秒。在 Linux 上一个死循环测试只让自己失败，其他测试照常出结果。Windows 上 pytest-timeout 只能结束整个进程，这也是评测必须在 Docker 里跑的原因之一。
+- **coverage 用空配置文件**：toolz 的 `[tool.coverage.run] source = ["toolz"]` 会让 `--include` 失效，覆盖率就不再只统计目标文件了。
+
+### 3.2 评测仓库（`eval/repos.toml`、`eval/repos.py`）
+
+- **固定 commit，下载 GitHub 的 commit 快照（tar.gz）而不是 git clone**：commit 写在 URL 里，内容确定；保留上游的 LF 换行（Windows 上 clone 会受 `autocrlf` 影响）。开发时 github.com 一度不可达，而 codeload 可以访问，这也是换方式的直接原因。解压用 `filter="data"`，防止压缩包里的 `../` 路径逃逸。
+- **工作副本删除仓库自带的测试**（`remove` 字段）：B1/B2 的 Agent 能读文件、搜代码，不删的话它可以直接照抄已有测试。docstring 里的 doctest 示例保留，因为它们是源码的一部分，所有方法都能看到。
+
+### 3.3 B0 与公共提示词
+
+- B0 = 把目标模块的完整源码一次性交给 LLM，取回复中最长的 python 代码块作为测试文件，不运行、不修改。
+- **所有方法共享同一份测试要求**（`prompts.TEST_REQUIREMENTS`）。B0 与 B1/B2 的差异只来自流程（一次生成 / 迭代修复 / 变异反馈），不来自提示词措辞，否则对比结果里会混进 prompt 工程的影响。
+- 温度统一取 API 默认值 1.0：评测要求每个设置跑多次看方差，测试时扩展实验也需要采样多样性。
+
+### 3.4 可复现性记录
+
+每次运行的 `run.json` 记录以下信息：模型名、温度、`system_fingerprint`（模型别名不能锁定版本，用它记录后台实际版本）、token（含 cache 命中）、按高峰价估算的费用上限、生成和评测耗时、被测仓库 commit、TestPilot 自身 commit（`git describe --dirty`）。`trace.json` 保存完整的 prompt 和回复。
+
+### 3.5 一次评测器 bug（已修复，结果已作废并保留）
+
+第一批 B0 的变异测试全部没有执行。原因是 `also_copy` 传入了子目录中的单个文件，而 mutmut 复制单个文件时不创建父目录。单测只覆盖了“传目录”的情况，真实评测传的是有效测试的 nodeid。处理方式：
+- 修复后补了回归测试；
+- 汇总中显式记录 `mutation_error`，避免出错时只剩一个 `None` 得分；
+- 第一批结果移到 `results/_discarded/m3_b0/` 并写明原因，整批重跑。
+
+### 3.6 发现：deepseek-flash 默认会自适应思考，且 DeepSeek 不认 `max_completion_tokens`
+
+- M3 之前我只用“回复 ok”这种极简请求做了测试（思考 token 为 0），由此**错误地**得出“默认不思考”的结论。复杂请求下它会自动思考：数到 300 用了约 500–1400 个思考 token。思考 token 计入输出、按输出价计费。
+- langchain-openai 会把 `max_tokens` 改名为 `max_completion_tokens` 发送，而 **DeepSeek 忽略这个参数**，所以我设置的输出上限实际从未生效。
+- 两者叠加的后果：B0 在 functoolz 的第 3 次运行中，模型一直思考到服务端上限 65,536 token，最终回复为空（`finish_reason = length`），生成 0 个测试。
+- 修复：通过 `extra_body` 直接发送 `max_tokens`；思考模式可配置（`LLM_THINKING = auto / enabled / disabled`）；日志记录 `reasoning_tokens`。`tests/test_llm.py` 断言了请求体。
+- **影响范围**：`results/m3_b0/` 与 `results/m3_b0_harder/` 都是在“思考 = auto、实际无输出上限（服务端 65,536）”的配置下得到的。这一点在它们的 `run.json` 中没有记录，以本节为准。
+
+### 3.7 B0 结果与结论（toolz@451af60，每个目标 3 次）
+
+| 目标 | 有效率 | 行覆盖 | 分支覆盖 | 变异得分 | 来源 |
+|---|---|---|---|---|---|
+| dicttoolz.py | 100% [100, 100] | 100% [100, 100] | 100% [100, 100] | 97.1% [97.1, 97.1] | `results/m3_b0/summary.md` |
+| itertoolz.py | 100% [100, 100] | 96.0% [95.6, 96.4] | 95.7% [94.7, 96.5] | 92.0% [91.0, 92.8] | `results/m3_b0_harder/summary.md` |
+| functoolz.py | 65.8% [0, 100] | 60.5% [0, 91.3] | 50.9% [0, 77.8] | 47.3% [0, 71.6] | 同上；第 3 次因思考耗尽上限而为空 |
+
+- **天花板效应**：dicttoolz 上 B0 已经到达有效上限。3 次运行剩下的 4 个存活变异体完全相同，都是等价或近似等价的：
+  - line 217 的阈值是性能优化，只影响键顺序，`dict ==` 观察不到；
+  - line 242 的默认值传给了一个忽略参数的 lambda。
+
+  B1/B2 在这种目标上不可能显示出提升，正式评测需要选 B0 没有饱和的目标。
+- **functoolz 有提升空间**：去掉失败的第 3 次后，前两次的变异得分为 70–72%，分支覆盖 75–78%。
+- **数据污染风险**：toolz 很有名，模型很可能见过它自带的测试，docstring 里还有 doctest 示例。这可能是 B0 在 dicttoolz 上饱和的原因之一。M8 计划加入模型训练截止之后才创建的小仓库做对照。

@@ -2,7 +2,7 @@
 
 面向 Python 代码仓库的单元测试生成 Agent：用 Agent 循环（读代码 → 写测试 → 运行 → 看报错 → 修改）生成能跑通的测试，再用变异测试检验并反馈“测试能不能抓 bug”。
 
-> 开发中。当前进度：M2（MCP server 与工具）。
+> 开发中。当前进度：M3（基线 B0 与评测框架）。
 
 ## 快速开始
 
@@ -22,4 +22,11 @@ python -m testpilot.tools.client --root <目录> list_symbols '{"path": "."}'
 
 # 用 MCP Inspector 交互调试
 npx @modelcontextprotocol/inspector python -m testpilot.tools.server --root <目录>
+```
+
+## 运行评测
+
+```bash
+cp .env.example .env               # 填写 LLM_API_KEY
+scripts/eval.sh --method b0 --repo toolz --runs 3 --tag m3_b0   # 在 Docker 中运行，原始日志写入 results/m3_b0/
 ```

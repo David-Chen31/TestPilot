@@ -48,6 +48,8 @@ def run_one(method: str, spec: RepoSpec, target: str, out_dir: Path, settings: S
         "target": target,
         "model": settings.llm_model,
         "temperature": settings.llm_temperature,
+        "thinking": settings.llm_thinking,
+        "max_tokens": settings.llm_max_tokens,
         "started_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "testpilot_commit": _testpilot_commit(),
         "python": platform.python_version(),

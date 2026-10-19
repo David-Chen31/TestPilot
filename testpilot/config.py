@@ -19,9 +19,16 @@ class Settings:
     # 取 API 默认值 1.0：评测要求每个设置跑多次看方差，测试时扩展实验也需要采样多样性。
     # 所有方法用同一温度，比较才公平。
     llm_temperature: float = 1.0
-    llm_max_tokens: int = 16000
+    # 输出上限，**包含思考 token**。DeepSeek 只认 max_tokens（不认 max_completion_tokens）
+    llm_max_tokens: int = 32000
+    # 思考模式：auto（不传，模型自适应决定是否思考）/ enabled / disabled
+    llm_thinking: str = "auto"
     llm_timeout: float = 180.0  # 单次请求超时（秒）
     llm_max_retries: int = 3
+
+    def __post_init__(self) -> None:
+        if self.llm_thinking not in ("auto", "enabled", "disabled"):
+            raise ValueError(f"LLM_THINKING 必须是 auto / enabled / disabled，而不是 {self.llm_thinking!r}")
 
     @classmethod
     def from_env(cls) -> Settings:
@@ -36,6 +43,7 @@ class Settings:
             llm_model=env("LLM_MODEL", cls.llm_model),
             llm_temperature=float(env("LLM_TEMPERATURE", cls.llm_temperature)),
             llm_max_tokens=int(env("LLM_MAX_TOKENS", cls.llm_max_tokens)),
+            llm_thinking=env("LLM_THINKING", cls.llm_thinking),
             llm_timeout=float(env("LLM_TIMEOUT", cls.llm_timeout)),
             llm_max_retries=int(env("LLM_MAX_RETRIES", cls.llm_max_retries)),
         )

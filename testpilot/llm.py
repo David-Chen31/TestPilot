@@ -23,14 +23,19 @@ PRICES_USD_PER_M: dict[str, dict[str, float]] = {
 
 
 def make_chat_model(settings: Settings) -> ChatOpenAI:
+    # langchain 会把 max_tokens 改名成 max_completion_tokens 发送，而 DeepSeek 会忽略后者
+    # （实测：输出上限完全不生效）。所以通过 extra_body 直接发送 max_tokens。
+    extra: dict = {"max_tokens": settings.llm_max_tokens}
+    if settings.llm_thinking != "auto":
+        extra["thinking"] = {"type": settings.llm_thinking}
     return ChatOpenAI(
         model=settings.llm_model,
         api_key=settings.llm_api_key,
         base_url=settings.llm_base_url,
         temperature=settings.llm_temperature,
-        max_tokens=settings.llm_max_tokens,
         timeout=settings.llm_timeout,
         max_retries=settings.llm_max_retries,
+        extra_body=extra,
     )
 
 
@@ -38,7 +43,8 @@ def make_chat_model(settings: Settings) -> ChatOpenAI:
 class LLMCall:
     content: str
     prompt_tokens: int
-    completion_tokens: int
+    completion_tokens: int  # 含思考 token，按输出价计费
+    reasoning_tokens: int
     cache_hit_tokens: int
     latency: float  # 秒
     model: str
@@ -53,6 +59,7 @@ class Usage:
     calls: int = 0
     prompt_tokens: int = 0
     completion_tokens: int = 0
+    reasoning_tokens: int = 0
     cache_hit_tokens: int = 0
     latency: float = 0.0
     fingerprints: list[str] = field(default_factory=list)
@@ -61,6 +68,7 @@ class Usage:
         self.calls += 1
         self.prompt_tokens += call.prompt_tokens
         self.completion_tokens += call.completion_tokens
+        self.reasoning_tokens += call.reasoning_tokens
         self.cache_hit_tokens += call.cache_hit_tokens
         self.latency += call.latency
         if call.fingerprint and call.fingerprint not in self.fingerprints:
@@ -95,6 +103,7 @@ def invoke(model: BaseChatModel, messages: list[BaseMessage]) -> LLMCall:
         content=msg.content if isinstance(msg.content, str) else str(msg.content),
         prompt_tokens=usage.get("prompt_tokens", 0),
         completion_tokens=usage.get("completion_tokens", 0),
+        reasoning_tokens=(usage.get("completion_tokens_details") or {}).get("reasoning_tokens") or 0,
         cache_hit_tokens=usage.get("prompt_cache_hit_tokens", 0),
         latency=latency,
         model=meta.get("model_name", getattr(model, "model_name", "")),

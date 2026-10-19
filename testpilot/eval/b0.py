@@ -81,6 +81,7 @@ def generate(
             "finish_reason": call.finish_reason,
             "prompt_tokens": call.prompt_tokens,
             "completion_tokens": call.completion_tokens,
+            "reasoning_tokens": call.reasoning_tokens,
             "latency": round(call.latency, 2),
         }
     ]
