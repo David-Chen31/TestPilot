@@ -82,6 +82,33 @@ def test_no_tests_collected_is_not_passing(sample_repo: Path, tmp_path: Path):
     assert not res.all_passed
 
 
+def test_nodeids_reconstructed(sample_repo: Path, tmp_path: Path):
+    code = """
+import pytest
+
+class TestGroup:
+    def test_in_class(self):
+        pass
+
+@pytest.mark.parametrize("x", [1, 2])
+def test_param(x):
+    pass
+"""
+    with Workspace(sample_repo, base_dir=tmp_path) as ws:
+        ws.write_text("tests_gen/sub/test_ids.py", code)
+        res = run_pytest(ws.path, ["tests_gen/sub/test_ids.py"], timeout=60)
+    ids = sorted(c.nodeid for c in res.cases)
+    assert ids == [
+        "tests_gen/sub/test_ids.py::TestGroup::test_in_class",
+        "tests_gen/sub/test_ids.py::test_param[1]",
+        "tests_gen/sub/test_ids.py::test_param[2]",
+    ]
+    assert {c.function_id for c in res.cases} == {
+        "tests_gen/sub/test_ids.py::TestGroup::test_in_class",
+        "tests_gen/sub/test_ids.py::test_param",
+    }
+
+
 def test_secrets_not_visible_to_tests(sample_repo: Path, tmp_path: Path, monkeypatch):
     monkeypatch.setenv("LLM_API_KEY", "sk-should-not-leak")
     monkeypatch.setenv("REDIS_URL", "redis://secret-host:6379/0")

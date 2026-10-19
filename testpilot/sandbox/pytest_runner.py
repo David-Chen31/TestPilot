@@ -30,6 +30,12 @@ class CaseResult:
     name: str  # "<classname>::<name>"，classname 形如 tests.test_calc.TestAdd
     outcome: Outcome
     message: str = ""  # 失败 / 错误 / 跳过原因（已截断）
+    nodeid: str = ""  # pytest nodeid，例如 tests/test_calc.py::TestAdd::test_x[1]；可直接作为 pytest 参数
+
+    @property
+    def function_id(self) -> str:
+        """去掉参数化后缀的 nodeid：同一个测试函数的所有参数化用例共享它。"""
+        return self.nodeid.split("[", 1)[0]
 
 
 @dataclass
@@ -59,12 +65,15 @@ def run_pytest(
     max_output_chars: int = DEFAULT_MAX_OUTPUT_CHARS,
     coverage_data: Path | None = None,
     coverage_include: Sequence[str] = (),
+    per_test_timeout: float | None = None,
 ) -> PytestRun:
     """在 ``workdir`` 中运行 ``pytest targets``。
 
     ``python_paths`` 相对 ``workdir``，加入 PYTHONPATH，让测试能 import 被测包
     （src 布局的仓库传 ``("src",)``）。
     ``coverage_data`` 不为 None 时在 ``coverage run --branch`` 下运行，只统计 ``coverage_include``。
+    ``per_test_timeout``：单个测试的超时（pytest-timeout）。死循环的测试只让它自己失败，
+    其他测试照常出结果；``timeout`` 仍然是整次运行的硬上限。
     """
     workdir = Path(workdir).resolve()
     report_dir = workdir / ".testpilot"
@@ -72,7 +81,13 @@ def run_pytest(
     report = report_dir / f"junit-{uuid.uuid4().hex}.xml"
 
     if coverage_data is not None:
-        launcher = [sys.executable, "-m", "coverage", "run", "--branch", f"--data-file={coverage_data}"]
+        # 用空配置文件：被测仓库自己的 [tool.coverage.run]（例如 source=...）会让 --include 失效
+        rcfile = report_dir / "coveragerc"
+        rcfile.write_text("", encoding="utf-8")
+        launcher = [
+            sys.executable, "-m", "coverage", "run", "--branch",
+            f"--rcfile={rcfile}", f"--data-file={coverage_data}",
+        ]  # fmt: skip
         if coverage_include:
             launcher.append(f"--include={','.join(coverage_include)}")
         launcher += ["-m", "pytest"]
@@ -90,6 +105,7 @@ def run_pytest(
         "-o",
         "junit_family=xunit2",
         f"--junitxml={report}",
+        *(["--timeout", str(per_test_timeout)] if per_test_timeout else []),
         *extra_args,
     ]
     env = sandbox_env()
@@ -97,7 +113,7 @@ def run_pytest(
     env["PYTHONDONTWRITEBYTECODE"] = "1"
 
     result = run(cmd, cwd=workdir, timeout=timeout, env=env, max_output_chars=max_output_chars)
-    cases = _parse_junit(report) if report.exists() else []
+    cases = _parse_junit(report, workdir) if report.exists() else []
     report.unlink(missing_ok=True)
     return PytestRun(exec=result, cases=cases)
 
@@ -116,7 +132,7 @@ def sandbox_env() -> dict[str, str]:
     }
 
 
-def _parse_junit(path: Path) -> list[CaseResult]:
+def _parse_junit(path: Path, workdir: Path) -> list[CaseResult]:
     try:
         root = ET.parse(path).getroot()
     except ET.ParseError:
@@ -132,5 +148,20 @@ def _parse_junit(path: Path) -> list[CaseResult]:
                 detail = child.text or ""
                 message = f"{child.get('message', '')}\n{detail}".strip()
                 break
-        cases.append(CaseResult(name, outcome, truncate(message, _MAX_CASE_MESSAGE_CHARS)))
+        nodeid = _nodeid(tc.get("classname", ""), tc.get("name", ""), workdir)
+        cases.append(CaseResult(name, outcome, truncate(message, _MAX_CASE_MESSAGE_CHARS), nodeid))
     return cases
+
+
+def _nodeid(classname: str, name: str, workdir: Path) -> str:
+    """从 JUnit 的 classname 还原 pytest nodeid。
+
+    pytest 写 classname 时把路径分隔符和类名都换成了点（tests_x.test_a.TestCls），
+    无法直接区分目录和类，所以从最长前缀开始找真实存在的 .py 文件。
+    """
+    parts = classname.split(".")
+    for i in range(len(parts), 0, -1):
+        path = "/".join(parts[:i]) + ".py"
+        if (workdir / path).is_file():
+            return "::".join([path, *parts[i:], name])
+    return f"{classname}::{name}"

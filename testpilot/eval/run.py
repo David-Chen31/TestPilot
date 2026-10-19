@@ -1,0 +1,194 @@
+"""评测入口：对一个仓库的目标模块，用指定方法生成测试并评价，原始日志写入 results/。
+
+    python -m testpilot.eval.run --method b0 --repo toolz --runs 3 --tag m3_b0
+
+需要变异测试时在 Docker 中运行（见 scripts/eval.sh）。输出目录结构::
+
+    results/<tag>/<method>/<repo>/<target>/run<k>/
+        run.json         元信息：模型、温度、fingerprint、token、费用、耗时、commit
+        trace.json       结构化轨迹（每一步的 prompt / 回复 / 耗时）
+        evaluation.json  有效性明细、覆盖率、变异测试（含全部存活变异体）
+        test_*.py        生成的测试文件
+    results/<tag>/summary.json, summary.md   汇总
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import logging
+import os
+import platform
+import shutil
+import statistics
+import subprocess
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Callable
+
+from testpilot.config import PROJECT_ROOT, Settings
+from testpilot.eval import b0
+from testpilot.eval.metrics import evaluate
+from testpilot.eval.repos import RepoSpec, eval_workspace, load_manifest, snapshot_commit
+from testpilot.llm import make_chat_model
+
+log = logging.getLogger("testpilot.eval")
+
+METHODS: dict[str, Callable] = {"b0": b0.generate}
+RESULTS_DIR = PROJECT_ROOT / "results"
+
+
+def run_one(method: str, spec: RepoSpec, target: str, out_dir: Path, settings: Settings, with_mutation: bool) -> dict:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    meta: dict = {
+        "method": method,
+        "repo": spec.name,
+        "repo_commit": spec.commit,
+        "target": target,
+        "model": settings.llm_model,
+        "temperature": settings.llm_temperature,
+        "started_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "testpilot_commit": _testpilot_commit(),
+        "python": platform.python_version(),
+    }
+    model = make_chat_model(settings)
+    with eval_workspace(spec) as ws:
+        assert snapshot_commit(spec.path) == spec.commit
+        t0 = time.monotonic()
+        try:
+            gen = METHODS[method](model, ws.path, target, spec.python_paths)
+        except Exception as e:  # API 失败等：记录下来，不中断整批
+            log.exception("生成失败")
+            meta["error"] = f"{type(e).__name__}: {e}"
+            _dump(out_dir / "run.json", meta)
+            return meta
+        meta["generation_seconds"] = round(time.monotonic() - t0, 2)
+        meta["usage"] = gen.usage.to_dict(settings.llm_model)
+        _dump(out_dir / "trace.json", gen.trace)
+        for f in gen.test_files:
+            shutil.copy(ws.path / f, out_dir / Path(f).name)
+
+        t0 = time.monotonic()
+        ev = evaluate(ws.path, target, gen.test_files, spec.python_paths, with_mutation=with_mutation)
+        meta["evaluation_seconds"] = round(time.monotonic() - t0, 2)
+    _dump(out_dir / "evaluation.json", ev.to_dict())
+    meta["summary"] = ev.summary()
+    _dump(out_dir / "run.json", meta)
+    return meta
+
+
+def summarize(records: list[dict]) -> dict:
+    ok = [r for r in records if "summary" in r]
+    rows = [
+        {
+            "tests_total": r["summary"]["tests_total"],
+            "tests_valid": r["summary"]["tests_valid"],
+            "valid_ratio": r["summary"]["tests_valid"] / r["summary"]["tests_total"] if r["summary"]["tests_total"] else 0.0,
+            "line_rate": r["summary"]["line_rate"],
+            "branch_rate": r["summary"]["branch_rate"],
+            "mutation_score": r["summary"]["mutation_score"],
+            "generation_seconds": r["generation_seconds"],
+            "total_tokens": r["usage"]["total_tokens"],
+            "cost_usd_peak": r["usage"]["cost_usd_peak"],
+        }
+        for r in ok
+    ]
+    agg = {}
+    for key in rows[0] if rows else []:
+        values = [row[key] for row in rows if row[key] is not None]
+        if values:
+            agg[key] = {"mean": statistics.fmean(values), "min": min(values), "max": max(values), "n": len(values)}
+    return {"runs": len(records), "failed_runs": len(records) - len(ok), "per_run": rows, "aggregate": agg}
+
+
+def write_markdown(path: Path, title: str, groups: dict[str, dict], records: dict[str, list[dict]]) -> None:
+    cols = [
+        ("tests_valid", "有效测试", "{:.0f}"),
+        ("tests_total", "生成测试", "{:.0f}"),
+        ("valid_ratio", "有效率", "{:.1%}"),
+        ("line_rate", "行覆盖", "{:.1%}"),
+        ("branch_rate", "分支覆盖", "{:.1%}"),
+        ("mutation_score", "变异得分", "{:.1%}"),
+        ("generation_seconds", "生成耗时(s)", "{:.1f}"),
+        ("total_tokens", "tokens", "{:.0f}"),
+        ("cost_usd_peak", "费用上限($)", "{:.4f}"),
+    ]
+    lines = [f"# {title}", "", "均值 [最小, 最大]；费用按高峰价估算（上限）。", ""]
+    lines.append("| 设置 | 运行次数 | " + " | ".join(c[1] for c in cols) + " |")
+    lines.append("|---" * (len(cols) + 2) + "|")
+    for key, s in groups.items():
+        cells = []
+        for col, _, fmt in cols:
+            a = s["aggregate"].get(col)
+            cells.append(f"{fmt.format(a['mean'])} [{fmt.format(a['min'])}, {fmt.format(a['max'])}]" if a else "—")
+        lines.append(f"| {key} | {s['runs'] - s['failed_runs']}/{s['runs']} | " + " | ".join(cells) + " |")
+    lines += ["", "## 原始日志", ""]
+    for key, recs in records.items():
+        for r in recs:
+            lines.append(f"- {key} run{r['run_index']}: `{r['out_dir']}`" + (f" — 失败: {r['error']}" if "error" in r else ""))
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--method", required=True, choices=sorted(METHODS))
+    parser.add_argument("--repo", required=True)
+    parser.add_argument("--target", action="append", help="默认使用清单中的全部 targets")
+    parser.add_argument("--runs", type=int, default=3)
+    parser.add_argument("--tag", required=True, help="本批实验的名字，作为 results/ 下的目录名")
+    parser.add_argument("--no-mutation", action="store_true")
+    args = parser.parse_args()
+
+    tag_dir = RESULTS_DIR / args.tag
+    tag_dir.mkdir(parents=True, exist_ok=True)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+        handlers=[logging.StreamHandler(), logging.FileHandler(tag_dir / "run.log", encoding="utf-8")],
+    )
+    for noisy in ("httpx", "openai"):
+        logging.getLogger(noisy).setLevel(logging.WARNING)
+
+    settings = Settings.from_env()
+    spec = load_manifest()[args.repo]
+    targets = args.target or list(spec.targets)
+    groups: dict[str, dict] = {}
+    all_records: dict[str, list[dict]] = {}
+    for target in targets:
+        key = f"{args.method} / {spec.name} / {target}"
+        records = []
+        for k in range(1, args.runs + 1):
+            out_dir = tag_dir / args.method / spec.name / Path(target).stem / f"run{k}"
+            log.info("%s run %d/%d -> %s", key, k, args.runs, out_dir)
+            rec = run_one(args.method, spec, target, out_dir, settings, with_mutation=not args.no_mutation)
+            rec["run_index"] = k
+            rec["out_dir"] = out_dir.relative_to(PROJECT_ROOT).as_posix()
+            log.info("%s run %d 结果: %s", key, k, rec.get("summary") or rec.get("error"))
+            records.append(rec)
+        groups[key] = summarize(records)
+        all_records[key] = records
+
+    _dump(tag_dir / "summary.json", {"groups": groups, "records": all_records})
+    write_markdown(tag_dir / "summary.md", f"{args.tag}", groups, all_records)
+    log.info("汇总写入 %s", tag_dir / "summary.md")
+
+
+def _testpilot_commit() -> str:
+    if os.environ.get("TESTPILOT_COMMIT"):
+        return os.environ["TESTPILOT_COMMIT"]
+    try:
+        return subprocess.run(
+            ["git", "-C", str(PROJECT_ROOT), "describe", "--always", "--dirty"],
+            capture_output=True, text=True, check=True,
+        ).stdout.strip()  # fmt: skip
+    except (OSError, subprocess.CalledProcessError):
+        return "unknown"
+
+
+def _dump(path: Path, data: object) -> None:
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()

@@ -92,7 +92,7 @@ def run_mutation(
     python_paths: Sequence[str] = (".",),
     max_children: int | None = None,
 ) -> MutationReport:
-    """对 ``target``（相对 workdir 的 .py 文件）做变异，用 ``tests`` 去杀。
+    """对 ``target``（相对 workdir 的 .py 文件）做变异，用 ``tests``（文件、目录或 nodeid）去杀。
 
     调用前提：``tests`` 在原代码上全部通过（有效性规则，由调用方保证）。
     mutmut 自己也会先跑一遍原代码上的测试，不通过就拒绝继续，这里把它报成 error。
@@ -160,8 +160,8 @@ def _write_config(workdir: Path, target: str, tests: Sequence[str], python_paths
         "only_mutate": [rel.as_posix()],
         "pytest_add_cli_args": ["-o", "addopts="],
         "pytest_add_cli_args_test_selection": list(tests),
-        # mutmut 只把 tests/ 等默认目录复制进 mutants/，生成的测试要显式声明
-        "also_copy": list(tests),
+        # mutmut 只把 tests/ 等默认目录复制进 mutants/，生成的测试要显式声明（tests 可能是 nodeid，取文件部分）
+        "also_copy": sorted({t.split("::", 1)[0] for t in tests}),
         "use_git_change_detection": False,
     }
     # 配置块固定追加在文件末尾，TOML 表到文件结束为止，不会吞掉原有内容

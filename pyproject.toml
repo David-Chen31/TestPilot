@@ -13,10 +13,14 @@ dependencies = [
     # 沙箱用它们执行被测仓库的测试，所以是运行时依赖而不是开发依赖
     "pytest>=8.0",
     "coverage>=7.4",
+    "pytest-timeout>=2.3",
     # 变异测试依赖 fork，不支持原生 Windows；版本锁死是因为结果导出用到了它的内部 API
     "mutmut==3.8.0; sys_platform != 'win32'",
     # 工具协议。langchain-mcp-adapters 目前要求 mcp 1.x
     "mcp>=1.30,<2",
+    # LLM：OpenAI 兼容接口（DeepSeek）
+    "langchain-openai>=1.7",
+    "python-dotenv>=1.0",
     # 服务
     "fastapi>=0.110",
     "uvicorn>=0.29",

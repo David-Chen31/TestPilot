@@ -21,9 +21,10 @@ RUN if [ -n "$APT_MIRROR" ]; then \
 
 WORKDIR /app
 
+# 先只用 pyproject 安装依赖（包目录用空壳占位），改代码时这一层可以复用缓存
 COPY pyproject.toml README.md ./
+RUN mkdir testpilot && touch testpilot/__init__.py     && pip install ${PIP_MIRROR:+-i "$PIP_MIRROR"} -e .
 COPY testpilot ./testpilot
-RUN pip install ${PIP_MIRROR:+-i "$PIP_MIRROR"} -e .
 
 COPY tests ./tests
 
