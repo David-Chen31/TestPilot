@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "testpilot"
+version = "0.1.0"
+description = "面向 Python 代码仓库的单元测试生成 Agent（Agent 循环 + 变异测试反馈）"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    # 沙箱用它们执行被测仓库的测试，所以是运行时依赖而不是开发依赖
+    "pytest>=8.0",
+    "coverage>=7.4",
+    # 服务
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+[tool.setuptools.packages.find]
+include = ["testpilot*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# fixtures 下是“被测仓库”样例，里面的测试只在沙箱里跑，不属于 TestPilot 自身的测试
+norecursedirs = ["fixtures"]
