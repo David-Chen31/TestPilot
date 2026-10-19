@@ -1,0 +1,661 @@
+2026-10-19 14:29:49,234 INFO testpilot.eval: b2 / toolz / toolz/itertoolz.py run 1/3 -> /app/results/m5_b2_rerun/b2/toolz/itertoolz/run1
+2026-10-19 14:33:29,996 INFO testpilot.eval: b2 / toolz / toolz/itertoolz.py run 1 结果: {'tests_total': 141, 'tests_valid': 141, 'line_rate': 0.9752066115702479, 'branch_rate': 0.9705882352941176, 'mutation_score': 0.9266247379454927, 'mutants_total': 481, 'mutation_error': ''}
+2026-10-19 14:33:29,998 INFO testpilot.eval: b2 / toolz / toolz/itertoolz.py run 2/3 -> /app/results/m5_b2_rerun/b2/toolz/itertoolz/run2
+2026-10-19 14:37:35,883 INFO testpilot.eval: b2 / toolz / toolz/itertoolz.py run 2 结果: {'tests_total': 133, 'tests_valid': 133, 'line_rate': 0.9834710743801653, 'branch_rate': 0.9764705882352941, 'mutation_score': 0.9329140461215933, 'mutants_total': 481, 'mutation_error': ''}
+2026-10-19 14:37:35,885 INFO testpilot.eval: b2 / toolz / toolz/itertoolz.py run 3/3 -> /app/results/m5_b2_rerun/b2/toolz/itertoolz/run3
+2026-10-19 14:46:32,189 ERROR testpilot.eval: 生成失败
+  + Exception Group Traceback (most recent call last):
+  |   File "/app/testpilot/eval/run.py", line 65, in run_one
+  |     gen = await run_agent(model, ws.path, target, spec.python_paths, METHODS[method])
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/app/testpilot/agent/graph.py", line 397, in run_agent
+  |     async with mcp_tool_client(workdir, python_paths) as mcp_tools:
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/app/testpilot/agent/tool_client.py", line 106, in mcp_tool_client
+  |     async with stdio_client(params) as (read, write):
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 182, in stdio_client
+  |     async with (
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 189, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/app/testpilot/agent/tool_client.py", line 107, in mcp_tool_client
+    |     async with ClientSession(read, write) as session:
+    |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 98, in map_httpcore_exceptions
+      |     yield
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 388, in handle_async_request
+      |     resp = await self._pool.handle_async_request(req)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 242, in handle_async_request
+      |     raise exc from None
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 224, in handle_async_request
+      |     response = await connection.handle_async_request(pool_request.request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 94, in handle_async_request
+      |     raise exc
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 74, in handle_async_request
+      |     stream = await self._connect(request)
+      |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 117, in _connect
+      |     stream = await self._network_backend.connect_tcp(**kwargs)
+      |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/auto.py", line 31, in connect_tcp
+      |     return await self._backend.connect_tcp(
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/anyio.py", line 116, in connect_tcp
+      |     with map_exceptions(exc_map):
+      |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+      |     self.gen.throw(typ, value, traceback)
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_exceptions.py", line 17, in map_exceptions
+      |     raise to_exc(exc) from exc
+      | httpcore2.ConnectError: All connection attempts failed
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1773, in request
+      |     response = await self._send_request(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1375, in _send_request
+      |     response = await self._send_with_auth_retry(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1354, in _send_with_auth_retry
+      |     response = await super()._send_request(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1690, in _send_request
+      |     return await self._client.send(request, stream=stream, **kwargs)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1818, in send
+      |     response = await self._send_handling_auth(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1846, in _send_handling_auth
+      |     response = await self._send_handling_redirects(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1881, in _send_handling_redirects
+      |     response = await self._send_single_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1915, in _send_single_request
+      |     response = await transport.handle_async_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 387, in handle_async_request
+      |     with map_httpcore_exceptions():
+      |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+      |     self.gen.throw(typ, value, traceback)
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 115, in map_httpcore_exceptions
+      |     raise mapped_exc(message) from exc
+      | httpx2.ConnectError: All connection attempts failed
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2295, in _agenerate
+      |     raw_response = await self.async_client.with_raw_response.create(
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_legacy_response.py", line 386, in wrapped
+      |     return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2952, in create
+      |     return await self._post(
+      |            ^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 2053, in post
+      |     return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1808, in request
+      |     raise APIConnectionError(request=request) from err
+      | openai.APIConnectionError: Connection error.
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/app/testpilot/agent/tool_client.py", line 109, in mcp_tool_client
+      |     yield MCPToolClient(await load_mcp_tools(session))
+      |   File "/app/testpilot/agent/graph.py", line 398, in run_agent
+      |     return await run_agent(model, workdir, target, python_paths, config, mcp_tools, on_event)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 408, in run_agent
+      |     final = await agent.graph.ainvoke(initial, {"recursion_limit": 10 * config.max_iterations + 20})
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4178, in ainvoke
+      |     async for chunk in self.astream(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3529, in astream
+      |     async for _ in runner.atick(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 397, in atick
+      |     await arun_with_retry(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 737, in arun_with_retry
+      |     return await task.proc.ainvoke(task.input, config)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 756, in ainvoke
+      |     input = await asyncio.create_task(
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 522, in ainvoke
+      |     ret = await self.afunc(*args, **kwargs)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 172, in write_tests
+      |     call = await ainvoke(self.model, messages)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/llm.py", line 104, in ainvoke
+      |     msg = await model.ainvoke(messages)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 511, in ainvoke
+      |     llm_result = await self.agenerate_prompt(
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1888, in agenerate_prompt
+      |     return await self.agenerate(
+      |            ^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1846, in agenerate
+      |     raise exceptions[0]
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 2179, in _agenerate_with_cache
+      |     result = await self._agenerate(
+      |              ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2302, in _agenerate
+      |     _handle_openai_api_error(e)
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 744, in _handle_openai_api_error
+      |     raise OpenAIConnectionError(message=e.message, request=e.request) from e
+      | langchain_openai.chat_models.base.OpenAIConnectionError: Connection error.
+      | During task with name 'write_tests' and id '9dd68b55-665a-239e-6aeb-8e5395715835'
+      +------------------------------------
+2026-10-19 14:46:32,306 INFO testpilot.eval: b2 / toolz / toolz/itertoolz.py run 3 结果: OpenAIConnectionError: Connection error.
+2026-10-19 14:46:32,309 INFO testpilot.eval: b2 / toolz / toolz/functoolz.py run 1/3 -> /app/results/m5_b2_rerun/b2/toolz/functoolz/run1
+2026-10-19 14:55:25,053 ERROR testpilot.eval: 生成失败
+  + Exception Group Traceback (most recent call last):
+  |   File "/app/testpilot/eval/run.py", line 65, in run_one
+  |     gen = await run_agent(model, ws.path, target, spec.python_paths, METHODS[method])
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/app/testpilot/agent/graph.py", line 397, in run_agent
+  |     async with mcp_tool_client(workdir, python_paths) as mcp_tools:
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/app/testpilot/agent/tool_client.py", line 106, in mcp_tool_client
+  |     async with stdio_client(params) as (read, write):
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 182, in stdio_client
+  |     async with (
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 189, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/app/testpilot/agent/tool_client.py", line 107, in mcp_tool_client
+    |     async with ClientSession(read, write) as session:
+    |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 98, in map_httpcore_exceptions
+      |     yield
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 388, in handle_async_request
+      |     resp = await self._pool.handle_async_request(req)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 242, in handle_async_request
+      |     raise exc from None
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 224, in handle_async_request
+      |     response = await connection.handle_async_request(pool_request.request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 94, in handle_async_request
+      |     raise exc
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 74, in handle_async_request
+      |     stream = await self._connect(request)
+      |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 117, in _connect
+      |     stream = await self._network_backend.connect_tcp(**kwargs)
+      |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/auto.py", line 31, in connect_tcp
+      |     return await self._backend.connect_tcp(
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/anyio.py", line 116, in connect_tcp
+      |     with map_exceptions(exc_map):
+      |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+      |     self.gen.throw(typ, value, traceback)
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_exceptions.py", line 17, in map_exceptions
+      |     raise to_exc(exc) from exc
+      | httpcore2.ConnectError: All connection attempts failed
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1773, in request
+      |     response = await self._send_request(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1375, in _send_request
+      |     response = await self._send_with_auth_retry(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1354, in _send_with_auth_retry
+      |     response = await super()._send_request(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1690, in _send_request
+      |     return await self._client.send(request, stream=stream, **kwargs)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1818, in send
+      |     response = await self._send_handling_auth(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1846, in _send_handling_auth
+      |     response = await self._send_handling_redirects(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1881, in _send_handling_redirects
+      |     response = await self._send_single_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1915, in _send_single_request
+      |     response = await transport.handle_async_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 387, in handle_async_request
+      |     with map_httpcore_exceptions():
+      |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+      |     self.gen.throw(typ, value, traceback)
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 115, in map_httpcore_exceptions
+      |     raise mapped_exc(message) from exc
+      | httpx2.ConnectError: All connection attempts failed
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2295, in _agenerate
+      |     raw_response = await self.async_client.with_raw_response.create(
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_legacy_response.py", line 386, in wrapped
+      |     return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2952, in create
+      |     return await self._post(
+      |            ^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 2053, in post
+      |     return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1808, in request
+      |     raise APIConnectionError(request=request) from err
+      | openai.APIConnectionError: Connection error.
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/app/testpilot/agent/tool_client.py", line 109, in mcp_tool_client
+      |     yield MCPToolClient(await load_mcp_tools(session))
+      |   File "/app/testpilot/agent/graph.py", line 398, in run_agent
+      |     return await run_agent(model, workdir, target, python_paths, config, mcp_tools, on_event)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 408, in run_agent
+      |     final = await agent.graph.ainvoke(initial, {"recursion_limit": 10 * config.max_iterations + 20})
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4178, in ainvoke
+      |     async for chunk in self.astream(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3529, in astream
+      |     async for _ in runner.atick(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 397, in atick
+      |     await arun_with_retry(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 737, in arun_with_retry
+      |     return await task.proc.ainvoke(task.input, config)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 756, in ainvoke
+      |     input = await asyncio.create_task(
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 522, in ainvoke
+      |     ret = await self.afunc(*args, **kwargs)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 172, in write_tests
+      |     call = await ainvoke(self.model, messages)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/llm.py", line 104, in ainvoke
+      |     msg = await model.ainvoke(messages)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 511, in ainvoke
+      |     llm_result = await self.agenerate_prompt(
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1888, in agenerate_prompt
+      |     return await self.agenerate(
+      |            ^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1846, in agenerate
+      |     raise exceptions[0]
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 2179, in _agenerate_with_cache
+      |     result = await self._agenerate(
+      |              ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2302, in _agenerate
+      |     _handle_openai_api_error(e)
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 744, in _handle_openai_api_error
+      |     raise OpenAIConnectionError(message=e.message, request=e.request) from e
+      | langchain_openai.chat_models.base.OpenAIConnectionError: Connection error.
+      | During task with name 'write_tests' and id 'f91c745b-5815-0f3e-383d-29db786d6175'
+      +------------------------------------
+2026-10-19 14:55:25,114 INFO testpilot.eval: b2 / toolz / toolz/functoolz.py run 1 结果: OpenAIConnectionError: Connection error.
+2026-10-19 14:55:25,116 INFO testpilot.eval: b2 / toolz / toolz/functoolz.py run 2/3 -> /app/results/m5_b2_rerun/b2/toolz/functoolz/run2
+2026-10-19 15:04:17,320 ERROR testpilot.eval: 生成失败
+  + Exception Group Traceback (most recent call last):
+  |   File "/app/testpilot/eval/run.py", line 65, in run_one
+  |     gen = await run_agent(model, ws.path, target, spec.python_paths, METHODS[method])
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/app/testpilot/agent/graph.py", line 397, in run_agent
+  |     async with mcp_tool_client(workdir, python_paths) as mcp_tools:
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/app/testpilot/agent/tool_client.py", line 106, in mcp_tool_client
+  |     async with stdio_client(params) as (read, write):
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 182, in stdio_client
+  |     async with (
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 189, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/app/testpilot/agent/tool_client.py", line 107, in mcp_tool_client
+    |     async with ClientSession(read, write) as session:
+    |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 98, in map_httpcore_exceptions
+      |     yield
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 388, in handle_async_request
+      |     resp = await self._pool.handle_async_request(req)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 242, in handle_async_request
+      |     raise exc from None
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 224, in handle_async_request
+      |     response = await connection.handle_async_request(pool_request.request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 94, in handle_async_request
+      |     raise exc
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 74, in handle_async_request
+      |     stream = await self._connect(request)
+      |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 117, in _connect
+      |     stream = await self._network_backend.connect_tcp(**kwargs)
+      |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/auto.py", line 31, in connect_tcp
+      |     return await self._backend.connect_tcp(
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/anyio.py", line 116, in connect_tcp
+      |     with map_exceptions(exc_map):
+      |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+      |     self.gen.throw(typ, value, traceback)
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_exceptions.py", line 17, in map_exceptions
+      |     raise to_exc(exc) from exc
+      | httpcore2.ConnectError: All connection attempts failed
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1773, in request
+      |     response = await self._send_request(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1375, in _send_request
+      |     response = await self._send_with_auth_retry(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1354, in _send_with_auth_retry
+      |     response = await super()._send_request(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1690, in _send_request
+      |     return await self._client.send(request, stream=stream, **kwargs)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1818, in send
+      |     response = await self._send_handling_auth(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1846, in _send_handling_auth
+      |     response = await self._send_handling_redirects(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1881, in _send_handling_redirects
+      |     response = await self._send_single_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1915, in _send_single_request
+      |     response = await transport.handle_async_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 387, in handle_async_request
+      |     with map_httpcore_exceptions():
+      |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+      |     self.gen.throw(typ, value, traceback)
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 115, in map_httpcore_exceptions
+      |     raise mapped_exc(message) from exc
+      | httpx2.ConnectError: All connection attempts failed
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2295, in _agenerate
+      |     raw_response = await self.async_client.with_raw_response.create(
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_legacy_response.py", line 386, in wrapped
+      |     return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2952, in create
+      |     return await self._post(
+      |            ^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 2053, in post
+      |     return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1808, in request
+      |     raise APIConnectionError(request=request) from err
+      | openai.APIConnectionError: Connection error.
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/app/testpilot/agent/tool_client.py", line 109, in mcp_tool_client
+      |     yield MCPToolClient(await load_mcp_tools(session))
+      |   File "/app/testpilot/agent/graph.py", line 398, in run_agent
+      |     return await run_agent(model, workdir, target, python_paths, config, mcp_tools, on_event)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 408, in run_agent
+      |     final = await agent.graph.ainvoke(initial, {"recursion_limit": 10 * config.max_iterations + 20})
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4178, in ainvoke
+      |     async for chunk in self.astream(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3529, in astream
+      |     async for _ in runner.atick(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 397, in atick
+      |     await arun_with_retry(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 737, in arun_with_retry
+      |     return await task.proc.ainvoke(task.input, config)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 756, in ainvoke
+      |     input = await asyncio.create_task(
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 522, in ainvoke
+      |     ret = await self.afunc(*args, **kwargs)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 172, in write_tests
+      |     call = await ainvoke(self.model, messages)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/llm.py", line 104, in ainvoke
+      |     msg = await model.ainvoke(messages)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 511, in ainvoke
+      |     llm_result = await self.agenerate_prompt(
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1888, in agenerate_prompt
+      |     return await self.agenerate(
+      |            ^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1846, in agenerate
+      |     raise exceptions[0]
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 2179, in _agenerate_with_cache
+      |     result = await self._agenerate(
+      |              ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2302, in _agenerate
+      |     _handle_openai_api_error(e)
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 744, in _handle_openai_api_error
+      |     raise OpenAIConnectionError(message=e.message, request=e.request) from e
+      | langchain_openai.chat_models.base.OpenAIConnectionError: Connection error.
+      | During task with name 'write_tests' and id 'eed71b0d-d509-466f-83a4-4b078d0d3cde'
+      +------------------------------------
+2026-10-19 15:04:17,389 INFO testpilot.eval: b2 / toolz / toolz/functoolz.py run 2 结果: OpenAIConnectionError: Connection error.
+2026-10-19 15:04:17,391 INFO testpilot.eval: b2 / toolz / toolz/functoolz.py run 3/3 -> /app/results/m5_b2_rerun/b2/toolz/functoolz/run3
+2026-10-19 15:13:03,939 ERROR testpilot.eval: 生成失败
+  + Exception Group Traceback (most recent call last):
+  |   File "/app/testpilot/eval/run.py", line 65, in run_one
+  |     gen = await run_agent(model, ws.path, target, spec.python_paths, METHODS[method])
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/app/testpilot/agent/graph.py", line 397, in run_agent
+  |     async with mcp_tool_client(workdir, python_paths) as mcp_tools:
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/app/testpilot/agent/tool_client.py", line 106, in mcp_tool_client
+  |     async with stdio_client(params) as (read, write):
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 182, in stdio_client
+  |     async with (
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 189, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/app/testpilot/agent/tool_client.py", line 107, in mcp_tool_client
+    |     async with ClientSession(read, write) as session:
+    |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 98, in map_httpcore_exceptions
+      |     yield
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 388, in handle_async_request
+      |     resp = await self._pool.handle_async_request(req)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 242, in handle_async_request
+      |     raise exc from None
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 224, in handle_async_request
+      |     response = await connection.handle_async_request(pool_request.request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 94, in handle_async_request
+      |     raise exc
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 74, in handle_async_request
+      |     stream = await self._connect(request)
+      |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 117, in _connect
+      |     stream = await self._network_backend.connect_tcp(**kwargs)
+      |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/auto.py", line 31, in connect_tcp
+      |     return await self._backend.connect_tcp(
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/anyio.py", line 116, in connect_tcp
+      |     with map_exceptions(exc_map):
+      |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+      |     self.gen.throw(typ, value, traceback)
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_exceptions.py", line 17, in map_exceptions
+      |     raise to_exc(exc) from exc
+      | httpcore2.ConnectError: All connection attempts failed
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1773, in request
+      |     response = await self._send_request(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1375, in _send_request
+      |     response = await self._send_with_auth_retry(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1354, in _send_with_auth_retry
+      |     response = await super()._send_request(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1690, in _send_request
+      |     return await self._client.send(request, stream=stream, **kwargs)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1818, in send
+      |     response = await self._send_handling_auth(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1846, in _send_handling_auth
+      |     response = await self._send_handling_redirects(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1881, in _send_handling_redirects
+      |     response = await self._send_single_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1915, in _send_single_request
+      |     response = await transport.handle_async_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 387, in handle_async_request
+      |     with map_httpcore_exceptions():
+      |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+      |     self.gen.throw(typ, value, traceback)
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 115, in map_httpcore_exceptions
+      |     raise mapped_exc(message) from exc
+      | httpx2.ConnectError: All connection attempts failed
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2295, in _agenerate
+      |     raw_response = await self.async_client.with_raw_response.create(
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_legacy_response.py", line 386, in wrapped
+      |     return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2952, in create
+      |     return await self._post(
+      |            ^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 2053, in post
+      |     return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1808, in request
+      |     raise APIConnectionError(request=request) from err
+      | openai.APIConnectionError: Connection error.
+      | 
+      | The above exception was the direct cause of the following exception:
+      | 
+      | Traceback (most recent call last):
+      |   File "/app/testpilot/agent/tool_client.py", line 109, in mcp_tool_client
+      |     yield MCPToolClient(await load_mcp_tools(session))
+      |   File "/app/testpilot/agent/graph.py", line 398, in run_agent
+      |     return await run_agent(model, workdir, target, python_paths, config, mcp_tools, on_event)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 408, in run_agent
+      |     final = await agent.graph.ainvoke(initial, {"recursion_limit": 10 * config.max_iterations + 20})
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4178, in ainvoke
+      |     async for chunk in self.astream(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3529, in astream
+      |     async for _ in runner.atick(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 397, in atick
+      |     await arun_with_retry(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 737, in arun_with_retry
+      |     return await task.proc.ainvoke(task.input, config)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 756, in ainvoke
+      |     input = await asyncio.create_task(
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 522, in ainvoke
+      |     ret = await self.afunc(*args, **kwargs)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 172, in write_tests
+      |     call = await ainvoke(self.model, messages)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/llm.py", line 104, in ainvoke
+      |     msg = await model.ainvoke(messages)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 511, in ainvoke
+      |     llm_result = await self.agenerate_prompt(
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1888, in agenerate_prompt
+      |     return await self.agenerate(
+      |            ^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1846, in agenerate
+      |     raise exceptions[0]
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 2179, in _agenerate_with_cache
+      |     result = await self._agenerate(
+      |              ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2302, in _agenerate
+      |     _handle_openai_api_error(e)
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 744, in _handle_openai_api_error
+      |     raise OpenAIConnectionError(message=e.message, request=e.request) from e
+      | langchain_openai.chat_models.base.OpenAIConnectionError: Connection error.
+      | During task with name 'write_tests' and id 'd7ff87c5-e603-a434-0e29-7c6d56127048'
+      +------------------------------------
+2026-10-19 15:13:03,995 INFO testpilot.eval: b2 / toolz / toolz/functoolz.py run 3 结果: OpenAIConnectionError: Connection error.
+2026-10-19 15:13:04,006 INFO testpilot.eval: 汇总写入 /app/results/m5_b2_rerun/summary.md

@@ -170,6 +170,7 @@ async def _run_batch(args: argparse.Namespace, tag_dir: Path) -> None:
     targets = args.target or list(spec.targets)
     groups: dict[str, dict] = {}
     all_records: dict[str, list[dict]] = {}
+    connection_failures, aborted = 0, False
     for target in targets:
         key = f"{args.method} / {spec.name} / {target}"
         records = []
@@ -181,12 +182,27 @@ async def _run_batch(args: argparse.Namespace, tag_dir: Path) -> None:
             rec["out_dir"] = out_dir.relative_to(PROJECT_ROOT).as_posix()
             log.info("%s run %d 结果: %s", key, k, rec.get("summary") or rec.get("error"))
             records.append(rec)
+            # 连续两次连接失败说明是网络 / 基础设施问题，继续跑只会在重试里耗时间，直接中止整批
+            connection_failures = connection_failures + 1 if _is_connection_error(rec) else 0
+            if connection_failures >= MAX_CONSECUTIVE_CONNECTION_FAILURES:
+                log.error("连续 %d 次连接失败，中止本批（网络问题，与方法无关）", connection_failures)
+                aborted = True
+                break
         groups[key] = summarize(records)
         all_records[key] = records
+        if aborted:
+            break
 
-    _dump(tag_dir / "summary.json", {"groups": groups, "records": all_records})
+    _dump(tag_dir / "summary.json", {"groups": groups, "records": all_records, "aborted": aborted})
     write_markdown(tag_dir / "summary.md", f"{args.tag}", groups, all_records)
     log.info("汇总写入 %s", tag_dir / "summary.md")
+
+
+MAX_CONSECUTIVE_CONNECTION_FAILURES = 2
+
+
+def _is_connection_error(rec: dict) -> bool:
+    return "ConnectionError" in rec.get("error", "") or "Connection error" in rec.get("error", "")
 
 
 def _describe(e: BaseException) -> str:
