@@ -57,21 +57,30 @@ def run_pytest(
     extra_args: Sequence[str] = (),
     python_paths: Sequence[str] = (".",),
     max_output_chars: int = DEFAULT_MAX_OUTPUT_CHARS,
+    coverage_data: Path | None = None,
+    coverage_include: Sequence[str] = (),
 ) -> PytestRun:
     """在 ``workdir`` 中运行 ``pytest targets``。
 
     ``python_paths`` 相对 ``workdir``，加入 PYTHONPATH，让测试能 import 被测包
     （src 布局的仓库传 ``("src",)``）。
+    ``coverage_data`` 不为 None 时在 ``coverage run --branch`` 下运行，只统计 ``coverage_include``。
     """
     workdir = Path(workdir).resolve()
     report_dir = workdir / ".testpilot"
     report_dir.mkdir(exist_ok=True)
     report = report_dir / f"junit-{uuid.uuid4().hex}.xml"
 
+    if coverage_data is not None:
+        launcher = [sys.executable, "-m", "coverage", "run", "--branch", f"--data-file={coverage_data}"]
+        if coverage_include:
+            launcher.append(f"--include={','.join(coverage_include)}")
+        launcher += ["-m", "pytest"]
+    else:
+        launcher = [sys.executable, "-m", "pytest"]
+
     cmd = [
-        sys.executable,
-        "-m",
-        "pytest",
+        *launcher,
         *targets,
         "-q",
         "-p",
