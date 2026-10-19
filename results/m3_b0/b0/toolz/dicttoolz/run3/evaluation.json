@@ -1,0 +1,117 @@
+{
+  "target": "toolz/dicttoolz.py",
+  "validity": {
+    "total": 28,
+    "valid": 28,
+    "valid_ids": [
+      "tests_testpilot/test_dicttoolz.py::test_merge_basic_and_precedence",
+      "tests_testpilot/test_dicttoolz.py::test_merge_single_non_mapping_iterable",
+      "tests_testpilot/test_dicttoolz.py::test_merge_does_not_mutate_inputs",
+      "tests_testpilot/test_dicttoolz.py::test_merge_factory_and_unexpected_keyword",
+      "tests_testpilot/test_dicttoolz.py::test_merge_with_basic_and_value_order",
+      "tests_testpilot/test_dicttoolz.py::test_merge_with_single_non_mapping_and_empty",
+      "tests_testpilot/test_dicttoolz.py::test_merge_with_factory_and_unexpected_keyword",
+      "tests_testpilot/test_dicttoolz.py::test_merge_with_does_not_mutate_inputs",
+      "tests_testpilot/test_dicttoolz.py::test_valmap_basic_factory_and_no_mutation",
+      "tests_testpilot/test_dicttoolz.py::test_keymap_basic_collision_factory_and_no_mutation",
+      "tests_testpilot/test_dicttoolz.py::test_itemmap_basic_collision_factory_and_no_mutation",
+      "tests_testpilot/test_dicttoolz.py::test_valfilter_basic_factory_and_predicate_receives_values",
+      "tests_testpilot/test_dicttoolz.py::test_keyfilter_basic_factory_and_predicate_receives_keys",
+      "tests_testpilot/test_dicttoolz.py::test_itemfilter_basic_factory_and_predicate_receives_items",
+      "tests_testpilot/test_dicttoolz.py::test_assoc_replaces_adds_and_does_not_mutate",
+      "tests_testpilot/test_dicttoolz.py::test_dissoc_update_branch_and_missing_keys",
+      "tests_testpilot/test_dicttoolz.py::test_dissoc_remaining_set_branch_and_missing_keys",
+      "tests_testpilot/test_dicttoolz.py::test_dissoc_empty_no_keys_factory_and_unexpected_keyword",
+      "tests_testpilot/test_dicttoolz.py::test_assoc_in_existing_and_missing_paths",
+      "tests_testpilot/test_dicttoolz.py::test_assoc_in_factory_and_empty_keys",
+      "tests_testpilot/test_dicttoolz.py::test_update_in_existing_value",
+      "tests_testpilot/test_dicttoolz.py::test_update_in_nested_existing_path_and_shallow_copying",
+      "tests_testpilot/test_dicttoolz.py::test_update_in_missing_paths_and_default",
+      "tests_testpilot/test_dicttoolz.py::test_update_in_factory",
+      "tests_testpilot/test_dicttoolz.py::test_update_in_empty_keys_and_non_mapping_intermediate",
+      "tests_testpilot/test_dicttoolz.py::test_get_in_successful_lookup",
+      "tests_testpilot/test_dicttoolz.py::test_get_in_missing_values_return_default",
+      "tests_testpilot/test_dicttoolz.py::test_get_in_no_default_raises"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 2.58,
+        "passed": 28,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 2.53,
+        "passed": 28,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 2.48,
+        "passed": 28,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.9708029197080292,
+    "total": 137,
+    "killed": 133,
+    "survived": 4,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 133,
+      "survived": 4
+    },
+    "survivors": [
+      {
+        "line": 217,
+        "original": "if len(keys) < len(d) * .6:",
+        "mutated": "if len(keys) <= len(d) * .6:",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "if len(keys) < len(d) * .6:",
+        "mutated": "if len(keys) < len(d) / .6:",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "if len(keys) < len(d) * .6:",
+        "mutated": "if len(keys) < len(d) * 1.6:",
+        "status": "survived"
+      },
+      {
+        "line": 242,
+        "original": "return update_in(d, keys, lambda x: value, value, factory)",
+        "mutated": "return update_in(d, keys, lambda x: value, None, factory)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 7.6,
+    "coverage": 3.91,
+    "mutation": 7.18
+  }
+}
