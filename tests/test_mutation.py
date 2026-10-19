@@ -115,6 +115,19 @@ def test_strong_tests_kill_more(sample_repo: Path, tmp_path: Path):
 
 
 @linux_only
+def test_tests_given_as_nodeids(sample_repo: Path, tmp_path: Path):
+    """评测时传入的是有效测试的 nodeid（文件在子目录里），只用这些测试去杀变异体。"""
+    with Workspace(sample_repo, base_dir=tmp_path) as ws:
+        ws.write_text("tests_testpilot/test_gen.py", STRONG_TEST)
+        f = "tests_testpilot/test_gen.py"
+        rep = run_mutation(ws.path, "sample/calc.py", [f"{f}::test_add", f"{f}::test_clamp_bounds"], timeout=300)
+    assert rep.error == ""
+    # 只选了两个测试：add 的变异体被杀，clamp 中断言错误信息的变异体不会被杀
+    assert rep.killed >= 1
+    assert any(m.line == 10 for m in rep.survivors())
+
+
+@linux_only
 def test_only_target_file_is_mutated(sample_repo: Path, tmp_path: Path):
     rep = _run(sample_repo, tmp_path, WEAK_TEST)
     assert {m.name.rsplit(".", 1)[0] for m in rep.mutants} == {"sample.calc"}

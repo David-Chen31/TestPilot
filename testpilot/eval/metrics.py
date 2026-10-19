@@ -153,6 +153,8 @@ class Evaluation:
             "branch_rate": self.branch_rate,
             "mutation_score": m.get("score"),
             "mutants_total": m.get("total"),
+            # 变异测试出错时必须显式可见，不能只留下一个 None 得分
+            "mutation_error": (m.get("error") or "")[-300:],
         }
 
 

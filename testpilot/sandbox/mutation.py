@@ -160,8 +160,9 @@ def _write_config(workdir: Path, target: str, tests: Sequence[str], python_paths
         "only_mutate": [rel.as_posix()],
         "pytest_add_cli_args": ["-o", "addopts="],
         "pytest_add_cli_args_test_selection": list(tests),
-        # mutmut 只把 tests/ 等默认目录复制进 mutants/，生成的测试要显式声明（tests 可能是 nodeid，取文件部分）
-        "also_copy": sorted({t.split("::", 1)[0] for t in tests}),
+        # mutmut 只把 tests/ 等默认目录复制进 mutants/，生成的测试要显式声明。
+        # 声明顶层目录而不是单个文件：mutmut 复制单个文件时不会创建父目录（tests 也可能是 nodeid）
+        "also_copy": sorted({Path(t.split("::", 1)[0]).parts[0] for t in tests}),
         "use_git_change_detection": False,
     }
     # 配置块固定追加在文件末尾，TOML 表到文件结束为止，不会吞掉原有内容
