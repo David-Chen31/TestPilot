@@ -14,6 +14,9 @@ services:
       REDIS_URL: redis://redis:6379/0
     depends_on:
       - redis
+    # 双保险：不产生普通的 core 文件（WSL 管道式收集由镜像里的 no_core_dump.pth 处理）
+    ulimits:
+      core: 0
     volumes:
       # 代码以可编辑方式安装，挂载后改代码不用重建镜像（依赖变化时才需要 build）。
       # 只读：被测代码和生成的测试以子进程在同一容器里运行，不能让它们改写评测器本身

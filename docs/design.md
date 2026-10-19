@@ -341,3 +341,18 @@ B2 在 dicttoolz 上的变异得分为 99.5% [99.3, 100]（B1 为 92.9%）。逐
   1. 在评测中增加一个指标：**和实现耦合的测试数**（静态检查 monkeypatch / mock 被测模块自身的属性）；
   2. 比较“把这类测试计为无效”前后的变异得分；
   3. 考虑把“不得 patch 被测模块内部”加进有效性规则。
+
+### 5.7 评测中断的根因：WSL 崩溃转储（以及一次错误的诊断）
+
+- **现象**：B2 两次批量评测中途，容器全部报 `Connection error`，随后 Docker 守护进程无响应，C 盘空间被写满。
+- **第一次诊断（错误）**：Windows 事件日志显示第一次故障前不久系统进入过新型待机，我据此认为是待机切断了网络，加了评测期间阻止待机的脚本。第二次故障时没有待机事件，这个解释站不住。
+- **真正的根因**：mutmut 用 CPU 时间上限杀掉超时的变异体（itertoolz 中大量变异体会让无限迭代器陷入死循环），进程收到 SIGXCPU 后 core dump。Docker Desktop 基于 WSL，WSL 把每个 core dump 写到 Windows 的 `%TEMP%\wsl-crashes`，单个 0.1–1.9 GB，写入期间 WSL 虚拟机卡住。
+- **证据**：
+  1. 两次故障都从 B2 开始跑 itertoolz 的那一刻开始；
+  2. 10 个 dump 全部来自 `python3.11`、信号 24；
+  3. 在容器中手动触发一次 SIGXCPU 就能复现 Docker 卡死。
+- **修复**：镜像中所有 Python 进程启动时通过 `.pth` 钩子设置 `PR_SET_DUMPABLE=0`（`docker/no_core_dump.pth`）。内核在任何形式的 core dump 之前都检查这个标志，fork 出的 mutmut worker 会继承它。`ulimit -c 0` 无效：WSL 用管道收集 core，内核不检查 RLIMIT_CORE，实测仍然产生了 dump。验证结果：
+  - 触发 SIGXCPU 后退出码仍为 152，mutmut 照样判为 timeout；
+  - 不再产生 dump，Docker 不再卡死。
+- **兜底**：`eval.sh` 在评测前后报告 C 盘剩余空间和 dump 数量，新增 dump 时警告。阻止待机的脚本保留（待机确实会中断长时间评测），但它不是这次故障的原因。
+- **教训**：第一次诊断只找到一个“时间上吻合”的事件就下了结论。正确的做法是先找能复现的机制。

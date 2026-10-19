@@ -24,6 +24,13 @@ WORKDIR /app
 # 先只用 pyproject 安装依赖（包目录用空壳占位），改代码时这一层可以复用缓存
 COPY pyproject.toml README.md ./
 RUN mkdir testpilot && touch testpilot/__init__.py     && pip install ${PIP_MIRROR:+-i "$PIP_MIRROR"} -e .
+
+# 禁止容器内所有 Python 进程产生 core dump（PR_SET_DUMPABLE = 0，fork 出的子进程继承）。
+# mutmut 用 CPU 时间上限杀超时的变异体（SIGXCPU，默认会 core dump）；Docker Desktop 的 WSL
+# 会把每个 core dump 写到 Windows 的 %TEMP%\wsl-crashes（单个 0.1–1.9 GB），写满 C 盘并让 Docker
+# 卡死。ulimit -c 0 拦不住（WSL 用管道收集，内核不检查 RLIMIT_CORE），所以在进程级关闭。
+COPY docker/no_core_dump.pth /tmp/
+RUN cp /tmp/no_core_dump.pth "$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/"
 COPY testpilot ./testpilot
 
 COPY tests ./tests
