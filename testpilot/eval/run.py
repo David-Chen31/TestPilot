@@ -40,7 +40,9 @@ METHODS: dict[str, AgentConfig] = {"b0": B0, "b1": B1}
 RESULTS_DIR = PROJECT_ROOT / "results"
 
 
-def run_one(method: str, spec: RepoSpec, target: str, out_dir: Path, settings: Settings, with_mutation: bool) -> dict:
+async def run_one(
+    method: str, spec: RepoSpec, target: str, out_dir: Path, settings: Settings, with_mutation: bool
+) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     meta: dict = {
         "method": method,
@@ -60,10 +62,10 @@ def run_one(method: str, spec: RepoSpec, target: str, out_dir: Path, settings: S
         assert snapshot_commit(spec.path) == spec.commit
         t0 = time.monotonic()
         try:
-            gen = asyncio.run(run_agent(model, ws.path, target, spec.python_paths, METHODS[method]))
+            gen = await run_agent(model, ws.path, target, spec.python_paths, METHODS[method])
         except Exception as e:  # API 失败等：记录下来，不中断整批
             log.exception("生成失败")
-            meta["error"] = f"{type(e).__name__}: {e}"
+            meta["error"] = _describe(e)
             _dump(out_dir / "run.json", meta)
             return meta
         meta["generation_seconds"] = round(time.monotonic() - t0, 2)
@@ -74,7 +76,10 @@ def run_one(method: str, spec: RepoSpec, target: str, out_dir: Path, settings: S
             shutil.copy(ws.path / f, out_dir / Path(f).name)
 
         t0 = time.monotonic()
-        ev = evaluate(ws.path, target, gen.test_files, spec.python_paths, with_mutation=with_mutation)
+        # 评测是阻塞的子进程调用，放到线程里
+        ev = await asyncio.to_thread(
+            evaluate, ws.path, target, gen.test_files, spec.python_paths, with_mutation=with_mutation
+        )
         meta["evaluation_seconds"] = round(time.monotonic() - t0, 2)
     _dump(out_dir / "evaluation.json", ev.to_dict())
     meta["summary"] = ev.summary()
@@ -151,9 +156,15 @@ def main() -> None:
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
         handlers=[logging.StreamHandler(), logging.FileHandler(tag_dir / "run.log", encoding="utf-8")],
     )
-    for noisy in ("httpx", "openai"):
+    for noisy in ("httpx", "httpx2", "openai"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
 
+    # 整批运行共用一个事件循环：langchain-openai 在进程级缓存异步 HTTP 客户端，
+    # 每次 asyncio.run() 新建循环会让缓存的连接绑在已关闭的循环上（“Event loop is closed”）
+    asyncio.run(_run_batch(args, tag_dir))
+
+
+async def _run_batch(args: argparse.Namespace, tag_dir: Path) -> None:
     settings = Settings.from_env()
     spec = load_manifest()[args.repo]
     targets = args.target or list(spec.targets)
@@ -165,7 +176,7 @@ def main() -> None:
         for k in range(1, args.runs + 1):
             out_dir = tag_dir / args.method / spec.name / Path(target).stem / f"run{k}"
             log.info("%s run %d/%d -> %s", key, k, args.runs, out_dir)
-            rec = run_one(args.method, spec, target, out_dir, settings, with_mutation=not args.no_mutation)
+            rec = await run_one(args.method, spec, target, out_dir, settings, with_mutation=not args.no_mutation)
             rec["run_index"] = k
             rec["out_dir"] = out_dir.relative_to(PROJECT_ROOT).as_posix()
             log.info("%s run %d 结果: %s", key, k, rec.get("summary") or rec.get("error"))
@@ -176,6 +187,13 @@ def main() -> None:
     _dump(tag_dir / "summary.json", {"groups": groups, "records": all_records})
     write_markdown(tag_dir / "summary.md", f"{args.tag}", groups, all_records)
     log.info("汇总写入 %s", tag_dir / "summary.md")
+
+
+def _describe(e: BaseException) -> str:
+    """异常的简短描述；ExceptionGroup（TaskGroup 里抛出）展开到最内层，否则只剩一句 “unhandled errors”。"""
+    while isinstance(e, BaseExceptionGroup) and e.exceptions:
+        e = e.exceptions[0]
+    return f"{type(e).__name__}: {e}"
 
 
 def _testpilot_commit() -> str:

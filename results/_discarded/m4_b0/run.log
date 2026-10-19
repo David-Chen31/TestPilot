@@ -1,0 +1,600 @@
+2026-10-19 12:16:09,775 INFO testpilot.eval: b0 / toolz / toolz/dicttoolz.py run 1/3 -> /app/results/m4_b0/b0/toolz/dicttoolz/run1
+2026-10-19 12:16:13,067 INFO httpx2: HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-10-19 12:16:48,887 INFO testpilot.eval: b0 / toolz / toolz/dicttoolz.py run 1 结果: {'tests_total': 69, 'tests_valid': 69, 'line_rate': 1.0, 'branch_rate': 0.9761904761904762, 'mutation_score': 0.927007299270073, 'mutants_total': 137, 'mutation_error': ''}
+2026-10-19 12:16:48,889 INFO testpilot.eval: b0 / toolz / toolz/dicttoolz.py run 2/3 -> /app/results/m4_b0/b0/toolz/dicttoolz/run2
+2026-10-19 12:16:51,761 ERROR testpilot.eval: 生成失败
+  + Exception Group Traceback (most recent call last):
+  |   File "/app/testpilot/eval/run.py", line 63, in run_one
+  |     gen = asyncio.run(run_agent(model, ws.path, target, spec.python_paths, METHODS[method]))
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+  |     return runner.run(main)
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+  |     return future.result()
+  |            ^^^^^^^^^^^^^^^
+  |   File "/app/testpilot/agent/graph.py", line 318, in run_agent
+  |     async with mcp_tool_client(workdir, python_paths) as mcp_tools:
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/app/testpilot/agent/tool_client.py", line 106, in mcp_tool_client
+  |     async with stdio_client(params) as (read, write):
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 182, in stdio_client
+  |     async with (
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 189, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/app/testpilot/agent/tool_client.py", line 107, in mcp_tool_client
+    |     async with ClientSession(read, write) as session:
+    |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/app/testpilot/agent/tool_client.py", line 109, in mcp_tool_client
+      |     yield MCPToolClient(await load_mcp_tools(session))
+      |   File "/app/testpilot/agent/graph.py", line 319, in run_agent
+      |     return await run_agent(model, workdir, target, python_paths, config, mcp_tools, on_event)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 329, in run_agent
+      |     final = await agent.graph.ainvoke(initial, {"recursion_limit": 10 * config.max_iterations + 20})
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4178, in ainvoke
+      |     async for chunk in self.astream(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3529, in astream
+      |     async for _ in runner.atick(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 397, in atick
+      |     await arun_with_retry(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 737, in arun_with_retry
+      |     return await task.proc.ainvoke(task.input, config)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 756, in ainvoke
+      |     input = await asyncio.create_task(
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 522, in ainvoke
+      |     ret = await self.afunc(*args, **kwargs)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 165, in write_tests
+      |     call = await ainvoke(self.model, messages)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/llm.py", line 104, in ainvoke
+      |     msg = await model.ainvoke(messages)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 511, in ainvoke
+      |     llm_result = await self.agenerate_prompt(
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1888, in agenerate_prompt
+      |     return await self.agenerate(
+      |            ^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1846, in agenerate
+      |     raise exceptions[0]
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 2179, in _agenerate_with_cache
+      |     result = await self._agenerate(
+      |              ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2306, in _agenerate
+      |     raise e
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2295, in _agenerate
+      |     raw_response = await self.async_client.with_raw_response.create(
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_legacy_response.py", line 386, in wrapped
+      |     return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2952, in create
+      |     return await self._post(
+      |            ^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 2053, in post
+      |     return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1773, in request
+      |     response = await self._send_request(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1375, in _send_request
+      |     response = await self._send_with_auth_retry(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1354, in _send_with_auth_retry
+      |     response = await super()._send_request(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1690, in _send_request
+      |     return await self._client.send(request, stream=stream, **kwargs)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1818, in send
+      |     response = await self._send_handling_auth(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1846, in _send_handling_auth
+      |     response = await self._send_handling_redirects(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1881, in _send_handling_redirects
+      |     response = await self._send_single_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1915, in _send_single_request
+      |     response = await transport.handle_async_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 388, in handle_async_request
+      |     resp = await self._pool.handle_async_request(req)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 242, in handle_async_request
+      |     raise exc from None
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 217, in handle_async_request
+      |     await self._close_connections(closing)
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 374, in _close_connections
+      |     await connection.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 157, in aclose
+      |     await self._connection.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/http11.py", line 236, in aclose
+      |     await self._network_stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/anyio.py", line 56, in aclose
+      |     await self._stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/anyio/streams/tls.py", line 248, in aclose
+      |     await self.transport_stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1467, in aclose
+      |     self._transport.close()
+      |   File "/usr/local/lib/python3.11/asyncio/selector_events.py", line 864, in close
+      |     self._loop.call_soon(self._call_connection_lost, None)
+      |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 762, in call_soon
+      |     self._check_closed()
+      |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 520, in _check_closed
+      |     raise RuntimeError('Event loop is closed')
+      | RuntimeError: Event loop is closed
+      | During task with name 'write_tests' and id '3b6cce0e-b850-1476-69c8-b0195de8c60b'
+      +------------------------------------
+2026-10-19 12:16:51,822 INFO testpilot.eval: b0 / toolz / toolz/dicttoolz.py run 2 结果: ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+2026-10-19 12:16:51,824 INFO testpilot.eval: b0 / toolz / toolz/dicttoolz.py run 3/3 -> /app/results/m4_b0/b0/toolz/dicttoolz/run3
+2026-10-19 12:16:52,830 INFO httpx2: HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-10-19 12:17:23,022 INFO testpilot.eval: b0 / toolz / toolz/dicttoolz.py run 3 结果: {'tests_total': 60, 'tests_valid': 59, 'line_rate': 1.0, 'branch_rate': 0.9761904761904762, 'mutation_score': 0.9051094890510949, 'mutants_total': 137, 'mutation_error': ''}
+2026-10-19 12:17:23,024 INFO testpilot.eval: b0 / toolz / toolz/itertoolz.py run 1/3 -> /app/results/m4_b0/b0/toolz/itertoolz/run1
+2026-10-19 12:17:26,162 ERROR testpilot.eval: 生成失败
+  + Exception Group Traceback (most recent call last):
+  |   File "/app/testpilot/eval/run.py", line 63, in run_one
+  |     gen = asyncio.run(run_agent(model, ws.path, target, spec.python_paths, METHODS[method]))
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+  |     return runner.run(main)
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+  |     return future.result()
+  |            ^^^^^^^^^^^^^^^
+  |   File "/app/testpilot/agent/graph.py", line 318, in run_agent
+  |     async with mcp_tool_client(workdir, python_paths) as mcp_tools:
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/app/testpilot/agent/tool_client.py", line 106, in mcp_tool_client
+  |     async with stdio_client(params) as (read, write):
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 182, in stdio_client
+  |     async with (
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 189, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/app/testpilot/agent/tool_client.py", line 107, in mcp_tool_client
+    |     async with ClientSession(read, write) as session:
+    |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/app/testpilot/agent/tool_client.py", line 109, in mcp_tool_client
+      |     yield MCPToolClient(await load_mcp_tools(session))
+      |   File "/app/testpilot/agent/graph.py", line 319, in run_agent
+      |     return await run_agent(model, workdir, target, python_paths, config, mcp_tools, on_event)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 329, in run_agent
+      |     final = await agent.graph.ainvoke(initial, {"recursion_limit": 10 * config.max_iterations + 20})
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4178, in ainvoke
+      |     async for chunk in self.astream(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3529, in astream
+      |     async for _ in runner.atick(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 397, in atick
+      |     await arun_with_retry(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 737, in arun_with_retry
+      |     return await task.proc.ainvoke(task.input, config)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 756, in ainvoke
+      |     input = await asyncio.create_task(
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 522, in ainvoke
+      |     ret = await self.afunc(*args, **kwargs)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 165, in write_tests
+      |     call = await ainvoke(self.model, messages)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/llm.py", line 104, in ainvoke
+      |     msg = await model.ainvoke(messages)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 511, in ainvoke
+      |     llm_result = await self.agenerate_prompt(
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1888, in agenerate_prompt
+      |     return await self.agenerate(
+      |            ^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1846, in agenerate
+      |     raise exceptions[0]
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 2179, in _agenerate_with_cache
+      |     result = await self._agenerate(
+      |              ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2306, in _agenerate
+      |     raise e
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2295, in _agenerate
+      |     raw_response = await self.async_client.with_raw_response.create(
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_legacy_response.py", line 386, in wrapped
+      |     return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2952, in create
+      |     return await self._post(
+      |            ^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 2053, in post
+      |     return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1773, in request
+      |     response = await self._send_request(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1375, in _send_request
+      |     response = await self._send_with_auth_retry(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1354, in _send_with_auth_retry
+      |     response = await super()._send_request(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1690, in _send_request
+      |     return await self._client.send(request, stream=stream, **kwargs)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1818, in send
+      |     response = await self._send_handling_auth(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1846, in _send_handling_auth
+      |     response = await self._send_handling_redirects(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1881, in _send_handling_redirects
+      |     response = await self._send_single_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1915, in _send_single_request
+      |     response = await transport.handle_async_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 388, in handle_async_request
+      |     resp = await self._pool.handle_async_request(req)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 242, in handle_async_request
+      |     raise exc from None
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 217, in handle_async_request
+      |     await self._close_connections(closing)
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 374, in _close_connections
+      |     await connection.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 157, in aclose
+      |     await self._connection.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/http11.py", line 236, in aclose
+      |     await self._network_stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/anyio.py", line 56, in aclose
+      |     await self._stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/anyio/streams/tls.py", line 248, in aclose
+      |     await self.transport_stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1467, in aclose
+      |     self._transport.close()
+      |   File "/usr/local/lib/python3.11/asyncio/selector_events.py", line 864, in close
+      |     self._loop.call_soon(self._call_connection_lost, None)
+      |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 762, in call_soon
+      |     self._check_closed()
+      |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 520, in _check_closed
+      |     raise RuntimeError('Event loop is closed')
+      | RuntimeError: Event loop is closed
+      | During task with name 'write_tests' and id '0972bf26-f536-94db-4dc6-6b4e29d166e9'
+      +------------------------------------
+2026-10-19 12:17:26,193 INFO testpilot.eval: b0 / toolz / toolz/itertoolz.py run 1 结果: ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+2026-10-19 12:17:26,195 INFO testpilot.eval: b0 / toolz / toolz/itertoolz.py run 2/3 -> /app/results/m4_b0/b0/toolz/itertoolz/run2
+2026-10-19 12:17:29,458 INFO httpx2: HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-10-19 12:18:55,881 INFO testpilot.eval: b0 / toolz / toolz/itertoolz.py run 2 结果: {'tests_total': 106, 'tests_valid': 106, 'line_rate': 0.9393939393939394, 'branch_rate': 0.9176470588235294, 'mutation_score': 0.8930817610062893, 'mutants_total': 481, 'mutation_error': ''}
+2026-10-19 12:18:55,883 INFO testpilot.eval: b0 / toolz / toolz/itertoolz.py run 3/3 -> /app/results/m4_b0/b0/toolz/itertoolz/run3
+2026-10-19 12:18:59,132 ERROR testpilot.eval: 生成失败
+  + Exception Group Traceback (most recent call last):
+  |   File "/app/testpilot/eval/run.py", line 63, in run_one
+  |     gen = asyncio.run(run_agent(model, ws.path, target, spec.python_paths, METHODS[method]))
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+  |     return runner.run(main)
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+  |     return future.result()
+  |            ^^^^^^^^^^^^^^^
+  |   File "/app/testpilot/agent/graph.py", line 318, in run_agent
+  |     async with mcp_tool_client(workdir, python_paths) as mcp_tools:
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/app/testpilot/agent/tool_client.py", line 106, in mcp_tool_client
+  |     async with stdio_client(params) as (read, write):
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 182, in stdio_client
+  |     async with (
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 189, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/app/testpilot/agent/tool_client.py", line 107, in mcp_tool_client
+    |     async with ClientSession(read, write) as session:
+    |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/app/testpilot/agent/tool_client.py", line 109, in mcp_tool_client
+      |     yield MCPToolClient(await load_mcp_tools(session))
+      |   File "/app/testpilot/agent/graph.py", line 319, in run_agent
+      |     return await run_agent(model, workdir, target, python_paths, config, mcp_tools, on_event)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 329, in run_agent
+      |     final = await agent.graph.ainvoke(initial, {"recursion_limit": 10 * config.max_iterations + 20})
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4178, in ainvoke
+      |     async for chunk in self.astream(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3529, in astream
+      |     async for _ in runner.atick(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 397, in atick
+      |     await arun_with_retry(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 737, in arun_with_retry
+      |     return await task.proc.ainvoke(task.input, config)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 756, in ainvoke
+      |     input = await asyncio.create_task(
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 522, in ainvoke
+      |     ret = await self.afunc(*args, **kwargs)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 165, in write_tests
+      |     call = await ainvoke(self.model, messages)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/llm.py", line 104, in ainvoke
+      |     msg = await model.ainvoke(messages)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 511, in ainvoke
+      |     llm_result = await self.agenerate_prompt(
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1888, in agenerate_prompt
+      |     return await self.agenerate(
+      |            ^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1846, in agenerate
+      |     raise exceptions[0]
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 2179, in _agenerate_with_cache
+      |     result = await self._agenerate(
+      |              ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2306, in _agenerate
+      |     raise e
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2295, in _agenerate
+      |     raw_response = await self.async_client.with_raw_response.create(
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_legacy_response.py", line 386, in wrapped
+      |     return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2952, in create
+      |     return await self._post(
+      |            ^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 2053, in post
+      |     return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1773, in request
+      |     response = await self._send_request(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1375, in _send_request
+      |     response = await self._send_with_auth_retry(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1354, in _send_with_auth_retry
+      |     response = await super()._send_request(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1690, in _send_request
+      |     return await self._client.send(request, stream=stream, **kwargs)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1818, in send
+      |     response = await self._send_handling_auth(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1846, in _send_handling_auth
+      |     response = await self._send_handling_redirects(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1881, in _send_handling_redirects
+      |     response = await self._send_single_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1915, in _send_single_request
+      |     response = await transport.handle_async_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 388, in handle_async_request
+      |     resp = await self._pool.handle_async_request(req)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 242, in handle_async_request
+      |     raise exc from None
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 217, in handle_async_request
+      |     await self._close_connections(closing)
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 374, in _close_connections
+      |     await connection.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 157, in aclose
+      |     await self._connection.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/http11.py", line 236, in aclose
+      |     await self._network_stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/anyio.py", line 56, in aclose
+      |     await self._stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/anyio/streams/tls.py", line 248, in aclose
+      |     await self.transport_stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1467, in aclose
+      |     self._transport.close()
+      |   File "/usr/local/lib/python3.11/asyncio/selector_events.py", line 864, in close
+      |     self._loop.call_soon(self._call_connection_lost, None)
+      |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 762, in call_soon
+      |     self._check_closed()
+      |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 520, in _check_closed
+      |     raise RuntimeError('Event loop is closed')
+      | RuntimeError: Event loop is closed
+      | During task with name 'write_tests' and id '7cd06d06-c156-fb31-b169-ae2086001add'
+      +------------------------------------
+2026-10-19 12:18:59,169 INFO testpilot.eval: b0 / toolz / toolz/itertoolz.py run 3 结果: ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+2026-10-19 12:18:59,172 INFO testpilot.eval: b0 / toolz / toolz/functoolz.py run 1/3 -> /app/results/m4_b0/b0/toolz/functoolz/run1
+2026-10-19 12:19:02,924 INFO httpx2: HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-10-19 12:19:50,898 INFO testpilot.eval: b0 / toolz / toolz/functoolz.py run 1 结果: {'tests_total': 85, 'tests_valid': 80, 'line_rate': 0.8300653594771242, 'branch_rate': 0.6805555555555556, 'mutation_score': 0.5612244897959183, 'mutants_total': 588, 'mutation_error': ''}
+2026-10-19 12:19:50,900 INFO testpilot.eval: b0 / toolz / toolz/functoolz.py run 2/3 -> /app/results/m4_b0/b0/toolz/functoolz/run2
+2026-10-19 12:19:53,970 ERROR testpilot.eval: 生成失败
+  + Exception Group Traceback (most recent call last):
+  |   File "/app/testpilot/eval/run.py", line 63, in run_one
+  |     gen = asyncio.run(run_agent(model, ws.path, target, spec.python_paths, METHODS[method]))
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+  |     return runner.run(main)
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+  |     return future.result()
+  |            ^^^^^^^^^^^^^^^
+  |   File "/app/testpilot/agent/graph.py", line 318, in run_agent
+  |     async with mcp_tool_client(workdir, python_paths) as mcp_tools:
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/app/testpilot/agent/tool_client.py", line 106, in mcp_tool_client
+  |     async with stdio_client(params) as (read, write):
+  |   File "/usr/local/lib/python3.11/contextlib.py", line 231, in __aexit__
+  |     await self.gen.athrow(typ, value, traceback)
+  |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 182, in stdio_client
+  |     async with (
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Exception Group Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 189, in stdio_client
+    |     yield read_stream, write_stream
+    |   File "/app/testpilot/agent/tool_client.py", line 107, in mcp_tool_client
+    |     async with ClientSession(read, write) as session:
+    |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+    |     raise BaseExceptionGroup(
+    | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+    +-+---------------- 1 ----------------
+      | Traceback (most recent call last):
+      |   File "/app/testpilot/agent/tool_client.py", line 109, in mcp_tool_client
+      |     yield MCPToolClient(await load_mcp_tools(session))
+      |   File "/app/testpilot/agent/graph.py", line 319, in run_agent
+      |     return await run_agent(model, workdir, target, python_paths, config, mcp_tools, on_event)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 329, in run_agent
+      |     final = await agent.graph.ainvoke(initial, {"recursion_limit": 10 * config.max_iterations + 20})
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 4178, in ainvoke
+      |     async for chunk in self.astream(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3529, in astream
+      |     async for _ in runner.atick(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 397, in atick
+      |     await arun_with_retry(
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 737, in arun_with_retry
+      |     return await task.proc.ainvoke(task.input, config)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 756, in ainvoke
+      |     input = await asyncio.create_task(
+      |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 522, in ainvoke
+      |     ret = await self.afunc(*args, **kwargs)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/agent/graph.py", line 165, in write_tests
+      |     call = await ainvoke(self.model, messages)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/app/testpilot/llm.py", line 104, in ainvoke
+      |     msg = await model.ainvoke(messages)
+      |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 511, in ainvoke
+      |     llm_result = await self.agenerate_prompt(
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1888, in agenerate_prompt
+      |     return await self.agenerate(
+      |            ^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 1846, in agenerate
+      |     raise exceptions[0]
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_core/language_models/chat_models.py", line 2179, in _agenerate_with_cache
+      |     result = await self._agenerate(
+      |              ^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2306, in _agenerate
+      |     raise e
+      |   File "/usr/local/lib/python3.11/site-packages/langchain_openai/chat_models/base.py", line 2295, in _agenerate
+      |     raw_response = await self.async_client.with_raw_response.create(
+      |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_legacy_response.py", line 386, in wrapped
+      |     return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2952, in create
+      |     return await self._post(
+      |            ^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 2053, in post
+      |     return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1773, in request
+      |     response = await self._send_request(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1375, in _send_request
+      |     response = await self._send_with_auth_retry(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_client.py", line 1354, in _send_with_auth_retry
+      |     response = await super()._send_request(request, stream=stream, **kwargs)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/openai/_base_client.py", line 1690, in _send_request
+      |     return await self._client.send(request, stream=stream, **kwargs)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1818, in send
+      |     response = await self._send_handling_auth(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1846, in _send_handling_auth
+      |     response = await self._send_handling_redirects(
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1881, in _send_handling_redirects
+      |     response = await self._send_single_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_client.py", line 1915, in _send_single_request
+      |     response = await transport.handle_async_request(request)
+      |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpx2/_transports/default.py", line 388, in handle_async_request
+      |     resp = await self._pool.handle_async_request(req)
+      |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 242, in handle_async_request
+      |     raise exc from None
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 217, in handle_async_request
+      |     await self._close_connections(closing)
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection_pool.py", line 374, in _close_connections
+      |     await connection.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/connection.py", line 157, in aclose
+      |     await self._connection.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_async/http11.py", line 236, in aclose
+      |     await self._network_stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/httpcore2/_backends/anyio.py", line 56, in aclose
+      |     await self._stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/anyio/streams/tls.py", line 248, in aclose
+      |     await self.transport_stream.aclose()
+      |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1467, in aclose
+      |     self._transport.close()
+      |   File "/usr/local/lib/python3.11/asyncio/selector_events.py", line 864, in close
+      |     self._loop.call_soon(self._call_connection_lost, None)
+      |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 762, in call_soon
+      |     self._check_closed()
+      |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 520, in _check_closed
+      |     raise RuntimeError('Event loop is closed')
+      | RuntimeError: Event loop is closed
+      | During task with name 'write_tests' and id '9be2070d-94e2-6063-d64b-fc8cfb531c64'
+      +------------------------------------
+2026-10-19 12:19:54,011 INFO testpilot.eval: b0 / toolz / toolz/functoolz.py run 2 结果: ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+2026-10-19 12:19:54,018 INFO testpilot.eval: b0 / toolz / toolz/functoolz.py run 3/3 -> /app/results/m4_b0/b0/toolz/functoolz/run3
+2026-10-19 12:19:57,196 INFO httpx2: HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-10-19 12:20:44,426 INFO testpilot.eval: b0 / toolz / toolz/functoolz.py run 3 结果: {'tests_total': 84, 'tests_valid': 80, 'line_rate': 0.8257080610021786, 'branch_rate': 0.6597222222222222, 'mutation_score': 0.5629251700680272, 'mutants_total': 588, 'mutation_error': ''}
+2026-10-19 12:20:44,441 INFO testpilot.eval: 汇总写入 /app/results/m4_b0/summary.md
