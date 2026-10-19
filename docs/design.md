@@ -14,7 +14,7 @@
 |---|---|---|
 | M1 | 项目骨架、Docker、沙箱执行器 | 完成 |
 | M2 | MCP server 与全部工具 | 完成 |
-| M3 | 基线 B0：一次性生成 | |
+| M3 | 基线 B0：一次性生成 | 完成 |
 | M4 | LangGraph Agent（pytest 报错反馈）= B1 | |
 | M5 | 变异测试反馈 + 有效性规则 = B2 | |
 | M6 | 检索：AST 依赖 vs AST + Faiss | |
@@ -185,3 +185,76 @@
   B1/B2 在这种目标上不可能显示出提升，正式评测需要选 B0 没有饱和的目标。
 - **functoolz 有提升空间**：去掉失败的第 3 次后，前两次的变异得分为 70–72%，分支覆盖 75–78%。
 - **数据污染风险**：toolz 很有名，模型很可能见过它自带的测试，docstring 里还有 doctest 示例。这可能是 B0 在 dicttoolz 上饱和的原因之一。M8 计划加入模型训练截止之后才创建的小仓库做对照。
+
+## 4. LangGraph Agent（M4）
+
+代码：`testpilot/agent/graph.py`、`testpilot/agent/tool_client.py`、`testpilot/retrieval/context.py`、`testpilot/prompts.py`
+
+### 4.1 图结构
+
+```
+START → plan → retrieve_context → write_tests → run_tests → analyze → decide ─┬→ write_tests（带反馈）
+                                                                             └→ finalize → END
+```
+
+| 节点 | 做什么 | 用 LLM？ | 调用的工具 |
+|---|---|---|---|
+| `plan` | 确定要覆盖的公开 API | 否 | `list_symbols` |
+| `retrieve_context` | 召回源码（带行号）、import 的定义、调用处，拼成提示词前缀 | 否 | `read_file` `list_symbols` `search_code` |
+| `write_tests` | 第一轮写测试；之后根据反馈重写整个文件 | **是** | `write_test_file` |
+| `run_tests` | 运行测试 | 否 | `run_pytest` |
+| `analyze` | 全部通过时测覆盖率；计算进度分数、更新最好的一轮、生成反馈 | 否 | `coverage_report`（M5 加 `run_mutation`） |
+| `decide` | 依次检查终止条件，决定继续还是结束 | 否 | — |
+| `finalize` | 把分数最高的一轮写回测试文件 | 否 | `write_test_file` |
+
+- **State（`AgentState`）**：目标、计划、提示词前缀、当前测试代码、最近一次 pytest 结果、覆盖率、变异结果、反馈、迭代次数、进度分数、最好的一轮、无提升轮数、token 用量、停止原因、轨迹。轨迹字段用 `operator.add` 作为 reducer，每个节点只追加自己的事件。
+- **Node** 是 `TestPilotAgent` 的方法，**Edge** 除了 `decide` 之后的条件边都是固定边。
+- **为什么不用 while 循环**：
+  - 图把“有哪些步骤、步骤之间怎么走”显式写出来，终止逻辑集中在一个 `decide` 节点里；
+  - 每个节点的输入输出都是状态的一部分，天然产生结构化轨迹；
+  - M7 的 SSE 可以直接用 LangGraph 的流式输出；
+  - 加一种反馈（M5 的变异测试）只需要改 `analyze`，不用改控制流。
+- **为什么不是 ReAct**：ReAct 由 LLM 在每一步决定调用哪个工具。这里工具由节点确定性地调用，LLM 只负责写测试。代价是灵活性：LLM 不能主动去读某个文件。好处是：
+  - 流程可复现，B0/B1/B2 之间只有反馈内容不同；
+  - 不会把 token 花在“探索”上；
+  - 终止条件可控。
+
+  M6 之后可以考虑在 `write_tests` 内部开放 `read_file` / `search_code` 让 LLM 按需查阅，作为一个变体做对比。
+
+### 4.2 B0 / B1 / B2 是同一张图的三种配置
+
+- B0：`feedback = {}`、`max_iterations = 1`，只写一次。**B0 的提示词与 B1/B2 第一轮的提示词完全相同**（同样的上下文和要求），所以 B1 相对 B0 的提升只能来自反馈循环。M3 的 B0 只给了源码、没有召回上下文，也没有关闭思考；从 M4 起 B0 按新定义重跑。
+- B1：`feedback = {"pytest"}`。反馈是失败用例的名字和断言信息，以及收集失败时的 pytest 输出。
+- B2（M5）：再加上存活变异体。
+
+### 4.3 终止条件（`decide`，按顺序检查，满足任一即停止）
+
+1. 没有反馈（B0）：写一次就停。
+2. 全部测试通过，且没有启用变异反馈：pytest 反馈已经没有可改进的地方。
+3. 达到最大迭代数（默认 5 次 `write_tests`）。
+4. token 预算用完（默认累计 30 万 token，每次 LLM 调用之后检查）。
+5. 连续 N 轮进度分数没有提升（默认 N = 2）。
+
+**进度分数**按字典序比较：`[全部通过, 变异得分, 行覆盖率, 通过的测试数]`。结束时 `finalize` 采用**分数最高的一轮**，而不是最后一轮，因为 LLM 重写整个文件时可能把原本通过的测试改坏。
+
+### 4.4 提示词与缓存
+
+- 每次请求 = 固定前缀（系统提示 + 带行号源码 + 召回的上下文 + 要求）+ 可变尾部（当前测试 + 反馈 + 任务）。DeepSeek 按前缀缓存，迭代时重复的部分按缓存命中价计费（约为未命中的 1/50）。
+- **无状态提示词**：每轮只给“当前测试文件 + 本轮反馈”，不累积对话历史。上下文长度不随迭代增长，代价是 LLM 看不到自己前几轮的修改过程。
+- 源码带行号：M5 的变异反馈会说“第 217 行的 `<` 改成 `<=` 后没有测试失败”，LLM 需要能对上行号。
+
+### 4.5 工具接入
+
+- 正式运行：每个任务启动一个绑定工作副本的 MCP server（stdio），用 `langchain-mcp-adapters` 的 `load_mcp_tools` 把它的工具加载成 LangChain 工具。
+- adapters 遇到工具抛异常时不会向上抛，而是返回 `"Error executing tool ..."` 文本，客户端层把它转成 `ToolError`。
+- 单元测试用 `LocalToolClient` 直接调用 `RepoTools`，逻辑相同。另有一个端到端测试，真的通过 MCP 运行整个 Agent。
+- 每次工具调用都记录名字、参数摘要、耗时和是否成功，写进所在节点的轨迹事件。
+
+### 4.6 思考模式：统一关闭
+
+M3 发现 deepseek-flash 默认自适应思考，曾经思考到 65,536 token 上限也没有输出。从 M4 起所有方法统一 `thinking = disabled`，理由有三：
+- 费用和耗时可控；
+- 不再出现思考耗尽上限、没有任何输出的情况；
+- B1/B2 的“思考”来自运行和反馈循环，关闭模型内部的思考后，提升能干净地归因到循环上。
+
+“相同 token 预算下，模型内部思考 vs Agent 反馈循环谁更有效”留作 M9 的实验。

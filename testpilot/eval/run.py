@@ -25,17 +25,18 @@ import subprocess
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Callable
+import asyncio
 
+from testpilot.agent.graph import B0, B1, AgentConfig, run_agent
 from testpilot.config import PROJECT_ROOT, Settings
-from testpilot.eval import b0
 from testpilot.eval.metrics import evaluate
 from testpilot.eval.repos import RepoSpec, eval_workspace, load_manifest, snapshot_commit
 from testpilot.llm import make_chat_model
 
 log = logging.getLogger("testpilot.eval")
 
-METHODS: dict[str, Callable] = {"b0": b0.generate}
+# 所有方法都是同一张 Agent 图的不同配置
+METHODS: dict[str, AgentConfig] = {"b0": B0, "b1": B1}
 RESULTS_DIR = PROJECT_ROOT / "results"
 
 
@@ -59,7 +60,7 @@ def run_one(method: str, spec: RepoSpec, target: str, out_dir: Path, settings: S
         assert snapshot_commit(spec.path) == spec.commit
         t0 = time.monotonic()
         try:
-            gen = METHODS[method](model, ws.path, target, spec.python_paths)
+            gen = asyncio.run(run_agent(model, ws.path, target, spec.python_paths, METHODS[method]))
         except Exception as e:  # API 失败等：记录下来，不中断整批
             log.exception("生成失败")
             meta["error"] = f"{type(e).__name__}: {e}"
@@ -67,6 +68,7 @@ def run_one(method: str, spec: RepoSpec, target: str, out_dir: Path, settings: S
             return meta
         meta["generation_seconds"] = round(time.monotonic() - t0, 2)
         meta["usage"] = gen.usage.to_dict(settings.llm_model)
+        meta["agent"] = {**gen.info, "config": _config_dict(METHODS[method])}
         _dump(out_dir / "trace.json", gen.trace)
         for f in gen.test_files:
             shutil.copy(ws.path / f, out_dir / Path(f).name)
@@ -186,6 +188,15 @@ def _testpilot_commit() -> str:
         ).stdout.strip()  # fmt: skip
     except (OSError, subprocess.CalledProcessError):
         return "unknown"
+
+
+def _config_dict(cfg: AgentConfig) -> dict:
+    return {
+        "feedback": sorted(cfg.feedback),
+        "max_iterations": cfg.max_iterations,
+        "patience": cfg.patience,
+        "token_budget": cfg.token_budget,
+    }
 
 
 def _dump(path: Path, data: object) -> None:

@@ -96,7 +96,16 @@ class Usage:
 def invoke(model: BaseChatModel, messages: list[BaseMessage]) -> LLMCall:
     start = time.monotonic()
     msg = model.invoke(messages)
-    latency = time.monotonic() - start
+    return _to_call(msg, time.monotonic() - start, model)
+
+
+async def ainvoke(model: BaseChatModel, messages: list[BaseMessage]) -> LLMCall:
+    start = time.monotonic()
+    msg = await model.ainvoke(messages)
+    return _to_call(msg, time.monotonic() - start, model)
+
+
+def _to_call(msg: BaseMessage, latency: float, model: BaseChatModel) -> LLMCall:
     meta = msg.response_metadata or {}
     usage = meta.get("token_usage") or {}
     return LLMCall(

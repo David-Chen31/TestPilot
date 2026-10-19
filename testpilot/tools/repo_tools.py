@@ -14,6 +14,7 @@ from typing import Sequence
 from testpilot.retrieval.ast_index import extract_symbols
 from testpilot.sandbox.coverage_runner import measure_coverage
 from testpilot.sandbox.mutation import run_mutation as _run_mutation
+from testpilot.sandbox.pytest_runner import DEFAULT_PER_TEST_TIMEOUT
 from testpilot.sandbox.pytest_runner import run_pytest as _run_pytest
 
 # 生成的测试只能写在这个目录下，不允许改源码（否则“原代码上通过”的有效性规则就没有意义了）
@@ -125,7 +126,13 @@ class RepoTools:
 
         Failure messages and output are truncated (head and tail kept).
         """
-        res = _run_pytest(self.root, self._tests(tests), timeout=self.pytest_timeout, python_paths=self.python_paths)
+        res = _run_pytest(
+            self.root,
+            self._tests(tests),
+            timeout=self.pytest_timeout,
+            python_paths=self.python_paths,
+            per_test_timeout=DEFAULT_PER_TEST_TIMEOUT,
+        )
         not_passed = [c for c in res.cases if c.outcome != "passed"]
         return {
             "all_passed": res.all_passed,

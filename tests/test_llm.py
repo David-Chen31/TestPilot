@@ -28,7 +28,11 @@ def test_thinking_mode_sent(mode):
 
 
 def test_thinking_auto_sends_nothing():
-    assert "thinking" not in _payload(BASE)["extra_body"]
+    assert "thinking" not in _payload(replace(BASE, llm_thinking="auto"))["extra_body"]
+
+
+def test_thinking_disabled_by_default():
+    assert Settings(llm_api_key="k").llm_thinking == "disabled"
 
 
 def test_invalid_thinking_mode():

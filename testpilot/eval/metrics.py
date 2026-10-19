@@ -19,10 +19,10 @@ from typing import Sequence
 
 from testpilot.sandbox.coverage_runner import measure_coverage
 from testpilot.sandbox.mutation import run_mutation
-from testpilot.sandbox.pytest_runner import run_pytest
+from testpilot.sandbox.pytest_runner import DEFAULT_PER_TEST_TIMEOUT, run_pytest
 
 N_VALIDITY_RUNS = 3
-PER_TEST_TIMEOUT = 10.0  # 单个测试超时（秒）
+PER_TEST_TIMEOUT = DEFAULT_PER_TEST_TIMEOUT
 RUN_TIMEOUT = 300.0  # 一次 pytest 运行的硬上限（秒）
 
 

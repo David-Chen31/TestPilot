@@ -21,8 +21,9 @@ class Settings:
     llm_temperature: float = 1.0
     # 输出上限，**包含思考 token**。DeepSeek 只认 max_tokens（不认 max_completion_tokens）
     llm_max_tokens: int = 32000
-    # 思考模式：auto（不传，模型自适应决定是否思考）/ enabled / disabled
-    llm_thinking: str = "auto"
+    # 思考模式：auto（不传，模型自适应决定是否思考）/ enabled / disabled。
+    # 默认关闭：费用与耗时可控，且 Agent 的提升能干净地归因到反馈循环（见 docs/design.md §4）
+    llm_thinking: str = "disabled"
     llm_timeout: float = 180.0  # 单次请求超时（秒）
     llm_max_retries: int = 3
 

@@ -22,6 +22,7 @@ Outcome = Literal["passed", "failed", "error", "skipped"]
 EXIT_NO_TESTS = 5
 
 DEFAULT_MAX_OUTPUT_CHARS = 4000
+DEFAULT_PER_TEST_TIMEOUT = 10.0  # 单个测试的超时（秒），Agent 工具与评测共用
 _MAX_CASE_MESSAGE_CHARS = 1500
 
 
