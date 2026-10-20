@@ -1,0 +1,298 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T05:42:54+00:00",
+    "duration": 0.01,
+    "summary": "4 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "src/cachetools/keys.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "hashkey",
+      "methodkey",
+      "typedkey",
+      "typedmethodkey"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T05:42:54+00:00",
+    "duration": 0.03,
+    "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/keys.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "hashkey(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "methodkey(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "typedkey(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "typedmethodkey(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:43:01+00:00",
+    "duration": 6.27,
+    "summary": "第 1 轮：回复中没有代码块",
+    "tool_calls": [],
+    "tokens_total": 2677,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+      "response": "```python\n\"\"\"Tests for cachetools.keys.\"\"\"\n\nimport pickle\n\nimport pytest\n\nfrom cachetools.keys import (\n    _HashedTuple,\n    _kwmark,\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n)\n\n\nclass TestHashkey:\n    def test_no_args(self):\n        key = hashkey()\n        assert key == ()\n        assert isinstance(key, _HashedTuple)\n\n    def test_positional_args(self):\n        key = hashkey(1, 2, 3)\n        assert key == (1, 2, 3)\n        assert isinstance(key, _HashedTuple)\n\n    def test_single_arg(self):\n        assert hashkey(\"x\") == (\"x\",)\n\n    def test_with_kwargs(self):\n        key = hashkey(1, 2, a=3, b=4)\n        # args + _kwmark + sorted(kwargs.items())\n        assert key == (1, 2) + _kwmark + ((\"a\", 3), (\"b\", 4))\n\n    def test_kwargs_sorted(self):\n        k1 = hashkey(b=2, a=1)\n        k2 = hashkey(a=1, b=2)\n        assert k1 == k2\n\n    def test_kwargs_only(self):\n        key = hashkey(x=1)\n        assert key == _kwmark + ((\"x\", 1),)\n\n    def test_positional_only_no_kwmark(self):\n        key = hashkey(1, 2)\n        assert _kwmark not in key\n\n    def test_ordering_of_args_and_kwargs_matters(self):\n        assert hashkey(1, a=2) != hashkey(1, (\"a\", 2))\n\n    def test_hashable(self):\n        key = hashkey(1, 2, a=3)\n        assert hash(key) == hash((1, 2) + _kwmark + ((\"a\", 3),))\n\n    def test_unhashable_raises(self):\n        key = hashkey([1, 2])\n        with pytest.raises(TypeError):\n            hash(key)\n\n    def test_distinguishes_types(self):\n        # untyped key ignores types\n        assert hashkey(1) == hashkey(1)\n\n\nclass TestMethodkey:\n    def test_self_dropped(self):\n        class C:\n            pass\n\n        obj = C()\n        assert methodkey(obj) == ()\n\n    def test_self_and_args(self):\n        assert methodkey(\"self\", 1, 2) == (1, 2)\n\n    def test_self_args_kwargs(self):\n        key = methodkey(\"self\", 1, a=2)\n        assert key == (1,) + _kwmark + ((\"a\", 2),)\n\n    def test_matches_hashkey(self):\n        assert methodkey(\"self\", 1, a=2) == hashkey(1, a=2)\n\n    def test_returns_hashed_tuple(self):\n        assert isinstance(methodkey(\"self\", 1), _HashedTuple)\n\n\nclass TestTypedkey:\n    def test_no_args(self):\n        assert typedkey() == ()\n\n    def test_args_only(self):\n        key = typedkey(1, \"a\")\n        # args + types\n        assert key == (1, \"a\", int, str)\n\n    def test_distinguishes_types(self):\n        assert typedkey(1) != typedkey(1.0)\n        assert typedkey(1) == (1, int)\n        assert typedkey(1.0) == (1.0, float)\n\n    def test_with_kwargs(self):\n        key = typedkey(1, a=2)\n        expected = (\n            (1,)\n            + _kwmark\n            + ((\"a\", 2),)\n            + (int,)  # type of kwargs value in sorted order\n            + (int,)  # type of positional arg\n        )\n        assert key == expected\n\n    def test_kwargs_sorted(self):\n        assert typedkey(a=1, b=2) == typedkey(b=2, a=1)\n\n    def test_kwargs_only(self):\n        key = typedkey(x=1)\n        assert key == _kwmark + ((\"x\", 1),) + (int,)\n\n    def test_kwargs_type_sensitive(self):\n        assert typedkey(x=1) != typedkey(x=1.0)\n\n    def test_returns_hashed_tuple(self):\n        assert isinstance(typedkey(1, a=2), _HashedTuple)\n\n    def test_ordering(self):\n        # positional args and kwargs produce different keys\n        assert typedkey(1, a=2) != typedkey(1, (\"a\", 2))\n\n    def test_unhashable_raises(self):\n        key = typedkey([1])\n        with pytest.raises(TypeError):\n            hash(key)\n\n\nclass TestTypedmethodkey:\n    def test_self_dropped(self):\n        assert typedmethodkey(\"self\") == ()\n\n    def test_self_and_args(self):\n        assert typedmethodkey(\"self\", 1, \"a\") == (1, \"a\", int, str)\n\n    def test_self_args_kwargs(self):\n        assert typedmethodkey(\"self\", 1, a=2) == typedkey(1, a=2)\n\n    def test_matches_typedkey(self):\n        assert typedmethodkey(\"self\", 1, a=2) == typedkey(1, a=2)\n\n    def test_returns_hashed_tuple(self):\n        assert isinstance(typedmethodkey(\"self\", 1), _HashedTuple)\n\n\nclass TestHashedTuple:\n    def test_hash_cached(self):\n        calls = []\n\n        class Element:\n            def __init__(self, v):\n                self.v = v\n\n            def __hash__(self):\n                calls.append(self.v)\n                return hash(self.v)\n\n            def __eq__(self, other):\n                return isinstance(other, Element) and self.v == other.v\n\n        elem = Element(5)\n        t = _HashedTuple((elem,))\n        h1 = hash(t)\n        h2 = hash(t)\n        h3 = hash(t)\n        assert h1 == h2 == h3\n        # hash called only once despite multiple hash() invocations\n        assert calls == [5]\n\n    def test_equality(self):\n        assert _HashedTuple((1, 2)) == (1, 2)\n        assert (1, 2) == _HashedTuple((1, 2))\n\n    def test_add(self):\n        t = _HashedTuple((1, 2))\n        result = t + (3,)\n        assert result == (1, 2, 3)\n        assert isinstance(result, _HashedTuple)\n\n    def test_radd(self):\n        t = _HashedTuple((2, 3))\n        result = (1,) + t\n        assert result == (1, 2, 3)\n        assert isinstance(result, _HashedTuple)\n\n    def test_getstate(self):\n        t = _HashedTuple((1, 2))\n        assert t.__getstate__() == {}\n\n    def test_pickle_roundtrip(self):\n        t = _HashedTuple((1, 2, 3))\n        restored = pickle.loads(pickle.dumps(t))\n        assert restored == t\n        assert hash(restored) == hash(t)\n\n    def test_hash_matches_tuple_hash(self):\n        t = _HashedTuple((1, \"a\", None))\n        assert hash(t) == hash((1, \"a\", None))\n\n\nclass TestKwmark:\n    def test_unique_identity(self):\n        assert _kwmark == (_HashedTuple,)\n\n    def test_pickle_preserves_identity(self):\n        restored = pickle.loads(pickle.dumps(_kwmark))\n        assert restored == _kwmark\n        assert restored[0] is _HashedTuple\n</｜｜DSML｜｜ parameter>\n</｜｜DSML｜｜ invoke>\n</output>",
+      "finish_reason": "stop",
+      "prompt_tokens": 961,
+      "cache_hit_tokens": 768,
+      "completion_tokens": 1716,
+      "reasoning_tokens": 0,
+      "latency": 6.27
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:43:01+00:00",
+    "duration": 0.0,
+    "summary": "没有测试代码，跳过",
+    "tool_calls": [],
+    "tokens_total": 2677
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T05:43:01+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 0]（提升）",
+    "tool_calls": [],
+    "tokens_total": 2677,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      0
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T05:43:01+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 2677
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:43:06+00:00",
+    "duration": 4.95,
+    "summary": "第 2 轮：生成 206 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_keys.py",
+          "content": "<5299 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5115,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_keys.py`)\n```python\n\n```\n\n## Feedback\nYour previous response did not contain a ```python code block, so no tests were written.\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\n\"\"\"Tests for cachetools.keys.\"\"\"\n\nimport pickle\n\nimport pytest\n\nfrom cachetools.keys import (\n    _HashedTuple,\n    _kwmark,\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n)\n\n\n# ---------------------------------------------------------------------------\n# hashkey\n# ---------------------------------------------------------------------------\n\ndef test_hashkey_no_kwargs_returns_hashed_tuple():\n    key = hashkey(1, 2, 3)\n    assert isinstance(key, _HashedTuple)\n    assert key == (1, 2, 3)\n\n\ndef test_hashkey_empty():\n    key = hashkey()\n    assert isinstance(key, _HashedTuple)\n    assert key == ()\n\n\ndef test_hashkey_with_kwargs_includes_marker():\n    key = hashkey(1, b=\"x\", a=\"y\")\n    # kwargs are sorted, marker separates args from kwargs\n    assert key == (1,) + _kwmark + ((\"a\", \"y\"), (\"b\", \"x\"))\n\n\ndef test_hashkey_kwargs_sorted():\n    key1 = hashkey(a=1, b=2)\n    key2 = hashkey(b=2, a=1)\n    assert key1 == key2\n    assert key1 == _kwmark + ((\"a\", 1), (\"b\", 2))\n\n\ndef test_hashkey_only_kwargs():\n    key = hashkey(x=5)\n    assert key == _kwmark + ((\"x\", 5),)\n\n\ndef test_hashkey_different_args_differ():\n    assert hashkey(1, 2) != hashkey(2, 1)\n\n\ndef test_hashkey_kwargs_marker_not_equal_to_plain_args():\n    # Positional-only call must differ from one with kwargs\n    assert hashkey(1) != hashkey(a=1)\n\n\n# ---------------------------------------------------------------------------\n# methodkey\n# ---------------------------------------------------------------------------\n\ndef test_methodkey_ignores_self():\n    class Obj:\n        pass\n\n    obj = Obj()\n    assert methodkey(obj, 1, 2) == methodkey(object(), 1, 2)\n    assert methodkey(obj, 1, 2) == hashkey(1, 2)\n\n\ndef test_methodkey_with_kwargs():\n    assert methodkey(None, 1, a=2) == hashkey(1, a=2)\n\n\ndef test_methodkey_no_args():\n    assert methodkey(\"self\") == hashkey()\n\n\n# ---------------------------------------------------------------------------\n# typedkey\n# ---------------------------------------------------------------------------\n\ndef test_typedkey_no_kwargs_includes_types():\n    key = typedkey(1, 2)\n    assert key == (1, 2, int, int)\n\n\ndef test_typedkey_empty():\n    key = typedkey()\n    assert key == ()\n\n\ndef test_typedkey_with_kwargs_sorts_kwargs_and_types():\n    key = typedkey(1, b=\"x\", a=2)\n    # args, marker, sorted kwargs, then kwarg value types, then arg types\n    assert key == (1,) + _kwmark + ((\"a\", 2), (\"b\", \"x\")) + (int, str) + (int,)\n\n\ndef test_typedkey_distinguishes_types():\n    assert typedkey(1) != typedkey(1.0)\n    assert typedkey(1) == typedkey(1)\n\n\ndef test_typedkey_kwargs_only():\n    key = typedkey(a=1)\n    assert key == _kwmark + ((\"a\", 1),) + (int,)\n\n\ndef test_typedkey_kwargs_sorted():\n    assert typedkey(a=1, b=2) == typedkey(b=2, a=1)\n\n\ndef test_typedkey_returns_hashed_tuple():\n    assert isinstance(typedkey(1), _HashedTuple)\n    assert isinstance(typedkey(a=1), _HashedTuple)\n\n\n# ---------------------------------------------------------------------------\n# typedmethodkey\n# ---------------------------------------------------------------------------\n\ndef test_typedmethodkey_ignores_self():\n    class Obj:\n        pass\n\n    obj = Obj()\n    assert typedmethodkey(obj, 1) == typedkey(1)\n    assert typedmethodkey(obj, 1) == (1, int)\n\n\ndef test_typedmethodkey_with_kwargs():\n    assert typedmethodkey(None, 1, a=\"x\") == typedkey(1, a=\"x\")\n\n\n# ---------------------------------------------------------------------------\n# _HashedTuple caching behavior\n# ---------------------------------------------------------------------------\n\ndef test_hashedtuple_hash_cached():\n    calls = []\n\n    class Counting:\n        def __hash__(self):\n            calls.append(1)\n            return 42\n\n    ht = _HashedTuple((Counting(),))\n    h1 = hash(ht)\n    h2 = hash(ht)\n    assert h1 == h2\n    assert len(calls) == 1\n\n\ndef test_hashedtuple_add_returns_hashedtuple():\n    ht = _HashedTuple((1, 2))\n    result = ht + (3,)\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3)\n\n\ndef test_hashedtuple_radd_returns_hashedtuple():\n    ht = _HashedTuple((2, 3))\n    result = (1,) + ht\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3)\n\n\ndef test_hashedtuple_getstate_empty():\n    ht = _HashedTuple((1, 2, 3))\n    assert ht.__getstate__() == {}\n\n\n# ---------------------------------------------------------------------------\n# pickling\n# ---------------------------------------------------------------------------\n\ndef test_kwmark_survives_pickle():\n    data = pickle.dumps(_kwmark)\n    restored = pickle.loads(data)\n    assert restored == _kwmark\n\n\ndef test_hashkey_pickle_roundtrip():\n    key = hashkey(1, a=2)\n    restored = pickle.loads(pickle.dumps(key))\n    assert restored == key\n    assert hash(restored) == hash(key)\n\n\n# ---------------------------------------------------------------------------\n# hashability / error handling\n# ---------------------------------------------------------------------------\n\ndef test_hashkey_unhashable_raises_on_hash():\n    # Building the key is fine for some unhashable parts, but hashing fails.\n    key = hashkey([1, 2])\n    with pytest.raises(TypeError):\n        hash(key)\n\n\ndef test_typedkey_unhashable_raises_on_hash():\n    key = typedkey([1, 2])\n    with pytest.raises(TypeError):\n        hash(key)\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 1039,
+      "cache_hit_tokens": 896,
+      "completion_tokens": 1399,
+      "reasoning_tokens": 0,
+      "latency": 4.94
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:43:07+00:00",
+    "duration": 1.6,
+    "summary": "通过 27，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_keys.py"
+          ]
+        },
+        "duration": 1.6,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5115
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T05:43:15+00:00",
+    "duration": 7.51,
+    "summary": "分数 [1, 0.0, 1.0, 1.0, 27]（提升），行覆盖 100.0%，分支覆盖 100.0%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_keys.py"
+          ]
+        },
+        "duration": 4.81,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "src/cachetools/keys.py",
+          "tests": [
+            "tests_testpilot/test_keys.py::test_hashkey_no_kwargs_returns_hashed_tuple",
+            "tests_testpilot/test_keys.py::test_hashkey_empty",
+            "tests_testpilot/test_keys.py::test_hashkey_with_kwargs_includes_marker",
+            "tests_testpilot/test_keys.py::test_hashkey_kwargs_sorted",
+            "tests_testpilot/test_keys.py::test_hashkey_only_kwargs",
+            "tests_testpilot/test_keys.py::test_hashkey_different_args_differ",
+            "tests_testpilot/test_keys.py::test_hashkey_kwargs_marker_not_equal_to_plain_args",
+            "tests_testpilot/test_keys.py::test_methodkey_ignores_self",
+            "tests_testpilot/test_keys.py::test_methodkey_with_kwargs",
+            "tests_testpilot/test_keys.py::test_methodkey_no_args",
+            "tests_testpilot/test_keys.py::test_typedkey_no_kwargs_includes_types",
+            "tests_testpilot/test_keys.py::test_typedkey_empty",
+            "tests_testpilot/test_keys.py::test_typedkey_with_kwargs_sorts_kwargs_and_types",
+            "tests_testpilot/test_keys.py::test_typedkey_distinguishes_types",
+            "tests_testpilot/test_keys.py::test_typedkey_kwargs_only",
+            "tests_testpilot/test_keys.py::test_typedkey_kwargs_sorted",
+            "tests_testpilot/test_keys.py::test_typedkey_returns_hashed_tuple",
+            "tests_testpilot/test_keys.py::test_typedmethodkey_ignores_self",
+            "tests_testpilot/test_keys.py::test_typedmethodkey_with_kwargs",
+            "tests_testpilot/test_keys.py::test_hashedtuple_hash_cached",
+            "tests_testpilot/test_keys.py::test_hashedtuple_add_returns_hashedtuple",
+            "tests_testpilot/test_keys.py::test_hashedtuple_radd_returns_hashedtuple",
+            "tests_testpilot/test_keys.py::test_hashedtuple_getstate_empty",
+            "tests_testpilot/test_keys.py::test_kwmark_survives_pickle",
+            "tests_testpilot/test_keys.py::test_hashkey_pickle_roundtrip",
+            "tests_testpilot/test_keys.py::test_hashkey_unhashable_raises_on_hash",
+            "tests_testpilot/test_keys.py::test_typedkey_unhashable_raises_on_hash"
+          ]
+        },
+        "duration": 2.69,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5115,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      1.0,
+      27
+    ],
+    "coverage": {
+      "target": "src/cachetools/keys.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 31,
+      "branches": 6,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 27,
+      "valid": 27,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T05:43:15+00:00",
+    "duration": 0.0,
+    "summary": "全部测试有效，且行与分支全部覆盖",
+    "tool_calls": [],
+    "tokens_total": 5115
+  },
+  {
+    "node": "finalize",
+    "iteration": 2,
+    "at": "2026-10-20T05:43:15+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试有效，且行与分支全部覆盖；采用第 2 轮，分数 [1, 0.0, 1.0, 1.0, 27]",
+    "tool_calls": [],
+    "tokens_total": 5115,
+    "best_iteration": 2
+  }
+]

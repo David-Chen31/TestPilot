@@ -1,0 +1,1125 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T05:02:23+00:00",
+    "duration": 0.01,
+    "summary": "5 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "funcy/objects.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "cached_property",
+      "cached_readonly",
+      "wrap_prop",
+      "monkey",
+      "LazyObject"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T05:02:23+00:00",
+    "duration": 0.05,
+    "summary": "依赖定义 1 个，调用处 0 个，提示词前缀 5429 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/objects.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "inspect.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: inspect.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "inspect/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: inspect/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/strings.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "funcy/strings.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/strings.py",
+          "start_line": 72,
+          "end_line": 74
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "cached_property(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "cached_readonly(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "wrap_prop(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "monkey(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "LazyObject(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `funcy.objects` (file `funcy/objects.py`).\n\nSource of `funcy/objects.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | from inspect import isclass, ismodule\n    2 | \n    3 | from .strings import cut_prefix\n    4 | \n    5 | \n    6 | __all__ = ['cached_property', 'cached_readonly', 'wrap_prop', 'monkey', 'LazyObject']\n    7 | \n    8 | \n    9 | class cached_property(object):\n   10 |     \"\"\"\n   11 |     Decorator that converts a method with a single self argument into\n   12 |     a property cached on the instance.\n   13 |     \"\"\"\n   14 |     # NOTE: implementation borrowed from Django.\n   15 |     # NOTE: we use fget, fset and fdel attributes to mimic @property.\n   16 |     fset = fdel = None\n   17 | \n   18 |     def __init__(self, fget):\n   19 |         self.fget = fget\n   20 |         self.__doc__ = getattr(fget, '__doc__')\n   21 | \n   22 |     def __get__(self, instance, type=None):\n   23 |         if instance is None:\n   24 |             return self\n   25 |         res = instance.__dict__[self.fget.__name__] = self.fget(instance)\n   26 |         return res\n   27 | \n   28 | \n   29 | class cached_readonly(cached_property):\n   30 |     \"\"\"Same as @cached_property, but protected against rewrites.\"\"\"\n   31 |     def __get__(self, instance, type=None):\n   32 |         if instance is not None and self.fget.__name__ in instance.__dict__:\n   33 |             return instance.__dict__[self.fget.__name__]\n   34 |         return super().__get__(instance, type)\n   35 | \n   36 |     def __set__(self, instance, value):\n   37 |         raise AttributeError(\"property is read-only\")\n   38 | \n   39 | \n   40 | def wrap_prop(ctx):\n   41 |     \"\"\"Wrap a property accessors with a context manager\"\"\"\n   42 |     def decorator(prop):\n   43 |         class WrapperProp(object):\n   44 |             def __repr__(self):\n   45 |                 return repr(prop)\n   46 | \n   47 |             def __get__(self, instance, type=None):\n   48 |                 if instance is None:\n   49 |                     return self\n   50 | \n   51 |                 with ctx:\n   52 |                     return prop.__get__(instance, type)\n   53 | \n   54 |             if hasattr(prop, '__set__'):\n   55 |                 def __set__(self, name, value):\n   56 |                     with ctx:\n   57 |                         return prop.__set__(name, value)\n   58 | \n   59 |             if hasattr(prop, '__delete__'):\n   60 |                 def __delete__(self, instance):\n   61 |                     with ctx:\n   62 |                         return prop.__delete__(instance)\n   63 | \n   64 |         return WrapperProp()\n   65 |     return decorator\n   66 | \n   67 | \n   68 | def monkey(cls, name=None):\n   69 |     \"\"\"\n   70 |     Monkey patches class or module by adding to it decorated function.\n   71 | \n   72 |     Anything overwritten could be accessed via .original attribute of decorated object.\n   73 |     \"\"\"\n   74 |     assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"\n   75 | \n   76 |     def decorator(value):\n   77 |         func = getattr(value, 'fget', value) # Support properties\n   78 |         func_name = name or cut_prefix(func.__name__, '%s__' % cls.__name__)\n   79 | \n   80 |         func.__name__ = func_name\n   81 |         func.original = getattr(cls, func_name, None)\n   82 | \n   83 |         setattr(cls, func_name, value)\n   84 |         return value\n   85 |     return decorator\n   86 | \n   87 | \n   88 | # TODO: monkey_mix()?\n   89 | \n   90 | \n   91 | class LazyObject(object):\n   92 |     \"\"\"\n   93 |     A simplistic lazy init object.\n   94 |     Rewrites itself when any attribute is accessed.\n   95 |     \"\"\"\n   96 |     # NOTE: we can add lots of magic methods here to intercept on more events,\n   97 |     #       this is postponed. As well as metaclass to support isinstance() check.\n   98 |     def __init__(self, init):\n   99 |         self.__dict__['_init'] = init\n  100 | \n  101 |     def _setup(self):\n  102 |         obj = self._init()\n  103 |         object.__setattr__(self, '__class__', obj.__class__)\n  104 |         object.__setattr__(self, '__dict__', obj.__dict__)\n  105 | \n  106 |     def __getattr__(self, name):\n  107 |         self._setup()\n  108 |         return getattr(self, name)\n  109 | \n  110 |     def __setattr__(self, name, value):\n  111 |         self._setup()\n  112 |         return setattr(self, name, value)\n```\n\nDefinitions imported by the module from elsewhere in the repository:\n\n# funcy/strings.py lines 72-74\n```python\ndef cut_prefix(s, prefix):\n    \"\"\"Cuts prefix from given string if it's present.\"\"\"\n    return s[len(prefix):] if s.startswith(prefix) else s\n```\n\nPublic API to cover: `cached_property`, `cached_readonly`, `wrap_prop`, `monkey`, `LazyObject`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from funcy.objects import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:02:31+00:00",
+    "duration": 7.9,
+    "summary": "第 1 轮：生成 440 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_objects.py",
+          "content": "<10832 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 3916,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `funcy.objects`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError, match=\"property is read-only\"):\n            c.value = 5\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError):\n            c.value = 2\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_property(self):\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C().value == 'monkeyed'\n\n    def test_monkey_property_name_from_fget(self):\n        class C:\n            pass\n\n        prop = property(lambda self: 'p')\n\n        # Without explicit name and no C__ prefix on the property,\n        # fget.__name__ is used. Lambdas are named '<lambda>'.\n        @monkey(C, 'p')\n        def C__whatever(self):\n            return 'val'\n\n        assert C().p == 'val'\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError, match=\"monkey patch non-class\"):\n            @monkey(42)\n            def foo():\n                pass\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 1482,
+      "cache_hit_tokens": 1280,
+      "completion_tokens": 2434,
+      "reasoning_tokens": 0,
+      "latency": 7.89
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:02:32+00:00",
+    "duration": 1.32,
+    "summary": "通过 29，失败 2，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 1.32,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 3916
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T05:02:32+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 29]（提升）",
+    "tool_calls": [],
+    "tokens_total": 3916,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      29
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T05:02:32+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 3916
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:02:38+00:00",
+    "duration": 7.22,
+    "summary": "第 2 轮：生成 441 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_objects.py",
+          "content": "<10950 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 10881,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_objects.py`)\n```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError, match=\"property is read-only\"):\n            c.value = 5\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError):\n            c.value = 2\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_property(self):\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C().value == 'monkeyed'\n\n    def test_monkey_property_name_from_fget(self):\n        class C:\n            pass\n\n        prop = property(lambda self: 'p')\n\n        # Without explicit name and no C__ prefix on the property,\n        # fget.__name__ is used. Lambdas are named '<lambda>'.\n        @monkey(C, 'p')\n        def C__whatever(self):\n            return 'val'\n\n        assert C().p == 'val'\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError, match=\"monkey patch non-class\"):\n            @monkey(42)\n            def foo():\n                pass\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 29 passed, 2 failed, 0 errors.\n- `tests_testpilot.test_objects.TestMonkey::test_monkey_property` failed:\n```\nAssertionError: assert value == 'monkeyed'\n +  where value = <test_objects.TestMonkey.test_monkey_property.<locals>.C object at 0x78c323c7d050>.value\n +    where <test_objects.TestMonkey.test_monkey_property.<locals>.C object at 0x78c323c7d050> = <class 'test_objects.TestMonkey.test_monkey_property.<locals>.C'>()\nself = <test_objects.TestMonkey object at 0x78c323c9bb50>\n\n    def test_monkey_property(self):\n        class C:\n            def _get(self):\n                return 'prop'\n    \n            value = property(_get)\n    \n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n    \n>       assert C().value == 'monkeyed'\nE       AssertionError: assert value == 'monkeyed'\nE        +  where value = <test_objects.TestMonkey.test_monkey_property.<locals>.C object at 0x78c323\n```\n- `tests_testpilot.test_objects.TestMonkey::test_monkey_property_name_from_fget` failed:\n```\nAssertionError: assert p == 'val'\n +  where p = <test_objects.TestMonkey.test_monkey_property_name_from_fget.<locals>.C object at 0x78c323c5f790>.p\n +    where <test_objects.TestMonkey.test_monkey_property_name_from_fget.<locals>.C object at 0x78c323c5f790> = <class 'test_objects.TestMonkey.test_monkey_property_name_from_fget.<locals>.C'>()\nself = <test_objects.TestMonkey object at 0x78c323c98e10>\n\n    def test_monkey_property_name_from_fget(self):\n        class C:\n            pass\n    \n        prop = property(lambda self: 'p')\n    \n        # Without explicit name and no C__ prefix on the property,\n        # fget.__name__ is used. Lambdas are named '<lambda>'.\n        @monkey(C, 'p')\n        def C__whatever(self):\n            return 'val'\n    \n>       assert C().p == 'val'\nE       Assertio\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError, match=\"property is read-only\"):\n            c.value = 5\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError):\n            c.value = 2\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_overwrites_existing_property_with_function(self):\n        # Monkey patching replaces the property object with a plain function,\n        # so accessing on an instance binds it as a method.\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C.value.__name__ == 'value'\n        assert C().value() == 'monkeyed'\n\n    def test_monkey_with_explicit_name_and_func(self):\n        class C:\n            pass\n\n        @monkey(C, 'p')\n        def whatever(self):\n            return 'val'\n\n        assert C().p() == 'val'\n        assert C.p.__name__ == 'p'\n        assert C.p.original is None\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError, match=\"monkey patch non-class\"):\n            @monkey(42)\n            def foo():\n                pass\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 4508,
+      "cache_hit_tokens": 1408,
+      "completion_tokens": 2457,
+      "reasoning_tokens": 0,
+      "latency": 7.22
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:02:40+00:00",
+    "duration": 1.34,
+    "summary": "通过 31，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 1.34,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 10881
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T05:02:53+00:00",
+    "duration": 13.19,
+    "summary": "分数 [1, 0.8857142857142857, 1.0, 0.8, 31]（提升），行覆盖 100.0%，分支覆盖 80.0%，变异得分 88.6%（存活 12）",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 3.79,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "funcy/objects.py",
+          "tests": [
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+          ]
+        },
+        "duration": 2.36,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "run_mutation",
+        "args": {
+          "target": "funcy/objects.py",
+          "tests": [
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+          ],
+          "max_survivors": 200
+        },
+        "duration": 7.04,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 10881,
+    "score": [
+      1,
+      0.8857142857142857,
+      1.0,
+      0.8,
+      31
+    ],
+    "coverage": {
+      "target": "funcy/objects.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 0.8,
+      "statements": 63,
+      "branches": 10,
+      "missing_lines": [],
+      "missing_branches": [
+        [
+          54,
+          59
+        ],
+        [
+          59,
+          -43
+        ]
+      ],
+      "error": ""
+    },
+    "validity": {
+      "total": 31,
+      "valid": 31,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": {
+      "target": "funcy/objects.py",
+      "score": 0.8857142857142857,
+      "total": 105,
+      "killed": 93,
+      "survived": 12,
+      "excluded": 0,
+      "status_counts": {
+        "killed": 93,
+        "survived": 12
+      },
+      "survivors_truncated": false,
+      "error": ""
+    }
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T05:02:53+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 10881
+  },
+  {
+    "node": "write_tests",
+    "iteration": 3,
+    "at": "2026-10-20T05:03:03+00:00",
+    "duration": 10.25,
+    "summary": "第 3 轮：生成 554 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_objects.py",
+          "content": "<14353 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 18710,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_objects.py`)\n```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError, match=\"property is read-only\"):\n            c.value = 5\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError):\n            c.value = 2\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_overwrites_existing_property_with_function(self):\n        # Monkey patching replaces the property object with a plain function,\n        # so accessing on an instance binds it as a method.\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C.value.__name__ == 'value'\n        assert C().value() == 'monkeyed'\n\n    def test_monkey_with_explicit_name_and_func(self):\n        class C:\n            pass\n\n        @monkey(C, 'p')\n        def whatever(self):\n            return 'val'\n\n        assert C().p() == 'val'\n        assert C.p.__name__ == 'p'\n        assert C.p.original is None\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError, match=\"monkey patch non-class\"):\n            @monkey(42)\n            def foo():\n                pass\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n\n```\n\n## Feedback\nAll 31 tests pass. Mutation testing on `funcy/objects.py`: 93 of 105 mutants were killed (mutation score 88.6%). Each mutant below is a small change to the code under test that NO test detected — the tests still pass when the line is changed as shown:\n- line 25: `res = instance.__dict__[self.fget.__name__] = self.fget(instance)` → `res = instance.__dict__[self.fget.__name__] = self.fget(None)`\n- line 34: `return super().__get__(instance, type)` → `return super().__get__(instance, None)`\n- line 34: `return super().__get__(instance, type)` → `return super().__get__(instance, )`\n- line 37: `raise AttributeError(\"property is read-only\")` → `raise AttributeError(\"XXproperty is read-onlyXX\")`\n- line 52: `return prop.__get__(instance, type)` → `return prop.__get__(instance, None)`\n- line 52: `return prop.__get__(instance, type)` → `return prop.__get__(type)`\n- line 52: `return prop.__get__(instance, type)` → `return prop.__get__(instance, )`\n- line 74: `assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"` → `assert isclass(cls) or ismodule(cls), \"XXAttempting to monkey patch non-class and non-moduleXX\"`\n- line 74: `assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"` → `assert isclass(cls) or ismodule(cls), \"attempting to monkey patch non-class and non-module\"`\n- line 77: `func = getattr(value, 'fget', value) # Support properties` → `func = getattr(None, 'fget', value) # Support properties`\n- line 77: `func = getattr(value, 'fget', value) # Support properties` → `func = getattr(value, 'XXfgetXX', value) # Support properties`\n- line 77: `func = getattr(value, 'fget', value) # Support properties` → `func = getattr(value, 'FGET', value) # Support properties`\n\nAdd tests or strengthen assertions so that each of these changes would make at least one test FAIL, while all tests still pass on the current code. Check exact return values, boundary inputs and exception messages. Some mutants may be equivalent (the change has no observable effect); skip those rather than writing tests that rely on implementation details. Keep all existing tests.\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n    def test_fget_receives_instance(self):\n        # Kills mutant that passes None instead of instance to fget\n        received = []\n\n        class C:\n            @cached_property\n            def value(self):\n                received.append(self)\n                return len(received)\n\n        c = C()\n        assert c.value == 1\n        assert received == [c]\n        assert received[0] is c\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError) as exc:\n            c.value = 5\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError) as exc:\n            c.value = 2\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n    def test_type_passed_to_fget_on_first_access(self):\n        # Strengthen super().__get__(instance, type) call path.\n        class C:\n            @cached_readonly\n            def value(self):\n                return 'v'\n\n        c = C()\n        assert c.value == 'v'\n        # second access goes through cached branch\n        assert c.value == 'v'\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n    def test_get_matches_plain_property(self):\n        # Ensure the wrapper's __get__ behaves like the underlying property's\n        # __get__ and passes instance/type through correctly.\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            def _get(self, _get_val=1):\n                return 'plain'\n\n            def _get2(self):\n                return 'wrapped'\n\n            plain = property(_get2)\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(C._get2))\n        # Calling wrapper.__get__ directly with an instance\n        c = C()\n        assert wrapper.__get__(c, C) == 'wrapped'\n\n    def test_get_descriptor_via_class_returns_wrapper(self):\n        # Verify that calling __get__ with instance=None returns the wrapper\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(lambda self: 1))\n        assert wrapper.__get__(None, object) is wrapper\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_overwrites_existing_property_with_function(self):\n        # Monkey patching replaces the property object with a plain function,\n        # so accessing on an instance binds it as a method.\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C.value.__name__ == 'value'\n        assert C().value() == 'monkeyed'\n\n    def test_monkey_with_explicit_name_and_func(self):\n        class C:\n            pass\n\n        @monkey(C, 'p')\n        def whatever(self):\n            return 'val'\n\n        assert C().p() == 'val'\n        assert C.p.__name__ == 'p'\n        assert C.p.original is None\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError) as exc:\n            @monkey(42)\n            def foo():\n                pass\n        # exact message check\n        assert str(exc.value) == \"Attempting to monkey patch non-class and non-module\"\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n    def test_monkey_with_property_value(self):\n        # The 'fget' branch: when value is a property, func_name is derived\n        # from func.__name__ (the getter's name).\n        class C:\n            pass\n\n        def orig_getter(self):\n            return 'computed'\n\n        prop = property(orig_getter)\n        # Give the getter a prefixed name to exercise prefix stripping\n        orig_getter.__name__ = 'C__prop'\n        result = monkey(C)(prop)\n        assert result is prop\n        assert C.__dict__['prop'] is prop\n        assert orig_getter.__name__ == 'prop'\n\n    def test_monkey_with_property_original_refers_to_existing(self):\n        # Original for a new attribute is None.\n        class C:\n            pass\n\n        def getter(self):\n            return 1\n\n        prop = property(getter)\n        monkey(C, 'newattr')(prop)\n        assert getter.original is None\n        assert C.__dict__['newattr'] is prop\n\n    def test_monkey_property_func_name_from_fget(self):\n        # Verify func is value.fget, not value, when name is None.\n        class C:\n            pass\n\n        def C__meth(self):\n            return 'x'\n\n        prop = property(C__meth)\n        monkey(C)(prop)\n        # Attribute added under stripped prefix name\n        assert C.__dict__['meth'] is prop\n        assert C__meth.__name__ == 'meth'\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 4575,
+      "cache_hit_tokens": 2944,
+      "completion_tokens": 3254,
+      "reasoning_tokens": 0,
+      "latency": 10.24
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 3,
+    "at": "2026-10-20T05:03:04+00:00",
+    "duration": 1.15,
+    "summary": "通过 38，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 1.15,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 18710
+  },
+  {
+    "node": "analyze",
+    "iteration": 3,
+    "at": "2026-10-20T05:03:16+00:00",
+    "duration": 12.11,
+    "summary": "分数 [1, 0.9523809523809523, 1.0, 0.8, 38]（提升），行覆盖 100.0%，分支覆盖 80.0%，变异得分 95.2%（存活 5）",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 4.05,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "funcy/objects.py",
+          "tests": [
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fget_receives_instance",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_type_passed_to_fget_on_first_access",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_matches_plain_property",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_descriptor_via_class_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_original_refers_to_existing",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_property_func_name_from_fget",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+          ]
+        },
+        "duration": 2.04,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "run_mutation",
+        "args": {
+          "target": "funcy/objects.py",
+          "tests": [
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fget_receives_instance",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_type_passed_to_fget_on_first_access",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_matches_plain_property",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_descriptor_via_class_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_original_refers_to_existing",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_property_func_name_from_fget",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+          ],
+          "max_survivors": 200
+        },
+        "duration": 6.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 18710,
+    "score": [
+      1,
+      0.9523809523809523,
+      1.0,
+      0.8,
+      38
+    ],
+    "coverage": {
+      "target": "funcy/objects.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 0.8,
+      "statements": 63,
+      "branches": 10,
+      "missing_lines": [],
+      "missing_branches": [
+        [
+          54,
+          59
+        ],
+        [
+          59,
+          -43
+        ]
+      ],
+      "error": ""
+    },
+    "validity": {
+      "total": 38,
+      "valid": 38,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": {
+      "target": "funcy/objects.py",
+      "score": 0.9523809523809523,
+      "total": 105,
+      "killed": 100,
+      "survived": 5,
+      "excluded": 0,
+      "status_counts": {
+        "killed": 100,
+        "survived": 5
+      },
+      "survivors_truncated": false,
+      "error": ""
+    }
+  },
+  {
+    "node": "decide",
+    "iteration": 3,
+    "at": "2026-10-20T05:03:16+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 18710
+  },
+  {
+    "node": "write_tests",
+    "iteration": 4,
+    "at": "2026-10-20T05:03:27+00:00",
+    "duration": 11.56,
+    "summary": "第 4 轮：生成 581 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_objects.py",
+          "content": "<15146 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 27624,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_objects.py`)\n```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n    def test_fget_receives_instance(self):\n        # Kills mutant that passes None instead of instance to fget\n        received = []\n\n        class C:\n            @cached_property\n            def value(self):\n                received.append(self)\n                return len(received)\n\n        c = C()\n        assert c.value == 1\n        assert received == [c]\n        assert received[0] is c\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError) as exc:\n            c.value = 5\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError) as exc:\n            c.value = 2\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n    def test_type_passed_to_fget_on_first_access(self):\n        # Strengthen super().__get__(instance, type) call path.\n        class C:\n            @cached_readonly\n            def value(self):\n                return 'v'\n\n        c = C()\n        assert c.value == 'v'\n        # second access goes through cached branch\n        assert c.value == 'v'\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n    def test_get_matches_plain_property(self):\n        # Ensure the wrapper's __get__ behaves like the underlying property's\n        # __get__ and passes instance/type through correctly.\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            def _get(self, _get_val=1):\n                return 'plain'\n\n            def _get2(self):\n                return 'wrapped'\n\n            plain = property(_get2)\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(C._get2))\n        # Calling wrapper.__get__ directly with an instance\n        c = C()\n        assert wrapper.__get__(c, C) == 'wrapped'\n\n    def test_get_descriptor_via_class_returns_wrapper(self):\n        # Verify that calling __get__ with instance=None returns the wrapper\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(lambda self: 1))\n        assert wrapper.__get__(None, object) is wrapper\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_overwrites_existing_property_with_function(self):\n        # Monkey patching replaces the property object with a plain function,\n        # so accessing on an instance binds it as a method.\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C.value.__name__ == 'value'\n        assert C().value() == 'monkeyed'\n\n    def test_monkey_with_explicit_name_and_func(self):\n        class C:\n            pass\n\n        @monkey(C, 'p')\n        def whatever(self):\n            return 'val'\n\n        assert C().p() == 'val'\n        assert C.p.__name__ == 'p'\n        assert C.p.original is None\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError) as exc:\n            @monkey(42)\n            def foo():\n                pass\n        # exact message check\n        assert str(exc.value) == \"Attempting to monkey patch non-class and non-module\"\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n    def test_monkey_with_property_value(self):\n        # The 'fget' branch: when value is a property, func_name is derived\n        # from func.__name__ (the getter's name).\n        class C:\n            pass\n\n        def orig_getter(self):\n            return 'computed'\n\n        prop = property(orig_getter)\n        # Give the getter a prefixed name to exercise prefix stripping\n        orig_getter.__name__ = 'C__prop'\n        result = monkey(C)(prop)\n        assert result is prop\n        assert C.__dict__['prop'] is prop\n        assert orig_getter.__name__ == 'prop'\n\n    def test_monkey_with_property_original_refers_to_existing(self):\n        # Original for a new attribute is None.\n        class C:\n            pass\n\n        def getter(self):\n            return 1\n\n        prop = property(getter)\n        monkey(C, 'newattr')(prop)\n        assert getter.original is None\n        assert C.__dict__['newattr'] is prop\n\n    def test_monkey_property_func_name_from_fget(self):\n        # Verify func is value.fget, not value, when name is None.\n        class C:\n            pass\n\n        def C__meth(self):\n            return 'x'\n\n        prop = property(C__meth)\n        monkey(C)(prop)\n        # Attribute added under stripped prefix name\n        assert C.__dict__['meth'] is prop\n        assert C__meth.__name__ == 'meth'\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n\n```\n\n## Feedback\nAll 38 tests pass. Mutation testing on `funcy/objects.py`: 100 of 105 mutants were killed (mutation score 95.2%). Each mutant below is a small change to the code under test that NO test detected — the tests still pass when the line is changed as shown:\n- line 34: `return super().__get__(instance, type)` → `return super().__get__(instance, None)`\n- line 34: `return super().__get__(instance, type)` → `return super().__get__(instance, )`\n- line 52: `return prop.__get__(instance, type)` → `return prop.__get__(instance, None)`\n- line 52: `return prop.__get__(instance, type)` → `return prop.__get__(type)`\n- line 52: `return prop.__get__(instance, type)` → `return prop.__get__(instance, )`\n\nAdd tests or strengthen assertions so that each of these changes would make at least one test FAIL, while all tests still pass on the current code. Check exact return values, boundary inputs and exception messages. Some mutants may be equivalent (the change has no observable effect); skip those rather than writing tests that rely on implementation details. Keep all existing tests.\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "Looking at the mutants:\n\n1. **Lines 34 and 52: `type` → `None` / dropped** — These pass a wrong `type` (owner class) to the underlying descriptor's `__get__`. For a plain `property`, the `type` argument is essentially unused, so it has no observable effect there. But we can observe it with a **custom descriptor** that records the `type` argument.\n\n2. **Line 52: `prop.__get__(type)`** — This passes the *class* as `instance` and drops `type`. A custom descriptor recording both args would detect this (instance becomes the class, not the object).\n\nLet me add tests using a spy descriptor that records the exact `(instance, owner)` arguments passed to `__get__`.\n\nFor `cached_readonly.__get__` → `super().__get__(instance, type)`, the superclass `cached_property.__get__` ignores `type` entirely, so changing it to `None` or dropping it is **observably equivalent** — those mutants are equivalent and should be skipped. Only the `wrap_prop` ones (line 52) are observable via a spy descriptor.\n\n```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n    def test_fget_receives_instance(self):\n        # Kills mutant that passes None instead of instance to fget\n        received = []\n\n        class C:\n            @cached_property\n            def value(self):\n                received.append(self)\n                return len(received)\n\n        c = C()\n        assert c.value == 1\n        assert received == [c]\n        assert received[0] is c\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError) as exc:\n            c.value = 5\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError) as exc:\n            c.value = 2\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n    def test_type_passed_to_fget_on_first_access(self):\n        # Strengthen super().__get__(instance, type) call path.\n        class C:\n            @cached_readonly\n            def value(self):\n                return 'v'\n\n        c = C()\n        assert c.value == 'v'\n        # second access goes through cached branch\n        assert c.value == 'v'\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n    def test_get_matches_plain_property(self):\n        # Ensure the wrapper's __get__ behaves like the underlying property's\n        # __get__ and passes instance/type through correctly.\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            def _get(self, _get_val=1):\n                return 'plain'\n\n            def _get2(self):\n                return 'wrapped'\n\n            plain = property(_get2)\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(C._get2))\n        # Calling wrapper.__get__ directly with an instance\n        c = C()\n        assert wrapper.__get__(c, C) == 'wrapped'\n\n    def test_get_descriptor_via_class_returns_wrapper(self):\n        # Verify that calling __get__ with instance=None returns the wrapper\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(lambda self: 1))\n        assert wrapper.__get__(None, object) is wrapper\n\n    def test_get_passes_exact_instance_and_type_to_prop(self):\n        # Kill mutants that pass None as type, drop type, or pass type as\n        # the instance argument in `prop.__get__(instance, type)` (line 52).\n        received = []\n\n        class SpyDescriptor:\n            def __get__(self, instance, type=None):\n                received.append((instance, type))\n                return 'result'\n\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            value = wrap_prop(Ctx())(SpyDescriptor())\n\n        c = C()\n        assert c.value == 'result'\n        assert received == [(c, C)]\n        inst, owner = received[0]\n        assert inst is c\n        assert owner is C\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_overwrites_existing_property_with_function(self):\n        # Monkey patching replaces the property object with a plain function,\n        # so accessing on an instance binds it as a method.\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C.value.__name__ == 'value'\n        assert C().value() == 'monkeyed'\n\n    def test_monkey_with_explicit_name_and_func(self):\n        class C:\n            pass\n\n        @monkey(C, 'p')\n        def whatever(self):\n            return 'val'\n\n        assert C().p() == 'val'\n        assert C.p.__name__ == 'p'\n        assert C.p.original is None\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError) as exc:\n            @monkey(42)\n            def foo():\n                pass\n        # exact message check\n        assert str(exc.value) == \"Attempting to monkey patch non-class and non-module\"\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n    def test_monkey_with_property_value(self):\n        # The 'fget' branch: when value is a property, func_name is derived\n        # from func.__name__ (the getter's name).\n        class C:\n            pass\n\n        def orig_getter(self):\n            return 'computed'\n\n        prop = property(orig_getter)\n        # Give the getter a prefixed name to exercise prefix stripping\n        orig_getter.__name__ = 'C__prop'\n        result = monkey(C)(prop)\n        assert result is prop\n        assert C.__dict__['prop'] is prop\n        assert orig_getter.__name__ == 'prop'\n\n    def test_monkey_with_property_original_refers_to_existing(self):\n        # Original for a new attribute is None.\n        class C:\n            pass\n\n        def getter(self):\n            return 1\n\n        prop = property(getter)\n        monkey(C, 'newattr')(prop)\n        assert getter.original is None\n        assert C.__dict__['newattr'] is prop\n\n    def test_monkey_property_func_name_from_fget(self):\n        # Verify func is value.fget, not value, when name is None.\n        class C:\n            pass\n\n        def C__meth(self):\n            return 'x'\n\n        prop = property(C__meth)\n        monkey(C)(prop)\n        # Attribute added under stripped prefix name\n        assert C.__dict__['meth'] is prop\n        assert C__meth.__name__ == 'meth'\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n```\n\n### Notes on the mutants\n\n- **Line 52 mutants** (`wrap_prop.__get__`): all four are killed by the new `test_get_passes_exact_instance_and_type_to_prop`, which uses a spy descriptor recording the exact `(instance, type)` arguments. Passing `None`, dropping `type`, or passing `type` as the instance argument each changes the recorded tuple.\n\n- **Line 34 mutants** (`cached_readonly.__get__` calling `super().__get__(instance, type)`): these are **equivalent** mutants. The superclass `cached_property.__get__` never references its `type` parameter (it only uses `instance`), so changing `type` to `None` or dropping it has no observable effect. Per the instructions, equivalent mutants are skipped rather than tested via implementation details.",
+      "finish_reason": "stop",
+      "prompt_tokens": 5056,
+      "cache_hit_tokens": 1664,
+      "completion_tokens": 3858,
+      "reasoning_tokens": 0,
+      "latency": 11.55
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 4,
+    "at": "2026-10-20T05:03:28+00:00",
+    "duration": 1.13,
+    "summary": "通过 39，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 1.13,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 27624
+  },
+  {
+    "node": "analyze",
+    "iteration": 4,
+    "at": "2026-10-20T05:03:39+00:00",
+    "duration": 11.61,
+    "summary": "分数 [1, 0.9809523809523809, 1.0, 1.0, 39]（提升），行覆盖 100.0%，分支覆盖 100.0%，变异得分 98.1%（存活 2）",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 3.34,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "funcy/objects.py",
+          "tests": [
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fget_receives_instance",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_type_passed_to_fget_on_first_access",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_matches_plain_property",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_descriptor_via_class_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_passes_exact_instance_and_type_to_prop",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_original_refers_to_existing",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_property_func_name_from_fget",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+          ]
+        },
+        "duration": 1.91,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "run_mutation",
+        "args": {
+          "target": "funcy/objects.py",
+          "tests": [
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fget_receives_instance",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_type_passed_to_fget_on_first_access",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_matches_plain_property",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_descriptor_via_class_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_passes_exact_instance_and_type_to_prop",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_original_refers_to_existing",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_property_func_name_from_fget",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+          ],
+          "max_survivors": 200
+        },
+        "duration": 6.36,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 27624,
+    "score": [
+      1,
+      0.9809523809523809,
+      1.0,
+      1.0,
+      39
+    ],
+    "coverage": {
+      "target": "funcy/objects.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 63,
+      "branches": 10,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 39,
+      "valid": 39,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": {
+      "target": "funcy/objects.py",
+      "score": 0.9809523809523809,
+      "total": 105,
+      "killed": 103,
+      "survived": 2,
+      "excluded": 0,
+      "status_counts": {
+        "killed": 103,
+        "survived": 2
+      },
+      "survivors_truncated": false,
+      "error": ""
+    }
+  },
+  {
+    "node": "decide",
+    "iteration": 4,
+    "at": "2026-10-20T05:03:39+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 27624
+  },
+  {
+    "node": "write_tests",
+    "iteration": 5,
+    "at": "2026-10-20T05:03:50+00:00",
+    "duration": 11.36,
+    "summary": "第 5 轮：生成 638 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_objects.py",
+          "content": "<17326 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 36707,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_objects.py`)\n```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n    def test_fget_receives_instance(self):\n        # Kills mutant that passes None instead of instance to fget\n        received = []\n\n        class C:\n            @cached_property\n            def value(self):\n                received.append(self)\n                return len(received)\n\n        c = C()\n        assert c.value == 1\n        assert received == [c]\n        assert received[0] is c\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError) as exc:\n            c.value = 5\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError) as exc:\n            c.value = 2\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n    def test_type_passed_to_fget_on_first_access(self):\n        # Strengthen super().__get__(instance, type) call path.\n        class C:\n            @cached_readonly\n            def value(self):\n                return 'v'\n\n        c = C()\n        assert c.value == 'v'\n        # second access goes through cached branch\n        assert c.value == 'v'\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n    def test_get_matches_plain_property(self):\n        # Ensure the wrapper's __get__ behaves like the underlying property's\n        # __get__ and passes instance/type through correctly.\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            def _get(self, _get_val=1):\n                return 'plain'\n\n            def _get2(self):\n                return 'wrapped'\n\n            plain = property(_get2)\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(C._get2))\n        # Calling wrapper.__get__ directly with an instance\n        c = C()\n        assert wrapper.__get__(c, C) == 'wrapped'\n\n    def test_get_descriptor_via_class_returns_wrapper(self):\n        # Verify that calling __get__ with instance=None returns the wrapper\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(lambda self: 1))\n        assert wrapper.__get__(None, object) is wrapper\n\n    def test_get_passes_exact_instance_and_type_to_prop(self):\n        # Kill mutants that pass None as type, drop type, or pass type as\n        # the instance argument in `prop.__get__(instance, type)` (line 52).\n        received = []\n\n        class SpyDescriptor:\n            def __get__(self, instance, type=None):\n                received.append((instance, type))\n                return 'result'\n\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            value = wrap_prop(Ctx())(SpyDescriptor())\n\n        c = C()\n        assert c.value == 'result'\n        assert received == [(c, C)]\n        inst, owner = received[0]\n        assert inst is c\n        assert owner is C\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_overwrites_existing_property_with_function(self):\n        # Monkey patching replaces the property object with a plain function,\n        # so accessing on an instance binds it as a method.\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C.value.__name__ == 'value'\n        assert C().value() == 'monkeyed'\n\n    def test_monkey_with_explicit_name_and_func(self):\n        class C:\n            pass\n\n        @monkey(C, 'p')\n        def whatever(self):\n            return 'val'\n\n        assert C().p() == 'val'\n        assert C.p.__name__ == 'p'\n        assert C.p.original is None\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError) as exc:\n            @monkey(42)\n            def foo():\n                pass\n        # exact message check\n        assert str(exc.value) == \"Attempting to monkey patch non-class and non-module\"\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n    def test_monkey_with_property_value(self):\n        # The 'fget' branch: when value is a property, func_name is derived\n        # from func.__name__ (the getter's name).\n        class C:\n            pass\n\n        def orig_getter(self):\n            return 'computed'\n\n        prop = property(orig_getter)\n        # Give the getter a prefixed name to exercise prefix stripping\n        orig_getter.__name__ = 'C__prop'\n        result = monkey(C)(prop)\n        assert result is prop\n        assert C.__dict__['prop'] is prop\n        assert orig_getter.__name__ == 'prop'\n\n    def test_monkey_with_property_original_refers_to_existing(self):\n        # Original for a new attribute is None.\n        class C:\n            pass\n\n        def getter(self):\n            return 1\n\n        prop = property(getter)\n        monkey(C, 'newattr')(prop)\n        assert getter.original is None\n        assert C.__dict__['newattr'] is prop\n\n    def test_monkey_property_func_name_from_fget(self):\n        # Verify func is value.fget, not value, when name is None.\n        class C:\n            pass\n\n        def C__meth(self):\n            return 'x'\n\n        prop = property(C__meth)\n        monkey(C)(prop)\n        # Attribute added under stripped prefix name\n        assert C.__dict__['meth'] is prop\n        assert C__meth.__name__ == 'meth'\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n\n```\n\n## Feedback\nAll 39 tests pass. Mutation testing on `funcy/objects.py`: 103 of 105 mutants were killed (mutation score 98.1%). Each mutant below is a small change to the code under test that NO test detected — the tests still pass when the line is changed as shown:\n- line 34: `return super().__get__(instance, type)` → `return super().__get__(instance, None)`\n- line 34: `return super().__get__(instance, type)` → `return super().__get__(instance, )`\n\nAdd tests or strengthen assertions so that each of these changes would make at least one test FAIL, while all tests still pass on the current code. Check exact return values, boundary inputs and exception messages. Some mutants may be equivalent (the change has no observable effect); skip those rather than writing tests that rely on implementation details. Keep all existing tests.\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom funcy.objects import cached_property, cached_readonly, wrap_prop, monkey, LazyObject\n\n\n# ---------------------------------------------------------------------------\n# cached_property\n# ---------------------------------------------------------------------------\n\nclass TestCachedProperty:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_property\n            def value(self):\n                calls.append(1)\n                return 42\n\n        c = C()\n        assert c.value == 42\n        assert c.value == 42\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 42\n\n    def test_access_on_class_returns_descriptor(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_property)\n        assert C.value is C.__dict__['value']\n\n    def test_docstring_copied(self):\n        class C:\n            @cached_property\n            def value(self):\n                \"\"\"my doc\"\"\"\n                return 1\n\n        assert C.__dict__['value'].__doc__ == \"my doc\"\n\n    def test_fset_fdel_none(self):\n        class C:\n            @cached_property\n            def value(self):\n                return 1\n\n        assert C.__dict__['value'].fset is None\n        assert C.__dict__['value'].fdel is None\n\n    def test_stores_under_fget_name(self):\n        class C:\n            @cached_property\n            def foo(self):\n                return 'bar'\n\n        c = C()\n        assert 'foo' not in c.__dict__\n        assert c.foo == 'bar'\n        assert c.__dict__['foo'] == 'bar'\n\n    def test_fget_receives_instance(self):\n        # Kills mutant that passes None instead of instance to fget\n        received = []\n\n        class C:\n            @cached_property\n            def value(self):\n                received.append(self)\n                return len(received)\n\n        c = C()\n        assert c.value == 1\n        assert received == [c]\n        assert received[0] is c\n\n\n# ---------------------------------------------------------------------------\n# cached_readonly\n# ---------------------------------------------------------------------------\n\nclass TestCachedReadonly:\n    def test_caches_value(self):\n        calls = []\n\n        class C:\n            @cached_readonly\n            def value(self):\n                calls.append(1)\n                return 7\n\n        c = C()\n        assert c.value == 7\n        assert c.value == 7\n        assert len(calls) == 1\n        assert c.__dict__['value'] == 7\n\n    def test_set_raises(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        with pytest.raises(AttributeError) as exc:\n            c.value = 5\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_set_raises_even_when_cached(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        c = C()\n        assert c.value == 1\n        with pytest.raises(AttributeError) as exc:\n            c.value = 2\n        assert str(exc.value) == \"property is read-only\"\n\n    def test_class_access_returns_descriptor(self):\n        class C:\n            @cached_readonly\n            def value(self):\n                return 1\n\n        assert isinstance(C.__dict__['value'], cached_readonly)\n        assert C.value is C.__dict__['value']\n\n    def test_is_subclass_of_cached_property(self):\n        assert issubclass(cached_readonly, cached_property)\n\n    def test_type_passed_to_fget_on_first_access(self):\n        # Strengthen super().__get__(instance, type) call path.\n        class C:\n            @cached_readonly\n            def value(self):\n                return 'v'\n\n        c = C()\n        assert c.value == 'v'\n        # second access goes through cached branch\n        assert c.value == 'v'\n\n    def test_super_get_receives_instance_and_type(self):\n        # Kill mutants at line 34 that pass None or drop the `type` argument\n        # to `super().__get__(instance, type)`. cached_property.__get__\n        # delegates to `self.fget(instance)`, but it also consults\n        # `instance.__dict__[self.fget.__name__]`, so the `instance` argument\n        # is observable. To observe the `type` argument independently, we\n        # override cached_property.__get__ on a subclass-free wrapper.\n        received = []\n\n        class RecordingDescriptor(cached_property):\n            def __get__(self, instance, type=None):\n                received.append((instance, type))\n                return super().__get__(instance, type)\n\n        class C:\n            @RecordingDescriptor\n            def value(self):\n                return 'computed'\n\n        c = C()\n        # First access hits the \"not in __dict__\" branch => calls\n        # super().__get__(instance, type) with both arguments.\n        assert c.value == 'computed'\n        assert len(received) == 1\n        inst, typ = received[0]\n        assert inst is c\n        assert typ is C\n        assert received[0] == (c, C)\n\n        # Second access hits the cached branch and must NOT call __get__\n        # again (returns early).\n        assert c.value == 'computed'\n        assert len(received) == 1\n\n    def test_super_get_type_is_owning_class(self):\n        # Additional explicit check on the type argument, using a spy\n        # subclass of cached_property that intercepts the super() call.\n        captured = {}\n\n        class Spy(cached_property):\n            def __get__(self, instance, type=None):\n                if instance is not None and self.fget.__name__ in instance.__dict__:\n                    return instance.__dict__[self.fget.__name__]\n                captured['instance'] = instance\n                captured['type'] = type\n                return super().__get__(instance, type)\n\n        class Owner:\n            @Spy\n            def attr(self):\n                return 'v'\n\n        o = Owner()\n        assert o.attr == 'v'\n        assert captured['instance'] is o\n        assert captured['type'] is Owner\n\n\n# ---------------------------------------------------------------------------\n# wrap_prop\n# ---------------------------------------------------------------------------\n\nclass TestWrapProp:\n    def test_wraps_property_get(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                log.append('get')\n                return 5\n\n        c = C()\n        assert c.value == 5\n        assert log == ['enter', 'get', 'exit']\n\n    def test_class_access_returns_wrapper(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n\n        class C:\n            @wrap_prop(ctx)\n            @property\n            def value(self):\n                return 1\n\n        assert isinstance(C.value, C.__dict__['value'].__class__)\n        assert C.value is C.__dict__['value']\n\n    def test_repr_delegates_to_prop(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        prop = property(lambda self: 1)\n        wrapper = wrap_prop(ctx)(prop)\n        assert repr(wrapper) == repr(prop)\n\n    def test_wraps_property_set(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 0\n\n            def _get(self):\n                return self._v\n\n            def _set(self, value):\n                log.append('set')\n                self._v = value\n\n            value = wrap_prop(ctx)(property(_get, _set))\n\n        c = C()\n        c.value = 9\n        assert log == ['enter', 'set', 'exit']\n        assert c._v == 9\n\n    def test_wraps_property_delete(self):\n        log = []\n\n        class Ctx:\n            def __enter__(self):\n                log.append('enter')\n\n            def __exit__(self, *a):\n                log.append('exit')\n\n        ctx = Ctx()\n\n        class C:\n            def __init__(self):\n                self._v = 1\n\n            def _get(self):\n                return self._v\n\n            def _del(self):\n                log.append('del')\n                del self._v\n\n            value = wrap_prop(ctx)(property(_get, fdel=_del))\n\n        c = C()\n        del c.value\n        assert log == ['enter', 'del', 'exit']\n\n    def test_no_set_when_prop_has_none(self):\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            @wrap_prop(Ctx())\n            @property\n            def value(self):\n                return 1\n\n        # A plain property has __set__/__delete__ on the property object,\n        # but WrapperProp checks hasattr(prop, '__set__'), which is True\n        # for all properties in modern Python. Just check it exists.\n        wrapper = C.__dict__['value']\n        assert hasattr(wrapper, '__get__')\n\n    def test_get_matches_plain_property(self):\n        # Ensure the wrapper's __get__ behaves like the underlying property's\n        # __get__ and passes instance/type through correctly.\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            def _get(self, _get_val=1):\n                return 'plain'\n\n            def _get2(self):\n                return 'wrapped'\n\n            plain = property(_get2)\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(C._get2))\n        # Calling wrapper.__get__ directly with an instance\n        c = C()\n        assert wrapper.__get__(c, C) == 'wrapped'\n\n    def test_get_descriptor_via_class_returns_wrapper(self):\n        # Verify that calling __get__ with instance=None returns the wrapper\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        ctx = Ctx()\n        wrapper = wrap_prop(ctx)(property(lambda self: 1))\n        assert wrapper.__get__(None, object) is wrapper\n\n    def test_get_passes_exact_instance_and_type_to_prop(self):\n        # Kill mutants that pass None as type, drop type, or pass type as\n        # the instance argument in `prop.__get__(instance, type)` (line 52).\n        received = []\n\n        class SpyDescriptor:\n            def __get__(self, instance, type=None):\n                received.append((instance, type))\n                return 'result'\n\n        class Ctx:\n            def __enter__(self):\n                return self\n\n            def __exit__(self, *a):\n                return False\n\n        class C:\n            value = wrap_prop(Ctx())(SpyDescriptor())\n\n        c = C()\n        assert c.value == 'result'\n        assert received == [(c, C)]\n        inst, owner = received[0]\n        assert inst is c\n        assert owner is C\n\n\n# ---------------------------------------------------------------------------\n# monkey\n# ---------------------------------------------------------------------------\n\nclass TestMonkey:\n    def test_monkey_class_with_name(self):\n        class C:\n            def existing(self):\n                return 'orig'\n\n        @monkey(C, 'existing')\n        def replacement(self):\n            return 'new'\n\n        assert C().existing() == 'new'\n        assert replacement.__name__ == 'existing'\n        assert replacement.original is not None\n        assert replacement.original(C()) == 'orig'\n\n    def test_monkey_class_strips_prefix(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def C__added(self):\n            return 'added'\n\n        assert C().added() == 'added'\n        # setattr uses func_name != original function name\n        assert C.added.__name__ == 'added'\n        assert C.added.original is None\n\n    def test_monkey_without_prefix_keeps_name(self):\n        class C:\n            pass\n\n        @monkey(C)\n        def plain(self):\n            return 'plain'\n\n        assert C().plain() == 'plain'\n        assert C.plain is plain\n\n    def test_monkey_overwrites_existing_property_with_function(self):\n        # Monkey patching replaces the property object with a plain function,\n        # so accessing on an instance binds it as a method.\n        class C:\n            def _get(self):\n                return 'prop'\n\n            value = property(_get)\n\n        @monkey(C)\n        def value(self):\n            return 'monkeyed'\n\n        assert C.value.__name__ == 'value'\n        assert C().value() == 'monkeyed'\n\n    def test_monkey_with_explicit_name_and_func(self):\n        class C:\n            pass\n\n        @monkey(C, 'p')\n        def whatever(self):\n            return 'val'\n\n        assert C().p() == 'val'\n        assert C.p.__name__ == 'p'\n        assert C.p.original is None\n\n    def test_monkey_non_class_raises(self):\n        with pytest.raises(AssertionError) as exc:\n            @monkey(42)\n            def foo():\n                pass\n        # exact message check\n        assert str(exc.value) == \"Attempting to monkey patch non-class and non-module\"\n\n    def test_monkey_module(self):\n        import types\n        mod = types.ModuleType('testmod')\n\n        @monkey(mod, 'func')\n        def foo():\n            return 1\n\n        assert mod.func is foo\n        assert foo.original is None\n\n    def test_monkey_returns_value(self):\n        class C:\n            pass\n\n        def target(self):\n            return 1\n\n        result = monkey(C, 'target')(target)\n        assert result is target\n\n    def test_original_set_to_none_for_new(self):\n        class C:\n            pass\n\n        @monkey(C, 'brand_new')\n        def fn(self):\n            return 1\n\n        assert fn.original is None\n\n    def test_monkey_with_property_value(self):\n        # The 'fget' branch: when value is a property, func_name is derived\n        # from func.__name__ (the getter's name).\n        class C:\n            pass\n\n        def orig_getter(self):\n            return 'computed'\n\n        prop = property(orig_getter)\n        # Give the getter a prefixed name to exercise prefix stripping\n        orig_getter.__name__ = 'C__prop'\n        result = monkey(C)(prop)\n        assert result is prop\n        assert C.__dict__['prop'] is prop\n        assert orig_getter.__name__ == 'prop'\n\n    def test_monkey_with_property_original_refers_to_existing(self):\n        # Original for a new attribute is None.\n        class C:\n            pass\n\n        def getter(self):\n            return 1\n\n        prop = property(getter)\n        monkey(C, 'newattr')(prop)\n        assert getter.original is None\n        assert C.__dict__['newattr'] is prop\n\n    def test_monkey_property_func_name_from_fget(self):\n        # Verify func is value.fget, not value, when name is None.\n        class C:\n            pass\n\n        def C__meth(self):\n            return 'x'\n\n        prop = property(C__meth)\n        monkey(C)(prop)\n        # Attribute added under stripped prefix name\n        assert C.__dict__['meth'] is prop\n        assert C__meth.__name__ == 'meth'\n\n\n# ---------------------------------------------------------------------------\n# LazyObject\n# ---------------------------------------------------------------------------\n\nclass TestLazyObject:\n    def test_lazy_init_on_attribute_access(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.x = 10\n\n            def method(self):\n                return 'm'\n\n        lazy = LazyObject(Real)\n        assert calls == []\n        assert lazy.x == 10\n        assert calls == [1]\n        assert lazy.method() == 'm'\n\n    def test_class_rewritten_after_setup(self):\n        class Real:\n            def __init__(self):\n                self.x = 3\n\n        lazy = LazyObject(Real)\n        lazy.x  # trigger\n        assert lazy.__class__ is Real\n\n    def test_setattr_triggers_setup(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append('init')\n\n        lazy = LazyObject(Real)\n        lazy.foo = 'bar'\n        assert calls == ['init']\n        assert lazy.foo == 'bar'\n        assert lazy.__class__ is Real\n\n    def test_init_stores_init(self):\n        class Real:\n            def __init__(self):\n                self.v = 1\n\n        lazy = LazyObject(Real)\n        assert lazy.__dict__['_init'] is Real\n\n    def test_getattr_on_object_with_dict(self):\n        class Real:\n            def __init__(self):\n                self.value = 99\n\n        lazy = LazyObject(Real)\n        assert lazy.value == 99\n\n    def test_setup_only_once(self):\n        calls = []\n\n        class Real:\n            def __init__(self):\n                calls.append(1)\n                self.a = 1\n                self.b = 2\n\n        lazy = LazyObject(Real)\n        lazy.a\n        lazy.b\n        lazy.a\n        assert len(calls) == 1\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 5157,
+      "cache_hit_tokens": 3200,
+      "completion_tokens": 3926,
+      "reasoning_tokens": 0,
+      "latency": 11.35
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 5,
+    "at": "2026-10-20T05:03:52+00:00",
+    "duration": 1.39,
+    "summary": "通过 41，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 1.39,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 36707
+  },
+  {
+    "node": "analyze",
+    "iteration": 5,
+    "at": "2026-10-20T05:04:05+00:00",
+    "duration": 12.88,
+    "summary": "分数 [1, 0.9809523809523809, 1.0, 1.0, 41]（提升），行覆盖 100.0%，分支覆盖 100.0%，变异得分 98.1%（存活 2）",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_objects.py"
+          ]
+        },
+        "duration": 4.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "funcy/objects.py",
+          "tests": [
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fget_receives_instance",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_type_passed_to_fget_on_first_access",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_super_get_receives_instance_and_type",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_super_get_type_is_owning_class",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_matches_plain_property",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_descriptor_via_class_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_passes_exact_instance_and_type_to_prop",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_original_refers_to_existing",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_property_func_name_from_fget",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+          ]
+        },
+        "duration": 2.29,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "run_mutation",
+        "args": {
+          "target": "funcy/objects.py",
+          "tests": [
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+            "tests_testpilot/test_objects.py::TestCachedProperty::test_fget_receives_instance",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_type_passed_to_fget_on_first_access",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_super_get_receives_instance_and_type",
+            "tests_testpilot/test_objects.py::TestCachedReadonly::test_super_get_type_is_owning_class",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_matches_plain_property",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_descriptor_via_class_returns_wrapper",
+            "tests_testpilot/test_objects.py::TestWrapProp::test_get_passes_exact_instance_and_type_to_prop",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_value",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_original_refers_to_existing",
+            "tests_testpilot/test_objects.py::TestMonkey::test_monkey_property_func_name_from_fget",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+            "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+          ],
+          "max_survivors": 200
+        },
+        "duration": 6.59,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 36707,
+    "score": [
+      1,
+      0.9809523809523809,
+      1.0,
+      1.0,
+      41
+    ],
+    "coverage": {
+      "target": "funcy/objects.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 63,
+      "branches": 10,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 41,
+      "valid": 41,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": {
+      "target": "funcy/objects.py",
+      "score": 0.9809523809523809,
+      "total": 105,
+      "killed": 103,
+      "survived": 2,
+      "excluded": 0,
+      "status_counts": {
+        "killed": 103,
+        "survived": 2
+      },
+      "survivors_truncated": false,
+      "error": ""
+    }
+  },
+  {
+    "node": "decide",
+    "iteration": 5,
+    "at": "2026-10-20T05:04:05+00:00",
+    "duration": 0.0,
+    "summary": "达到最大迭代数 5",
+    "tool_calls": [],
+    "tokens_total": 36707
+  },
+  {
+    "node": "finalize",
+    "iteration": 5,
+    "at": "2026-10-20T05:04:05+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：达到最大迭代数 5；采用第 5 轮，分数 [1, 0.9809523809523809, 1.0, 1.0, 41]",
+    "tool_calls": [],
+    "tokens_total": 36707,
+    "best_iteration": 5
+  }
+]

@@ -1,0 +1,1497 @@
+{
+  "target": "claude_converter/utils.py",
+  "validity": {
+    "total": 86,
+    "valid": 78,
+    "valid_ids": [
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_loads_valid_jsonl",
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_accepts_string_path",
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_loads_json_extension",
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_skips_blank_lines",
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_invalid_lines_logged_to_stderr_and_skipped",
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_missing_file_raises",
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_bad_extension_raises",
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_empty_file_raises",
+      "tests_testpilot/test_utils.py::TestLoadJsonl::test_all_invalid_lines_raises",
+      "tests_testpilot/test_utils.py::TestConvertBase64ToPilImage::test_missing_pillow_raises_import_error",
+      "tests_testpilot/test_utils.py::TestMessagesToJsonSafe::test_string_content_unchanged",
+      "tests_testpilot/test_utils.py::TestMessagesToJsonSafe::test_text_only_parts_unchanged",
+      "tests_testpilot/test_utils.py::TestMessagesToJsonSafe::test_non_image_dicts_preserved",
+      "tests_testpilot/test_utils.py::TestMessagesToJsonSafe::test_missing_content_key",
+      "tests_testpilot/test_utils.py::TestMessagesToJsonSafe::test_non_list_content_passthrough",
+      "tests_testpilot/test_utils.py::TestMessagesToJsonSafe::test_pil_import_error_path",
+      "tests_testpilot/test_utils.py::TestMergeContentParts::test_appends_when_existing_empty",
+      "tests_testpilot/test_utils.py::TestMergeContentParts::test_joins_adjacent_text_with_newline",
+      "tests_testpilot/test_utils.py::TestMergeContentParts::test_multiple_new_parts",
+      "tests_testpilot/test_utils.py::TestMergeContentParts::test_images_not_merged",
+      "tests_testpilot/test_utils.py::TestMergeContentParts::test_text_then_image",
+      "tests_testpilot/test_utils.py::TestMergeContentParts::test_appended_parts_are_copied",
+      "tests_testpilot/test_utils.py::TestMergeContentParts::test_returns_none",
+      "tests_testpilot/test_utils.py::TestFinalizeContent::test_text_only_collapses_to_string",
+      "tests_testpilot/test_utils.py::TestFinalizeContent::test_single_text",
+      "tests_testpilot/test_utils.py::TestFinalizeContent::test_with_image_returns_list",
+      "tests_testpilot/test_utils.py::TestFinalizeContent::test_empty_list_returns_empty_string",
+      "tests_testpilot/test_utils.py::TestDget::test_returns_nested_dict",
+      "tests_testpilot/test_utils.py::TestDget::test_missing_key",
+      "tests_testpilot/test_utils.py::TestDget::test_explicit_null_returns_empty",
+      "tests_testpilot/test_utils.py::TestDget::test_non_dict_value_returns_empty",
+      "tests_testpilot/test_utils.py::TestDget::test_non_dict_parent",
+      "tests_testpilot/test_utils.py::TestDlist::test_returns_list",
+      "tests_testpilot/test_utils.py::TestDlist::test_missing_key",
+      "tests_testpilot/test_utils.py::TestDlist::test_explicit_null",
+      "tests_testpilot/test_utils.py::TestDlist::test_non_list_value",
+      "tests_testpilot/test_utils.py::TestDlist::test_non_dict_parent",
+      "tests_testpilot/test_utils.py::TestInspectorSchema::test_defaults",
+      "tests_testpilot/test_utils.py::TestInspectorSchema::test_role_colors_are_independent_copies",
+      "tests_testpilot/test_utils.py::TestScaledBar::test_zero_max_returns_empty",
+      "tests_testpilot/test_utils.py::TestScaledBar::test_negative_max_returns_empty",
+      "tests_testpilot/test_utils.py::TestScaledBar::test_max_count_gives_full_bar",
+      "tests_testpilot/test_utils.py::TestScaledBar::test_proportional",
+      "tests_testpilot/test_utils.py::TestScaledBar::test_minimum_one_bar",
+      "tests_testpilot/test_utils.py::TestPrintHeader::test_prints_label_and_stats",
+      "tests_testpilot/test_utils.py::TestPrintRecordTypes::test_counts_and_ordering",
+      "tests_testpilot/test_utils.py::TestPrintRecordTypes::test_empty_records",
+      "tests_testpilot/test_utils.py::TestPrintBlockSummary::test_noop_without_block_types_of",
+      "tests_testpilot/test_utils.py::TestPrintBlockSummary::test_noop_when_no_records",
+      "tests_testpilot/test_utils.py::TestPrintBlockSummary::test_prints_breakdown",
+      "tests_testpilot/test_utils.py::TestPrintBlockSummary::test_non_message_uses_record_type",
+      "tests_testpilot/test_utils.py::TestPrintMessageRoles::test_noop_without_messages",
+      "tests_testpilot/test_utils.py::TestPrintMessageRoles::test_prints_roles",
+      "tests_testpilot/test_utils.py::TestPrintTokenUsage::test_noop_without_total_tokens_of",
+      "tests_testpilot/test_utils.py::TestPrintTokenUsage::test_noop_when_totals_empty",
+      "tests_testpilot/test_utils.py::TestPrintTokenUsage::test_prints_totals",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_noop_without_messages",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_basic_flow",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_show_text_truncates",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_show_text_false_hides_text",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_tokens_label",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_zero_tokens_no_label",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_block_types_printed",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_render_blocks_when_available",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_render_blocks_not_used_when_show_text_false",
+      "tests_testpilot/test_utils.py::TestPrintFlow::test_show_text_without_render_block_uses_text_of",
+      "tests_testpilot/test_utils.py::TestPrintRawExamples::test_one_example_per_type",
+      "tests_testpilot/test_utils.py::TestPrintRawExamples::test_message_prints_flattened_text",
+      "tests_testpilot/test_utils.py::TestPrintRawExamples::test_non_message_omits_flattened_text",
+      "tests_testpilot/test_utils.py::TestRunInspection::test_full_run",
+      "tests_testpilot/test_utils.py::TestRunInspection::test_extra_header_called",
+      "tests_testpilot/test_utils.py::TestRunInspection::test_show_flow_calls_print_flow",
+      "tests_testpilot/test_utils.py::TestRunInspection::test_show_flow_false_no_flow",
+      "tests_testpilot/test_utils.py::TestRunInspection::test_accepts_string_path",
+      "tests_testpilot/test_utils.py::TestTruncate::test_short_text_unchanged",
+      "tests_testpilot/test_utils.py::TestTruncate::test_long_text_truncated",
+      "tests_testpilot/test_utils.py::TestTruncate::test_newlines_escaped",
+      "tests_testpilot/test_utils.py::TestTruncate::test_non_string_input"
+    ],
+    "invalid": {
+      "tests_testpilot/test_utils.py::TestConvertBase64ToPilImage::test_invalid_payload_raises_value_error": "run 1: skipped: Pillow not installed",
+      "tests_testpilot/test_utils.py::TestConvertBase64ToPilImage::test_valid_base64_but_not_image_raises": "run 1: skipped: Pillow not installed",
+      "tests_testpilot/test_utils.py::TestConvertBase64ToPilImage::test_decodes_data_uri": "run 1: skipped: Pillow not installed",
+      "tests_testpilot/test_utils.py::TestConvertBase64ToPilImage::test_decodes_bare_base64": "run 1: skipped: Pillow not installed",
+      "tests_testpilot/test_utils.py::TestPilToDataUri::test_data_uri_prefix_and_roundtrip": "run 1: skipped: Pillow not installed",
+      "tests_testpilot/test_utils.py::TestPilToDataUri::test_falls_back_to_png_when_format_fails": "run 1: skipped: Pillow not installed",
+      "tests_testpilot/test_utils.py::TestMessagesToJsonSafe::test_pil_image_converted_to_data_uri": "run 1: skipped: Pillow not installed",
+      "tests_testpilot/test_utils.py::TestMessagesToJsonSafe::test_original_messages_not_mutated": "run 1: skipped: Pillow not installed"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.6,
+        "passed": 78,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 8
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.34,
+        "passed": 78,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 8
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.43,
+        "passed": 78,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 8
+      }
+    ]
+  },
+  "line_rate": 0.9214876033057852,
+  "branch_rate": 0.9625,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.6303630363036303,
+    "total": 606,
+    "killed": 382,
+    "survived": 224,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 382,
+      "survived": 196,
+      "no tests": 28
+    },
+    "survivors": [
+      {
+        "line": 25,
+        "original": "return \"\".join(codes) + str(text) + RESET",
+        "mutated": "return \"XXXX\".join(codes) + str(text) + RESET",
+        "status": "survived"
+      },
+      {
+        "line": 28,
+        "original": "def _hr(char: str = \"-\", width: int = 70) -> str:",
+        "mutated": "def _hr(char: str = \"XX-XX\", width: int = 70) -> str:",
+        "status": "survived"
+      },
+      {
+        "line": 28,
+        "original": "def _hr(char: str = \"-\", width: int = 70) -> str:",
+        "mutated": "def _hr(char: str = \"-\", width: int = 71) -> str:",
+        "status": "survived"
+      },
+      {
+        "line": 29,
+        "original": "return _c(char * width, DIM)",
+        "mutated": "return _c(None, DIM)",
+        "status": "survived"
+      },
+      {
+        "line": 29,
+        "original": "return _c(char * width, DIM)",
+        "mutated": "return _c(DIM)",
+        "status": "survived"
+      },
+      {
+        "line": 29,
+        "original": "return _c(char * width, DIM)",
+        "mutated": "return _c(char * width, )",
+        "status": "survived"
+      },
+      {
+        "line": 32,
+        "original": "def _truncate(text: object, max_len: int = 120) -> str:",
+        "mutated": "def _truncate(text: object, max_len: int = 121) -> str:",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return text[:max_len] + _c(\"...\", DIM) if len(text) > max_len else text",
+        "mutated": "return text[:max_len] + _c(\"...\", ) if len(text) > max_len else text",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return text[:max_len] + _c(\"...\", DIM) if len(text) > max_len else text",
+        "mutated": "return text[:max_len] + _c(\"XX...XX\", DIM) if len(text) > max_len else text",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return text[:max_len] + _c(\"...\", DIM) if len(text) > max_len else text",
+        "mutated": "return text[:max_len] + _c(\"...\", DIM) if len(text) >= max_len else text",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "with open(path, \"r\", encoding=\"utf-8\") as f:",
+        "mutated": "with open(path, \"r\", encoding=None) as f:",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "with open(path, \"r\", encoding=\"utf-8\") as f:",
+        "mutated": "with open(path, encoding=\"utf-8\") as f:",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "with open(path, \"r\", encoding=\"utf-8\") as f:",
+        "mutated": "with open(path, \"r\", ) as f:",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "with open(path, \"r\", encoding=\"utf-8\") as f:",
+        "mutated": "with open(path, \"r\", encoding=\"UTF-8\") as f:",
+        "status": "survived"
+      },
+      {
+        "line": 71,
+        "original": "raise ValueError(\"File is empty or contains no valid records.\")",
+        "mutated": "raise ValueError(\"XXFile is empty or contains no valid records.XX\")",
+        "status": "survived"
+      },
+      {
+        "line": 71,
+        "original": "raise ValueError(\"File is empty or contains no valid records.\")",
+        "mutated": "raise ValueError(\"file is empty or contains no valid records.\")",
+        "status": "survived"
+      },
+      {
+        "line": 95,
+        "original": "\"Pillow is required to decode embedded images. \"",
+        "mutated": "\"XXPillow is required to decode embedded images. XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "\"Install it with: pip install claude-converter[images]\"",
+        "mutated": "\"XXInstall it with: pip install claude-converter[images]XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "\"Install it with: pip install claude-converter[images]\"",
+        "mutated": "\"install it with: pip install claude-converter[images]\"",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "\"Install it with: pip install claude-converter[images]\"",
+        "mutated": "\"INSTALL IT WITH: PIP INSTALL CLAUDE-CONVERTER[IMAGES]\"",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = None",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\",\", 1)[1] if (\",\" in uri) and False else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\",\", 1)[1] if (\",\" in uri) or True else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(None, 1)[1] if \",\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\",\", None)[1] if \",\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(1)[1] if \",\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\",\", )[1] if \",\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.rsplit(\",\", 1)[1] if \",\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\"XX,XX\", 1)[1] if \",\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\",\", 2)[1] if \",\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\",\", 1)[2] if \",\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\",\", 1)[1] if \"XX,XX\" in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "b64 = uri.split(\",\", 1)[1] if \",\" in uri else uri",
+        "mutated": "b64 = uri.split(\",\", 1)[1] if \",\" not in uri else uri",
+        "status": "survived"
+      },
+      {
+        "line": 102,
+        "original": "return Image.open(BytesIO(base64.b64decode(b64)))",
+        "mutated": "return Image.open(None)",
+        "status": "survived"
+      },
+      {
+        "line": 102,
+        "original": "return Image.open(BytesIO(base64.b64decode(b64)))",
+        "mutated": "return Image.open(BytesIO(None))",
+        "status": "survived"
+      },
+      {
+        "line": 102,
+        "original": "return Image.open(BytesIO(base64.b64decode(b64)))",
+        "mutated": "return Image.open(BytesIO(base64.b64decode(None)))",
+        "status": "survived"
+      },
+      {
+        "line": 104,
+        "original": "raise ValueError(f\"Could not decode base64 image: {e}\") from e",
+        "mutated": "raise ValueError(None) from e",
+        "status": "survived"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = None",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, \"format\", None) or \"PNG\").lower()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, \"format\", None) and \"PNG\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(None, \"format\", None) or \"PNG\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, None, None) or \"PNG\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(\"format\", None) or \"PNG\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, None) or \"PNG\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, \"format\", ) or \"PNG\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, \"XXformatXX\", None) or \"PNG\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, \"FORMAT\", None) or \"PNG\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, \"format\", None) or \"XXPNGXX\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 109,
+        "original": "fmt = (getattr(image, \"format\", None) or \"PNG\").upper()",
+        "mutated": "fmt = (getattr(image, \"format\", None) or \"png\").upper()",
+        "status": "no tests"
+      },
+      {
+        "line": 110,
+        "original": "buf = BytesIO()",
+        "mutated": "buf = None",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "image.save(buf, format=fmt)",
+        "mutated": "image.save(None, format=fmt)",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "image.save(buf, format=fmt)",
+        "mutated": "image.save(buf, format=None)",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "image.save(buf, format=fmt)",
+        "mutated": "image.save(format=fmt)",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "image.save(buf, format=fmt)",
+        "mutated": "image.save(buf, )",
+        "status": "no tests"
+      },
+      {
+        "line": 114,
+        "original": "fmt = \"PNG\"",
+        "mutated": "fmt = None",
+        "status": "no tests"
+      },
+      {
+        "line": 114,
+        "original": "fmt = \"PNG\"",
+        "mutated": "fmt = \"XXPNGXX\"",
+        "status": "no tests"
+      },
+      {
+        "line": 114,
+        "original": "fmt = \"PNG\"",
+        "mutated": "fmt = \"png\"",
+        "status": "no tests"
+      },
+      {
+        "line": 115,
+        "original": "buf = BytesIO()",
+        "mutated": "buf = None",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "image.save(buf, format=fmt)",
+        "mutated": "image.save(None, format=fmt)",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "image.save(buf, format=fmt)",
+        "mutated": "image.save(buf, format=None)",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "image.save(buf, format=fmt)",
+        "mutated": "image.save(format=fmt)",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "image.save(buf, format=fmt)",
+        "mutated": "image.save(buf, )",
+        "status": "no tests"
+      },
+      {
+        "line": 117,
+        "original": "b64 = base64.b64encode(buf.getvalue()).decode()",
+        "mutated": "b64 = None",
+        "status": "no tests"
+      },
+      {
+        "line": 117,
+        "original": "b64 = base64.b64encode(buf.getvalue()).decode()",
+        "mutated": "b64 = base64.b64encode(None).decode()",
+        "status": "no tests"
+      },
+      {
+        "line": 118,
+        "original": "return f\"data:image/{fmt.lower()};base64,{b64}\"",
+        "mutated": "return f\"data:image/{fmt.upper()};base64,{b64}\"",
+        "status": "no tests"
+      },
+      {
+        "line": 145,
+        "original": "if isinstance(part, dict) and part.get(\"type\") == \"image\" and \"image\" in part:",
+        "mutated": "if isinstance(part, dict) and part.get(\"type\") == \"image\" or \"image\" in part:",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "mutated": "converted.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "mutated": "converted.append({\"XXtypeXX\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "mutated": "converted.append({\"TYPE\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "mutated": "converted.append({\"type\": \"XXimageXX\", \"image\": _pil_to_data_uri(image)})",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "mutated": "converted.append({\"type\": \"IMAGE\", \"image\": _pil_to_data_uri(image)})",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "mutated": "converted.append({\"type\": \"image\", \"XXimageXX\": _pil_to_data_uri(image)})",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "mutated": "converted.append({\"type\": \"image\", \"IMAGE\": _pil_to_data_uri(image)})",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(image)})",
+        "mutated": "converted.append({\"type\": \"image\", \"image\": _pil_to_data_uri(None)})",
+        "status": "survived"
+      },
+      {
+        "line": 154,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 259,
+        "original": "print(_hr(\"=\"))",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 259,
+        "original": "print(_hr(\"=\"))",
+        "mutated": "print(_hr(\"XX=XX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 260,
+        "original": "print(_c(f\"  {schema.label} SESSION INSPECTOR\", BOLD + CYAN))",
+        "mutated": "print(_c(f\"  {schema.label} SESSION INSPECTOR\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 261,
+        "original": "print(_hr(\"=\"))",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 261,
+        "original": "print(_hr(\"=\"))",
+        "mutated": "print(_hr(\"XX=XX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 262,
+        "original": "print(f\"  File  : {_c(str(path), BOLD)}\")",
+        "mutated": "print(f\"  File  : {_c(None, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 262,
+        "original": "print(f\"  File  : {_c(str(path), BOLD)}\")",
+        "mutated": "print(f\"  File  : {_c(BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 262,
+        "original": "print(f\"  File  : {_c(str(path), BOLD)}\")",
+        "mutated": "print(f\"  File  : {_c(str(path), )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 262,
+        "original": "print(f\"  File  : {_c(str(path), BOLD)}\")",
+        "mutated": "print(f\"  File  : {_c(str(None), BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 263,
+        "original": "print(f\"  Size  : {_c(f'{path.stat().st_size / 1024:.1f} KB', BOLD)}\")",
+        "mutated": "print(f\"  Size  : {_c(None, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 263,
+        "original": "print(f\"  Size  : {_c(f'{path.stat().st_size / 1024:.1f} KB', BOLD)}\")",
+        "mutated": "print(f\"  Size  : {_c(BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 263,
+        "original": "print(f\"  Size  : {_c(f'{path.stat().st_size / 1024:.1f} KB', BOLD)}\")",
+        "mutated": "print(f\"  Size  : {_c(f'{path.stat().st_size / 1024:.1f} KB', )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 263,
+        "original": "print(f\"  Size  : {_c(f'{path.stat().st_size / 1024:.1f} KB', BOLD)}\")",
+        "mutated": "print(f\"  Size  : {_c(f'{path.stat().st_size * 1024:.1f} KB', BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 263,
+        "original": "print(f\"  Size  : {_c(f'{path.stat().st_size / 1024:.1f} KB', BOLD)}\")",
+        "mutated": "print(f\"  Size  : {_c(f'{path.stat().st_size / 1025:.1f} KB', BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 264,
+        "original": "print(f\"  Lines : {_c(len(records), BOLD)}\")",
+        "mutated": "print(f\"  Lines : {_c(None, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 264,
+        "original": "print(f\"  Lines : {_c(len(records), BOLD)}\")",
+        "mutated": "print(f\"  Lines : {_c(BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 264,
+        "original": "print(f\"  Lines : {_c(len(records), BOLD)}\")",
+        "mutated": "print(f\"  Lines : {_c(len(records), )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "if max_count <= 0:",
+        "mutated": "if max_count <= 1:",
+        "status": "survived"
+      },
+      {
+        "line": 277,
+        "original": "print(_c(\"  RECORD TYPES\", BOLD))",
+        "mutated": "print(_c(\"  RECORD TYPES\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 277,
+        "original": "print(_c(\"  RECORD TYPES\", BOLD))",
+        "mutated": "print(_c(\"XX  RECORD TYPESXX\", BOLD))",
+        "status": "survived"
+      },
+      {
+        "line": 278,
+        "original": "print(_hr())",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 281,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(1)[0][1] if (counts) and False else 0",
+        "status": "survived"
+      },
+      {
+        "line": 281,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(None)[0][1] if counts else 0",
+        "status": "survived"
+      },
+      {
+        "line": 281,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(2)[0][1] if counts else 0",
+        "status": "survived"
+      },
+      {
+        "line": 281,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(1)[0][1] if counts else 1",
+        "status": "survived"
+      },
+      {
+        "line": 283,
+        "original": "cf = schema.role_colors.get(rtype, DIM)",
+        "mutated": "cf = schema.role_colors.get(None, DIM)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "bar = _scaled_bar(count, max_count)",
+        "mutated": "bar = None",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.ljust(28), )} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.rjust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.ljust(29), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(None, BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, ):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(None, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(rtype.ljust(28), cf)} {_c(count, BOLD):>4}  {_c(bar, )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 302,
+        "original": "counter[btype] += 1",
+        "mutated": "counter[btype] = 1",
+        "status": "survived"
+      },
+      {
+        "line": 302,
+        "original": "counter[btype] += 1",
+        "mutated": "counter[btype] -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 302,
+        "original": "counter[btype] += 1",
+        "mutated": "counter[btype] += 2",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "print(_c(\"  CONTENT BLOCKS (by record type)\", BOLD))",
+        "mutated": "print(_c(\"  CONTENT BLOCKS (by record type)\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "print(_c(\"  CONTENT BLOCKS (by record type)\", BOLD))",
+        "mutated": "print(_c(\"XX  CONTENT BLOCKS (by record type)XX\", BOLD))",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "print(_c(\"  CONTENT BLOCKS (by record type)\", BOLD))",
+        "mutated": "print(_c(\"  CONTENT BLOCKS (BY RECORD TYPE)\", BOLD))",
+        "status": "survived"
+      },
+      {
+        "line": 309,
+        "original": "print(_hr())",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 313,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 314,
+        "original": "cf = schema.role_colors.get(role, DIM)",
+        "mutated": "cf = schema.role_colors.get(None, DIM)",
+        "status": "survived"
+      },
+      {
+        "line": 315,
+        "original": "print(f\"  {_c(role, cf + BOLD)}\")",
+        "mutated": "print(f\"  {_c(role, )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c(None, DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c(DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c('·', )} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c('XX·XX', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c('·', DIM)} {btype.rjust(20)} {_c(cnt, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c('·', DIM)} {btype.ljust(21)} {_c(cnt, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(None, BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(BOLD)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 317,
+        "original": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, BOLD)}\")",
+        "mutated": "print(f\"    {_c('·', DIM)} {btype.ljust(20)} {_c(cnt, )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 326,
+        "original": "print(_c(\"  MESSAGE ROLES\", BOLD))",
+        "mutated": "print(_c(\"  MESSAGE ROLES\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 326,
+        "original": "print(_c(\"  MESSAGE ROLES\", BOLD))",
+        "mutated": "print(_c(\"XX  MESSAGE ROLESXX\", BOLD))",
+        "status": "survived"
+      },
+      {
+        "line": 327,
+        "original": "print(_hr())",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 330,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(1)[0][1] if (counts) and False else 0",
+        "status": "survived"
+      },
+      {
+        "line": 330,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(1)[0][1] if (counts) or True else 0",
+        "status": "survived"
+      },
+      {
+        "line": 330,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(None)[0][1] if counts else 0",
+        "status": "survived"
+      },
+      {
+        "line": 330,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(2)[0][1] if counts else 0",
+        "status": "survived"
+      },
+      {
+        "line": 330,
+        "original": "max_count = counts.most_common(1)[0][1] if counts else 0",
+        "mutated": "max_count = counts.most_common(1)[0][1] if counts else 1",
+        "status": "survived"
+      },
+      {
+        "line": 332,
+        "original": "cf = schema.role_colors.get(role, DIM)",
+        "mutated": "cf = schema.role_colors.get(None, DIM)",
+        "status": "survived"
+      },
+      {
+        "line": 332,
+        "original": "cf = schema.role_colors.get(role, DIM)",
+        "mutated": "cf = schema.role_colors.get(role, None)",
+        "status": "survived"
+      },
+      {
+        "line": 332,
+        "original": "cf = schema.role_colors.get(role, DIM)",
+        "mutated": "cf = schema.role_colors.get(role, )",
+        "status": "survived"
+      },
+      {
+        "line": 333,
+        "original": "bar = _scaled_bar(count, max_count)",
+        "mutated": "bar = None",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.ljust(12), )} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.rjust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.ljust(13), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.ljust(12), cf)} {_c(None, BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.ljust(12), cf)} {_c(BOLD):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, ):>4}  {_c(bar, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(None, cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(cf)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, cf)}\")",
+        "mutated": "print(f\"  {_c(role.ljust(12), cf)} {_c(count, BOLD):>4}  {_c(bar, )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 341,
+        "original": "totals = schema.total_tokens_of(records)",
+        "mutated": "totals = schema.total_tokens_of(None)",
+        "status": "survived"
+      },
+      {
+        "line": 346,
+        "original": "print(_c(\"  TOKEN USAGE\", BOLD))",
+        "mutated": "print(_c(\"  TOKEN USAGE\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 346,
+        "original": "print(_c(\"  TOKEN USAGE\", BOLD))",
+        "mutated": "print(_c(\"XX  TOKEN USAGEXX\", BOLD))",
+        "status": "survived"
+      },
+      {
+        "line": 347,
+        "original": "print(_hr())",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 349,
+        "original": "label = key.replace(\"_\", \" \").title().ljust(20)",
+        "mutated": "label = key.replace(\"_\", \" \").title().rjust(20)",
+        "status": "survived"
+      },
+      {
+        "line": 349,
+        "original": "label = key.replace(\"_\", \" \").title().ljust(20)",
+        "mutated": "label = key.replace(\"_\", \" \").title().ljust(21)",
+        "status": "survived"
+      },
+      {
+        "line": 350,
+        "original": "print(f\"  {label} {_c(f'{value:,}', BOLD)}\")",
+        "mutated": "print(f\"  {label} {_c(f'{value:,}', )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 353,
+        "original": "def print_flow(records: list[dict], schema: InspectorSchema, show_text: bool = False) -> None:",
+        "mutated": "def print_flow(records: list[dict], schema: InspectorSchema, show_text: bool = True) -> None:",
+        "status": "survived"
+      },
+      {
+        "line": 359,
+        "original": "print(_c(\"  CONVERSATION FLOW\", BOLD))",
+        "mutated": "print(_c(\"  CONVERSATION FLOW\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 359,
+        "original": "print(_c(\"  CONVERSATION FLOW\", BOLD))",
+        "mutated": "print(_c(\"XX  CONVERSATION FLOWXX\", BOLD))",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "print(_hr())",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 366,
+        "original": "cf = schema.role_colors.get(role, DIM)",
+        "mutated": "cf = schema.role_colors.get(None, DIM)",
+        "status": "survived"
+      },
+      {
+        "line": 366,
+        "original": "cf = schema.role_colors.get(role, DIM)",
+        "mutated": "cf = schema.role_colors.get(role, None)",
+        "status": "survived"
+      },
+      {
+        "line": 366,
+        "original": "cf = schema.role_colors.get(role, DIM)",
+        "mutated": "cf = schema.role_colors.get(role, )",
+        "status": "survived"
+      },
+      {
+        "line": 367,
+        "original": "ts = schema.timestamp_of(r)",
+        "mutated": "ts = None",
+        "status": "survived"
+      },
+      {
+        "line": 367,
+        "original": "ts = schema.timestamp_of(r)",
+        "mutated": "ts = schema.timestamp_of(None)",
+        "status": "survived"
+      },
+      {
+        "line": 368,
+        "original": "tk_label = \"\"",
+        "mutated": "tk_label = None",
+        "status": "survived"
+      },
+      {
+        "line": 368,
+        "original": "tk_label = \"\"",
+        "mutated": "tk_label = \"XXXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 371,
+        "original": "tk_label = _c(f\"{tokens}tk\", DIM) if tokens else \"\"",
+        "mutated": "tk_label = _c(f\"{tokens}tk\", ) if tokens else \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 371,
+        "original": "tk_label = _c(f\"{tokens}tk\", DIM) if tokens else \"\"",
+        "mutated": "tk_label = _c(f\"{tokens}tk\", DIM) if tokens else \"XXXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 373,
+        "original": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "mutated": "print(f\"  {i - 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "status": "survived"
+      },
+      {
+        "line": 373,
+        "original": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "mutated": "print(f\"  {i + 2:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "status": "survived"
+      },
+      {
+        "line": 373,
+        "original": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "mutated": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), )} {_c(ts, DIM)} {tk_label}\")",
+        "status": "survived"
+      },
+      {
+        "line": 373,
+        "original": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "mutated": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.rjust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "status": "survived"
+      },
+      {
+        "line": 373,
+        "original": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "mutated": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(15), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "status": "survived"
+      },
+      {
+        "line": 373,
+        "original": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "mutated": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(None, DIM)} {tk_label}\")",
+        "status": "survived"
+      },
+      {
+        "line": 373,
+        "original": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "mutated": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(DIM)} {tk_label}\")",
+        "status": "survived"
+      },
+      {
+        "line": 373,
+        "original": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, DIM)} {tk_label}\")",
+        "mutated": "print(f\"  {i + 1:>3}. {_c(f'[{role.upper()}]'.ljust(14), cf + BOLD)} {_c(ts, )} {tk_label}\")",
+        "status": "survived"
+      },
+      {
+        "line": 376,
+        "original": "print(f\"       {_c('blocks: ' + ', '.join(schema.block_types_of(r)), DIM)}\")",
+        "mutated": "print(f\"       {_c('blocks: ' + ', '.join(schema.block_types_of(r)), )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 376,
+        "original": "print(f\"       {_c('blocks: ' + ', '.join(schema.block_types_of(r)), DIM)}\")",
+        "mutated": "print(f\"       {_c('blocks: ' + ', '.join(schema.block_types_of(None)), DIM)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 379,
+        "original": "for block in schema.blocks_of(r):",
+        "mutated": "for block in schema.blocks_of(None):",
+        "status": "survived"
+      },
+      {
+        "line": 380,
+        "original": "print(schema.render_block(block))",
+        "mutated": "print(schema.render_block(None))",
+        "status": "survived"
+      },
+      {
+        "line": 382,
+        "original": "print(f\"       {_truncate(schema.text_of(r), 200)}\")",
+        "mutated": "print(f\"       {_truncate(schema.text_of(r), )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 382,
+        "original": "print(f\"       {_truncate(schema.text_of(r), 200)}\")",
+        "mutated": "print(f\"       {_truncate(schema.text_of(r), 201)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 390,
+        "original": "print(_c(\"  RAW RECORD EXAMPLES (one per type)\", BOLD))",
+        "mutated": "print(_c(\"  RAW RECORD EXAMPLES (one per type)\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 390,
+        "original": "print(_c(\"  RAW RECORD EXAMPLES (one per type)\", BOLD))",
+        "mutated": "print(_c(\"XX  RAW RECORD EXAMPLES (one per type)XX\", BOLD))",
+        "status": "survived"
+      },
+      {
+        "line": 390,
+        "original": "print(_c(\"  RAW RECORD EXAMPLES (one per type)\", BOLD))",
+        "mutated": "print(_c(\"  RAW RECORD EXAMPLES (ONE PER TYPE)\", BOLD))",
+        "status": "survived"
+      },
+      {
+        "line": 391,
+        "original": "print(_hr())",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 400,
+        "original": "print(_c(f\"  type = {rtype}\", BOLD + YELLOW))",
+        "mutated": "print(_c(f\"  type = {rtype}\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 401,
+        "original": "print(_c(\"  top-level keys:\", DIM))",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 401,
+        "original": "print(_c(\"  top-level keys:\", DIM))",
+        "mutated": "print(_c(None, DIM))",
+        "status": "survived"
+      },
+      {
+        "line": 401,
+        "original": "print(_c(\"  top-level keys:\", DIM))",
+        "mutated": "print(_c(DIM))",
+        "status": "survived"
+      },
+      {
+        "line": 401,
+        "original": "print(_c(\"  top-level keys:\", DIM))",
+        "mutated": "print(_c(\"  top-level keys:\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 401,
+        "original": "print(_c(\"  top-level keys:\", DIM))",
+        "mutated": "print(_c(\"XX  top-level keys:XX\", DIM))",
+        "status": "survived"
+      },
+      {
+        "line": 401,
+        "original": "print(_c(\"  top-level keys:\", DIM))",
+        "mutated": "print(_c(\"  TOP-LEVEL KEYS:\", DIM))",
+        "status": "survived"
+      },
+      {
+        "line": 402,
+        "original": "print(f\"    {_c(list(r.keys()), DIM)}\")",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 402,
+        "original": "print(f\"    {_c(list(r.keys()), DIM)}\")",
+        "mutated": "print(f\"    {_c(None, DIM)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 402,
+        "original": "print(f\"    {_c(list(r.keys()), DIM)}\")",
+        "mutated": "print(f\"    {_c(DIM)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 402,
+        "original": "print(f\"    {_c(list(r.keys()), DIM)}\")",
+        "mutated": "print(f\"    {_c(list(r.keys()), )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 405,
+        "original": "print(_c(\"  flattened text:\", DIM))",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 405,
+        "original": "print(_c(\"  flattened text:\", DIM))",
+        "mutated": "print(_c(None, DIM))",
+        "status": "survived"
+      },
+      {
+        "line": 405,
+        "original": "print(_c(\"  flattened text:\", DIM))",
+        "mutated": "print(_c(DIM))",
+        "status": "survived"
+      },
+      {
+        "line": 405,
+        "original": "print(_c(\"  flattened text:\", DIM))",
+        "mutated": "print(_c(\"  flattened text:\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 405,
+        "original": "print(_c(\"  flattened text:\", DIM))",
+        "mutated": "print(_c(\"XX  flattened text:XX\", DIM))",
+        "status": "survived"
+      },
+      {
+        "line": 405,
+        "original": "print(_c(\"  flattened text:\", DIM))",
+        "mutated": "print(_c(\"  FLATTENED TEXT:\", DIM))",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "print(f\"    {_truncate(schema.text_of(r), 150)}\")",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "print(f\"    {_truncate(schema.text_of(r), 150)}\")",
+        "mutated": "print(f\"    {_truncate(None, 150)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "print(f\"    {_truncate(schema.text_of(r), 150)}\")",
+        "mutated": "print(f\"    {_truncate(150)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "print(f\"    {_truncate(schema.text_of(r), 150)}\")",
+        "mutated": "print(f\"    {_truncate(schema.text_of(r), )}\")",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "print(f\"    {_truncate(schema.text_of(r), 150)}\")",
+        "mutated": "print(f\"    {_truncate(schema.text_of(r), 151)}\")",
+        "status": "survived"
+      },
+      {
+        "line": 408,
+        "original": "print(_hr(\".\"))",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 408,
+        "original": "print(_hr(\".\"))",
+        "mutated": "print(_hr(\"XX.XX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "show_flow: bool = False,",
+        "mutated": "show_flow: bool = True,",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "show_blocks: bool = False,",
+        "mutated": "show_blocks: bool = True,",
+        "status": "survived"
+      },
+      {
+        "line": 432,
+        "original": "print(_hr(\"=\"))",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 432,
+        "original": "print(_hr(\"=\"))",
+        "mutated": "print(_hr(\"XX=XX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 435,
+        "original": "print_block_summary(records, schema)",
+        "mutated": "print_block_summary(None, schema)",
+        "status": "survived"
+      },
+      {
+        "line": 437,
+        "original": "print_token_usage(records, schema)",
+        "mutated": "print_token_usage(None, schema)",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "print_flow(records, schema, show_text=show_blocks)",
+        "mutated": "print_flow(records, schema, show_text=None)",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "print_flow(records, schema, show_text=show_blocks)",
+        "mutated": "print_flow(records, schema, )",
+        "status": "survived"
+      },
+      {
+        "line": 442,
+        "original": "print(_hr(\"=\"))",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 442,
+        "original": "print(_hr(\"=\"))",
+        "mutated": "print(_hr(\"XX=XX\"))",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.4,
+    "coverage": 2.59,
+    "mutation": 33.83
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "target": "boltons/jsonutils.py",
+  "validity": {
+    "total": 36,
+    "valid": 36,
+    "valid_ids": [
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_bytesio_basic",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_no_trailing_newline",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_single_line",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_single_line_with_newline",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_empty",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_trailing_newline_yields_empty",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_empty_lines_inside",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_small_blocksize",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_blocksize_one",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_encoding_explicit",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_text_mode",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_preseek_false",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_preseek_false_from_midline",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_preseek_false_text_mode",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_forward_bytesio",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_iterable_protocol",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_skips_blank_lines",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_leading_whitespace_lstripped",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_error_raises",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_ignore_errors",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_text_file",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_empty_file",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_cur_byte_pos_forward",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_reverse_bytesio",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_reverse_no_trailing_newline",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_reverse_ignore_errors",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_reverse_error_raises",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_text_file_reverse",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_rel_seek_zero_starts_at_beginning",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_rel_seek_invalid_raises",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_rel_seek_negative_translated",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_rel_seek_midline_aligns_forward",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_rel_seek_one_is_end",
+      "tests_testpilot/test_jsonutils.py::test_jsonl_iterator_rel_seek_zero_reverse",
+      "tests_testpilot/test_jsonutils.py::test_align_to_newline_no_newline_seeks_eof",
+      "tests_testpilot/test_jsonutils.py::test_reverse_iter_lines_default_blocksize"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.47,
+        "passed": 36,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.34,
+        "passed": 36,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.33,
+        "passed": 36,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.7293233082706767,
+  "branch_rate": 0.7115384615384616,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.75,
+    "total": 172,
+    "killed": 126,
+    "survived": 42,
+    "excluded": 4,
+    "status_counts": {
+      "killed": 126,
+      "survived": 42,
+      "timeout": 4
+    },
+    "survivors": [
+      {
+        "line": 77,
+        "original": "encoding = encoding or getattr(file_obj, 'encoding', None)",
+        "mutated": "encoding = encoding or getattr(None, 'encoding', None)",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "encoding = encoding or getattr(file_obj, 'encoding', None)",
+        "mutated": "encoding = encoding or getattr(file_obj, 'XXencodingXX', None)",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "encoding = encoding or getattr(file_obj, 'encoding', None)",
+        "mutated": "encoding = encoding or getattr(file_obj, 'ENCODING', None)",
+        "status": "survived"
+      },
+      {
+        "line": 95,
+        "original": "file_obj.seek(cur_pos, os.SEEK_SET)",
+        "mutated": "file_obj.seek(cur_pos, )",
+        "status": "survived"
+      },
+      {
+        "line": 150,
+        "original": "rel_seek = 1.0",
+        "mutated": "rel_seek = 2.0",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "raise ValueError(\"'rel_seek' expected a float between\"\n                         \" -1.0 and 1.0, not %r\" % rel_seek)",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "raise ValueError(\"'rel_seek' expected a float between\"",
+        "mutated": "raise ValueError(\"XX'rel_seek' expected a float betweenXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "raise ValueError(\"'rel_seek' expected a float between\"",
+        "mutated": "raise ValueError(\"'REL_SEEK' EXPECTED A FLOAT BETWEEN\"",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "\" -1.0 and 1.0, not %r\" % rel_seek)",
+        "mutated": "\"XX -1.0 and 1.0, not %rXX\" % rel_seek)",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "\" -1.0 and 1.0, not %r\" % rel_seek)",
+        "mutated": "\" -1.0 AND 1.0, NOT %R\" % rel_seek)",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "self._blocksize = 4096",
+        "mutated": "self._blocksize = 4097",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "preseek=False)",
+        "mutated": "preseek=None)",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "blocksize=self._blocksize,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "\"Aligns the file object's position to the next newline.\"",
+        "mutated": "\"XXAligns the file object's position to the next newline.XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "\"Aligns the file object's position to the next newline.\"",
+        "mutated": "\"aligns the file object's position to the next newline.\"",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "\"Aligns the file object's position to the next newline.\"",
+        "mutated": "\"ALIGNS THE FILE OBJECT'S POSITION TO THE NEXT NEWLINE.\"",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "newline = b'\\n' if isinstance(fo.read(0), bytes) else '\\n'",
+        "mutated": "newline = b'\\n' if (isinstance(fo.read(0), bytes)) or True else '\\n'",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "newline = b'\\n' if isinstance(fo.read(0), bytes) else '\\n'",
+        "mutated": "newline = b'XX\\nXX' if isinstance(fo.read(0), bytes) else '\\n'",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "newline = b'\\n' if isinstance(fo.read(0), bytes) else '\\n'",
+        "mutated": "newline = b'\\n' if isinstance(fo.read(0), bytes) else 'XX\\nXX'",
+        "status": "survived"
+      },
+      {
+        "line": 176,
+        "original": "cur, total_read = newline[:0], 0",
+        "mutated": "cur, total_read = newline[:0], 1",
+        "status": "survived"
+      },
+      {
+        "line": 179,
+        "original": "cur = fo.read(bsize)",
+        "mutated": "cur = None",
+        "status": "survived"
+      },
+      {
+        "line": 179,
+        "original": "cur = fo.read(bsize)",
+        "mutated": "cur = fo.read(None)",
+        "status": "survived"
+      },
+      {
+        "line": 180,
+        "original": "if not cur:",
+        "mutated": "if cur:",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "fo.seek(0, os.SEEK_END)",
+        "mutated": "fo.seek(1, os.SEEK_END)",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "total_read += bsize",
+        "mutated": "total_read = bsize",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "newline_offset = cur.index(newline) + total_read - bsize",
+        "mutated": "newline_offset = cur.index(newline) + total_read + bsize",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "newline_offset = cur.index(newline) + total_read - bsize",
+        "mutated": "newline_offset = cur.rindex(newline) + total_read - bsize",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "fo.seek(cur_pos + newline_offset)",
+        "mutated": "fo.seek(cur_pos - newline_offset)",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "\"Sets the file object's position to the relative location set above.\"",
+        "mutated": "\"XXSets the file object's position to the relative location set above.XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "\"Sets the file object's position to the relative location set above.\"",
+        "mutated": "\"sets the file object's position to the relative location set above.\"",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "\"Sets the file object's position to the relative location set above.\"",
+        "mutated": "\"SETS THE FILE OBJECT'S POSITION TO THE RELATIVE LOCATION SET ABOVE.\"",
+        "status": "survived"
+      },
+      {
+        "line": 193,
+        "original": "fo.seek(0, os.SEEK_SET)",
+        "mutated": "fo.seek(os.SEEK_SET)",
+        "status": "survived"
+      },
+      {
+        "line": 193,
+        "original": "fo.seek(0, os.SEEK_SET)",
+        "mutated": "fo.seek(0, )",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "if rs == 1.0:",
+        "mutated": "if rs != 1.0:",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "if rs == 1.0:",
+        "mutated": "if rs == 2.0:",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "self._cur_pos = size",
+        "mutated": "self._cur_pos = None",
+        "status": "survived"
+      },
+      {
+        "line": 200,
+        "original": "target = int(size * rs)",
+        "mutated": "target = int(size / rs)",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "fo.seek(target, os.SEEK_SET)",
+        "mutated": "fo.seek(os.SEEK_SET)",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "fo.seek(target, os.SEEK_SET)",
+        "mutated": "fo.seek(target, )",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "self._cur_pos = fo.tell()",
+        "mutated": "self._cur_pos = None",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "while 1:",
+        "mutated": "while 2:",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "line = next(self._line_iter).lstrip()",
+        "mutated": "line = next(self._line_iter).rstrip()",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.14,
+    "coverage": 2.32,
+    "mutation": 26.77
+  }
+}

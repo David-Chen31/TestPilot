@@ -1,0 +1,321 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T06:27:29+00:00",
+    "duration": 0.01,
+    "summary": "7 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "backon/_state.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "TryAgain",
+      "AttemptTimeoutError",
+      "RetryError",
+      "Attempt",
+      "AttemptResult",
+      "RetryState",
+      "RetryCallState"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T06:27:29+00:00",
+    "duration": 0.07,
+    "summary": "依赖定义 0 个，调用处 8 个，提示词前缀 5688 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "backon/_state.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/abc.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/abc.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/abc/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/abc/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "dataclasses.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: dataclasses.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "dataclasses/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: dataclasses/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "TryAgain(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "AttemptTimeoutError(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "RetryError(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "Attempt(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "AttemptResult(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "RetryState(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "RetryCallState(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `backon._state` (file `backon/_state.py`).\n\nSource of `backon/_state.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | from __future__ import annotations\n    2 | \n    3 | import threading\n    4 | import time as time_module\n    5 | from collections.abc import Callable\n    6 | from dataclasses import dataclass, field\n    7 | from typing import Any\n    8 | \n    9 | \n   10 | class TryAgain(Exception):\n   11 |     \"\"\"Raise inside a retried function to force an immediate retry.\"\"\"\n   12 | \n   13 | \n   14 | class AttemptTimeoutError(Exception):\n   15 |     \"\"\"Raised when a single attempt exceeds the configured timeout.\"\"\"\n   16 | \n   17 | \n   18 | class RetryError(Exception):\n   19 |     \"\"\"Raised when retry gives up. Wraps the last attempt's exception.\"\"\"\n   20 | \n   21 |     def __init__(self, last_attempt: Attempt) -> None:\n   22 |         self.last_attempt = last_attempt\n   23 |         cause = last_attempt.exception\n   24 |         super().__init__(f\"Retry failed after {last_attempt.tries} tries\")\n   25 |         if cause is not None:\n   26 |             self.__cause__ = cause\n   27 | \n   28 |     def reraise(self) -> None:\n   29 |         cause = self.last_attempt.exception\n   30 |         if cause is not None:\n   31 |             raise cause from None\n   32 | \n   33 | \n   34 | @dataclass\n   35 | class Attempt:\n   36 |     tries: int = 0\n   37 |     exception: BaseException | None = None\n   38 |     value: Any = None\n   39 |     wait: float = 0.0\n   40 |     elapsed: float = 0.0\n   41 | \n   42 | \n   43 | @dataclass\n   44 | class AttemptResult:\n   45 |     value: Any = None\n   46 |     exception: BaseException | None = None\n   47 | \n   48 | \n   49 | @dataclass\n   50 | class RetryState:\n   51 |     target: Callable[..., Any] = lambda: None\n   52 |     args: tuple = ()\n   53 |     kwargs: dict = field(default_factory=dict)\n   54 |     tries: int = 0\n   55 |     start_time: float = 0.0\n   56 |     elapsed: float = 0.0\n   57 |     idle_for: float = 0.0\n   58 |     outcome: Attempt | None = None\n   59 |     _lock: threading.local = field(default_factory=threading.local)\n   60 | \n   61 |     def __post_init__(self):\n   62 |         self._lock.lock = threading.Lock()\n   63 | \n   64 |     @property\n   65 |     def statistics(self) -> dict[str, Any]:\n   66 |         return {\n   67 |             \"start_time\": self.start_time,\n   68 |             \"attempt_number\": self.tries,\n   69 |             \"idle_for\": self.idle_for,\n   70 |             \"elapsed\": self.elapsed,\n   71 |         }\n   72 | \n   73 |     def to_details(self) -> dict[str, Any]:\n   74 |         return {\n   75 |             \"target\": self.target,\n   76 |             \"args\": self.args,\n   77 |             \"kwargs\": self.kwargs,\n   78 |             \"tries\": self.tries,\n   79 |             \"elapsed\": self.elapsed,\n   80 |         }\n   81 | \n   82 | \n   83 | @dataclass\n   84 | class RetryCallState:\n   85 |     fn: Callable[..., Any] | None = None\n   86 |     args: tuple = ()\n   87 |     kwargs: dict = field(default_factory=dict)\n   88 |     attempt_number: int = 1\n   89 |     outcome: Attempt | None = None\n   90 |     outcome_timestamp: float | None = None\n   91 |     start_time: float = 0.0\n   92 |     idle_for: float = 0.0\n   93 |     upcoming_sleep: float = 0.0\n   94 | \n   95 |     @property\n   96 |     def elapsed(self) -> float:\n   97 |         if self.start_time == 0:\n   98 |             return 0.0\n   99 |         return time_module.monotonic() - self.start_time\n  100 | \n  101 |     @property\n  102 |     def seconds_since_start(self) -> float:\n  103 |         return self.elapsed\n  104 | \n  105 |     @property\n  106 |     def statistics(self) -> dict[str, Any]:\n  107 |         return {\n  108 |             \"start_time\": self.start_time,\n  109 |             \"attempt_number\": self.attempt_number,\n  110 |             \"idle_for\": self.idle_for,\n  111 |             \"elapsed\": self.elapsed,\n  112 |         }\n  113 | \n  114 |     def to_details(self) -> dict[str, Any]:\n  115 |         return {\n  116 |             \"target\": self.fn,\n  117 |             \"args\": self.args,\n  118 |             \"kwargs\": self.kwargs,\n  119 |             \"tries\": self.attempt_number,\n  120 |             \"elapsed\": self.elapsed,\n  121 |         }\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- backon/_retry/_loops.py:83: `raise AttemptTimeoutError() from None`\n- backon/_retry/_loops.py:234: `raise AttemptTimeoutError() from None`\n- backon/_retry/_classes.py:174: `outcome = Attempt(`\n- backon/_retry/_classes.py:203: `attempt = _RetryAttempt()`\n- backon/_retry/_classes.py:154: `self._iter_state = RetryState(target=self._name or \"Retrying\")`\n- backon/_retry/_loops.py:48: `state = RetryState(target=target, args=args, kwargs=kwargs or {})`\n- backon/_retry/_loops.py:51: `call_state = RetryCallState(`\n- backon/_retry/_loops.py:206: `call_state = RetryCallState(`\n\nPublic API to cover: `TryAgain`, `AttemptTimeoutError`, `RetryError`, `Attempt`, `AttemptResult`, `RetryState`, `RetryCallState`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from backon._state import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:27:36+00:00",
+    "duration": 6.88,
+    "summary": "第 1 轮：生成 297 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__state.py",
+          "content": "<8765 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 3966,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `backon._state`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport threading\nimport time\n\nimport pytest\n\nfrom backon._state import (\n    Attempt,\n    AttemptResult,\n    AttemptTimeoutError,\n    RetryCallState,\n    RetryError,\n    RetryState,\n    TryAgain,\n)\n\n\nclass TestExceptions:\n    def test_try_again_is_exception(self):\n        exc = TryAgain(\"boom\")\n        assert isinstance(exc, Exception)\n        assert str(exc) == \"boom\"\n\n    def test_try_again_can_be_raised(self):\n        with pytest.raises(TryAgain):\n            raise TryAgain()\n\n    def test_attempt_timeout_error(self):\n        exc = AttemptTimeoutError(\"too slow\")\n        assert isinstance(exc, Exception)\n        assert str(exc) == \"too slow\"\n\n    def test_attempt_timeout_error_raised(self):\n        with pytest.raises(AttemptTimeoutError):\n            raise AttemptTimeoutError()\n\n\nclass TestRetryError:\n    def test_message_and_last_attempt(self):\n        cause = ValueError(\"original\")\n        attempt = Attempt(tries=3, exception=cause)\n        err = RetryError(attempt)\n        assert isinstance(err, Exception)\n        assert err.last_attempt is attempt\n        assert str(err) == \"Retry failed after 3 tries\"\n        assert err.__cause__ is cause\n\n    def test_no_cause(self):\n        attempt = Attempt(tries=0)\n        err = RetryError(attempt)\n        assert err.last_attempt is attempt\n        assert str(err) == \"Retry failed after 0 tries\"\n        assert err.__cause__ is None\n\n    def test_reraise_with_cause(self):\n        cause = RuntimeError(\"oh no\")\n        attempt = Attempt(tries=2, exception=cause)\n        err = RetryError(attempt)\n        with pytest.raises(RuntimeError) as info:\n            err.reraise()\n        assert info.value is cause\n\n    def test_reraise_without_cause_does_nothing(self):\n        attempt = Attempt(tries=1)\n        err = RetryError(attempt)\n        # No exception raised\n        assert err.reraise() is None\n\n    def test_reraise_does_not_chain(self):\n        cause = KeyError(\"k\")\n        err = RetryError(Attempt(tries=1, exception=cause))\n        try:\n            err.reraise()\n        except KeyError as e:\n            assert e.__context__ is None or e.__suppress_context__\n        else:\n            pytest.fail(\"reraise did not raise\")\n\n\nclass TestAttempt:\n    def test_defaults(self):\n        a = Attempt()\n        assert a.tries == 0\n        assert a.exception is None\n        assert a.value is None\n        assert a.wait == 0.0\n        assert a.elapsed == 0.0\n\n    def test_custom_values(self):\n        exc = ValueError(\"x\")\n        a = Attempt(tries=5, exception=exc, value=10, wait=1.5, elapsed=2.5)\n        assert a.tries == 5\n        assert a.exception is exc\n        assert a.value == 10\n        assert a.wait == 1.5\n        assert a.elapsed == 2.5\n\n\nclass TestAttemptResult:\n    def test_defaults(self):\n        r = AttemptResult()\n        assert r.value is None\n        assert r.exception is None\n\n    def test_custom(self):\n        exc = ValueError(\"bad\")\n        r = AttemptResult(value=42, exception=exc)\n        assert r.value == 42\n        assert r.exception is exc\n\n\nclass TestRetryState:\n    def test_defaults(self):\n        state = RetryState()\n        assert state.args == ()\n        assert state.kwargs == {}\n        assert state.tries == 0\n        assert state.start_time == 0.0\n        assert state.elapsed == 0.0\n        assert state.idle_for == 0.0\n        assert state.outcome is None\n        assert state._lock.lock is not None\n\n    def test_default_target_is_callable(self):\n        state = RetryState()\n        assert callable(state.target)\n        assert state.target() is None\n\n    def test_default_kwargs_are_independent(self):\n        s1 = RetryState()\n        s2 = RetryState()\n        s1.kwargs[\"a\"] = 1\n        assert s2.kwargs == {}\n\n    def test_custom_values(self):\n        outcome = Attempt(tries=1)\n        state = RetryState(\n            target=\"foo\",\n            args=(1, 2),\n            kwargs={\"x\": 1},\n            tries=3,\n            start_time=100.0,\n            elapsed=4.0,\n            idle_for=2.0,\n            outcome=outcome,\n        )\n        assert state.target == \"foo\"\n        assert state.args == (1, 2)\n        assert state.kwargs == {\"x\": 1}\n        assert state.tries == 3\n        assert state.start_time == 100.0\n        assert state.elapsed == 4.0\n        assert state.idle_for == 2.0\n        assert state.outcome is outcome\n\n    def test_lock_is_created(self):\n        state = RetryState()\n        assert isinstance(state._lock.lock, type(threading.Lock()))\n\n    def test_lock_is_per_instance(self):\n        s1 = RetryState()\n        s2 = RetryState()\n        assert s1._lock.lock is not s2._lock.lock\n\n    def test_statistics(self):\n        state = RetryState(tries=4, start_time=10.0, elapsed=5.0, idle_for=1.5)\n        assert state.statistics == {\n            \"start_time\": 10.0,\n            \"attempt_number\": 4,\n            \"idle_for\": 1.5,\n            \"elapsed\": 5.0,\n        }\n\n    def test_to_details(self):\n        def target():\n            pass\n\n        state = RetryState(\n            target=target,\n            args=(1,),\n            kwargs={\"k\": \"v\"},\n            tries=2,\n            elapsed=3.0,\n        )\n        details = state.to_details()\n        assert details[\"target\"] is target\n        assert details[\"args\"] == (1,)\n        assert details[\"kwargs\"] == {\"k\": \"v\"}\n        assert details[\"tries\"] == 2\n        assert details[\"elapsed\"] == 3.0\n\n\nclass TestRetryCallState:\n    def test_defaults(self):\n        state = RetryCallState()\n        assert state.fn is None\n        assert state.args == ()\n        assert state.kwargs == {}\n        assert state.attempt_number == 1\n        assert state.outcome is None\n        assert state.outcome_timestamp is None\n        assert state.start_time == 0.0\n        assert state.idle_for == 0.0\n        assert state.upcoming_sleep == 0.0\n\n    def test_default_kwargs_independent(self):\n        s1 = RetryCallState()\n        s2 = RetryCallState()\n        s1.kwargs[\"z\"] = 1\n        assert s2.kwargs == {}\n\n    def test_custom_values(self):\n        def fn():\n            pass\n\n        outcome = Attempt(tries=1)\n        state = RetryCallState(\n            fn=fn,\n            args=(1, 2),\n            kwargs={\"a\": 1},\n            attempt_number=3,\n            outcome=outcome,\n            outcome_timestamp=50.0,\n            start_time=100.0,\n            idle_for=1.0,\n            upcoming_sleep=2.0,\n        )\n        assert state.fn is fn\n        assert state.args == (1, 2)\n        assert state.kwargs == {\"a\": 1}\n        assert state.attempt_number == 3\n        assert state.outcome is outcome\n        assert state.outcome_timestamp == 50.0\n        assert state.start_time == 100.0\n        assert state.idle_for == 1.0\n        assert state.upcoming_sleep == 2.0\n\n    def test_elapsed_zero_when_start_time_zero(self):\n        state = RetryCallState()\n        assert state.elapsed == 0.0\n        assert state.seconds_since_start == 0.0\n\n    def test_elapsed_uses_monotonic(self, monkeypatch):\n        fake_now = 1000.0\n        monkeypatch.setattr(time, \"monotonic\", lambda: fake_now)\n        state = RetryCallState(start_time=950.0)\n        assert state.elapsed == 50.0\n        assert state.seconds_since_start == 50.0\n\n    def test_elapsed_advances(self, monkeypatch):\n        current = {\"now\": 100.0}\n        monkeypatch.setattr(time, \"monotonic\", lambda: current[\"now\"])\n        state = RetryCallState(start_time=90.0)\n        assert state.elapsed == 10.0\n        current[\"now\"] = 95.0\n        assert state.elapsed == 5.0\n\n    def test_statistics(self, monkeypatch):\n        monkeypatch.setattr(time, \"monotonic\", lambda: 110.0)\n        state = RetryCallState(\n            attempt_number=2,\n            start_time=100.0,\n            idle_for=0.5,\n        )\n        assert state.statistics == {\n            \"start_time\": 100.0,\n            \"attempt_number\": 2,\n            \"idle_for\": 0.5,\n            \"elapsed\": 10.0,\n        }\n\n    def test_statistics_zero_start_time(self):\n        state = RetryCallState(attempt_number=1)\n        stats = state.statistics\n        assert stats[\"start_time\"] == 0.0\n        assert stats[\"attempt_number\"] == 1\n        assert stats[\"idle_for\"] == 0.0\n        assert stats[\"elapsed\"] == 0.0\n\n    def test_to_details(self, monkeypatch):\n        monkeypatch.setattr(time, \"monotonic\", lambda: 105.0)\n\n        def fn():\n            pass\n\n        state = RetryCallState(\n            fn=fn,\n            args=(1,),\n            kwargs={\"b\": 2},\n            attempt_number=4,\n            start_time=100.0,\n        )\n        details = state.to_details()\n        assert details[\"target\"] is fn\n        assert details[\"args\"] == (1,)\n        assert details[\"kwargs\"] == {\"b\": 2}\n        assert details[\"tries\"] == 4\n        assert details[\"elapsed\"] == 5.0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 1673,
+      "cache_hit_tokens": 0,
+      "completion_tokens": 2293,
+      "reasoning_tokens": 0,
+      "latency": 6.88
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:27:37+00:00",
+    "duration": 1.24,
+    "summary": "通过 30，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__state.py"
+          ]
+        },
+        "duration": 1.24,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 3966
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T06:27:39+00:00",
+    "duration": 2.12,
+    "summary": "分数 [1, 0.0, 1.0, 1.0, 30]（提升），行覆盖 100.0%，分支覆盖 100.0%",
+    "tool_calls": [
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "backon/_state.py",
+          "tests": [
+            "tests_testpilot/test__state.py"
+          ]
+        },
+        "duration": 2.12,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 3966,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      1.0,
+      30
+    ],
+    "coverage": {
+      "target": "backon/_state.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 72,
+      "branches": 6,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T06:27:39+00:00",
+    "duration": 0.0,
+    "summary": "全部测试通过，pytest 反馈已无可改进之处",
+    "tool_calls": [],
+    "tokens_total": 3966
+  },
+  {
+    "node": "finalize",
+    "iteration": 1,
+    "at": "2026-10-20T06:27:39+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试通过，pytest 反馈已无可改进之处；采用第 1 轮，分数 [1, 0.0, 1.0, 1.0, 30]",
+    "tool_calls": [],
+    "tokens_total": 3966,
+    "best_iteration": 1
+  }
+]

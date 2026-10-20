@@ -1,0 +1,479 @@
+{
+  "target": "jmespath/functions.py",
+  "validity": {
+    "total": 112,
+    "valid": 103,
+    "valid_ids": [
+      "tests_testpilot/test_functions_s1.py::TestSignature::test_signature_attaches_arguments_attribute",
+      "tests_testpilot/test_functions_s1.py::TestSignature::test_signature_returns_function",
+      "tests_testpilot/test_functions_s1.py::TestSignature::test_signature_with_no_arguments",
+      "tests_testpilot/test_functions_s1.py::TestFunctionRegistry::test_populates_function_table_from_func_methods",
+      "tests_testpilot/test_functions_s1.py::TestFunctionRegistry::test_ignores_methods_not_starting_with_func",
+      "tests_testpilot/test_functions_s1.py::TestFunctionRegistry::test_ignores_func_methods_without_signature",
+      "tests_testpilot/test_functions_s1.py::TestFunctionRegistry::test_multiple_functions_registered",
+      "tests_testpilot/test_functions_s1.py::TestFunctionRegistry::test_builtin_functions_present",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_unknown_function_raises",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_arity_error",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_arity_error_too_many",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_variadic_arity_error",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_variadic_arity_ok",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_type_error",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_type_error_reports_info",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_call_valid_function",
+      "tests_testpilot/test_functions_s1.py::TestCallFunction::test_call_dispatches_with_correct_args",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_validate_non_variadic_exact_match",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_validate_variadic_min_arity",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_validate_variadic_more_than_min",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_get_allowed_pytypes_simple",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_get_allowed_pytypes_with_subtype",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_subtype_check_single_type_ok",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_subtype_check_single_type_bad",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_subtype_check_dynamic_ok",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_subtype_check_dynamic_mixed_bad",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_subtype_check_dynamic_unknown_first",
+      "tests_testpilot/test_functions_s1.py::TestValidation::test_convert_to_jmespath_type",
+      "tests_testpilot/test_functions_s1.py::TestAbs::test_abs_positive",
+      "tests_testpilot/test_functions_s1.py::TestAbs::test_abs_negative",
+      "tests_testpilot/test_functions_s1.py::TestAvg::test_avg",
+      "tests_testpilot/test_functions_s1.py::TestAvg::test_avg_empty",
+      "tests_testpilot/test_functions_s1.py::TestAvg::test_avg_float",
+      "tests_testpilot/test_functions_s1.py::TestNotNull::test_not_null_first",
+      "tests_testpilot/test_functions_s1.py::TestNotNull::test_not_null_skips_none",
+      "tests_testpilot/test_functions_s1.py::TestNotNull::test_not_null_all_none",
+      "tests_testpilot/test_functions_s1.py::TestNotNull::test_not_null_false",
+      "tests_testpilot/test_functions_s1.py::TestToArray::test_to_array_from_list_returns_same",
+      "tests_testpilot/test_functions_s1.py::TestToArray::test_to_array_from_scalar",
+      "tests_testpilot/test_functions_s1.py::TestToArray::test_to_array_from_none",
+      "tests_testpilot/test_functions_s1.py::TestToArray::test_to_array_from_string",
+      "tests_testpilot/test_functions_s1.py::TestToString::test_to_string_returns_string",
+      "tests_testpilot/test_functions_s1.py::TestToString::test_to_string_number",
+      "tests_testpilot/test_functions_s1.py::TestToString::test_to_string_list_compact",
+      "tests_testpilot/test_functions_s1.py::TestToString::test_to_string_dict_compact",
+      "tests_testpilot/test_functions_s1.py::TestToString::test_to_string_bool",
+      "tests_testpilot/test_functions_s1.py::TestToString::test_to_string_null",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_list_returns_none",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_dict_returns_none",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_bool_returns_none",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_none_returns_none",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_int",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_float",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_string_int",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_string_float",
+      "tests_testpilot/test_functions_s1.py::TestToNumber::test_to_number_invalid_string",
+      "tests_testpilot/test_functions_s1.py::TestContains::test_contains_string_true",
+      "tests_testpilot/test_functions_s1.py::TestContains::test_contains_string_false",
+      "tests_testpilot/test_functions_s1.py::TestContains::test_contains_array_true",
+      "tests_testpilot/test_functions_s1.py::TestContains::test_contains_array_false",
+      "tests_testpilot/test_functions_s1.py::TestLength::test_length_string",
+      "tests_testpilot/test_functions_s1.py::TestLength::test_length_array",
+      "tests_testpilot/test_functions_s1.py::TestLength::test_length_object",
+      "tests_testpilot/test_functions_s1.py::TestEndsStartsWith::test_ends_with_true",
+      "tests_testpilot/test_functions_s1.py::TestEndsStartsWith::test_ends_with_false",
+      "tests_testpilot/test_functions_s1.py::TestEndsStartsWith::test_starts_with_true",
+      "tests_testpilot/test_functions_s1.py::TestEndsStartsWith::test_starts_with_false",
+      "tests_testpilot/test_functions_s1.py::TestReverse::test_reverse_string",
+      "tests_testpilot/test_functions_s1.py::TestReverse::test_reverse_array",
+      "tests_testpilot/test_functions_s1.py::TestReverse::test_reverse_empty_array",
+      "tests_testpilot/test_functions_s1.py::TestCeilFloor::test_ceil",
+      "tests_testpilot/test_functions_s1.py::TestCeilFloor::test_ceil_int",
+      "tests_testpilot/test_functions_s1.py::TestCeilFloor::test_floor",
+      "tests_testpilot/test_functions_s1.py::TestCeilFloor::test_floor_int",
+      "tests_testpilot/test_functions_s1.py::TestJoin::test_join",
+      "tests_testpilot/test_functions_s1.py::TestJoin::test_join_empty",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_max_numbers",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_max_strings",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_max_empty",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_min_numbers",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_min_strings",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_min_empty",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_sort",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_sort_strings",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_sum",
+      "tests_testpilot/test_functions_s1.py::TestMinMaxSumSort::test_sum_empty",
+      "tests_testpilot/test_functions_s1.py::TestMerge::test_merge_single",
+      "tests_testpilot/test_functions_s1.py::TestMerge::test_merge_multiple",
+      "tests_testpilot/test_functions_s1.py::TestKeysValues::test_keys",
+      "tests_testpilot/test_functions_s1.py::TestKeysValues::test_values",
+      "tests_testpilot/test_functions_s1.py::TestType::test_type_string",
+      "tests_testpilot/test_functions_s1.py::TestType::test_type_boolean",
+      "tests_testpilot/test_functions_s1.py::TestType::test_type_array",
+      "tests_testpilot/test_functions_s1.py::TestType::test_type_object",
+      "tests_testpilot/test_functions_s1.py::TestType::test_type_number_int",
+      "tests_testpilot/test_functions_s1.py::TestType::test_type_number_float",
+      "tests_testpilot/test_functions_s1.py::TestType::test_type_null",
+      "tests_testpilot/test_functions_s1.py::TestSortBy::test_sort_by_invalid_first_type",
+      "tests_testpilot/test_functions_s1.py::TestSortBy::test_sort_by_mixed_types_in_array",
+      "tests_testpilot/test_functions_s1.py::TestMinByMaxBy::test_min_by_invalid_type",
+      "tests_testpilot/test_functions_s1.py::TestMinByMaxBy::test_max_by_invalid_type",
+      "tests_testpilot/test_functions_s1.py::TestTypeMaps::test_types_map_basic",
+      "tests_testpilot/test_functions_s1.py::TestTypeMaps::test_reverse_types_map_basic"
+    ],
+    "invalid": {
+      "tests_testpilot/test_functions_s1.py::TestMap::test_map": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function map(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a80c5f50>, expected one of: ['expref'], received: \"unknown\"",
+      "tests_testpilot/test_functions_s1.py::TestMap::test_map_empty": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function map(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a835a1d0>, expected one of: ['expref'], received: \"unknown\"",
+      "tests_testpilot/test_functions_s1.py::TestSortBy::test_sort_by_numbers": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function sort_by(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a81c3a10>, expected one of: ['expref'], received: \"unknown\"",
+      "tests_testpilot/test_functions_s1.py::TestSortBy::test_sort_by_strings": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function sort_by(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a8216cd0>, expected one of: ['expref'], received: \"unknown\"",
+      "tests_testpilot/test_functions_s1.py::TestSortBy::test_sort_by_empty_returns_same": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function sort_by(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a8262a90>, expected one of: ['expref'], received: \"unknown\"",
+      "tests_testpilot/test_functions_s1.py::TestMinByMaxBy::test_min_by": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function min_by(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a8377a10>, expected one of: ['expref'], received: \"unknown\"",
+      "tests_testpilot/test_functions_s1.py::TestMinByMaxBy::test_max_by": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function max_by(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a80c6dd0>, expected one of: ['expref'], received: \"unknown\"",
+      "tests_testpilot/test_functions_s1.py::TestMinByMaxBy::test_min_by_empty": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function min_by(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a81fe990>, expected one of: ['expref'], received: \"unknown\"",
+      "tests_testpilot/test_functions_s1.py::TestMinByMaxBy::test_max_by_empty": "run 1: failed: jmespath.exceptions.JMESPathTypeError: In function max_by(), invalid type for value: <test_functions_s1.FakeExpref object at 0x7604a82eed90>, expected one of: ['expref'], received: \"unknown\""
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.82,
+        "passed": 103,
+        "failed": 9,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.92,
+        "passed": 103,
+        "failed": 9,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.89,
+        "passed": 103,
+        "failed": 9,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.881578947368421,
+  "branch_rate": 0.8522727272727273,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.7474747474747475,
+    "total": 198,
+    "killed": 148,
+    "survived": 50,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 148,
+      "survived": 32,
+      "no tests": 18
+    },
+    "survivors": [
+      {
+        "line": 48,
+        "original": "super(FunctionRegistry, cls).__init__(name, bases, attrs)",
+        "mutated": "super(FunctionRegistry, cls).__init__(None, bases, attrs)",
+        "status": "survived"
+      },
+      {
+        "line": 48,
+        "original": "super(FunctionRegistry, cls).__init__(name, bases, attrs)",
+        "mutated": "super(FunctionRegistry, cls).__init__(name, None, attrs)",
+        "status": "survived"
+      },
+      {
+        "line": 48,
+        "original": "super(FunctionRegistry, cls).__init__(name, bases, attrs)",
+        "mutated": "super(FunctionRegistry, cls).__init__(name, bases, None)",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "\"Unknown function: %s()\" % function_name)",
+        "mutated": "\"XXUnknown function: %s()XX\" % function_name)",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "return function(self, *resolved_args)",
+        "mutated": "return function(None, *resolved_args)",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "len(signature), len(args), function_name)",
+        "mutated": "None, len(args), function_name)",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "len(signature), len(args), function_name)",
+        "mutated": "len(signature), None, function_name)",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "len(signature), len(args), function_name)",
+        "mutated": "len(signature), len(args), None)",
+        "status": "survived"
+      },
+      {
+        "line": 90,
+        "original": "len(signature), len(args), function_name)",
+        "mutated": "None, len(args), function_name)",
+        "status": "survived"
+      },
+      {
+        "line": 90,
+        "original": "len(signature), len(args), function_name)",
+        "mutated": "len(signature), None, function_name)",
+        "status": "survived"
+      },
+      {
+        "line": 90,
+        "original": "len(signature), len(args), function_name)",
+        "mutated": "len(signature), len(args), None)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "types, function_name)",
+        "mutated": "None, function_name)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "types, function_name)",
+        "mutated": "types, None)",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "type_ = t.split('-', 1)",
+        "mutated": "type_ = t.split('-', )",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "type_ = t.split('-', 1)",
+        "mutated": "type_ = t.rsplit('-', 1)",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "type_ = t.split('-', 1)",
+        "mutated": "type_ = t.split('-', 2)",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "function_name, element, actual_typename, types)",
+        "mutated": "None, element, actual_typename, types)",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "function_name, element, actual_typename, types)",
+        "mutated": "function_name, None, actual_typename, types)",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "function_name, element, actual_typename, types)",
+        "mutated": "function_name, element, None, types)",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "function_name, element, actual_typename, types)",
+        "mutated": "function_name, element, actual_typename, None)",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "elif len(allowed_subtypes) > 1 and current:",
+        "mutated": "elif len(allowed_subtypes) >= 1 and current:",
+        "status": "survived"
+      },
+      {
+        "line": 150,
+        "original": "first = type(current[0]).__name__",
+        "mutated": "first = type(current[1]).__name__",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "function_name, current[0], first, types)",
+        "mutated": "None, current[0], first, types)",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "function_name, current[0], first, types)",
+        "mutated": "function_name, None, first, types)",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "function_name, current[0], first, types)",
+        "mutated": "function_name, current[0], None, types)",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "function_name, current[0], first, types)",
+        "mutated": "function_name, current[0], first, None)",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "function_name, current[0], first, types)",
+        "mutated": "function_name, current[1], first, types)",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "function_name, element, actual_typename, types)",
+        "mutated": "None, element, actual_typename, types)",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "function_name, element, actual_typename, types)",
+        "mutated": "function_name, None, actual_typename, types)",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "function_name, element, actual_typename, types)",
+        "mutated": "function_name, element, None, types)",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "function_name, element, actual_typename, types)",
+        "mutated": "function_name, element, actual_typename, None)",
+        "status": "survived"
+      },
+      {
+        "line": 351,
+        "original": "result = expref.visit(expref.expression, x)",
+        "mutated": "result = None",
+        "status": "no tests"
+      },
+      {
+        "line": 351,
+        "original": "result = expref.visit(expref.expression, x)",
+        "mutated": "result = expref.visit(None, x)",
+        "status": "no tests"
+      },
+      {
+        "line": 351,
+        "original": "result = expref.visit(expref.expression, x)",
+        "mutated": "result = expref.visit(expref.expression, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 351,
+        "original": "result = expref.visit(expref.expression, x)",
+        "mutated": "result = expref.visit(x)",
+        "status": "no tests"
+      },
+      {
+        "line": 351,
+        "original": "result = expref.visit(expref.expression, x)",
+        "mutated": "result = expref.visit(expref.expression, )",
+        "status": "no tests"
+      },
+      {
+        "line": 352,
+        "original": "actual_typename = type(result).__name__",
+        "mutated": "actual_typename = None",
+        "status": "no tests"
+      },
+      {
+        "line": 352,
+        "original": "actual_typename = type(result).__name__",
+        "mutated": "actual_typename = type(None).__name__",
+        "status": "no tests"
+      },
+      {
+        "line": 353,
+        "original": "jmespath_type = self._convert_to_jmespath_type(actual_typename)",
+        "mutated": "jmespath_type = None",
+        "status": "no tests"
+      },
+      {
+        "line": 353,
+        "original": "jmespath_type = self._convert_to_jmespath_type(actual_typename)",
+        "mutated": "jmespath_type = self._convert_to_jmespath_type(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 355,
+        "original": "if jmespath_type not in allowed_types:",
+        "mutated": "if jmespath_type in allowed_types:",
+        "status": "no tests"
+      },
+      {
+        "line": 357,
+        "original": "function_name, result, jmespath_type, allowed_types)",
+        "mutated": "None, result, jmespath_type, allowed_types)",
+        "status": "no tests"
+      },
+      {
+        "line": 357,
+        "original": "function_name, result, jmespath_type, allowed_types)",
+        "mutated": "function_name, None, jmespath_type, allowed_types)",
+        "status": "no tests"
+      },
+      {
+        "line": 357,
+        "original": "function_name, result, jmespath_type, allowed_types)",
+        "mutated": "function_name, result, None, allowed_types)",
+        "status": "no tests"
+      },
+      {
+        "line": 357,
+        "original": "function_name, result, jmespath_type, allowed_types)",
+        "mutated": "function_name, result, jmespath_type, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 357,
+        "original": "function_name, result, jmespath_type, allowed_types)",
+        "mutated": "result, jmespath_type, allowed_types)",
+        "status": "no tests"
+      },
+      {
+        "line": 357,
+        "original": "function_name, result, jmespath_type, allowed_types)",
+        "mutated": "function_name, jmespath_type, allowed_types)",
+        "status": "no tests"
+      },
+      {
+        "line": 357,
+        "original": "function_name, result, jmespath_type, allowed_types)",
+        "mutated": "function_name, result, allowed_types)",
+        "status": "no tests"
+      },
+      {
+        "line": 357,
+        "original": "function_name, result, jmespath_type, allowed_types)",
+        "mutated": "function_name, result, jmespath_type, )",
+        "status": "no tests"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 5.66,
+    "coverage": 2.94,
+    "mutation": 12.19
+  }
+}

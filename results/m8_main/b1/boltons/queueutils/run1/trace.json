@@ -1,0 +1,322 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T04:38:46+00:00",
+    "duration": 0.01,
+    "summary": "3 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "boltons/queueutils.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "BasePriorityQueue",
+      "HeapPriorityQueue",
+      "SortedPriorityQueue"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T04:38:46+00:00",
+    "duration": 0.05,
+    "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 10323 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "boltons/queueutils.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "heapq.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: heapq.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "heapq/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: heapq/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "bisect.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: bisect.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "bisect/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: bisect/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "BasePriorityQueue(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "HeapPriorityQueue(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "SortedPriorityQueue(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `boltons.queueutils` (file `boltons/queueutils.py`).\n\nSource of `boltons/queueutils.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | # Copyright (c) 2013, Mahmoud Hashemi\n    2 | #\n    3 | # Redistribution and use in source and binary forms, with or without\n    4 | # modification, are permitted provided that the following conditions are\n    5 | # met:\n    6 | #\n    7 | #    * Redistributions of source code must retain the above copyright\n    8 | #      notice, this list of conditions and the following disclaimer.\n    9 | #\n   10 | #    * Redistributions in binary form must reproduce the above\n   11 | #      copyright notice, this list of conditions and the following\n   12 | #      disclaimer in the documentation and/or other materials provided\n   13 | #      with the distribution.\n   14 | #\n   15 | #    * The names of the contributors may not be used to endorse or\n   16 | #      promote products derived from this software without specific\n   17 | #      prior written permission.\n   18 | #\n   19 | # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n   20 | # \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n   21 | # LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n   22 | # A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n   23 | # OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n   24 | # SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n   25 | # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n   26 | # DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n   27 | # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n   28 | # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n   29 | # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n   30 | \n   31 | \"\"\"Python comes with a many great data structures, from :class:`dict`\n   32 | to :class:`collections.deque`, and no shortage of serviceable\n   33 | algorithm implementations, from :func:`sorted` to :mod:`bisect`. But\n   34 | priority queues are curiously relegated to an example documented in\n   35 | :mod:`heapq`. Even there, the approach presented is not full-featured\n   36 | and object-oriented. There is a built-in priority queue,\n   37 | :class:`Queue.PriorityQueue`, but in addition to its austere API, it\n   38 | carries the double-edged sword of threadsafety, making it fine for\n   39 | multi-threaded, multi-consumer applications, but high-overhead for\n   40 | cooperative/single-threaded use cases.\n   41 | \n   42 | The ``queueutils`` module currently provides two Queue\n   43 | implementations: :class:`HeapPriorityQueue`, based on a heap, and\n   44 | :class:`SortedPriorityQueue`, based on a sorted list. Both use a\n   45 | unified API based on :class:`BasePriorityQueue` to facilitate testing\n   46 | the slightly different performance characteristics on various\n   47 | application use cases.\n   48 | \n   49 | >>> pq = PriorityQueue()\n   50 | >>> pq.add('low priority task', 0)\n   51 | >>> pq.add('high priority task', 2)\n   52 | >>> pq.add('medium priority task 1', 1)\n   53 | >>> pq.add('medium priority task 2', 1)\n   54 | >>> len(pq)\n   55 | 4\n   56 | >>> pq.pop()\n   57 | 'high priority task'\n   58 | >>> pq.peek()\n   59 | 'medium priority task 1'\n   60 | >>> len(pq)\n   61 | 3\n   62 | \n   63 | \"\"\"\n   64 | \n   65 | \n   66 | from heapq import heappush, heappop\n   67 | from bisect import insort\n   68 | import itertools\n   69 | \n   70 | try:\n   71 |     from .typeutils import make_sentinel\n   72 |     _REMOVED = make_sentinel(var_name='_REMOVED')\n   73 | except ImportError:\n   74 |     _REMOVED = object()\n   75 | \n   76 | try:\n   77 |     from .listutils import BList\n   78 |     # see BarrelList docstring for notes\n   79 | except ImportError:\n   80 |     BList = list\n   81 | \n   82 | \n   83 | __all__ = ['PriorityQueue', 'BasePriorityQueue',\n   84 |            'HeapPriorityQueue', 'SortedPriorityQueue']\n   85 | \n   86 | \n   87 | # TODO: make Base a real abstract class\n   88 | # TODO: add uniqueification\n   89 | \n   90 | \n   91 | class BasePriorityQueue:\n   92 |     \"\"\"The abstract base class for the other PriorityQueues in this\n   93 |     module. Override the ``_backend_type`` class attribute, as well as\n   94 |     the :meth:`_push_entry` and :meth:`_pop_entry` staticmethods for\n   95 |     custom subclass behavior. (Don't forget to use\n   96 |     :func:`staticmethod`).\n   97 | \n   98 |     Args:\n   99 |         priority_key (callable): A function that takes *priority* as\n  100 |             passed in by :meth:`add` and returns a real number\n  101 |             representing the effective priority.\n  102 | \n  103 |     \"\"\"\n  104 |     # negating priority means larger numbers = higher priority\n  105 |     _default_priority_key = staticmethod(lambda p: -float(p or 0))\n  106 |     _backend_type = list\n  107 | \n  108 |     def __init__(self, **kw):\n  109 |         self._pq = self._backend_type()\n  110 |         self._entry_map = {}\n  111 |         self._counter = itertools.count()\n  112 |         self._get_priority = kw.pop('priority_key', self._default_priority_key)\n  113 |         if kw:\n  114 |             raise TypeError('unexpected keyword arguments: %r' % kw.keys())\n  115 | \n  116 |     @staticmethod\n  117 |     def _push_entry(backend, entry):\n  118 |         pass  # abstract\n  119 | \n  120 |     @staticmethod\n  121 |     def _pop_entry(backend):\n  122 |         pass  # abstract\n  123 | \n  124 |     def add(self, task, priority=None):\n  125 |         \"\"\"\n  126 |         Add a task to the queue, or change the *task*'s priority if *task*\n  127 |         is already in the queue. *task* can be any hashable object,\n  128 |         and *priority* defaults to ``0``. Higher values representing\n  129 |         higher priority, but this behavior can be controlled by\n  130 |         setting *priority_key* in the constructor.\n  131 |         \"\"\"\n  132 |         priority = self._get_priority(priority)\n  133 |         if task in self._entry_map:\n  134 |             self.remove(task)\n  135 |         count = next(self._counter)\n  136 |         entry = [priority, count, task]\n  137 |         self._entry_map[task] = entry\n  138 |         self._push_entry(self._pq, entry)\n  139 | \n  140 |     def remove(self, task):\n  141 |         \"\"\"Remove a task from the priority queue. Raises :exc:`KeyError` if\n  142 |         the *task* is absent.\n  143 |         \"\"\"\n  144 |         entry = self._entry_map.pop(task)\n  145 |         entry[-1] = _REMOVED\n  146 | \n  147 |     def _cull(self, raise_exc=True):\n  148 |         \"Remove entries marked as removed by previous :meth:`remove` calls.\"\n  149 |         while self._pq:\n  150 |             priority, count, task = self._pq[0]\n  151 |             if task is _REMOVED:\n  152 |                 self._pop_entry(self._pq)\n  153 |                 continue\n  154 |             return\n  155 |         if raise_exc:\n  156 |             raise IndexError('empty priority queue')\n  157 | \n  158 |     def peek(self, default=_REMOVED):\n  159 |         \"\"\"Read the next value in the queue without removing it. Returns\n  160 |         *default* on an empty queue, or raises :exc:`KeyError` if\n  161 |         *default* is not set.\n  162 |         \"\"\"\n  163 |         try:\n  164 |             self._cull()\n  165 |             _, _, task = self._pq[0]\n  166 |         except IndexError:\n  167 |             if default is not _REMOVED:\n  168 |                 return default\n  169 |             raise IndexError('peek on empty queue')\n  170 |         return task\n  171 | \n  172 |     def pop(self, default=_REMOVED):\n  173 |         \"\"\"Remove and return the next value in the queue. Returns *default* on\n  174 |         an empty queue, or raises :exc:`KeyError` if *default* is not\n  175 |         set.\n  176 |         \"\"\"\n  177 |         try:\n  178 |             self._cull()\n  179 |             _, _, task = self._pop_entry(self._pq)\n  180 |             del self._entry_map[task]\n  181 |         except IndexError:\n  182 |             if default is not _REMOVED:\n  183 |                 return default\n  184 |             raise IndexError('pop on empty queue')\n  185 |         return task\n  186 | \n  187 |     def __len__(self):\n  188 |         \"Return the number of tasks in the queue.\"\n  189 |         return len(self._entry_map)\n  190 | \n  191 | \n  192 | class HeapPriorityQueue(BasePriorityQueue):\n  193 |     \"\"\"A priority queue inherited from :class:`BasePriorityQueue`,\n  194 |     backed by a list and based on the :func:`heapq.heappop` and\n  195 |     :func:`heapq.heappush` functions in the built-in :mod:`heapq`\n  196 |     module.\n  197 |     \"\"\"\n  198 |     @staticmethod\n  199 |     def _pop_entry(backend):\n  200 |         return heappop(backend)\n  201 | \n  202 |     @staticmethod\n  203 |     def _push_entry(backend, entry):\n  204 |         heappush(backend, entry)\n  205 | \n  206 | \n  207 | class SortedPriorityQueue(BasePriorityQueue):\n  208 |     \"\"\"A priority queue inherited from :class:`BasePriorityQueue`, based\n  209 |     on the :func:`bisect.insort` approach for in-order insertion into\n  210 |     a sorted list.\n  211 |     \"\"\"\n  212 |     _backend_type = BList\n  213 | \n  214 |     @staticmethod\n  215 |     def _pop_entry(backend):\n  216 |         return backend.pop(0)\n  217 | \n  218 |     @staticmethod\n  219 |     def _push_entry(backend, entry):\n  220 |         insort(backend, entry)\n  221 | \n  222 | \n  223 | PriorityQueue = SortedPriorityQueue\n```\n\n\n\nPublic API to cover: `BasePriorityQueue`, `HeapPriorityQueue`, `SortedPriorityQueue`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from boltons.queueutils import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T04:38:54+00:00",
+    "duration": 8.35,
+    "summary": "第 1 轮：生成 364 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_queueutils.py",
+          "content": "<10142 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5508,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `boltons.queueutils`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom boltons.queueutils import (\n    BasePriorityQueue,\n    HeapPriorityQueue,\n    SortedPriorityQueue,\n    PriorityQueue,\n)\n\n\n# ---------------------------------------------------------------------------\n# Test double used to exercise the abstract base class directly\n# ---------------------------------------------------------------------------\n\nclass _ListBackedPriorityQueue(BasePriorityQueue):\n    \"\"\"A minimal concrete subclass using an unsorted list and linear scans.\n\n    This lets us exercise BasePriorityQueue's own logic independently of the\n    heapq/bisect subclasses.\n    \"\"\"\n\n    _backend_type = list\n\n    @staticmethod\n    def _push_entry(backend, entry):\n        backend.append(entry)\n\n    @staticmethod\n    def _pop_entry(backend):\n        # Find the minimum entry, remove and return it.\n        best_idx = 0\n        best = backend[0]\n        for idx in range(1, len(backend)):\n            if backend[idx] < best:\n                best = backend[idx]\n                best_idx = idx\n        return backend.pop(best_idx)\n\n\nALL_CONCRETE_CLASSES = [\n    HeapPriorityQueue,\n    SortedPriorityQueue,\n    _ListBackedPriorityQueue,\n]\n\n\n# ---------------------------------------------------------------------------\n# Module-level exports\n# ---------------------------------------------------------------------------\n\ndef test_priority_queue_alias():\n    assert PriorityQueue is SortedPriorityQueue\n\n\ndef test_subclass_relationships():\n    assert issubclass(HeapPriorityQueue, BasePriorityQueue)\n    assert issubclass(SortedPriorityQueue, BasePriorityQueue)\n\n\n# ---------------------------------------------------------------------------\n# Basic behavior across all concrete implementations\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_empty_queue_len(cls):\n    pq = cls()\n    assert len(pq) == 0\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_add_and_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    assert len(pq) == 1\n    pq.add('b', 2)\n    assert len(pq) == 2\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_ordering_higher_priority_first(cls):\n    pq = cls()\n    pq.add('low priority task', 0)\n    pq.add('high priority task', 2)\n    pq.add('medium priority task 1', 1)\n    pq.add('medium priority task 2', 1)\n    assert len(pq) == 4\n    assert pq.pop() == 'high priority task'\n    assert pq.peek() == 'medium priority task 1'\n    assert len(pq) == 3\n    assert pq.pop() == 'medium priority task 1'\n    assert pq.pop() == 'medium priority task 2'\n    assert pq.pop() == 'low priority task'\n    assert len(pq) == 0\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_default_priority_is_zero(cls):\n    pq = cls()\n    pq.add('a')\n    pq.add('b', -1)\n    # default flavor: larger priority = higher priority, default 0\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_priority_accepts_none_as_zero(cls):\n    pq = cls()\n    pq.add('a', None)\n    pq.add('b', 1)\n    assert pq.pop() == 'b'\n    assert pq.pop() == 'a'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_fifo_among_equal_priorities(cls):\n    pq = cls()\n    pq.add('first', 1)\n    pq.add('second', 1)\n    pq.add('third', 1)\n    assert pq.pop() == 'first'\n    assert pq.pop() == 'second'\n    assert pq.pop() == 'third'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_peek_does_not_remove(cls):\n    pq = cls()\n    pq.add('only', 5)\n    assert pq.peek() == 'only'\n    assert pq.peek() == 'only'\n    assert len(pq) == 1\n    assert pq.pop() == 'only'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_add_existing_task_updates_priority(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.add('a', 5)  # re-add with higher priority\n    assert len(pq) == 2\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n\n\n# ---------------------------------------------------------------------------\n# Empty-queue behavior: peek/pop with and without default\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_peek_empty_raises(cls):\n    pq = cls()\n    with pytest.raises(IndexError):\n        pq.peek()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_pop_empty_raises(cls):\n    pq = cls()\n    with pytest.raises(IndexError):\n        pq.pop()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_peek_empty_with_default(cls):\n    pq = cls()\n    assert pq.peek(default='fallback') == 'fallback'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_pop_empty_with_default(cls):\n    pq = cls()\n    assert pq.pop(default='fallback') == 'fallback'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_empty_default_message(cls):\n    pq = cls()\n    with pytest.raises(IndexError, match='peek on empty queue'):\n        pq.peek()\n    with pytest.raises(IndexError, match='pop on empty queue'):\n        pq.pop()\n\n\n# ---------------------------------------------------------------------------\n# Remove behavior\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_decrements_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.remove('a')\n    assert len(pq) == 1\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_absent_raises_keyerror(cls):\n    pq = cls()\n    pq.add('a', 1)\n    with pytest.raises(KeyError):\n        pq.remove('missing')\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_then_peek_skips_removed(cls):\n    pq = cls()\n    pq.add('a', 5)\n    pq.add('b', 1)\n    pq.remove('a')\n    assert pq.peek() == 'b'\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_all_then_empty(cls):\n    pq = cls()\n    pq.add('a', 2)\n    pq.add('b', 1)\n    pq.remove('a')\n    pq.remove('b')\n    assert len(pq) == 0\n    with pytest.raises(IndexError):\n        pq.pop()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_absent_does_not_change_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    with pytest.raises(KeyError):\n        pq.remove('b')\n    assert len(pq) == 1\n\n\n# ---------------------------------------------------------------------------\n# priority_key constructor argument\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_custom_priority_key(cls):\n    # Invert the default ordering: lower number = higher priority.\n    pq = cls(priority_key=lambda p: float(p or 0))\n    pq.add('low', 5)\n    pq.add('high', 1)\n    assert pq.pop() == 'high'\n    assert pq.pop() == 'low'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_custom_priority_key_gets_raw_value(cls):\n    seen = []\n\n    def key(p):\n        seen.append(p)\n        return -float(p or 0)\n\n    pq = cls(priority_key=key)\n    pq.add('a', 3)\n    assert seen == [3]\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_unexpected_kwarg_raises_typeerror(cls):\n    with pytest.raises(TypeError):\n        cls(bogus_argument=123)\n\n\n# ---------------------------------------------------------------------------\n# Various task types (hashable objects)\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_tuple_tasks(cls):\n    pq = cls()\n    pq.add(('x', 1), 1)\n    pq.add(('y', 2), 2)\n    assert pq.pop() == ('y', 2)\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_int_and_string_mixed_by_priority(cls):\n    pq = cls()\n    pq.add(100, 1)\n    pq.add('hello', 2)\n    pq.add(3.5, 0)\n    assert pq.pop() == 'hello'\n    assert pq.pop() == 100\n    assert pq.pop() == 3.5\n\n\n# ---------------------------------------------------------------------------\n# Backend-specific behavior sanity checks\n# ---------------------------------------------------------------------------\n\ndef test_heap_backend_is_heap_ordered():\n    pq = HeapPriorityQueue()\n    for task, prio in [('a', 1), ('b', 3), ('c', 2), ('d', 5)]:\n        pq.add(task, prio)\n    assert pq.pop() == 'd'\n    assert pq.pop() == 'b'\n    assert pq.pop() == 'c'\n    assert pq.pop() == 'a'\n\n\ndef test_sorted_backend_maintains_order():\n    pq = SortedPriorityQueue()\n    for task, prio in [('a', 1), ('b', 3), ('c', 2), ('d', 5)]:\n        pq.add(task, prio)\n    assert pq._pq[0][2] == 'd'\n    assert pq.pop() == 'd'\n    assert pq._pq[0][2] == 'b'\n    assert pq.pop() == 'b'\n    assert pq._pq[0][2] == 'c'\n    assert pq.pop() == 'c'\n    assert pq._pq[0][2] == 'a'\n    assert pq.pop() == 'a'\n\n\n# ---------------------------------------------------------------------------\n# Base class internals / abstract defaults\n# ---------------------------------------------------------------------------\n\ndef test_base_default_backend_type_is_list():\n    assert BasePriorityQueue._backend_type is list\n\n\ndef test_base_push_pop_entry_are_noops():\n    backend = []\n    entry = [1, 2, 'task']\n    assert BasePriorityQueue._push_entry(backend, entry) is None\n    assert backend == []\n    assert BasePriorityQueue._pop_entry(backend) is None\n\n\ndef test_base_default_priority_key_negates():\n    key = BasePriorityQueue._default_priority_key\n    assert key(5) == -5.0\n    assert key(None) == -0.0\n    assert key(0) == -0.0\n\n\ndef test_concrete_queue_backend_type():\n    assert HeapPriorityQueue()._pq == []\n    assert isinstance(SortedPriorityQueue()._pq, (list,)) or True\n\n\n# ---------------------------------------------------------------------------\n# Repeated remove/add cycling\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_readd_cycle(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.remove('a')\n    pq.add('a', 3)\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n    assert len(pq) == 0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 2834,
+      "cache_hit_tokens": 0,
+      "completion_tokens": 2674,
+      "reasoning_tokens": 0,
+      "latency": 8.35
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T04:38:56+00:00",
+    "duration": 1.27,
+    "summary": "通过 76，失败 4，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_queueutils.py"
+          ]
+        },
+        "duration": 1.27,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5508
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T04:38:56+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 76]（提升）",
+    "tool_calls": [],
+    "tokens_total": 5508,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      76
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T04:38:56+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 5508
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T04:39:05+00:00",
+    "duration": 8.94,
+    "summary": "第 2 轮：生成 421 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_queueutils.py",
+          "content": "<12203 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 15441,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_queueutils.py`)\n```python\nimport pytest\n\nfrom boltons.queueutils import (\n    BasePriorityQueue,\n    HeapPriorityQueue,\n    SortedPriorityQueue,\n    PriorityQueue,\n)\n\n\n# ---------------------------------------------------------------------------\n# Test double used to exercise the abstract base class directly\n# ---------------------------------------------------------------------------\n\nclass _ListBackedPriorityQueue(BasePriorityQueue):\n    \"\"\"A minimal concrete subclass using an unsorted list and linear scans.\n\n    This lets us exercise BasePriorityQueue's own logic independently of the\n    heapq/bisect subclasses.\n    \"\"\"\n\n    _backend_type = list\n\n    @staticmethod\n    def _push_entry(backend, entry):\n        backend.append(entry)\n\n    @staticmethod\n    def _pop_entry(backend):\n        # Find the minimum entry, remove and return it.\n        best_idx = 0\n        best = backend[0]\n        for idx in range(1, len(backend)):\n            if backend[idx] < best:\n                best = backend[idx]\n                best_idx = idx\n        return backend.pop(best_idx)\n\n\nALL_CONCRETE_CLASSES = [\n    HeapPriorityQueue,\n    SortedPriorityQueue,\n    _ListBackedPriorityQueue,\n]\n\n\n# ---------------------------------------------------------------------------\n# Module-level exports\n# ---------------------------------------------------------------------------\n\ndef test_priority_queue_alias():\n    assert PriorityQueue is SortedPriorityQueue\n\n\ndef test_subclass_relationships():\n    assert issubclass(HeapPriorityQueue, BasePriorityQueue)\n    assert issubclass(SortedPriorityQueue, BasePriorityQueue)\n\n\n# ---------------------------------------------------------------------------\n# Basic behavior across all concrete implementations\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_empty_queue_len(cls):\n    pq = cls()\n    assert len(pq) == 0\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_add_and_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    assert len(pq) == 1\n    pq.add('b', 2)\n    assert len(pq) == 2\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_ordering_higher_priority_first(cls):\n    pq = cls()\n    pq.add('low priority task', 0)\n    pq.add('high priority task', 2)\n    pq.add('medium priority task 1', 1)\n    pq.add('medium priority task 2', 1)\n    assert len(pq) == 4\n    assert pq.pop() == 'high priority task'\n    assert pq.peek() == 'medium priority task 1'\n    assert len(pq) == 3\n    assert pq.pop() == 'medium priority task 1'\n    assert pq.pop() == 'medium priority task 2'\n    assert pq.pop() == 'low priority task'\n    assert len(pq) == 0\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_default_priority_is_zero(cls):\n    pq = cls()\n    pq.add('a')\n    pq.add('b', -1)\n    # default flavor: larger priority = higher priority, default 0\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_priority_accepts_none_as_zero(cls):\n    pq = cls()\n    pq.add('a', None)\n    pq.add('b', 1)\n    assert pq.pop() == 'b'\n    assert pq.pop() == 'a'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_fifo_among_equal_priorities(cls):\n    pq = cls()\n    pq.add('first', 1)\n    pq.add('second', 1)\n    pq.add('third', 1)\n    assert pq.pop() == 'first'\n    assert pq.pop() == 'second'\n    assert pq.pop() == 'third'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_peek_does_not_remove(cls):\n    pq = cls()\n    pq.add('only', 5)\n    assert pq.peek() == 'only'\n    assert pq.peek() == 'only'\n    assert len(pq) == 1\n    assert pq.pop() == 'only'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_add_existing_task_updates_priority(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.add('a', 5)  # re-add with higher priority\n    assert len(pq) == 2\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n\n\n# ---------------------------------------------------------------------------\n# Empty-queue behavior: peek/pop with and without default\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_peek_empty_raises(cls):\n    pq = cls()\n    with pytest.raises(IndexError):\n        pq.peek()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_pop_empty_raises(cls):\n    pq = cls()\n    with pytest.raises(IndexError):\n        pq.pop()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_peek_empty_with_default(cls):\n    pq = cls()\n    assert pq.peek(default='fallback') == 'fallback'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_pop_empty_with_default(cls):\n    pq = cls()\n    assert pq.pop(default='fallback') == 'fallback'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_empty_default_message(cls):\n    pq = cls()\n    with pytest.raises(IndexError, match='peek on empty queue'):\n        pq.peek()\n    with pytest.raises(IndexError, match='pop on empty queue'):\n        pq.pop()\n\n\n# ---------------------------------------------------------------------------\n# Remove behavior\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_decrements_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.remove('a')\n    assert len(pq) == 1\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_absent_raises_keyerror(cls):\n    pq = cls()\n    pq.add('a', 1)\n    with pytest.raises(KeyError):\n        pq.remove('missing')\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_then_peek_skips_removed(cls):\n    pq = cls()\n    pq.add('a', 5)\n    pq.add('b', 1)\n    pq.remove('a')\n    assert pq.peek() == 'b'\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_all_then_empty(cls):\n    pq = cls()\n    pq.add('a', 2)\n    pq.add('b', 1)\n    pq.remove('a')\n    pq.remove('b')\n    assert len(pq) == 0\n    with pytest.raises(IndexError):\n        pq.pop()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_absent_does_not_change_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    with pytest.raises(KeyError):\n        pq.remove('b')\n    assert len(pq) == 1\n\n\n# ---------------------------------------------------------------------------\n# priority_key constructor argument\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_custom_priority_key(cls):\n    # Invert the default ordering: lower number = higher priority.\n    pq = cls(priority_key=lambda p: float(p or 0))\n    pq.add('low', 5)\n    pq.add('high', 1)\n    assert pq.pop() == 'high'\n    assert pq.pop() == 'low'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_custom_priority_key_gets_raw_value(cls):\n    seen = []\n\n    def key(p):\n        seen.append(p)\n        return -float(p or 0)\n\n    pq = cls(priority_key=key)\n    pq.add('a', 3)\n    assert seen == [3]\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_unexpected_kwarg_raises_typeerror(cls):\n    with pytest.raises(TypeError):\n        cls(bogus_argument=123)\n\n\n# ---------------------------------------------------------------------------\n# Various task types (hashable objects)\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_tuple_tasks(cls):\n    pq = cls()\n    pq.add(('x', 1), 1)\n    pq.add(('y', 2), 2)\n    assert pq.pop() == ('y', 2)\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_int_and_string_mixed_by_priority(cls):\n    pq = cls()\n    pq.add(100, 1)\n    pq.add('hello', 2)\n    pq.add(3.5, 0)\n    assert pq.pop() == 'hello'\n    assert pq.pop() == 100\n    assert pq.pop() == 3.5\n\n\n# ---------------------------------------------------------------------------\n# Backend-specific behavior sanity checks\n# ---------------------------------------------------------------------------\n\ndef test_heap_backend_is_heap_ordered():\n    pq = HeapPriorityQueue()\n    for task, prio in [('a', 1), ('b', 3), ('c', 2), ('d', 5)]:\n        pq.add(task, prio)\n    assert pq.pop() == 'd'\n    assert pq.pop() == 'b'\n    assert pq.pop() == 'c'\n    assert pq.pop() == 'a'\n\n\ndef test_sorted_backend_maintains_order():\n    pq = SortedPriorityQueue()\n    for task, prio in [('a', 1), ('b', 3), ('c', 2), ('d', 5)]:\n        pq.add(task, prio)\n    assert pq._pq[0][2] == 'd'\n    assert pq.pop() == 'd'\n    assert pq._pq[0][2] == 'b'\n    assert pq.pop() == 'b'\n    assert pq._pq[0][2] == 'c'\n    assert pq.pop() == 'c'\n    assert pq._pq[0][2] == 'a'\n    assert pq.pop() == 'a'\n\n\n# ---------------------------------------------------------------------------\n# Base class internals / abstract defaults\n# ---------------------------------------------------------------------------\n\ndef test_base_default_backend_type_is_list():\n    assert BasePriorityQueue._backend_type is list\n\n\ndef test_base_push_pop_entry_are_noops():\n    backend = []\n    entry = [1, 2, 'task']\n    assert BasePriorityQueue._push_entry(backend, entry) is None\n    assert backend == []\n    assert BasePriorityQueue._pop_entry(backend) is None\n\n\ndef test_base_default_priority_key_negates():\n    key = BasePriorityQueue._default_priority_key\n    assert key(5) == -5.0\n    assert key(None) == -0.0\n    assert key(0) == -0.0\n\n\ndef test_concrete_queue_backend_type():\n    assert HeapPriorityQueue()._pq == []\n    assert isinstance(SortedPriorityQueue()._pq, (list,)) or True\n\n\n# ---------------------------------------------------------------------------\n# Repeated remove/add cycling\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_readd_cycle(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.remove('a')\n    pq.add('a', 3)\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n    assert len(pq) == 0\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 76 passed, 4 failed, 0 errors.\n- `tests_testpilot.test_queueutils::test_ordering_higher_priority_first[_ListBackedPriorityQueue]` failed:\n```\nAssertionError: assert 'low priority task' == 'medium priority task 1'\n  \n  - medium priority task 1\n  + low priority task\ncls = <class 'test_queueutils._ListBackedPriorityQueue'>\n\n    @pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\n    def test_ordering_higher_priority_first(cls):\n        pq = cls()\n        pq.add('low priority task', 0)\n        pq.add('high priority task', 2)\n        pq.add('medium priority task 1', 1)\n        pq.add('medium priority task 2', 1)\n        assert len(pq) == 4\n        assert pq.pop() == 'high priority task'\n>       assert pq.peek() == 'medium priority task 1'\nE       AssertionError: assert 'low priority task' == 'medium priority task 1'\nE         \nE         - medium priority task 1\nE         + low priority task\n\ntests_testpilot/test_queueutils.py:88: A\n```\n- `tests_testpilot.test_queueutils::test_add_existing_task_updates_priority[_ListBackedPriorityQueue]` failed:\n```\nIndexError: pop on empty queue\nself = <test_queueutils._ListBackedPriorityQueue object at 0x78d1eb5e9a50>\ndefault = _REMOVED\n\n    def pop(self, default=_REMOVED):\n        \"\"\"Remove and return the next value in the queue. Returns *default* on\n        an empty queue, or raises :exc:`KeyError` if *default* is not\n        set.\n        \"\"\"\n        try:\n>           self._cull()\n\nboltons/queueutils.py:178: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_queueutils._ListBackedPriorityQueue object at 0x78d1eb5e9a50>\nraise_exc = True\n\n    def _cull(self, raise_exc=True):\n        \"Remove entries marked as removed by previous :meth:`remove` calls.\"\n        while self._pq:\n            priority, count, task\n... [省略 772 个字符] ...\n43: \n_ _ _ _ _ _ _ _ _ _ _ _\n```\n- `tests_testpilot.test_queueutils::test_remove_decrements_len[_ListBackedPriorityQueue]` failed:\n```\nIndexError: pop on empty queue\nself = <test_queueutils._ListBackedPriorityQueue object at 0x78d1eb544a50>\ndefault = _REMOVED\n\n    def pop(self, default=_REMOVED):\n        \"\"\"Remove and return the next value in the queue. Returns *default* on\n        an empty queue, or raises :exc:`KeyError` if *default* is not\n        set.\n        \"\"\"\n        try:\n>           self._cull()\n\nboltons/queueutils.py:178: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_queueutils._ListBackedPriorityQueue object at 0x78d1eb544a50>\nraise_exc = True\n\n    def _cull(self, raise_exc=True):\n        \"Remove entries marked as removed by previous :meth:`remove` calls.\"\n        while self._pq:\n            priority, count, task\n... [省略 728 个字符] ...\n97: \n_ _ _ _ _ _ _ _ _ _ _ _\n```\n- `tests_testpilot.test_queueutils::test_remove_readd_cycle[_ListBackedPriorityQueue]` failed:\n```\nIndexError: pop on empty queue\nself = <test_queueutils._ListBackedPriorityQueue object at 0x78d1eb5a6c50>\ndefault = _REMOVED\n\n    def pop(self, default=_REMOVED):\n        \"\"\"Remove and return the next value in the queue. Returns *default* on\n        an empty queue, or raises :exc:`KeyError` if *default* is not\n        set.\n        \"\"\"\n        try:\n>           self._cull()\n\nboltons/queueutils.py:178: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_queueutils._ListBackedPriorityQueue object at 0x78d1eb5a6c50>\nraise_exc = True\n\n    def _cull(self, raise_exc=True):\n        \"Remove entries marked as removed by previous :meth:`remove` calls.\"\n        while self._pq:\n            priority, count, task\n... [省略 720 个字符] ...\n62: \n_ _ _ _ _ _ _ _ _ _ _ _\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom boltons.queueutils import (\n    BasePriorityQueue,\n    HeapPriorityQueue,\n    SortedPriorityQueue,\n    PriorityQueue,\n)\n\n\n# ---------------------------------------------------------------------------\n# Test double used to exercise the abstract base class directly\n# ---------------------------------------------------------------------------\n\nclass _ListBackedPriorityQueue(BasePriorityQueue):\n    \"\"\"A minimal concrete subclass using an unsorted list and linear scans.\n\n    This lets us exercise BasePriorityQueue's own logic independently of the\n    heapq/bisect subclasses.\n    \"\"\"\n\n    _backend_type = list\n\n    @staticmethod\n    def _push_entry(backend, entry):\n        backend.append(entry)\n\n    @staticmethod\n    def _pop_entry(backend):\n        # Find the minimum entry, remove and return it.\n        best_idx = 0\n        best = backend[0]\n        for idx in range(1, len(backend)):\n            if backend[idx] < best:\n                best = backend[idx]\n                best_idx = idx\n        return backend.pop(best_idx)\n\n\nALL_CONCRETE_CLASSES = [\n    HeapPriorityQueue,\n    SortedPriorityQueue,\n    _ListBackedPriorityQueue,\n]\n\n# Classes whose backends maintain their head at index 0 (heap and sorted).\nHEAD_ORDERED_CLASSES = [\n    HeapPriorityQueue,\n    SortedPriorityQueue,\n]\n\n\n# ---------------------------------------------------------------------------\n# Module-level exports\n# ---------------------------------------------------------------------------\n\ndef test_priority_queue_alias():\n    assert PriorityQueue is SortedPriorityQueue\n\n\ndef test_subclass_relationships():\n    assert issubclass(HeapPriorityQueue, BasePriorityQueue)\n    assert issubclass(SortedPriorityQueue, BasePriorityQueue)\n\n\n# ---------------------------------------------------------------------------\n# Basic behavior across all concrete implementations\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_empty_queue_len(cls):\n    pq = cls()\n    assert len(pq) == 0\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_add_and_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    assert len(pq) == 1\n    pq.add('b', 2)\n    assert len(pq) == 2\n\n\n# The full peek-then-pop ordering sequence only holds for backends that keep\n# the minimum entry at _pq[0]. The generic list-backed double does not, so its\n# peek returns the first-added surviving entry rather than the highest-priority.\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_ordering_higher_priority_first(cls):\n    pq = cls()\n    pq.add('low priority task', 0)\n    pq.add('high priority task', 2)\n    pq.add('medium priority task 1', 1)\n    pq.add('medium priority task 2', 1)\n    assert len(pq) == 4\n    assert pq.pop() == 'high priority task'\n    assert pq.peek() == 'medium priority task 1'\n    assert len(pq) == 3\n    assert pq.pop() == 'medium priority task 1'\n    assert pq.pop() == 'medium priority task 2'\n    assert pq.pop() == 'low priority task'\n    assert len(pq) == 0\n\n\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_ordering_pop_only(cls):\n    pq = cls()\n    pq.add('low priority task', 0)\n    pq.add('high priority task', 2)\n    pq.add('medium priority task 1', 1)\n    pq.add('medium priority task 2', 1)\n    assert len(pq) == 4\n    assert pq.pop() == 'high priority task'\n    assert pq.pop() == 'medium priority task 1'\n    assert pq.pop() == 'medium priority task 2'\n    assert pq.pop() == 'low priority task'\n    assert len(pq) == 0\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_default_priority_is_zero(cls):\n    pq = cls()\n    pq.add('a')\n    pq.add('b', -1)\n    # default flavor: larger priority = higher priority, default 0\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_priority_accepts_none_as_zero(cls):\n    pq = cls()\n    pq.add('a', None)\n    pq.add('b', 1)\n    assert pq.pop() == 'b'\n    assert pq.pop() == 'a'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_fifo_among_equal_priorities(cls):\n    pq = cls()\n    pq.add('first', 1)\n    pq.add('second', 1)\n    pq.add('third', 1)\n    assert pq.pop() == 'first'\n    assert pq.pop() == 'second'\n    assert pq.pop() == 'third'\n\n\n# Peek only returns the head of the backend for head-ordered backends.\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_peek_does_not_remove(cls):\n    pq = cls()\n    pq.add('only', 5)\n    assert pq.peek() == 'only'\n    assert pq.peek() == 'only'\n    assert len(pq) == 1\n    assert pq.pop() == 'only'\n\n\n# For all backends, adding an existing task replaces its entry (the old one\n# is tombstoned). Because the generic list backend does not cull non-head\n# tombstones, only pop-ordering is meaningful for it. Restrict peek/length\n# interactions to head-ordered backends and test pop ordering everywhere.\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_add_existing_task_updates_priority(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.add('a', 5)  # re-add with higher priority\n    assert len(pq) == 2\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_add_existing_task_replaces_entry(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.add('a', 5)\n    # The re-added 'a' should come out first.\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n    assert len(pq) == 0\n\n\n# ---------------------------------------------------------------------------\n# Empty-queue behavior: peek/pop with and without default\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_peek_empty_raises(cls):\n    pq = cls()\n    with pytest.raises(IndexError):\n        pq.peek()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_pop_empty_raises(cls):\n    pq = cls()\n    with pytest.raises(IndexError):\n        pq.pop()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_peek_empty_with_default(cls):\n    pq = cls()\n    assert pq.peek(default='fallback') == 'fallback'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_pop_empty_with_default(cls):\n    pq = cls()\n    assert pq.pop(default='fallback') == 'fallback'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_empty_default_message(cls):\n    pq = cls()\n    with pytest.raises(IndexError, match='peek on empty queue'):\n        pq.peek()\n    with pytest.raises(IndexError, match='pop on empty queue'):\n        pq.pop()\n\n\n# ---------------------------------------------------------------------------\n# Remove behavior\n# ---------------------------------------------------------------------------\n\n# Only head-ordered backends reliably cull a removed entry that has become\n# the head; the generic list backend leaves tombstones in place until they\n# happen to reach index 0. Restrict these removal semantics accordingly.\n\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_remove_decrements_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.remove('a')\n    assert len(pq) == 1\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_absent_raises_keyerror(cls):\n    pq = cls()\n    pq.add('a', 1)\n    with pytest.raises(KeyError):\n        pq.remove('missing')\n\n\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_remove_then_peek_skips_removed(cls):\n    pq = cls()\n    pq.add('a', 5)\n    pq.add('b', 1)\n    pq.remove('a')\n    assert pq.peek() == 'b'\n    assert pq.pop() == 'b'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_all_then_empty(cls):\n    pq = cls()\n    pq.add('a', 2)\n    pq.add('b', 1)\n    pq.remove('a')\n    pq.remove('b')\n    assert len(pq) == 0\n\n\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_remove_all_then_pop_raises(cls):\n    pq = cls()\n    pq.add('a', 2)\n    pq.add('b', 1)\n    pq.remove('a')\n    pq.remove('b')\n    with pytest.raises(IndexError):\n        pq.pop()\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_remove_absent_does_not_change_len(cls):\n    pq = cls()\n    pq.add('a', 1)\n    with pytest.raises(KeyError):\n        pq.remove('b')\n    assert len(pq) == 1\n\n\n# ---------------------------------------------------------------------------\n# priority_key constructor argument\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_custom_priority_key(cls):\n    # Invert the default ordering: lower number = higher priority.\n    pq = cls(priority_key=lambda p: float(p or 0))\n    pq.add('low', 5)\n    pq.add('high', 1)\n    assert pq.pop() == 'high'\n    assert pq.pop() == 'low'\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_custom_priority_key_gets_raw_value(cls):\n    seen = []\n\n    def key(p):\n        seen.append(p)\n        return -float(p or 0)\n\n    pq = cls(priority_key=key)\n    pq.add('a', 3)\n    assert seen == [3]\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_unexpected_kwarg_raises_typeerror(cls):\n    with pytest.raises(TypeError):\n        cls(bogus_argument=123)\n\n\n# ---------------------------------------------------------------------------\n# Various task types (hashable objects)\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_tuple_tasks(cls):\n    pq = cls()\n    pq.add(('x', 1), 1)\n    pq.add(('y', 2), 2)\n    assert pq.pop() == ('y', 2)\n\n\n@pytest.mark.parametrize(\"cls\", ALL_CONCRETE_CLASSES)\ndef test_int_and_string_mixed_by_priority(cls):\n    pq = cls()\n    pq.add(100, 1)\n    pq.add('hello', 2)\n    pq.add(3.5, 0)\n    assert pq.pop() == 'hello'\n    assert pq.pop() == 100\n    assert pq.pop() == 3.5\n\n\n# ---------------------------------------------------------------------------\n# Backend-specific behavior sanity checks\n# ---------------------------------------------------------------------------\n\ndef test_heap_backend_is_heap_ordered():\n    pq = HeapPriorityQueue()\n    for task, prio in [('a', 1), ('b', 3), ('c', 2), ('d', 5)]:\n        pq.add(task, prio)\n    assert pq.pop() == 'd'\n    assert pq.pop() == 'b'\n    assert pq.pop() == 'c'\n    assert pq.pop() == 'a'\n\n\ndef test_sorted_backend_maintains_order():\n    pq = SortedPriorityQueue()\n    for task, prio in [('a', 1), ('b', 3), ('c', 2), ('d', 5)]:\n        pq.add(task, prio)\n    assert pq._pq[0][2] == 'd'\n    assert pq.pop() == 'd'\n    assert pq._pq[0][2] == 'b'\n    assert pq.pop() == 'b'\n    assert pq._pq[0][2] == 'c'\n    assert pq.pop() == 'c'\n    assert pq._pq[0][2] == 'a'\n    assert pq.pop() == 'a'\n\n\n# ---------------------------------------------------------------------------\n# Base class internals / abstract defaults\n# ---------------------------------------------------------------------------\n\ndef test_base_default_backend_type_is_list():\n    assert BasePriorityQueue._backend_type is list\n\n\ndef test_base_push_pop_entry_are_noops():\n    backend = []\n    entry = [1, 2, 'task']\n    assert BasePriorityQueue._push_entry(backend, entry) is None\n    assert backend == []\n    assert BasePriorityQueue._pop_entry(backend) is None\n\n\ndef test_base_default_priority_key_negates():\n    key = BasePriorityQueue._default_priority_key\n    assert key(5) == -5.0\n    assert key(None) == -0.0\n    assert key(0) == -0.0\n\n\ndef test_concrete_queue_backend_types():\n    assert isinstance(HeapPriorityQueue()._pq, list)\n    assert HeapPriorityQueue()._pq == []\n    sorted_pq = SortedPriorityQueue()\n    assert isinstance(sorted_pq._pq, list)\n    assert len(sorted_pq._pq) == 0\n\n\n# ---------------------------------------------------------------------------\n# Repeated remove/add cycling\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"cls\", HEAD_ORDERED_CLASSES)\ndef test_remove_readd_cycle(cls):\n    pq = cls()\n    pq.add('a', 1)\n    pq.add('b', 2)\n    pq.remove('a')\n    pq.add('a', 3)\n    assert pq.pop() == 'a'\n    assert pq.pop() == 'b'\n    assert len(pq) == 0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 6688,
+      "cache_hit_tokens": 2560,
+      "completion_tokens": 3245,
+      "reasoning_tokens": 0,
+      "latency": 8.94
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T04:39:08+00:00",
+    "duration": 3.48,
+    "summary": "通过 80，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_queueutils.py"
+          ]
+        },
+        "duration": 3.48,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 15441
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T04:39:11+00:00",
+    "duration": 2.76,
+    "summary": "分数 [1, 0.0, 0.9534883720930233, 0.9285714285714286, 80]（提升），行覆盖 95.3%，分支覆盖 92.9%",
+    "tool_calls": [
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "boltons/queueutils.py",
+          "tests": [
+            "tests_testpilot/test_queueutils.py"
+          ]
+        },
+        "duration": 2.76,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 15441,
+    "score": [
+      1,
+      0.0,
+      0.9534883720930233,
+      0.9285714285714286,
+      80
+    ],
+    "coverage": {
+      "target": "boltons/queueutils.py",
+      "tests_all_passed": true,
+      "line_rate": 0.9534883720930233,
+      "branch_rate": 0.9285714285714286,
+      "statements": 86,
+      "branches": 14,
+      "missing_lines": [
+        73,
+        74,
+        79,
+        80
+      ],
+      "missing_branches": [
+        [
+          155,
+          -147
+        ]
+      ],
+      "error": ""
+    },
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T04:39:11+00:00",
+    "duration": 0.0,
+    "summary": "全部测试通过，pytest 反馈已无可改进之处",
+    "tool_calls": [],
+    "tokens_total": 15441
+  },
+  {
+    "node": "finalize",
+    "iteration": 2,
+    "at": "2026-10-20T04:39:11+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试通过，pytest 反馈已无可改进之处；采用第 2 轮，分数 [1, 0.0, 0.9534883720930233, 0.9285714285714286, 80]",
+    "tool_calls": [],
+    "tokens_total": 15441,
+    "best_iteration": 2
+  }
+]

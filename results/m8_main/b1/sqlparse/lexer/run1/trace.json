@@ -1,0 +1,454 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T06:03:01+00:00",
+    "duration": 0.01,
+    "summary": "2 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "sqlparse/lexer.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "Lexer",
+      "tokenize"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T06:03:01+00:00",
+    "duration": 0.06,
+    "summary": "依赖定义 1 个，调用处 1 个，提示词前缀 9287 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/lexer.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "io.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: io.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "io/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: io/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "threading.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: threading.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "threading/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: threading/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: sqlparse.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "sqlparse/__init__.py"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/utils.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "sqlparse/utils.py"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/utils.py",
+          "start_line": 108,
+          "end_line": 110
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "Lexer(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "tokenize(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `sqlparse.lexer` (file `sqlparse/lexer.py`).\n\nSource of `sqlparse/lexer.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | #\n    2 | # Copyright (C) 2009-2020 the sqlparse authors and contributors\n    3 | # <see AUTHORS file>\n    4 | #\n    5 | # This module is part of python-sqlparse and is released under\n    6 | # the BSD License: https://opensource.org/licenses/BSD-3-Clause\n    7 | \n    8 | \"\"\"SQL Lexer\"\"\"\n    9 | import re\n   10 | \n   11 | # This code is based on the SqlLexer in pygments.\n   12 | # http://pygments.org/\n   13 | # It's separated from the rest of pygments to increase performance\n   14 | # and to allow some customizations.\n   15 | from io import TextIOBase\n   16 | from threading import Lock\n   17 | \n   18 | from sqlparse import keywords, tokens\n   19 | from sqlparse.utils import consume\n   20 | \n   21 | \n   22 | class Lexer:\n   23 |     \"\"\"The Lexer supports configurable syntax.\n   24 |     To add support for additional keywords, use the `add_keywords` method.\"\"\"\n   25 | \n   26 |     _default_instance = None\n   27 |     _lock = Lock()\n   28 | \n   29 |     # Development notes:\n   30 |     # - This class is prepared to be able to support additional SQL dialects\n   31 |     #   in the future by adding additional functions that take the place of\n   32 |     #   the function default_initialization().\n   33 |     # - The lexer class uses an explicit singleton behavior with the\n   34 |     #   instance-getter method get_default_instance(). This mechanism has\n   35 |     #   the advantage that the call signature of the entry-points to the\n   36 |     #   sqlparse library are not affected. Also, usage of sqlparse in third\n   37 |     #   party code does not need to be adapted. On the other hand, the current\n   38 |     #   implementation does not easily allow for multiple SQL dialects to be\n   39 |     #   parsed in the same process.\n   40 |     #   Such behavior can be supported in the future by passing a\n   41 |     #   suitably initialized lexer object as an additional parameter to the\n   42 |     #   entry-point functions (such as `parse`). Code will need to be written\n   43 |     #   to pass down and utilize such an object. The current implementation\n   44 |     #   is prepared to support this thread safe approach without the\n   45 |     #   default_instance part needing to change interface.\n   46 | \n   47 |     @classmethod\n   48 |     def get_default_instance(cls):\n   49 |         \"\"\"Returns the lexer instance used internally\n   50 |         by the sqlparse core functions.\"\"\"\n   51 |         with cls._lock:\n   52 |             if cls._default_instance is None:\n   53 |                 cls._default_instance = cls()\n   54 |                 cls._default_instance.default_initialization()\n   55 |         return cls._default_instance\n   56 | \n   57 |     def default_initialization(self):\n   58 |         \"\"\"Initialize the lexer with default dictionaries.\n   59 |         Useful if you need to revert custom syntax settings.\"\"\"\n   60 |         self.clear()\n   61 |         self.set_SQL_REGEX(keywords.SQL_REGEX)\n   62 |         self.add_keywords(keywords.KEYWORDS_COMMON)\n   63 |         self.add_keywords(keywords.KEYWORDS_ORACLE)\n   64 |         self.add_keywords(keywords.KEYWORDS_MYSQL)\n   65 |         self.add_keywords(keywords.KEYWORDS_PLPGSQL)\n   66 |         self.add_keywords(keywords.KEYWORDS_HQL)\n   67 |         self.add_keywords(keywords.KEYWORDS_MSACCESS)\n   68 |         self.add_keywords(keywords.KEYWORDS_SNOWFLAKE)\n   69 |         self.add_keywords(keywords.KEYWORDS_BIGQUERY)\n   70 |         self.add_keywords(keywords.KEYWORDS)\n   71 | \n   72 |     def clear(self):\n   73 |         \"\"\"Clear all syntax configurations.\n   74 |         Useful if you want to load a reduced set of syntax configurations.\n   75 |         After this call, regexps and keyword dictionaries need to be loaded\n   76 |         to make the lexer functional again.\"\"\"\n   77 |         self._SQL_REGEX = []\n   78 |         self._keywords = []\n   79 | \n   80 |     def set_SQL_REGEX(self, SQL_REGEX):\n   81 |         \"\"\"Set the list of regex that will parse the SQL.\"\"\"\n   82 |         FLAGS = re.IGNORECASE | re.UNICODE\n   83 |         self._SQL_REGEX = [\n   84 |             (re.compile(rx, FLAGS).match, tt)\n   85 |             for rx, tt in SQL_REGEX\n   86 |         ]\n   87 | \n   88 |     def add_keywords(self, keywords):\n   89 |         \"\"\"Add keyword dictionaries. Keywords are looked up in the same order\n   90 |         that dictionaries were added.\"\"\"\n   91 |         self._keywords.append(keywords)\n   92 | \n   93 |     def is_keyword(self, value):\n   94 |         \"\"\"Checks for a keyword.\n   95 | \n   96 |         If the given value is in one of the KEYWORDS_* dictionary\n   97 |         it's considered a keyword. Otherwise, tokens.Name is returned.\n   98 |         \"\"\"\n   99 |         val = value.upper()\n  100 |         for kwdict in self._keywords:\n  101 |             if val in kwdict:\n  102 |                 return kwdict[val], value\n  103 |         else:\n  104 |             return tokens.Name, value\n  105 | \n  106 |     def get_tokens(self, text, encoding=None):\n  107 |         \"\"\"\n  108 |         Return an iterable of (tokentype, value) pairs generated from\n  109 |         `text`. If `unfiltered` is set to `True`, the filtering mechanism\n  110 |         is bypassed even if filters are defined.\n  111 | \n  112 |         Also preprocess the text, i.e. expand tabs and strip it if\n  113 |         wanted and applies registered filters.\n  114 | \n  115 |         Split ``text`` into (tokentype, text) pairs.\n  116 | \n  117 |         ``stack`` is the initial stack (default: ``['root']``)\n  118 |         \"\"\"\n  119 |         if isinstance(text, TextIOBase):\n  120 |             text = text.read()\n  121 | \n  122 |         if isinstance(text, str):\n  123 |             pass\n  124 |         elif isinstance(text, bytes):\n  125 |             if encoding:\n  126 |                 text = text.decode(encoding)\n  127 |             else:\n  128 |                 try:\n  129 |                     text = text.decode('utf-8')\n  130 |                 except UnicodeDecodeError:\n  131 |                     text = text.decode('unicode-escape')\n  132 |         else:\n  133 |             raise TypeError(f\"Expected text or file-like object, got {type(text)!r}\")\n  134 | \n  135 |         delimited_spans = keywords.find_delimited_spans(text)\n  136 |         span_openers = delimited_spans.openers\n  137 | \n  138 |         iterable = enumerate(text)\n  139 |         for pos, char in iterable:\n  140 |             # Only positions the lexer actually reaches may open a\n  141 |             # dollar-quoted literal or a multiline comment; a delimiter\n  142 |             # inside a string literal or behind a \"--\" comment is skipped\n  143 |             # along with its surrounding token and never resolved.\n  144 |             if pos in span_openers:\n  145 |                 resolved = delimited_spans.resolve(pos)\n  146 |                 if resolved is not None:\n  147 |                     end, ttype = resolved\n  148 |                     yield ttype, text[pos:end]\n  149 |                     consume(iterable, end - pos - 1)\n  150 |                     continue\n  151 | \n  152 |             for rexmatch, action in self._SQL_REGEX:\n  153 |                 m = rexmatch(text, pos)\n  154 | \n  155 |                 if not m:\n  156 |                     continue\n  157 |                 elif isinstance(action, tokens._TokenType):\n  158 |                     yield action, m.group()\n  159 |                 elif action is keywords.PROCESS_AS_KEYWORD:\n  160 |                     yield self.is_keyword(m.group())\n  161 | \n  162 |                 consume(iterable, m.end() - pos - 1)\n  163 |                 break\n  164 |             else:\n  165 |                 yield tokens.Error, char\n  166 | \n  167 | \n  168 | def tokenize(sql, encoding=None):\n  169 |     \"\"\"Tokenize sql.\n  170 | \n  171 |     Tokenize *sql* using the :class:`Lexer` and return a 2-tuple stream\n  172 |     of ``(token type, value)`` items.\n  173 |     \"\"\"\n  174 |     return Lexer.get_default_instance().get_tokens(sql, encoding)\n```\n\nDefinitions imported by the module from elsewhere in the repository:\n\n# sqlparse/utils.py lines 108-110\n```python\ndef consume(iterator, n):\n    \"\"\"Advance the iterator n-steps ahead. If n is none, consume entirely.\"\"\"\n    deque(itertools.islice(iterator, n), maxlen=0)\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- sqlparse/engine/filter_stack.py:31: `stream = lexer.tokenize(sql, encoding)`\n\nPublic API to cover: `Lexer`, `tokenize`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from sqlparse.lexer import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:03:09+00:00",
+    "duration": 8.68,
+    "summary": "第 1 轮：生成 321 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_lexer.py",
+          "content": "<9902 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4955,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `sqlparse.lexer`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport io\nimport re\n\nimport pytest\n\nfrom sqlparse import keywords, tokens\nfrom sqlparse.lexer import Lexer, tokenize\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\ndef make_lexer():\n    \"\"\"Create a fresh, fully initialized lexer (not the singleton).\"\"\"\n    lexer = Lexer()\n    lexer.default_initialization()\n    return lexer\n\n\n# ---------------------------------------------------------------------------\n# Lexer.clear / set_SQL_REGEX / add_keywords / default_initialization\n# ---------------------------------------------------------------------------\n\ndef test_clear_resets_state():\n    lexer = make_lexer()\n    lexer.clear()\n    assert lexer._SQL_REGEX == []\n    assert lexer._keywords == []\n\n\ndef test_set_SQL_REGEX_compiles_and_ignores_case():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX(\n        [\n            (r'world', tokens.Name),\n        ]\n    )\n    # One entry, a callable match.\n    assert len(lexer._SQL_REGEX) == 1\n    match_fn, token_type = lexer._SQL_REGEX[0]\n    assert callable(match_fn)\n    assert token_type is tokens.Name\n\n    m = match_fn('HELLO WORLD', 6)\n    assert m is not None\n    assert m.group() == 'WORLD'\n\n\ndef test_set_SQL_REGEX_handles_unicode():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'\\w+', tokens.Name)])\n    match_fn, _ = lexer._SQL_REGEX[0]\n    m = match_fn('héllo', 0)\n    assert m is not None\n    assert m.group() == 'héllo'\n\n\ndef test_add_keywords_appends_in_order():\n    lexer = Lexer()\n    lexer.clear()\n    d1 = {'FOO': tokens.Keyword}\n    d2 = {'BAR': tokens.Name}\n    lexer.add_keywords(d1)\n    lexer.add_keywords(d2)\n    assert lexer._keywords == [d1, d2]\n\n\ndef test_default_initialization_sets_regx_and_keywords():\n    lexer = Lexer()\n    lexer.default_initialization()\n    assert len(lexer._SQL_REGEX) == len(keywords.SQL_REGEX)\n    assert len(lexer._keywords) == 9\n\n\ndef test_default_initialization_is_idempotent():\n    lexer = Lexer()\n    lexer.default_initialization()\n    first_regex_len = len(lexer._SQL_REGEX)\n    first_kw_len = len(lexer._keywords)\n    lexer.default_initialization()\n    # clear() is called first, so lengths don't accumulate.\n    assert len(lexer._SQL_REGEX) == first_regex_len\n    assert len(lexer._keywords) == first_kw_len\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_default_instance (singleton + thread-safe lock usage)\n# ---------------------------------------------------------------------------\n\ndef test_get_default_instance_singleton():\n    Lexer._default_instance = None\n    try:\n        inst1 = Lexer.get_default_instance()\n        inst2 = Lexer.get_default_instance()\n        assert inst1 is inst2\n        assert isinstance(inst1, Lexer)\n        # A default-initialized lexer has keyword dicts configured.\n        assert len(inst1._keywords) > 0\n        assert len(inst1._SQL_REGEX) > 0\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_get_default_instance_reuses_existing():\n    Lexer._default_instance = None\n    try:\n        existing = Lexer()\n        Lexer._default_instance = existing\n        assert Lexer.get_default_instance() is existing\n        # No default_initialization applied because instance already existed.\n        assert existing._keywords == []\n    finally:\n        Lexer._default_instance = None\n\n\n# ---------------------------------------------------------------------------\n# Lexer.is_keyword\n# ---------------------------------------------------------------------------\n\ndef test_is_keyword_found_returns_type_and_original_value():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('select') == (tokens.Keyword, 'select')\n    assert lexer.is_keyword('SeLeCt') == (tokens.Keyword, 'SeLeCt')\n\n\ndef test_is_keyword_not_found_returns_name():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('foo') == (tokens.Name, 'foo')\n\n\ndef test_is_keyword_uses_first_matching_dictionary():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    lexer.add_keywords({'FOO': tokens.Name})\n    assert lexer.is_keyword('foo') == (tokens.Keyword, 'foo')\n\n\ndef test_is_keyword_empty_keywords():\n    lexer = Lexer()\n    lexer.clear()\n    assert lexer.is_keyword('select') == (tokens.Name, 'select')\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: basic types\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_basic_select():\n    lexer = make_lexer()\n    result = [(ttype, value) for ttype, value in lexer.get_tokens('SELECT 1')]\n    # There should be a SELECT keyword and a number token.\n    assert (tokens.Keyword, 'SELECT') in result\n    assert any(tt in tokens.Number for tt, _ in result)\n    # Whitespace present as a token.\n    assert (tokens.Whitespace, ' ') in result\n\n\ndef test_get_tokens_preserves_case_of_value():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('select'))\n    assert result[0] == (tokens.Keyword, 'select')\n\n\ndef test_get_tokens_accepts_str():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('SELECT')) == [\n        (tokens.Keyword.DML, 'SELECT')\n    ]\n\n\ndef test_get_tokens_accepts_bytes_utf8_default():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(b'SELECT'))\n    assert result == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_accepts_bytes_with_encoding():\n    lexer = make_lexer()\n    # 'abc' encoded in latin-1 still decodes fine.\n    result = list(lexer.get_tokens(b'abc', encoding='latin-1'))\n    assert result == [(tokens.Name, 'abc')]\n\n\ndef test_get_tokens_accepts_text_io():\n    lexer = make_lexer()\n    buf = io.StringIO('SELECT')\n    assert list(lexer.get_tokens(buf)) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_raises_on_unsupported_type():\n    lexer = make_lexer()\n    with pytest.raises(TypeError) as excinfo:\n        list(lexer.get_tokens(12345))\n    assert 'Expected text or file-like object' in str(excinfo.value)\n\n\ndef test_get_tokens_empty_string():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('')) == []\n\n\ndef test_get_tokens_whitespace_only():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('   '))\n    assert result == [(tokens.Whitespace, '   ')]\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: literals, comments, errors\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_string_literal():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'hello'\"))\n    assert result == [(tokens.String.Single, \"'hello'\")]\n\n\ndef test_get_tokens_string_with_embedded_double_quote():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'a''b'\"))\n    assert result == [(tokens.String.Single, \"'a''b'\")]\n\n\ndef test_get_tokens_line_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('-- a comment'))\n    assert result == [(tokens.Comment.Single, '-- a comment')]\n\n\ndef test_get_tokens_multiline_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('/* a\\ncomment */'))\n    assert result == [(tokens.Comment.Multiline, '/* a\\ncomment */')]\n\n\ndef test_get_tokens_delimiter_inside_string_is_not_resolved():\n    # A \"/*\" inside a string must remain part of the string token.\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'/*'\"))\n    assert result == [(tokens.String.Single, \"'/*'\")]\n\n\ndef test_get_tokens_dollar_quoted_literal():\n    lexer = make_lexer()\n    text = '$$hello$$'\n    result = list(lexer.get_tokens(text))\n    assert len(result) == 1\n    assert result[0][1] == '$$hello$$'\n\n\ndef test_get_tokens_unknown_character_is_error():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-z]+', tokens.Name)])\n    result = list(lexer.get_tokens('abc#def'))\n    # '#' not matched by any regex -> Error token.\n    errors = [item for item in result if item[0] is tokens.Error]\n    assert (tokens.Error, '#') in errors\n\n\ndef test_get_tokens_is_a_generator():\n    lexer = make_lexer()\n    gen = lexer.get_tokens('SELECT')\n    # Not a list, supports iteration only once.\n    assert hasattr(gen, '__iter__')\n    assert not isinstance(gen, list)\n    assert list(gen) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_minimal_regex():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', tokens.Name)])\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    result = list(lexer.get_tokens('foo bar'))\n    assert result[0] == (tokens.Keyword, 'foo')\n    assert result[-1] == (tokens.Name, 'bar')\n\n\n# ---------------------------------------------------------------------------\n# tokenize() module function\n# ---------------------------------------------------------------------------\n\ndef test_tokenize_uses_default_instance():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT')\n        assert list(stream) == [(tokens.Keyword.DML, 'SELECT')]\n        assert Lexer._default_instance is not None\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_returns_iterable_of_pairs():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT 1')\n        items = list(stream)\n        assert len(items) > 0\n        for ttype, value in items:\n            assert isinstance(ttype, tokens._TokenType)\n            assert isinstance(value, str)\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_with_encoding():\n    Lexer._default_instance = None\n    try:\n        result = list(tokenize(b'abc', encoding='utf-8'))\n        assert result == [(tokens.Name, 'abc')]\n    finally:\n        Lexer._default_instance = None\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 2392,
+      "cache_hit_tokens": 0,
+      "completion_tokens": 2563,
+      "reasoning_tokens": 0,
+      "latency": 8.67
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:03:11+00:00",
+    "duration": 1.34,
+    "summary": "通过 28，失败 5，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_lexer.py"
+          ]
+        },
+        "duration": 1.34,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4955
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T06:03:11+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 28]（提升）",
+    "tool_calls": [],
+    "tokens_total": 4955,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      28
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T06:03:11+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 4955
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:03:17+00:00",
+    "duration": 7.53,
+    "summary": "第 2 轮：生成 342 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_lexer.py",
+          "content": "<10607 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 13797,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_lexer.py`)\n```python\nimport io\nimport re\n\nimport pytest\n\nfrom sqlparse import keywords, tokens\nfrom sqlparse.lexer import Lexer, tokenize\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\ndef make_lexer():\n    \"\"\"Create a fresh, fully initialized lexer (not the singleton).\"\"\"\n    lexer = Lexer()\n    lexer.default_initialization()\n    return lexer\n\n\n# ---------------------------------------------------------------------------\n# Lexer.clear / set_SQL_REGEX / add_keywords / default_initialization\n# ---------------------------------------------------------------------------\n\ndef test_clear_resets_state():\n    lexer = make_lexer()\n    lexer.clear()\n    assert lexer._SQL_REGEX == []\n    assert lexer._keywords == []\n\n\ndef test_set_SQL_REGEX_compiles_and_ignores_case():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX(\n        [\n            (r'world', tokens.Name),\n        ]\n    )\n    # One entry, a callable match.\n    assert len(lexer._SQL_REGEX) == 1\n    match_fn, token_type = lexer._SQL_REGEX[0]\n    assert callable(match_fn)\n    assert token_type is tokens.Name\n\n    m = match_fn('HELLO WORLD', 6)\n    assert m is not None\n    assert m.group() == 'WORLD'\n\n\ndef test_set_SQL_REGEX_handles_unicode():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'\\w+', tokens.Name)])\n    match_fn, _ = lexer._SQL_REGEX[0]\n    m = match_fn('héllo', 0)\n    assert m is not None\n    assert m.group() == 'héllo'\n\n\ndef test_add_keywords_appends_in_order():\n    lexer = Lexer()\n    lexer.clear()\n    d1 = {'FOO': tokens.Keyword}\n    d2 = {'BAR': tokens.Name}\n    lexer.add_keywords(d1)\n    lexer.add_keywords(d2)\n    assert lexer._keywords == [d1, d2]\n\n\ndef test_default_initialization_sets_regx_and_keywords():\n    lexer = Lexer()\n    lexer.default_initialization()\n    assert len(lexer._SQL_REGEX) == len(keywords.SQL_REGEX)\n    assert len(lexer._keywords) == 9\n\n\ndef test_default_initialization_is_idempotent():\n    lexer = Lexer()\n    lexer.default_initialization()\n    first_regex_len = len(lexer._SQL_REGEX)\n    first_kw_len = len(lexer._keywords)\n    lexer.default_initialization()\n    # clear() is called first, so lengths don't accumulate.\n    assert len(lexer._SQL_REGEX) == first_regex_len\n    assert len(lexer._keywords) == first_kw_len\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_default_instance (singleton + thread-safe lock usage)\n# ---------------------------------------------------------------------------\n\ndef test_get_default_instance_singleton():\n    Lexer._default_instance = None\n    try:\n        inst1 = Lexer.get_default_instance()\n        inst2 = Lexer.get_default_instance()\n        assert inst1 is inst2\n        assert isinstance(inst1, Lexer)\n        # A default-initialized lexer has keyword dicts configured.\n        assert len(inst1._keywords) > 0\n        assert len(inst1._SQL_REGEX) > 0\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_get_default_instance_reuses_existing():\n    Lexer._default_instance = None\n    try:\n        existing = Lexer()\n        Lexer._default_instance = existing\n        assert Lexer.get_default_instance() is existing\n        # No default_initialization applied because instance already existed.\n        assert existing._keywords == []\n    finally:\n        Lexer._default_instance = None\n\n\n# ---------------------------------------------------------------------------\n# Lexer.is_keyword\n# ---------------------------------------------------------------------------\n\ndef test_is_keyword_found_returns_type_and_original_value():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('select') == (tokens.Keyword, 'select')\n    assert lexer.is_keyword('SeLeCt') == (tokens.Keyword, 'SeLeCt')\n\n\ndef test_is_keyword_not_found_returns_name():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('foo') == (tokens.Name, 'foo')\n\n\ndef test_is_keyword_uses_first_matching_dictionary():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    lexer.add_keywords({'FOO': tokens.Name})\n    assert lexer.is_keyword('foo') == (tokens.Keyword, 'foo')\n\n\ndef test_is_keyword_empty_keywords():\n    lexer = Lexer()\n    lexer.clear()\n    assert lexer.is_keyword('select') == (tokens.Name, 'select')\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: basic types\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_basic_select():\n    lexer = make_lexer()\n    result = [(ttype, value) for ttype, value in lexer.get_tokens('SELECT 1')]\n    # There should be a SELECT keyword and a number token.\n    assert (tokens.Keyword, 'SELECT') in result\n    assert any(tt in tokens.Number for tt, _ in result)\n    # Whitespace present as a token.\n    assert (tokens.Whitespace, ' ') in result\n\n\ndef test_get_tokens_preserves_case_of_value():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('select'))\n    assert result[0] == (tokens.Keyword, 'select')\n\n\ndef test_get_tokens_accepts_str():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('SELECT')) == [\n        (tokens.Keyword.DML, 'SELECT')\n    ]\n\n\ndef test_get_tokens_accepts_bytes_utf8_default():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(b'SELECT'))\n    assert result == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_accepts_bytes_with_encoding():\n    lexer = make_lexer()\n    # 'abc' encoded in latin-1 still decodes fine.\n    result = list(lexer.get_tokens(b'abc', encoding='latin-1'))\n    assert result == [(tokens.Name, 'abc')]\n\n\ndef test_get_tokens_accepts_text_io():\n    lexer = make_lexer()\n    buf = io.StringIO('SELECT')\n    assert list(lexer.get_tokens(buf)) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_raises_on_unsupported_type():\n    lexer = make_lexer()\n    with pytest.raises(TypeError) as excinfo:\n        list(lexer.get_tokens(12345))\n    assert 'Expected text or file-like object' in str(excinfo.value)\n\n\ndef test_get_tokens_empty_string():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('')) == []\n\n\ndef test_get_tokens_whitespace_only():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('   '))\n    assert result == [(tokens.Whitespace, '   ')]\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: literals, comments, errors\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_string_literal():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'hello'\"))\n    assert result == [(tokens.String.Single, \"'hello'\")]\n\n\ndef test_get_tokens_string_with_embedded_double_quote():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'a''b'\"))\n    assert result == [(tokens.String.Single, \"'a''b'\")]\n\n\ndef test_get_tokens_line_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('-- a comment'))\n    assert result == [(tokens.Comment.Single, '-- a comment')]\n\n\ndef test_get_tokens_multiline_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('/* a\\ncomment */'))\n    assert result == [(tokens.Comment.Multiline, '/* a\\ncomment */')]\n\n\ndef test_get_tokens_delimiter_inside_string_is_not_resolved():\n    # A \"/*\" inside a string must remain part of the string token.\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'/*'\"))\n    assert result == [(tokens.String.Single, \"'/*'\")]\n\n\ndef test_get_tokens_dollar_quoted_literal():\n    lexer = make_lexer()\n    text = '$$hello$$'\n    result = list(lexer.get_tokens(text))\n    assert len(result) == 1\n    assert result[0][1] == '$$hello$$'\n\n\ndef test_get_tokens_unknown_character_is_error():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-z]+', tokens.Name)])\n    result = list(lexer.get_tokens('abc#def'))\n    # '#' not matched by any regex -> Error token.\n    errors = [item for item in result if item[0] is tokens.Error]\n    assert (tokens.Error, '#') in errors\n\n\ndef test_get_tokens_is_a_generator():\n    lexer = make_lexer()\n    gen = lexer.get_tokens('SELECT')\n    # Not a list, supports iteration only once.\n    assert hasattr(gen, '__iter__')\n    assert not isinstance(gen, list)\n    assert list(gen) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_minimal_regex():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', tokens.Name)])\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    result = list(lexer.get_tokens('foo bar'))\n    assert result[0] == (tokens.Keyword, 'foo')\n    assert result[-1] == (tokens.Name, 'bar')\n\n\n# ---------------------------------------------------------------------------\n# tokenize() module function\n# ---------------------------------------------------------------------------\n\ndef test_tokenize_uses_default_instance():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT')\n        assert list(stream) == [(tokens.Keyword.DML, 'SELECT')]\n        assert Lexer._default_instance is not None\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_returns_iterable_of_pairs():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT 1')\n        items = list(stream)\n        assert len(items) > 0\n        for ttype, value in items:\n            assert isinstance(ttype, tokens._TokenType)\n            assert isinstance(value, str)\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_with_encoding():\n    Lexer._default_instance = None\n    try:\n        result = list(tokenize(b'abc', encoding='utf-8'))\n        assert result == [(tokens.Name, 'abc')]\n    finally:\n        Lexer._default_instance = None\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 28 passed, 5 failed, 0 errors.\n- `tests_testpilot.test_lexer::test_get_default_instance_reuses_existing` failed:\n```\nAttributeError: 'Lexer' object has no attribute '_keywords'\ndef test_get_default_instance_reuses_existing():\n        Lexer._default_instance = None\n        try:\n            existing = Lexer()\n            Lexer._default_instance = existing\n            assert Lexer.get_default_instance() is existing\n            # No default_initialization applied because instance already existed.\n>           assert existing._keywords == []\n                   ^^^^^^^^^^^^^^^^^^\nE           AttributeError: 'Lexer' object has no attribute '_keywords'\n\ntests_testpilot/test_lexer.py:114: AttributeError\n```\n- `tests_testpilot.test_lexer::test_get_tokens_basic_select` failed:\n```\nAssertionError: assert (Token.Keyword, 'SELECT') in [(Token.Keyword.DML, 'SELECT'), (Token.Text.Whitespace, ' '), (Token.Literal.Number.Integer, '1')]\ndef test_get_tokens_basic_select():\n        lexer = make_lexer()\n        result = [(ttype, value) for ttype, value in lexer.get_tokens('SELECT 1')]\n        # There should be a SELECT keyword and a number token.\n>       assert (tokens.Keyword, 'SELECT') in result\nE       AssertionError: assert (Token.Keyword, 'SELECT') in [(Token.Keyword.DML, 'SELECT'), (Token.Text.Whitespace, ' '), (Token.Literal.Number.Integer, '1')]\n\ntests_testpilot/test_lexer.py:160: AssertionError\n```\n- `tests_testpilot.test_lexer::test_get_tokens_preserves_case_of_value` failed:\n```\nAssertionError: assert (Token.Keyword.DML, 'select') == (Token.Keyword, 'select')\n  \n  At index 0 diff: Token.Keyword.DML != Token.Keyword\n  Use -v to get more diff\ndef test_get_tokens_preserves_case_of_value():\n        lexer = make_lexer()\n        result = list(lexer.get_tokens('select'))\n>       assert result[0] == (tokens.Keyword, 'select')\nE       AssertionError: assert (Token.Keyword.DML, 'select') == (Token.Keyword, 'select')\nE         \nE         At index 0 diff: Token.Keyword.DML != Token.Keyword\nE         Use -v to get more diff\n\ntests_testpilot/test_lexer.py:169: AssertionError\n```\n- `tests_testpilot.test_lexer::test_get_tokens_whitespace_only` failed:\n```\nAssertionError: assert [(Token.Text....tespace, ' ')] == [(Token.Text....space, '   ')]\n  \n  At index 0 diff: (Token.Text.Whitespace, ' ') != (Token.Text.Whitespace, '   ')\n  Left contains 2 more items, first extra item: (Token.Text.Whitespace, ' ')\n  Use -v to get more diff\ndef test_get_tokens_whitespace_only():\n        lexer = make_lexer()\n        result = list(lexer.get_tokens('   '))\n>       assert result == [(tokens.Whitespace, '   ')]\nE       AssertionError: assert [(Token.Text....tespace, ' ')] == [(Token.Text....space, '   ')]\nE         \nE         At index 0 diff: (Token.Text.Whitespace, ' ') != (Token.Text.Whitespace, '   ')\nE         Left contains 2 more items, first extra item: (Token.Text.Whitespace, ' ')\nE         Use -v to get more diff\n\ntests_testpilot/test_lexer.py:213: Ass\n```\n- `tests_testpilot.test_lexer::test_get_tokens_minimal_regex` failed:\n```\nAssertionError: assert (Token.Name, 'foo') == (Token.Keyword, 'foo')\n  \n  At index 0 diff: Token.Name != Token.Keyword\n  Use -v to get more diff\ndef test_get_tokens_minimal_regex():\n        lexer = Lexer()\n        lexer.clear()\n        lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', tokens.Name)])\n        lexer.add_keywords({'FOO': tokens.Keyword})\n        result = list(lexer.get_tokens('foo bar'))\n>       assert result[0] == (tokens.Keyword, 'foo')\nE       AssertionError: assert (Token.Name, 'foo') == (Token.Keyword, 'foo')\nE         \nE         At index 0 diff: Token.Name != Token.Keyword\nE         Use -v to get more diff\n\ntests_testpilot/test_lexer.py:284: AssertionError\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport io\nimport re\n\nimport pytest\n\nfrom sqlparse import keywords, tokens\nfrom sqlparse.lexer import Lexer, tokenize\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\ndef make_lexer():\n    \"\"\"Create a fresh, fully initialized lexer (not the singleton).\"\"\"\n    lexer = Lexer()\n    lexer.default_initialization()\n    return lexer\n\n\n# ---------------------------------------------------------------------------\n# Lexer.clear / set_SQL_REGEX / add_keywords / default_initialization\n# ---------------------------------------------------------------------------\n\ndef test_clear_resets_state():\n    lexer = make_lexer()\n    lexer.clear()\n    assert lexer._SQL_REGEX == []\n    assert lexer._keywords == []\n\n\ndef test_set_SQL_REGEX_compiles_and_ignores_case():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX(\n        [\n            (r'world', tokens.Name),\n        ]\n    )\n    # One entry, a callable match.\n    assert len(lexer._SQL_REGEX) == 1\n    match_fn, token_type = lexer._SQL_REGEX[0]\n    assert callable(match_fn)\n    assert token_type is tokens.Name\n\n    m = match_fn('HELLO WORLD', 6)\n    assert m is not None\n    assert m.group() == 'WORLD'\n\n\ndef test_set_SQL_REGEX_handles_unicode():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'\\w+', tokens.Name)])\n    match_fn, _ = lexer._SQL_REGEX[0]\n    m = match_fn('héllo', 0)\n    assert m is not None\n    assert m.group() == 'héllo'\n\n\ndef test_add_keywords_appends_in_order():\n    lexer = Lexer()\n    lexer.clear()\n    d1 = {'FOO': tokens.Keyword}\n    d2 = {'BAR': tokens.Name}\n    lexer.add_keywords(d1)\n    lexer.add_keywords(d2)\n    assert lexer._keywords == [d1, d2]\n\n\ndef test_default_initialization_sets_regx_and_keywords():\n    lexer = Lexer()\n    lexer.default_initialization()\n    assert len(lexer._SQL_REGEX) == len(keywords.SQL_REGEX)\n    assert len(lexer._keywords) == 9\n\n\ndef test_default_initialization_is_idempotent():\n    lexer = Lexer()\n    lexer.default_initialization()\n    first_regex_len = len(lexer._SQL_REGEX)\n    first_kw_len = len(lexer._keywords)\n    lexer.default_initialization()\n    # clear() is called first, so lengths don't accumulate.\n    assert len(lexer._SQL_REGEX) == first_regex_len\n    assert len(lexer._keywords) == first_kw_len\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_default_instance (singleton + thread-safe lock usage)\n# ---------------------------------------------------------------------------\n\ndef test_get_default_instance_singleton():\n    Lexer._default_instance = None\n    try:\n        inst1 = Lexer.get_default_instance()\n        inst2 = Lexer.get_default_instance()\n        assert inst1 is inst2\n        assert isinstance(inst1, Lexer)\n        # A default-initialized lexer has keyword dicts configured.\n        assert len(inst1._keywords) > 0\n        assert len(inst1._SQL_REGEX) > 0\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_get_default_instance_reuses_existing():\n    Lexer._default_instance = None\n    try:\n        existing = Lexer()\n        Lexer._default_instance = existing\n        assert Lexer.get_default_instance() is existing\n        # No default_initialization applied because instance already existed,\n        # so it has no attributes set up.\n        assert not hasattr(existing, '_keywords')\n        assert not hasattr(existing, '_SQL_REGEX')\n    finally:\n        Lexer._default_instance = None\n\n\n# ---------------------------------------------------------------------------\n# Lexer.is_keyword\n# ---------------------------------------------------------------------------\n\ndef test_is_keyword_found_returns_type_and_original_value():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('select') == (tokens.Keyword, 'select')\n    assert lexer.is_keyword('SeLeCt') == (tokens.Keyword, 'SeLeCt')\n\n\ndef test_is_keyword_not_found_returns_name():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('foo') == (tokens.Name, 'foo')\n\n\ndef test_is_keyword_uses_first_matching_dictionary():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    lexer.add_keywords({'FOO': tokens.Name})\n    assert lexer.is_keyword('foo') == (tokens.Keyword, 'foo')\n\n\ndef test_is_keyword_empty_keywords():\n    lexer = Lexer()\n    lexer.clear()\n    assert lexer.is_keyword('select') == (tokens.Name, 'select')\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: basic types\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_basic_select():\n    lexer = make_lexer()\n    result = [(ttype, value) for ttype, value in lexer.get_tokens('SELECT 1')]\n    # There should be a SELECT keyword and a number token.\n    assert (tokens.Keyword.DML, 'SELECT') in result\n    assert any(tt in tokens.Number for tt, _ in result)\n    # Whitespace present as a token.\n    assert (tokens.Whitespace, ' ') in result\n\n\ndef test_get_tokens_preserves_case_of_value():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('select'))\n    assert result[0] == (tokens.Keyword.DML, 'select')\n\n\ndef test_get_tokens_accepts_str():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('SELECT')) == [\n        (tokens.Keyword.DML, 'SELECT')\n    ]\n\n\ndef test_get_tokens_accepts_bytes_utf8_default():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(b'SELECT'))\n    assert result == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_accepts_bytes_with_encoding():\n    lexer = make_lexer()\n    # 'abc' encoded in latin-1 still decodes fine.\n    result = list(lexer.get_tokens(b'abc', encoding='latin-1'))\n    assert result == [(tokens.Name, 'abc')]\n\n\ndef test_get_tokens_accepts_text_io():\n    lexer = make_lexer()\n    buf = io.StringIO('SELECT')\n    assert list(lexer.get_tokens(buf)) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_raises_on_unsupported_type():\n    lexer = make_lexer()\n    with pytest.raises(TypeError) as excinfo:\n        list(lexer.get_tokens(12345))\n    assert 'Expected text or file-like object' in str(excinfo.value)\n\n\ndef test_get_tokens_empty_string():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('')) == []\n\n\ndef test_get_tokens_whitespace_only():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('   '))\n    # Each whitespace character is emitted as its own token.\n    assert result == [\n        (tokens.Whitespace, ' '),\n        (tokens.Whitespace, ' '),\n        (tokens.Whitespace, ' '),\n    ]\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: literals, comments, errors\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_string_literal():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'hello'\"))\n    assert result == [(tokens.String.Single, \"'hello'\")]\n\n\ndef test_get_tokens_string_with_embedded_double_quote():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'a''b'\"))\n    assert result == [(tokens.String.Single, \"'a''b'\")]\n\n\ndef test_get_tokens_line_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('-- a comment'))\n    assert result == [(tokens.Comment.Single, '-- a comment')]\n\n\ndef test_get_tokens_multiline_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('/* a\\ncomment */'))\n    assert result == [(tokens.Comment.Multiline, '/* a\\ncomment */')]\n\n\ndef test_get_tokens_delimiter_inside_string_is_not_resolved():\n    # A \"/*\" inside a string must remain part of the string token.\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'/*'\"))\n    assert result == [(tokens.String.Single, \"'/*'\")]\n\n\ndef test_get_tokens_dollar_quoted_literal():\n    lexer = make_lexer()\n    text = '$$hello$$'\n    result = list(lexer.get_tokens(text))\n    assert len(result) == 1\n    assert result[0][1] == '$$hello$$'\n\n\ndef test_get_tokens_unknown_character_is_error():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-z]+', tokens.Name)])\n    result = list(lexer.get_tokens('abc#def'))\n    # '#' not matched by any regex -> Error token.\n    errors = [item for item in result if item[0] is tokens.Error]\n    assert (tokens.Error, '#') in errors\n\n\ndef test_get_tokens_is_a_generator():\n    lexer = make_lexer()\n    gen = lexer.get_tokens('SELECT')\n    # Not a list, supports iteration only once.\n    assert hasattr(gen, '__iter__')\n    assert not isinstance(gen, list)\n    assert list(gen) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_minimal_regex():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', tokens.Name)])\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    result = list(lexer.get_tokens('foo bar'))\n    # The regex maps matches to Name; PROCESS_AS_KEYWORD isn't used here, so\n    # keyword lookup does not apply.\n    assert result[0] == (tokens.Name, 'foo')\n    assert result[-1] == (tokens.Name, 'bar')\n\n\ndef test_get_tokens_process_as_keyword():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', keywords.PROCESS_AS_KEYWORD)])\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    result = list(lexer.get_tokens('foo bar'))\n    assert result == [\n        (tokens.Keyword, 'foo'),\n        (tokens.Name, 'bar'),\n    ]\n\n\n# ---------------------------------------------------------------------------\n# tokenize() module function\n# ---------------------------------------------------------------------------\n\ndef test_tokenize_uses_default_instance():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT')\n        assert list(stream) == [(tokens.Keyword.DML, 'SELECT')]\n        assert Lexer._default_instance is not None\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_returns_iterable_of_pairs():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT 1')\n        items = list(stream)\n        assert len(items) > 0\n        for ttype, value in items:\n            assert isinstance(ttype, tokens._TokenType)\n            assert isinstance(value, str)\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_with_encoding():\n    Lexer._default_instance = None\n    try:\n        result = list(tokenize(b'abc', encoding='utf-8'))\n        assert result == [(tokens.Name, 'abc')]\n    finally:\n        Lexer._default_instance = None\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 6075,
+      "cache_hit_tokens": 2304,
+      "completion_tokens": 2767,
+      "reasoning_tokens": 0,
+      "latency": 7.52
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:03:19+00:00",
+    "duration": 1.45,
+    "summary": "通过 33，失败 1，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_lexer.py"
+          ]
+        },
+        "duration": 1.45,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 13797
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T06:03:19+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 33]（提升）",
+    "tool_calls": [],
+    "tokens_total": 13797,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      33
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T06:03:19+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 13797
+  },
+  {
+    "node": "write_tests",
+    "iteration": 3,
+    "at": "2026-10-20T06:03:27+00:00",
+    "duration": 7.93,
+    "summary": "第 3 轮：生成 344 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_lexer.py",
+          "content": "<10709 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 22087,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_lexer.py`)\n```python\nimport io\nimport re\n\nimport pytest\n\nfrom sqlparse import keywords, tokens\nfrom sqlparse.lexer import Lexer, tokenize\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\ndef make_lexer():\n    \"\"\"Create a fresh, fully initialized lexer (not the singleton).\"\"\"\n    lexer = Lexer()\n    lexer.default_initialization()\n    return lexer\n\n\n# ---------------------------------------------------------------------------\n# Lexer.clear / set_SQL_REGEX / add_keywords / default_initialization\n# ---------------------------------------------------------------------------\n\ndef test_clear_resets_state():\n    lexer = make_lexer()\n    lexer.clear()\n    assert lexer._SQL_REGEX == []\n    assert lexer._keywords == []\n\n\ndef test_set_SQL_REGEX_compiles_and_ignores_case():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX(\n        [\n            (r'world', tokens.Name),\n        ]\n    )\n    # One entry, a callable match.\n    assert len(lexer._SQL_REGEX) == 1\n    match_fn, token_type = lexer._SQL_REGEX[0]\n    assert callable(match_fn)\n    assert token_type is tokens.Name\n\n    m = match_fn('HELLO WORLD', 6)\n    assert m is not None\n    assert m.group() == 'WORLD'\n\n\ndef test_set_SQL_REGEX_handles_unicode():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'\\w+', tokens.Name)])\n    match_fn, _ = lexer._SQL_REGEX[0]\n    m = match_fn('héllo', 0)\n    assert m is not None\n    assert m.group() == 'héllo'\n\n\ndef test_add_keywords_appends_in_order():\n    lexer = Lexer()\n    lexer.clear()\n    d1 = {'FOO': tokens.Keyword}\n    d2 = {'BAR': tokens.Name}\n    lexer.add_keywords(d1)\n    lexer.add_keywords(d2)\n    assert lexer._keywords == [d1, d2]\n\n\ndef test_default_initialization_sets_regx_and_keywords():\n    lexer = Lexer()\n    lexer.default_initialization()\n    assert len(lexer._SQL_REGEX) == len(keywords.SQL_REGEX)\n    assert len(lexer._keywords) == 9\n\n\ndef test_default_initialization_is_idempotent():\n    lexer = Lexer()\n    lexer.default_initialization()\n    first_regex_len = len(lexer._SQL_REGEX)\n    first_kw_len = len(lexer._keywords)\n    lexer.default_initialization()\n    # clear() is called first, so lengths don't accumulate.\n    assert len(lexer._SQL_REGEX) == first_regex_len\n    assert len(lexer._keywords) == first_kw_len\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_default_instance (singleton + thread-safe lock usage)\n# ---------------------------------------------------------------------------\n\ndef test_get_default_instance_singleton():\n    Lexer._default_instance = None\n    try:\n        inst1 = Lexer.get_default_instance()\n        inst2 = Lexer.get_default_instance()\n        assert inst1 is inst2\n        assert isinstance(inst1, Lexer)\n        # A default-initialized lexer has keyword dicts configured.\n        assert len(inst1._keywords) > 0\n        assert len(inst1._SQL_REGEX) > 0\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_get_default_instance_reuses_existing():\n    Lexer._default_instance = None\n    try:\n        existing = Lexer()\n        Lexer._default_instance = existing\n        assert Lexer.get_default_instance() is existing\n        # No default_initialization applied because instance already existed,\n        # so it has no attributes set up.\n        assert not hasattr(existing, '_keywords')\n        assert not hasattr(existing, '_SQL_REGEX')\n    finally:\n        Lexer._default_instance = None\n\n\n# ---------------------------------------------------------------------------\n# Lexer.is_keyword\n# ---------------------------------------------------------------------------\n\ndef test_is_keyword_found_returns_type_and_original_value():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('select') == (tokens.Keyword, 'select')\n    assert lexer.is_keyword('SeLeCt') == (tokens.Keyword, 'SeLeCt')\n\n\ndef test_is_keyword_not_found_returns_name():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('foo') == (tokens.Name, 'foo')\n\n\ndef test_is_keyword_uses_first_matching_dictionary():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    lexer.add_keywords({'FOO': tokens.Name})\n    assert lexer.is_keyword('foo') == (tokens.Keyword, 'foo')\n\n\ndef test_is_keyword_empty_keywords():\n    lexer = Lexer()\n    lexer.clear()\n    assert lexer.is_keyword('select') == (tokens.Name, 'select')\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: basic types\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_basic_select():\n    lexer = make_lexer()\n    result = [(ttype, value) for ttype, value in lexer.get_tokens('SELECT 1')]\n    # There should be a SELECT keyword and a number token.\n    assert (tokens.Keyword.DML, 'SELECT') in result\n    assert any(tt in tokens.Number for tt, _ in result)\n    # Whitespace present as a token.\n    assert (tokens.Whitespace, ' ') in result\n\n\ndef test_get_tokens_preserves_case_of_value():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('select'))\n    assert result[0] == (tokens.Keyword.DML, 'select')\n\n\ndef test_get_tokens_accepts_str():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('SELECT')) == [\n        (tokens.Keyword.DML, 'SELECT')\n    ]\n\n\ndef test_get_tokens_accepts_bytes_utf8_default():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(b'SELECT'))\n    assert result == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_accepts_bytes_with_encoding():\n    lexer = make_lexer()\n    # 'abc' encoded in latin-1 still decodes fine.\n    result = list(lexer.get_tokens(b'abc', encoding='latin-1'))\n    assert result == [(tokens.Name, 'abc')]\n\n\ndef test_get_tokens_accepts_text_io():\n    lexer = make_lexer()\n    buf = io.StringIO('SELECT')\n    assert list(lexer.get_tokens(buf)) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_raises_on_unsupported_type():\n    lexer = make_lexer()\n    with pytest.raises(TypeError) as excinfo:\n        list(lexer.get_tokens(12345))\n    assert 'Expected text or file-like object' in str(excinfo.value)\n\n\ndef test_get_tokens_empty_string():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('')) == []\n\n\ndef test_get_tokens_whitespace_only():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('   '))\n    # Each whitespace character is emitted as its own token.\n    assert result == [\n        (tokens.Whitespace, ' '),\n        (tokens.Whitespace, ' '),\n        (tokens.Whitespace, ' '),\n    ]\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: literals, comments, errors\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_string_literal():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'hello'\"))\n    assert result == [(tokens.String.Single, \"'hello'\")]\n\n\ndef test_get_tokens_string_with_embedded_double_quote():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'a''b'\"))\n    assert result == [(tokens.String.Single, \"'a''b'\")]\n\n\ndef test_get_tokens_line_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('-- a comment'))\n    assert result == [(tokens.Comment.Single, '-- a comment')]\n\n\ndef test_get_tokens_multiline_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('/* a\\ncomment */'))\n    assert result == [(tokens.Comment.Multiline, '/* a\\ncomment */')]\n\n\ndef test_get_tokens_delimiter_inside_string_is_not_resolved():\n    # A \"/*\" inside a string must remain part of the string token.\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'/*'\"))\n    assert result == [(tokens.String.Single, \"'/*'\")]\n\n\ndef test_get_tokens_dollar_quoted_literal():\n    lexer = make_lexer()\n    text = '$$hello$$'\n    result = list(lexer.get_tokens(text))\n    assert len(result) == 1\n    assert result[0][1] == '$$hello$$'\n\n\ndef test_get_tokens_unknown_character_is_error():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-z]+', tokens.Name)])\n    result = list(lexer.get_tokens('abc#def'))\n    # '#' not matched by any regex -> Error token.\n    errors = [item for item in result if item[0] is tokens.Error]\n    assert (tokens.Error, '#') in errors\n\n\ndef test_get_tokens_is_a_generator():\n    lexer = make_lexer()\n    gen = lexer.get_tokens('SELECT')\n    # Not a list, supports iteration only once.\n    assert hasattr(gen, '__iter__')\n    assert not isinstance(gen, list)\n    assert list(gen) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_minimal_regex():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', tokens.Name)])\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    result = list(lexer.get_tokens('foo bar'))\n    # The regex maps matches to Name; PROCESS_AS_KEYWORD isn't used here, so\n    # keyword lookup does not apply.\n    assert result[0] == (tokens.Name, 'foo')\n    assert result[-1] == (tokens.Name, 'bar')\n\n\ndef test_get_tokens_process_as_keyword():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', keywords.PROCESS_AS_KEYWORD)])\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    result = list(lexer.get_tokens('foo bar'))\n    assert result == [\n        (tokens.Keyword, 'foo'),\n        (tokens.Name, 'bar'),\n    ]\n\n\n# ---------------------------------------------------------------------------\n# tokenize() module function\n# ---------------------------------------------------------------------------\n\ndef test_tokenize_uses_default_instance():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT')\n        assert list(stream) == [(tokens.Keyword.DML, 'SELECT')]\n        assert Lexer._default_instance is not None\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_returns_iterable_of_pairs():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT 1')\n        items = list(stream)\n        assert len(items) > 0\n        for ttype, value in items:\n            assert isinstance(ttype, tokens._TokenType)\n            assert isinstance(value, str)\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_with_encoding():\n    Lexer._default_instance = None\n    try:\n        result = list(tokenize(b'abc', encoding='utf-8'))\n        assert result == [(tokens.Name, 'abc')]\n    finally:\n        Lexer._default_instance = None\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 33 passed, 1 failed, 0 errors.\n- `tests_testpilot.test_lexer::test_get_tokens_process_as_keyword` failed:\n```\nAssertionError: assert [(Token.Keywo....Name, 'bar')] == [(Token.Keywo....Name, 'bar')]\n  \n  At index 1 diff: (Token.Error, ' ') != (Token.Name, 'bar')\n  Left contains one more item: (Token.Name, 'bar')\n  Use -v to get more diff\ndef test_get_tokens_process_as_keyword():\n        lexer = Lexer()\n        lexer.clear()\n        lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', keywords.PROCESS_AS_KEYWORD)])\n        lexer.add_keywords({'FOO': tokens.Keyword})\n        result = list(lexer.get_tokens('foo bar'))\n>       assert result == [\n            (tokens.Keyword, 'foo'),\n            (tokens.Name, 'bar'),\n        ]\nE       AssertionError: assert [(Token.Keywo....Name, 'bar')] == [(Token.Keywo....Name, 'bar')]\nE         \nE         At index 1 diff: (Token.Error, ' ') != (Token.Name, 'bar')\nE         Left conta\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport io\nimport re\n\nimport pytest\n\nfrom sqlparse import keywords, tokens\nfrom sqlparse.lexer import Lexer, tokenize\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\ndef make_lexer():\n    \"\"\"Create a fresh, fully initialized lexer (not the singleton).\"\"\"\n    lexer = Lexer()\n    lexer.default_initialization()\n    return lexer\n\n\n# ---------------------------------------------------------------------------\n# Lexer.clear / set_SQL_REGEX / add_keywords / default_initialization\n# ---------------------------------------------------------------------------\n\ndef test_clear_resets_state():\n    lexer = make_lexer()\n    lexer.clear()\n    assert lexer._SQL_REGEX == []\n    assert lexer._keywords == []\n\n\ndef test_set_SQL_REGEX_compiles_and_ignores_case():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX(\n        [\n            (r'world', tokens.Name),\n        ]\n    )\n    # One entry, a callable match.\n    assert len(lexer._SQL_REGEX) == 1\n    match_fn, token_type = lexer._SQL_REGEX[0]\n    assert callable(match_fn)\n    assert token_type is tokens.Name\n\n    m = match_fn('HELLO WORLD', 6)\n    assert m is not None\n    assert m.group() == 'WORLD'\n\n\ndef test_set_SQL_REGEX_handles_unicode():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'\\w+', tokens.Name)])\n    match_fn, _ = lexer._SQL_REGEX[0]\n    m = match_fn('héllo', 0)\n    assert m is not None\n    assert m.group() == 'héllo'\n\n\ndef test_add_keywords_appends_in_order():\n    lexer = Lexer()\n    lexer.clear()\n    d1 = {'FOO': tokens.Keyword}\n    d2 = {'BAR': tokens.Name}\n    lexer.add_keywords(d1)\n    lexer.add_keywords(d2)\n    assert lexer._keywords == [d1, d2]\n\n\ndef test_default_initialization_sets_regx_and_keywords():\n    lexer = Lexer()\n    lexer.default_initialization()\n    assert len(lexer._SQL_REGEX) == len(keywords.SQL_REGEX)\n    assert len(lexer._keywords) == 9\n\n\ndef test_default_initialization_is_idempotent():\n    lexer = Lexer()\n    lexer.default_initialization()\n    first_regex_len = len(lexer._SQL_REGEX)\n    first_kw_len = len(lexer._keywords)\n    lexer.default_initialization()\n    # clear() is called first, so lengths don't accumulate.\n    assert len(lexer._SQL_REGEX) == first_regex_len\n    assert len(lexer._keywords) == first_kw_len\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_default_instance (singleton + thread-safe lock usage)\n# ---------------------------------------------------------------------------\n\ndef test_get_default_instance_singleton():\n    Lexer._default_instance = None\n    try:\n        inst1 = Lexer.get_default_instance()\n        inst2 = Lexer.get_default_instance()\n        assert inst1 is inst2\n        assert isinstance(inst1, Lexer)\n        # A default-initialized lexer has keyword dicts configured.\n        assert len(inst1._keywords) > 0\n        assert len(inst1._SQL_REGEX) > 0\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_get_default_instance_reuses_existing():\n    Lexer._default_instance = None\n    try:\n        existing = Lexer()\n        Lexer._default_instance = existing\n        assert Lexer.get_default_instance() is existing\n        # No default_initialization applied because instance already existed,\n        # so it has no attributes set up.\n        assert not hasattr(existing, '_keywords')\n        assert not hasattr(existing, '_SQL_REGEX')\n    finally:\n        Lexer._default_instance = None\n\n\n# ---------------------------------------------------------------------------\n# Lexer.is_keyword\n# ---------------------------------------------------------------------------\n\ndef test_is_keyword_found_returns_type_and_original_value():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('select') == (tokens.Keyword, 'select')\n    assert lexer.is_keyword('SeLeCt') == (tokens.Keyword, 'SeLeCt')\n\n\ndef test_is_keyword_not_found_returns_name():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'SELECT': tokens.Keyword})\n    assert lexer.is_keyword('foo') == (tokens.Name, 'foo')\n\n\ndef test_is_keyword_uses_first_matching_dictionary():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    lexer.add_keywords({'FOO': tokens.Name})\n    assert lexer.is_keyword('foo') == (tokens.Keyword, 'foo')\n\n\ndef test_is_keyword_empty_keywords():\n    lexer = Lexer()\n    lexer.clear()\n    assert lexer.is_keyword('select') == (tokens.Name, 'select')\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: basic types\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_basic_select():\n    lexer = make_lexer()\n    result = [(ttype, value) for ttype, value in lexer.get_tokens('SELECT 1')]\n    # There should be a SELECT keyword and a number token.\n    assert (tokens.Keyword.DML, 'SELECT') in result\n    assert any(tt in tokens.Number for tt, _ in result)\n    # Whitespace present as a token.\n    assert (tokens.Whitespace, ' ') in result\n\n\ndef test_get_tokens_preserves_case_of_value():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('select'))\n    assert result[0] == (tokens.Keyword.DML, 'select')\n\n\ndef test_get_tokens_accepts_str():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('SELECT')) == [\n        (tokens.Keyword.DML, 'SELECT')\n    ]\n\n\ndef test_get_tokens_accepts_bytes_utf8_default():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(b'SELECT'))\n    assert result == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_accepts_bytes_with_encoding():\n    lexer = make_lexer()\n    # 'abc' encoded in latin-1 still decodes fine.\n    result = list(lexer.get_tokens(b'abc', encoding='latin-1'))\n    assert result == [(tokens.Name, 'abc')]\n\n\ndef test_get_tokens_accepts_text_io():\n    lexer = make_lexer()\n    buf = io.StringIO('SELECT')\n    assert list(lexer.get_tokens(buf)) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_raises_on_unsupported_type():\n    lexer = make_lexer()\n    with pytest.raises(TypeError) as excinfo:\n        list(lexer.get_tokens(12345))\n    assert 'Expected text or file-like object' in str(excinfo.value)\n\n\ndef test_get_tokens_empty_string():\n    lexer = make_lexer()\n    assert list(lexer.get_tokens('')) == []\n\n\ndef test_get_tokens_whitespace_only():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('   '))\n    # Each whitespace character is emitted as its own token.\n    assert result == [\n        (tokens.Whitespace, ' '),\n        (tokens.Whitespace, ' '),\n        (tokens.Whitespace, ' '),\n    ]\n\n\n# ---------------------------------------------------------------------------\n# Lexer.get_tokens: literals, comments, errors\n# ---------------------------------------------------------------------------\n\ndef test_get_tokens_string_literal():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'hello'\"))\n    assert result == [(tokens.String.Single, \"'hello'\")]\n\n\ndef test_get_tokens_string_with_embedded_double_quote():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'a''b'\"))\n    assert result == [(tokens.String.Single, \"'a''b'\")]\n\n\ndef test_get_tokens_line_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('-- a comment'))\n    assert result == [(tokens.Comment.Single, '-- a comment')]\n\n\ndef test_get_tokens_multiline_comment():\n    lexer = make_lexer()\n    result = list(lexer.get_tokens('/* a\\ncomment */'))\n    assert result == [(tokens.Comment.Multiline, '/* a\\ncomment */')]\n\n\ndef test_get_tokens_delimiter_inside_string_is_not_resolved():\n    # A \"/*\" inside a string must remain part of the string token.\n    lexer = make_lexer()\n    result = list(lexer.get_tokens(\"'/*'\"))\n    assert result == [(tokens.String.Single, \"'/*'\")]\n\n\ndef test_get_tokens_dollar_quoted_literal():\n    lexer = make_lexer()\n    text = '$$hello$$'\n    result = list(lexer.get_tokens(text))\n    assert len(result) == 1\n    assert result[0][1] == '$$hello$$'\n\n\ndef test_get_tokens_unknown_character_is_error():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-z]+', tokens.Name)])\n    result = list(lexer.get_tokens('abc#def'))\n    # '#' not matched by any regex -> Error token.\n    errors = [item for item in result if item[0] is tokens.Error]\n    assert (tokens.Error, '#') in errors\n\n\ndef test_get_tokens_is_a_generator():\n    lexer = make_lexer()\n    gen = lexer.get_tokens('SELECT')\n    # Not a list, supports iteration only once.\n    assert hasattr(gen, '__iter__')\n    assert not isinstance(gen, list)\n    assert list(gen) == [(tokens.Keyword.DML, 'SELECT')]\n\n\ndef test_get_tokens_minimal_regex():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', tokens.Name)])\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    result = list(lexer.get_tokens('foo bar'))\n    # The regex maps matches to Name; PROCESS_AS_KEYWORD isn't used here, so\n    # keyword lookup does not apply.\n    assert result[0] == (tokens.Name, 'foo')\n    assert result[-1] == (tokens.Name, 'bar')\n\n\ndef test_get_tokens_process_as_keyword():\n    lexer = Lexer()\n    lexer.clear()\n    lexer.set_SQL_REGEX([(r'[a-zA-Z_]+', keywords.PROCESS_AS_KEYWORD)])\n    lexer.add_keywords({'FOO': tokens.Keyword})\n    result = list(lexer.get_tokens('foo bar'))\n    # The space between \"foo\" and \"bar\" matches no regex -> Error token.\n    assert result == [\n        (tokens.Keyword, 'foo'),\n        (tokens.Error, ' '),\n        (tokens.Name, 'bar'),\n    ]\n\n\n# ---------------------------------------------------------------------------\n# tokenize() module function\n# ---------------------------------------------------------------------------\n\ndef test_tokenize_uses_default_instance():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT')\n        assert list(stream) == [(tokens.Keyword.DML, 'SELECT')]\n        assert Lexer._default_instance is not None\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_returns_iterable_of_pairs():\n    Lexer._default_instance = None\n    try:\n        stream = tokenize('SELECT 1')\n        items = list(stream)\n        assert len(items) > 0\n        for ttype, value in items:\n            assert isinstance(ttype, tokens._TokenType)\n            assert isinstance(value, str)\n    finally:\n        Lexer._default_instance = None\n\n\ndef test_tokenize_with_encoding():\n    Lexer._default_instance = None\n    try:\n        result = list(tokenize(b'abc', encoding='utf-8'))\n        assert result == [(tokens.Name, 'abc')]\n    finally:\n        Lexer._default_instance = None\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 5495,
+      "cache_hit_tokens": 3072,
+      "completion_tokens": 2795,
+      "reasoning_tokens": 0,
+      "latency": 7.92
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 3,
+    "at": "2026-10-20T06:03:28+00:00",
+    "duration": 1.34,
+    "summary": "通过 34，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_lexer.py"
+          ]
+        },
+        "duration": 1.34,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 22087
+  },
+  {
+    "node": "analyze",
+    "iteration": 3,
+    "at": "2026-10-20T06:03:30+00:00",
+    "duration": 2.28,
+    "summary": "分数 [1, 0.0, 0.9743589743589743, 0.9285714285714286, 34]（提升），行覆盖 97.4%，分支覆盖 92.9%",
+    "tool_calls": [
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "sqlparse/lexer.py",
+          "tests": [
+            "tests_testpilot/test_lexer.py"
+          ]
+        },
+        "duration": 2.28,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 22087,
+    "score": [
+      1,
+      0.0,
+      0.9743589743589743,
+      0.9285714285714286,
+      34
+    ],
+    "coverage": {
+      "target": "sqlparse/lexer.py",
+      "tests_all_passed": true,
+      "line_rate": 0.9743589743589743,
+      "branch_rate": 0.9285714285714286,
+      "statements": 78,
+      "branches": 28,
+      "missing_lines": [
+        130,
+        131
+      ],
+      "missing_branches": [
+        [
+          146,
+          152
+        ],
+        [
+          159,
+          162
+        ]
+      ],
+      "error": ""
+    },
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 3,
+    "at": "2026-10-20T06:03:30+00:00",
+    "duration": 0.0,
+    "summary": "全部测试通过，pytest 反馈已无可改进之处",
+    "tool_calls": [],
+    "tokens_total": 22087
+  },
+  {
+    "node": "finalize",
+    "iteration": 3,
+    "at": "2026-10-20T06:03:30+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试通过，pytest 反馈已无可改进之处；采用第 3 轮，分数 [1, 0.0, 0.9743589743589743, 0.9285714285714286, 34]",
+    "tool_calls": [],
+    "tokens_total": 22087,
+    "best_iteration": 3
+  }
+]

@@ -1,0 +1,907 @@
+{
+  "target": "backon/_retry/_api.py",
+  "validity": {
+    "total": 43,
+    "valid": 39,
+    "valid_ids": [
+      "tests_testpilot/test__api.py::test_retry_sync_success_returns_value",
+      "tests_testpilot/test__api.py::test_retry_sync_retries_and_succeeds",
+      "tests_testpilot/test__api.py::test_retry_sync_retries_until_success_with_explicit_condition_and_stop",
+      "tests_testpilot/test__api.py::test_retry_sync_gives_up_and_raises",
+      "tests_testpilot/test__api.py::test_retry_async_success_returns_coroutine",
+      "tests_testpilot/test__api.py::test_retry_async_retries",
+      "tests_testpilot/test__api.py::test_retry_async_retries_until_success_with_explicit_condition_and_stop",
+      "tests_testpilot/test__api.py::test_retry_async_gives_up",
+      "tests_testpilot/test__api.py::test_retry_dispatch_sync_runs_immediately",
+      "tests_testpilot/test__api.py::test_retry_dispatch_async_returns_coroutine",
+      "tests_testpilot/test__api.py::test_retry_sync_disabled_calls_target_once",
+      "tests_testpilot/test__api.py::test_retry_sync_disabled_calls_target_without_args",
+      "tests_testpilot/test__api.py::test_retry_async_disabled_calls_target_once",
+      "tests_testpilot/test__api.py::test_retry_sync_with_condition_and_stop",
+      "tests_testpilot/test__api.py::test_retry_sync_giveup_predicate_stops_early",
+      "tests_testpilot/test__api.py::test_retry_sync_exception_filter",
+      "tests_testpilot/test__api.py::test_retry_sync_predicate_control",
+      "tests_testpilot/test__api.py::test_retry_sync_retry_error_callback",
+      "tests_testpilot/test__api.py::test_retry_sync_raise_on_giveup_false",
+      "tests_testpilot/test__api.py::test_retry_sync_callbacks_invoked",
+      "tests_testpilot/test__api.py::test_retry_sync_before_after_handlers",
+      "tests_testpilot/test__api.py::test_retry_sync_on_giveup_handler_called",
+      "tests_testpilot/test__api.py::test_retry_sync_default_stop_from_max_time",
+      "tests_testpilot/test__api.py::test_retry_sync_test_config_override",
+      "tests_testpilot/test__api.py::test_retry_async_test_config_override",
+      "tests_testpilot/test__api.py::test_retry_sync_logger_string_and_default_logging",
+      "tests_testpilot/test__api.py::test_retry_sync_logger_string_and_backoff_logging",
+      "tests_testpilot/test__api.py::test_retry_sync_rate_limiter",
+      "tests_testpilot/test__api.py::test_retry_async_with_condition_and_stop",
+      "tests_testpilot/test__api.py::test_retry_async_predicate_control",
+      "tests_testpilot/test__api.py::test_retry_async_retry_error_callback",
+      "tests_testpilot/test__api.py::test_retry_async_raise_on_giveup_false",
+      "tests_testpilot/test__api.py::test_retry_async_callbacks",
+      "tests_testpilot/test__api.py::test_retry_async_before_after",
+      "tests_testpilot/test__api.py::test_retry_async_rate_limiter",
+      "tests_testpilot/test__api.py::test_retry_async_on_giveup_handler",
+      "tests_testpilot/test__api.py::test_retry_sync_direct_returns_result",
+      "tests_testpilot/test__api.py::test_retry_async_direct_returns_result",
+      "tests_testpilot/test__api.py::test_retry_sync_requires_callable_name_for_logging"
+    ],
+    "invalid": {
+      "tests_testpilot/test__api.py::test_retry_sync_custom_sleep_used": "run 1: failed: AttributeError: 'list_iterator' object has no attribute 'next'",
+      "tests_testpilot/test__api.py::test_retry_sync_jitter_applied": "run 1: failed: AttributeError: 'list_iterator' object has no attribute 'next'",
+      "tests_testpilot/test__api.py::test_retry_sync_wait_gen_with_kwargs": "run 1: failed: AttributeError: 'list_iterator' object has no attribute 'next'",
+      "tests_testpilot/test__api.py::test_retry_async_custom_sleep_used": "run 1: failed: AttributeError: 'list_iterator' object has no attribute 'next'"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.55,
+        "passed": 39,
+        "failed": 4,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.57,
+        "passed": 39,
+        "failed": 4,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.4,
+        "passed": 39,
+        "failed": 4,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.572347266881029,
+    "total": 311,
+    "killed": 178,
+    "survived": 133,
+    "excluded": 0,
+    "status_counts": {
+      "survived": 133,
+      "killed": 178
+    },
+    "survivors": [
+      {
+        "line": 54,
+        "original": "raise_on_giveup: bool = True,",
+        "mutated": "raise_on_giveup: bool = False,",
+        "status": "survived"
+      },
+      {
+        "line": 55,
+        "original": "logger: _MaybeLogger = \"backon\",",
+        "mutated": "logger: _MaybeLogger = \"XXbackonXX\",",
+        "status": "survived"
+      },
+      {
+        "line": 55,
+        "original": "logger: _MaybeLogger = \"backon\",",
+        "mutated": "logger: _MaybeLogger = \"BACKON\",",
+        "status": "survived"
+      },
+      {
+        "line": 68,
+        "original": "if wait_gen_kwargs is None:",
+        "mutated": "if wait_gen_kwargs is not None:",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "wait_gen_kwargs = {}",
+        "mutated": "wait_gen_kwargs = None",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "max_tries, max_time = _apply_test_overrides(max_tries, max_time)",
+        "mutated": "max_tries, max_time = _apply_test_overrides(None, max_time)",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "max_tries, max_time = _apply_test_overrides(max_tries, max_time)",
+        "mutated": "max_tries, max_time = _apply_test_overrides(max_tries, None)",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "max_tries, max_time = _apply_test_overrides(max_tries, max_time)",
+        "mutated": "max_tries, max_time = _apply_test_overrides(max_time)",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "max_tries, max_time = _apply_test_overrides(max_tries, max_time)",
+        "mutated": "max_tries, max_time = _apply_test_overrides(max_tries, )",
+        "status": "survived"
+      },
+      {
+        "line": 95,
+        "original": "condition = _make_default_condition(exception, giveup, predicate)",
+        "mutated": "condition = _make_default_condition(None, giveup, predicate)",
+        "status": "survived"
+      },
+      {
+        "line": 95,
+        "original": "condition = _make_default_condition(exception, giveup, predicate)",
+        "mutated": "condition = _make_default_condition(exception, None, predicate)",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "stop = _make_default_stop(max_tries, max_time)",
+        "mutated": "stop = None",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "stop = _make_default_stop(max_tries, max_time)",
+        "mutated": "stop = _make_default_stop(None, max_time)",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "stop = _make_default_stop(max_tries, max_time)",
+        "mutated": "stop = _make_default_stop(max_tries, None)",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "_sleep = sleep or time_module.sleep",
+        "mutated": "_sleep = None",
+        "status": "survived"
+      },
+      {
+        "line": 99,
+        "original": "_sleep = sleep or time_module.sleep",
+        "mutated": "_sleep = sleep and time_module.sleep",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 112,
+        "original": "sleep=_sleep,",
+        "mutated": "sleep=None,",
+        "status": "survived"
+      },
+      {
+        "line": 115,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "wait_gen_kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "_holder=_holder,",
+        "mutated": "_holder=None,",
+        "status": "survived"
+      },
+      {
+        "line": 120,
+        "original": "rate_limit=rate_limit,",
+        "mutated": "rate_limit=None,",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "attempt_timeout=attempt_timeout,",
+        "mutated": "attempt_timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "args=args,",
+        "mutated": "args=None,",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "kwargs=kwargs,",
+        "mutated": "kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 112,
+        "original": "sleep=_sleep,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 115,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "_holder=_holder,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 120,
+        "original": "rate_limit=rate_limit,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "attempt_timeout=attempt_timeout,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "args=args,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "kwargs=kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "raise_on_giveup: bool = True,",
+        "mutated": "raise_on_giveup: bool = False,",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "logger: _MaybeLogger = \"backon\",",
+        "mutated": "logger: _MaybeLogger = \"XXbackonXX\",",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "logger: _MaybeLogger = \"backon\",",
+        "mutated": "logger: _MaybeLogger = \"BACKON\",",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "if wait_gen_kwargs is None:",
+        "mutated": "if wait_gen_kwargs is not None:",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "wait_gen_kwargs = {}",
+        "mutated": "wait_gen_kwargs = None",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "logger = _prepare_logger(logger)",
+        "mutated": "logger = None",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "logger = _prepare_logger(logger)",
+        "mutated": "logger = _prepare_logger(None)",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "logger=logger,",
+        "mutated": "logger=None,",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "logger=logger,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "logger=logger,",
+        "mutated": "logger=None,",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "logger=logger,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 178,
+        "original": "on_attempt = _config_handlers(on_attempt)",
+        "mutated": "on_attempt = None",
+        "status": "survived"
+      },
+      {
+        "line": 178,
+        "original": "on_attempt = _config_handlers(on_attempt)",
+        "mutated": "on_attempt = _config_handlers(None)",
+        "status": "survived"
+      },
+      {
+        "line": 179,
+        "original": "before_sleep = _config_handlers(before_sleep)",
+        "mutated": "before_sleep = None",
+        "status": "survived"
+      },
+      {
+        "line": 179,
+        "original": "before_sleep = _config_handlers(before_sleep)",
+        "mutated": "before_sleep = _config_handlers(None)",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "max_tries, max_time = _apply_test_overrides(max_tries, max_time)",
+        "mutated": "max_tries, max_time = _apply_test_overrides(None, max_time)",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "max_tries, max_time = _apply_test_overrides(max_tries, max_time)",
+        "mutated": "max_tries, max_time = _apply_test_overrides(max_tries, None)",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "max_tries, max_time = _apply_test_overrides(max_tries, max_time)",
+        "mutated": "max_tries, max_time = _apply_test_overrides(max_time)",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "max_tries, max_time = _apply_test_overrides(max_tries, max_time)",
+        "mutated": "max_tries, max_time = _apply_test_overrides(max_tries, )",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "condition = _make_default_condition(exception, giveup, predicate)",
+        "mutated": "condition = _make_default_condition(None, giveup, predicate)",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "condition = _make_default_condition(exception, giveup, predicate)",
+        "mutated": "condition = _make_default_condition(exception, None, predicate)",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "stop = _make_default_stop(max_tries, max_time)",
+        "mutated": "stop = None",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "stop = _make_default_stop(max_tries, max_time)",
+        "mutated": "stop = _make_default_stop(None, max_time)",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "stop = _make_default_stop(max_tries, max_time)",
+        "mutated": "stop = _make_default_stop(max_tries, None)",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "_sleep = sleep or asyncio.sleep",
+        "mutated": "_sleep = None",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "_sleep = sleep or asyncio.sleep",
+        "mutated": "_sleep = sleep and asyncio.sleep",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "on_attempt=on_attempt,",
+        "mutated": "on_attempt=None,",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "before_sleep=before_sleep,",
+        "mutated": "before_sleep=None,",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "sleep=_sleep,",
+        "mutated": "sleep=None,",
+        "status": "survived"
+      },
+      {
+        "line": 206,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "wait_gen_kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "_holder=_holder,",
+        "mutated": "_holder=None,",
+        "status": "survived"
+      },
+      {
+        "line": 211,
+        "original": "rate_limit=rate_limit,",
+        "mutated": "rate_limit=None,",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "attempt_timeout=attempt_timeout,",
+        "mutated": "attempt_timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "args=args,",
+        "mutated": "args=None,",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "kwargs=kwargs,",
+        "mutated": "kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "on_attempt=on_attempt,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "before_sleep=before_sleep,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "sleep=_sleep,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 206,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "_holder=_holder,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 211,
+        "original": "rate_limit=rate_limit,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "attempt_timeout=attempt_timeout,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "args=args,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "kwargs=kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "logger: _MaybeLogger = \"backon\",",
+        "mutated": "logger: _MaybeLogger = \"XXbackonXX\",",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "logger: _MaybeLogger = \"backon\",",
+        "mutated": "logger: _MaybeLogger = \"BACKON\",",
+        "status": "survived"
+      },
+      {
+        "line": 241,
+        "original": "name: str = \"\",",
+        "mutated": "name: str = \"XXXX\",",
+        "status": "survived"
+      },
+      {
+        "line": 253,
+        "original": "exception=exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 254,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 255,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 256,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 257,
+        "original": "giveup=giveup,",
+        "mutated": "giveup=None,",
+        "status": "survived"
+      },
+      {
+        "line": 263,
+        "original": "on_attempt=on_attempt,",
+        "mutated": "on_attempt=None,",
+        "status": "survived"
+      },
+      {
+        "line": 264,
+        "original": "before_sleep=before_sleep,",
+        "mutated": "before_sleep=None,",
+        "status": "survived"
+      },
+      {
+        "line": 267,
+        "original": "logger=logger,",
+        "mutated": "logger=None,",
+        "status": "survived"
+      },
+      {
+        "line": 270,
+        "original": "sleep=sleep,",
+        "mutated": "sleep=None,",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "wait_gen_kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "rate_limit=rate_limit,",
+        "mutated": "rate_limit=None,",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "attempt_timeout=attempt_timeout,",
+        "mutated": "attempt_timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 252,
+        "original": "predicate=predicate,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 253,
+        "original": "exception=exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 254,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 255,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 256,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 257,
+        "original": "giveup=giveup,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 263,
+        "original": "on_attempt=on_attempt,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 264,
+        "original": "before_sleep=before_sleep,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 267,
+        "original": "logger=logger,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 268,
+        "original": "backoff_log_level=backoff_log_level,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "giveup_log_level=giveup_log_level,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 270,
+        "original": "sleep=sleep,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "rate_limit=rate_limit,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "attempt_timeout=attempt_timeout,\n        )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 281,
+        "original": "exception=exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 282,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 283,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "giveup=giveup,",
+        "mutated": "giveup=None,",
+        "status": "survived"
+      },
+      {
+        "line": 298,
+        "original": "sleep=sleep,",
+        "mutated": "sleep=None,",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "wait_gen_kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 302,
+        "original": "rate_limit=rate_limit,",
+        "mutated": "rate_limit=None,",
+        "status": "survived"
+      },
+      {
+        "line": 303,
+        "original": "attempt_timeout=attempt_timeout,",
+        "mutated": "attempt_timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 280,
+        "original": "predicate=predicate,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 281,
+        "original": "exception=exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 282,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 283,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "giveup=giveup,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 295,
+        "original": "logger=logger,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 297,
+        "original": "giveup_log_level=giveup_log_level,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 298,
+        "original": "sleep=sleep,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 302,
+        "original": "rate_limit=rate_limit,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 303,
+        "original": "attempt_timeout=attempt_timeout,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.54,
+    "coverage": 2.13,
+    "mutation": 37.47
+  }
+}

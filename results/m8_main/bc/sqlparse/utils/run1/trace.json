@@ -1,0 +1,504 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T06:08:49+00:00",
+    "duration": 0.01,
+    "summary": "7 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "sqlparse/utils.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "split_unquoted_newlines",
+      "remove_quotes",
+      "recurse",
+      "imt",
+      "consume",
+      "offset",
+      "indent"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T06:08:49+00:00",
+    "duration": 0.07,
+    "summary": "依赖定义 0 个，调用处 13 个，提示词前缀 6332 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/utils.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.01,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "contextlib.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: contextlib.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "contextlib/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: contextlib/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "split_unquoted_newlines(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "remove_quotes(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "recurse(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "imt(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "consume(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "offset(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "indent(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `sqlparse.utils` (file `sqlparse/utils.py`).\n\nSource of `sqlparse/utils.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | #\n    2 | # Copyright (C) 2009-2020 the sqlparse authors and contributors\n    3 | # <see AUTHORS file>\n    4 | #\n    5 | # This module is part of python-sqlparse and is released under\n    6 | # the BSD License: https://opensource.org/licenses/BSD-3-Clause\n    7 | \n    8 | import itertools\n    9 | import re\n   10 | from collections import deque\n   11 | from contextlib import contextmanager\n   12 | \n   13 | # This regular expression replaces the home-cooked parser that was here before.\n   14 | # It is much faster, but requires an extra post-processing step to get the\n   15 | # desired results (that are compatible with what you would expect from the\n   16 | # str.splitlines() method).\n   17 | #\n   18 | # It matches groups of characters: newlines, quoted strings, or unquoted text,\n   19 | # and splits on that basis. The post-processing step puts those back together\n   20 | # into the actual lines of SQL.\n   21 | SPLIT_REGEX = re.compile(r\"\"\"\n   22 | (\n   23 |  (?:                     # Start of non-capturing group\n   24 |   (?:\\r\\n|\\r|\\n)      |  # Match any single newline, or\n   25 |   [^\\r\\n'\"]+          |  # Match any character series without quotes or\n   26 |                          # newlines, or\n   27 |   \"(?:[^\"\\\\]|\\\\.)*\"   |  # Match double-quoted strings, or\n   28 |   '(?:[^'\\\\]|\\\\.)*'      # Match single quoted strings\n   29 |  )\n   30 | )\n   31 | \"\"\", re.VERBOSE)\n   32 | \n   33 | LINE_MATCH = re.compile(r'(\\r\\n|\\r|\\n)')\n   34 | \n   35 | \n   36 | def split_unquoted_newlines(stmt):\n   37 |     \"\"\"Split a string on all unquoted newlines.\n   38 | \n   39 |     Unlike str.splitlines(), this will ignore CR/LF/CR+LF if the requisite\n   40 |     character is inside of a string.\"\"\"\n   41 |     text = str(stmt)\n   42 |     lines = SPLIT_REGEX.split(text)\n   43 |     outputlines = ['']\n   44 |     for line in lines:\n   45 |         if not line:\n   46 |             continue\n   47 |         elif LINE_MATCH.match(line):\n   48 |             outputlines.append('')\n   49 |         else:\n   50 |             outputlines[-1] += line\n   51 |     return outputlines\n   52 | \n   53 | \n   54 | def remove_quotes(val):\n   55 |     \"\"\"Helper that removes surrounding quotes from strings.\"\"\"\n   56 |     if val is None:\n   57 |         return\n   58 |     if val[0] in ('\"', \"'\", '`') and val[0] == val[-1]:\n   59 |         val = val[1:-1]\n   60 |     return val\n   61 | \n   62 | \n   63 | def recurse(*cls):\n   64 |     \"\"\"Function decorator to help with recursion\n   65 | \n   66 |     :param cls: Classes to not recurse over\n   67 |     :return: function\n   68 |     \"\"\"\n   69 |     def wrap(f):\n   70 |         def wrapped_f(tlist):\n   71 |             for sgroup in tlist.get_sublists():\n   72 |                 if not isinstance(sgroup, cls):\n   73 |                     wrapped_f(sgroup)\n   74 |             f(tlist)\n   75 | \n   76 |         return wrapped_f\n   77 | \n   78 |     return wrap\n   79 | \n   80 | \n   81 | def imt(token, i=None, m=None, t=None):\n   82 |     \"\"\"Helper function to simplify comparisons Instance, Match and TokenType\n   83 |     :param token:\n   84 |     :param i: Class or Tuple/List of Classes\n   85 |     :param m: Tuple of TokenType & Value. Can be list of Tuple for multiple\n   86 |     :param t: TokenType or Tuple/List of TokenTypes\n   87 |     :return:  bool\n   88 |     \"\"\"\n   89 |     if token is None:\n   90 |         return False\n   91 |     if i and isinstance(token, i):\n   92 |         return True\n   93 |     if m:\n   94 |         if isinstance(m, list):\n   95 |             if any(token.match(*pattern) for pattern in m):\n   96 |                 return True\n   97 |         elif token.match(*m):\n   98 |             return True\n   99 |     if t:\n  100 |         if isinstance(t, list):\n  101 |             if any(token.ttype in ttype for ttype in t):\n  102 |                 return True\n  103 |         elif token.ttype in t:\n  104 |             return True\n  105 |     return False\n  106 | \n  107 | \n  108 | def consume(iterator, n):\n  109 |     \"\"\"Advance the iterator n-steps ahead. If n is none, consume entirely.\"\"\"\n  110 |     deque(itertools.islice(iterator, n), maxlen=0)\n  111 | \n  112 | \n  113 | @contextmanager\n  114 | def offset(filter_, n=0):\n  115 |     filter_.offset += n\n  116 |     yield\n  117 |     filter_.offset -= n\n  118 | \n  119 | \n  120 | @contextmanager\n  121 | def indent(filter_, n=1):\n  122 |     filter_.indent += n\n  123 |     yield\n  124 |     filter_.indent -= n\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- sqlparse/filters/others.py:173: `lines = split_unquoted_newlines(stmt)`\n- sqlparse/sql.py:391: `return remove_quotes(prev_.value) if prev_ is not None else None`\n- sqlparse/sql.py:406: `return remove_quotes(token.value)`\n- sqlparse/engine/grouping.py:247: `@recurse(sql.Identifier)`\n- sqlparse/engine/grouping.py:257: `@recurse(sql.Over)`\n- sqlparse/engine/grouping.py:141: `return imt(token, m=sql.TypedLiteral.M_OPEN)`\n- sqlparse/engine/grouping.py:176: `return imt(token, i=sqlcls, t=ttypes)`\n- sqlparse/lexer.py:149: `consume(iterable, end - pos - 1)`\n- sqlparse/lexer.py:162: `consume(iterable, m.end() - pos - 1)`\n- sqlparse/filters/aligned_indent.py:126: `with offset(self, offset_):`\n- sqlparse/filters/reindent.py:163: `with offset(self, self._get_offset(first) + 1):`\n- sqlparse/filters/aligned_indent.py:53: `with indent(self):`\n- sqlparse/filters/reindent.py:151: `with indent(self):`\n\nPublic API to cover: `split_unquoted_newlines`, `remove_quotes`, `recurse`, `imt`, `consume`, `offset`, `indent`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from sqlparse.utils import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:08:58+00:00",
+    "duration": 9.12,
+    "summary": "第 1 轮：生成 349 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_utils.py",
+          "content": "<9803 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4436,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `sqlparse.utils`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom sqlparse.utils import (\n    split_unquoted_newlines,\n    remove_quotes,\n    recurse,\n    imt,\n    consume,\n    offset,\n    indent,\n)\n\n\n# ---------------------------------------------------------------- split_unquoted_newlines\n\nclass TestSplitUnquotedNewlines:\n    def test_empty_string(self):\n        assert split_unquoted_newlines(\"\") == [\"\"]\n\n    def test_no_newlines(self):\n        assert split_unquoted_newlines(\"SELECT 1\") == [\"SELECT 1\"]\n\n    def test_simple_newline(self):\n        assert split_unquoted_newlines(\"a\\nb\") == [\"a\", \"b\"]\n\n    def test_crlf(self):\n        assert split_unquoted_newlines(\"a\\r\\nb\") == [\"a\", \"b\"]\n\n    def test_cr(self):\n        assert split_unquoted_newlines(\"a\\rb\") == [\"a\", \"b\"]\n\n    def test_trailing_newline(self):\n        assert split_unquoted_newlines(\"a\\n\") == [\"a\", \"\"]\n\n    def test_leading_newline(self):\n        assert split_unquoted_newlines(\"\\na\") == [\"\", \"a\"]\n\n    def test_multiple_newlines(self):\n        assert split_unquoted_newlines(\"a\\n\\nb\") == [\"a\", \"\", \"b\"]\n\n    def test_newline_inside_single_quotes(self):\n        assert split_unquoted_newlines(\"'a\\nb'\") == [\"'a\\nb'\"]\n\n    def test_newline_inside_double_quotes(self):\n        assert split_unquoted_newlines('\"a\\nb\"') == ['\"a\\nb\"']\n\n    def test_mixed_quoted_and_unquoted(self):\n        result = split_unquoted_newlines(\"a 'x\\ny'\\nb\")\n        assert result == [\"a 'x\\ny'\", \"b\"]\n\n    def test_escaped_quote_inside_string(self):\n        # the backslash escape keeps the quote inside the string\n        result = split_unquoted_newlines(\"'a\\\\'b\\nc'\")\n        assert result == [\"'a\\\\'b\\nc'\"]\n\n    def test_non_str_input_is_converted(self):\n        class FakeStmt:\n            def __str__(self):\n                return \"a\\nb\"\n\n        assert split_unquoted_newlines(FakeStmt()) == [\"a\", \"b\"]\n\n    def test_multiple_lines_with_strings(self):\n        text = \"SELECT '\\n'\\nFROM t\"\n        assert split_unquoted_newlines(text) == [\"SELECT '\\n'\", \"FROM t\"]\n\n\n# ---------------------------------------------------------------- remove_quotes\n\nclass TestRemoveQuotes:\n    def test_none_returns_none(self):\n        assert remove_quotes(None) is None\n\n    def test_empty_string(self):\n        # empty string: val[0] would raise IndexError, but implementation\n        # calls val[0] unconditionally... verify actual behavior\n        try:\n            result = remove_quotes(\"\")\n        except IndexError:\n            pytest.skip(\"empty string raises IndexError in this version\")\n        else:\n            assert result == \"\"\n\n    def test_no_quotes(self):\n        assert remove_quotes(\"abc\") == \"abc\"\n\n    def test_double_quotes(self):\n        assert remove_quotes('\"abc\"') == \"abc\"\n\n    def test_single_quotes(self):\n        assert remove_quotes(\"'abc'\") == \"abc\"\n\n    def test_backticks(self):\n        assert remove_quotes(\"`abc`\") == \"abc\"\n\n    def test_unmatched_quotes(self):\n        assert remove_quotes('\"abc') == '\"abc'\n\n    def test_mismatched_quotes(self):\n        assert remove_quotes('\"abc\\'') == '\"abc\\''\n\n    def test_only_quotes(self):\n        assert remove_quotes('\"\"') == \"\"\n\n    def test_single_char(self):\n        # val[0] == val[-1] for single char, so it strips to empty\n        assert remove_quotes('\"') == \"\"\n\n    def test_plain_quote_char_in_middle(self):\n        assert remove_quotes('a\"b') == 'a\"b'\n\n\n# ---------------------------------------------------------------- recurse\n\nclass FakeGroup:\n    \"\"\"Minimal token-like object supporting get_sublists.\"\"\"\n    def __init__(self, cls, sublists=None):\n        self.cls = cls\n        self._sublists = sublists or []\n        self.calls = 0\n\n    def get_sublists(self):\n        return self._sublists\n\n\nclass TestRecurse:\n    def test_recurse_applies_to_sublists(self):\n        leaf1 = FakeGroup(\"Leaf\")\n        leaf2 = FakeGroup(\"Leaf\")\n        parent = FakeGroup(\"Parent\", [leaf1, leaf2])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        assert seen == [leaf1, leaf2, parent]\n\n    def test_recurse_skips_excluded_class(self):\n        leaf = FakeGroup(\"Leaf\")\n        excluded_child = FakeGroup(\"Excluded\", [FakeGroup(\"Deepest\")])\n        parent = FakeGroup(\"Parent\", [leaf, excluded_child])\n\n        seen = []\n\n        class Excluded(FakeGroup):\n            pass\n\n        excluded_child.cls = Excluded\n\n        @recurse(Excluded)\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        # deepest inside excluded should not be visited; excluded itself is\n        # visited because it is a sublist of parent\n        assert seen == [leaf, excluded_child, parent]\n\n    def test_recurse_nested(self):\n        deepest = FakeGroup(\"Deep\")\n        mid = FakeGroup(\"Mid\", [deepest])\n        top = FakeGroup(\"Top\", [mid])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(top)\n        assert seen == [deepest, mid, top]\n\n    def test_recurse_returns_decorated_function(self):\n        @recurse()\n        def f(tlist):\n            pass\n\n        assert callable(f)\n\n\n# ---------------------------------------------------------------- imt\n\nclass FakeToken:\n    def __init__(self, ttype=None, match_result=False):\n        self.ttype = ttype\n        self._match_result = match_result\n\n    def match(self, *args):\n        return self._match_result\n\n\nclass TType:\n    # Simulate enum-like token types that support `in` operations\n    def __init__(self, name):\n        self.name = name\n\n    def __repr__(self):\n        return f\"TType({self.name})\"\n\n\nclass TestImt:\n    def test_none_token_returns_false(self):\n        assert imt(None, i=int) is False\n\n    def test_instance_match(self):\n        token = FakeToken()\n        assert imt(token, i=FakeToken) is True\n\n    def test_instance_no_match(self):\n        token = FakeToken()\n        assert imt(token, i=str) is False\n\n    def test_instance_tuple(self):\n        token = FakeToken()\n        assert imt(token, i=(str, FakeToken)) is True\n\n    def test_match_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=(\"anything\",)) is True\n\n    def test_match_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=(\"anything\",)) is False\n\n    def test_match_list_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is True\n\n    def test_match_list_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is False\n\n    def test_ttype_single(self):\n        tt = TType(\"A\")\n        token = FakeToken(ttype=tt)\n        assert imt(token, t=tt) is True\n\n    def test_ttype_single_no_match(self):\n        token = FakeToken(ttype=TType(\"A\"))\n        assert imt(token, t=TType(\"B\")) is False\n\n    def test_ttype_list(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=a)\n        # list branch does token.ttype in ttype, but TType isn't iterable ->\n        # need a set/list membership check. In the source, the list branch\n        # uses `token.ttype in ttype` for each ttype in t; TType is not\n        # iterable so use a set-like wrapper instead.\n        assert imt(token, t=[a, b]) is True\n\n    def test_no_criteria_returns_false(self):\n        token = FakeToken()\n        assert imt(token) is False\n\n    def test_instance_precedence_over_match(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, i=FakeToken, m=(\"x\",)) is True\n\n\n# ---------------------------------------------------------------- consume\n\nclass TestConsume:\n    def test_consume_n(self):\n        it = iter([1, 2, 3, 4])\n        consume(it, 2)\n        assert list(it) == [3, 4]\n\n    def test_consume_all_none(self):\n        it = iter([1, 2, 3])\n        consume(it, None)\n        assert list(it) == []\n\n    def test_consume_more_than_available(self):\n        it = iter([1, 2])\n        consume(it, 10)\n        assert list(it) == []\n\n    def test_consume_zero(self):\n        it = iter([1, 2, 3])\n        consume(it, 0)\n        assert list(it) == [1, 2, 3]\n\n    def test_consume_negative(self):\n        # islice with negative stop raises ValueError\n        it = iter([1, 2, 3])\n        with pytest.raises(ValueError):\n            consume(it, -1)\n\n\n# ---------------------------------------------------------------- offset\n\nclass FilterStub:\n    def __init__(self, offset_val=0):\n        self.offset = offset_val\n\n\nclass TestOffset:\n    def test_offset_increases_within_context(self):\n        f = FilterStub(offset_val=5)\n        with offset(f, 3):\n            assert f.offset == 8\n        assert f.offset == 5\n\n    def test_offset_default_n(self):\n        f = FilterStub(offset_val=1)\n        with offset(f):\n            assert f.offset == 1\n        assert f.offset == 1\n\n    def test_offset_restored_on_exception(self):\n        f = FilterStub(offset_val=2)\n        with pytest.raises(RuntimeError):\n            with offset(f, 4):\n                assert f.offset == 6\n                raise RuntimeError(\"boom\")\n        assert f.offset == 2\n\n\n# ---------------------------------------------------------------- indent\n\nclass TestIndent:\n    def test_indent_increases_within_context(self):\n        f = FilterStub()\n        f.indent = 0\n        with indent(f):\n            assert f.indent == 1\n        assert f.indent == 0\n\n    def test_indent_custom_n(self):\n        f = FilterStub()\n        f.indent = 5\n        with indent(f, 3):\n            assert f.indent == 8\n        assert f.indent == 5\n\n    def test_indent_restored_on_exception(self):\n        f = FilterStub()\n        f.indent = 1\n        with pytest.raises(ValueError):\n            with indent(f, 2):\n                assert f.indent == 3\n                raise ValueError(\"oops\")\n        assert f.indent == 1\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 1874,
+      "cache_hit_tokens": 1664,
+      "completion_tokens": 2562,
+      "reasoning_tokens": 0,
+      "latency": 9.12
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:08:59+00:00",
+    "duration": 1.41,
+    "summary": "通过 46，失败 6，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_utils.py"
+          ]
+        },
+        "duration": 1.41,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4436
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T06:08:59+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 46]（提升）",
+    "tool_calls": [],
+    "tokens_total": 4436,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      46
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T06:08:59+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 4436
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:09:07+00:00",
+    "duration": 7.92,
+    "summary": "第 2 轮：生成 364 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_utils.py",
+          "content": "<10405 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 13257,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_utils.py`)\n```python\nimport pytest\n\nfrom sqlparse.utils import (\n    split_unquoted_newlines,\n    remove_quotes,\n    recurse,\n    imt,\n    consume,\n    offset,\n    indent,\n)\n\n\n# ---------------------------------------------------------------- split_unquoted_newlines\n\nclass TestSplitUnquotedNewlines:\n    def test_empty_string(self):\n        assert split_unquoted_newlines(\"\") == [\"\"]\n\n    def test_no_newlines(self):\n        assert split_unquoted_newlines(\"SELECT 1\") == [\"SELECT 1\"]\n\n    def test_simple_newline(self):\n        assert split_unquoted_newlines(\"a\\nb\") == [\"a\", \"b\"]\n\n    def test_crlf(self):\n        assert split_unquoted_newlines(\"a\\r\\nb\") == [\"a\", \"b\"]\n\n    def test_cr(self):\n        assert split_unquoted_newlines(\"a\\rb\") == [\"a\", \"b\"]\n\n    def test_trailing_newline(self):\n        assert split_unquoted_newlines(\"a\\n\") == [\"a\", \"\"]\n\n    def test_leading_newline(self):\n        assert split_unquoted_newlines(\"\\na\") == [\"\", \"a\"]\n\n    def test_multiple_newlines(self):\n        assert split_unquoted_newlines(\"a\\n\\nb\") == [\"a\", \"\", \"b\"]\n\n    def test_newline_inside_single_quotes(self):\n        assert split_unquoted_newlines(\"'a\\nb'\") == [\"'a\\nb'\"]\n\n    def test_newline_inside_double_quotes(self):\n        assert split_unquoted_newlines('\"a\\nb\"') == ['\"a\\nb\"']\n\n    def test_mixed_quoted_and_unquoted(self):\n        result = split_unquoted_newlines(\"a 'x\\ny'\\nb\")\n        assert result == [\"a 'x\\ny'\", \"b\"]\n\n    def test_escaped_quote_inside_string(self):\n        # the backslash escape keeps the quote inside the string\n        result = split_unquoted_newlines(\"'a\\\\'b\\nc'\")\n        assert result == [\"'a\\\\'b\\nc'\"]\n\n    def test_non_str_input_is_converted(self):\n        class FakeStmt:\n            def __str__(self):\n                return \"a\\nb\"\n\n        assert split_unquoted_newlines(FakeStmt()) == [\"a\", \"b\"]\n\n    def test_multiple_lines_with_strings(self):\n        text = \"SELECT '\\n'\\nFROM t\"\n        assert split_unquoted_newlines(text) == [\"SELECT '\\n'\", \"FROM t\"]\n\n\n# ---------------------------------------------------------------- remove_quotes\n\nclass TestRemoveQuotes:\n    def test_none_returns_none(self):\n        assert remove_quotes(None) is None\n\n    def test_empty_string(self):\n        # empty string: val[0] would raise IndexError, but implementation\n        # calls val[0] unconditionally... verify actual behavior\n        try:\n            result = remove_quotes(\"\")\n        except IndexError:\n            pytest.skip(\"empty string raises IndexError in this version\")\n        else:\n            assert result == \"\"\n\n    def test_no_quotes(self):\n        assert remove_quotes(\"abc\") == \"abc\"\n\n    def test_double_quotes(self):\n        assert remove_quotes('\"abc\"') == \"abc\"\n\n    def test_single_quotes(self):\n        assert remove_quotes(\"'abc'\") == \"abc\"\n\n    def test_backticks(self):\n        assert remove_quotes(\"`abc`\") == \"abc\"\n\n    def test_unmatched_quotes(self):\n        assert remove_quotes('\"abc') == '\"abc'\n\n    def test_mismatched_quotes(self):\n        assert remove_quotes('\"abc\\'') == '\"abc\\''\n\n    def test_only_quotes(self):\n        assert remove_quotes('\"\"') == \"\"\n\n    def test_single_char(self):\n        # val[0] == val[-1] for single char, so it strips to empty\n        assert remove_quotes('\"') == \"\"\n\n    def test_plain_quote_char_in_middle(self):\n        assert remove_quotes('a\"b') == 'a\"b'\n\n\n# ---------------------------------------------------------------- recurse\n\nclass FakeGroup:\n    \"\"\"Minimal token-like object supporting get_sublists.\"\"\"\n    def __init__(self, cls, sublists=None):\n        self.cls = cls\n        self._sublists = sublists or []\n        self.calls = 0\n\n    def get_sublists(self):\n        return self._sublists\n\n\nclass TestRecurse:\n    def test_recurse_applies_to_sublists(self):\n        leaf1 = FakeGroup(\"Leaf\")\n        leaf2 = FakeGroup(\"Leaf\")\n        parent = FakeGroup(\"Parent\", [leaf1, leaf2])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        assert seen == [leaf1, leaf2, parent]\n\n    def test_recurse_skips_excluded_class(self):\n        leaf = FakeGroup(\"Leaf\")\n        excluded_child = FakeGroup(\"Excluded\", [FakeGroup(\"Deepest\")])\n        parent = FakeGroup(\"Parent\", [leaf, excluded_child])\n\n        seen = []\n\n        class Excluded(FakeGroup):\n            pass\n\n        excluded_child.cls = Excluded\n\n        @recurse(Excluded)\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        # deepest inside excluded should not be visited; excluded itself is\n        # visited because it is a sublist of parent\n        assert seen == [leaf, excluded_child, parent]\n\n    def test_recurse_nested(self):\n        deepest = FakeGroup(\"Deep\")\n        mid = FakeGroup(\"Mid\", [deepest])\n        top = FakeGroup(\"Top\", [mid])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(top)\n        assert seen == [deepest, mid, top]\n\n    def test_recurse_returns_decorated_function(self):\n        @recurse()\n        def f(tlist):\n            pass\n\n        assert callable(f)\n\n\n# ---------------------------------------------------------------- imt\n\nclass FakeToken:\n    def __init__(self, ttype=None, match_result=False):\n        self.ttype = ttype\n        self._match_result = match_result\n\n    def match(self, *args):\n        return self._match_result\n\n\nclass TType:\n    # Simulate enum-like token types that support `in` operations\n    def __init__(self, name):\n        self.name = name\n\n    def __repr__(self):\n        return f\"TType({self.name})\"\n\n\nclass TestImt:\n    def test_none_token_returns_false(self):\n        assert imt(None, i=int) is False\n\n    def test_instance_match(self):\n        token = FakeToken()\n        assert imt(token, i=FakeToken) is True\n\n    def test_instance_no_match(self):\n        token = FakeToken()\n        assert imt(token, i=str) is False\n\n    def test_instance_tuple(self):\n        token = FakeToken()\n        assert imt(token, i=(str, FakeToken)) is True\n\n    def test_match_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=(\"anything\",)) is True\n\n    def test_match_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=(\"anything\",)) is False\n\n    def test_match_list_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is True\n\n    def test_match_list_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is False\n\n    def test_ttype_single(self):\n        tt = TType(\"A\")\n        token = FakeToken(ttype=tt)\n        assert imt(token, t=tt) is True\n\n    def test_ttype_single_no_match(self):\n        token = FakeToken(ttype=TType(\"A\"))\n        assert imt(token, t=TType(\"B\")) is False\n\n    def test_ttype_list(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=a)\n        # list branch does token.ttype in ttype, but TType isn't iterable ->\n        # need a set/list membership check. In the source, the list branch\n        # uses `token.ttype in ttype` for each ttype in t; TType is not\n        # iterable so use a set-like wrapper instead.\n        assert imt(token, t=[a, b]) is True\n\n    def test_no_criteria_returns_false(self):\n        token = FakeToken()\n        assert imt(token) is False\n\n    def test_instance_precedence_over_match(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, i=FakeToken, m=(\"x\",)) is True\n\n\n# ---------------------------------------------------------------- consume\n\nclass TestConsume:\n    def test_consume_n(self):\n        it = iter([1, 2, 3, 4])\n        consume(it, 2)\n        assert list(it) == [3, 4]\n\n    def test_consume_all_none(self):\n        it = iter([1, 2, 3])\n        consume(it, None)\n        assert list(it) == []\n\n    def test_consume_more_than_available(self):\n        it = iter([1, 2])\n        consume(it, 10)\n        assert list(it) == []\n\n    def test_consume_zero(self):\n        it = iter([1, 2, 3])\n        consume(it, 0)\n        assert list(it) == [1, 2, 3]\n\n    def test_consume_negative(self):\n        # islice with negative stop raises ValueError\n        it = iter([1, 2, 3])\n        with pytest.raises(ValueError):\n            consume(it, -1)\n\n\n# ---------------------------------------------------------------- offset\n\nclass FilterStub:\n    def __init__(self, offset_val=0):\n        self.offset = offset_val\n\n\nclass TestOffset:\n    def test_offset_increases_within_context(self):\n        f = FilterStub(offset_val=5)\n        with offset(f, 3):\n            assert f.offset == 8\n        assert f.offset == 5\n\n    def test_offset_default_n(self):\n        f = FilterStub(offset_val=1)\n        with offset(f):\n            assert f.offset == 1\n        assert f.offset == 1\n\n    def test_offset_restored_on_exception(self):\n        f = FilterStub(offset_val=2)\n        with pytest.raises(RuntimeError):\n            with offset(f, 4):\n                assert f.offset == 6\n                raise RuntimeError(\"boom\")\n        assert f.offset == 2\n\n\n# ---------------------------------------------------------------- indent\n\nclass TestIndent:\n    def test_indent_increases_within_context(self):\n        f = FilterStub()\n        f.indent = 0\n        with indent(f):\n            assert f.indent == 1\n        assert f.indent == 0\n\n    def test_indent_custom_n(self):\n        f = FilterStub()\n        f.indent = 5\n        with indent(f, 3):\n            assert f.indent == 8\n        assert f.indent == 5\n\n    def test_indent_restored_on_exception(self):\n        f = FilterStub()\n        f.indent = 1\n        with pytest.raises(ValueError):\n            with indent(f, 2):\n                assert f.indent == 3\n                raise ValueError(\"oops\")\n        assert f.indent == 1\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 46 passed, 6 failed, 0 errors.\n- `tests_testpilot.test_utils.TestRemoveQuotes::test_empty_string` skipped:\n```\nempty string raises IndexError in this version\n/tmp/testpilot-ay3redcr/repo/tests_testpilot/test_utils.py:80: empty string raises IndexError in this version\n```\n- `tests_testpilot.test_utils.TestRecurse::test_recurse_skips_excluded_class` failed:\n```\nassert [<test_utils....72ab1afb4850>] == [<test_utils....72ab1afb4850>]\n  \n  At index 1 diff: <test_utils.FakeGroup object at 0x72ab1afb4590> != <test_utils.FakeGroup object at 0x72ab1afb48d0>\n  Left contains one more item: <test_utils.FakeGroup object at 0x72ab1afb4850>\n  Use -v to get more diff\nself = <test_utils.TestRecurse object at 0x72ab1afeee50>\n\n    def test_recurse_skips_excluded_class(self):\n        leaf = FakeGroup(\"Leaf\")\n        excluded_child = FakeGroup(\"Excluded\", [FakeGroup(\"Deepest\")])\n        parent = FakeGroup(\"Parent\", [leaf, excluded_child])\n    \n        seen = []\n    \n        class Excluded(FakeGroup):\n            pass\n    \n        excluded_child.cls = Excluded\n    \n        @recurse(Excluded)\n        def f(tlist):\n            seen.append(tlist)\n    \n        f(parent)\n```\n- `tests_testpilot.test_utils.TestImt::test_ttype_single` failed:\n```\nTypeError: argument of type 'TType' is not iterable\nself = <test_utils.TestImt object at 0x72ab1afd8350>\n\n    def test_ttype_single(self):\n        tt = TType(\"A\")\n        token = FakeToken(ttype=tt)\n>       assert imt(token, t=tt) is True\n               ^^^^^^^^^^^^^^^^\n\ntests_testpilot/test_utils.py:241: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntoken = <test_utils.FakeToken object at 0x72ab1af9ec10>, i = None, m = None\nt = TType(A)\n\n    def imt(token, i=None, m=None, t=None):\n        \"\"\"Helper function to simplify comparisons Instance, Match and TokenType\n        :param token:\n        :param i: Class or Tuple/List of Classes\n        :param m: Tuple of TokenType & Value. Can be list of Tuple for multiple\n        :param t: TokenType or Tuple/List of\n```\n- `tests_testpilot.test_utils.TestImt::test_ttype_single_no_match` failed:\n```\nTypeError: argument of type 'TType' is not iterable\nself = <test_utils.TestImt object at 0x72ab1afd8790>\n\n    def test_ttype_single_no_match(self):\n        token = FakeToken(ttype=TType(\"A\"))\n>       assert imt(token, t=TType(\"B\")) is False\n               ^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests_testpilot/test_utils.py:245: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntoken = <test_utils.FakeToken object at 0x72ab1b116cd0>, i = None, m = None\nt = TType(B)\n\n    def imt(token, i=None, m=None, t=None):\n        \"\"\"Helper function to simplify comparisons Instance, Match and TokenType\n        :param token:\n        :param i: Class or Tuple/List of Classes\n        :param m: Tuple of TokenType & Value. Can be list of Tuple for multiple\n        :param t: TokenType or Tup\n```\n- `tests_testpilot.test_utils.TestImt::test_ttype_list` failed:\n```\nTypeError: argument of type 'TType' is not iterable\nself = <test_utils.TestImt object at 0x72ab1afec090>\n\n    def test_ttype_list(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=a)\n        # list branch does token.ttype in ttype, but TType isn't iterable ->\n        # need a set/list membership check. In the source, the list branch\n        # uses `token.ttype in ttype` for each ttype in t; TType is not\n        # iterable so use a set-like wrapper instead.\n>       assert imt(token, t=[a, b]) is True\n               ^^^^^^^^^^^^^^^^^^^^\n\ntests_testpilot/test_utils.py:255: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nsqlparse/utils.py:101: in imt\n    if any(token.ttype in ttype for ttype in t):\n       ^^^^^^^^^^^^^^^^^^^^\n```\n- `tests_testpilot.test_utils.TestOffset::test_offset_restored_on_exception` failed:\n```\nassert 6 == 2\n +  where 6 = <test_utils.FilterStub object at 0x72ab1afdaad0>.offset\nself = <test_utils.TestOffset object at 0x72ab1afcddd0>\n\n    def test_offset_restored_on_exception(self):\n        f = FilterStub(offset_val=2)\n        with pytest.raises(RuntimeError):\n            with offset(f, 4):\n                assert f.offset == 6\n                raise RuntimeError(\"boom\")\n>       assert f.offset == 2\nE       assert 6 == 2\nE        +  where 6 = <test_utils.FilterStub object at 0x72ab1afdaad0>.offset\n\ntests_testpilot/test_utils.py:322: AssertionError\n```\n- `tests_testpilot.test_utils.TestIndent::test_indent_restored_on_exception` failed:\n```\nassert 3 == 1\n +  where 3 = <test_utils.FilterStub object at 0x72ab1af7b650>.indent\nself = <test_utils.TestIndent object at 0x72ab1afce610>\n\n    def test_indent_restored_on_exception(self):\n        f = FilterStub()\n        f.indent = 1\n        with pytest.raises(ValueError):\n            with indent(f, 2):\n                assert f.indent == 3\n                raise ValueError(\"oops\")\n>       assert f.indent == 1\nE       assert 3 == 1\nE        +  where 3 = <test_utils.FilterStub object at 0x72ab1af7b650>.indent\n\ntests_testpilot/test_utils.py:349: AssertionError\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom sqlparse.utils import (\n    split_unquoted_newlines,\n    remove_quotes,\n    recurse,\n    imt,\n    consume,\n    offset,\n    indent,\n)\n\n\n# ---------------------------------------------------------------- split_unquoted_newlines\n\nclass TestSplitUnquotedNewlines:\n    def test_empty_string(self):\n        assert split_unquoted_newlines(\"\") == [\"\"]\n\n    def test_no_newlines(self):\n        assert split_unquoted_newlines(\"SELECT 1\") == [\"SELECT 1\"]\n\n    def test_simple_newline(self):\n        assert split_unquoted_newlines(\"a\\nb\") == [\"a\", \"b\"]\n\n    def test_crlf(self):\n        assert split_unquoted_newlines(\"a\\r\\nb\") == [\"a\", \"b\"]\n\n    def test_cr(self):\n        assert split_unquoted_newlines(\"a\\rb\") == [\"a\", \"b\"]\n\n    def test_trailing_newline(self):\n        assert split_unquoted_newlines(\"a\\n\") == [\"a\", \"\"]\n\n    def test_leading_newline(self):\n        assert split_unquoted_newlines(\"\\na\") == [\"\", \"a\"]\n\n    def test_multiple_newlines(self):\n        assert split_unquoted_newlines(\"a\\n\\nb\") == [\"a\", \"\", \"b\"]\n\n    def test_newline_inside_single_quotes(self):\n        assert split_unquoted_newlines(\"'a\\nb'\") == [\"'a\\nb'\"]\n\n    def test_newline_inside_double_quotes(self):\n        assert split_unquoted_newlines('\"a\\nb\"') == ['\"a\\nb\"']\n\n    def test_mixed_quoted_and_unquoted(self):\n        result = split_unquoted_newlines(\"a 'x\\ny'\\nb\")\n        assert result == [\"a 'x\\ny'\", \"b\"]\n\n    def test_escaped_quote_inside_string(self):\n        # the backslash escape keeps the quote inside the string\n        result = split_unquoted_newlines(\"'a\\\\'b\\nc'\")\n        assert result == [\"'a\\\\'b\\nc'\"]\n\n    def test_non_str_input_is_converted(self):\n        class FakeStmt:\n            def __str__(self):\n                return \"a\\nb\"\n\n        assert split_unquoted_newlines(FakeStmt()) == [\"a\", \"b\"]\n\n    def test_multiple_lines_with_strings(self):\n        text = \"SELECT '\\n'\\nFROM t\"\n        assert split_unquoted_newlines(text) == [\"SELECT '\\n'\", \"FROM t\"]\n\n\n# ---------------------------------------------------------------- remove_quotes\n\nclass TestRemoveQuotes:\n    def test_none_returns_none(self):\n        assert remove_quotes(None) is None\n\n    def test_empty_string_raises_index_error(self):\n        # val[0] is accessed unconditionally, so empty string raises\n        with pytest.raises(IndexError):\n            remove_quotes(\"\")\n\n    def test_no_quotes(self):\n        assert remove_quotes(\"abc\") == \"abc\"\n\n    def test_double_quotes(self):\n        assert remove_quotes('\"abc\"') == \"abc\"\n\n    def test_single_quotes(self):\n        assert remove_quotes(\"'abc'\") == \"abc\"\n\n    def test_backticks(self):\n        assert remove_quotes(\"`abc`\") == \"abc\"\n\n    def test_unmatched_quotes(self):\n        assert remove_quotes('\"abc') == '\"abc'\n\n    def test_mismatched_quotes(self):\n        assert remove_quotes('\"abc\\'') == '\"abc\\''\n\n    def test_only_quotes(self):\n        assert remove_quotes('\"\"') == \"\"\n\n    def test_single_char(self):\n        # val[0] == val[-1] for single char, so it strips to empty\n        assert remove_quotes('\"') == \"\"\n\n    def test_plain_quote_char_in_middle(self):\n        assert remove_quotes('a\"b') == 'a\"b'\n\n\n# ---------------------------------------------------------------- recurse\n\nclass FakeGroup:\n    \"\"\"Minimal token-like object supporting get_sublists.\"\"\"\n    def __init__(self, cls, sublists=None):\n        self.cls = cls\n        self._sublists = sublists or []\n        self.calls = 0\n\n    def get_sublists(self):\n        return self._sublists\n\n\nclass Excluded(FakeGroup):\n    pass\n\n\nclass TestRecurse:\n    def test_recurse_applies_to_sublists(self):\n        leaf1 = FakeGroup(\"Leaf\")\n        leaf2 = FakeGroup(\"Leaf\")\n        parent = FakeGroup(\"Parent\", [leaf1, leaf2])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        assert seen == [leaf1, leaf2, parent]\n\n    def test_recurse_skips_excluded_class(self):\n        # Excluded instances are not recursed into, but are still visited\n        # (passed to f) when they are sublists of a non-excluded parent.\n        leaf = FakeGroup(\"Leaf\")\n        deepest = FakeGroup(\"Deepest\")\n        excluded_child = Excluded(\"Excluded\", [deepest])\n        parent = FakeGroup(\"Parent\", [leaf, excluded_child])\n\n        seen = []\n\n        @recurse(Excluded)\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        # deepest is NOT visited because excluded_child is not recursed into;\n        # excluded_child itself IS visited as it's a sublist of parent.\n        assert seen == [leaf, excluded_child, parent]\n\n    def test_recurse_nested(self):\n        deepest = FakeGroup(\"Deep\")\n        mid = FakeGroup(\"Mid\", [deepest])\n        top = FakeGroup(\"Top\", [mid])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(top)\n        assert seen == [deepest, mid, top]\n\n    def test_recurse_returns_decorated_function(self):\n        @recurse()\n        def f(tlist):\n            pass\n\n        assert callable(f)\n\n\n# ---------------------------------------------------------------- imt\n\nclass FakeToken:\n    def __init__(self, ttype=None, match_result=False):\n        self.ttype = ttype\n        self._match_result = match_result\n\n    def match(self, *args):\n        return self._match_result\n\n\nclass TType:\n    # Simulate enum-like token types; `in` operations on TType iterate its\n    # members. We model that by making TType a container with a single\n    # member (itself), so `ttype in ttype` -> True and `other in ttype` -> False.\n    def __init__(self, name):\n        self.name = name\n\n    def __contains__(self, item):\n        return item is self\n\n    def __iter__(self):\n        yield self\n\n    def __repr__(self):\n        return f\"TType({self.name})\"\n\n\nclass TestImt:\n    def test_none_token_returns_false(self):\n        assert imt(None, i=int) is False\n\n    def test_instance_match(self):\n        token = FakeToken()\n        assert imt(token, i=FakeToken) is True\n\n    def test_instance_no_match(self):\n        token = FakeToken()\n        assert imt(token, i=str) is False\n\n    def test_instance_tuple(self):\n        token = FakeToken()\n        assert imt(token, i=(str, FakeToken)) is True\n\n    def test_match_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=(\"anything\",)) is True\n\n    def test_match_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=(\"anything\",)) is False\n\n    def test_match_list_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is True\n\n    def test_match_list_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is False\n\n    def test_ttype_single(self):\n        tt = TType(\"A\")\n        token = FakeToken(ttype=tt)\n        # single-item branch: token.ttype in t -> tt in tt -> True\n        assert imt(token, t=tt) is True\n\n    def test_ttype_single_no_match(self):\n        token = FakeToken(ttype=TType(\"A\"))\n        other = TType(\"B\")\n        # token.ttype in other -> False\n        assert imt(token, t=other) is False\n\n    def test_ttype_list(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=a)\n        # list branch: any(token.ttype in ttype for ttype in t)\n        assert imt(token, t=[a, b]) is True\n\n    def test_ttype_list_no_match(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=TType(\"C\"))\n        assert imt(token, t=[a, b]) is False\n\n    def test_no_criteria_returns_false(self):\n        token = FakeToken()\n        assert imt(token) is False\n\n    def test_instance_precedence_over_match(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, i=FakeToken, m=(\"x\",)) is True\n\n\n# ---------------------------------------------------------------- consume\n\nclass TestConsume:\n    def test_consume_n(self):\n        it = iter([1, 2, 3, 4])\n        consume(it, 2)\n        assert list(it) == [3, 4]\n\n    def test_consume_all_none(self):\n        it = iter([1, 2, 3])\n        consume(it, None)\n        assert list(it) == []\n\n    def test_consume_more_than_available(self):\n        it = iter([1, 2])\n        consume(it, 10)\n        assert list(it) == []\n\n    def test_consume_zero(self):\n        it = iter([1, 2, 3])\n        consume(it, 0)\n        assert list(it) == [1, 2, 3]\n\n    def test_consume_negative(self):\n        # islice with negative stop raises ValueError\n        it = iter([1, 2, 3])\n        with pytest.raises(ValueError):\n            consume(it, -1)\n\n\n# ---------------------------------------------------------------- offset\n\nclass FilterStub:\n    def __init__(self, offset_val=0):\n        self.offset = offset_val\n\n\nclass TestOffset:\n    def test_offset_increases_within_context(self):\n        f = FilterStub(offset_val=5)\n        with offset(f, 3):\n            assert f.offset == 8\n        assert f.offset == 5\n\n    def test_offset_default_n(self):\n        f = FilterStub(offset_val=1)\n        with offset(f):\n            assert f.offset == 1\n        assert f.offset == 1\n\n    def test_offset_not_restored_on_exception(self):\n        # the contextmanager has no try/finally, so on exception the\n        # decrement line is skipped and the offset stays increased.\n        f = FilterStub(offset_val=2)\n        with pytest.raises(RuntimeError):\n            with offset(f, 4):\n                assert f.offset == 6\n                raise RuntimeError(\"boom\")\n        assert f.offset == 6\n\n\n# ---------------------------------------------------------------- indent\n\nclass TestIndent:\n    def test_indent_increases_within_context(self):\n        f = FilterStub()\n        f.indent = 0\n        with indent(f):\n            assert f.indent == 1\n        assert f.indent == 0\n\n    def test_indent_custom_n(self):\n        f = FilterStub()\n        f.indent = 5\n        with indent(f, 3):\n            assert f.indent == 8\n        assert f.indent == 5\n\n    def test_indent_not_restored_on_exception(self):\n        # the contextmanager has no try/finally, so on exception the\n        # decrement line is skipped and the indent stays increased.\n        f = FilterStub()\n        f.indent = 1\n        with pytest.raises(ValueError):\n            with indent(f, 2):\n                assert f.indent == 3\n                raise ValueError(\"oops\")\n        assert f.indent == 3\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 6090,
+      "cache_hit_tokens": 1792,
+      "completion_tokens": 2731,
+      "reasoning_tokens": 0,
+      "latency": 7.92
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:09:08+00:00",
+    "duration": 1.26,
+    "summary": "通过 53，失败 1，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_utils.py"
+          ]
+        },
+        "duration": 1.26,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 13257
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T06:09:08+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 53]（提升）",
+    "tool_calls": [],
+    "tokens_total": 13257,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      53
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T06:09:08+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 13257
+  },
+  {
+    "node": "write_tests",
+    "iteration": 3,
+    "at": "2026-10-20T06:09:16+00:00",
+    "duration": 7.69,
+    "summary": "第 3 轮：生成 365 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_utils.py",
+          "content": "<10432 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 20947,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_utils.py`)\n```python\nimport pytest\n\nfrom sqlparse.utils import (\n    split_unquoted_newlines,\n    remove_quotes,\n    recurse,\n    imt,\n    consume,\n    offset,\n    indent,\n)\n\n\n# ---------------------------------------------------------------- split_unquoted_newlines\n\nclass TestSplitUnquotedNewlines:\n    def test_empty_string(self):\n        assert split_unquoted_newlines(\"\") == [\"\"]\n\n    def test_no_newlines(self):\n        assert split_unquoted_newlines(\"SELECT 1\") == [\"SELECT 1\"]\n\n    def test_simple_newline(self):\n        assert split_unquoted_newlines(\"a\\nb\") == [\"a\", \"b\"]\n\n    def test_crlf(self):\n        assert split_unquoted_newlines(\"a\\r\\nb\") == [\"a\", \"b\"]\n\n    def test_cr(self):\n        assert split_unquoted_newlines(\"a\\rb\") == [\"a\", \"b\"]\n\n    def test_trailing_newline(self):\n        assert split_unquoted_newlines(\"a\\n\") == [\"a\", \"\"]\n\n    def test_leading_newline(self):\n        assert split_unquoted_newlines(\"\\na\") == [\"\", \"a\"]\n\n    def test_multiple_newlines(self):\n        assert split_unquoted_newlines(\"a\\n\\nb\") == [\"a\", \"\", \"b\"]\n\n    def test_newline_inside_single_quotes(self):\n        assert split_unquoted_newlines(\"'a\\nb'\") == [\"'a\\nb'\"]\n\n    def test_newline_inside_double_quotes(self):\n        assert split_unquoted_newlines('\"a\\nb\"') == ['\"a\\nb\"']\n\n    def test_mixed_quoted_and_unquoted(self):\n        result = split_unquoted_newlines(\"a 'x\\ny'\\nb\")\n        assert result == [\"a 'x\\ny'\", \"b\"]\n\n    def test_escaped_quote_inside_string(self):\n        # the backslash escape keeps the quote inside the string\n        result = split_unquoted_newlines(\"'a\\\\'b\\nc'\")\n        assert result == [\"'a\\\\'b\\nc'\"]\n\n    def test_non_str_input_is_converted(self):\n        class FakeStmt:\n            def __str__(self):\n                return \"a\\nb\"\n\n        assert split_unquoted_newlines(FakeStmt()) == [\"a\", \"b\"]\n\n    def test_multiple_lines_with_strings(self):\n        text = \"SELECT '\\n'\\nFROM t\"\n        assert split_unquoted_newlines(text) == [\"SELECT '\\n'\", \"FROM t\"]\n\n\n# ---------------------------------------------------------------- remove_quotes\n\nclass TestRemoveQuotes:\n    def test_none_returns_none(self):\n        assert remove_quotes(None) is None\n\n    def test_empty_string_raises_index_error(self):\n        # val[0] is accessed unconditionally, so empty string raises\n        with pytest.raises(IndexError):\n            remove_quotes(\"\")\n\n    def test_no_quotes(self):\n        assert remove_quotes(\"abc\") == \"abc\"\n\n    def test_double_quotes(self):\n        assert remove_quotes('\"abc\"') == \"abc\"\n\n    def test_single_quotes(self):\n        assert remove_quotes(\"'abc'\") == \"abc\"\n\n    def test_backticks(self):\n        assert remove_quotes(\"`abc`\") == \"abc\"\n\n    def test_unmatched_quotes(self):\n        assert remove_quotes('\"abc') == '\"abc'\n\n    def test_mismatched_quotes(self):\n        assert remove_quotes('\"abc\\'') == '\"abc\\''\n\n    def test_only_quotes(self):\n        assert remove_quotes('\"\"') == \"\"\n\n    def test_single_char(self):\n        # val[0] == val[-1] for single char, so it strips to empty\n        assert remove_quotes('\"') == \"\"\n\n    def test_plain_quote_char_in_middle(self):\n        assert remove_quotes('a\"b') == 'a\"b'\n\n\n# ---------------------------------------------------------------- recurse\n\nclass FakeGroup:\n    \"\"\"Minimal token-like object supporting get_sublists.\"\"\"\n    def __init__(self, cls, sublists=None):\n        self.cls = cls\n        self._sublists = sublists or []\n        self.calls = 0\n\n    def get_sublists(self):\n        return self._sublists\n\n\nclass Excluded(FakeGroup):\n    pass\n\n\nclass TestRecurse:\n    def test_recurse_applies_to_sublists(self):\n        leaf1 = FakeGroup(\"Leaf\")\n        leaf2 = FakeGroup(\"Leaf\")\n        parent = FakeGroup(\"Parent\", [leaf1, leaf2])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        assert seen == [leaf1, leaf2, parent]\n\n    def test_recurse_skips_excluded_class(self):\n        # Excluded instances are not recursed into, but are still visited\n        # (passed to f) when they are sublists of a non-excluded parent.\n        leaf = FakeGroup(\"Leaf\")\n        deepest = FakeGroup(\"Deepest\")\n        excluded_child = Excluded(\"Excluded\", [deepest])\n        parent = FakeGroup(\"Parent\", [leaf, excluded_child])\n\n        seen = []\n\n        @recurse(Excluded)\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        # deepest is NOT visited because excluded_child is not recursed into;\n        # excluded_child itself IS visited as it's a sublist of parent.\n        assert seen == [leaf, excluded_child, parent]\n\n    def test_recurse_nested(self):\n        deepest = FakeGroup(\"Deep\")\n        mid = FakeGroup(\"Mid\", [deepest])\n        top = FakeGroup(\"Top\", [mid])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(top)\n        assert seen == [deepest, mid, top]\n\n    def test_recurse_returns_decorated_function(self):\n        @recurse()\n        def f(tlist):\n            pass\n\n        assert callable(f)\n\n\n# ---------------------------------------------------------------- imt\n\nclass FakeToken:\n    def __init__(self, ttype=None, match_result=False):\n        self.ttype = ttype\n        self._match_result = match_result\n\n    def match(self, *args):\n        return self._match_result\n\n\nclass TType:\n    # Simulate enum-like token types; `in` operations on TType iterate its\n    # members. We model that by making TType a container with a single\n    # member (itself), so `ttype in ttype` -> True and `other in ttype` -> False.\n    def __init__(self, name):\n        self.name = name\n\n    def __contains__(self, item):\n        return item is self\n\n    def __iter__(self):\n        yield self\n\n    def __repr__(self):\n        return f\"TType({self.name})\"\n\n\nclass TestImt:\n    def test_none_token_returns_false(self):\n        assert imt(None, i=int) is False\n\n    def test_instance_match(self):\n        token = FakeToken()\n        assert imt(token, i=FakeToken) is True\n\n    def test_instance_no_match(self):\n        token = FakeToken()\n        assert imt(token, i=str) is False\n\n    def test_instance_tuple(self):\n        token = FakeToken()\n        assert imt(token, i=(str, FakeToken)) is True\n\n    def test_match_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=(\"anything\",)) is True\n\n    def test_match_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=(\"anything\",)) is False\n\n    def test_match_list_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is True\n\n    def test_match_list_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is False\n\n    def test_ttype_single(self):\n        tt = TType(\"A\")\n        token = FakeToken(ttype=tt)\n        # single-item branch: token.ttype in t -> tt in tt -> True\n        assert imt(token, t=tt) is True\n\n    def test_ttype_single_no_match(self):\n        token = FakeToken(ttype=TType(\"A\"))\n        other = TType(\"B\")\n        # token.ttype in other -> False\n        assert imt(token, t=other) is False\n\n    def test_ttype_list(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=a)\n        # list branch: any(token.ttype in ttype for ttype in t)\n        assert imt(token, t=[a, b]) is True\n\n    def test_ttype_list_no_match(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=TType(\"C\"))\n        assert imt(token, t=[a, b]) is False\n\n    def test_no_criteria_returns_false(self):\n        token = FakeToken()\n        assert imt(token) is False\n\n    def test_instance_precedence_over_match(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, i=FakeToken, m=(\"x\",)) is True\n\n\n# ---------------------------------------------------------------- consume\n\nclass TestConsume:\n    def test_consume_n(self):\n        it = iter([1, 2, 3, 4])\n        consume(it, 2)\n        assert list(it) == [3, 4]\n\n    def test_consume_all_none(self):\n        it = iter([1, 2, 3])\n        consume(it, None)\n        assert list(it) == []\n\n    def test_consume_more_than_available(self):\n        it = iter([1, 2])\n        consume(it, 10)\n        assert list(it) == []\n\n    def test_consume_zero(self):\n        it = iter([1, 2, 3])\n        consume(it, 0)\n        assert list(it) == [1, 2, 3]\n\n    def test_consume_negative(self):\n        # islice with negative stop raises ValueError\n        it = iter([1, 2, 3])\n        with pytest.raises(ValueError):\n            consume(it, -1)\n\n\n# ---------------------------------------------------------------- offset\n\nclass FilterStub:\n    def __init__(self, offset_val=0):\n        self.offset = offset_val\n\n\nclass TestOffset:\n    def test_offset_increases_within_context(self):\n        f = FilterStub(offset_val=5)\n        with offset(f, 3):\n            assert f.offset == 8\n        assert f.offset == 5\n\n    def test_offset_default_n(self):\n        f = FilterStub(offset_val=1)\n        with offset(f):\n            assert f.offset == 1\n        assert f.offset == 1\n\n    def test_offset_not_restored_on_exception(self):\n        # the contextmanager has no try/finally, so on exception the\n        # decrement line is skipped and the offset stays increased.\n        f = FilterStub(offset_val=2)\n        with pytest.raises(RuntimeError):\n            with offset(f, 4):\n                assert f.offset == 6\n                raise RuntimeError(\"boom\")\n        assert f.offset == 6\n\n\n# ---------------------------------------------------------------- indent\n\nclass TestIndent:\n    def test_indent_increases_within_context(self):\n        f = FilterStub()\n        f.indent = 0\n        with indent(f):\n            assert f.indent == 1\n        assert f.indent == 0\n\n    def test_indent_custom_n(self):\n        f = FilterStub()\n        f.indent = 5\n        with indent(f, 3):\n            assert f.indent == 8\n        assert f.indent == 5\n\n    def test_indent_not_restored_on_exception(self):\n        # the contextmanager has no try/finally, so on exception the\n        # decrement line is skipped and the indent stays increased.\n        f = FilterStub()\n        f.indent = 1\n        with pytest.raises(ValueError):\n            with indent(f, 2):\n                assert f.indent == 3\n                raise ValueError(\"oops\")\n        assert f.indent == 3\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 53 passed, 1 failed, 0 errors.\n- `tests_testpilot.test_utils.TestRecurse::test_recurse_skips_excluded_class` failed:\n```\nassert [<test_utils....70316f36aed0>] == [<test_utils....70316f36aed0>]\n  \n  At index 1 diff: <test_utils.FakeGroup object at 0x70316f36aed0> != <test_utils.Excluded object at 0x70316f30e310>\n  Right contains one more item: <test_utils.FakeGroup object at 0x70316f36aed0>\n  Use -v to get more diff\nself = <test_utils.TestRecurse object at 0x70316f337790>\n\n    def test_recurse_skips_excluded_class(self):\n        # Excluded instances are not recursed into, but are still visited\n        # (passed to f) when they are sublists of a non-excluded parent.\n        leaf = FakeGroup(\"Leaf\")\n        deepest = FakeGroup(\"Deepest\")\n        excluded_child = Excluded(\"Excluded\", [deepest])\n        parent = FakeGroup(\"Parent\", [leaf, excluded_child])\n    \n        seen = []\n    \n        @recurse(Excluded)\n   \n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom sqlparse.utils import (\n    split_unquoted_newlines,\n    remove_quotes,\n    recurse,\n    imt,\n    consume,\n    offset,\n    indent,\n)\n\n\n# ---------------------------------------------------------------- split_unquoted_newlines\n\nclass TestSplitUnquotedNewlines:\n    def test_empty_string(self):\n        assert split_unquoted_newlines(\"\") == [\"\"]\n\n    def test_no_newlines(self):\n        assert split_unquoted_newlines(\"SELECT 1\") == [\"SELECT 1\"]\n\n    def test_simple_newline(self):\n        assert split_unquoted_newlines(\"a\\nb\") == [\"a\", \"b\"]\n\n    def test_crlf(self):\n        assert split_unquoted_newlines(\"a\\r\\nb\") == [\"a\", \"b\"]\n\n    def test_cr(self):\n        assert split_unquoted_newlines(\"a\\rb\") == [\"a\", \"b\"]\n\n    def test_trailing_newline(self):\n        assert split_unquoted_newlines(\"a\\n\") == [\"a\", \"\"]\n\n    def test_leading_newline(self):\n        assert split_unquoted_newlines(\"\\na\") == [\"\", \"a\"]\n\n    def test_multiple_newlines(self):\n        assert split_unquoted_newlines(\"a\\n\\nb\") == [\"a\", \"\", \"b\"]\n\n    def test_newline_inside_single_quotes(self):\n        assert split_unquoted_newlines(\"'a\\nb'\") == [\"'a\\nb'\"]\n\n    def test_newline_inside_double_quotes(self):\n        assert split_unquoted_newlines('\"a\\nb\"') == ['\"a\\nb\"']\n\n    def test_mixed_quoted_and_unquoted(self):\n        result = split_unquoted_newlines(\"a 'x\\ny'\\nb\")\n        assert result == [\"a 'x\\ny'\", \"b\"]\n\n    def test_escaped_quote_inside_string(self):\n        # the backslash escape keeps the quote inside the string\n        result = split_unquoted_newlines(\"'a\\\\'b\\nc'\")\n        assert result == [\"'a\\\\'b\\nc'\"]\n\n    def test_non_str_input_is_converted(self):\n        class FakeStmt:\n            def __str__(self):\n                return \"a\\nb\"\n\n        assert split_unquoted_newlines(FakeStmt()) == [\"a\", \"b\"]\n\n    def test_multiple_lines_with_strings(self):\n        text = \"SELECT '\\n'\\nFROM t\"\n        assert split_unquoted_newlines(text) == [\"SELECT '\\n'\", \"FROM t\"]\n\n\n# ---------------------------------------------------------------- remove_quotes\n\nclass TestRemoveQuotes:\n    def test_none_returns_none(self):\n        assert remove_quotes(None) is None\n\n    def test_empty_string_raises_index_error(self):\n        # val[0] is accessed unconditionally, so empty string raises\n        with pytest.raises(IndexError):\n            remove_quotes(\"\")\n\n    def test_no_quotes(self):\n        assert remove_quotes(\"abc\") == \"abc\"\n\n    def test_double_quotes(self):\n        assert remove_quotes('\"abc\"') == \"abc\"\n\n    def test_single_quotes(self):\n        assert remove_quotes(\"'abc'\") == \"abc\"\n\n    def test_backticks(self):\n        assert remove_quotes(\"`abc`\") == \"abc\"\n\n    def test_unmatched_quotes(self):\n        assert remove_quotes('\"abc') == '\"abc'\n\n    def test_mismatched_quotes(self):\n        assert remove_quotes('\"abc\\'') == '\"abc\\''\n\n    def test_only_quotes(self):\n        assert remove_quotes('\"\"') == \"\"\n\n    def test_single_char(self):\n        # val[0] == val[-1] for single char, so it strips to empty\n        assert remove_quotes('\"') == \"\"\n\n    def test_plain_quote_char_in_middle(self):\n        assert remove_quotes('a\"b') == 'a\"b'\n\n\n# ---------------------------------------------------------------- recurse\n\nclass FakeGroup:\n    \"\"\"Minimal token-like object supporting get_sublists.\"\"\"\n    def __init__(self, cls, sublists=None):\n        self.cls = cls\n        self._sublists = sublists or []\n        self.calls = 0\n\n    def get_sublists(self):\n        return self._sublists\n\n\nclass Excluded(FakeGroup):\n    pass\n\n\nclass TestRecurse:\n    def test_recurse_applies_to_sublists(self):\n        leaf1 = FakeGroup(\"Leaf\")\n        leaf2 = FakeGroup(\"Leaf\")\n        parent = FakeGroup(\"Parent\", [leaf1, leaf2])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        assert seen == [leaf1, leaf2, parent]\n\n    def test_recurse_skips_excluded_class(self):\n        # When a sublist is an instance of an excluded class, it is neither\n        # recursed into nor passed to f. Only the deepest non-excluded\n        # nodes and the top-level object are visited.\n        leaf = FakeGroup(\"Leaf\")\n        deepest = FakeGroup(\"Deepest\")\n        excluded_child = Excluded(\"Excluded\", [deepest])\n        parent = FakeGroup(\"Parent\", [leaf, excluded_child])\n\n        seen = []\n\n        @recurse(Excluded)\n        def f(tlist):\n            seen.append(tlist)\n\n        f(parent)\n\n        # excluded_child is skipped entirely (not recursed, not visited),\n        # so neither excluded_child nor deepest appears in seen.\n        assert seen == [leaf, parent]\n\n    def test_recurse_nested(self):\n        deepest = FakeGroup(\"Deep\")\n        mid = FakeGroup(\"Mid\", [deepest])\n        top = FakeGroup(\"Top\", [mid])\n\n        seen = []\n\n        @recurse()\n        def f(tlist):\n            seen.append(tlist)\n\n        f(top)\n        assert seen == [deepest, mid, top]\n\n    def test_recurse_returns_decorated_function(self):\n        @recurse()\n        def f(tlist):\n            pass\n\n        assert callable(f)\n\n\n# ---------------------------------------------------------------- imt\n\nclass FakeToken:\n    def __init__(self, ttype=None, match_result=False):\n        self.ttype = ttype\n        self._match_result = match_result\n\n    def match(self, *args):\n        return self._match_result\n\n\nclass TType:\n    # Simulate enum-like token types; `in` operations on TType iterate its\n    # members. We model that by making TType a container with a single\n    # member (itself), so `ttype in ttype` -> True and `other in ttype` -> False.\n    def __init__(self, name):\n        self.name = name\n\n    def __contains__(self, item):\n        return item is self\n\n    def __iter__(self):\n        yield self\n\n    def __repr__(self):\n        return f\"TType({self.name})\"\n\n\nclass TestImt:\n    def test_none_token_returns_false(self):\n        assert imt(None, i=int) is False\n\n    def test_instance_match(self):\n        token = FakeToken()\n        assert imt(token, i=FakeToken) is True\n\n    def test_instance_no_match(self):\n        token = FakeToken()\n        assert imt(token, i=str) is False\n\n    def test_instance_tuple(self):\n        token = FakeToken()\n        assert imt(token, i=(str, FakeToken)) is True\n\n    def test_match_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=(\"anything\",)) is True\n\n    def test_match_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=(\"anything\",)) is False\n\n    def test_match_list_true(self):\n        token = FakeToken(match_result=True)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is True\n\n    def test_match_list_false(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, m=[(\"a\",), (\"b\",)]) is False\n\n    def test_ttype_single(self):\n        tt = TType(\"A\")\n        token = FakeToken(ttype=tt)\n        # single-item branch: token.ttype in t -> tt in tt -> True\n        assert imt(token, t=tt) is True\n\n    def test_ttype_single_no_match(self):\n        token = FakeToken(ttype=TType(\"A\"))\n        other = TType(\"B\")\n        # token.ttype in other -> False\n        assert imt(token, t=other) is False\n\n    def test_ttype_list(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=a)\n        # list branch: any(token.ttype in ttype for ttype in t)\n        assert imt(token, t=[a, b]) is True\n\n    def test_ttype_list_no_match(self):\n        a = TType(\"A\")\n        b = TType(\"B\")\n        token = FakeToken(ttype=TType(\"C\"))\n        assert imt(token, t=[a, b]) is False\n\n    def test_no_criteria_returns_false(self):\n        token = FakeToken()\n        assert imt(token) is False\n\n    def test_instance_precedence_over_match(self):\n        token = FakeToken(match_result=False)\n        assert imt(token, i=FakeToken, m=(\"x\",)) is True\n\n\n# ---------------------------------------------------------------- consume\n\nclass TestConsume:\n    def test_consume_n(self):\n        it = iter([1, 2, 3, 4])\n        consume(it, 2)\n        assert list(it) == [3, 4]\n\n    def test_consume_all_none(self):\n        it = iter([1, 2, 3])\n        consume(it, None)\n        assert list(it) == []\n\n    def test_consume_more_than_available(self):\n        it = iter([1, 2])\n        consume(it, 10)\n        assert list(it) == []\n\n    def test_consume_zero(self):\n        it = iter([1, 2, 3])\n        consume(it, 0)\n        assert list(it) == [1, 2, 3]\n\n    def test_consume_negative(self):\n        # islice with negative stop raises ValueError\n        it = iter([1, 2, 3])\n        with pytest.raises(ValueError):\n            consume(it, -1)\n\n\n# ---------------------------------------------------------------- offset\n\nclass FilterStub:\n    def __init__(self, offset_val=0):\n        self.offset = offset_val\n\n\nclass TestOffset:\n    def test_offset_increases_within_context(self):\n        f = FilterStub(offset_val=5)\n        with offset(f, 3):\n            assert f.offset == 8\n        assert f.offset == 5\n\n    def test_offset_default_n(self):\n        f = FilterStub(offset_val=1)\n        with offset(f):\n            assert f.offset == 1\n        assert f.offset == 1\n\n    def test_offset_not_restored_on_exception(self):\n        # the contextmanager has no try/finally, so on exception the\n        # decrement line is skipped and the offset stays increased.\n        f = FilterStub(offset_val=2)\n        with pytest.raises(RuntimeError):\n            with offset(f, 4):\n                assert f.offset == 6\n                raise RuntimeError(\"boom\")\n        assert f.offset == 6\n\n\n# ---------------------------------------------------------------- indent\n\nclass TestIndent:\n    def test_indent_increases_within_context(self):\n        f = FilterStub()\n        f.indent = 0\n        with indent(f):\n            assert f.indent == 1\n        assert f.indent == 0\n\n    def test_indent_custom_n(self):\n        f = FilterStub()\n        f.indent = 5\n        with indent(f, 3):\n            assert f.indent == 8\n        assert f.indent == 5\n\n    def test_indent_not_restored_on_exception(self):\n        # the contextmanager has no try/finally, so on exception the\n        # decrement line is skipped and the indent stays increased.\n        f = FilterStub()\n        f.indent = 1\n        with pytest.raises(ValueError):\n            with indent(f, 2):\n                assert f.indent == 3\n                raise ValueError(\"oops\")\n        assert f.indent == 3\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 4955,
+      "cache_hit_tokens": 2304,
+      "completion_tokens": 2735,
+      "reasoning_tokens": 0,
+      "latency": 7.69
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 3,
+    "at": "2026-10-20T06:09:17+00:00",
+    "duration": 1.22,
+    "summary": "通过 54，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_utils.py"
+          ]
+        },
+        "duration": 1.22,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 20947
+  },
+  {
+    "node": "analyze",
+    "iteration": 3,
+    "at": "2026-10-20T06:09:23+00:00",
+    "duration": 6.05,
+    "summary": "分数 [1, 0.0, 1.0, 1.0, 54]（提升），行覆盖 100.0%，分支覆盖 100.0%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_utils.py"
+          ]
+        },
+        "duration": 3.88,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "sqlparse/utils.py",
+          "tests": [
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_empty_string",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_no_newlines",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_simple_newline",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_crlf",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_cr",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_trailing_newline",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_leading_newline",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_multiple_newlines",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_newline_inside_single_quotes",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_newline_inside_double_quotes",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_mixed_quoted_and_unquoted",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_escaped_quote_inside_string",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_non_str_input_is_converted",
+            "tests_testpilot/test_utils.py::TestSplitUnquotedNewlines::test_multiple_lines_with_strings",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_none_returns_none",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_empty_string_raises_index_error",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_no_quotes",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_double_quotes",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_single_quotes",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_backticks",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_unmatched_quotes",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_mismatched_quotes",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_only_quotes",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_single_char",
+            "tests_testpilot/test_utils.py::TestRemoveQuotes::test_plain_quote_char_in_middle",
+            "tests_testpilot/test_utils.py::TestRecurse::test_recurse_applies_to_sublists",
+            "tests_testpilot/test_utils.py::TestRecurse::test_recurse_skips_excluded_class",
+            "tests_testpilot/test_utils.py::TestRecurse::test_recurse_nested",
+            "tests_testpilot/test_utils.py::TestRecurse::test_recurse_returns_decorated_function",
+            "tests_testpilot/test_utils.py::TestImt::test_none_token_returns_false",
+            "tests_testpilot/test_utils.py::TestImt::test_instance_match",
+            "tests_testpilot/test_utils.py::TestImt::test_instance_no_match",
+            "tests_testpilot/test_utils.py::TestImt::test_instance_tuple",
+            "tests_testpilot/test_utils.py::TestImt::test_match_true",
+            "tests_testpilot/test_utils.py::TestImt::test_match_false",
+            "tests_testpilot/test_utils.py::TestImt::test_match_list_true",
+            "tests_testpilot/test_utils.py::TestImt::test_match_list_false",
+            "tests_testpilot/test_utils.py::TestImt::test_ttype_single",
+            "tests_testpilot/test_utils.py::TestImt::test_ttype_single_no_match",
+            "tests_testpilot/test_utils.py::TestImt::test_ttype_list",
+            "tests_testpilot/test_utils.py::TestImt::test_ttype_list_no_match",
+            "tests_testpilot/test_utils.py::TestImt::test_no_criteria_returns_false",
+            "tests_testpilot/test_utils.py::TestImt::test_instance_precedence_over_match",
+            "tests_testpilot/test_utils.py::TestConsume::test_consume_n",
+            "tests_testpilot/test_utils.py::TestConsume::test_consume_all_none",
+            "tests_testpilot/test_utils.py::TestConsume::test_consume_more_than_available",
+            "tests_testpilot/test_utils.py::TestConsume::test_consume_zero",
+            "tests_testpilot/test_utils.py::TestConsume::test_consume_negative",
+            "tests_testpilot/test_utils.py::TestOffset::test_offset_increases_within_context",
+            "tests_testpilot/test_utils.py::TestOffset::test_offset_default_n",
+            "tests_testpilot/test_utils.py::TestOffset::test_offset_not_restored_on_exception",
+            "tests_testpilot/test_utils.py::TestIndent::test_indent_increases_within_context",
+            "tests_testpilot/test_utils.py::TestIndent::test_indent_custom_n",
+            "tests_testpilot/test_utils.py::TestIndent::test_indent_not_restored_on_exception"
+          ]
+        },
+        "duration": 2.18,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 20947,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      1.0,
+      54
+    ],
+    "coverage": {
+      "target": "sqlparse/utils.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 62,
+      "branches": 34,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 54,
+      "valid": 54,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 3,
+    "at": "2026-10-20T06:09:23+00:00",
+    "duration": 0.0,
+    "summary": "全部测试有效，且行与分支全部覆盖",
+    "tool_calls": [],
+    "tokens_total": 20947
+  },
+  {
+    "node": "finalize",
+    "iteration": 3,
+    "at": "2026-10-20T06:09:23+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试有效，且行与分支全部覆盖；采用第 3 轮，分数 [1, 0.0, 1.0, 1.0, 54]",
+    "tool_calls": [],
+    "tokens_total": 20947,
+    "best_iteration": 3
+  }
+]

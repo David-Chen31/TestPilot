@@ -1,0 +1,169 @@
+{
+  "target": "sqlparse/lexer.py",
+  "validity": {
+    "total": 32,
+    "valid": 32,
+    "valid_ids": [
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_returns_generator",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_simple_select",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_empty_string",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_bytes_utf8_default",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_bytes_with_encoding",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_bytes_invalid_utf8_falls_back",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_accepts_file_like",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_type_error_on_other_type",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_default_instance_singleton",
+      "tests_testpilot/test_lexer_s1.py::test_tokenize_uses_default_instance",
+      "tests_testpilot/test_lexer_s1.py::test_clear_empties_configuration",
+      "tests_testpilot/test_lexer_s1.py::test_set_SQL_REGEX_compiles_matchers_case_insensitive",
+      "tests_testpilot/test_lexer_s1.py::test_set_SQL_REGEX_is_unicode",
+      "tests_testpilot/test_lexer_s1.py::test_add_keywords_single_dict",
+      "tests_testpilot/test_lexer_s1.py::test_is_keyword_order_priority",
+      "tests_testpilot/test_lexer_s1.py::test_is_keyword_not_found_returns_name",
+      "tests_testpilot/test_lexer_s1.py::test_is_keyword_case_insensitive_lookup",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_simple",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_error_token_for_unknown_char",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_with_minimal_regex",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_process_as_keyword_returns_name",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_file_like_input",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_bytes_input",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_bad_type_raises",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_string_literal_delimiter_skipped",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_dollar_quoted",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_multiline_comment",
+      "tests_testpilot/test_lexer_s1.py::test_get_tokens_positions_reindex_after_match",
+      "tests_testpilot/test_lexer_s1.py::test_default_initialization_populates",
+      "tests_testpilot/test_lexer_s1.py::test_default_initialization_resets_custom",
+      "tests_testpilot/test_lexer_s1.py::test_default_initialization_recognizes_dialects",
+      "tests_testpilot/test_lexer_s1.py::test_get_default_instance_thread_safe"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.2,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.13,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.11,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 0.9285714285714286,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8441558441558441,
+    "total": 77,
+    "killed": 65,
+    "survived": 12,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 65,
+      "survived": 12
+    },
+    "survivors": [
+      {
+        "line": 53,
+        "original": "cls._default_instance = cls()",
+        "mutated": "cls._default_instance = None",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "text = text.decode('utf-8')",
+        "mutated": "text = text.decode('UTF-8')",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "text = text.decode('unicode-escape')",
+        "mutated": "text = text.decode('UNICODE-ESCAPE')",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "raise TypeError(f\"Expected text or file-like object, got {type(text)!r}\")",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "raise TypeError(f\"Expected text or file-like object, got {type(text)!r}\")",
+        "mutated": "raise TypeError(f\"Expected text or file-like object, got {type(None)!r}\")",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "consume(iterable, end - pos - 1)",
+        "mutated": "consume(iterable, None)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "consume(iterable, end - pos - 1)",
+        "mutated": "consume(iterable, end - pos + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "consume(iterable, end - pos - 1)",
+        "mutated": "consume(iterable, end + pos - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "consume(iterable, end - pos - 1)",
+        "mutated": "consume(iterable, end - pos - 2)",
+        "status": "survived"
+      },
+      {
+        "line": 150,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "return Lexer.get_default_instance().get_tokens(sql, encoding)",
+        "mutated": "return Lexer.get_default_instance().get_tokens(sql, None)",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "return Lexer.get_default_instance().get_tokens(sql, encoding)",
+        "mutated": "return Lexer.get_default_instance().get_tokens(sql, )",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.45,
+    "coverage": 1.98,
+    "mutation": 6.48
+  }
+}

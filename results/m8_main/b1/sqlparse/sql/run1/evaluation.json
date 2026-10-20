@@ -1,0 +1,895 @@
+{
+  "target": "sqlparse/sql.py",
+  "validity": {
+    "total": 146,
+    "valid": 146,
+    "valid_ids": [
+      "tests_testpilot/test_sql.py::TestToken::test_init_basic",
+      "tests_testpilot/test_sql.py::TestToken::test_init_coerces_value_to_str",
+      "tests_testpilot/test_sql.py::TestToken::test_init_keyword_normalized_upper",
+      "tests_testpilot/test_sql.py::TestToken::test_init_whitespace",
+      "tests_testpilot/test_sql.py::TestToken::test_init_newline",
+      "tests_testpilot/test_sql.py::TestToken::test_str_returns_value",
+      "tests_testpilot/test_sql.py::TestToken::test_repr_simple",
+      "tests_testpilot/test_sql.py::TestToken::test_repr_truncates_long_value",
+      "tests_testpilot/test_sql.py::TestToken::test_repr_collapses_whitespace",
+      "tests_testpilot/test_sql.py::TestToken::test_repr_single_quoted_value",
+      "tests_testpilot/test_sql.py::TestToken::test_repr_name_empty_ttype",
+      "tests_testpilot/test_sql.py::TestToken::test_flatten_yields_self",
+      "tests_testpilot/test_sql.py::TestToken::test_match_type_only_true",
+      "tests_testpilot/test_sql.py::TestToken::test_match_type_only_false",
+      "tests_testpilot/test_sql.py::TestToken::test_match_wrong_type_returns_false",
+      "tests_testpilot/test_sql.py::TestToken::test_match_value_string",
+      "tests_testpilot/test_sql.py::TestToken::test_match_value_tuple",
+      "tests_testpilot/test_sql.py::TestToken::test_match_keyword_case_insensitive",
+      "tests_testpilot/test_sql.py::TestToken::test_match_name_case_sensitive",
+      "tests_testpilot/test_sql.py::TestToken::test_match_regex",
+      "tests_testpilot/test_sql.py::TestToken::test_match_regex_string_value",
+      "tests_testpilot/test_sql.py::TestToken::test_has_ancestor",
+      "tests_testpilot/test_sql.py::TestToken::test_within",
+      "tests_testpilot/test_sql.py::TestToken::test_is_child_of",
+      "tests_testpilot/test_sql.py::TestTokenList::test_init_empty",
+      "tests_testpilot/test_sql.py::TestTokenList::test_init_sets_parents",
+      "tests_testpilot/test_sql.py::TestTokenList::test_str_concatenates",
+      "tests_testpilot/test_sql.py::TestTokenList::test_str_uses_flatten",
+      "tests_testpilot/test_sql.py::TestTokenList::test_iter",
+      "tests_testpilot/test_sql.py::TestTokenList::test_getitem",
+      "tests_testpilot/test_sql.py::TestTokenList::test_repr_name",
+      "tests_testpilot/test_sql.py::TestTokenList::test_flatten_nested",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_sublists",
+      "tests_testpilot/test_sql.py::TestTokenList::test_groupable_tokens_default",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_token_at_offset",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_token_at_offset_nested",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_first_skips_ws",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_first_include_ws",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_first_skip_cm",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_first_empty",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next_skip_ws",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next_no_skip_ws",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next_none_idx",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next_end",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_prev",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_prev_none",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next_by_ttype",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next_by_match",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next_by_instance",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_next_by_none",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_not_matching",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_matching",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_index_by_token",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_index_with_start_token",
+      "tests_testpilot/test_sql.py::TestTokenList::test_token_index_with_start_int",
+      "tests_testpilot/test_sql.py::TestTokenList::test_group_tokens",
+      "tests_testpilot/test_sql.py::TestTokenList::test_group_tokens_no_include_end",
+      "tests_testpilot/test_sql.py::TestTokenList::test_group_tokens_extend",
+      "tests_testpilot/test_sql.py::TestTokenList::test_insert_before_index",
+      "tests_testpilot/test_sql.py::TestTokenList::test_insert_before_token",
+      "tests_testpilot/test_sql.py::TestTokenList::test_insert_after_index",
+      "tests_testpilot/test_sql.py::TestTokenList::test_insert_after_end_appends",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_alias_default_none",
+      "tests_testpilot/test_sql.py::TestTokenList::test_has_alias_default_false",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_real_name_default_none",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_name_falls_back_to_real_name",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_parent_name_none",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_parent_name_dot",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_parent_name_removes_quotes",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_first_name_simple",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_first_name_with_idx",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_first_name_reverse",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_first_name_keywords",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_first_name_removes_quotes",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_first_name_wildcard",
+      "tests_testpilot/test_sql.py::TestTokenList::test_get_first_name_none",
+      "tests_testpilot/test_sql.py::TestTokenList::test_pprint_tree",
+      "tests_testpilot/test_sql.py::TestTokenList::test_pprint_tree_nested",
+      "tests_testpilot/test_sql.py::TestTokenList::test_pprint_tree_max_depth",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_real_name_simple",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_real_name_dotted",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_real_name_quoted",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_alias_none",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_alias_as",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_alias_implicit",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_alias_quoted",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_name_prefers_alias",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_get_name_no_alias",
+      "tests_testpilot/test_sql.py::TestNameAliasMixin::test_has_alias",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_is_wildcard_true",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_is_wildcard_false",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_get_typecast",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_get_typecast_none",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_get_ordering",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_get_ordering_none",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_get_array_indices",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_get_array_indices_none",
+      "tests_testpilot/test_sql.py::TestIdentifier::test_get_real_name_nested_identifier",
+      "tests_testpilot/test_sql.py::TestIdentifierList::test_get_identifiers",
+      "tests_testpilot/test_sql.py::TestIdentifierList::test_get_identifiers_empty",
+      "tests_testpilot/test_sql.py::TestStatement::test_get_type_dml",
+      "tests_testpilot/test_sql.py::TestStatement::test_get_type_ddl",
+      "tests_testpilot/test_sql.py::TestStatement::test_get_type_unknown",
+      "tests_testpilot/test_sql.py::TestStatement::test_get_type_empty",
+      "tests_testpilot/test_sql.py::TestStatement::test_get_type_whitespace_only",
+      "tests_testpilot/test_sql.py::TestStatement::test_get_type_skips_leading_ws_and_comments",
+      "tests_testpilot/test_sql.py::TestStatement::test_get_type_with_cte",
+      "tests_testpilot/test_sql.py::TestStatement::test_get_type_cte_no_dml",
+      "tests_testpilot/test_sql.py::TestParenthesis::test_groupable_tokens",
+      "tests_testpilot/test_sql.py::TestParenthesis::test_m_open_m_close",
+      "tests_testpilot/test_sql.py::TestSquareBrackets::test_groupable_tokens",
+      "tests_testpilot/test_sql.py::TestSquareBrackets::test_m_open_m_close",
+      "tests_testpilot/test_sql.py::TestComparison::test_left_right",
+      "tests_testpilot/test_sql.py::TestComment::test_is_multiline_true",
+      "tests_testpilot/test_sql.py::TestComment::test_is_multiline_false",
+      "tests_testpilot/test_sql.py::TestComment::test_is_multiline_empty",
+      "tests_testpilot/test_sql.py::TestClassAttributes::test_typed_literal",
+      "tests_testpilot/test_sql.py::TestClassAttributes::test_if",
+      "tests_testpilot/test_sql.py::TestClassAttributes::test_for",
+      "tests_testpilot/test_sql.py::TestClassAttributes::test_where",
+      "tests_testpilot/test_sql.py::TestClassAttributes::test_over",
+      "tests_testpilot/test_sql.py::TestClassAttributes::test_having",
+      "tests_testpilot/test_sql.py::TestClassAttributes::test_begin",
+      "tests_testpilot/test_sql.py::TestClassAttributes::test_group_subclasses",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_assignment",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_operation",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_values",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_command",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_if",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_for",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_where",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_over",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_having",
+      "tests_testpilot/test_sql.py::TestSimpleGroupInstances::test_begin",
+      "tests_testpilot/test_sql.py::TestCase::test_get_cases_simple",
+      "tests_testpilot/test_sql.py::TestCase::test_get_cases_else",
+      "tests_testpilot/test_sql.py::TestCase::test_get_cases_multiple_when",
+      "tests_testpilot/test_sql.py::TestCase::test_get_cases_empty",
+      "tests_testpilot/test_sql.py::TestFunction::test_get_parameters_no_paren",
+      "tests_testpilot/test_sql.py::TestFunction::test_get_parameters_identifiers",
+      "tests_testpilot/test_sql.py::TestFunction::test_get_parameters_identifier_list",
+      "tests_testpilot/test_sql.py::TestFunction::test_get_parameters_literal",
+      "tests_testpilot/test_sql.py::TestFunction::test_get_window_none",
+      "tests_testpilot/test_sql.py::TestFunction::test_get_window",
+      "tests_testpilot/test_sql.py::TestFunctionAlias::test_function_get_alias"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.57,
+        "passed": 146,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.55,
+        "passed": 146,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.53,
+        "passed": 146,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9882697947214076,
+  "branch_rate": 0.9508196721311475,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.7840909090909091,
+    "total": 528,
+    "killed": 414,
+    "survived": 114,
+    "excluded": 0,
+    "status_counts": {
+      "survived": 114,
+      "killed": 414
+    },
+    "survivors": [
+      {
+        "line": 22,
+        "original": "dot_idx = None",
+        "mutated": "dot_idx = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 24,
+        "original": "if tok.match(T.Punctuation, '.'):",
+        "mutated": "if tok.match(T.Punctuation, None):",
+        "status": "survived"
+      },
+      {
+        "line": 26,
+        "original": "return self._get_first_name(dot_idx, real_name=True)",
+        "mutated": "return self._get_first_name(dot_idx, real_name=None)",
+        "status": "survived"
+      },
+      {
+        "line": 26,
+        "original": "return self._get_first_name(dot_idx, real_name=True)",
+        "mutated": "return self._get_first_name(dot_idx, )",
+        "status": "survived"
+      },
+      {
+        "line": 26,
+        "original": "return self._get_first_name(dot_idx, real_name=True)",
+        "mutated": "return self._get_first_name(dot_idx, real_name=False)",
+        "status": "survived"
+      },
+      {
+        "line": 32,
+        "original": "kw_idx, kw = self.token_next_by(m=(T.Keyword, 'AS'))",
+        "mutated": "kw_idx, kw = self.token_next_by(m=None)",
+        "status": "survived"
+      },
+      {
+        "line": 32,
+        "original": "kw_idx, kw = self.token_next_by(m=(T.Keyword, 'AS'))",
+        "mutated": "kw_idx, kw = self.token_next_by(m=(T.Keyword, 'XXASXX'))",
+        "status": "survived"
+      },
+      {
+        "line": 32,
+        "original": "kw_idx, kw = self.token_next_by(m=(T.Keyword, 'AS'))",
+        "mutated": "kw_idx, kw = self.token_next_by(m=(T.Keyword, 'as'))",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return self._get_first_name(kw_idx + 1, keywords=True)",
+        "mutated": "return self._get_first_name(kw_idx + 1, keywords=None)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return self._get_first_name(kw_idx + 1, keywords=True)",
+        "mutated": "return self._get_first_name(kw_idx + 1, )",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return self._get_first_name(kw_idx + 1, keywords=True)",
+        "mutated": "return self._get_first_name(kw_idx + 2, keywords=True)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return self._get_first_name(kw_idx + 1, keywords=True)",
+        "mutated": "return self._get_first_name(kw_idx + 1, keywords=False)",
+        "status": "survived"
+      },
+      {
+        "line": 38,
+        "original": "if len(self.tokens) > 2 and ws is not None:",
+        "mutated": "if len(self.tokens) > 2 or ws is not None:",
+        "status": "survived"
+      },
+      {
+        "line": 38,
+        "original": "if len(self.tokens) > 2 and ws is not None:",
+        "mutated": "if len(self.tokens) >= 2 and ws is not None:",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = '\"' if value.startswith(\"'\") or value.endswith(\"'\") else \"'\"",
+        "status": "survived"
+      },
+      {
+        "line": 84,
+        "original": "return \"<{cls} {q}{value}{q} at 0x{id:2X}>\".format(",
+        "mutated": "return \"<{cls} {q}{value}{q} at 0x{id:2x}>\".format(",
+        "status": "survived"
+      },
+      {
+        "line": 85,
+        "original": "id=id(self), **locals())",
+        "mutated": "id=id(None), **locals())",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "if len(raw) > 7:",
+        "mutated": "if len(raw) >= 7:",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "if len(raw) > 7:",
+        "mutated": "if len(raw) > 8:",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "def match(self, ttype, values, regex=False):",
+        "mutated": "def match(self, ttype, values, regex=True):",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "flag = re.IGNORECASE if self.is_keyword else 0",
+        "mutated": "flag = re.IGNORECASE if (self.is_keyword) or True else 0",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "flag = re.IGNORECASE if self.is_keyword else 0",
+        "mutated": "flag = re.IGNORECASE if self.is_keyword else 1",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "parent = parent.parent",
+        "mutated": "parent = None",
+        "status": "survived"
+      },
+      {
+        "line": 154,
+        "original": "parent = parent.parent",
+        "mutated": "parent = None",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "def _pprint_tree(self, max_depth=None, depth=0, f=None, _pre=''):",
+        "mutated": "def _pprint_tree(self, max_depth=None, depth=1, f=None, _pre=''):",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "def _pprint_tree(self, max_depth=None, depth=0, f=None, _pre=''):",
+        "mutated": "def _pprint_tree(self, max_depth=None, depth=0, f=None, _pre='XXXX'):",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "last = idx == (token_count - 1)",
+        "mutated": "last = None",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "last = idx == (token_count - 1)",
+        "mutated": "last = idx != (token_count - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "last = idx == (token_count - 1)",
+        "mutated": "last = idx == (token_count + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "last = idx == (token_count - 1)",
+        "mutated": "last = idx == (token_count - 2)",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "pre = '`- ' if last else '|- '",
+        "mutated": "pre = None",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "pre = '`- ' if last else '|- '",
+        "mutated": "pre = '`- ' if (last) and False else '|- '",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "pre = '`- ' if last else '|- '",
+        "mutated": "pre = '`- ' if (last) or True else '|- '",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "pre = '`- ' if last else '|- '",
+        "mutated": "pre = 'XX`- XX' if last else '|- '",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "pre = '`- ' if last else '|- '",
+        "mutated": "pre = '`- ' if last else 'XX|- XX'",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = None",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = '\"' if (value.startswith(\"'\") and value.endswith(\"'\")) and False else \"'\"",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = '\"' if (value.startswith(\"'\") and value.endswith(\"'\")) or True else \"'\"",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = 'XX\"XX' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = '\"' if value.startswith(\"'\") or value.endswith(\"'\") else \"'\"",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = '\"' if value.startswith(\"XX'XX\") and value.endswith(\"'\") else \"'\"",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = '\"' if value.startswith(\"'\") and value.endswith(None) else \"'\"",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = '\"' if value.startswith(\"'\") and value.endswith(\"XX'XX\") else \"'\"",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"'\"",
+        "mutated": "q = '\"' if value.startswith(\"'\") and value.endswith(\"'\") else \"XX'XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 200,
+        "original": "print(f\"{_pre}{pre}{idx} {cls} {q}{value}{q}\", file=f)",
+        "mutated": "print(f\"{_pre}{pre}{idx} {cls} {q}{value}{q}\", file=None)",
+        "status": "survived"
+      },
+      {
+        "line": 200,
+        "original": "print(f\"{_pre}{pre}{idx} {cls} {q}{value}{q}\", file=f)",
+        "mutated": "print(f\"{_pre}{pre}{idx} {cls} {q}{value}{q}\", )",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "parent_pre = '   ' if last else '|  '",
+        "mutated": "parent_pre = '   ' if (last) and False else '|  '",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "parent_pre = '   ' if last else '|  '",
+        "mutated": "parent_pre = '   ' if (last) or True else '|  '",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "parent_pre = '   ' if last else '|  '",
+        "mutated": "parent_pre = 'XX   XX' if last else '|  '",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "parent_pre = '   ' if last else '|  '",
+        "mutated": "parent_pre = '   ' if last else 'XX|  XX'",
+        "status": "survived"
+      },
+      {
+        "line": 204,
+        "original": "token._pprint_tree(max_depth, depth + 1, f, _pre + parent_pre)",
+        "mutated": "token._pprint_tree(None, depth + 1, f, _pre + parent_pre)",
+        "status": "survived"
+      },
+      {
+        "line": 204,
+        "original": "token._pprint_tree(max_depth, depth + 1, f, _pre + parent_pre)",
+        "mutated": "token._pprint_tree(max_depth, None, f, _pre + parent_pre)",
+        "status": "survived"
+      },
+      {
+        "line": 204,
+        "original": "token._pprint_tree(max_depth, depth + 1, f, _pre + parent_pre)",
+        "mutated": "token._pprint_tree(max_depth, depth + 1, None, _pre + parent_pre)",
+        "status": "survived"
+      },
+      {
+        "line": 204,
+        "original": "token._pprint_tree(max_depth, depth + 1, f, _pre + parent_pre)",
+        "mutated": "token._pprint_tree(max_depth, depth + 1, f, None)",
+        "status": "survived"
+      },
+      {
+        "line": 204,
+        "original": "token._pprint_tree(max_depth, depth + 1, f, _pre + parent_pre)",
+        "mutated": "token._pprint_tree(max_depth, depth + 1, f, )",
+        "status": "survived"
+      },
+      {
+        "line": 204,
+        "original": "token._pprint_tree(max_depth, depth + 1, f, _pre + parent_pre)",
+        "mutated": "token._pprint_tree(max_depth, depth - 1, f, _pre + parent_pre)",
+        "status": "survived"
+      },
+      {
+        "line": 204,
+        "original": "token._pprint_tree(max_depth, depth + 1, f, _pre + parent_pre)",
+        "mutated": "token._pprint_tree(max_depth, depth + 2, f, _pre + parent_pre)",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "indexes = range(start - 2, -1, -1)",
+        "mutated": "indexes = range(start - 2, -1, -2)",
+        "status": "survived"
+      },
+      {
+        "line": 257,
+        "original": "def token_first(self, skip_ws=True, skip_cm=False):",
+        "mutated": "def token_first(self, skip_ws=True, skip_cm=True):",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm and imt(tk, t=None, i=Comment)))",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm and imt(tk, i=Comment)))",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "return self._token_matching(lambda tk: imt(tk, i, m, t), idx, end)",
+        "mutated": "return self._token_matching(lambda tk: imt(tk, i, m, t), idx, None)",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "return self._token_matching(lambda tk: imt(tk, i, m, t), idx, end)",
+        "mutated": "return self._token_matching(lambda tk: imt(tk, i, m, t), idx, )",
+        "status": "survived"
+      },
+      {
+        "line": 277,
+        "original": "funcs = (funcs,) if not isinstance(funcs, (list, tuple)) else funcs",
+        "mutated": "funcs = (funcs,) if (not isinstance(funcs, (list, tuple))) or True else funcs",
+        "status": "survived"
+      },
+      {
+        "line": 279,
+        "original": "return self._token_matching(funcs, idx)",
+        "mutated": "return self._token_matching(funcs, )",
+        "status": "survived"
+      },
+      {
+        "line": 282,
+        "original": "return self._token_matching(funcs, idx)[1]",
+        "mutated": "return self._token_matching(funcs, )[1]",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "def token_prev(self, idx, skip_ws=True, skip_cm=False):",
+        "mutated": "def token_prev(self, idx, skip_ws=False, skip_cm=False):",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "def token_prev(self, idx, skip_ws=True, skip_cm=False):",
+        "mutated": "def token_prev(self, idx, skip_ws=True, skip_cm=True):",
+        "status": "survived"
+      },
+      {
+        "line": 291,
+        "original": "return self.token_next(idx, skip_ws, skip_cm, _reverse=True)",
+        "mutated": "return self.token_next(idx, None, skip_cm, _reverse=True)",
+        "status": "survived"
+      },
+      {
+        "line": 291,
+        "original": "return self.token_next(idx, skip_ws, skip_cm, _reverse=True)",
+        "mutated": "return self.token_next(idx, skip_ws, None, _reverse=True)",
+        "status": "survived"
+      },
+      {
+        "line": 291,
+        "original": "return self.token_next(idx, skip_ws, skip_cm, _reverse=True)",
+        "mutated": "return self.token_next(idx, skip_cm, _reverse=True)",
+        "status": "survived"
+      },
+      {
+        "line": 291,
+        "original": "return self.token_next(idx, skip_ws, skip_cm, _reverse=True)",
+        "mutated": "return self.token_next(idx, skip_ws, _reverse=True)",
+        "status": "survived"
+      },
+      {
+        "line": 294,
+        "original": "def token_next(self, idx, skip_ws=True, skip_cm=False, _reverse=False):",
+        "mutated": "def token_next(self, idx, skip_ws=True, skip_cm=True, _reverse=False):",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm or imt(tk, t=T.Comment, i=Comment)))",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm and imt(None, t=T.Comment, i=Comment)))",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm and imt(tk, t=None, i=Comment)))",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm and imt(tk, t=T.Comment, i=None)))",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm and imt(t=T.Comment, i=Comment)))",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm and imt(tk, i=Comment)))",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "or (skip_cm and imt(tk, t=T.Comment, i=Comment)))",
+        "mutated": "or (skip_cm and imt(tk, t=T.Comment, )))",
+        "status": "survived"
+      },
+      {
+        "line": 316,
+        "original": "extend=False):",
+        "mutated": "extend=True):",
+        "status": "survived"
+      },
+      {
+        "line": 327,
+        "original": "if extend and isinstance(start, grp_cls):",
+        "mutated": "if extend or isinstance(start, grp_cls):",
+        "status": "survived"
+      },
+      {
+        "line": 332,
+        "original": "del self.tokens[start_idx + 1:end_idx]",
+        "mutated": "del self.tokens[start_idx - 1:end_idx]",
+        "status": "survived"
+      },
+      {
+        "line": 332,
+        "original": "del self.tokens[start_idx + 1:end_idx]",
+        "mutated": "del self.tokens[start_idx + 2:end_idx]",
+        "status": "survived"
+      },
+      {
+        "line": 333,
+        "original": "grp.value += ''.join(token.value for token in subtokens)",
+        "mutated": "grp.value += 'XXXX'.join(token.value for token in subtokens)",
+        "status": "survived"
+      },
+      {
+        "line": 352,
+        "original": "def insert_after(self, where, token, skip_ws=True):",
+        "mutated": "def insert_after(self, where, token, skip_ws=False):",
+        "status": "survived"
+      },
+      {
+        "line": 355,
+        "original": "where = self.token_index(where)",
+        "mutated": "where = None",
+        "status": "survived"
+      },
+      {
+        "line": 356,
+        "original": "nidx, next_ = self.token_next(where, skip_ws=skip_ws)",
+        "mutated": "nidx, next_ = self.token_next(where, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 356,
+        "original": "nidx, next_ = self.token_next(where, skip_ws=skip_ws)",
+        "mutated": "nidx, next_ = self.token_next(where, )",
+        "status": "survived"
+      },
+      {
+        "line": 393,
+        "original": "def _get_first_name(self, idx=None, reverse=False, keywords=False,",
+        "mutated": "def _get_first_name(self, idx=None, reverse=False, keywords=True,",
+        "status": "survived"
+      },
+      {
+        "line": 394,
+        "original": "real_name=False):",
+        "mutated": "real_name=True):",
+        "status": "survived"
+      },
+      {
+        "line": 397,
+        "original": "tokens = self.tokens[idx:] if idx else self.tokens",
+        "mutated": "tokens = self.tokens[idx:] if (idx) or True else self.tokens",
+        "status": "survived"
+      },
+      {
+        "line": 408,
+        "original": "return token.get_real_name() if real_name else token.get_name()",
+        "mutated": "return token.get_real_name() if (real_name) and False else token.get_name()",
+        "status": "survived"
+      },
+      {
+        "line": 408,
+        "original": "return token.get_real_name() if real_name else token.get_name()",
+        "mutated": "return token.get_real_name() if (real_name) or True else token.get_name()",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tidx, token = self.token_next(tidx, skip_ws=True)",
+        "mutated": "tidx, token = self.token_next(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tidx, token = self.token_next(tidx, skip_ws=True)",
+        "mutated": "tidx, token = self.token_next(tidx, )",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tidx, token = self.token_next(tidx, skip_ws=True)",
+        "mutated": "tidx, token = self.token_next(tidx, skip_ws=False)",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "tidx, token = self.token_next(tidx, skip_ws=True)",
+        "mutated": "tidx, token = self.token_next(tidx, )",
+        "status": "survived"
+      },
+      {
+        "line": 465,
+        "original": "nidx, next_ = self.token_next(midx, skip_ws=False)",
+        "mutated": "nidx, next_ = self.token_next(midx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 465,
+        "original": "nidx, next_ = self.token_next(midx, skip_ws=False)",
+        "mutated": "nidx, next_ = self.token_next(midx, )",
+        "status": "survived"
+      },
+      {
+        "line": 465,
+        "original": "nidx, next_ = self.token_next(midx, skip_ws=False)",
+        "mutated": "nidx, next_ = self.token_next(midx, skip_ws=True)",
+        "status": "survived"
+      },
+      {
+        "line": 491,
+        "original": "if not (token.is_whitespace or token.match(T.Punctuation, ',')):",
+        "mutated": "if not (token.is_whitespace or token.match(T.Punctuation, None)):",
+        "status": "survived"
+      },
+      {
+        "line": 581,
+        "original": "def get_cases(self, skip_ws=False):",
+        "mutated": "def get_cases(self, skip_ws=True):",
+        "status": "survived"
+      },
+      {
+        "line": 587,
+        "original": "VALUE = 2",
+        "mutated": "VALUE = 3",
+        "status": "survived"
+      },
+      {
+        "line": 590,
+        "original": "mode = CONDITION",
+        "mutated": "mode = None",
+        "status": "survived"
+      },
+      {
+        "line": 594,
+        "original": "if token.match(T.Keyword, 'CASE') or (skip_ws and token.ttype in T.Whitespace):",
+        "mutated": "if token.match(T.Keyword, 'case') or (skip_ws and token.ttype in T.Whitespace):",
+        "status": "survived"
+      },
+      {
+        "line": 597,
+        "original": "elif token.match(T.Keyword, 'WHEN'):",
+        "mutated": "elif token.match(T.Keyword, 'when'):",
+        "status": "survived"
+      },
+      {
+        "line": 601,
+        "original": "elif token.match(T.Keyword, 'THEN'):",
+        "mutated": "elif token.match(T.Keyword, 'then'):",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "elif token.match(T.Keyword, 'ELSE'):",
+        "mutated": "elif token.match(T.Keyword, 'else'):",
+        "status": "survived"
+      },
+      {
+        "line": 608,
+        "original": "elif token.match(T.Keyword, 'END'):",
+        "mutated": "elif token.match(T.Keyword, None):",
+        "status": "survived"
+      },
+      {
+        "line": 608,
+        "original": "elif token.match(T.Keyword, 'END'):",
+        "mutated": "elif token.match(T.Keyword, 'end'):",
+        "status": "survived"
+      },
+      {
+        "line": 609,
+        "original": "mode = None",
+        "mutated": "mode = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 613,
+        "original": "ret.append(([], []))",
+        "mutated": "ret.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 646,
+        "original": "return over_clause[1].tokens[-1]",
+        "mutated": "return over_clause[1].tokens[+1]",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.68,
+    "coverage": 2.85,
+    "mutation": 24.22
+  }
+}

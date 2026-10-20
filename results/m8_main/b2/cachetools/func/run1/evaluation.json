@@ -1,0 +1,132 @@
+{
+  "target": "src/cachetools/func.py",
+  "validity": {
+    "total": 43,
+    "valid": 43,
+    "valid_ids": [
+      "tests_testpilot/test_func.py::test_default_maxsize",
+      "tests_testpilot/test_func.py::test_explicit_maxsize",
+      "tests_testpilot/test_func.py::test_typed_flag",
+      "tests_testpilot/test_func.py::test_typed_flag_reuses_same_types",
+      "tests_testpilot/test_func.py::test_untyped_flag_merges_equal_values",
+      "tests_testpilot/test_func.py::test_untyped_uses_hashkey",
+      "tests_testpilot/test_func.py::test_typed_uses_typedkey",
+      "tests_testpilot/test_func.py::test_typed_parameters",
+      "tests_testpilot/test_func.py::test_unbound_maxsize_none",
+      "tests_testpilot/test_func.py::test_callable_maxsize_as_decorator",
+      "tests_testpilot/test_func.py::test_callable_maxsize_actual_capacity",
+      "tests_testpilot/test_func.py::test_direct_decorator_with_args",
+      "tests_testpilot/test_func.py::test_cache_info_hits_misses",
+      "tests_testpilot/test_func.py::test_cache_info_unbound",
+      "tests_testpilot/test_func.py::test_cache_clear",
+      "tests_testpilot/test_func.py::test_fifo_eviction_order",
+      "tests_testpilot/test_func.py::test_fifo_exact_eviction",
+      "tests_testpilot/test_func.py::test_lru_eviction_order",
+      "tests_testpilot/test_func.py::test_lru_exact_eviction",
+      "tests_testpilot/test_func.py::test_lfu_eviction_order",
+      "tests_testpilot/test_func.py::test_rr_choice_used",
+      "tests_testpilot/test_func.py::test_rr_choice_param",
+      "tests_testpilot/test_func.py::test_rr_choice_param_bare_decorator",
+      "tests_testpilot/test_func.py::test_rr_choice_param_bare_decorator_eviction",
+      "tests_testpilot/test_func.py::test_rr_choice_default",
+      "tests_testpilot/test_func.py::test_ttl_unbound_uses_unbound_cache",
+      "tests_testpilot/test_func.py::test_ttl_expiry_with_fake_timer",
+      "tests_testpilot/test_func.py::test_ttl_default_ttl_is_600",
+      "tests_testpilot/test_func.py::test_ttl_direct_decorator",
+      "tests_testpilot/test_func.py::test_ttl_callable_maxsize",
+      "tests_testpilot/test_func.py::test_ttl_callable_maxsize_uses_timer_and_capacity",
+      "tests_testpilot/test_func.py::test_ttl_callable_maxsize_capacity_128",
+      "tests_testpilot/test_func.py::test_unbound_ttl_cache_maxsize_property",
+      "tests_testpilot/test_func.py::test_exceptions_not_cached",
+      "tests_testpilot/test_func.py::test_keyword_arguments",
+      "tests_testpilot/test_func.py::test_default_maxsize_when_explicit_zero",
+      "tests_testpilot/test_func.py::test_negative_maxsize",
+      "tests_testpilot/test_func.py::test_ttl_defaults",
+      "tests_testpilot/test_func.py::test_string_arguments_keys",
+      "tests_testpilot/test_func.py::test_internal_cache_capacity_explicit_maxsize",
+      "tests_testpilot/test_func.py::test_bare_decorator_internal_capacity_exact",
+      "tests_testpilot/test_func.py::test_rr_bare_decorator_internal_capacity_exact",
+      "tests_testpilot/test_func.py::test_concurrent_calls_are_consistent"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.65,
+        "passed": 101,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.68,
+        "passed": 101,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.51,
+        "passed": 101,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.9776536312849162,
+    "total": 179,
+    "killed": 175,
+    "survived": 4,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 175,
+      "survived": 4
+    },
+    "survivors": [
+      {
+        "line": 28,
+        "original": "wrapper = cached(cache=cache, key=key, condition=Condition(), info=True)(func)",
+        "mutated": "wrapper = cached(cache=cache, key=key, condition=None, info=True)(func)",
+        "status": "survived"
+      },
+      {
+        "line": 28,
+        "original": "wrapper = cached(cache=cache, key=key, condition=Condition(), info=True)(func)",
+        "mutated": "wrapper = cached(cache=cache, key=key, info=True)(func)",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "return _cache(RRCache(128, choice), 128, typed)(maxsize)",
+        "mutated": "return _cache(RRCache(128, ), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "return _cache(TTLCache(128, ttl, timer), 128, typed)(maxsize)",
+        "mutated": "return _cache(TTLCache(128, ttl, ), 128, typed)(maxsize)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.85,
+    "coverage": 2.64,
+    "mutation": 10.13
+  }
+}

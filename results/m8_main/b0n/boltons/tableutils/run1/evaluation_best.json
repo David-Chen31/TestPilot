@@ -1,0 +1,1045 @@
+{
+  "target": "boltons/tableutils.py",
+  "validity": {
+    "total": 72,
+    "valid": 60,
+    "valid_ids": [
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_basic",
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_maxlen_truncates",
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_maxlen_zero_is_falsy",
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_broken_str_uses_repr",
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_broken_str_and_repr",
+      "tests_testpilot/test_tableutils_s1.py::test_escape_html_basic",
+      "tests_testpilot/test_tableutils_s1.py::test_escape_html_maxlen",
+      "tests_testpilot/test_tableutils_s1.py::test_dict_input_type_check_type",
+      "tests_testpilot/test_tableutils_s1.py::test_dict_input_type_guess_headers_sorted",
+      "tests_testpilot/test_tableutils_s1.py::test_dict_input_type_get_entry",
+      "tests_testpilot/test_tableutils_s1.py::test_dict_input_type_get_entry_seq",
+      "tests_testpilot/test_tableutils_s1.py::test_object_input_type_check_type",
+      "tests_testpilot/test_tableutils_s1.py::test_object_input_type_guess_headers_skips_callables",
+      "tests_testpilot/test_tableutils_s1.py::test_object_input_type_guess_headers_property_raises",
+      "tests_testpilot/test_tableutils_s1.py::test_object_input_type_get_entry_missing_attr",
+      "tests_testpilot/test_tableutils_s1.py::test_list_input_type",
+      "tests_testpilot/test_tableutils_s1.py::test_tuple_input_type",
+      "tests_testpilot/test_tableutils_s1.py::test_namedtuple_input_type",
+      "tests_testpilot/test_tableutils_s1.py::test_table_empty",
+      "tests_testpilot/test_tableutils_s1.py::test_table_init_from_data_with_headers",
+      "tests_testpilot/test_tableutils_s1.py::test_table_init_with_explicit_headers",
+      "tests_testpilot/test_tableutils_s1.py::test_table_getitem",
+      "tests_testpilot/test_tableutils_s1.py::test_table_metadata",
+      "tests_testpilot/test_tableutils_s1.py::test_table_fill_pads_short_rows",
+      "tests_testpilot/test_tableutils_s1.py::test_table_extend",
+      "tests_testpilot/test_tableutils_s1.py::test_table_extend_empty_noop",
+      "tests_testpilot/test_tableutils_s1.py::test_table_extend_none_noop",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_list_guess_headers_none",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_empty_sequence",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_max_depth_zero",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_dict",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_list_of_dicts",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_tuple",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_list_of_tuples",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_namedtuple",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_list_of_namedtuples",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_nested_max_depth",
+      "tests_testpilot/test_tableutils_s1.py::test_from_dict_forced",
+      "tests_testpilot/test_tableutils_s1.py::test_from_list_forced",
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_simple",
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_without_headers",
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_maxlen",
+      "tests_testpilot/test_tableutils_s1.py::test_to_text_empty",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_newlines",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_no_newlines",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_unwrapped",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_vertical",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_orientation_auto_single_row",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_orientation_auto_multi_row",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_invalid_orientation",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_escapes",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_with_metadata_top",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_with_metadata_bottom",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_nested_table",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_no_recursion_depth_one",
+      "tests_testpilot/test_tableutils_s1.py::test_get_cell_html_override",
+      "tests_testpilot/test_tableutils_s1.py::test_set_width_from_data_no_headers",
+      "tests_testpilot/test_tableutils_s1.py::test_fill_no_width",
+      "tests_testpilot/test_tableutils_s1.py::test_fill_pads",
+      "tests_testpilot/test_tableutils_s1.py::test_fill_no_pad_when_long_enough"
+    ],
+    "invalid": {
+      "tests_testpilot/test_tableutils_s1.py::test_input_type_get_entry_seq": "run 1: failed: AttributeError: 'InputType' object has no attribute 'get_entry'",
+      "tests_testpilot/test_tableutils_s1.py::test_table_with_headers": "run 1: failed: AssertionError: assert 0 == 2",
+      "tests_testpilot/test_tableutils_s1.py::test_table_width_from_data": "run 1: failed: assert [[4, 5, None]] == [[1, 2, 3], [4, 5, None]]",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_list_of_lists": "run 1: failed: AssertionError: assert [['h1', 'h2'], [1, 2]] == [[1, 2]]",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_scalar": "run 1: failed: assert [] == [[42]]",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_scalar_string": "run 1: failed: boltons.tableutils.UnsupportedData: unsupported data type <class 'str'>",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_object": "run 1: failed: AssertionError: assert ['__dict__', ...__', 'x', 'y'] == ['x', 'y']",
+      "tests_testpilot/test_tableutils_s1.py::test_from_data_unsupported": "run 1: failed: Failed: DID NOT RAISE UnsupportedData",
+      "tests_testpilot/test_tableutils_s1.py::test_from_object_forced": "run 1: failed: AssertionError: assert ['__dict__', ...akref__', 'a'] == ['a']",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_horizontal": "run 1: failed: AssertionError: assert '<thead>' in '<table>\\n<tr><th>a</th><td>1</td></tr>\\n<tr><th>b</th><td>2</td></tr>\\n</table>'",
+      "tests_testpilot/test_tableutils_s1.py::test_to_html_without_headers": "run 1: failed: AssertionError: assert '<td>1</td>' in '<table>\\n<tr><th>1</th><td></td></tr>\\n</table>'",
+      "tests_testpilot/test_tableutils_s1.py::test_set_width_reset": "run 1: failed: AssertionError: assert 0 == 2"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.37,
+        "passed": 60,
+        "failed": 12,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.59,
+        "passed": 60,
+        "failed": 12,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.45,
+        "passed": 60,
+        "failed": 12,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9411764705882353,
+  "branch_rate": 0.8636363636363636,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.6710239651416122,
+    "total": 459,
+    "killed": 308,
+    "survived": 151,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 308,
+      "survived": 136,
+      "no tests": 15
+    },
+    "survivors": [
+      {
+        "line": 91,
+        "original": "text = str(object.__repr__(obj))",
+        "mutated": "text = str(object.__repr__(None))",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "return html_escape(text, quote=True)",
+        "mutated": "return html_escape(text, )",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "return [self.get_entry(entry, headers) for entry in data_seq]",
+        "mutated": "return [self.get_entry(None, headers) for entry in data_seq]",
+        "status": "no tests"
+      },
+      {
+        "line": 118,
+        "original": "return [self.get_entry(entry, headers) for entry in data_seq]",
+        "mutated": "return [self.get_entry(entry, None) for entry in data_seq]",
+        "status": "no tests"
+      },
+      {
+        "line": 118,
+        "original": "return [self.get_entry(entry, headers) for entry in data_seq]",
+        "mutated": "return [self.get_entry(headers) for entry in data_seq]",
+        "status": "no tests"
+      },
+      {
+        "line": 118,
+        "original": "return [self.get_entry(entry, headers) for entry in data_seq]",
+        "mutated": "return [self.get_entry(entry, ) for entry in data_seq]",
+        "status": "no tests"
+      },
+      {
+        "line": 137,
+        "original": "return type(obj) not in _DNR and hasattr(obj, '__class__')",
+        "mutated": "return type(obj) not in _DNR and hasattr(None, '__class__')",
+        "status": "survived"
+      },
+      {
+        "line": 206,
+        "original": "return [[getattr(obj, h, None) for h in headers] for obj in obj_seq]",
+        "mutated": "return [[getattr(obj, h, ) for h in headers] for obj in obj_seq]",
+        "status": "survived"
+      },
+      {
+        "line": 265,
+        "original": "headers = []",
+        "mutated": "headers = None",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "def _set_width(self, reset=False):",
+        "mutated": "def _set_width(self, reset=True):",
+        "status": "survived"
+      },
+      {
+        "line": 287,
+        "original": "self._width = 0",
+        "mutated": "self._width = None",
+        "status": "survived"
+      },
+      {
+        "line": 287,
+        "original": "self._width = 0",
+        "mutated": "self._width = 1",
+        "status": "survived"
+      },
+      {
+        "line": 293,
+        "original": "self._width = max([len(d) for d in self._data], default=0)",
+        "mutated": "self._width = max([len(d) for d in self._data], default=None)",
+        "status": "survived"
+      },
+      {
+        "line": 293,
+        "original": "self._width = max([len(d) for d in self._data], default=0)",
+        "mutated": "self._width = max([len(d) for d in self._data], )",
+        "status": "survived"
+      },
+      {
+        "line": 293,
+        "original": "self._width = max([len(d) for d in self._data], default=0)",
+        "mutated": "self._width = max([len(d) for d in self._data], default=1)",
+        "status": "survived"
+      },
+      {
+        "line": 301,
+        "original": "if rem > 0:",
+        "mutated": "if rem >= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 306,
+        "original": "def from_dict(cls, data, headers=_MISSING, max_depth=1, metadata=None):",
+        "mutated": "def from_dict(cls, data, headers=_MISSING, max_depth=2, metadata=None):",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "max_depth=max_depth, _data_type=DictInputType(),",
+        "mutated": "max_depth=max_depth, _data_type=None,",
+        "status": "survived"
+      },
+      {
+        "line": 313,
+        "original": "metadata=metadata)",
+        "mutated": "metadata=None)",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "return cls.from_data(data=data, headers=headers,\n                         max_depth=max_depth, _data_type=DictInputType(),",
+        "mutated": "return cls.from_data(data=data, max_depth=max_depth, _data_type=DictInputType(),",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "max_depth=max_depth, _data_type=DictInputType(),",
+        "mutated": "_data_type=DictInputType(),",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "max_depth=max_depth, _data_type=DictInputType(),\n                         metadata=metadata)",
+        "mutated": "max_depth=max_depth, metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 313,
+        "original": "metadata=metadata)",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 316,
+        "original": "def from_list(cls, data, headers=_MISSING, max_depth=1, metadata=None):",
+        "mutated": "def from_list(cls, data, headers=_MISSING, max_depth=2, metadata=None):",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return cls.from_data(data=data, headers=headers,",
+        "mutated": "return cls.from_data(data=data, headers=None,",
+        "status": "survived"
+      },
+      {
+        "line": 322,
+        "original": "max_depth=max_depth, _data_type=ListInputType(),",
+        "mutated": "max_depth=max_depth, _data_type=None,",
+        "status": "survived"
+      },
+      {
+        "line": 323,
+        "original": "metadata=metadata)",
+        "mutated": "metadata=None)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return cls.from_data(data=data, headers=headers,\n                         max_depth=max_depth, _data_type=ListInputType(),",
+        "mutated": "return cls.from_data(data=data, max_depth=max_depth, _data_type=ListInputType(),",
+        "status": "survived"
+      },
+      {
+        "line": 322,
+        "original": "max_depth=max_depth, _data_type=ListInputType(),",
+        "mutated": "_data_type=ListInputType(),",
+        "status": "survived"
+      },
+      {
+        "line": 322,
+        "original": "max_depth=max_depth, _data_type=ListInputType(),\n                         metadata=metadata)",
+        "mutated": "max_depth=max_depth, metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 323,
+        "original": "metadata=metadata)",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 326,
+        "original": "def from_object(cls, data, headers=_MISSING, max_depth=1, metadata=None):",
+        "mutated": "def from_object(cls, data, headers=_MISSING, max_depth=2, metadata=None):",
+        "status": "no tests"
+      },
+      {
+        "line": 332,
+        "original": "return cls.from_data(data=data, headers=headers,",
+        "mutated": "return cls.from_data(data=None, headers=headers,",
+        "status": "no tests"
+      },
+      {
+        "line": 332,
+        "original": "return cls.from_data(data=data, headers=headers,",
+        "mutated": "return cls.from_data(data=data, headers=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 333,
+        "original": "max_depth=max_depth, _data_type=ObjectInputType(),",
+        "mutated": "max_depth=None, _data_type=ObjectInputType(),",
+        "status": "no tests"
+      },
+      {
+        "line": 333,
+        "original": "max_depth=max_depth, _data_type=ObjectInputType(),",
+        "mutated": "max_depth=max_depth, _data_type=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 334,
+        "original": "metadata=metadata)",
+        "mutated": "metadata=None)",
+        "status": "no tests"
+      },
+      {
+        "line": 332,
+        "original": "return cls.from_data(data=data, headers=headers,",
+        "mutated": "return cls.from_data(headers=headers,",
+        "status": "no tests"
+      },
+      {
+        "line": 332,
+        "original": "return cls.from_data(data=data, headers=headers,\n                         max_depth=max_depth, _data_type=ObjectInputType(),",
+        "mutated": "return cls.from_data(data=data, max_depth=max_depth, _data_type=ObjectInputType(),",
+        "status": "no tests"
+      },
+      {
+        "line": 333,
+        "original": "max_depth=max_depth, _data_type=ObjectInputType(),",
+        "mutated": "_data_type=ObjectInputType(),",
+        "status": "no tests"
+      },
+      {
+        "line": 333,
+        "original": "max_depth=max_depth, _data_type=ObjectInputType(),\n                         metadata=metadata)",
+        "mutated": "max_depth=max_depth, metadata=metadata)",
+        "status": "no tests"
+      },
+      {
+        "line": 334,
+        "original": "metadata=metadata)",
+        "mutated": ")",
+        "status": "no tests"
+      },
+      {
+        "line": 337,
+        "original": "def from_data(cls, data, headers=_MISSING, max_depth=1, **kwargs):",
+        "mutated": "def from_data(cls, data, headers=_MISSING, max_depth=2, **kwargs):",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "metadata = kwargs.pop('metadata', None)",
+        "mutated": "metadata = None",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "metadata = kwargs.pop('metadata', None)",
+        "mutated": "metadata = kwargs.pop(None, None)",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "metadata = kwargs.pop('metadata', None)",
+        "mutated": "metadata = kwargs.pop('XXmetadataXX', None)",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "metadata = kwargs.pop('metadata', None)",
+        "mutated": "metadata = kwargs.pop('METADATA', None)",
+        "status": "survived"
+      },
+      {
+        "line": 361,
+        "original": "_data_type = kwargs.pop('_data_type', None)",
+        "mutated": "_data_type = None",
+        "status": "survived"
+      },
+      {
+        "line": 361,
+        "original": "_data_type = kwargs.pop('_data_type', None)",
+        "mutated": "_data_type = kwargs.pop(None, None)",
+        "status": "survived"
+      },
+      {
+        "line": 361,
+        "original": "_data_type = kwargs.pop('_data_type', None)",
+        "mutated": "_data_type = kwargs.pop('XX_data_typeXX', None)",
+        "status": "survived"
+      },
+      {
+        "line": 361,
+        "original": "_data_type = kwargs.pop('_data_type', None)",
+        "mutated": "_data_type = kwargs.pop('_DATA_TYPE', None)",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "return cls(headers=headers, metadata=metadata)",
+        "mutated": "return cls(headers=None, metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "return cls(headers=headers, metadata=metadata)",
+        "mutated": "return cls(headers=headers, metadata=None)",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "return cls(headers=headers, metadata=metadata)",
+        "mutated": "return cls(metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "return cls(headers=headers, metadata=metadata)",
+        "mutated": "return cls(headers=headers, )",
+        "status": "survived"
+      },
+      {
+        "line": 369,
+        "original": "return cls(headers=headers, metadata=metadata)",
+        "mutated": "return cls(headers=None, metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 369,
+        "original": "return cls(headers=headers, metadata=metadata)",
+        "mutated": "return cls(headers=headers, metadata=None)",
+        "status": "survived"
+      },
+      {
+        "line": 369,
+        "original": "return cls(headers=headers, metadata=metadata)",
+        "mutated": "return cls(metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 369,
+        "original": "return cls(headers=headers, metadata=metadata)",
+        "mutated": "return cls(headers=headers, )",
+        "status": "survived"
+      },
+      {
+        "line": 374,
+        "original": "_data_type = it",
+        "mutated": "_data_type = None",
+        "status": "survived"
+      },
+      {
+        "line": 378,
+        "original": "is_seq = False",
+        "mutated": "is_seq = None",
+        "status": "survived"
+      },
+      {
+        "line": 384,
+        "original": "return cls([[data]], headers=headers, metadata=metadata)",
+        "mutated": "return cls(None, headers=headers, metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 384,
+        "original": "return cls([[data]], headers=headers, metadata=metadata)",
+        "mutated": "return cls([[data]], headers=None, metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 384,
+        "original": "return cls([[data]], headers=headers, metadata=metadata)",
+        "mutated": "return cls([[data]], headers=headers, metadata=None)",
+        "status": "survived"
+      },
+      {
+        "line": 384,
+        "original": "return cls([[data]], headers=headers, metadata=metadata)",
+        "mutated": "return cls(headers=headers, metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 384,
+        "original": "return cls([[data]], headers=headers, metadata=metadata)",
+        "mutated": "return cls([[data]], metadata=metadata)",
+        "status": "survived"
+      },
+      {
+        "line": 384,
+        "original": "return cls([[data]], headers=headers, metadata=metadata)",
+        "mutated": "return cls([[data]], headers=headers, )",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "raise UnsupportedData('unsupported data type %r'\n                                  % type(data))",
+        "mutated": "raise UnsupportedData(None)",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "raise UnsupportedData('unsupported data type %r'\n                                  % type(data))",
+        "mutated": "raise UnsupportedData('unsupported data type %r' / type(data))",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "raise UnsupportedData('unsupported data type %r'",
+        "mutated": "raise UnsupportedData('XXunsupported data type %rXX'",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "raise UnsupportedData('unsupported data type %r'",
+        "mutated": "raise UnsupportedData('UNSUPPORTED DATA TYPE %R'",
+        "status": "survived"
+      },
+      {
+        "line": 393,
+        "original": "% type(data))",
+        "mutated": "% type(None))",
+        "status": "survived"
+      },
+      {
+        "line": 400,
+        "original": "if max_depth > 1:",
+        "mutated": "if max_depth >= 1:",
+        "status": "survived"
+      },
+      {
+        "line": 401,
+        "original": "new_max_depth = max_depth - 1",
+        "mutated": "new_max_depth = max_depth + 1",
+        "status": "survived"
+      },
+      {
+        "line": 401,
+        "original": "new_max_depth = max_depth - 1",
+        "mutated": "new_max_depth = max_depth - 2",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 408,
+        "original": "entries[i][j] = cls.from_data(cell,",
+        "mutated": "entries[i][j] = cls.from_data(None,",
+        "status": "survived"
+      },
+      {
+        "line": 409,
+        "original": "max_depth=new_max_depth)",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 411,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 412,
+        "original": "return cls(entries, headers=headers, metadata=metadata)",
+        "mutated": "return cls(entries, headers=headers, metadata=None)",
+        "status": "survived"
+      },
+      {
+        "line": 412,
+        "original": "return cls(entries, headers=headers, metadata=metadata)",
+        "mutated": "return cls(entries, headers=headers, )",
+        "status": "survived"
+      },
+      {
+        "line": 428,
+        "original": "with_headers=True, with_newlines=True,",
+        "mutated": "with_headers=True, with_newlines=False,",
+        "status": "survived"
+      },
+      {
+        "line": 429,
+        "original": "with_metadata=False, max_depth=1):",
+        "mutated": "with_metadata=True, max_depth=1):",
+        "status": "survived"
+      },
+      {
+        "line": 429,
+        "original": "with_metadata=False, max_depth=1):",
+        "mutated": "with_metadata=False, max_depth=2):",
+        "status": "survived"
+      },
+      {
+        "line": 459,
+        "original": "if with_metadata and self.metadata:",
+        "mutated": "if with_metadata or self.metadata:",
+        "status": "survived"
+      },
+      {
+        "line": 461,
+        "original": "max_depth=max_depth)",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 463,
+        "original": "with_newlines=with_newlines,",
+        "mutated": "with_newlines=None,",
+        "status": "survived"
+      },
+      {
+        "line": 464,
+        "original": "with_metadata=False,",
+        "mutated": "with_metadata=None,",
+        "status": "survived"
+      },
+      {
+        "line": 462,
+        "original": "metadata_html = metadata_table.to_html(with_headers=True,\n                                               with_newlines=with_newlines,",
+        "mutated": "metadata_html = metadata_table.to_html(with_newlines=with_newlines,",
+        "status": "survived"
+      },
+      {
+        "line": 463,
+        "original": "with_newlines=with_newlines,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 464,
+        "original": "with_metadata=False,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 465,
+        "original": "max_depth=max_depth)",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 464,
+        "original": "with_metadata=False,",
+        "mutated": "with_metadata=True,",
+        "status": "survived"
+      },
+      {
+        "line": 468,
+        "original": "lines.append('<br />')",
+        "mutated": "lines.append('XX<br />XX')",
+        "status": "survived"
+      },
+      {
+        "line": 470,
+        "original": "if with_headers and self.headers:",
+        "mutated": "if with_headers or self.headers:",
+        "status": "survived"
+      },
+      {
+        "line": 472,
+        "original": "headers.extend([None] * (self._width - len(self.headers)))",
+        "mutated": "headers.extend([None] * (self._width + len(self.headers)))",
+        "status": "survived"
+      },
+      {
+        "line": 475,
+        "original": "orientation = orientation or 'auto'",
+        "mutated": "orientation = orientation or 'AUTO'",
+        "status": "survived"
+      },
+      {
+        "line": 478,
+        "original": "ol = 'h' if len(self) > 1 else 'v'",
+        "mutated": "ol = 'h' if (len(self) > 1) or True else 'v'",
+        "status": "survived"
+      },
+      {
+        "line": 478,
+        "original": "ol = 'h' if len(self) > 1 else 'v'",
+        "mutated": "ol = 'h' if len(self) >= 1 else 'v'",
+        "status": "survived"
+      },
+      {
+        "line": 480,
+        "original": "self._add_horizontal_html_lines(lines, headers=headers,",
+        "mutated": "self._add_horizontal_html_lines(lines, headers=None,",
+        "status": "survived"
+      },
+      {
+        "line": 486,
+        "original": "raise ValueError(\"expected one of 'auto', 'vertical', or\"\n                         \" 'horizontal', not %r\" % orientation)",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 486,
+        "original": "raise ValueError(\"expected one of 'auto', 'vertical', or\"",
+        "mutated": "raise ValueError(\"XXexpected one of 'auto', 'vertical', orXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 486,
+        "original": "raise ValueError(\"expected one of 'auto', 'vertical', or\"",
+        "mutated": "raise ValueError(\"EXPECTED ONE OF 'AUTO', 'VERTICAL', OR\"",
+        "status": "survived"
+      },
+      {
+        "line": 487,
+        "original": "\" 'horizontal', not %r\" % orientation)",
+        "mutated": "\"XX 'horizontal', not %rXX\" % orientation)",
+        "status": "survived"
+      },
+      {
+        "line": 487,
+        "original": "\" 'horizontal', not %r\" % orientation)",
+        "mutated": "\" 'HORIZONTAL', NOT %R\" % orientation)",
+        "status": "survived"
+      },
+      {
+        "line": 488,
+        "original": "if with_metadata and self.metadata and with_metadata == 'bottom':",
+        "mutated": "if with_metadata and self.metadata or with_metadata == 'bottom':",
+        "status": "survived"
+      },
+      {
+        "line": 488,
+        "original": "if with_metadata and self.metadata and with_metadata == 'bottom':",
+        "mutated": "if with_metadata or self.metadata and with_metadata == 'bottom':",
+        "status": "survived"
+      },
+      {
+        "line": 489,
+        "original": "lines.append('<br />')",
+        "mutated": "lines.append('XX<br />XX')",
+        "status": "survived"
+      },
+      {
+        "line": 489,
+        "original": "lines.append('<br />')",
+        "mutated": "lines.append('<BR />')",
+        "status": "survived"
+      },
+      {
+        "line": 494,
+        "original": "sep = '\\n' if with_newlines else ''",
+        "mutated": "sep = 'XX\\nXX' if with_newlines else ''",
+        "status": "survived"
+      },
+      {
+        "line": 494,
+        "original": "sep = '\\n' if with_newlines else ''",
+        "mutated": "sep = '\\n' if with_newlines else 'XXXX'",
+        "status": "survived"
+      },
+      {
+        "line": 507,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = None",
+        "status": "survived"
+      },
+      {
+        "line": 507,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 1 if (max_depth > 1) and False else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 507,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 1 if (max_depth > 1) or True else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 507,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth + 1 if max_depth > 1 else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 507,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 2 if max_depth > 1 else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 507,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 1 if max_depth >= 1 else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 507,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 1 if max_depth > 2 else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 508,
+        "original": "if max_depth > 1:",
+        "mutated": "if max_depth >= 1:",
+        "status": "survived"
+      },
+      {
+        "line": 508,
+        "original": "if max_depth > 1:",
+        "mutated": "if max_depth > 2:",
+        "status": "survived"
+      },
+      {
+        "line": 509,
+        "original": "new_depth = max_depth - 1",
+        "mutated": "new_depth = None",
+        "status": "survived"
+      },
+      {
+        "line": 509,
+        "original": "new_depth = max_depth - 1",
+        "mutated": "new_depth = max_depth + 1",
+        "status": "survived"
+      },
+      {
+        "line": 509,
+        "original": "new_depth = max_depth - 1",
+        "mutated": "new_depth = max_depth - 2",
+        "status": "survived"
+      },
+      {
+        "line": 514,
+        "original": "_thth.join([esc(h) for h in headers]) +",
+        "mutated": "_thth.join([esc(None) for h in headers]) +",
+        "status": "survived"
+      },
+      {
+        "line": 522,
+        "original": "if max_depth > 1:",
+        "mutated": "if max_depth >= 1:",
+        "status": "survived"
+      },
+      {
+        "line": 522,
+        "original": "if max_depth > 1:",
+        "mutated": "if max_depth > 2:",
+        "status": "survived"
+      },
+      {
+        "line": 523,
+        "original": "_fill_parts = []",
+        "mutated": "_fill_parts = None",
+        "status": "survived"
+      },
+      {
+        "line": 526,
+        "original": "_fill_parts.append(cell.to_html(max_depth=new_depth))",
+        "mutated": "_fill_parts.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 526,
+        "original": "_fill_parts.append(cell.to_html(max_depth=new_depth))",
+        "mutated": "_fill_parts.append(cell.to_html(max_depth=None))",
+        "status": "survived"
+      },
+      {
+        "line": 528,
+        "original": "_fill_parts.append(esc(cell))",
+        "mutated": "_fill_parts.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 528,
+        "original": "_fill_parts.append(esc(cell))",
+        "mutated": "_fill_parts.append(esc(None))",
+        "status": "survived"
+      },
+      {
+        "line": 530,
+        "original": "_fill_parts = [esc(c) for c in row]",
+        "mutated": "_fill_parts = [esc(None) for c in row]",
+        "status": "survived"
+      },
+      {
+        "line": 531,
+        "original": "lines.append(''.join([trtd, _tdtd.join(_fill_parts), _td_tr]))",
+        "mutated": "lines.append('XXXX'.join([trtd, _tdtd.join(_fill_parts), _td_tr]))",
+        "status": "survived"
+      },
+      {
+        "line": 536,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = None",
+        "status": "survived"
+      },
+      {
+        "line": 536,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 1 if (max_depth > 1) and False else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 536,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 1 if (max_depth > 1) or True else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 536,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth + 1 if max_depth > 1 else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 536,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 2 if max_depth > 1 else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 536,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 1 if max_depth >= 1 else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 536,
+        "original": "new_depth = max_depth - 1 if max_depth > 1 else max_depth",
+        "mutated": "new_depth = max_depth - 1 if max_depth > 2 else max_depth",
+        "status": "survived"
+      },
+      {
+        "line": 545,
+        "original": "new_depth = max_depth - 1",
+        "mutated": "new_depth = max_depth + 1",
+        "status": "survived"
+      },
+      {
+        "line": 545,
+        "original": "new_depth = max_depth - 1",
+        "mutated": "new_depth = max_depth - 2",
+        "status": "survived"
+      },
+      {
+        "line": 552,
+        "original": "_fill_parts.append(esc(row[i]))",
+        "mutated": "_fill_parts.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 552,
+        "original": "_fill_parts.append(esc(row[i]))",
+        "mutated": "_fill_parts.append(esc(None))",
+        "status": "survived"
+      },
+      {
+        "line": 573,
+        "original": "text_headers = [to_text(h, maxlen=maxlen) for h in headers]",
+        "mutated": "text_headers = [to_text(h, maxlen=None) for h in headers]",
+        "status": "survived"
+      },
+      {
+        "line": 573,
+        "original": "text_headers = [to_text(h, maxlen=maxlen) for h in headers]",
+        "mutated": "text_headers = [to_text(h, ) for h in headers]",
+        "status": "survived"
+      },
+      {
+        "line": 580,
+        "original": "widths.append(max(cur_widths, default=0))",
+        "mutated": "widths.append(max(cur_widths, default=None))",
+        "status": "survived"
+      },
+      {
+        "line": 580,
+        "original": "widths.append(max(cur_widths, default=0))",
+        "mutated": "widths.append(max(cur_widths, ))",
+        "status": "survived"
+      },
+      {
+        "line": 580,
+        "original": "widths.append(max(cur_widths, default=0))",
+        "mutated": "widths.append(max(cur_widths, default=1))",
+        "status": "survived"
+      },
+      {
+        "line": 582,
+        "original": "lines.append(' | '.join([h.center(widths[i])",
+        "mutated": "lines.append('XX | XX'.join([h.center(widths[i])",
+        "status": "survived"
+      },
+      {
+        "line": 586,
+        "original": "lines.append(' | '.join([cell.center(widths[j])",
+        "mutated": "lines.append('XX | XX'.join([cell.center(widths[j])",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.43,
+    "coverage": 2.25,
+    "mutation": 22.98
+  }
+}

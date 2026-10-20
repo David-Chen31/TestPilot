@@ -1,0 +1,950 @@
+{
+  "target": "sqlparse/filters/reindent.py",
+  "validity": {
+    "total": 68,
+    "valid": 68,
+    "valid_ids": [
+      "tests_testpilot/test_reindent.py::test_default_attributes",
+      "tests_testpilot/test_reindent.py::test_indent_after_first",
+      "tests_testpilot/test_reindent.py::test_custom_attributes",
+      "tests_testpilot/test_reindent.py::test_leading_ws",
+      "tests_testpilot/test_reindent.py::test_nl_default",
+      "tests_testpilot/test_reindent.py::test_nl_with_indent",
+      "tests_testpilot/test_reindent.py::test_nl_with_offset",
+      "tests_testpilot/test_reindent.py::test_nl_negative_offset_clamped",
+      "tests_testpilot/test_reindent.py::test_nl_custom_newline",
+      "tests_testpilot/test_reindent.py::test_process_returns_stmt",
+      "tests_testpilot/test_reindent.py::test_process_first_statement_no_prefix",
+      "tests_testpilot/test_reindent.py::test_process_second_statement_gets_prefix",
+      "tests_testpilot/test_reindent.py::test_process_last_stmt_ending_newline",
+      "tests_testpilot/test_reindent.py::test_reindent_simple_select",
+      "tests_testpilot/test_reindent.py::test_reindent_where",
+      "tests_testpilot/test_reindent.py::test_reindent_inner_join",
+      "tests_testpilot/test_reindent.py::test_split_statements_inside",
+      "tests_testpilot/test_reindent.py::test_split_statements_multiple_dml_one_stmt",
+      "tests_testpilot/test_reindent.py::test_split_kwds_from",
+      "tests_testpilot/test_reindent.py::test_between_and",
+      "tests_testpilot/test_reindent.py::test_parenthesis_subquery",
+      "tests_testpilot/test_reindent.py::test_process_parenthesis_no_open",
+      "tests_testpilot/test_reindent.py::test_process_where_no_where",
+      "tests_testpilot/test_reindent.py::test_identifierlist_wraps_by_default",
+      "tests_testpilot/test_reindent.py::test_identifierlist_wrap_after",
+      "tests_testpilot/test_reindent.py::test_identifierlist_comma_first",
+      "tests_testpilot/test_reindent.py::test_identifierlist_indent_columns",
+      "tests_testpilot/test_reindent.py::test_identifierlist_tab_char",
+      "tests_testpilot/test_reindent.py::test_process_function_sets_last_func",
+      "tests_testpilot/test_reindent.py::test_values_list",
+      "tests_testpilot/test_reindent.py::test_values_comma_first",
+      "tests_testpilot/test_reindent.py::test_case_wrap",
+      "tests_testpilot/test_reindent.py::test_case_compact",
+      "tests_testpilot/test_reindent.py::test_indent_width_custom",
+      "tests_testpilot/test_reindent.py::test_current_line_len_empty",
+      "tests_testpilot/test_reindent.py::test_get_offset_without_parent",
+      "tests_testpilot/test_reindent.py::test_next_token_between_recursion",
+      "tests_testpilot/test_reindent.py::test_next_token_none",
+      "tests_testpilot/test_reindent.py::test_current_line_len_empty_token_value",
+      "tests_testpilot/test_reindent.py::test_current_line_len_empty_token_continue_then_length",
+      "tests_testpilot/test_reindent.py::test_current_line_len_trailing_newline_collapse",
+      "tests_testpilot/test_reindent.py::test_current_line_len_tail_value",
+      "tests_testpilot/test_reindent.py::test_current_line_len_multi_line_no_tail_uses_lines0",
+      "tests_testpilot/test_reindent.py::test_current_line_len_len_lines_gt_two",
+      "tests_testpilot/test_reindent.py::test_current_line_len_falls_through_to_lines0",
+      "tests_testpilot/test_reindent.py::test_next_token_between_and_chain",
+      "tests_testpilot/test_reindent.py::test_split_kwds_prev_whitespace_replaced",
+      "tests_testpilot/test_reindent.py::test_split_kwds_preceding_newline_removed",
+      "tests_testpilot/test_reindent.py::test_split_kwds_carriage_return_prev_removed",
+      "tests_testpilot/test_reindent.py::test_split_statements_prev_whitespace_deleted",
+      "tests_testpilot/test_reindent.py::test_split_statements_target_gets_prefixed",
+      "tests_testpilot/test_reindent.py::test_identifierlist_inside_function_inserts_whitespace",
+      "tests_testpilot/test_reindent.py::test_identifierlist_inside_values_inserts_whitespace",
+      "tests_testpilot/test_reindent.py::test_identifierlist_inside_function_wrap_after_with_last_func",
+      "tests_testpilot/test_reindent.py::test_identifierlist_comma_first_missing_comma",
+      "tests_testpilot/test_reindent.py::test_identifierlist_comma_first_comma_found_branch",
+      "tests_testpilot/test_reindent.py::test_identifierlist_comma_first_inserts_space_after_comma",
+      "tests_testpilot/test_reindent.py::test_between_without_following_keyword",
+      "tests_testpilot/test_reindent.py::test_identifierlist_wrap_boundary_no_break_when_at_limit",
+      "tests_testpilot/test_reindent.py::test_identifierlist_comma_first_places_comma_at_line_start",
+      "tests_testpilot/test_reindent.py::test_values_comma_first_places_newline_before_comma",
+      "tests_testpilot/test_reindent.py::test_identifierlist_indent_columns_tab_char",
+      "tests_testpilot/test_reindent.py::test_values_multiple_tuples_comma_first",
+      "tests_testpilot/test_reindent.py::test_case_compact_no_breaks_inside",
+      "tests_testpilot/test_reindent.py::test_indent_after_first_affects_output",
+      "tests_testpilot/test_reindent.py::test_process_multiple_statements_sequentially",
+      "tests_testpilot/test_reindent.py::test_values_insert_whitespace_after_comma_no_ws",
+      "tests_testpilot/test_reindent.py::test_identifierlist_comma_first_inserts_space_branch"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.24,
+        "passed": 68,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.22,
+        "passed": 68,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.24,
+        "passed": 68,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9949494949494949,
+  "branch_rate": 0.9743589743589743,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.7301587301587301,
+    "total": 513,
+    "killed": 368,
+    "survived": 136,
+    "excluded": 9,
+    "status_counts": {
+      "killed": 368,
+      "survived": 136,
+      "timeout": 9
+    },
+    "survivors": [
+      {
+        "line": 57,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "if len(lines) > 2:",
+        "mutated": "if len(lines) >= 2:",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "if len(lines) > 2:",
+        "mutated": "if len(lines) > 3:",
+        "status": "survived"
+      },
+      {
+        "line": 88,
+        "original": "return self._current_line_len(token) - len(self.char * self.leading_ws)",
+        "mutated": "return self._current_line_len(token) + len(self.char * self.leading_ws)",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('from', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'XXSTRAIGHT_JOIN$XX', 'JOIN$', 'AND', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'straight_join$', 'JOIN$', 'AND', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'join$', 'AND', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'XXANDXX', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'and', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'XXORXX',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'or',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'XXGROUP BYXX', 'ORDER BY', 'UNION', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'group by', 'ORDER BY', 'UNION', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'XXORDER BYXX', 'UNION', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'order by', 'UNION', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'ORDER BY', 'XXUNIONXX', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'ORDER BY', 'union', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'ORDER BY', 'UNION', 'XXVALUESXX',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'ORDER BY', 'UNION', 'values',",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'XXSETXX', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'set', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'between', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'XXEXCEPTXX', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'except', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'EXCEPT', 'XXHAVINGXX', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'EXCEPT', 'having', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'XXLIMITXX')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'limit')",
+        "status": "survived"
+      },
+      {
+        "line": 113,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "if prev_ and prev_.is_whitespace:",
+        "mutated": "if prev_ or prev_.is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "tidx += 1",
+        "mutated": "tidx += 2",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "tidx -= 1",
+        "mutated": "tidx = 1",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "tidx -= 1",
+        "mutated": "tidx -= 2",
+        "status": "survived"
+      },
+      {
+        "line": 137,
+        "original": "tidx += 1",
+        "mutated": "tidx += 2",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "tidx, token = tlist.token_next_by(t=ttypes, idx=tidx)",
+        "mutated": "tidx, token = tlist.token_next_by(t=None, idx=tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "tidx, token = tlist.token_next_by(t=ttypes, idx=tidx)",
+        "mutated": "tidx, token = tlist.token_next_by(idx=tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "tidx, token = tlist.token_next_by(m=(T.Keyword, 'WHERE'))",
+        "mutated": "tidx, token = tlist.token_next_by(m=(T.Keyword, 'where'))",
+        "status": "survived"
+      },
+      {
+        "line": 155,
+        "original": "ttypes = T.Keyword.DML, T.Keyword.DDL",
+        "mutated": "ttypes = None",
+        "status": "survived"
+      },
+      {
+        "line": 156,
+        "original": "_, is_dml_dll = tlist.token_next_by(t=ttypes)",
+        "mutated": "_, is_dml_dll = tlist.token_next_by(t=None)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, 1 if (is_dml_dll) and False else 0):",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, 1 if (is_dml_dll) or True else 0):",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, 2 if is_dml_dll else 0):",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, 1 if is_dml_dll else 1):",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "tlist.tokens.insert(0, self.nl()) if is_dml_dll else None",
+        "mutated": "tlist.tokens.insert(0, self.nl()) if (is_dml_dll) and False else None",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "tlist.tokens.insert(0, self.nl()) if is_dml_dll else None",
+        "mutated": "tlist.tokens.insert(0, self.nl()) if (is_dml_dll) or True else None",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "tlist.tokens.insert(0, self.nl()) if is_dml_dll else None",
+        "mutated": "tlist.tokens.insert(1, self.nl()) if is_dml_dll else None",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "with offset(self, self._get_offset(first) + 1):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "with offset(self, self._get_offset(first) + 1):",
+        "mutated": "with offset(self, self._get_offset(first) - 1):",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "with offset(self, self._get_offset(first) + 1):",
+        "mutated": "with offset(self, self._get_offset(first) + 2):",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "self._process_default(tlist, not is_dml_dll)",
+        "mutated": "self._process_default(tlist, None)",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "self._process_default(tlist, not is_dml_dll)",
+        "mutated": "self._process_default(tlist, )",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "self._process_default(tlist, not is_dml_dll)",
+        "mutated": "self._process_default(tlist, is_dml_dll)",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "self._last_func = tlist[0]",
+        "mutated": "self._last_func = tlist[1]",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "first = next(identifiers[0].flatten())",
+        "mutated": "first = None",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "first = next(identifiers[0].flatten())",
+        "mutated": "first = next(identifiers[1].flatten())",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 1 if (self.char == '\\t') and False else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 1 if (self.char == '\\t') or True else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 2 if self.char == '\\t' else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 1 if self.char != '\\t' else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 1 if self.char == 'XX\\tXX' else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "num_offset = 1 if self.char == '\\t' else self._get_offset(first)",
+        "mutated": "num_offset = 1 if (self.char == '\\t') and False else self._get_offset(first)",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "num_offset = 1 if self.char == '\\t' else self._get_offset(first)",
+        "mutated": "num_offset = 2 if self.char == '\\t' else self._get_offset(first)",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "num_offset = 1 if self.char == '\\t' else self._get_offset(first)",
+        "mutated": "num_offset = 1 if self.char == 'XX\\tXX' else self._get_offset(first)",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "position = 0",
+        "mutated": "position = 1",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position = len(token.value) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position += len(token.value) - 1",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position += len(token.value) + 2",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "if position > (self.wrap_after - self.offset):",
+        "mutated": "if position >= (self.wrap_after - self.offset):",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "adjust = -2",
+        "mutated": "adjust = +2",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "adjust = -2",
+        "mutated": "adjust = -3",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), )",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), skip_ws=True)",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "if (ws is not None\n                                and ws.ttype is not T.Text.Whitespace):",
+        "mutated": "if (ws is not None or ws.ttype is not T.Text.Whitespace):",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "position = 0",
+        "mutated": "position = 1",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(None, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "end_at = self.offset + sum(len(i.value) + 1 for i in identifiers)",
+        "mutated": "end_at = self.offset - sum(len(i.value) + 1 for i in identifiers)",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "end_at = self.offset + sum(len(i.value) + 1 for i in identifiers)",
+        "mutated": "end_at = self.offset + sum(len(i.value) - 1 for i in identifiers)",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "end_at = self.offset + sum(len(i.value) + 1 for i in identifiers)",
+        "mutated": "end_at = self.offset + sum(len(i.value) + 2 for i in identifiers)",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "adjusted_offset = 0",
+        "mutated": "adjusted_offset = 1",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "if (self.wrap_after > 0",
+        "mutated": "if (self.wrap_after > 1",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "and end_at > (self.wrap_after - self.offset)",
+        "mutated": "and end_at >= (self.wrap_after - self.offset)",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "and end_at > (self.wrap_after - self.offset)",
+        "mutated": "and end_at > (self.wrap_after + self.offset)",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "adjusted_offset = -len(self._last_func.value) - 1",
+        "mutated": "adjusted_offset = -len(self._last_func.value) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "adjusted_offset = -len(self._last_func.value) - 1",
+        "mutated": "adjusted_offset = +len(self._last_func.value) - 1",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "adjusted_offset = -len(self._last_func.value) - 1",
+        "mutated": "adjusted_offset = -len(self._last_func.value) - 2",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "with offset(self, adjusted_offset), indent(self):",
+        "mutated": "with offset(self, ), indent(self):",
+        "status": "survived"
+      },
+      {
+        "line": 221,
+        "original": "tlist.insert_before(identifiers[0], self.nl())",
+        "mutated": "tlist.insert_before(identifiers[1], self.nl())",
+        "status": "survived"
+      },
+      {
+        "line": 222,
+        "original": "position = 0",
+        "mutated": "position = 1",
+        "status": "survived"
+      },
+      {
+        "line": 225,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position = len(token.value) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 225,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position -= len(token.value) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 225,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position += len(token.value) - 1",
+        "status": "survived"
+      },
+      {
+        "line": 225,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position += len(token.value) + 2",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "if (self.wrap_after > 0",
+        "mutated": "if (self.wrap_after > 1",
+        "status": "survived"
+      },
+      {
+        "line": 227,
+        "original": "and position > (self.wrap_after - self.offset)):",
+        "mutated": "and position >= (self.wrap_after - self.offset)):",
+        "status": "survived"
+      },
+      {
+        "line": 227,
+        "original": "and position > (self.wrap_after - self.offset)):",
+        "mutated": "and position > (self.wrap_after + self.offset)):",
+        "status": "survived"
+      },
+      {
+        "line": 228,
+        "original": "adjust = 0",
+        "mutated": "adjust = 1",
+        "status": "survived"
+      },
+      {
+        "line": 230,
+        "original": "position = 0",
+        "mutated": "position = 1",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "with offset(self, self._get_offset(tlist[0])):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "with offset(self, self._get_offset(tlist[0])):",
+        "mutated": "with offset(self, self._get_offset(tlist[1])):",
+        "status": "survived"
+      },
+      {
+        "line": 239,
+        "original": "with offset(self, self._get_offset(first)):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 241,
+        "original": "str_cond = ''.join(str(x) for x in cond or [])",
+        "mutated": "str_cond = 'XXXX'.join(str(x) for x in cond or [])",
+        "status": "survived"
+      },
+      {
+        "line": 241,
+        "original": "str_cond = ''.join(str(x) for x in cond or [])",
+        "mutated": "str_cond = ''.join(str(None) for x in cond or [])",
+        "status": "survived"
+      },
+      {
+        "line": 242,
+        "original": "str_value = ''.join(str(x) for x in value)",
+        "mutated": "str_value = 'XXXX'.join(str(x) for x in value)",
+        "status": "survived"
+      },
+      {
+        "line": 242,
+        "original": "str_value = ''.join(str(x) for x in value)",
+        "mutated": "str_value = ''.join(str(None) for x in value)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "end_pos = self.offset + 1 + len(str_cond) + len(str_value)",
+        "mutated": "end_pos = self.offset + 1 + len(str_cond) - len(str_value)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "end_pos = self.offset + 1 + len(str_cond) + len(str_value)",
+        "mutated": "end_pos = self.offset + 1 - len(str_cond) + len(str_value)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "end_pos = self.offset + 1 + len(str_cond) + len(str_value)",
+        "mutated": "end_pos = self.offset - 1 + len(str_cond) + len(str_value)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "end_pos = self.offset + 1 + len(str_cond) + len(str_value)",
+        "mutated": "end_pos = self.offset + 2 + len(str_cond) + len(str_value)",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "if (not self.compact and end_pos > self.wrap_after):",
+        "mutated": "if (not self.compact and end_pos >= self.wrap_after):",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "token = value[0] if cond is None else cond[0]",
+        "mutated": "token = value[0] if (cond is None) and False else cond[0]",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "token = value[0] if cond is None else cond[0]",
+        "mutated": "token = value[0] if (cond is None) or True else cond[0]",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "token = value[0] if cond is None else cond[0]",
+        "mutated": "token = value[1] if cond is None else cond[0]",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "token = value[0] if cond is None else cond[0]",
+        "mutated": "token = value[0] if cond is not None else cond[0]",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "token = value[0] if cond is None else cond[0]",
+        "mutated": "token = value[0] if cond is None else cond[1]",
+        "status": "survived"
+      },
+      {
+        "line": 250,
+        "original": "with offset(self, len(\"WHEN \")):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 252,
+        "original": "end_idx, end = tlist.token_next_by(m=sql.Case.M_CLOSE)",
+        "mutated": "end_idx, end = tlist.token_next_by(m=None)",
+        "status": "survived"
+      },
+      {
+        "line": 253,
+        "original": "if end_idx is not None and not self.compact:",
+        "mutated": "if end_idx is not None or not self.compact:",
+        "status": "survived"
+      },
+      {
+        "line": 253,
+        "original": "if end_idx is not None and not self.compact:",
+        "mutated": "if end_idx is None and not self.compact:",
+        "status": "survived"
+      },
+      {
+        "line": 253,
+        "original": "if end_idx is not None and not self.compact:",
+        "mutated": "if end_idx is not None and self.compact:",
+        "status": "survived"
+      },
+      {
+        "line": 257,
+        "original": "tlist.insert_before(0, self.nl())",
+        "mutated": "tlist.insert_before(1, self.nl())",
+        "status": "survived"
+      },
+      {
+        "line": 265,
+        "original": "adjust = -2",
+        "mutated": "adjust = +2",
+        "status": "survived"
+      },
+      {
+        "line": 265,
+        "original": "adjust = -2",
+        "mutated": "adjust = -3",
+        "status": "survived"
+      },
+      {
+        "line": 266,
+        "original": "offset = self._get_offset(first_token) + adjust",
+        "mutated": "offset = self._get_offset(first_token) - adjust",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "tidx, token = tlist.token_next_by(i=sql.Parenthesis, idx=tidx)",
+        "mutated": "tidx, token = tlist.token_next_by(i=None, idx=tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "tidx, token = tlist.token_next_by(i=sql.Parenthesis, idx=tidx)",
+        "mutated": "tidx, token = tlist.token_next_by(idx=tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 273,
+        "original": "def _process_default(self, tlist, stmts=True):",
+        "mutated": "def _process_default(self, tlist, stmts=False):",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "self._split_statements(tlist) if stmts else None",
+        "mutated": "self._split_statements(tlist) if (stmts) and False else None",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "self._split_statements(tlist) if stmts else None",
+        "mutated": "self._split_statements(tlist) if (stmts) or True else None",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "nl = '\\n' if str(self._last_stmt).endswith('\\n') else '\\n\\n'",
+        "mutated": "nl = '\\n' if (str(self._last_stmt).endswith('\\n')) or True else '\\n\\n'",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.71,
+    "coverage": 2.24,
+    "mutation": 77.79
+  }
+}

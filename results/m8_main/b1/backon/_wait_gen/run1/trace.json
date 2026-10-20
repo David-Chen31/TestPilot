@@ -1,0 +1,387 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T06:29:56+00:00",
+    "duration": 0.01,
+    "summary": "2 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "backon/_wait_gen.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "wait_chain",
+      "wait_combine"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T06:29:56+00:00",
+    "duration": 0.04,
+    "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 11905 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "backon/_wait_gen.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/abc.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/abc.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/abc/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/abc/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "wait_chain(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "wait_combine(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `backon._wait_gen` (file `backon/_wait_gen.py`).\n\nSource of `backon/_wait_gen.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | from __future__ import annotations\n    2 | \n    3 | import itertools\n    4 | import math\n    5 | import random\n    6 | from collections.abc import Callable, Iterator, Sequence\n    7 | from typing import Any\n    8 | \n    9 | \n   10 | class _Wait:\n   11 |     def __init__(self, *args: Any, **kwargs: Any) -> None:\n   12 |         self._args = args\n   13 |         self._kwargs = kwargs\n   14 | \n   15 |     def next(self, send_value=None) -> float:\n   16 |         raise NotImplementedError\n   17 | \n   18 |     def __call__(self, *args: Any, **kwargs: Any) -> _Wait:\n   19 |         merged = {**self._kwargs, **kwargs}\n   20 |         new_args = args if args else self._args\n   21 |         if args:\n   22 |             param_order = list(self._kwargs.keys())\n   23 |             for i in range(len(args)):\n   24 |                 if i < len(param_order):\n   25 |                     merged.pop(param_order[i], None)\n   26 |         return self.__class__(*new_args, **merged)\n   27 | \n   28 |     def __add__(self, other: _Wait) -> _CombinedWait:\n   29 |         if isinstance(other, _CombinedWait):\n   30 |             return _CombinedWait(self, *other._waits)\n   31 |         return _CombinedWait(self, other)\n   32 | \n   33 |     def __radd__(self, other: _Wait) -> _CombinedWait:\n   34 |         return _CombinedWait(other, self)\n   35 | \n   36 | \n   37 | class _CombinedWait(_Wait):\n   38 |     def __init__(self, *waits: _Wait) -> None:\n   39 |         super().__init__()\n   40 |         self._waits = tuple(waits)\n   41 | \n   42 |     def next(self, send_value=None) -> float:\n   43 |         return sum(w.next(send_value) for w in self._waits)\n   44 | \n   45 |     def __call__(self, **kwargs: Any) -> _CombinedWait:\n   46 |         return _CombinedWait(*(w(**kwargs) for w in self._waits))\n   47 | \n   48 |     def __add__(self, other: _Wait) -> _CombinedWait:\n   49 |         if isinstance(other, _CombinedWait):\n   50 |             return _CombinedWait(*self._waits, *other._waits)\n   51 |         return _CombinedWait(*self._waits, other)\n   52 | \n   53 | \n   54 | class _WaitFactory:\n   55 |     __slots__ = (\"_cls\",)\n   56 | \n   57 |     def __init__(self, cls: type[_Wait]) -> None:\n   58 |         self._cls = cls\n   59 | \n   60 |     def __call__(self, *args: Any, **kwargs: Any) -> _Wait:\n   61 |         return self._cls(*args, **kwargs)\n   62 | \n   63 |     def __add__(self, other: _Wait) -> _CombinedWait:\n   64 |         if isinstance(other, _CombinedWait):\n   65 |             return _CombinedWait(self(), *other._waits)\n   66 |         return _CombinedWait(self(), other)\n   67 | \n   68 |     def __radd__(self, other: _Wait) -> _CombinedWait:\n   69 |         if isinstance(other, _CombinedWait):\n   70 |             return _CombinedWait(*other._waits, self())\n   71 |         return _CombinedWait(other, self())\n   72 | \n   73 | \n   74 | class _Expo(_Wait):\n   75 |     def __init__(\n   76 |         self,\n   77 |         base: float = 2,\n   78 |         factor: float = 1,\n   79 |         max_value: float | None = None,\n   80 |     ) -> None:\n   81 |         super().__init__(base=base, factor=factor, max_value=max_value)\n   82 |         self._base = base\n   83 |         self._factor = factor\n   84 |         self._max_value = max_value\n   85 |         self._n = 0\n   86 | \n   87 |     def next(self, send_value=None) -> float:\n   88 |         a = self._factor * self._base**self._n\n   89 |         if self._max_value is None or a < self._max_value:\n   90 |             self._n += 1\n   91 |             return a\n   92 |         return self._max_value\n   93 | \n   94 | \n   95 | expo = _WaitFactory(_Expo)\n   96 | \n   97 | \n   98 | class _Decay(_Wait):\n   99 |     def __init__(\n  100 |         self,\n  101 |         initial_value: float = 1,\n  102 |         decay_factor: float = 1,\n  103 |         min_value: float | None = None,\n  104 |     ) -> None:\n  105 |         super().__init__(\n  106 |             initial_value=initial_value,\n  107 |             decay_factor=decay_factor,\n  108 |             min_value=min_value,\n  109 |         )\n  110 |         self._initial_value = initial_value\n  111 |         self._decay_factor = decay_factor\n  112 |         self._min_value = min_value\n  113 |         self._t = 0\n  114 | \n  115 |     def next(self, send_value=None) -> float:\n  116 |         a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))\n  117 |         if self._min_value is None or a > self._min_value:\n  118 |             self._t += 1\n  119 |             return a\n  120 |         return self._min_value\n  121 | \n  122 | \n  123 | decay = _WaitFactory(_Decay)\n  124 | \n  125 | \n  126 | class _Fibo(_Wait):\n  127 |     def __init__(self, max_value: int | None = None) -> None:\n  128 |         super().__init__(max_value=max_value)\n  129 |         self._max_value = max_value\n  130 |         self._a = 1\n  131 |         self._b = 1\n  132 | \n  133 |     def next(self, send_value=None) -> float:\n  134 |         if self._max_value is None or self._a < self._max_value:\n  135 |             result = self._a\n  136 |             self._a, self._b = self._b, self._a + self._b\n  137 |             return float(result)\n  138 |         return float(self._max_value)\n  139 | \n  140 | \n  141 | fibo = _WaitFactory(_Fibo)\n  142 | \n  143 | \n  144 | class _Constant(_Wait):\n  145 |     def __init__(self, interval: int | float | Sequence[float] = 1) -> None:\n  146 |         super().__init__(interval=interval)\n  147 |         self._itr: Iterator[float]\n  148 |         if isinstance(interval, (int, float)):\n  149 |             self._itr = itertools.repeat(float(interval))\n  150 |         else:\n  151 |             self._itr = iter(interval)\n  152 | \n  153 |     def next(self, send_value=None) -> float:\n  154 |         return next(self._itr)\n  155 | \n  156 | \n  157 | constant = _WaitFactory(_Constant)\n  158 | \n  159 | \n  160 | class _Runtime(_Wait):\n  161 |     def __init__(self, *, value: Callable[[Any], float]) -> None:\n  162 |         super().__init__(value=value)\n  163 |         self._value = value\n  164 | \n  165 |     def next(self, send_value=None) -> float:\n  166 |         return self._value(send_value)\n  167 | \n  168 | \n  169 | runtime = _WaitFactory(_Runtime)\n  170 | \n  171 | \n  172 | class _WaitRandomExponential(_Wait):\n  173 |     def __init__(\n  174 |         self,\n  175 |         multiplier: float = 1,\n  176 |         max_value: float | None = None,\n  177 |         exp_base: float = 2,\n  178 |         min_value: float = 0,\n  179 |     ) -> None:\n  180 |         super().__init__(\n  181 |             multiplier=multiplier,\n  182 |             max_value=max_value,\n  183 |             exp_base=exp_base,\n  184 |             min_value=min_value,\n  185 |         )\n  186 |         self._multiplier = multiplier\n  187 |         self._max_value = max_value\n  188 |         self._exp_base = exp_base\n  189 |         self._min_value = min_value\n  190 |         self._n = 0\n  191 | \n  192 |     def next(self, send_value=None) -> float:\n  193 |         a = self._multiplier * self._exp_base**self._n\n  194 |         if self._max_value is not None and a > self._max_value:\n  195 |             a = self._max_value\n  196 |         if a < self._min_value:\n  197 |             a = self._min_value\n  198 |         self._n += 1\n  199 |         return random.uniform(0, a)\n  200 | \n  201 | \n  202 | wait_random_exponential = _WaitFactory(_WaitRandomExponential)\n  203 | \n  204 | \n  205 | class _WaitIncrementing(_Wait):\n  206 |     def __init__(\n  207 |         self,\n  208 |         start: float = 1,\n  209 |         increment: float = 1,\n  210 |         max_value: float | None = None,\n  211 |     ) -> None:\n  212 |         super().__init__(start=start, increment=increment, max_value=max_value)\n  213 |         self._start = start\n  214 |         self._increment = increment\n  215 |         self._max_value = max_value\n  216 |         self._n = 0\n  217 | \n  218 |     def next(self, send_value=None) -> float:\n  219 |         a = self._start + self._n * self._increment\n  220 |         self._n += 1\n  221 |         if self._max_value is not None and a > self._max_value:\n  222 |             return self._max_value\n  223 |         return a\n  224 | \n  225 | \n  226 | wait_incrementing = _WaitFactory(_WaitIncrementing)\n  227 | \n  228 | \n  229 | class _WaitChain(_Wait):\n  230 |     def __init__(self, *waits: _Wait) -> None:\n  231 |         super().__init__()\n  232 |         self._waits = list(waits)\n  233 |         self._idx = 0\n  234 | \n  235 |     def __call__(self, **kwargs: Any) -> _WaitChain:\n  236 |         return _WaitChain(*(w(**kwargs) for w in self._waits))\n  237 | \n  238 |     def next(self, send_value=None) -> float:\n  239 |         if not self._waits:\n  240 |             return 0.0\n  241 |         w = self._waits[self._idx]\n  242 |         self._idx = (self._idx + 1) % len(self._waits)\n  243 |         return w.next(send_value)\n  244 | \n  245 | \n  246 | def wait_chain(*waits: _Wait) -> _WaitChain:\n  247 |     return _WaitChain(*waits)\n  248 | \n  249 | \n  250 | def wait_combine(*waits: _Wait) -> _CombinedWait:\n  251 |     return _CombinedWait(*waits)\n  252 | \n  253 | \n  254 | class _WaitException(_Wait):\n  255 |     def __init__(self, *, value: Callable[[Any], float]) -> None:\n  256 |         super().__init__(value=value)\n  257 |         self._value = value\n  258 | \n  259 |     def next(self, send_value=None) -> float:\n  260 |         return self._value(send_value)\n  261 | \n  262 | \n  263 | wait_exception = _WaitFactory(_WaitException)\n  264 | \n  265 | \n  266 | class _WaitRandom(_Wait):\n  267 |     def __init__(self, min: float = 0, max: float = 1) -> None:\n  268 |         super().__init__(min=min, max=max)\n  269 |         self._min = min\n  270 |         self._max = max\n  271 | \n  272 |     def next(self, send_value=None) -> float:\n  273 |         return random.uniform(self._min, self._max)\n  274 | \n  275 | \n  276 | wait_random = _WaitFactory(_WaitRandom)\n  277 | \n  278 | \n  279 | class _WaitExponentialJitter(_Wait):\n  280 |     def __init__(\n  281 |         self,\n  282 |         initial: float = 1,\n  283 |         max: float = 60,\n  284 |         exp_base: float = 2,\n  285 |         jitter: float = 1,\n  286 |     ) -> None:\n  287 |         super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)\n  288 |         self._initial = initial\n  289 |         self._max = max\n  290 |         self._exp_base = exp_base\n  291 |         self._jitter = jitter\n  292 |         self._n = 1\n  293 | \n  294 |     def next(self, send_value=None) -> float:\n  295 |         delay = min(self._initial * self._exp_base**self._n, self._max)\n  296 |         delay += random.uniform(0, self._jitter)\n  297 |         self._n += 1\n  298 |         return delay\n  299 | \n  300 | \n  301 | wait_exponential_jitter = _WaitFactory(_WaitExponentialJitter)\n  302 | \n  303 | \n  304 | class _WaitNone(_Wait):\n  305 |     def next(self, send_value=None) -> float:\n  306 |         return 0.0\n  307 | \n  308 | \n  309 | wait_none = _WaitFactory(_WaitNone)\n```\n\n\n\nPublic API to cover: `wait_chain`, `wait_combine`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from backon._wait_gen import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:02+00:00",
+    "duration": 5.82,
+    "summary": "第 1 轮：生成 214 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__wait_gen.py",
+          "content": "<5868 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5207,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `backon._wait_gen`. Return the complete test file in one ```python code block.",
+      "response": "```python\nfrom __future__ import annotations\n\nimport pytest\n\nfrom backon._wait_gen import (\n    _CombinedWait,\n    _Constant,\n    _Decay,\n    _Expo,\n    _Fibo,\n    _Runtime,\n    _Wait,\n    _WaitChain,\n    _WaitException,\n    _WaitFactory,\n    _WaitIncrementing,\n    _WaitNone,\n    _WaitRandom,\n    constant,\n    decay,\n    expo,\n    fibo,\n    runtime,\n    wait_chain,\n    wait_combine,\n    wait_exception,\n    wait_incrementing,\n    wait_none,\n    wait_random,\n)\n\n\n# ---------------------------------------------------------------------------\n# wait_chain\n# ---------------------------------------------------------------------------\n\ndef test_wait_chain_returns_wait_chain_instance():\n    chain = wait_chain()\n    assert isinstance(chain, _WaitChain)\n\n\ndef test_wait_chain_empty_returns_zero():\n    chain = wait_chain()\n    assert chain.next() == 0.0\n    assert chain.next() == 0.0\n\n\ndef test_wait_chain_cycles_through_waits_in_order():\n    chain = wait_chain(constant(1), constant(2), constant(3))\n    results = [chain.next() for _ in range(6)]\n    assert results == [1.0, 2.0, 3.0, 1.0, 2.0, 3.0]\n\n\ndef test_wait_chain_single_wait_repeats():\n    chain = wait_chain(constant(5))\n    assert [chain.next() for _ in range(3)] == [5.0, 5.0, 5.0]\n\n\ndef test_wait_chain_advances_underlying_generators():\n    chain = wait_chain(expo(base=2, factor=1), constant(10))\n    # Interleaves expo (1,2,4,...) and constant 10\n    assert chain.next() == 1.0\n    assert chain.next() == 10.0\n    assert chain.next() == 2.0\n    assert chain.next() == 10.0\n    assert chain.next() == 4.0\n\n\ndef test_wait_chain_send_value_propagates():\n    received = []\n\n    def record(v):\n        received.append(v)\n        return 0.0\n\n    chain = wait_chain(runtime(value=record))\n    chain.next(\"a\")\n    chain.next(\"b\")\n    assert received == [\"a\", \"b\"]\n\n\ndef test_wait_chain_rejects_non_wait():\n    with pytest.raises(AttributeError):\n        wait_chain(42).next()\n\n\ndef test_wait_chain_factory_call_returns_new_chain_with_reconfigured_waits():\n    chain = wait_chain(expo(base=2))\n    # __call__ on _WaitChain reconstructs each wait via its __call__\n    new_chain = chain(exponent=None) if False else chain(base=3)\n    assert isinstance(new_chain, _WaitChain)\n    assert new_chain.next() == 1.0  # factor default still 1\n    assert new_chain.next() == 3.0\n\n\n# ---------------------------------------------------------------------------\n# wait_combine\n# ---------------------------------------------------------------------------\n\ndef test_wait_combine_returns_combined_wait():\n    combined = wait_combine(constant(1), constant(2))\n    assert isinstance(combined, _CombinedWait)\n\n\ndef test_wait_combine_empty_sums_to_zero():\n    combined = wait_combine()\n    assert combined.next() == 0\n\n\ndef test_wait_combine_sums_waits():\n    combined = wait_combine(constant(1), constant(2), constant(3))\n    assert combined.next() == 6.0\n\n\ndef test_wait_combine_single_wait():\n    combined = wait_combine(constant(7))\n    assert combined.next() == 7.0\n\n\ndef test_wait_combine_progresses_underlying_waits_together():\n    combined = wait_combine(expo(base=2, factor=1), constant(10))\n    assert combined.next() == 11.0  # 1 + 10\n    assert combined.next() == 12.0  # 2 + 10\n    assert combined.next() == 14.0  # 4 + 10\n\n\ndef test_wait_combine_send_value_propagates_to_all():\n    received = []\n\n    def record(v):\n        received.append(v)\n        return 0.0\n\n    combined = wait_combine(runtime(value=record), runtime(value=record))\n    combined.next(\"x\")\n    assert received == [\"x\", \"x\"]\n\n\ndef test_wait_combine_factory_call_reconfigures_children():\n    combined = wait_combine(expo(base=2, factor=1))\n    new_combined = combined(factor=5)\n    assert isinstance(new_combined, _CombinedWait)\n    assert new_combined.next() == 5.0\n    assert new_combined.next() == 10.0\n\n\n# ---------------------------------------------------------------------------\n# Interaction: combining / adding\n# ---------------------------------------------------------------------------\n\ndef test_add_two_waits_forms_combined():\n    combined = constant(1) + constant(2)\n    assert isinstance(combined, _CombinedWait)\n    assert combined.next() == 3.0\n\n\ndef test_add_combined_with_wait_flattens():\n    combined = wait_combine(constant(1), constant(2))\n    extended = combined + constant(3)\n    assert isinstance(extended, _CombinedWait)\n    # Flattened, not nested: 1 + 2 + 3\n    assert extended.next() == 6.0\n\n\ndef test_add_wait_with_combined_left():\n    combined = wait_combine(constant(2), constant(3))\n    extended = combined + constant(4)\n    assert extended.next() == 9.0\n\n\ndef test_radd_builds_combined():\n    combined = 1 + constant(2) if False else None  # int + _Wait not supported\n    # Use _Wait.__radd__ via _CombinedWait combination instead\n    w1 = constant(1)\n    combined = w1.__add__(constant(2))\n    assert combined.next() == 3.0\n\n\ndef test_factory_add_wait():\n    combined = constant(1) if False else constant + constant(2)\n    # constant is a _WaitFactory; its __call__ yields a _Constant\n    assert isinstance(combined, _CombinedWait)\n\n\n# ---------------------------------------------------------------------------\n# Sanity of base _Wait / factory interplay\n# ---------------------------------------------------------------------------\n\ndef test_factory_produces_wait_instance():\n    w = constant(3)\n    assert isinstance(w, _Constant)\n    assert w.next() == 3.0\n\n\ndef test_base_wait_next_not_implemented():\n    class Dummy(_Wait):\n        pass\n\n    with pytest.raises(NotImplementedError):\n        Dummy().next()\n\n\ndef test_wait_call_merges_kwargs():\n    w = expo(base=2, factor=1)\n    w2 = w(factor=10)\n    assert w2.next() == 10.0\n    assert w2.next() == 20.0\n\n\ndef test_wait_call_replaces_positional_args():\n    w = expo(base=3)\n    w2 = w(5, 2)  # base=5, factor=2\n    assert w2.next() == 2.0\n    assert w2.next() == 10.0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 3575,
+      "cache_hit_tokens": 0,
+      "completion_tokens": 1632,
+      "reasoning_tokens": 0,
+      "latency": 5.82
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:03+00:00",
+    "duration": 1.15,
+    "summary": "通过 24，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 1.15,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5207
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:05+00:00",
+    "duration": 1.97,
+    "summary": "分数 [1, 0.0, 0.640625, 0.4, 24]（提升），行覆盖 64.1%，分支覆盖 40.0%",
+    "tool_calls": [
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "backon/_wait_gen.py",
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 1.97,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5207,
+    "score": [
+      1,
+      0.0,
+      0.640625,
+      0.4,
+      24
+    ],
+    "coverage": {
+      "target": "backon/_wait_gen.py",
+      "tests_all_passed": true,
+      "line_rate": 0.640625,
+      "branch_rate": 0.4,
+      "statements": 192,
+      "branches": 30,
+      "missing_lines": [
+        30,
+        34,
+        50,
+        65,
+        69,
+        70,
+        71,
+        92,
+        105,
+        110,
+        111,
+        112,
+        113,
+        116,
+        117,
+        118,
+        119,
+        120,
+        128,
+        129,
+        130,
+        131,
+        134,
+        135,
+        136,
+        137,
+        138,
+        151,
+        180,
+        186,
+        187,
+        188,
+        189,
+        190,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        212,
+        213,
+        214,
+        215,
+        216,
+        219,
+        220,
+        221,
+        222,
+        223,
+        256,
+        257,
+        260,
+        268,
+        269,
+        270,
+        273,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        295,
+        296,
+        297,
+        298,
+        306
+      ],
+      "missing_branches": [
+        [
+          24,
+          23
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          49,
+          50
+        ],
+        [
+          64,
+          65
+        ],
+        [
+          69,
+          70
+        ],
+        [
+          69,
+          71
+        ],
+        [
+          89,
+          92
+        ],
+        [
+          117,
+          118
+        ],
+        [
+          117,
+          120
+        ],
+        [
+          134,
+          135
+        ],
+        [
+          134,
+          138
+        ],
+        [
+          148,
+          151
+        ],
+        [
+          194,
+          195
+        ],
+        [
+          194,
+          196
+        ],
+        [
+          196,
+          197
+        ],
+        [
+          196,
+          198
+        ],
+        [
+          221,
+          222
+        ],
+        [
+          221,
+          223
+        ]
+      ],
+      "error": ""
+    },
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:05+00:00",
+    "duration": 0.0,
+    "summary": "全部测试通过，pytest 反馈已无可改进之处",
+    "tool_calls": [],
+    "tokens_total": 5207
+  },
+  {
+    "node": "finalize",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:05+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试通过，pytest 反馈已无可改进之处；采用第 1 轮，分数 [1, 0.0, 0.640625, 0.4, 24]",
+    "tool_calls": [],
+    "tokens_total": 5207,
+    "best_iteration": 1
+  }
+]

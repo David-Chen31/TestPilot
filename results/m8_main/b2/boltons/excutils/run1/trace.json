@@ -1,0 +1,575 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T04:16:26+00:00",
+    "duration": 0.01,
+    "summary": "5 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "boltons/excutils.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "ExceptionCauseMixin",
+      "MathError",
+      "whoops_math",
+      "math_lol",
+      "main"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T04:16:26+00:00",
+    "duration": 0.07,
+    "summary": "依赖定义 0 个，调用处 2 个，提示词前缀 12294 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "boltons/excutils.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "ExceptionCauseMixin(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "MathError(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "whoops_math(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "math_lol(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "main(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `boltons.excutils` (file `boltons/excutils.py`).\n\nSource of `boltons/excutils.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | # Copyright (c) 2013, Mahmoud Hashemi\n    2 | #\n    3 | # Redistribution and use in source and binary forms, with or without\n    4 | # modification, are permitted provided that the following conditions are\n    5 | # met:\n    6 | #\n    7 | #    * Redistributions of source code must retain the above copyright\n    8 | #      notice, this list of conditions and the following disclaimer.\n    9 | #\n   10 | #    * Redistributions in binary form must reproduce the above\n   11 | #      copyright notice, this list of conditions and the following\n   12 | #      disclaimer in the documentation and/or other materials provided\n   13 | #      with the distribution.\n   14 | #\n   15 | #    * The names of the contributors may not be used to endorse or\n   16 | #      promote products derived from this software without specific\n   17 | #      prior written permission.\n   18 | #\n   19 | # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n   20 | # \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n   21 | # LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n   22 | # A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n   23 | # OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n   24 | # SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n   25 | # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n   26 | # DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n   27 | # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n   28 | # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n   29 | # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n   30 | \n   31 | \n   32 | import sys\n   33 | import traceback\n   34 | import linecache\n   35 | from collections import namedtuple\n   36 | \n   37 | # TODO: last arg or first arg?  (last arg makes it harder to *args\n   38 | #       into, but makes it more readable in the default exception\n   39 | #       __repr__ output)\n   40 | # TODO: Multiexception wrapper\n   41 | \n   42 | \n   43 | __all__ = ['ExceptionCauseMixin']\n   44 | \n   45 | \n   46 | class ExceptionCauseMixin(Exception):\n   47 |     \"\"\"\n   48 |     A mixin class for wrapping an exception in another exception, or\n   49 |     otherwise indicating an exception was caused by another exception.\n   50 | \n   51 |     This is most useful in concurrent or failure-intolerant scenarios,\n   52 |     where just because one operation failed, doesn't mean the remainder\n   53 |     should be aborted, or that it's the appropriate time to raise\n   54 |     exceptions.\n   55 | \n   56 |     This is still a work in progress, but an example use case at the\n   57 |     bottom of this module.\n   58 | \n   59 |     NOTE: when inheriting, you will probably want to put the\n   60 |     ExceptionCauseMixin first. Builtin exceptions are not good about\n   61 |     calling super()\n   62 |     \"\"\"\n   63 | \n   64 |     cause = None\n   65 | \n   66 |     def __new__(cls, *args, **kw):\n   67 |         cause = None\n   68 |         if args and isinstance(args[0], Exception):\n   69 |             cause, args = args[0], args[1:]\n   70 |         ret = super().__new__(cls, *args, **kw)\n   71 |         ret.cause = cause\n   72 |         if cause is None:\n   73 |             return ret\n   74 |         root_cause = getattr(cause, 'root_cause', None)\n   75 |         if root_cause is None:\n   76 |             ret.root_cause = cause\n   77 |         else:\n   78 |             ret.root_cause = root_cause\n   79 | \n   80 |         full_trace = getattr(cause, 'full_trace', None)\n   81 |         if full_trace is not None:\n   82 |             ret.full_trace = list(full_trace)\n   83 |             ret._tb = list(cause._tb)\n   84 |             ret._stack = list(cause._stack)\n   85 |             return ret\n   86 | \n   87 |         try:\n   88 |             exc_type, exc_value, exc_tb = sys.exc_info()\n   89 |             if exc_type is None and exc_value is None:\n   90 |                 return ret\n   91 |             if cause is exc_value or root_cause is exc_value:\n   92 |                 # handles when cause is the current exception or when\n   93 |                 # there are multiple wraps while handling the original\n   94 |                 # exception, but a cause was never provided\n   95 |                 ret._tb = _extract_from_tb(exc_tb)\n   96 |                 ret._stack = _extract_from_frame(exc_tb.tb_frame)\n   97 |                 ret.full_trace = ret._stack[:-1] + ret._tb\n   98 |         finally:\n   99 |             del exc_tb\n  100 |         return ret\n  101 | \n  102 |     def get_str(self):\n  103 |         \"\"\"\n  104 |         Get formatted the formatted traceback and exception\n  105 |         message. This function exists separately from __str__()\n  106 |         because __str__() is somewhat specialized for the built-in\n  107 |         traceback module's particular usage.\n  108 |         \"\"\"\n  109 |         ret = []\n  110 |         trace_str = self._get_trace_str()\n  111 |         if trace_str:\n  112 |             ret.extend(['Traceback (most recent call last):\\n', trace_str])\n  113 |         ret.append(self._get_exc_str())\n  114 |         return ''.join(ret)\n  115 | \n  116 |     def _get_message(self):\n  117 |         args = getattr(self, 'args', [])\n  118 |         if self.cause:\n  119 |             args = args[1:]\n  120 |         if args and args[0]:\n  121 |             return args[0]\n  122 |         return ''\n  123 | \n  124 |     def _get_trace_str(self):\n  125 |         if not self.cause:\n  126 |             return super().__repr__()\n  127 |         if self.full_trace:\n  128 |             return ''.join(traceback.format_list(self.full_trace))\n  129 |         return ''\n  130 | \n  131 |     def _get_exc_str(self, incl_name=True):\n  132 |         cause_str = _format_exc(self.root_cause)\n  133 |         message = self._get_message()\n  134 |         ret = []\n  135 |         if incl_name:\n  136 |             ret = [self.__class__.__name__, ': ']\n  137 |         if message:\n  138 |             ret.extend([message, ' (caused by ', cause_str, ')'])\n  139 |         else:\n  140 |             ret.extend([' caused by ', cause_str])\n  141 |         return ''.join(ret)\n  142 | \n  143 |     def __str__(self):\n  144 |         if not self.cause:\n  145 |             return super().__str__()\n  146 |         trace_str = self._get_trace_str()\n  147 |         ret = []\n  148 |         if trace_str:\n  149 |             message = self._get_message()\n  150 |             if message:\n  151 |                 ret.extend([message, ' --- '])\n  152 |             ret.extend(['Wrapped traceback (most recent call last):\\n',\n  153 |                         trace_str,\n  154 |                         self._get_exc_str(incl_name=True)])\n  155 |             return ''.join(ret)\n  156 |         else:\n  157 |             return self._get_exc_str(incl_name=False)\n  158 | \n  159 | \n  160 | def _format_exc(exc, message=None):\n  161 |     if message is None:\n  162 |         message = exc\n  163 |     exc_str = traceback._format_final_exc_line(exc.__class__.__name__, message)\n  164 |     return exc_str.rstrip()\n  165 | \n  166 | \n  167 | _BaseTBItem = namedtuple('_BaseTBItem', 'filename, lineno, name, line')\n  168 | \n  169 | \n  170 | class _TBItem(_BaseTBItem):\n  171 |     def __repr__(self):\n  172 |         ret = super().__repr__()\n  173 |         ret += ' <%r>' % self.frame_id\n  174 |         return ret\n  175 | \n  176 | \n  177 | class _DeferredLine:\n  178 |     def __init__(self, filename, lineno, module_globals=None):\n  179 |         self.filename = filename\n  180 |         self.lineno = lineno\n  181 |         module_globals = module_globals or {}\n  182 |         self.module_globals = {k: v for k, v in module_globals.items()\n  183 |                                     if k in ('__name__', '__loader__')}\n  184 | \n  185 |     def __eq__(self, other):\n  186 |         return (self.lineno, self.filename) == (other.lineno, other.filename)\n  187 | \n  188 |     def __ne__(self, other):\n  189 |         return (self.lineno, self.filename) != (other.lineno, other.filename)\n  190 | \n  191 |     def __str__(self):\n  192 |         if hasattr(self, '_line'):\n  193 |             return self._line\n  194 |         linecache.checkcache(self.filename)\n  195 |         line = linecache.getline(self.filename,\n  196 |                                  self.lineno,\n  197 |                                  self.module_globals)\n  198 |         if line:\n  199 |             line = line.strip()\n  200 |         else:\n  201 |             line = None\n  202 |         self._line = line\n  203 |         return line\n  204 | \n  205 |     def __repr__(self):\n  206 |         return repr(str(self))\n  207 | \n  208 |     def __len__(self):\n  209 |         return len(str(self))\n  210 | \n  211 |     def strip(self):\n  212 |         return str(self).strip()\n  213 | \n  214 | \n  215 | def _extract_from_frame(f=None, limit=None):\n  216 |     ret = []\n  217 |     if f is None:\n  218 |         f = sys._getframe(1)  # cross-impl yadayada\n  219 |     if limit is None:\n  220 |         limit = getattr(sys, 'tracebacklimit', 1000)\n  221 |     n = 0\n  222 |     while f is not None and n < limit:\n  223 |         filename = f.f_code.co_filename\n  224 |         lineno = f.f_lineno\n  225 |         name = f.f_code.co_name\n  226 |         line = _DeferredLine(filename, lineno, f.f_globals)\n  227 |         item = _TBItem(filename, lineno, name, line)\n  228 |         item.frame_id = id(f)\n  229 |         ret.append(item)\n  230 |         f = f.f_back\n  231 |         n += 1\n  232 |     ret.reverse()\n  233 |     return ret\n  234 | \n  235 | \n  236 | def _extract_from_tb(tb, limit=None):\n  237 |     ret = []\n  238 |     if limit is None:\n  239 |         limit = getattr(sys, 'tracebacklimit', 1000)\n  240 |     n = 0\n  241 |     while tb is not None and n < limit:\n  242 |         filename = tb.tb_frame.f_code.co_filename\n  243 |         lineno = tb.tb_lineno\n  244 |         name = tb.tb_frame.f_code.co_name\n  245 |         line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)\n  246 |         item = _TBItem(filename, lineno, name, line)\n  247 |         item.frame_id = id(tb.tb_frame)\n  248 |         ret.append(item)\n  249 |         tb = tb.tb_next\n  250 |         n += 1\n  251 |     return ret\n  252 | \n  253 | \n  254 | # An Example/Prototest:\n  255 | \n  256 | \n  257 | class MathError(ExceptionCauseMixin, ValueError):\n  258 |     pass\n  259 | \n  260 | \n  261 | def whoops_math():\n  262 |     return 1/0\n  263 | \n  264 | \n  265 | def math_lol(n=0):\n  266 |     if n < 3:\n  267 |         return math_lol(n=n+1)\n  268 |     try:\n  269 |         return whoops_math()\n  270 |     except ZeroDivisionError as zde:\n  271 |         exc = MathError(zde, 'ya done messed up')\n  272 |         raise exc\n  273 | \n  274 | def main():\n  275 |     try:\n  276 |         math_lol()\n  277 |     except ValueError as me:\n  278 |         exc = MathError(me, 'hi')\n  279 |         raise exc\n  280 | \n  281 | \n  282 | if __name__ == '__main__':\n  283 |     try:\n  284 |         main()\n  285 |     except Exception:\n  286 |         import pdb;pdb.post_mortem()\n  287 |         raise\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- boltons/ecoutils.py:464: `main()`\n- boltons/jsonutils.py:266: `_main()`\n\nPublic API to cover: `ExceptionCauseMixin`, `MathError`, `whoops_math`, `math_lol`, `main`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from boltons.excutils import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T04:16:36+00:00",
+    "duration": 9.8,
+    "summary": "第 1 轮：生成 445 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_excutils.py",
+          "content": "<13024 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 6520,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `boltons.excutils`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport sys\nimport traceback\n\nimport pytest\n\nfrom boltons.excutils import (\n    ExceptionCauseMixin,\n    MathError,\n    whoops_math,\n    math_lol,\n    main,\n    _extract_from_tb,\n    _extract_from_frame,\n    _format_exc,\n    _DeferredLine,\n    _TBItem,\n)\n\n\n# ---------------------------------------------------------------------------\n# Basic helpers\n# ---------------------------------------------------------------------------\n\nclass SimpleWrapped(ExceptionCauseMixin, Exception):\n    pass\n\n\ndef _raise_and_get_tb():\n    try:\n        raise ValueError(\"inner\")\n    except ValueError:\n        return sys.exc_info()\n\n\n# ---------------------------------------------------------------------------\n# ExceptionCauseMixin: construction behavior\n# ---------------------------------------------------------------------------\n\ndef test_mixin_no_cause():\n    exc = SimpleWrapped(\"just a message\")\n    assert exc.cause is None\n    assert exc.args == (\"just a message\",)\n\n\ndef test_mixin_with_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.cause is cause\n    # args keep the full passed args tuple (including the cause), per __new__\n    assert exc.args == (cause, \"msg\")\n\n\ndef test_mixin_cause_sets_root_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.root_cause is cause\n\n\ndef test_mixin_root_cause_propagates():\n    inner = ValueError(\"root\")\n    middle = SimpleWrapped(inner, \"middle\")\n    assert middle.root_cause is inner\n    outer = SimpleWrapped(middle, \"outer\")\n    assert outer.root_cause is inner\n\n\ndef test_mixin_first_arg_not_exception():\n    # Non-exception first arg -> treated as a normal message\n    exc = SimpleWrapped(\"not an exception\")\n    assert exc.cause is None\n    assert exc.args == (\"not an exception\",)\n\n\ndef test_mixin_no_args():\n    exc = SimpleWrapped()\n    assert exc.cause is None\n    assert exc.args == ()\n\n\ndef test_mixin_cause_attribute_default_is_none():\n    # class-level default\n    assert ExceptionCauseMixin.cause is None\n\n\ndef test_mixin_subclass_is_exception_cause_mixin():\n    exc = SimpleWrapped(\"x\")\n    assert isinstance(exc, ExceptionCauseMixin)\n\n\n# ---------------------------------------------------------------------------\n# _get_message / _get_exc_str\n# ---------------------------------------------------------------------------\n\ndef test_get_message_no_cause():\n    exc = SimpleWrapped(\"hello\")\n    assert exc._get_message() == \"hello\"\n\n\ndef test_get_message_no_args():\n    exc = SimpleWrapped()\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_with_cause():\n    # With a cause, args[0] is the cause, so message should be args[1]\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"the message\")\n    assert exc._get_message() == \"the message\"\n\n\ndef test_get_message_with_cause_empty_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    # args = (cause,), so args[1:] = () -> ''\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_falsy_first_arg():\n    exc = SimpleWrapped(\"\")\n    assert exc._get_message() == \"\"\n\n\ndef test_get_exc_str_with_cause_and_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=True)\n    assert s.startswith(\"SimpleWrapped: \")\n    assert \"msg (caused by ValueError: orig)\" in s\n\n\ndef test_get_exc_str_without_incl_name():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=False)\n    assert s.startswith(\"msg (caused by ValueError: orig)\")\n\n\ndef test_get_exc_str_without_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    s = exc._get_exc_str(incl_name=True)\n    assert \" caused by ValueError: orig\" in s\n\n\n# ---------------------------------------------------------------------------\n# __str__\n# ---------------------------------------------------------------------------\n\ndef test_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert str(exc) == \"plain\"\n\n\ndef test_str_with_cause_no_trace():\n    # Constructed outside of exception handling -> no traceback to attach\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert str(exc) == \"msg (caused by ValueError: orig)\"\n\n\ndef test_str_with_cause_inside_except():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    s = str(exc)\n    assert \"msg --- \" in s\n    assert \"Wrapped traceback (most recent call last):\" in s\n    assert \"ValueError: orig\" in s\n    assert s.startswith(\"msg --- Wrapped traceback\")\n\n\ndef test_get_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    s = exc.get_str()\n    # No cause -> _get_trace_str falls back to super().__repr__() which is\n    # truthy, so traceback header is included.\n    assert \"Traceback (most recent call last):\" in s\n    assert s.endswith(\"plain\") or \"plain\" in s\n\n\ndef test_get_str_with_cause_has_traceback():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    s = exc.get_str()\n    assert \"Traceback (most recent call last):\" in s\n    assert \"ValueError: orig\" in s\n\n\n# ---------------------------------------------------------------------------\n# _get_trace_str\n# ---------------------------------------------------------------------------\n\ndef test_get_trace_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert exc._get_trace_str() == super(SimpleWrapped, exc).__repr__()\n\n\ndef test_get_trace_str_with_cause_no_full_trace():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    # No full_trace set -> ''\n    assert exc._get_trace_str() == \"\"\n\n\ndef test_get_trace_str_with_full_trace():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    trace_str = exc._get_trace_str()\n    assert \"ValueError: orig\" in trace_str\n    # Should contain formatted list output\n    assert trace_str.startswith(\"  \")\n\n\n# ---------------------------------------------------------------------------\n# _format_exc\n# ---------------------------------------------------------------------------\n\ndef test_format_exc_without_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc) == \"ValueError: boom\"\n\n\ndef test_format_exc_with_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc, \"custom\") == \"ValueError: custom\"\n\n\ndef test_format_exc_no_args():\n    exc = ValueError()\n    assert _format_exc(exc) == \"ValueError\"\n\n\n# ---------------------------------------------------------------------------\n# _DeferredLine\n# ---------------------------------------------------------------------------\n\ndef test_deferred_line_eq():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 10)\n    assert a == b\n    assert not (a != b)\n\n\ndef test_deferred_line_ne():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 11)\n    assert a != b\n    assert not (a == b)\n\n\ndef test_deferred_line_missing_file():\n    line = _DeferredLine(\"nonexistent_file_abc.py\", 1)\n    # getline returns '' for missing files -> None\n    assert str(line) is None\n\n\ndef test_deferred_line_repr_len_strip(tmp_path):\n    f = tmp_path / \"src.py\"\n    f.write_text(\"    hello_world\\n\")\n    line = _DeferredLine(str(f), 1)\n    assert str(line) == \"hello_world\"\n    assert repr(line) == repr(\"hello_world\")\n    assert len(line) == len(\"hello_world\")\n    assert line.strip() == \"hello_world\"\n\n\ndef test_deferred_line_module_globals_filter():\n    line = _DeferredLine(\"x.py\", 1, {\"__name__\": \"m\", \"other\": 1})\n    assert line.module_globals == {\"__name__\": \"m\"}\n\n\n# ---------------------------------------------------------------------------\n# _TBItem\n# ---------------------------------------------------------------------------\n\ndef test_tbitem_repr():\n    item = _TBItem(\"f.py\", 3, \"func\", \"line\")\n    item.frame_id = 12345\n    r = repr(item)\n    assert \"12345\" in r\n    assert \"f.py\" in r\n\n\n# ---------------------------------------------------------------------------\n# _extract_from_tb / _extract_from_frame\n# ---------------------------------------------------------------------------\n\ndef test_extract_from_tb():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb)\n    assert len(items) >= 1\n    item = items[0]\n    assert item.name == \"test_extract_from_tb\"\n    assert item.filename == __file__\n    assert isinstance(item, _TBItem)\n    assert hasattr(item, \"frame_id\")\n\n\ndef test_extract_from_tb_limit():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb, limit=0)\n    assert items == []\n\n\ndef test_extract_from_frame():\n    items = _extract_from_frame()\n    assert len(items) >= 1\n    # Last item should be the most recent frame (current function)\n    assert items[-1].name == \"test_extract_from_frame\"\n\n\ndef test_extract_from_frame_limit():\n    items = _extract_from_frame(limit=0)\n    assert items == []\n\n\n# ---------------------------------------------------------------------------\n# MathError\n# ---------------------------------------------------------------------------\n\ndef test_math_error_is_mixin_and_valueerror():\n    exc = MathError(\"oops\")\n    assert isinstance(exc, ExceptionCauseMixin)\n    assert isinstance(exc, ValueError)\n\n\ndef test_math_error_with_cause():\n    cause = ZeroDivisionError(\"div\")\n    exc = MathError(cause, \"wrapped\")\n    assert exc.cause is cause\n    assert exc.root_cause is cause\n    assert exc._get_message() == \"wrapped\"\n\n\n# ---------------------------------------------------------------------------\n# whoops_math / math_lol\n# ---------------------------------------------------------------------------\n\ndef test_whoops_math_raises_zero_division():\n    with pytest.raises(ZeroDivisionError):\n        whoops_math()\n\n\ndef test_math_lol_raises_math_error():\n    with pytest.raises(MathError):\n        math_lol()\n\n\ndef test_math_lol_raises_math_error_with_cause():\n    with pytest.raises(MathError) as exc_info:\n        math_lol()\n    exc = exc_info.value\n    assert isinstance(exc.cause, ZeroDivisionError)\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n    assert exc._get_message() == \"ya done messed up\"\n\n\ndef test_math_lol_with_high_n():\n    # n >= 3 goes straight to whoops_math\n    with pytest.raises(MathError):\n        math_lol(n=5)\n\n\n# ---------------------------------------------------------------------------\n# main\n# ---------------------------------------------------------------------------\n\ndef test_main_raises_math_error():\n    with pytest.raises(MathError) as exc_info:\n        main()\n    exc = exc_info.value\n    assert exc._get_message() == \"hi\"\n    # The cause of the outer MathError is the inner MathError\n    assert isinstance(exc.cause, MathError)\n    # root_cause should be the ZeroDivisionError\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n\n\ndef test_main_raises_caught_as_valueerror():\n    # MathError inherits ValueError, so it can be caught as such\n    with pytest.raises(ValueError):\n        main()\n\n\n# ---------------------------------------------------------------------------\n# Traceback capture during exception handling\n# ---------------------------------------------------------------------------\n\ndef test_mixin_captures_full_trace_from_current_exception():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"wrapped\")\n    assert exc.full_trace is not None\n    assert len(exc.full_trace) > 0\n    # The traceback should include a ValueError: orig entry\n    formatted = \"\".join(traceback.format_list(exc.full_trace))\n    assert \"ValueError: orig\" in formatted\n\n\ndef test_mixin_copies_full_trace_from_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        first = SimpleWrapped(e, \"first\")\n    second = SimpleWrapped(first, \"second\")\n    assert second.full_trace == first.full_trace\n    assert second._tb == first._tb\n    assert second._stack == first._stack\n    # root_cause propagates to the original\n    assert isinstance(second.root_cause, ValueError)\n\n\ndef test_mixin_multiple_wraps_without_provided_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        original = e\n        first = SimpleWrapped(original, \"first\")\n        # Now wrap again while still in the except block (original is current exc)\n        second = SimpleWrapped(first, \"second\")\n    # second wraps first, so root propagates through cause chain\n    assert second.root_cause is first.root_cause\n\n\ndef test_mixin_wrap_current_exception_directly():\n    try:\n        raise ValueError(\"direct\")\n    except ValueError as e:\n        wrapped = SimpleWrapped(e, \"wrapped\")\n    assert wrapped.cause is e\n    assert wrapped.full_trace is not None\n    formatted = \"\".join(traceback.format_list(wrapped.full_trace))\n    assert \"ValueError: direct\" in formatted\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 3453,
+      "cache_hit_tokens": 3200,
+      "completion_tokens": 3067,
+      "reasoning_tokens": 0,
+      "latency": 9.79
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T04:16:38+00:00",
+    "duration": 1.76,
+    "summary": "通过 40，失败 9，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_excutils.py"
+          ]
+        },
+        "duration": 1.76,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 6520
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T04:16:38+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 40]（提升）",
+    "tool_calls": [],
+    "tokens_total": 6520,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      40
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T04:16:38+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 6520
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T04:16:46+00:00",
+    "duration": 8.05,
+    "summary": "第 2 轮：生成 449 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_excutils.py",
+          "content": "<13299 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 18249,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_excutils.py`)\n```python\nimport sys\nimport traceback\n\nimport pytest\n\nfrom boltons.excutils import (\n    ExceptionCauseMixin,\n    MathError,\n    whoops_math,\n    math_lol,\n    main,\n    _extract_from_tb,\n    _extract_from_frame,\n    _format_exc,\n    _DeferredLine,\n    _TBItem,\n)\n\n\n# ---------------------------------------------------------------------------\n# Basic helpers\n# ---------------------------------------------------------------------------\n\nclass SimpleWrapped(ExceptionCauseMixin, Exception):\n    pass\n\n\ndef _raise_and_get_tb():\n    try:\n        raise ValueError(\"inner\")\n    except ValueError:\n        return sys.exc_info()\n\n\n# ---------------------------------------------------------------------------\n# ExceptionCauseMixin: construction behavior\n# ---------------------------------------------------------------------------\n\ndef test_mixin_no_cause():\n    exc = SimpleWrapped(\"just a message\")\n    assert exc.cause is None\n    assert exc.args == (\"just a message\",)\n\n\ndef test_mixin_with_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.cause is cause\n    # args keep the full passed args tuple (including the cause), per __new__\n    assert exc.args == (cause, \"msg\")\n\n\ndef test_mixin_cause_sets_root_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.root_cause is cause\n\n\ndef test_mixin_root_cause_propagates():\n    inner = ValueError(\"root\")\n    middle = SimpleWrapped(inner, \"middle\")\n    assert middle.root_cause is inner\n    outer = SimpleWrapped(middle, \"outer\")\n    assert outer.root_cause is inner\n\n\ndef test_mixin_first_arg_not_exception():\n    # Non-exception first arg -> treated as a normal message\n    exc = SimpleWrapped(\"not an exception\")\n    assert exc.cause is None\n    assert exc.args == (\"not an exception\",)\n\n\ndef test_mixin_no_args():\n    exc = SimpleWrapped()\n    assert exc.cause is None\n    assert exc.args == ()\n\n\ndef test_mixin_cause_attribute_default_is_none():\n    # class-level default\n    assert ExceptionCauseMixin.cause is None\n\n\ndef test_mixin_subclass_is_exception_cause_mixin():\n    exc = SimpleWrapped(\"x\")\n    assert isinstance(exc, ExceptionCauseMixin)\n\n\n# ---------------------------------------------------------------------------\n# _get_message / _get_exc_str\n# ---------------------------------------------------------------------------\n\ndef test_get_message_no_cause():\n    exc = SimpleWrapped(\"hello\")\n    assert exc._get_message() == \"hello\"\n\n\ndef test_get_message_no_args():\n    exc = SimpleWrapped()\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_with_cause():\n    # With a cause, args[0] is the cause, so message should be args[1]\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"the message\")\n    assert exc._get_message() == \"the message\"\n\n\ndef test_get_message_with_cause_empty_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    # args = (cause,), so args[1:] = () -> ''\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_falsy_first_arg():\n    exc = SimpleWrapped(\"\")\n    assert exc._get_message() == \"\"\n\n\ndef test_get_exc_str_with_cause_and_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=True)\n    assert s.startswith(\"SimpleWrapped: \")\n    assert \"msg (caused by ValueError: orig)\" in s\n\n\ndef test_get_exc_str_without_incl_name():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=False)\n    assert s.startswith(\"msg (caused by ValueError: orig)\")\n\n\ndef test_get_exc_str_without_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    s = exc._get_exc_str(incl_name=True)\n    assert \" caused by ValueError: orig\" in s\n\n\n# ---------------------------------------------------------------------------\n# __str__\n# ---------------------------------------------------------------------------\n\ndef test_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert str(exc) == \"plain\"\n\n\ndef test_str_with_cause_no_trace():\n    # Constructed outside of exception handling -> no traceback to attach\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert str(exc) == \"msg (caused by ValueError: orig)\"\n\n\ndef test_str_with_cause_inside_except():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    s = str(exc)\n    assert \"msg --- \" in s\n    assert \"Wrapped traceback (most recent call last):\" in s\n    assert \"ValueError: orig\" in s\n    assert s.startswith(\"msg --- Wrapped traceback\")\n\n\ndef test_get_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    s = exc.get_str()\n    # No cause -> _get_trace_str falls back to super().__repr__() which is\n    # truthy, so traceback header is included.\n    assert \"Traceback (most recent call last):\" in s\n    assert s.endswith(\"plain\") or \"plain\" in s\n\n\ndef test_get_str_with_cause_has_traceback():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    s = exc.get_str()\n    assert \"Traceback (most recent call last):\" in s\n    assert \"ValueError: orig\" in s\n\n\n# ---------------------------------------------------------------------------\n# _get_trace_str\n# ---------------------------------------------------------------------------\n\ndef test_get_trace_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert exc._get_trace_str() == super(SimpleWrapped, exc).__repr__()\n\n\ndef test_get_trace_str_with_cause_no_full_trace():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    # No full_trace set -> ''\n    assert exc._get_trace_str() == \"\"\n\n\ndef test_get_trace_str_with_full_trace():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    trace_str = exc._get_trace_str()\n    assert \"ValueError: orig\" in trace_str\n    # Should contain formatted list output\n    assert trace_str.startswith(\"  \")\n\n\n# ---------------------------------------------------------------------------\n# _format_exc\n# ---------------------------------------------------------------------------\n\ndef test_format_exc_without_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc) == \"ValueError: boom\"\n\n\ndef test_format_exc_with_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc, \"custom\") == \"ValueError: custom\"\n\n\ndef test_format_exc_no_args():\n    exc = ValueError()\n    assert _format_exc(exc) == \"ValueError\"\n\n\n# ---------------------------------------------------------------------------\n# _DeferredLine\n# ---------------------------------------------------------------------------\n\ndef test_deferred_line_eq():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 10)\n    assert a == b\n    assert not (a != b)\n\n\ndef test_deferred_line_ne():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 11)\n    assert a != b\n    assert not (a == b)\n\n\ndef test_deferred_line_missing_file():\n    line = _DeferredLine(\"nonexistent_file_abc.py\", 1)\n    # getline returns '' for missing files -> None\n    assert str(line) is None\n\n\ndef test_deferred_line_repr_len_strip(tmp_path):\n    f = tmp_path / \"src.py\"\n    f.write_text(\"    hello_world\\n\")\n    line = _DeferredLine(str(f), 1)\n    assert str(line) == \"hello_world\"\n    assert repr(line) == repr(\"hello_world\")\n    assert len(line) == len(\"hello_world\")\n    assert line.strip() == \"hello_world\"\n\n\ndef test_deferred_line_module_globals_filter():\n    line = _DeferredLine(\"x.py\", 1, {\"__name__\": \"m\", \"other\": 1})\n    assert line.module_globals == {\"__name__\": \"m\"}\n\n\n# ---------------------------------------------------------------------------\n# _TBItem\n# ---------------------------------------------------------------------------\n\ndef test_tbitem_repr():\n    item = _TBItem(\"f.py\", 3, \"func\", \"line\")\n    item.frame_id = 12345\n    r = repr(item)\n    assert \"12345\" in r\n    assert \"f.py\" in r\n\n\n# ---------------------------------------------------------------------------\n# _extract_from_tb / _extract_from_frame\n# ---------------------------------------------------------------------------\n\ndef test_extract_from_tb():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb)\n    assert len(items) >= 1\n    item = items[0]\n    assert item.name == \"test_extract_from_tb\"\n    assert item.filename == __file__\n    assert isinstance(item, _TBItem)\n    assert hasattr(item, \"frame_id\")\n\n\ndef test_extract_from_tb_limit():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb, limit=0)\n    assert items == []\n\n\ndef test_extract_from_frame():\n    items = _extract_from_frame()\n    assert len(items) >= 1\n    # Last item should be the most recent frame (current function)\n    assert items[-1].name == \"test_extract_from_frame\"\n\n\ndef test_extract_from_frame_limit():\n    items = _extract_from_frame(limit=0)\n    assert items == []\n\n\n# ---------------------------------------------------------------------------\n# MathError\n# ---------------------------------------------------------------------------\n\ndef test_math_error_is_mixin_and_valueerror():\n    exc = MathError(\"oops\")\n    assert isinstance(exc, ExceptionCauseMixin)\n    assert isinstance(exc, ValueError)\n\n\ndef test_math_error_with_cause():\n    cause = ZeroDivisionError(\"div\")\n    exc = MathError(cause, \"wrapped\")\n    assert exc.cause is cause\n    assert exc.root_cause is cause\n    assert exc._get_message() == \"wrapped\"\n\n\n# ---------------------------------------------------------------------------\n# whoops_math / math_lol\n# ---------------------------------------------------------------------------\n\ndef test_whoops_math_raises_zero_division():\n    with pytest.raises(ZeroDivisionError):\n        whoops_math()\n\n\ndef test_math_lol_raises_math_error():\n    with pytest.raises(MathError):\n        math_lol()\n\n\ndef test_math_lol_raises_math_error_with_cause():\n    with pytest.raises(MathError) as exc_info:\n        math_lol()\n    exc = exc_info.value\n    assert isinstance(exc.cause, ZeroDivisionError)\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n    assert exc._get_message() == \"ya done messed up\"\n\n\ndef test_math_lol_with_high_n():\n    # n >= 3 goes straight to whoops_math\n    with pytest.raises(MathError):\n        math_lol(n=5)\n\n\n# ---------------------------------------------------------------------------\n# main\n# ---------------------------------------------------------------------------\n\ndef test_main_raises_math_error():\n    with pytest.raises(MathError) as exc_info:\n        main()\n    exc = exc_info.value\n    assert exc._get_message() == \"hi\"\n    # The cause of the outer MathError is the inner MathError\n    assert isinstance(exc.cause, MathError)\n    # root_cause should be the ZeroDivisionError\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n\n\ndef test_main_raises_caught_as_valueerror():\n    # MathError inherits ValueError, so it can be caught as such\n    with pytest.raises(ValueError):\n        main()\n\n\n# ---------------------------------------------------------------------------\n# Traceback capture during exception handling\n# ---------------------------------------------------------------------------\n\ndef test_mixin_captures_full_trace_from_current_exception():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"wrapped\")\n    assert exc.full_trace is not None\n    assert len(exc.full_trace) > 0\n    # The traceback should include a ValueError: orig entry\n    formatted = \"\".join(traceback.format_list(exc.full_trace))\n    assert \"ValueError: orig\" in formatted\n\n\ndef test_mixin_copies_full_trace_from_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        first = SimpleWrapped(e, \"first\")\n    second = SimpleWrapped(first, \"second\")\n    assert second.full_trace == first.full_trace\n    assert second._tb == first._tb\n    assert second._stack == first._stack\n    # root_cause propagates to the original\n    assert isinstance(second.root_cause, ValueError)\n\n\ndef test_mixin_multiple_wraps_without_provided_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        original = e\n        first = SimpleWrapped(original, \"first\")\n        # Now wrap again while still in the except block (original is current exc)\n        second = SimpleWrapped(first, \"second\")\n    # second wraps first, so root propagates through cause chain\n    assert second.root_cause is first.root_cause\n\n\ndef test_mixin_wrap_current_exception_directly():\n    try:\n        raise ValueError(\"direct\")\n    except ValueError as e:\n        wrapped = SimpleWrapped(e, \"wrapped\")\n    assert wrapped.cause is e\n    assert wrapped.full_trace is not None\n    formatted = \"\".join(traceback.format_list(wrapped.full_trace))\n    assert \"ValueError: direct\" in formatted\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 40 passed, 9 failed, 0 errors.\n- `tests_testpilot.test_excutils::test_str_with_cause_no_trace` failed:\n```\nAttributeError: 'SimpleWrapped' object has no attribute 'full_trace'\ndef test_str_with_cause_no_trace():\n        # Constructed outside of exception handling -> no traceback to attach\n        cause = ValueError(\"orig\")\n        exc = SimpleWrapped(cause, \"msg\")\n>       assert str(exc) == \"msg (caused by ValueError: orig)\"\n               ^^^^^^^^\n\ntests_testpilot/test_excutils.py:158: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nboltons/excutils.py:146: in __str__\n    trace_str = self._get_trace_str()\n                ^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = SimpleWrapped(ValueError('orig'), 'msg')\n\n    def _get_trace_str(self):\n        if not self.cause:\n            return super().__repr\n```\n- `tests_testpilot.test_excutils::test_str_with_cause_inside_except` failed:\n```\nTypeError: __str__ returned non-string (type NoneType)\ndef test_str_with_cause_inside_except():\n        try:\n            raise ValueError(\"orig\")\n        except ValueError as e:\n            exc = SimpleWrapped(e, \"msg\")\n>       s = str(exc)\n            ^^^^^^^^\n\ntests_testpilot/test_excutils.py:166: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nboltons/excutils.py:146: in __str__\n    trace_str = self._get_trace_str()\n                ^^^^^^^^^^^^^^^^^^^^^\nboltons/excutils.py:128: in _get_trace_str\n    return ''.join(traceback.format_list(self.full_trace))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.11/traceback.py:41: in format_list\n    return StackSummary.from_list(ext\n... [省略 78 个字符] ...\nocal/lib/python3.11/traceback\n```\n- `tests_testpilot.test_excutils::test_get_str_no_cause` failed:\n```\nAttributeError: 'SimpleWrapped' object has no attribute 'root_cause'\ndef test_get_str_no_cause():\n        exc = SimpleWrapped(\"plain\")\n>       s = exc.get_str()\n            ^^^^^^^^^^^^^\n\ntests_testpilot/test_excutils.py:175: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nboltons/excutils.py:113: in get_str\n    ret.append(self._get_exc_str())\n               ^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = SimpleWrapped('plain'), incl_name = True\n\n    def _get_exc_str(self, incl_name=True):\n>       cause_str = _format_exc(self.root_cause)\n                                ^^^^^^^^^^^^^^^\nE       AttributeError: 'SimpleWrapped' object has no attribute 'root_cause'\n\nboltons/excutils.py:132: AttributeE\n```\n- `tests_testpilot.test_excutils::test_get_str_with_cause_has_traceback` failed:\n```\nTypeError: __str__ returned non-string (type NoneType)\ndef test_get_str_with_cause_has_traceback():\n        try:\n            raise ValueError(\"orig\")\n        except ValueError as e:\n            exc = SimpleWrapped(e, \"msg\")\n>       s = exc.get_str()\n            ^^^^^^^^^^^^^\n\ntests_testpilot/test_excutils.py:187: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nboltons/excutils.py:110: in get_str\n    trace_str = self._get_trace_str()\n                ^^^^^^^^^^^^^^^^^^^^^\nboltons/excutils.py:128: in _get_trace_str\n    return ''.join(traceback.format_list(self.full_trace))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.11/traceback.py:41: in format_list\n    return StackSummary\n... [省略 92 个字符] ...\nocal/lib/python3.11/traceback\n```\n- `tests_testpilot.test_excutils::test_get_trace_str_with_cause_no_full_trace` failed:\n```\nAttributeError: 'SimpleWrapped' object has no attribute 'full_trace'\ndef test_get_trace_str_with_cause_no_full_trace():\n        cause = ValueError(\"orig\")\n        exc = SimpleWrapped(cause, \"msg\")\n        # No full_trace set -> ''\n>       assert exc._get_trace_str() == \"\"\n               ^^^^^^^^^^^^^^^^^^^^\n\ntests_testpilot/test_excutils.py:205: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = SimpleWrapped(ValueError('orig'), 'msg')\n\n    def _get_trace_str(self):\n        if not self.cause:\n            return super().__repr__()\n>       if self.full_trace:\n           ^^^^^^^^^^^^^^^\nE       AttributeError: 'SimpleWrapped' object has no attribute 'full_trace'\n\nboltons/excutils.py:127: AttributeError\n```\n- `tests_testpilot.test_excutils::test_get_trace_str_with_full_trace` failed:\n```\nTypeError: __str__ returned non-string (type NoneType)\ndef test_get_trace_str_with_full_trace():\n        try:\n            raise ValueError(\"orig\")\n        except ValueError as e:\n            exc = SimpleWrapped(e, \"msg\")\n>       trace_str = exc._get_trace_str()\n                    ^^^^^^^^^^^^^^^^^^^^\n\ntests_testpilot/test_excutils.py:213: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nboltons/excutils.py:128: in _get_trace_str\n    return ''.join(traceback.format_list(self.full_trace))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.11/traceback.py:41: in format_list\n    return StackSummary.from_list(extracted_list).format()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n... [省略 7 个字符] ...\nocal/lib/python3.11/traceback.\n```\n- `tests_testpilot.test_excutils::test_deferred_line_missing_file` failed:\n```\nTypeError: __str__ returned non-string (type NoneType)\ndef test_deferred_line_missing_file():\n        line = _DeferredLine(\"nonexistent_file_abc.py\", 1)\n        # getline returns '' for missing files -> None\n>       assert str(line) is None\n               ^^^^^^^^^\nE       TypeError: __str__ returned non-string (type NoneType)\n\ntests_testpilot/test_excutils.py:259: TypeError\n```\n- `tests_testpilot.test_excutils::test_mixin_captures_full_trace_from_current_exception` failed:\n```\nTypeError: __str__ returned non-string (type NoneType)\ndef test_mixin_captures_full_trace_from_current_exception():\n        try:\n            raise ValueError(\"orig\")\n        except ValueError as e:\n            exc = SimpleWrapped(e, \"wrapped\")\n        assert exc.full_trace is not None\n        assert len(exc.full_trace) > 0\n        # The traceback should include a ValueError: orig entry\n>       formatted = \"\".join(traceback.format_list(exc.full_trace))\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests_testpilot/test_excutils.py:408: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/usr/local/lib/python3.11/traceback.py:41: in format_list\n    return StackSummary.from_list(extracted_list)\n... [省略 66 个字符] ...\nocal/lib/python3.11/traceback\n```\n- `tests_testpilot.test_excutils::test_mixin_wrap_current_exception_directly` failed:\n```\nUnboundLocalError: cannot access local variable 'e' where it is not associated with a value\ndef test_mixin_wrap_current_exception_directly():\n        try:\n            raise ValueError(\"direct\")\n        except ValueError as e:\n            wrapped = SimpleWrapped(e, \"wrapped\")\n>       assert wrapped.cause is e\n                                ^\nE       UnboundLocalError: cannot access local variable 'e' where it is not associated with a value\n\ntests_testpilot/test_excutils.py:442: UnboundLocalError\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport sys\nimport traceback\n\nimport pytest\n\nfrom boltons.excutils import (\n    ExceptionCauseMixin,\n    MathError,\n    whoops_math,\n    math_lol,\n    main,\n    _extract_from_tb,\n    _extract_from_frame,\n    _format_exc,\n    _DeferredLine,\n    _TBItem,\n)\n\n\n# ---------------------------------------------------------------------------\n# Basic helpers\n# ---------------------------------------------------------------------------\n\nclass SimpleWrapped(ExceptionCauseMixin, Exception):\n    pass\n\n\ndef _raise_and_get_tb():\n    try:\n        raise ValueError(\"inner\")\n    except ValueError:\n        return sys.exc_info()\n\n\n# ---------------------------------------------------------------------------\n# ExceptionCauseMixin: construction behavior\n# ---------------------------------------------------------------------------\n\ndef test_mixin_no_cause():\n    exc = SimpleWrapped(\"just a message\")\n    assert exc.cause is None\n    assert exc.args == (\"just a message\",)\n\n\ndef test_mixin_with_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.cause is cause\n    # args keep the full passed args tuple (including the cause), per __new__\n    assert exc.args == (cause, \"msg\")\n\n\ndef test_mixin_cause_sets_root_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.root_cause is cause\n\n\ndef test_mixin_root_cause_propagates():\n    inner = ValueError(\"root\")\n    middle = SimpleWrapped(inner, \"middle\")\n    assert middle.root_cause is inner\n    outer = SimpleWrapped(middle, \"outer\")\n    assert outer.root_cause is inner\n\n\ndef test_mixin_first_arg_not_exception():\n    # Non-exception first arg -> treated as a normal message\n    exc = SimpleWrapped(\"not an exception\")\n    assert exc.cause is None\n    assert exc.args == (\"not an exception\",)\n\n\ndef test_mixin_no_args():\n    exc = SimpleWrapped()\n    assert exc.cause is None\n    assert exc.args == ()\n\n\ndef test_mixin_cause_attribute_default_is_none():\n    # class-level default\n    assert ExceptionCauseMixin.cause is None\n\n\ndef test_mixin_subclass_is_exception_cause_mixin():\n    exc = SimpleWrapped(\"x\")\n    assert isinstance(exc, ExceptionCauseMixin)\n\n\n# ---------------------------------------------------------------------------\n# _get_message / _get_exc_str\n# ---------------------------------------------------------------------------\n\ndef test_get_message_no_cause():\n    exc = SimpleWrapped(\"hello\")\n    assert exc._get_message() == \"hello\"\n\n\ndef test_get_message_no_args():\n    exc = SimpleWrapped()\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_with_cause():\n    # With a cause, args[0] is the cause, so message should be args[1]\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"the message\")\n    assert exc._get_message() == \"the message\"\n\n\ndef test_get_message_with_cause_empty_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    # args = (cause,), so args[1:] = () -> ''\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_falsy_first_arg():\n    exc = SimpleWrapped(\"\")\n    assert exc._get_message() == \"\"\n\n\ndef test_get_exc_str_with_cause_and_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=True)\n    assert s.startswith(\"SimpleWrapped: \")\n    assert \"msg (caused by ValueError: orig)\" in s\n\n\ndef test_get_exc_str_without_incl_name():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=False)\n    assert s.startswith(\"msg (caused by ValueError: orig)\")\n\n\ndef test_get_exc_str_without_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    s = exc._get_exc_str(incl_name=True)\n    assert \" caused by ValueError: orig\" in s\n\n\n# ---------------------------------------------------------------------------\n# __str__\n# ---------------------------------------------------------------------------\n\ndef test_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert str(exc) == \"plain\"\n\n\n@pytest.mark.xfail(raises=AttributeError, strict=True,\n                   reason=\"cause without exception context lacks full_trace\")\ndef test_str_with_cause_no_trace():\n    # Constructed outside of exception handling -> no traceback to attach.\n    # The current implementation raises AttributeError here because\n    # full_trace is never set.\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    str(exc)\n\n\n@pytest.mark.xfail(raises=TypeError, strict=True,\n                   reason=\"full_trace lines contain _TBItem/None causing __str__ issues\")\ndef test_str_with_cause_inside_except():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    str(exc)\n\n\n@pytest.mark.xfail(raises=AttributeError, strict=True,\n                   reason=\"no-cause exceptions lack root_cause\")\ndef test_get_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    exc.get_str()\n\n\n@pytest.mark.xfail(raises=TypeError, strict=True,\n                   reason=\"full_trace formatting raises TypeError in current impl\")\ndef test_get_str_with_cause_has_traceback():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    exc.get_str()\n\n\n# ---------------------------------------------------------------------------\n# _get_trace_str\n# ---------------------------------------------------------------------------\n\ndef test_get_trace_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert exc._get_trace_str() == super(SimpleWrapped, exc).__repr__()\n\n\n@pytest.mark.xfail(raises=AttributeError, strict=True,\n                   reason=\"full_trace never set when no exception context\")\ndef test_get_trace_str_with_cause_no_full_trace():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    exc._get_trace_str()\n\n\n@pytest.mark.xfail(raises=TypeError, strict=True,\n                   reason=\"full_trace formatting raises TypeError in current impl\")\ndef test_get_trace_str_with_full_trace():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    exc._get_trace_str()\n\n\n# ---------------------------------------------------------------------------\n# _format_exc\n# ---------------------------------------------------------------------------\n\ndef test_format_exc_without_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc) == \"ValueError: boom\"\n\n\ndef test_format_exc_with_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc, \"custom\") == \"ValueError: custom\"\n\n\ndef test_format_exc_no_args():\n    exc = ValueError()\n    assert _format_exc(exc) == \"ValueError\"\n\n\n# ---------------------------------------------------------------------------\n# _DeferredLine\n# ---------------------------------------------------------------------------\n\ndef test_deferred_line_eq():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 10)\n    assert a == b\n    assert not (a != b)\n\n\ndef test_deferred_line_ne():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 11)\n    assert a != b\n    assert not (a == b)\n\n\ndef test_deferred_line_missing_file():\n    line = _DeferredLine(\"nonexistent_file_abc.py\", 1)\n    # getline returns '' for missing files; __str__ returns None which\n    # raises TypeError when str() is called.\n    with pytest.raises(TypeError):\n        str(line)\n\n\ndef test_deferred_line_repr_len_strip(tmp_path):\n    f = tmp_path / \"src.py\"\n    f.write_text(\"    hello_world\\n\")\n    line = _DeferredLine(str(f), 1)\n    assert str(line) == \"hello_world\"\n    assert repr(line) == repr(\"hello_world\")\n    assert len(line) == len(\"hello_world\")\n    assert line.strip() == \"hello_world\"\n\n\ndef test_deferred_line_module_globals_filter():\n    line = _DeferredLine(\"x.py\", 1, {\"__name__\": \"m\", \"other\": 1})\n    assert line.module_globals == {\"__name__\": \"m\"}\n\n\n# ---------------------------------------------------------------------------\n# _TBItem\n# ---------------------------------------------------------------------------\n\ndef test_tbitem_repr():\n    item = _TBItem(\"f.py\", 3, \"func\", \"line\")\n    item.frame_id = 12345\n    r = repr(item)\n    assert \"12345\" in r\n    assert \"f.py\" in r\n\n\n# ---------------------------------------------------------------------------\n# _extract_from_tb / _extract_from_frame\n# ---------------------------------------------------------------------------\n\ndef test_extract_from_tb():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb)\n    assert len(items) >= 1\n    item = items[0]\n    assert item.name == \"test_extract_from_tb\"\n    assert item.filename == __file__\n    assert isinstance(item, _TBItem)\n    assert hasattr(item, \"frame_id\")\n\n\ndef test_extract_from_tb_limit():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb, limit=0)\n    assert items == []\n\n\ndef test_extract_from_frame():\n    items = _extract_from_frame()\n    assert len(items) >= 1\n    # Last item should be the most recent frame (current function)\n    assert items[-1].name == \"test_extract_from_frame\"\n\n\ndef test_extract_from_frame_limit():\n    items = _extract_from_frame(limit=0)\n    assert items == []\n\n\n# ---------------------------------------------------------------------------\n# MathError\n# ---------------------------------------------------------------------------\n\ndef test_math_error_is_mixin_and_valueerror():\n    exc = MathError(\"oops\")\n    assert isinstance(exc, ExceptionCauseMixin)\n    assert isinstance(exc, ValueError)\n\n\ndef test_math_error_with_cause():\n    cause = ZeroDivisionError(\"div\")\n    exc = MathError(cause, \"wrapped\")\n    assert exc.cause is cause\n    assert exc.root_cause is cause\n    assert exc._get_message() == \"wrapped\"\n\n\n# ---------------------------------------------------------------------------\n# whoops_math / math_lol\n# ---------------------------------------------------------------------------\n\ndef test_whoops_math_raises_zero_division():\n    with pytest.raises(ZeroDivisionError):\n        whoops_math()\n\n\ndef test_math_lol_raises_math_error():\n    with pytest.raises(MathError):\n        math_lol()\n\n\ndef test_math_lol_raises_math_error_with_cause():\n    with pytest.raises(MathError) as exc_info:\n        math_lol()\n    exc = exc_info.value\n    assert isinstance(exc.cause, ZeroDivisionError)\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n    assert exc._get_message() == \"ya done messed up\"\n\n\ndef test_math_lol_with_high_n():\n    # n >= 3 goes straight to whoops_math\n    with pytest.raises(MathError):\n        math_lol(n=5)\n\n\n# ---------------------------------------------------------------------------\n# main\n# ---------------------------------------------------------------------------\n\ndef test_main_raises_math_error():\n    with pytest.raises(MathError) as exc_info:\n        main()\n    exc = exc_info.value\n    assert exc._get_message() == \"hi\"\n    # The cause of the outer MathError is the inner MathError\n    assert isinstance(exc.cause, MathError)\n    # root_cause should be the ZeroDivisionError\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n\n\ndef test_main_raises_caught_as_valueerror():\n    # MathError inherits ValueError, so it can be caught as such\n    with pytest.raises(ValueError):\n        main()\n\n\n# ---------------------------------------------------------------------------\n# Traceback capture during exception handling\n# ---------------------------------------------------------------------------\n\ndef test_mixin_captures_full_trace_from_current_exception():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"wrapped\")\n    assert exc.full_trace is not None\n    assert len(exc.full_trace) > 0\n    # Each item is a _TBItem; verify the structure rather than formatting\n    for item in exc.full_trace:\n        assert isinstance(item, _TBItem)\n\n\ndef test_mixin_copies_full_trace_from_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        first = SimpleWrapped(e, \"first\")\n    second = SimpleWrapped(first, \"second\")\n    assert second.full_trace == first.full_trace\n    assert second._tb == first._tb\n    assert second._stack == first._stack\n    # root_cause propagates to the original\n    assert isinstance(second.root_cause, ValueError)\n\n\ndef test_mixin_multiple_wraps_without_provided_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        original = e\n        first = SimpleWrapped(original, \"first\")\n        # Now wrap again while still in the except block (original is current exc)\n        second = SimpleWrapped(first, \"second\")\n    # second wraps first, so root propagates through cause chain\n    assert second.root_cause is first.root_cause\n\n\ndef test_mixin_wrap_current_exception_directly():\n    captured = {}\n    try:\n        raise ValueError(\"direct\")\n    except ValueError as e:\n        wrapped = SimpleWrapped(e, \"wrapped\")\n        captured[\"e\"] = e\n    assert wrapped.cause is captured[\"e\"]\n    assert wrapped.full_trace is not None\n    assert isinstance(wrapped.cause, ValueError)\n    assert str(wrapped.cause) == \"direct\"\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 8653,
+      "cache_hit_tokens": 3328,
+      "completion_tokens": 3076,
+      "reasoning_tokens": 0,
+      "latency": 8.05
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T04:16:47+00:00",
+    "duration": 1.25,
+    "summary": "通过 43，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_excutils.py"
+          ]
+        },
+        "duration": 1.25,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 18249
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T04:16:47+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 43]（提升）",
+    "tool_calls": [],
+    "tokens_total": 18249,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      43
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T04:16:47+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 18249
+  },
+  {
+    "node": "write_tests",
+    "iteration": 3,
+    "at": "2026-10-20T04:16:56+00:00",
+    "duration": 8.99,
+    "summary": "第 3 轮：生成 447 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_excutils.py",
+          "content": "<13009 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 28090,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_excutils.py`)\n```python\nimport sys\nimport traceback\n\nimport pytest\n\nfrom boltons.excutils import (\n    ExceptionCauseMixin,\n    MathError,\n    whoops_math,\n    math_lol,\n    main,\n    _extract_from_tb,\n    _extract_from_frame,\n    _format_exc,\n    _DeferredLine,\n    _TBItem,\n)\n\n\n# ---------------------------------------------------------------------------\n# Basic helpers\n# ---------------------------------------------------------------------------\n\nclass SimpleWrapped(ExceptionCauseMixin, Exception):\n    pass\n\n\ndef _raise_and_get_tb():\n    try:\n        raise ValueError(\"inner\")\n    except ValueError:\n        return sys.exc_info()\n\n\n# ---------------------------------------------------------------------------\n# ExceptionCauseMixin: construction behavior\n# ---------------------------------------------------------------------------\n\ndef test_mixin_no_cause():\n    exc = SimpleWrapped(\"just a message\")\n    assert exc.cause is None\n    assert exc.args == (\"just a message\",)\n\n\ndef test_mixin_with_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.cause is cause\n    # args keep the full passed args tuple (including the cause), per __new__\n    assert exc.args == (cause, \"msg\")\n\n\ndef test_mixin_cause_sets_root_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.root_cause is cause\n\n\ndef test_mixin_root_cause_propagates():\n    inner = ValueError(\"root\")\n    middle = SimpleWrapped(inner, \"middle\")\n    assert middle.root_cause is inner\n    outer = SimpleWrapped(middle, \"outer\")\n    assert outer.root_cause is inner\n\n\ndef test_mixin_first_arg_not_exception():\n    # Non-exception first arg -> treated as a normal message\n    exc = SimpleWrapped(\"not an exception\")\n    assert exc.cause is None\n    assert exc.args == (\"not an exception\",)\n\n\ndef test_mixin_no_args():\n    exc = SimpleWrapped()\n    assert exc.cause is None\n    assert exc.args == ()\n\n\ndef test_mixin_cause_attribute_default_is_none():\n    # class-level default\n    assert ExceptionCauseMixin.cause is None\n\n\ndef test_mixin_subclass_is_exception_cause_mixin():\n    exc = SimpleWrapped(\"x\")\n    assert isinstance(exc, ExceptionCauseMixin)\n\n\n# ---------------------------------------------------------------------------\n# _get_message / _get_exc_str\n# ---------------------------------------------------------------------------\n\ndef test_get_message_no_cause():\n    exc = SimpleWrapped(\"hello\")\n    assert exc._get_message() == \"hello\"\n\n\ndef test_get_message_no_args():\n    exc = SimpleWrapped()\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_with_cause():\n    # With a cause, args[0] is the cause, so message should be args[1]\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"the message\")\n    assert exc._get_message() == \"the message\"\n\n\ndef test_get_message_with_cause_empty_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    # args = (cause,), so args[1:] = () -> ''\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_falsy_first_arg():\n    exc = SimpleWrapped(\"\")\n    assert exc._get_message() == \"\"\n\n\ndef test_get_exc_str_with_cause_and_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=True)\n    assert s.startswith(\"SimpleWrapped: \")\n    assert \"msg (caused by ValueError: orig)\" in s\n\n\ndef test_get_exc_str_without_incl_name():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=False)\n    assert s.startswith(\"msg (caused by ValueError: orig)\")\n\n\ndef test_get_exc_str_without_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    s = exc._get_exc_str(incl_name=True)\n    assert \" caused by ValueError: orig\" in s\n\n\n# ---------------------------------------------------------------------------\n# __str__\n# ---------------------------------------------------------------------------\n\ndef test_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert str(exc) == \"plain\"\n\n\n@pytest.mark.xfail(raises=AttributeError, strict=True,\n                   reason=\"cause without exception context lacks full_trace\")\ndef test_str_with_cause_no_trace():\n    # Constructed outside of exception handling -> no traceback to attach.\n    # The current implementation raises AttributeError here because\n    # full_trace is never set.\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    str(exc)\n\n\n@pytest.mark.xfail(raises=TypeError, strict=True,\n                   reason=\"full_trace lines contain _TBItem/None causing __str__ issues\")\ndef test_str_with_cause_inside_except():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    str(exc)\n\n\n@pytest.mark.xfail(raises=AttributeError, strict=True,\n                   reason=\"no-cause exceptions lack root_cause\")\ndef test_get_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    exc.get_str()\n\n\n@pytest.mark.xfail(raises=TypeError, strict=True,\n                   reason=\"full_trace formatting raises TypeError in current impl\")\ndef test_get_str_with_cause_has_traceback():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    exc.get_str()\n\n\n# ---------------------------------------------------------------------------\n# _get_trace_str\n# ---------------------------------------------------------------------------\n\ndef test_get_trace_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert exc._get_trace_str() == super(SimpleWrapped, exc).__repr__()\n\n\n@pytest.mark.xfail(raises=AttributeError, strict=True,\n                   reason=\"full_trace never set when no exception context\")\ndef test_get_trace_str_with_cause_no_full_trace():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    exc._get_trace_str()\n\n\n@pytest.mark.xfail(raises=TypeError, strict=True,\n                   reason=\"full_trace formatting raises TypeError in current impl\")\ndef test_get_trace_str_with_full_trace():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    exc._get_trace_str()\n\n\n# ---------------------------------------------------------------------------\n# _format_exc\n# ---------------------------------------------------------------------------\n\ndef test_format_exc_without_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc) == \"ValueError: boom\"\n\n\ndef test_format_exc_with_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc, \"custom\") == \"ValueError: custom\"\n\n\ndef test_format_exc_no_args():\n    exc = ValueError()\n    assert _format_exc(exc) == \"ValueError\"\n\n\n# ---------------------------------------------------------------------------\n# _DeferredLine\n# ---------------------------------------------------------------------------\n\ndef test_deferred_line_eq():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 10)\n    assert a == b\n    assert not (a != b)\n\n\ndef test_deferred_line_ne():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 11)\n    assert a != b\n    assert not (a == b)\n\n\ndef test_deferred_line_missing_file():\n    line = _DeferredLine(\"nonexistent_file_abc.py\", 1)\n    # getline returns '' for missing files; __str__ returns None which\n    # raises TypeError when str() is called.\n    with pytest.raises(TypeError):\n        str(line)\n\n\ndef test_deferred_line_repr_len_strip(tmp_path):\n    f = tmp_path / \"src.py\"\n    f.write_text(\"    hello_world\\n\")\n    line = _DeferredLine(str(f), 1)\n    assert str(line) == \"hello_world\"\n    assert repr(line) == repr(\"hello_world\")\n    assert len(line) == len(\"hello_world\")\n    assert line.strip() == \"hello_world\"\n\n\ndef test_deferred_line_module_globals_filter():\n    line = _DeferredLine(\"x.py\", 1, {\"__name__\": \"m\", \"other\": 1})\n    assert line.module_globals == {\"__name__\": \"m\"}\n\n\n# ---------------------------------------------------------------------------\n# _TBItem\n# ---------------------------------------------------------------------------\n\ndef test_tbitem_repr():\n    item = _TBItem(\"f.py\", 3, \"func\", \"line\")\n    item.frame_id = 12345\n    r = repr(item)\n    assert \"12345\" in r\n    assert \"f.py\" in r\n\n\n# ---------------------------------------------------------------------------\n# _extract_from_tb / _extract_from_frame\n# ---------------------------------------------------------------------------\n\ndef test_extract_from_tb():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb)\n    assert len(items) >= 1\n    item = items[0]\n    assert item.name == \"test_extract_from_tb\"\n    assert item.filename == __file__\n    assert isinstance(item, _TBItem)\n    assert hasattr(item, \"frame_id\")\n\n\ndef test_extract_from_tb_limit():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb, limit=0)\n    assert items == []\n\n\ndef test_extract_from_frame():\n    items = _extract_from_frame()\n    assert len(items) >= 1\n    # Last item should be the most recent frame (current function)\n    assert items[-1].name == \"test_extract_from_frame\"\n\n\ndef test_extract_from_frame_limit():\n    items = _extract_from_frame(limit=0)\n    assert items == []\n\n\n# ---------------------------------------------------------------------------\n# MathError\n# ---------------------------------------------------------------------------\n\ndef test_math_error_is_mixin_and_valueerror():\n    exc = MathError(\"oops\")\n    assert isinstance(exc, ExceptionCauseMixin)\n    assert isinstance(exc, ValueError)\n\n\ndef test_math_error_with_cause():\n    cause = ZeroDivisionError(\"div\")\n    exc = MathError(cause, \"wrapped\")\n    assert exc.cause is cause\n    assert exc.root_cause is cause\n    assert exc._get_message() == \"wrapped\"\n\n\n# ---------------------------------------------------------------------------\n# whoops_math / math_lol\n# ---------------------------------------------------------------------------\n\ndef test_whoops_math_raises_zero_division():\n    with pytest.raises(ZeroDivisionError):\n        whoops_math()\n\n\ndef test_math_lol_raises_math_error():\n    with pytest.raises(MathError):\n        math_lol()\n\n\ndef test_math_lol_raises_math_error_with_cause():\n    with pytest.raises(MathError) as exc_info:\n        math_lol()\n    exc = exc_info.value\n    assert isinstance(exc.cause, ZeroDivisionError)\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n    assert exc._get_message() == \"ya done messed up\"\n\n\ndef test_math_lol_with_high_n():\n    # n >= 3 goes straight to whoops_math\n    with pytest.raises(MathError):\n        math_lol(n=5)\n\n\n# ---------------------------------------------------------------------------\n# main\n# ---------------------------------------------------------------------------\n\ndef test_main_raises_math_error():\n    with pytest.raises(MathError) as exc_info:\n        main()\n    exc = exc_info.value\n    assert exc._get_message() == \"hi\"\n    # The cause of the outer MathError is the inner MathError\n    assert isinstance(exc.cause, MathError)\n    # root_cause should be the ZeroDivisionError\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n\n\ndef test_main_raises_caught_as_valueerror():\n    # MathError inherits ValueError, so it can be caught as such\n    with pytest.raises(ValueError):\n        main()\n\n\n# ---------------------------------------------------------------------------\n# Traceback capture during exception handling\n# ---------------------------------------------------------------------------\n\ndef test_mixin_captures_full_trace_from_current_exception():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"wrapped\")\n    assert exc.full_trace is not None\n    assert len(exc.full_trace) > 0\n    # Each item is a _TBItem; verify the structure rather than formatting\n    for item in exc.full_trace:\n        assert isinstance(item, _TBItem)\n\n\ndef test_mixin_copies_full_trace_from_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        first = SimpleWrapped(e, \"first\")\n    second = SimpleWrapped(first, \"second\")\n    assert second.full_trace == first.full_trace\n    assert second._tb == first._tb\n    assert second._stack == first._stack\n    # root_cause propagates to the original\n    assert isinstance(second.root_cause, ValueError)\n\n\ndef test_mixin_multiple_wraps_without_provided_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        original = e\n        first = SimpleWrapped(original, \"first\")\n        # Now wrap again while still in the except block (original is current exc)\n        second = SimpleWrapped(first, \"second\")\n    # second wraps first, so root propagates through cause chain\n    assert second.root_cause is first.root_cause\n\n\ndef test_mixin_wrap_current_exception_directly():\n    captured = {}\n    try:\n        raise ValueError(\"direct\")\n    except ValueError as e:\n        wrapped = SimpleWrapped(e, \"wrapped\")\n        captured[\"e\"] = e\n    assert wrapped.cause is captured[\"e\"]\n    assert wrapped.full_trace is not None\n    assert isinstance(wrapped.cause, ValueError)\n    assert str(wrapped.cause) == \"direct\"\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 43 passed, 0 failed, 0 errors.\n- `tests_testpilot.test_excutils::test_str_with_cause_no_trace` skipped:\n```\ncause without exception context lacks full_trace\n```\n- `tests_testpilot.test_excutils::test_str_with_cause_inside_except` skipped:\n```\nfull_trace lines contain _TBItem/None causing __str__ issues\n```\n- `tests_testpilot.test_excutils::test_get_str_no_cause` skipped:\n```\nno-cause exceptions lack root_cause\n```\n- `tests_testpilot.test_excutils::test_get_str_with_cause_has_traceback` skipped:\n```\nfull_trace formatting raises TypeError in current impl\n```\n- `tests_testpilot.test_excutils::test_get_trace_str_with_cause_no_full_trace` skipped:\n```\nfull_trace never set when no exception context\n```\n- `tests_testpilot.test_excutils::test_get_trace_str_with_full_trace` skipped:\n```\nfull_trace formatting raises TypeError in current impl\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport sys\nimport traceback\n\nimport pytest\n\nfrom boltons.excutils import (\n    ExceptionCauseMixin,\n    MathError,\n    whoops_math,\n    math_lol,\n    main,\n    _extract_from_tb,\n    _extract_from_frame,\n    _format_exc,\n    _DeferredLine,\n    _TBItem,\n)\n\n\n# ---------------------------------------------------------------------------\n# Basic helpers\n# ---------------------------------------------------------------------------\n\nclass SimpleWrapped(ExceptionCauseMixin, Exception):\n    pass\n\n\ndef _raise_and_get_tb():\n    try:\n        raise ValueError(\"inner\")\n    except ValueError:\n        return sys.exc_info()\n\n\n# ---------------------------------------------------------------------------\n# ExceptionCauseMixin: construction behavior\n# ---------------------------------------------------------------------------\n\ndef test_mixin_no_cause():\n    exc = SimpleWrapped(\"just a message\")\n    assert exc.cause is None\n    assert exc.args == (\"just a message\",)\n\n\ndef test_mixin_with_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.cause is cause\n    # args keep the full passed args tuple (including the cause), per __new__\n    assert exc.args == (cause, \"msg\")\n\n\ndef test_mixin_cause_sets_root_cause():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    assert exc.root_cause is cause\n\n\ndef test_mixin_root_cause_propagates():\n    inner = ValueError(\"root\")\n    middle = SimpleWrapped(inner, \"middle\")\n    assert middle.root_cause is inner\n    outer = SimpleWrapped(middle, \"outer\")\n    assert outer.root_cause is inner\n\n\ndef test_mixin_first_arg_not_exception():\n    # Non-exception first arg -> treated as a normal message\n    exc = SimpleWrapped(\"not an exception\")\n    assert exc.cause is None\n    assert exc.args == (\"not an exception\",)\n\n\ndef test_mixin_no_args():\n    exc = SimpleWrapped()\n    assert exc.cause is None\n    assert exc.args == ()\n\n\ndef test_mixin_cause_attribute_default_is_none():\n    # class-level default\n    assert ExceptionCauseMixin.cause is None\n\n\ndef test_mixin_subclass_is_exception_cause_mixin():\n    exc = SimpleWrapped(\"x\")\n    assert isinstance(exc, ExceptionCauseMixin)\n\n\n# ---------------------------------------------------------------------------\n# _get_message / _get_exc_str\n# ---------------------------------------------------------------------------\n\ndef test_get_message_no_cause():\n    exc = SimpleWrapped(\"hello\")\n    assert exc._get_message() == \"hello\"\n\n\ndef test_get_message_no_args():\n    exc = SimpleWrapped()\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_with_cause():\n    # With a cause, args[0] is the cause, so message should be args[1]\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"the message\")\n    assert exc._get_message() == \"the message\"\n\n\ndef test_get_message_with_cause_empty_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    # args = (cause,), so args[1:] = () -> ''\n    assert exc._get_message() == \"\"\n\n\ndef test_get_message_falsy_first_arg():\n    exc = SimpleWrapped(\"\")\n    assert exc._get_message() == \"\"\n\n\ndef test_get_exc_str_with_cause_and_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=True)\n    assert s.startswith(\"SimpleWrapped: \")\n    assert \"msg (caused by ValueError: orig)\" in s\n\n\ndef test_get_exc_str_without_incl_name():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    s = exc._get_exc_str(incl_name=False)\n    assert s.startswith(\"msg (caused by ValueError: orig)\")\n\n\ndef test_get_exc_str_without_message():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause)\n    s = exc._get_exc_str(incl_name=True)\n    assert \" caused by ValueError: orig\" in s\n\n\n# ---------------------------------------------------------------------------\n# __str__\n# ---------------------------------------------------------------------------\n\ndef test_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert str(exc) == \"plain\"\n\n\ndef test_str_with_cause_no_trace():\n    # Constructed outside of exception handling -> no traceback to attach,\n    # so full_trace is never set and __str__ raises AttributeError.\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    with pytest.raises(AttributeError):\n        str(exc)\n\n\ndef test_str_with_cause_inside_except():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    # full_trace lines contain _TBItem/None causing __str__ issues\n    with pytest.raises(TypeError):\n        str(exc)\n\n\ndef test_get_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    # no-cause exceptions lack root_cause\n    with pytest.raises(AttributeError):\n        exc.get_str()\n\n\ndef test_get_str_with_cause_has_traceback():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    # full_trace formatting raises TypeError in current impl\n    with pytest.raises(TypeError):\n        exc.get_str()\n\n\n# ---------------------------------------------------------------------------\n# _get_trace_str\n# ---------------------------------------------------------------------------\n\ndef test_get_trace_str_no_cause():\n    exc = SimpleWrapped(\"plain\")\n    assert exc._get_trace_str() == super(SimpleWrapped, exc).__repr__()\n\n\ndef test_get_trace_str_with_cause_no_full_trace():\n    cause = ValueError(\"orig\")\n    exc = SimpleWrapped(cause, \"msg\")\n    # full_trace never set when no exception context\n    with pytest.raises(AttributeError):\n        exc._get_trace_str()\n\n\ndef test_get_trace_str_with_full_trace():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"msg\")\n    # full_trace formatting raises TypeError in current impl\n    with pytest.raises(TypeError):\n        exc._get_trace_str()\n\n\n# ---------------------------------------------------------------------------\n# _format_exc\n# ---------------------------------------------------------------------------\n\ndef test_format_exc_without_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc) == \"ValueError: boom\"\n\n\ndef test_format_exc_with_message():\n    exc = ValueError(\"boom\")\n    assert _format_exc(exc, \"custom\") == \"ValueError: custom\"\n\n\ndef test_format_exc_no_args():\n    exc = ValueError()\n    assert _format_exc(exc) == \"ValueError\"\n\n\n# ---------------------------------------------------------------------------\n# _DeferredLine\n# ---------------------------------------------------------------------------\n\ndef test_deferred_line_eq():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 10)\n    assert a == b\n    assert not (a != b)\n\n\ndef test_deferred_line_ne():\n    a = _DeferredLine(\"somefile.py\", 10)\n    b = _DeferredLine(\"somefile.py\", 11)\n    assert a != b\n    assert not (a == b)\n\n\ndef test_deferred_line_missing_file():\n    line = _DeferredLine(\"nonexistent_file_abc.py\", 1)\n    # getline returns '' for missing files; __str__ returns None which\n    # raises TypeError when str() is called.\n    with pytest.raises(TypeError):\n        str(line)\n\n\ndef test_deferred_line_repr_len_strip(tmp_path):\n    f = tmp_path / \"src.py\"\n    f.write_text(\"    hello_world\\n\")\n    line = _DeferredLine(str(f), 1)\n    assert str(line) == \"hello_world\"\n    assert repr(line) == repr(\"hello_world\")\n    assert len(line) == len(\"hello_world\")\n    assert line.strip() == \"hello_world\"\n\n\ndef test_deferred_line_module_globals_filter():\n    line = _DeferredLine(\"x.py\", 1, {\"__name__\": \"m\", \"other\": 1})\n    assert line.module_globals == {\"__name__\": \"m\"}\n\n\n# ---------------------------------------------------------------------------\n# _TBItem\n# ---------------------------------------------------------------------------\n\ndef test_tbitem_repr():\n    item = _TBItem(\"f.py\", 3, \"func\", \"line\")\n    item.frame_id = 12345\n    r = repr(item)\n    assert \"12345\" in r\n    assert \"f.py\" in r\n\n\n# ---------------------------------------------------------------------------\n# _extract_from_tb / _extract_from_frame\n# ---------------------------------------------------------------------------\n\ndef test_extract_from_tb():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb)\n    assert len(items) >= 1\n    item = items[0]\n    assert item.name == \"test_extract_from_tb\"\n    assert item.filename == __file__\n    assert isinstance(item, _TBItem)\n    assert hasattr(item, \"frame_id\")\n\n\ndef test_extract_from_tb_limit():\n    try:\n        raise ValueError(\"boom\")\n    except ValueError:\n        exc_type, exc_value, tb = sys.exc_info()\n    items = _extract_from_tb(tb, limit=0)\n    assert items == []\n\n\ndef test_extract_from_frame():\n    items = _extract_from_frame()\n    assert len(items) >= 1\n    # Last item should be the most recent frame (current function)\n    assert items[-1].name == \"test_extract_from_frame\"\n\n\ndef test_extract_from_frame_limit():\n    items = _extract_from_frame(limit=0)\n    assert items == []\n\n\n# ---------------------------------------------------------------------------\n# MathError\n# ---------------------------------------------------------------------------\n\ndef test_math_error_is_mixin_and_valueerror():\n    exc = MathError(\"oops\")\n    assert isinstance(exc, ExceptionCauseMixin)\n    assert isinstance(exc, ValueError)\n\n\ndef test_math_error_with_cause():\n    cause = ZeroDivisionError(\"div\")\n    exc = MathError(cause, \"wrapped\")\n    assert exc.cause is cause\n    assert exc.root_cause is cause\n    assert exc._get_message() == \"wrapped\"\n\n\n# ---------------------------------------------------------------------------\n# whoops_math / math_lol\n# ---------------------------------------------------------------------------\n\ndef test_whoops_math_raises_zero_division():\n    with pytest.raises(ZeroDivisionError):\n        whoops_math()\n\n\ndef test_math_lol_raises_math_error():\n    with pytest.raises(MathError):\n        math_lol()\n\n\ndef test_math_lol_raises_math_error_with_cause():\n    with pytest.raises(MathError) as exc_info:\n        math_lol()\n    exc = exc_info.value\n    assert isinstance(exc.cause, ZeroDivisionError)\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n    assert exc._get_message() == \"ya done messed up\"\n\n\ndef test_math_lol_with_high_n():\n    # n >= 3 goes straight to whoops_math\n    with pytest.raises(MathError):\n        math_lol(n=5)\n\n\n# ---------------------------------------------------------------------------\n# main\n# ---------------------------------------------------------------------------\n\ndef test_main_raises_math_error():\n    with pytest.raises(MathError) as exc_info:\n        main()\n    exc = exc_info.value\n    assert exc._get_message() == \"hi\"\n    # The cause of the outer MathError is the inner MathError\n    assert isinstance(exc.cause, MathError)\n    # root_cause should be the ZeroDivisionError\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n\n\ndef test_main_raises_caught_as_valueerror():\n    # MathError inherits ValueError, so it can be caught as such\n    with pytest.raises(ValueError):\n        main()\n\n\n# ---------------------------------------------------------------------------\n# Traceback capture during exception handling\n# ---------------------------------------------------------------------------\n\ndef test_mixin_captures_full_trace_from_current_exception():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        exc = SimpleWrapped(e, \"wrapped\")\n    assert exc.full_trace is not None\n    assert len(exc.full_trace) > 0\n    # Each item is a _TBItem; verify the structure rather than formatting\n    for item in exc.full_trace:\n        assert isinstance(item, _TBItem)\n\n\ndef test_mixin_copies_full_trace_from_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        first = SimpleWrapped(e, \"first\")\n    second = SimpleWrapped(first, \"second\")\n    assert second.full_trace == first.full_trace\n    assert second._tb == first._tb\n    assert second._stack == first._stack\n    # root_cause propagates to the original\n    assert isinstance(second.root_cause, ValueError)\n\n\ndef test_mixin_multiple_wraps_without_provided_cause():\n    try:\n        raise ValueError(\"orig\")\n    except ValueError as e:\n        original = e\n        first = SimpleWrapped(original, \"first\")\n        # Now wrap again while still in the except block (original is current exc)\n        second = SimpleWrapped(first, \"second\")\n    # second wraps first, so root propagates through cause chain\n    assert second.root_cause is first.root_cause\n\n\ndef test_mixin_wrap_current_exception_directly():\n    captured = {}\n    try:\n        raise ValueError(\"direct\")\n    except ValueError as e:\n        wrapped = SimpleWrapped(e, \"wrapped\")\n        captured[\"e\"] = e\n    assert wrapped.cause is captured[\"e\"]\n    assert wrapped.full_trace is not None\n    assert isinstance(wrapped.cause, ValueError)\n    assert str(wrapped.cause) == \"direct\"\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 6818,
+      "cache_hit_tokens": 4224,
+      "completion_tokens": 3023,
+      "reasoning_tokens": 0,
+      "latency": 8.98
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 3,
+    "at": "2026-10-20T04:16:57+00:00",
+    "duration": 0.95,
+    "summary": "通过 49，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_excutils.py"
+          ]
+        },
+        "duration": 0.95,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 28090
+  },
+  {
+    "node": "analyze",
+    "iteration": 3,
+    "at": "2026-10-20T04:17:04+00:00",
+    "duration": 7.42,
+    "summary": "分数 [1, 0.0, 0.9132947976878613, 0.8461538461538461, 49]（提升），行覆盖 91.3%，分支覆盖 84.6%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_excutils.py"
+          ]
+        },
+        "duration": 3.02,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "boltons/excutils.py",
+          "tests": [
+            "tests_testpilot/test_excutils.py::test_mixin_no_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_with_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_cause_sets_root_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_root_cause_propagates",
+            "tests_testpilot/test_excutils.py::test_mixin_first_arg_not_exception",
+            "tests_testpilot/test_excutils.py::test_mixin_no_args",
+            "tests_testpilot/test_excutils.py::test_mixin_cause_attribute_default_is_none",
+            "tests_testpilot/test_excutils.py::test_mixin_subclass_is_exception_cause_mixin",
+            "tests_testpilot/test_excutils.py::test_get_message_no_cause",
+            "tests_testpilot/test_excutils.py::test_get_message_no_args",
+            "tests_testpilot/test_excutils.py::test_get_message_with_cause",
+            "tests_testpilot/test_excutils.py::test_get_message_with_cause_empty_message",
+            "tests_testpilot/test_excutils.py::test_get_message_falsy_first_arg",
+            "tests_testpilot/test_excutils.py::test_get_exc_str_with_cause_and_message",
+            "tests_testpilot/test_excutils.py::test_get_exc_str_without_incl_name",
+            "tests_testpilot/test_excutils.py::test_get_exc_str_without_message",
+            "tests_testpilot/test_excutils.py::test_str_no_cause",
+            "tests_testpilot/test_excutils.py::test_str_with_cause_no_trace",
+            "tests_testpilot/test_excutils.py::test_str_with_cause_inside_except",
+            "tests_testpilot/test_excutils.py::test_get_str_no_cause",
+            "tests_testpilot/test_excutils.py::test_get_str_with_cause_has_traceback",
+            "tests_testpilot/test_excutils.py::test_get_trace_str_no_cause",
+            "tests_testpilot/test_excutils.py::test_get_trace_str_with_cause_no_full_trace",
+            "tests_testpilot/test_excutils.py::test_get_trace_str_with_full_trace",
+            "tests_testpilot/test_excutils.py::test_format_exc_without_message",
+            "tests_testpilot/test_excutils.py::test_format_exc_with_message",
+            "tests_testpilot/test_excutils.py::test_format_exc_no_args",
+            "tests_testpilot/test_excutils.py::test_deferred_line_eq",
+            "tests_testpilot/test_excutils.py::test_deferred_line_ne",
+            "tests_testpilot/test_excutils.py::test_deferred_line_missing_file",
+            "tests_testpilot/test_excutils.py::test_deferred_line_repr_len_strip",
+            "tests_testpilot/test_excutils.py::test_deferred_line_module_globals_filter",
+            "tests_testpilot/test_excutils.py::test_tbitem_repr",
+            "tests_testpilot/test_excutils.py::test_extract_from_tb",
+            "tests_testpilot/test_excutils.py::test_extract_from_tb_limit",
+            "tests_testpilot/test_excutils.py::test_extract_from_frame",
+            "tests_testpilot/test_excutils.py::test_extract_from_frame_limit",
+            "tests_testpilot/test_excutils.py::test_math_error_is_mixin_and_valueerror",
+            "tests_testpilot/test_excutils.py::test_math_error_with_cause",
+            "tests_testpilot/test_excutils.py::test_whoops_math_raises_zero_division",
+            "tests_testpilot/test_excutils.py::test_math_lol_raises_math_error",
+            "tests_testpilot/test_excutils.py::test_math_lol_raises_math_error_with_cause",
+            "tests_testpilot/test_excutils.py::test_math_lol_with_high_n",
+            "tests_testpilot/test_excutils.py::test_main_raises_math_error",
+            "tests_testpilot/test_excutils.py::test_main_raises_caught_as_valueerror",
+            "tests_testpilot/test_excutils.py::test_mixin_captures_full_trace_from_current_exception",
+            "tests_testpilot/test_excutils.py::test_mixin_copies_full_trace_from_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_multiple_wraps_without_provided_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_wrap_current_exception_directly"
+          ]
+        },
+        "duration": 1.87,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "run_mutation",
+        "args": {
+          "target": "boltons/excutils.py",
+          "tests": [
+            "tests_testpilot/test_excutils.py::test_mixin_no_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_with_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_cause_sets_root_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_root_cause_propagates",
+            "tests_testpilot/test_excutils.py::test_mixin_first_arg_not_exception",
+            "tests_testpilot/test_excutils.py::test_mixin_no_args",
+            "tests_testpilot/test_excutils.py::test_mixin_cause_attribute_default_is_none",
+            "tests_testpilot/test_excutils.py::test_mixin_subclass_is_exception_cause_mixin",
+            "tests_testpilot/test_excutils.py::test_get_message_no_cause",
+            "tests_testpilot/test_excutils.py::test_get_message_no_args",
+            "tests_testpilot/test_excutils.py::test_get_message_with_cause",
+            "tests_testpilot/test_excutils.py::test_get_message_with_cause_empty_message",
+            "tests_testpilot/test_excutils.py::test_get_message_falsy_first_arg",
+            "tests_testpilot/test_excutils.py::test_get_exc_str_with_cause_and_message",
+            "tests_testpilot/test_excutils.py::test_get_exc_str_without_incl_name",
+            "tests_testpilot/test_excutils.py::test_get_exc_str_without_message",
+            "tests_testpilot/test_excutils.py::test_str_no_cause",
+            "tests_testpilot/test_excutils.py::test_str_with_cause_no_trace",
+            "tests_testpilot/test_excutils.py::test_str_with_cause_inside_except",
+            "tests_testpilot/test_excutils.py::test_get_str_no_cause",
+            "tests_testpilot/test_excutils.py::test_get_str_with_cause_has_traceback",
+            "tests_testpilot/test_excutils.py::test_get_trace_str_no_cause",
+            "tests_testpilot/test_excutils.py::test_get_trace_str_with_cause_no_full_trace",
+            "tests_testpilot/test_excutils.py::test_get_trace_str_with_full_trace",
+            "tests_testpilot/test_excutils.py::test_format_exc_without_message",
+            "tests_testpilot/test_excutils.py::test_format_exc_with_message",
+            "tests_testpilot/test_excutils.py::test_format_exc_no_args",
+            "tests_testpilot/test_excutils.py::test_deferred_line_eq",
+            "tests_testpilot/test_excutils.py::test_deferred_line_ne",
+            "tests_testpilot/test_excutils.py::test_deferred_line_missing_file",
+            "tests_testpilot/test_excutils.py::test_deferred_line_repr_len_strip",
+            "tests_testpilot/test_excutils.py::test_deferred_line_module_globals_filter",
+            "tests_testpilot/test_excutils.py::test_tbitem_repr",
+            "tests_testpilot/test_excutils.py::test_extract_from_tb",
+            "tests_testpilot/test_excutils.py::test_extract_from_tb_limit",
+            "tests_testpilot/test_excutils.py::test_extract_from_frame",
+            "tests_testpilot/test_excutils.py::test_extract_from_frame_limit",
+            "tests_testpilot/test_excutils.py::test_math_error_is_mixin_and_valueerror",
+            "tests_testpilot/test_excutils.py::test_math_error_with_cause",
+            "tests_testpilot/test_excutils.py::test_whoops_math_raises_zero_division",
+            "tests_testpilot/test_excutils.py::test_math_lol_raises_math_error",
+            "tests_testpilot/test_excutils.py::test_math_lol_raises_math_error_with_cause",
+            "tests_testpilot/test_excutils.py::test_math_lol_with_high_n",
+            "tests_testpilot/test_excutils.py::test_main_raises_math_error",
+            "tests_testpilot/test_excutils.py::test_main_raises_caught_as_valueerror",
+            "tests_testpilot/test_excutils.py::test_mixin_captures_full_trace_from_current_exception",
+            "tests_testpilot/test_excutils.py::test_mixin_copies_full_trace_from_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_multiple_wraps_without_provided_cause",
+            "tests_testpilot/test_excutils.py::test_mixin_wrap_current_exception_directly"
+          ],
+          "max_survivors": 200
+        },
+        "duration": 2.53,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 28090,
+    "score": [
+      1,
+      0.0,
+      0.9132947976878613,
+      0.8461538461538461,
+      49
+    ],
+    "coverage": {
+      "target": "boltons/excutils.py",
+      "tests_all_passed": true,
+      "line_rate": 0.9132947976878613,
+      "branch_rate": 0.8461538461538461,
+      "statements": 173,
+      "branches": 52,
+      "missing_lines": [
+        114,
+        129,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        155,
+        157,
+        283,
+        284,
+        285,
+        286,
+        287
+      ],
+      "missing_branches": [
+        [
+          91,
+          99
+        ],
+        [
+          111,
+          113
+        ],
+        [
+          127,
+          129
+        ],
+        [
+          148,
+          149
+        ],
+        [
+          148,
+          157
+        ],
+        [
+          150,
+          151
+        ],
+        [
+          150,
+          152
+        ],
+        [
+          282,
+          283
+        ]
+      ],
+      "error": ""
+    },
+    "validity": {
+      "total": 49,
+      "valid": 49,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": {
+      "target": "boltons/excutils.py",
+      "score": null,
+      "total": 0,
+      "killed": 0,
+      "survived": 0,
+      "excluded": 0,
+      "status_counts": {},
+      "survivors_truncated": false,
+      "error": "mutmut 运行失败（常见原因：测试在原代码上没有全部通过）\n⠋ Generating mutants\n⠙ Generating mutants\n⠹ Generating mutants\n⠸ Generating mutants\n⠼ Generating mutants\n⠴ Generating mutants\n⠦ Generating mutants\n⠧ Generating mutants\n⠇ Generating mutants\n⠏ Generating mutants\n⠋ Generating mutants\n⠙ Generating mutants\n⠹ Generating mutants\n⠸ Generating mutants\n⠼ Generating mutants\n⠴ Generating mutants\n⠦ Generating mutants\n⠧ Generating mutants\n⠇ Generating mutants\n⠏ Generating mutants\n⠋ Generating mutants\n⠙ Generating mutants\n⠹ Generating mutants\n⠸ Generating mutants\n⠼ Generating mutants\n⠴ Generating mutants\n⠦ Generating mutants\n⠧ Generating mutants\n⠇ Generating mutants\n⠏ Generating mutants\n⠋ Generating mutants\n⠙ Generating mutants\n⠹ Generating mutants\n⠸ Generating mutants\n⠼ Generating mutants\n⠴ Generating mutants\n⠦ Generating mutants\n⠧ Generating mutants\n⠇ Generating mutants\n⠧ Generating mutants\n⠇ Generating mutants\n⠧ Generating mutants\n⠇ Generating mutants\n⠧ Generating mutants\n⠇ Generating mutants\n⠏ Generating mutants\n⠋ Generating mutants\n⠏ Generating \n... [省略 1020 个字符] ...\n_execution.py\", line 195, in _multicall\n    raise exception\n  File \"/usr/local/lib/python3.11/site-packages/pluggy/_execution.py\", line 147, in _multicall\n    res = hook_impl.function(*args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.11/site-packages/_pytest/python.py\", line 167, in pytest_pyfunc_call\n    result = testfunction(**testargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/testpilot-p9y6y1dh/repo/mutants/tests_testpilot/test_excutils.py\", line 320, in test_extract_from_frame\n    assert items[-1].name == \"test_extract_from_frame\"\nAssertionError: assert 'trampoline' == 'test_extract_from_frame'\n  \n  - test_extract_from_frame\n  + trampoline\n=========================== short test summary info ============================\nFAILED tests_testpilot/test_excutils.py::test_extract_from_frame - AssertionE...\n!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!\n1 failed, 35 passed in 0.17s\nfailed to collect stats. runner returned 1"
+    }
+  },
+  {
+    "node": "decide",
+    "iteration": 3,
+    "at": "2026-10-20T04:17:04+00:00",
+    "duration": 0.0,
+    "summary": "变异测试出错，无法继续反馈：mutmut 运行失败（常见原因：测试在原代码上没有全部通过）\n⠋ Generating mutants\n⠙ Generating mutants\n⠹ Generating mutants\n⠸ Generating mutants\n⠼ Generating mutants\n⠴ Generating mutants\n⠦ Generating mutants\n⠧ Generating mutants\n",
+    "tool_calls": [],
+    "tokens_total": 28090
+  },
+  {
+    "node": "finalize",
+    "iteration": 3,
+    "at": "2026-10-20T04:17:04+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：变异测试出错，无法继续反馈：mutmut 运行失败（常见原因：测试在原代码上没有全部通过）\n⠋ Generating mutants\n⠙ Generating mutants\n⠹ Generating mutants\n⠸ Generating mutants\n⠼ Generating mutants\n⠴ Generating mutants\n⠦ Generating mutants\n⠧ Generating mutants\n；采用第 3 轮，分数 [1, 0.0, 0.9132947976878613, 0.8461538461538461, 49]",
+    "tool_calls": [],
+    "tokens_total": 28090,
+    "best_iteration": 3
+  }
+]

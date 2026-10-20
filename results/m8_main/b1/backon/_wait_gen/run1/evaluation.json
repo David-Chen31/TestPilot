@@ -1,0 +1,1200 @@
+{
+  "target": "backon/_wait_gen.py",
+  "validity": {
+    "total": 24,
+    "valid": 24,
+    "valid_ids": [
+      "tests_testpilot/test__wait_gen.py::test_wait_chain_returns_wait_chain_instance",
+      "tests_testpilot/test__wait_gen.py::test_wait_chain_empty_returns_zero",
+      "tests_testpilot/test__wait_gen.py::test_wait_chain_cycles_through_waits_in_order",
+      "tests_testpilot/test__wait_gen.py::test_wait_chain_single_wait_repeats",
+      "tests_testpilot/test__wait_gen.py::test_wait_chain_advances_underlying_generators",
+      "tests_testpilot/test__wait_gen.py::test_wait_chain_send_value_propagates",
+      "tests_testpilot/test__wait_gen.py::test_wait_chain_rejects_non_wait",
+      "tests_testpilot/test__wait_gen.py::test_wait_chain_factory_call_returns_new_chain_with_reconfigured_waits",
+      "tests_testpilot/test__wait_gen.py::test_wait_combine_returns_combined_wait",
+      "tests_testpilot/test__wait_gen.py::test_wait_combine_empty_sums_to_zero",
+      "tests_testpilot/test__wait_gen.py::test_wait_combine_sums_waits",
+      "tests_testpilot/test__wait_gen.py::test_wait_combine_single_wait",
+      "tests_testpilot/test__wait_gen.py::test_wait_combine_progresses_underlying_waits_together",
+      "tests_testpilot/test__wait_gen.py::test_wait_combine_send_value_propagates_to_all",
+      "tests_testpilot/test__wait_gen.py::test_wait_combine_factory_call_reconfigures_children",
+      "tests_testpilot/test__wait_gen.py::test_add_two_waits_forms_combined",
+      "tests_testpilot/test__wait_gen.py::test_add_combined_with_wait_flattens",
+      "tests_testpilot/test__wait_gen.py::test_add_wait_with_combined_left",
+      "tests_testpilot/test__wait_gen.py::test_radd_builds_combined",
+      "tests_testpilot/test__wait_gen.py::test_factory_add_wait",
+      "tests_testpilot/test__wait_gen.py::test_factory_produces_wait_instance",
+      "tests_testpilot/test__wait_gen.py::test_base_wait_next_not_implemented",
+      "tests_testpilot/test__wait_gen.py::test_wait_call_merges_kwargs",
+      "tests_testpilot/test__wait_gen.py::test_wait_call_replaces_positional_args"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.25,
+        "passed": 24,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.17,
+        "passed": 24,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.16,
+        "passed": 24,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.640625,
+  "branch_rate": 0.4,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.23868312757201646,
+    "total": 243,
+    "killed": 58,
+    "survived": 185,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 58,
+      "survived": 28,
+      "no tests": 157
+    },
+    "survivors": [
+      {
+        "line": 20,
+        "original": "new_args = args if args else self._args",
+        "mutated": "new_args = args if (args) or True else self._args",
+        "status": "survived"
+      },
+      {
+        "line": 24,
+        "original": "if i < len(param_order):",
+        "mutated": "if i <= len(param_order):",
+        "status": "survived"
+      },
+      {
+        "line": 25,
+        "original": "merged.pop(param_order[i], None)",
+        "mutated": "merged.pop(param_order[i], )",
+        "status": "survived"
+      },
+      {
+        "line": 30,
+        "original": "return _CombinedWait(self, *other._waits)",
+        "mutated": "return _CombinedWait(None, *other._waits)",
+        "status": "survived"
+      },
+      {
+        "line": 30,
+        "original": "return _CombinedWait(self, *other._waits)",
+        "mutated": "return _CombinedWait(*other._waits)",
+        "status": "survived"
+      },
+      {
+        "line": 30,
+        "original": "return _CombinedWait(self, *other._waits)",
+        "mutated": "return _CombinedWait(self, )",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return _CombinedWait(other, self)",
+        "mutated": "return _CombinedWait(None, self)",
+        "status": "no tests"
+      },
+      {
+        "line": 34,
+        "original": "return _CombinedWait(other, self)",
+        "mutated": "return _CombinedWait(other, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 34,
+        "original": "return _CombinedWait(other, self)",
+        "mutated": "return _CombinedWait(self)",
+        "status": "no tests"
+      },
+      {
+        "line": 34,
+        "original": "return _CombinedWait(other, self)",
+        "mutated": "return _CombinedWait(other, )",
+        "status": "no tests"
+      },
+      {
+        "line": 50,
+        "original": "return _CombinedWait(*self._waits, *other._waits)",
+        "mutated": "return _CombinedWait(*other._waits)",
+        "status": "survived"
+      },
+      {
+        "line": 50,
+        "original": "return _CombinedWait(*self._waits, *other._waits)",
+        "mutated": "return _CombinedWait(*self._waits, )",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "self._cls = cls",
+        "mutated": "self._cls = None",
+        "status": "survived"
+      },
+      {
+        "line": 65,
+        "original": "return _CombinedWait(self(), *other._waits)",
+        "mutated": "return _CombinedWait(None, *other._waits)",
+        "status": "survived"
+      },
+      {
+        "line": 65,
+        "original": "return _CombinedWait(self(), *other._waits)",
+        "mutated": "return _CombinedWait(*other._waits)",
+        "status": "survived"
+      },
+      {
+        "line": 65,
+        "original": "return _CombinedWait(self(), *other._waits)",
+        "mutated": "return _CombinedWait(self(), )",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "return _CombinedWait(self(), other)",
+        "mutated": "return _CombinedWait(None, other)",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "return _CombinedWait(self(), other)",
+        "mutated": "return _CombinedWait(self(), None)",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "return _CombinedWait(self(), other)",
+        "mutated": "return _CombinedWait(other)",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "return _CombinedWait(self(), other)",
+        "mutated": "return _CombinedWait(self(), )",
+        "status": "survived"
+      },
+      {
+        "line": 70,
+        "original": "return _CombinedWait(*other._waits, self())",
+        "mutated": "return _CombinedWait(*other._waits, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 70,
+        "original": "return _CombinedWait(*other._waits, self())",
+        "mutated": "return _CombinedWait(self())",
+        "status": "no tests"
+      },
+      {
+        "line": 70,
+        "original": "return _CombinedWait(*other._waits, self())",
+        "mutated": "return _CombinedWait(*other._waits, )",
+        "status": "no tests"
+      },
+      {
+        "line": 71,
+        "original": "return _CombinedWait(other, self())",
+        "mutated": "return _CombinedWait(None, self())",
+        "status": "no tests"
+      },
+      {
+        "line": 71,
+        "original": "return _CombinedWait(other, self())",
+        "mutated": "return _CombinedWait(other, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 71,
+        "original": "return _CombinedWait(other, self())",
+        "mutated": "return _CombinedWait(self())",
+        "status": "no tests"
+      },
+      {
+        "line": 71,
+        "original": "return _CombinedWait(other, self())",
+        "mutated": "return _CombinedWait(other, )",
+        "status": "no tests"
+      },
+      {
+        "line": 77,
+        "original": "base: float = 2,",
+        "mutated": "base: float = 3,",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "super().__init__(base=base, factor=factor, max_value=max_value)",
+        "mutated": "super().__init__(base=base, factor=factor, max_value=None)",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "super().__init__(base=base, factor=factor, max_value=max_value)",
+        "mutated": "super().__init__(factor=factor, max_value=max_value)",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "super().__init__(base=base, factor=factor, max_value=max_value)",
+        "mutated": "super().__init__(base=base, max_value=max_value)",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "super().__init__(base=base, factor=factor, max_value=max_value)",
+        "mutated": "super().__init__(base=base, factor=factor, )",
+        "status": "survived"
+      },
+      {
+        "line": 84,
+        "original": "self._max_value = max_value",
+        "mutated": "self._max_value = None",
+        "status": "survived"
+      },
+      {
+        "line": 89,
+        "original": "if self._max_value is None or a < self._max_value:",
+        "mutated": "if self._max_value is None or a <= self._max_value:",
+        "status": "survived"
+      },
+      {
+        "line": 101,
+        "original": "initial_value: float = 1,",
+        "mutated": "initial_value: float = 2,",
+        "status": "no tests"
+      },
+      {
+        "line": 102,
+        "original": "decay_factor: float = 1,",
+        "mutated": "decay_factor: float = 2,",
+        "status": "no tests"
+      },
+      {
+        "line": 106,
+        "original": "initial_value=initial_value,",
+        "mutated": "initial_value=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 107,
+        "original": "decay_factor=decay_factor,",
+        "mutated": "decay_factor=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 108,
+        "original": "min_value=min_value,",
+        "mutated": "min_value=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 106,
+        "original": "initial_value=initial_value,",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 107,
+        "original": "decay_factor=decay_factor,",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 108,
+        "original": "min_value=min_value,\n    )",
+        "mutated": ")",
+        "status": "no tests"
+      },
+      {
+        "line": 110,
+        "original": "self._initial_value = initial_value",
+        "mutated": "self._initial_value = None",
+        "status": "no tests"
+      },
+      {
+        "line": 111,
+        "original": "self._decay_factor = decay_factor",
+        "mutated": "self._decay_factor = None",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "self._min_value = min_value",
+        "mutated": "self._min_value = None",
+        "status": "no tests"
+      },
+      {
+        "line": 113,
+        "original": "self._t = 0",
+        "mutated": "self._t = None",
+        "status": "no tests"
+      },
+      {
+        "line": 113,
+        "original": "self._t = 0",
+        "mutated": "self._t = 1",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))",
+        "mutated": "a = None",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))",
+        "mutated": "a = self._initial_value / float(math.e ** (-self._t * self._decay_factor))",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))",
+        "mutated": "a = self._initial_value * float(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))",
+        "mutated": "a = self._initial_value * float(math.e * (-self._t * self._decay_factor))",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))",
+        "mutated": "a = self._initial_value * float(math.e ** (-self._t / self._decay_factor))",
+        "status": "no tests"
+      },
+      {
+        "line": 116,
+        "original": "a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))",
+        "mutated": "a = self._initial_value * float(math.e ** (+self._t * self._decay_factor))",
+        "status": "no tests"
+      },
+      {
+        "line": 117,
+        "original": "if self._min_value is None or a > self._min_value:",
+        "mutated": "if self._min_value is None and a > self._min_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 117,
+        "original": "if self._min_value is None or a > self._min_value:",
+        "mutated": "if self._min_value is not None or a > self._min_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 117,
+        "original": "if self._min_value is None or a > self._min_value:",
+        "mutated": "if self._min_value is None or a >= self._min_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 118,
+        "original": "self._t += 1",
+        "mutated": "self._t = 1",
+        "status": "no tests"
+      },
+      {
+        "line": 118,
+        "original": "self._t += 1",
+        "mutated": "self._t -= 1",
+        "status": "no tests"
+      },
+      {
+        "line": 118,
+        "original": "self._t += 1",
+        "mutated": "self._t += 2",
+        "status": "no tests"
+      },
+      {
+        "line": 128,
+        "original": "super().__init__(max_value=max_value)",
+        "mutated": "super().__init__(max_value=None)",
+        "status": "no tests"
+      },
+      {
+        "line": 129,
+        "original": "self._max_value = max_value",
+        "mutated": "self._max_value = None",
+        "status": "no tests"
+      },
+      {
+        "line": 130,
+        "original": "self._a = 1",
+        "mutated": "self._a = None",
+        "status": "no tests"
+      },
+      {
+        "line": 130,
+        "original": "self._a = 1",
+        "mutated": "self._a = 2",
+        "status": "no tests"
+      },
+      {
+        "line": 131,
+        "original": "self._b = 1",
+        "mutated": "self._b = None",
+        "status": "no tests"
+      },
+      {
+        "line": 131,
+        "original": "self._b = 1",
+        "mutated": "self._b = 2",
+        "status": "no tests"
+      },
+      {
+        "line": 134,
+        "original": "if self._max_value is None or self._a < self._max_value:",
+        "mutated": "if self._max_value is None and self._a < self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 134,
+        "original": "if self._max_value is None or self._a < self._max_value:",
+        "mutated": "if self._max_value is not None or self._a < self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 134,
+        "original": "if self._max_value is None or self._a < self._max_value:",
+        "mutated": "if self._max_value is None or self._a <= self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 135,
+        "original": "result = self._a",
+        "mutated": "result = None",
+        "status": "no tests"
+      },
+      {
+        "line": 136,
+        "original": "self._a, self._b = self._b, self._a + self._b",
+        "mutated": "self._a, self._b = None",
+        "status": "no tests"
+      },
+      {
+        "line": 136,
+        "original": "self._a, self._b = self._b, self._a + self._b",
+        "mutated": "self._a, self._b = self._b, self._a - self._b",
+        "status": "no tests"
+      },
+      {
+        "line": 137,
+        "original": "return float(result)",
+        "mutated": "return float(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 138,
+        "original": "return float(self._max_value)",
+        "mutated": "return float(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 145,
+        "original": "def __init__(self, interval: int | float | Sequence[float] = 1) -> None:",
+        "mutated": "def __init__(self, interval: int | float | Sequence[float] = 2) -> None:",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "super().__init__(interval=interval)",
+        "mutated": "super().__init__(interval=None)",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "self._itr = iter(interval)",
+        "mutated": "self._itr = None",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "self._itr = iter(interval)",
+        "mutated": "self._itr = iter(None)",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "super().__init__(value=value)",
+        "mutated": "super().__init__(value=None)",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "multiplier: float = 1,",
+        "mutated": "multiplier: float = 2,",
+        "status": "no tests"
+      },
+      {
+        "line": 177,
+        "original": "exp_base: float = 2,",
+        "mutated": "exp_base: float = 3,",
+        "status": "no tests"
+      },
+      {
+        "line": 178,
+        "original": "min_value: float = 0,",
+        "mutated": "min_value: float = 1,",
+        "status": "no tests"
+      },
+      {
+        "line": 181,
+        "original": "multiplier=multiplier,",
+        "mutated": "multiplier=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "max_value=max_value,",
+        "mutated": "max_value=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 183,
+        "original": "exp_base=exp_base,",
+        "mutated": "exp_base=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 184,
+        "original": "min_value=min_value,",
+        "mutated": "min_value=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 181,
+        "original": "multiplier=multiplier,",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "max_value=max_value,",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 183,
+        "original": "exp_base=exp_base,",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 184,
+        "original": "min_value=min_value,\n    )",
+        "mutated": ")",
+        "status": "no tests"
+      },
+      {
+        "line": 186,
+        "original": "self._multiplier = multiplier",
+        "mutated": "self._multiplier = None",
+        "status": "no tests"
+      },
+      {
+        "line": 187,
+        "original": "self._max_value = max_value",
+        "mutated": "self._max_value = None",
+        "status": "no tests"
+      },
+      {
+        "line": 188,
+        "original": "self._exp_base = exp_base",
+        "mutated": "self._exp_base = None",
+        "status": "no tests"
+      },
+      {
+        "line": 189,
+        "original": "self._min_value = min_value",
+        "mutated": "self._min_value = None",
+        "status": "no tests"
+      },
+      {
+        "line": 190,
+        "original": "self._n = 0",
+        "mutated": "self._n = None",
+        "status": "no tests"
+      },
+      {
+        "line": 190,
+        "original": "self._n = 0",
+        "mutated": "self._n = 1",
+        "status": "no tests"
+      },
+      {
+        "line": 193,
+        "original": "a = self._multiplier * self._exp_base**self._n",
+        "mutated": "a = None",
+        "status": "no tests"
+      },
+      {
+        "line": 193,
+        "original": "a = self._multiplier * self._exp_base**self._n",
+        "mutated": "a = self._multiplier / self._exp_base**self._n",
+        "status": "no tests"
+      },
+      {
+        "line": 193,
+        "original": "a = self._multiplier * self._exp_base**self._n",
+        "mutated": "a = self._multiplier * self._exp_base * self._n",
+        "status": "no tests"
+      },
+      {
+        "line": 194,
+        "original": "if self._max_value is not None and a > self._max_value:",
+        "mutated": "if self._max_value is not None or a > self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 194,
+        "original": "if self._max_value is not None and a > self._max_value:",
+        "mutated": "if self._max_value is None and a > self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 194,
+        "original": "if self._max_value is not None and a > self._max_value:",
+        "mutated": "if self._max_value is not None and a >= self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 195,
+        "original": "a = self._max_value",
+        "mutated": "a = None",
+        "status": "no tests"
+      },
+      {
+        "line": 196,
+        "original": "if a < self._min_value:",
+        "mutated": "if a <= self._min_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 197,
+        "original": "a = self._min_value",
+        "mutated": "a = None",
+        "status": "no tests"
+      },
+      {
+        "line": 198,
+        "original": "self._n += 1",
+        "mutated": "self._n = 1",
+        "status": "no tests"
+      },
+      {
+        "line": 198,
+        "original": "self._n += 1",
+        "mutated": "self._n -= 1",
+        "status": "no tests"
+      },
+      {
+        "line": 198,
+        "original": "self._n += 1",
+        "mutated": "self._n += 2",
+        "status": "no tests"
+      },
+      {
+        "line": 199,
+        "original": "return random.uniform(0, a)",
+        "mutated": "return random.uniform(None, a)",
+        "status": "no tests"
+      },
+      {
+        "line": 199,
+        "original": "return random.uniform(0, a)",
+        "mutated": "return random.uniform(0, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 199,
+        "original": "return random.uniform(0, a)",
+        "mutated": "return random.uniform(a)",
+        "status": "no tests"
+      },
+      {
+        "line": 199,
+        "original": "return random.uniform(0, a)",
+        "mutated": "return random.uniform(0, )",
+        "status": "no tests"
+      },
+      {
+        "line": 199,
+        "original": "return random.uniform(0, a)",
+        "mutated": "return random.uniform(1, a)",
+        "status": "no tests"
+      },
+      {
+        "line": 208,
+        "original": "start: float = 1,",
+        "mutated": "start: float = 2,",
+        "status": "no tests"
+      },
+      {
+        "line": 209,
+        "original": "increment: float = 1,",
+        "mutated": "increment: float = 2,",
+        "status": "no tests"
+      },
+      {
+        "line": 212,
+        "original": "super().__init__(start=start, increment=increment, max_value=max_value)",
+        "mutated": "super().__init__(start=None, increment=increment, max_value=max_value)",
+        "status": "no tests"
+      },
+      {
+        "line": 212,
+        "original": "super().__init__(start=start, increment=increment, max_value=max_value)",
+        "mutated": "super().__init__(start=start, increment=None, max_value=max_value)",
+        "status": "no tests"
+      },
+      {
+        "line": 212,
+        "original": "super().__init__(start=start, increment=increment, max_value=max_value)",
+        "mutated": "super().__init__(start=start, increment=increment, max_value=None)",
+        "status": "no tests"
+      },
+      {
+        "line": 212,
+        "original": "super().__init__(start=start, increment=increment, max_value=max_value)",
+        "mutated": "super().__init__(increment=increment, max_value=max_value)",
+        "status": "no tests"
+      },
+      {
+        "line": 212,
+        "original": "super().__init__(start=start, increment=increment, max_value=max_value)",
+        "mutated": "super().__init__(start=start, max_value=max_value)",
+        "status": "no tests"
+      },
+      {
+        "line": 212,
+        "original": "super().__init__(start=start, increment=increment, max_value=max_value)",
+        "mutated": "super().__init__(start=start, increment=increment, )",
+        "status": "no tests"
+      },
+      {
+        "line": 213,
+        "original": "self._start = start",
+        "mutated": "self._start = None",
+        "status": "no tests"
+      },
+      {
+        "line": 214,
+        "original": "self._increment = increment",
+        "mutated": "self._increment = None",
+        "status": "no tests"
+      },
+      {
+        "line": 215,
+        "original": "self._max_value = max_value",
+        "mutated": "self._max_value = None",
+        "status": "no tests"
+      },
+      {
+        "line": 216,
+        "original": "self._n = 0",
+        "mutated": "self._n = None",
+        "status": "no tests"
+      },
+      {
+        "line": 216,
+        "original": "self._n = 0",
+        "mutated": "self._n = 1",
+        "status": "no tests"
+      },
+      {
+        "line": 219,
+        "original": "a = self._start + self._n * self._increment",
+        "mutated": "a = None",
+        "status": "no tests"
+      },
+      {
+        "line": 219,
+        "original": "a = self._start + self._n * self._increment",
+        "mutated": "a = self._start - self._n * self._increment",
+        "status": "no tests"
+      },
+      {
+        "line": 219,
+        "original": "a = self._start + self._n * self._increment",
+        "mutated": "a = self._start + self._n / self._increment",
+        "status": "no tests"
+      },
+      {
+        "line": 220,
+        "original": "self._n += 1",
+        "mutated": "self._n = 1",
+        "status": "no tests"
+      },
+      {
+        "line": 220,
+        "original": "self._n += 1",
+        "mutated": "self._n -= 1",
+        "status": "no tests"
+      },
+      {
+        "line": 220,
+        "original": "self._n += 1",
+        "mutated": "self._n += 2",
+        "status": "no tests"
+      },
+      {
+        "line": 221,
+        "original": "if self._max_value is not None and a > self._max_value:",
+        "mutated": "if self._max_value is not None or a > self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 221,
+        "original": "if self._max_value is not None and a > self._max_value:",
+        "mutated": "if self._max_value is None and a > self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 221,
+        "original": "if self._max_value is not None and a > self._max_value:",
+        "mutated": "if self._max_value is not None and a >= self._max_value:",
+        "status": "no tests"
+      },
+      {
+        "line": 256,
+        "original": "super().__init__(value=value)",
+        "mutated": "super().__init__(value=None)",
+        "status": "no tests"
+      },
+      {
+        "line": 257,
+        "original": "self._value = value",
+        "mutated": "self._value = None",
+        "status": "no tests"
+      },
+      {
+        "line": 260,
+        "original": "return self._value(send_value)",
+        "mutated": "return self._value(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 267,
+        "original": "def __init__(self, min: float = 0, max: float = 1) -> None:",
+        "mutated": "def __init__(self, min: float = 1, max: float = 1) -> None:",
+        "status": "no tests"
+      },
+      {
+        "line": 267,
+        "original": "def __init__(self, min: float = 0, max: float = 1) -> None:",
+        "mutated": "def __init__(self, min: float = 0, max: float = 2) -> None:",
+        "status": "no tests"
+      },
+      {
+        "line": 268,
+        "original": "super().__init__(min=min, max=max)",
+        "mutated": "super().__init__(min=None, max=max)",
+        "status": "no tests"
+      },
+      {
+        "line": 268,
+        "original": "super().__init__(min=min, max=max)",
+        "mutated": "super().__init__(min=min, max=None)",
+        "status": "no tests"
+      },
+      {
+        "line": 268,
+        "original": "super().__init__(min=min, max=max)",
+        "mutated": "super().__init__(max=max)",
+        "status": "no tests"
+      },
+      {
+        "line": 268,
+        "original": "super().__init__(min=min, max=max)",
+        "mutated": "super().__init__(min=min, )",
+        "status": "no tests"
+      },
+      {
+        "line": 269,
+        "original": "self._min = min",
+        "mutated": "self._min = None",
+        "status": "no tests"
+      },
+      {
+        "line": 270,
+        "original": "self._max = max",
+        "mutated": "self._max = None",
+        "status": "no tests"
+      },
+      {
+        "line": 273,
+        "original": "return random.uniform(self._min, self._max)",
+        "mutated": "return random.uniform(None, self._max)",
+        "status": "no tests"
+      },
+      {
+        "line": 273,
+        "original": "return random.uniform(self._min, self._max)",
+        "mutated": "return random.uniform(self._min, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 273,
+        "original": "return random.uniform(self._min, self._max)",
+        "mutated": "return random.uniform(self._max)",
+        "status": "no tests"
+      },
+      {
+        "line": 273,
+        "original": "return random.uniform(self._min, self._max)",
+        "mutated": "return random.uniform(self._min, )",
+        "status": "no tests"
+      },
+      {
+        "line": 282,
+        "original": "initial: float = 1,",
+        "mutated": "initial: float = 2,",
+        "status": "no tests"
+      },
+      {
+        "line": 283,
+        "original": "max: float = 60,",
+        "mutated": "max: float = 61,",
+        "status": "no tests"
+      },
+      {
+        "line": 284,
+        "original": "exp_base: float = 2,",
+        "mutated": "exp_base: float = 3,",
+        "status": "no tests"
+      },
+      {
+        "line": 285,
+        "original": "jitter: float = 1,",
+        "mutated": "jitter: float = 2,",
+        "status": "no tests"
+      },
+      {
+        "line": 287,
+        "original": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)",
+        "mutated": "super().__init__(initial=None, max=max, exp_base=exp_base, jitter=jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 287,
+        "original": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)",
+        "mutated": "super().__init__(initial=initial, max=None, exp_base=exp_base, jitter=jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 287,
+        "original": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)",
+        "mutated": "super().__init__(initial=initial, max=max, exp_base=None, jitter=jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 287,
+        "original": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)",
+        "mutated": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=None)",
+        "status": "no tests"
+      },
+      {
+        "line": 287,
+        "original": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)",
+        "mutated": "super().__init__(max=max, exp_base=exp_base, jitter=jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 287,
+        "original": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)",
+        "mutated": "super().__init__(initial=initial, exp_base=exp_base, jitter=jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 287,
+        "original": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)",
+        "mutated": "super().__init__(initial=initial, max=max, jitter=jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 287,
+        "original": "super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)",
+        "mutated": "super().__init__(initial=initial, max=max, exp_base=exp_base, )",
+        "status": "no tests"
+      },
+      {
+        "line": 288,
+        "original": "self._initial = initial",
+        "mutated": "self._initial = None",
+        "status": "no tests"
+      },
+      {
+        "line": 289,
+        "original": "self._max = max",
+        "mutated": "self._max = None",
+        "status": "no tests"
+      },
+      {
+        "line": 290,
+        "original": "self._exp_base = exp_base",
+        "mutated": "self._exp_base = None",
+        "status": "no tests"
+      },
+      {
+        "line": 291,
+        "original": "self._jitter = jitter",
+        "mutated": "self._jitter = None",
+        "status": "no tests"
+      },
+      {
+        "line": 292,
+        "original": "self._n = 1",
+        "mutated": "self._n = None",
+        "status": "no tests"
+      },
+      {
+        "line": 292,
+        "original": "self._n = 1",
+        "mutated": "self._n = 2",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "delay = min(self._initial * self._exp_base**self._n, self._max)",
+        "mutated": "delay = None",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "delay = min(self._initial * self._exp_base**self._n, self._max)",
+        "mutated": "delay = min(None, self._max)",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "delay = min(self._initial * self._exp_base**self._n, self._max)",
+        "mutated": "delay = min(self._initial * self._exp_base**self._n, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "delay = min(self._initial * self._exp_base**self._n, self._max)",
+        "mutated": "delay = min(self._max)",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "delay = min(self._initial * self._exp_base**self._n, self._max)",
+        "mutated": "delay = min(self._initial * self._exp_base**self._n, )",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "delay = min(self._initial * self._exp_base**self._n, self._max)",
+        "mutated": "delay = min(self._initial / self._exp_base**self._n, self._max)",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "delay = min(self._initial * self._exp_base**self._n, self._max)",
+        "mutated": "delay = min(self._initial * self._exp_base * self._n, self._max)",
+        "status": "no tests"
+      },
+      {
+        "line": 296,
+        "original": "delay += random.uniform(0, self._jitter)",
+        "mutated": "delay = random.uniform(0, self._jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 296,
+        "original": "delay += random.uniform(0, self._jitter)",
+        "mutated": "delay -= random.uniform(0, self._jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 296,
+        "original": "delay += random.uniform(0, self._jitter)",
+        "mutated": "delay += random.uniform(None, self._jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 296,
+        "original": "delay += random.uniform(0, self._jitter)",
+        "mutated": "delay += random.uniform(0, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 296,
+        "original": "delay += random.uniform(0, self._jitter)",
+        "mutated": "delay += random.uniform(self._jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 296,
+        "original": "delay += random.uniform(0, self._jitter)",
+        "mutated": "delay += random.uniform(0, )",
+        "status": "no tests"
+      },
+      {
+        "line": 296,
+        "original": "delay += random.uniform(0, self._jitter)",
+        "mutated": "delay += random.uniform(1, self._jitter)",
+        "status": "no tests"
+      },
+      {
+        "line": 297,
+        "original": "self._n += 1",
+        "mutated": "self._n = 1",
+        "status": "no tests"
+      },
+      {
+        "line": 297,
+        "original": "self._n += 1",
+        "mutated": "self._n -= 1",
+        "status": "no tests"
+      },
+      {
+        "line": 297,
+        "original": "self._n += 1",
+        "mutated": "self._n += 2",
+        "status": "no tests"
+      },
+      {
+        "line": 306,
+        "original": "return 0.0",
+        "mutated": "return 1.0",
+        "status": "no tests"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.59,
+    "coverage": 2.05,
+    "mutation": 7.16
+  }
+}

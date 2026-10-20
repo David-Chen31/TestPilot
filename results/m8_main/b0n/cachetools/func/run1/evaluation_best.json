@@ -1,0 +1,192 @@
+{
+  "target": "src/cachetools/func.py",
+  "validity": {
+    "total": 25,
+    "valid": 25,
+    "valid_ids": [
+      "tests_testpilot/test_func_s1.py::test_basic_memoization",
+      "tests_testpilot/test_func_s1.py::test_cache_info_hits_misses",
+      "tests_testpilot/test_func_s1.py::test_cache_parameters",
+      "tests_testpilot/test_func_s1.py::test_cache_parameters_untyped",
+      "tests_testpilot/test_func_s1.py::test_cache_clear",
+      "tests_testpilot/test_func_s1.py::test_maxsize_none_unbounded",
+      "tests_testpilot/test_func_s1.py::test_maxsize_none_cache_parameters",
+      "tests_testpilot/test_func_s1.py::test_bare_decorator",
+      "tests_testpilot/test_func_s1.py::test_fifo_eviction",
+      "tests_testpilot/test_func_s1.py::test_lru_eviction",
+      "tests_testpilot/test_func_s1.py::test_lfu_eviction",
+      "tests_testpilot/test_func_s1.py::test_rr_eviction_deterministic_choice",
+      "tests_testpilot/test_func_s1.py::test_typed_true_distinguishes_types",
+      "tests_testpilot/test_func_s1.py::test_untyped_collapses_equal_keys",
+      "tests_testpilot/test_func_s1.py::test_ttl_cache_expires_items",
+      "tests_testpilot/test_func_s1.py::test_ttl_cache_not_expired_before_ttl",
+      "tests_testpilot/test_func_s1.py::test_ttl_cache_unbounded_has_maxsize_none",
+      "tests_testpilot/test_func_s1.py::test_ttl_cache_bare_decorator",
+      "tests_testpilot/test_func_s1.py::test_maxsize_none_stores_in_dict",
+      "tests_testpilot/test_func_s1.py::test_exceptions_not_cached",
+      "tests_testpilot/test_func_s1.py::test_wrapper_has_cache_methods",
+      "tests_testpilot/test_func_s1.py::test_wrapper_keyword_arguments",
+      "tests_testpilot/test_func_s1.py::test_hit_does_not_call_wrapped",
+      "tests_testpilot/test_func_s1.py::test_rr_cache_default_choice_attribute",
+      "tests_testpilot/test_func_s1.py::test_maxsize_zero_never_caches"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.84,
+        "passed": 85,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.77,
+        "passed": 85,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.97,
+        "passed": 85,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.9050279329608939,
+    "total": 179,
+    "killed": 162,
+    "survived": 17,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 162,
+      "survived": 17
+    },
+    "survivors": [
+      {
+        "line": 15,
+        "original": "TTLCache.__init__(self, math.inf, ttl, timer)",
+        "mutated": "TTLCache.__init__(self, math.inf, ttl, )",
+        "status": "survived"
+      },
+      {
+        "line": 28,
+        "original": "wrapper = cached(cache=cache, key=key, condition=Condition(), info=True)(func)",
+        "mutated": "wrapper = cached(cache=cache, key=key, condition=None, info=True)(func)",
+        "status": "survived"
+      },
+      {
+        "line": 28,
+        "original": "wrapper = cached(cache=cache, key=key, condition=Condition(), info=True)(func)",
+        "mutated": "wrapper = cached(cache=cache, key=key, info=True)(func)",
+        "status": "survived"
+      },
+      {
+        "line": 35,
+        "original": "def fifo_cache(maxsize=128, typed=False):",
+        "mutated": "def fifo_cache(maxsize=129, typed=False):",
+        "status": "survived"
+      },
+      {
+        "line": 44,
+        "original": "return _cache(FIFOCache(128), 128, typed)(maxsize)",
+        "mutated": "return _cache(FIFOCache(129), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 49,
+        "original": "def lfu_cache(maxsize=128, typed=False):",
+        "mutated": "def lfu_cache(maxsize=129, typed=False):",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "return _cache(LFUCache(128), 128, typed)(maxsize)",
+        "mutated": "return _cache(LFUCache(129), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 63,
+        "original": "def lru_cache(maxsize=128, typed=False):",
+        "mutated": "def lru_cache(maxsize=129, typed=False):",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "return _cache(LRUCache(128), 128, typed)(maxsize)",
+        "mutated": "return _cache(LRUCache(129), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "def rr_cache(maxsize=128, choice=random.choice, typed=False):",
+        "mutated": "def rr_cache(maxsize=129, choice=random.choice, typed=False):",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "return _cache(RRCache(128, choice), 128, typed)(maxsize)",
+        "mutated": "return _cache(RRCache(128, None), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "return _cache(RRCache(128, choice), 128, typed)(maxsize)",
+        "mutated": "return _cache(RRCache(128, ), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "return _cache(RRCache(128, choice), 128, typed)(maxsize)",
+        "mutated": "return _cache(RRCache(129, choice), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 88,
+        "original": "return _cache(RRCache(maxsize, choice), maxsize, typed)",
+        "mutated": "return _cache(RRCache(maxsize, ), maxsize, typed)",
+        "status": "survived"
+      },
+      {
+        "line": 91,
+        "original": "def ttl_cache(maxsize=128, ttl=600, timer=time.monotonic, typed=False):",
+        "mutated": "def ttl_cache(maxsize=128, ttl=601, timer=time.monotonic, typed=False):",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "return _cache(TTLCache(128, ttl, timer), 128, typed)(maxsize)",
+        "mutated": "return _cache(TTLCache(128, ttl, ), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "return _cache(TTLCache(128, ttl, timer), 128, typed)(maxsize)",
+        "mutated": "return _cache(TTLCache(129, ttl, timer), 128, typed)(maxsize)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 5.59,
+    "coverage": 3.15,
+    "mutation": 12.25
+  }
+}

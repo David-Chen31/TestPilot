@@ -1,0 +1,976 @@
+{
+  "target": "sqlparse/formatter.py",
+  "validity": {
+    "total": 75,
+    "valid": 57,
+    "valid_ids": [
+      "tests_testpilot/test_formatter.py::test_validate_options_empty_dict_adds_defaults",
+      "tests_testpilot/test_formatter.py::test_validate_options_valid_keyword_case",
+      "tests_testpilot/test_formatter.py::test_validate_options_invalid_keyword_case",
+      "tests_testpilot/test_formatter.py::test_validate_options_valid_identifier_case",
+      "tests_testpilot/test_formatter.py::test_validate_options_invalid_identifier_case",
+      "tests_testpilot/test_formatter.py::test_validate_options_valid_output_format",
+      "tests_testpilot/test_formatter.py::test_validate_options_invalid_output_format",
+      "tests_testpilot/test_formatter.py::test_validate_options_strip_comments_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_strip_comments_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_strip_comments_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_strip_comments_default_false",
+      "tests_testpilot/test_formatter.py::test_validate_options_use_space_around_operators_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_use_space_around_operators_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_use_space_around_operators_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_strip_whitespace_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_strip_whitespace_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_strip_whitespace_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_truncate_strings_none_noop",
+      "tests_testpilot/test_formatter.py::test_validate_options_truncate_strings_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_truncate_strings_keeps_custom_char",
+      "tests_testpilot/test_formatter.py::test_validate_options_truncate_strings_not_int",
+      "tests_testpilot/test_formatter.py::test_validate_options_truncate_strings_too_small",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_columns_true_enforces_reindent",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_columns_false",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_columns_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_columns_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_reindent_true_sets_strip_whitespace",
+      "tests_testpilot/test_formatter.py::test_validate_options_reindent_false",
+      "tests_testpilot/test_formatter.py::test_validate_options_reindent_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_reindent_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_reindent_aligned_true_sets_strip_whitespace",
+      "tests_testpilot/test_formatter.py::test_validate_options_reindent_aligned_false",
+      "tests_testpilot/test_formatter.py::test_validate_options_reindent_aligned_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_reindent_aligned_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_after_first_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_after_first_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_after_first_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_tabs_true_sets_tab_char",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_tabs_false_sets_space_char",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_tabs_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_tabs_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_width_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_width_not_int",
+      "tests_testpilot/test_formatter.py::test_validate_options_indent_width_non_positive",
+      "tests_testpilot/test_formatter.py::test_validate_options_wrap_after_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_wrap_after_not_int",
+      "tests_testpilot/test_formatter.py::test_validate_options_wrap_after_negative",
+      "tests_testpilot/test_formatter.py::test_validate_options_comma_first_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_comma_first_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_comma_first_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_compact_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_compact_int_equivalent",
+      "tests_testpilot/test_formatter.py::test_validate_options_compact_invalid",
+      "tests_testpilot/test_formatter.py::test_validate_options_right_margin_valid",
+      "tests_testpilot/test_formatter.py::test_validate_options_right_margin_not_int",
+      "tests_testpilot/test_formatter.py::test_validate_options_right_margin_too_small",
+      "tests_testpilot/test_formatter.py::test_validate_options_right_margin_none"
+    ],
+    "invalid": {
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_returns_stack": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_empty_options_no_filters": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_keyword_case": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_identifier_case": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_truncate_strings": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_truncate_strings_falsy_not_added": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_multiple_preprocess": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_space_around_operators": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_strip_comments": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_strip_whitespace": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_reindent_adds_strip_and_reindent": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_reindent_aligned": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_right_margin": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_output_php": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_output_python": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_output_sql_or_none_no_postprocess": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_output_format_case_insensitive": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'",
+      "tests_testpilot/test_formatter.py::test_build_filter_stack_symptoms_ordering": "run 1: failed: AttributeError: module 'sqlparse.filters' has no attribute 'FilterStack'"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.08,
+        "passed": 132,
+        "failed": 19,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.15,
+        "passed": 132,
+        "failed": 19,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.2,
+        "passed": 132,
+        "failed": 19,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.7301587301587301,
+  "branch_rate": 0.6388888888888888,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.6767441860465117,
+    "total": 430,
+    "killed": 291,
+    "survived": 139,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 291,
+      "survived": 24,
+      "no tests": 115
+    },
+    "survivors": [
+      {
+        "line": 18,
+        "original": "raise SQLParseError('Invalid value for keyword_case: '",
+        "mutated": "raise SQLParseError('XXInvalid value for keyword_case: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 23,
+        "original": "raise SQLParseError('Invalid value for identifier_case: '",
+        "mutated": "raise SQLParseError('XXInvalid value for identifier_case: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 28,
+        "original": "raise SQLParseError('Unknown output format: '",
+        "mutated": "raise SQLParseError('XXUnknown output format: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 31,
+        "original": "strip_comments = options.get('strip_comments', False)",
+        "mutated": "strip_comments = options.get('strip_comments', True)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "raise SQLParseError('Invalid value for strip_comments: '",
+        "mutated": "raise SQLParseError('XXInvalid value for strip_comments: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 36,
+        "original": "space_around_operators = options.get('use_space_around_operators', False)",
+        "mutated": "space_around_operators = options.get('use_space_around_operators', True)",
+        "status": "survived"
+      },
+      {
+        "line": 38,
+        "original": "raise SQLParseError('Invalid value for use_space_around_operators: '",
+        "mutated": "raise SQLParseError('XXInvalid value for use_space_around_operators: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 41,
+        "original": "strip_ws = options.get('strip_whitespace', False)",
+        "mutated": "strip_ws = options.get('strip_whitespace', True)",
+        "status": "survived"
+      },
+      {
+        "line": 43,
+        "original": "raise SQLParseError('Invalid value for strip_whitespace: '",
+        "mutated": "raise SQLParseError('XXInvalid value for strip_whitespace: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 51,
+        "original": "raise SQLParseError('Invalid value for truncate_strings: '",
+        "mutated": "raise SQLParseError('XXInvalid value for truncate_strings: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "raise SQLParseError('Invalid value for truncate_strings: '",
+        "mutated": "raise SQLParseError('XXInvalid value for truncate_strings: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "raise SQLParseError('Invalid value for indent_columns: '",
+        "mutated": "raise SQLParseError('XXInvalid value for indent_columns: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "raise SQLParseError('Invalid value for reindent: '",
+        "mutated": "raise SQLParseError('XXInvalid value for reindent: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "raise SQLParseError('Invalid value for reindent_aligned: '",
+        "mutated": "raise SQLParseError('XXInvalid value for reindent_aligned: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "raise SQLParseError('Invalid value for indent_after_first: '",
+        "mutated": "raise SQLParseError('XXInvalid value for indent_after_first: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 89,
+        "original": "raise SQLParseError('Invalid value for indent_tabs: '",
+        "mutated": "raise SQLParseError('XXInvalid value for indent_tabs: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "raise SQLParseError('indent_width requires an integer')",
+        "mutated": "raise SQLParseError('XXindent_width requires an integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 102,
+        "original": "raise SQLParseError('indent_width requires a positive integer')",
+        "mutated": "raise SQLParseError('XXindent_width requires a positive integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 109,
+        "original": "raise SQLParseError('wrap_after requires an integer')",
+        "mutated": "raise SQLParseError('XXwrap_after requires an integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "raise SQLParseError('wrap_after requires a positive integer')",
+        "mutated": "raise SQLParseError('XXwrap_after requires a positive integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "raise SQLParseError('comma_first requires a boolean value')",
+        "mutated": "raise SQLParseError('XXcomma_first requires a boolean valueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "raise SQLParseError('compact requires a boolean value')",
+        "mutated": "raise SQLParseError('XXcompact requires a boolean valueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "raise SQLParseError('right_margin requires an integer')",
+        "mutated": "raise SQLParseError('XXright_margin requires an integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "raise SQLParseError('right_margin requires an integer > 10')",
+        "mutated": "raise SQLParseError('XXright_margin requires an integer > 10XX')",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "if options.get('keyword_case'):",
+        "mutated": "if options.get(None):",
+        "status": "no tests"
+      },
+      {
+        "line": 145,
+        "original": "if options.get('keyword_case'):",
+        "mutated": "if options.get('XXkeyword_caseXX'):",
+        "status": "no tests"
+      },
+      {
+        "line": 145,
+        "original": "if options.get('keyword_case'):",
+        "mutated": "if options.get('KEYWORD_CASE'):",
+        "status": "no tests"
+      },
+      {
+        "line": 147,
+        "original": "filters.KeywordCaseFilter(options['keyword_case']))",
+        "mutated": "None)",
+        "status": "no tests"
+      },
+      {
+        "line": 147,
+        "original": "filters.KeywordCaseFilter(options['keyword_case']))",
+        "mutated": "filters.KeywordCaseFilter(None))",
+        "status": "no tests"
+      },
+      {
+        "line": 147,
+        "original": "filters.KeywordCaseFilter(options['keyword_case']))",
+        "mutated": "filters.KeywordCaseFilter(options['XXkeyword_caseXX']))",
+        "status": "no tests"
+      },
+      {
+        "line": 147,
+        "original": "filters.KeywordCaseFilter(options['keyword_case']))",
+        "mutated": "filters.KeywordCaseFilter(options['KEYWORD_CASE']))",
+        "status": "no tests"
+      },
+      {
+        "line": 149,
+        "original": "if options.get('identifier_case'):",
+        "mutated": "if options.get(None):",
+        "status": "no tests"
+      },
+      {
+        "line": 149,
+        "original": "if options.get('identifier_case'):",
+        "mutated": "if options.get('XXidentifier_caseXX'):",
+        "status": "no tests"
+      },
+      {
+        "line": 149,
+        "original": "if options.get('identifier_case'):",
+        "mutated": "if options.get('IDENTIFIER_CASE'):",
+        "status": "no tests"
+      },
+      {
+        "line": 151,
+        "original": "filters.IdentifierCaseFilter(options['identifier_case']))",
+        "mutated": "None)",
+        "status": "no tests"
+      },
+      {
+        "line": 151,
+        "original": "filters.IdentifierCaseFilter(options['identifier_case']))",
+        "mutated": "filters.IdentifierCaseFilter(None))",
+        "status": "no tests"
+      },
+      {
+        "line": 151,
+        "original": "filters.IdentifierCaseFilter(options['identifier_case']))",
+        "mutated": "filters.IdentifierCaseFilter(options['XXidentifier_caseXX']))",
+        "status": "no tests"
+      },
+      {
+        "line": 151,
+        "original": "filters.IdentifierCaseFilter(options['identifier_case']))",
+        "mutated": "filters.IdentifierCaseFilter(options['IDENTIFIER_CASE']))",
+        "status": "no tests"
+      },
+      {
+        "line": 153,
+        "original": "if options.get('truncate_strings'):",
+        "mutated": "if options.get(None):",
+        "status": "no tests"
+      },
+      {
+        "line": 153,
+        "original": "if options.get('truncate_strings'):",
+        "mutated": "if options.get('XXtruncate_stringsXX'):",
+        "status": "no tests"
+      },
+      {
+        "line": 153,
+        "original": "if options.get('truncate_strings'):",
+        "mutated": "if options.get('TRUNCATE_STRINGS'):",
+        "status": "no tests"
+      },
+      {
+        "line": 154,
+        "original": "stack.preprocess.append(filters.TruncateStringFilter(\n            width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "stack.preprocess.append(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=None, char=options['truncate_char']))",
+        "status": "no tests"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=options['truncate_strings'], char=None))",
+        "status": "no tests"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "char=options['truncate_char']))",
+        "status": "no tests"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=options['truncate_strings'], ))",
+        "status": "no tests"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=options['XXtruncate_stringsXX'], char=options['truncate_char']))",
+        "status": "no tests"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=options['TRUNCATE_STRINGS'], char=options['truncate_char']))",
+        "status": "no tests"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=options['truncate_strings'], char=options['XXtruncate_charXX']))",
+        "status": "no tests"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=options['truncate_strings'], char=options['TRUNCATE_CHAR']))",
+        "status": "no tests"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get(None, False):",
+        "status": "no tests"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get('use_space_around_operators', None):",
+        "status": "no tests"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get(False):",
+        "status": "no tests"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get('use_space_around_operators', ):",
+        "status": "no tests"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get('XXuse_space_around_operatorsXX', False):",
+        "status": "no tests"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get('USE_SPACE_AROUND_OPERATORS', False):",
+        "status": "no tests"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get('use_space_around_operators', True):",
+        "status": "no tests"
+      },
+      {
+        "line": 159,
+        "original": "stack.stmtprocess.append(filters.SpacesAroundOperatorsFilter())",
+        "mutated": "stack.stmtprocess.append(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 162,
+        "original": "if options.get('strip_comments'):",
+        "mutated": "if options.get(None):",
+        "status": "no tests"
+      },
+      {
+        "line": 162,
+        "original": "if options.get('strip_comments'):",
+        "mutated": "if options.get('XXstrip_commentsXX'):",
+        "status": "no tests"
+      },
+      {
+        "line": 162,
+        "original": "if options.get('strip_comments'):",
+        "mutated": "if options.get('STRIP_COMMENTS'):",
+        "status": "no tests"
+      },
+      {
+        "line": 164,
+        "original": "stack.stmtprocess.append(filters.StripCommentsFilter())",
+        "mutated": "stack.stmtprocess.append(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('strip_whitespace') and options.get('reindent'):",
+        "status": "no tests"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get(None) or options.get('reindent'):",
+        "status": "no tests"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('XXstrip_whitespaceXX') or options.get('reindent'):",
+        "status": "no tests"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('STRIP_WHITESPACE') or options.get('reindent'):",
+        "status": "no tests"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('strip_whitespace') or options.get(None):",
+        "status": "no tests"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('strip_whitespace') or options.get('XXreindentXX'):",
+        "status": "no tests"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('strip_whitespace') or options.get('REINDENT'):",
+        "status": "no tests"
+      },
+      {
+        "line": 168,
+        "original": "stack.stmtprocess.append(filters.StripWhitespaceFilter())",
+        "mutated": "stack.stmtprocess.append(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 170,
+        "original": "if options.get('reindent'):",
+        "mutated": "if options.get(None):",
+        "status": "no tests"
+      },
+      {
+        "line": 170,
+        "original": "if options.get('reindent'):",
+        "mutated": "if options.get('XXreindentXX'):",
+        "status": "no tests"
+      },
+      {
+        "line": 170,
+        "original": "if options.get('reindent'):",
+        "mutated": "if options.get('REINDENT'):",
+        "status": "no tests"
+      },
+      {
+        "line": 173,
+        "original": "filters.ReindentFilter(\n                char=options['indent_char'],\n                width=options['indent_width'],\n                indent_after_first=options['indent_after_first'],\n                indent_columns=options['indent_columns'],\n                wrap_after=options['wrap_after'],\n                comma_first=options['comma_first'],\n                compact=options['compact'],))",
+        "mutated": "None)",
+        "status": "no tests"
+      },
+      {
+        "line": 174,
+        "original": "char=options['indent_char'],",
+        "mutated": "char=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 175,
+        "original": "width=options['indent_width'],",
+        "mutated": "width=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 176,
+        "original": "indent_after_first=options['indent_after_first'],",
+        "mutated": "indent_after_first=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 177,
+        "original": "indent_columns=options['indent_columns'],",
+        "mutated": "indent_columns=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 178,
+        "original": "wrap_after=options['wrap_after'],",
+        "mutated": "wrap_after=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 179,
+        "original": "comma_first=options['comma_first'],",
+        "mutated": "comma_first=None,",
+        "status": "no tests"
+      },
+      {
+        "line": 180,
+        "original": "compact=options['compact'],))",
+        "mutated": "compact=None,))",
+        "status": "no tests"
+      },
+      {
+        "line": 174,
+        "original": "char=options['indent_char'],",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 175,
+        "original": "width=options['indent_width'],",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 176,
+        "original": "indent_after_first=options['indent_after_first'],",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 177,
+        "original": "indent_columns=options['indent_columns'],",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 178,
+        "original": "wrap_after=options['wrap_after'],",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 179,
+        "original": "comma_first=options['comma_first'],",
+        "mutated": "",
+        "status": "no tests"
+      },
+      {
+        "line": 180,
+        "original": "compact=options['compact'],))",
+        "mutated": "))",
+        "status": "no tests"
+      },
+      {
+        "line": 174,
+        "original": "char=options['indent_char'],",
+        "mutated": "char=options['XXindent_charXX'],",
+        "status": "no tests"
+      },
+      {
+        "line": 174,
+        "original": "char=options['indent_char'],",
+        "mutated": "char=options['INDENT_CHAR'],",
+        "status": "no tests"
+      },
+      {
+        "line": 175,
+        "original": "width=options['indent_width'],",
+        "mutated": "width=options['XXindent_widthXX'],",
+        "status": "no tests"
+      },
+      {
+        "line": 175,
+        "original": "width=options['indent_width'],",
+        "mutated": "width=options['INDENT_WIDTH'],",
+        "status": "no tests"
+      },
+      {
+        "line": 176,
+        "original": "indent_after_first=options['indent_after_first'],",
+        "mutated": "indent_after_first=options['XXindent_after_firstXX'],",
+        "status": "no tests"
+      },
+      {
+        "line": 176,
+        "original": "indent_after_first=options['indent_after_first'],",
+        "mutated": "indent_after_first=options['INDENT_AFTER_FIRST'],",
+        "status": "no tests"
+      },
+      {
+        "line": 177,
+        "original": "indent_columns=options['indent_columns'],",
+        "mutated": "indent_columns=options['XXindent_columnsXX'],",
+        "status": "no tests"
+      },
+      {
+        "line": 177,
+        "original": "indent_columns=options['indent_columns'],",
+        "mutated": "indent_columns=options['INDENT_COLUMNS'],",
+        "status": "no tests"
+      },
+      {
+        "line": 178,
+        "original": "wrap_after=options['wrap_after'],",
+        "mutated": "wrap_after=options['XXwrap_afterXX'],",
+        "status": "no tests"
+      },
+      {
+        "line": 178,
+        "original": "wrap_after=options['wrap_after'],",
+        "mutated": "wrap_after=options['WRAP_AFTER'],",
+        "status": "no tests"
+      },
+      {
+        "line": 179,
+        "original": "comma_first=options['comma_first'],",
+        "mutated": "comma_first=options['XXcomma_firstXX'],",
+        "status": "no tests"
+      },
+      {
+        "line": 179,
+        "original": "comma_first=options['comma_first'],",
+        "mutated": "comma_first=options['COMMA_FIRST'],",
+        "status": "no tests"
+      },
+      {
+        "line": 180,
+        "original": "compact=options['compact'],))",
+        "mutated": "compact=options['XXcompactXX'],))",
+        "status": "no tests"
+      },
+      {
+        "line": 180,
+        "original": "compact=options['compact'],))",
+        "mutated": "compact=options['COMPACT'],))",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get(None, False):",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get('reindent_aligned', None):",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get(False):",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get('reindent_aligned', ):",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get('XXreindent_alignedXX', False):",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get('REINDENT_ALIGNED', False):",
+        "status": "no tests"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get('reindent_aligned', True):",
+        "status": "no tests"
+      },
+      {
+        "line": 185,
+        "original": "filters.AlignedIndentFilter(char=options['indent_char']))",
+        "mutated": "None)",
+        "status": "no tests"
+      },
+      {
+        "line": 185,
+        "original": "filters.AlignedIndentFilter(char=options['indent_char']))",
+        "mutated": "filters.AlignedIndentFilter(char=None))",
+        "status": "no tests"
+      },
+      {
+        "line": 185,
+        "original": "filters.AlignedIndentFilter(char=options['indent_char']))",
+        "mutated": "filters.AlignedIndentFilter(char=options['XXindent_charXX']))",
+        "status": "no tests"
+      },
+      {
+        "line": 185,
+        "original": "filters.AlignedIndentFilter(char=options['indent_char']))",
+        "mutated": "filters.AlignedIndentFilter(char=options['INDENT_CHAR']))",
+        "status": "no tests"
+      },
+      {
+        "line": 187,
+        "original": "if options.get('right_margin'):",
+        "mutated": "if options.get(None):",
+        "status": "no tests"
+      },
+      {
+        "line": 187,
+        "original": "if options.get('right_margin'):",
+        "mutated": "if options.get('XXright_marginXX'):",
+        "status": "no tests"
+      },
+      {
+        "line": 187,
+        "original": "if options.get('right_margin'):",
+        "mutated": "if options.get('RIGHT_MARGIN'):",
+        "status": "no tests"
+      },
+      {
+        "line": 190,
+        "original": "filters.RightMarginFilter(width=options['right_margin']))",
+        "mutated": "None)",
+        "status": "no tests"
+      },
+      {
+        "line": 190,
+        "original": "filters.RightMarginFilter(width=options['right_margin']))",
+        "mutated": "filters.RightMarginFilter(width=None))",
+        "status": "no tests"
+      },
+      {
+        "line": 190,
+        "original": "filters.RightMarginFilter(width=options['right_margin']))",
+        "mutated": "filters.RightMarginFilter(width=options['XXright_marginXX']))",
+        "status": "no tests"
+      },
+      {
+        "line": 190,
+        "original": "filters.RightMarginFilter(width=options['right_margin']))",
+        "mutated": "filters.RightMarginFilter(width=options['RIGHT_MARGIN']))",
+        "status": "no tests"
+      },
+      {
+        "line": 193,
+        "original": "if options.get('output_format'):",
+        "mutated": "if options.get(None):",
+        "status": "no tests"
+      },
+      {
+        "line": 193,
+        "original": "if options.get('output_format'):",
+        "mutated": "if options.get('XXoutput_formatXX'):",
+        "status": "no tests"
+      },
+      {
+        "line": 193,
+        "original": "if options.get('output_format'):",
+        "mutated": "if options.get('OUTPUT_FORMAT'):",
+        "status": "no tests"
+      },
+      {
+        "line": 194,
+        "original": "frmt = options['output_format']",
+        "mutated": "frmt = None",
+        "status": "no tests"
+      },
+      {
+        "line": 194,
+        "original": "frmt = options['output_format']",
+        "mutated": "frmt = options['XXoutput_formatXX']",
+        "status": "no tests"
+      },
+      {
+        "line": 194,
+        "original": "frmt = options['output_format']",
+        "mutated": "frmt = options['OUTPUT_FORMAT']",
+        "status": "no tests"
+      },
+      {
+        "line": 195,
+        "original": "if frmt.lower() == 'php':",
+        "mutated": "if frmt.upper() == 'php':",
+        "status": "no tests"
+      },
+      {
+        "line": 195,
+        "original": "if frmt.lower() == 'php':",
+        "mutated": "if frmt.lower() != 'php':",
+        "status": "no tests"
+      },
+      {
+        "line": 195,
+        "original": "if frmt.lower() == 'php':",
+        "mutated": "if frmt.lower() == 'XXphpXX':",
+        "status": "no tests"
+      },
+      {
+        "line": 195,
+        "original": "if frmt.lower() == 'php':",
+        "mutated": "if frmt.lower() == 'PHP':",
+        "status": "no tests"
+      },
+      {
+        "line": 196,
+        "original": "fltr = filters.OutputPHPFilter()",
+        "mutated": "fltr = None",
+        "status": "no tests"
+      },
+      {
+        "line": 197,
+        "original": "elif frmt.lower() == 'python':",
+        "mutated": "elif frmt.upper() == 'python':",
+        "status": "no tests"
+      },
+      {
+        "line": 197,
+        "original": "elif frmt.lower() == 'python':",
+        "mutated": "elif frmt.lower() != 'python':",
+        "status": "no tests"
+      },
+      {
+        "line": 197,
+        "original": "elif frmt.lower() == 'python':",
+        "mutated": "elif frmt.lower() == 'XXpythonXX':",
+        "status": "no tests"
+      },
+      {
+        "line": 197,
+        "original": "elif frmt.lower() == 'python':",
+        "mutated": "elif frmt.lower() == 'PYTHON':",
+        "status": "no tests"
+      },
+      {
+        "line": 198,
+        "original": "fltr = filters.OutputPythonFilter()",
+        "mutated": "fltr = None",
+        "status": "no tests"
+      },
+      {
+        "line": 200,
+        "original": "fltr = None",
+        "mutated": "fltr = \"\"",
+        "status": "no tests"
+      },
+      {
+        "line": 201,
+        "original": "if fltr is not None:",
+        "mutated": "if fltr is None:",
+        "status": "no tests"
+      },
+      {
+        "line": 202,
+        "original": "stack.postprocess.append(fltr)",
+        "mutated": "stack.postprocess.append(None)",
+        "status": "no tests"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 6.45,
+    "coverage": 3.03,
+    "mutation": 41.73
+  }
+}

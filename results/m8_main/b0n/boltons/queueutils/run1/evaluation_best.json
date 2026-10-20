@@ -1,0 +1,212 @@
+{
+  "target": "boltons/queueutils.py",
+  "validity": {
+    "total": 39,
+    "valid": 39,
+    "valid_ids": [
+      "tests_testpilot/test_queueutils_s6.py::test_priority_queue_alias_is_sorted",
+      "tests_testpilot/test_queueutils_s6.py::test_both_backends_are_base_subclasses",
+      "tests_testpilot/test_queueutils_s6.py::test_empty_queue_len",
+      "tests_testpilot/test_queueutils_s6.py::test_add_increases_len",
+      "tests_testpilot/test_queueutils_s6.py::test_basic_priority_ordering",
+      "tests_testpilot/test_queueutils_s6.py::test_pop_order_multiple",
+      "tests_testpilot/test_queueutils_s6.py::test_default_priority_is_zero",
+      "tests_testpilot/test_queueutils_s6.py::test_peek_does_not_remove",
+      "tests_testpilot/test_queueutils_s6.py::test_higher_priority_popped_first",
+      "tests_testpilot/test_queueutils_s6.py::test_len_decreases_on_pop",
+      "tests_testpilot/test_queueutils_s6.py::test_priority_none_defaults_to_zero",
+      "tests_testpilot/test_queueutils_s6.py::test_priority_string_coercible",
+      "tests_testpilot/test_queueutils_s6.py::test_add_existing_task_updates_priority",
+      "tests_testpilot/test_queueutils_s6.py::test_add_existing_task_does_not_duplicate",
+      "tests_testpilot/test_queueutils_s6.py::test_remove_existing",
+      "tests_testpilot/test_queueutils_s6.py::test_remove_then_pop",
+      "tests_testpilot/test_queueutils_s6.py::test_remove_all_then_pop_empty",
+      "tests_testpilot/test_queueutils_s6.py::test_remove_missing_raises_keyerror",
+      "tests_testpilot/test_queueutils_s6.py::test_remove_missing_on_empty_raises_keyerror",
+      "tests_testpilot/test_queueutils_s6.py::test_remove_already_removed_raises_keyerror",
+      "tests_testpilot/test_queueutils_s6.py::test_pop_empty_raises_indexerror",
+      "tests_testpilot/test_queueutils_s6.py::test_peek_empty_raises_indexerror",
+      "tests_testpilot/test_queueutils_s6.py::test_pop_empty_returns_default",
+      "tests_testpilot/test_queueutils_s6.py::test_peek_empty_returns_default",
+      "tests_testpilot/test_queueutils_s6.py::test_pop_default_after_emptying",
+      "tests_testpilot/test_queueutils_s6.py::test_culling_via_peek",
+      "tests_testpilot/test_queueutils_s6.py::test_cull_raise_when_all_removed",
+      "tests_testpilot/test_queueutils_s6.py::test_custom_priority_key",
+      "tests_testpilot/test_queueutils_s6.py::test_custom_priority_key_heap",
+      "tests_testpilot/test_queueutils_s6.py::test_unexpected_kwarg_raises_typeerror",
+      "tests_testpilot/test_queueutils_s6.py::test_unexpected_kwarg_raises_typeerror_heap",
+      "tests_testpilot/test_queueutils_s6.py::test_counter_increments",
+      "tests_testpilot/test_queueutils_s6.py::test_entry_map_tracks_tasks",
+      "tests_testpilot/test_queueutils_s6.py::test_fifo_tiebreak_ordering",
+      "tests_testpilot/test_queueutils_s6.py::test_mixed_operations",
+      "tests_testpilot/test_queueutils_s6.py::test_add_none_priority_then_explicit",
+      "tests_testpilot/test_queueutils_s6.py::test_base_priority_queue_abstract_push_pop_do_nothing",
+      "tests_testpilot/test_queueutils_s6.py::test_backends_constant_types",
+      "tests_testpilot/test_queueutils_s6.py::test_default_priority_key_negates"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.12,
+        "passed": 69,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.07,
+        "passed": 69,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.13,
+        "passed": 69,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9534883720930233,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.7391304347826086,
+    "total": 69,
+    "killed": 51,
+    "survived": 18,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 51,
+      "survived": 18
+    },
+    "survivors": [
+      {
+        "line": 114,
+        "original": "raise TypeError('unexpected keyword arguments: %r' % kw.keys())",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 114,
+        "original": "raise TypeError('unexpected keyword arguments: %r' % kw.keys())",
+        "mutated": "raise TypeError('unexpected keyword arguments: %r' / kw.keys())",
+        "status": "survived"
+      },
+      {
+        "line": 114,
+        "original": "raise TypeError('unexpected keyword arguments: %r' % kw.keys())",
+        "mutated": "raise TypeError('XXunexpected keyword arguments: %rXX' % kw.keys())",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "\"Remove entries marked as removed by previous :meth:`remove` calls.\"",
+        "mutated": "\"XXRemove entries marked as removed by previous :meth:`remove` calls.XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "\"Remove entries marked as removed by previous :meth:`remove` calls.\"",
+        "mutated": "\"remove entries marked as removed by previous :meth:`remove` calls.\"",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "\"Remove entries marked as removed by previous :meth:`remove` calls.\"",
+        "mutated": "\"REMOVE ENTRIES MARKED AS REMOVED BY PREVIOUS :METH:`REMOVE` CALLS.\"",
+        "status": "survived"
+      },
+      {
+        "line": 156,
+        "original": "raise IndexError('empty priority queue')",
+        "mutated": "raise IndexError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 156,
+        "original": "raise IndexError('empty priority queue')",
+        "mutated": "raise IndexError('XXempty priority queueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 156,
+        "original": "raise IndexError('empty priority queue')",
+        "mutated": "raise IndexError('EMPTY PRIORITY QUEUE')",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "raise IndexError('peek on empty queue')",
+        "mutated": "raise IndexError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "raise IndexError('peek on empty queue')",
+        "mutated": "raise IndexError('XXpeek on empty queueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "raise IndexError('peek on empty queue')",
+        "mutated": "raise IndexError('PEEK ON EMPTY QUEUE')",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "raise IndexError('pop on empty queue')",
+        "mutated": "raise IndexError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "raise IndexError('pop on empty queue')",
+        "mutated": "raise IndexError('XXpop on empty queueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "raise IndexError('pop on empty queue')",
+        "mutated": "raise IndexError('POP ON EMPTY QUEUE')",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "\"Return the number of tasks in the queue.\"",
+        "mutated": "\"XXReturn the number of tasks in the queue.XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "\"Return the number of tasks in the queue.\"",
+        "mutated": "\"return the number of tasks in the queue.\"",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "\"Return the number of tasks in the queue.\"",
+        "mutated": "\"RETURN THE NUMBER OF TASKS IN THE QUEUE.\"",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.33,
+    "coverage": 2.22,
+    "mutation": 5.5
+  }
+}

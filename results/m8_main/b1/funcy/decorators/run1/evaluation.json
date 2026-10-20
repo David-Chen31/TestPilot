@@ -1,0 +1,427 @@
+{
+  "target": "funcy/decorators.py",
+  "validity": {
+    "total": 49,
+    "valid": 48,
+    "valid_ids": [
+      "tests_testpilot/test_decorators.py::test_has_single_arg_true",
+      "tests_testpilot/test_decorators.py::test_has_single_arg_with_default",
+      "tests_testpilot/test_decorators.py::test_has_single_arg_false_multiple",
+      "tests_testpilot/test_decorators.py::test_has_single_arg_false_varargs",
+      "tests_testpilot/test_decorators.py::test_has_single_arg_false_varkw",
+      "tests_testpilot/test_decorators.py::test_has_1pos_and_kwonly_true",
+      "tests_testpilot/test_decorators.py::test_has_1pos_and_kwonly_true_single_pos",
+      "tests_testpilot/test_decorators.py::test_has_1pos_and_kwonly_false_two_pos",
+      "tests_testpilot/test_decorators.py::test_has_1pos_and_kwonly_false_varargs",
+      "tests_testpilot/test_decorators.py::test_get_argnames_simple",
+      "tests_testpilot/test_decorators.py::test_get_argnames_defaults_and_kwonly",
+      "tests_testpilot/test_decorators.py::test_get_argnames_varargs_varkw",
+      "tests_testpilot/test_decorators.py::test_get_argnames_uses_original_attr",
+      "tests_testpilot/test_decorators.py::test_wraps_copies_metadata",
+      "tests_testpilot/test_decorators.py::test_wraps_propagates_original",
+      "tests_testpilot/test_decorators.py::test_update_wrapper_returns_wrapper",
+      "tests_testpilot/test_decorators.py::test_call_basic",
+      "tests_testpilot/test_decorators.py::test_call_no_args_uses_saved",
+      "tests_testpilot/test_decorators.py::test_call_extends_args_and_kwargs",
+      "tests_testpilot/test_decorators.py::test_call_extends_extra_positional",
+      "tests_testpilot/test_decorators.py::test_call_attributes",
+      "tests_testpilot/test_decorators.py::test_call_getattr_missing",
+      "tests_testpilot/test_decorators.py::test_call_kwarg_overrides_positional",
+      "tests_testpilot/test_decorators.py::test_call_varargs",
+      "tests_testpilot/test_decorators.py::test_call_varkw",
+      "tests_testpilot/test_decorators.py::test_call_str_and_repr",
+      "tests_testpilot/test_decorators.py::test_call_str_no_qualname",
+      "tests_testpilot/test_decorators.py::test_call_missing_required_arg",
+      "tests_testpilot/test_decorators.py::test_arggetter_positional",
+      "tests_testpilot/test_decorators.py::test_arggetter_from_kwargs",
+      "tests_testpilot/test_decorators.py::test_arggetter_defaults",
+      "tests_testpilot/test_decorators.py::test_arggetter_missing_required",
+      "tests_testpilot/test_decorators.py::test_arggetter_unknown_name",
+      "tests_testpilot/test_decorators.py::test_arggetter_varargs",
+      "tests_testpilot/test_decorators.py::test_arggetter_varkw",
+      "tests_testpilot/test_decorators.py::test_arggetter_kwonly_not_positional",
+      "tests_testpilot/test_decorators.py::test_arggetter_bound_method",
+      "tests_testpilot/test_decorators.py::test_arggetter_caching",
+      "tests_testpilot/test_decorators.py::test_make_decorator_basic",
+      "tests_testpilot/test_decorators.py::test_make_decorator_introspection_attrs",
+      "tests_testpilot/test_decorators.py::test_make_decorator_preserves_metadata",
+      "tests_testpilot/test_decorators.py::test_decorator_flat_single_arg",
+      "tests_testpilot/test_decorators.py::test_decorator_flat_arguments_access",
+      "tests_testpilot/test_decorators.py::test_decorator_fab_with_args",
+      "tests_testpilot/test_decorators.py::test_decorator_multiarg_fab",
+      "tests_testpilot/test_decorators.py::test_decorator_multiarg_kwargs",
+      "tests_testpilot/test_decorators.py::test_decorator_with_varargs_varkw",
+      "tests_testpilot/test_decorators.py::test_decorator_method_wrapping"
+    ],
+    "invalid": {
+      "tests_testpilot/test_decorators.py::test_decorator_fab_no_args_returns_decorator_fab": "run 1: failed: assert <function make_decorator.<locals>._decorator.<locals>.wrapper at 0x7a7b2bb522a0> == 10"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.33,
+        "passed": 48,
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.27,
+        "passed": 48,
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.28,
+        "passed": 48,
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9655172413793104,
+  "branch_rate": 0.9117647058823529,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.7729257641921398,
+    "total": 229,
+    "killed": 177,
+    "survived": 52,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 177,
+      "survived": 52
+    },
+    "survivors": [
+      {
+        "line": 32,
+        "original": "if _func is not None:",
+        "mutated": "if _func is None:",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "return make_decorator(deco, (), dkwargs)(_func)",
+        "mutated": "return make_decorator(deco, (), dkwargs)(None)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "return make_decorator(deco, (), dkwargs)(_func)",
+        "mutated": "return make_decorator(None, (), dkwargs)(_func)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "return make_decorator(deco, (), dkwargs)(_func)",
+        "mutated": "return make_decorator(deco, None, dkwargs)(_func)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "return make_decorator(deco, (), dkwargs)(_func)",
+        "mutated": "return make_decorator(deco, (), None)(_func)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "return make_decorator(deco, (), dkwargs)(_func)",
+        "mutated": "return make_decorator((), dkwargs)(_func)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "return make_decorator(deco, (), dkwargs)(_func)",
+        "mutated": "return make_decorator(deco, dkwargs)(_func)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "return make_decorator(deco, (), dkwargs)(_func)",
+        "mutated": "return make_decorator(deco, (), )(_func)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return make_decorator(deco, (), dkwargs)",
+        "mutated": "return make_decorator(None, (), dkwargs)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return make_decorator(deco, (), dkwargs)",
+        "mutated": "return make_decorator(deco, None, dkwargs)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return make_decorator(deco, (), dkwargs)",
+        "mutated": "return make_decorator(deco, (), None)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return make_decorator(deco, (), dkwargs)",
+        "mutated": "return make_decorator((), dkwargs)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return make_decorator(deco, (), dkwargs)",
+        "mutated": "return make_decorator(deco, dkwargs)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return make_decorator(deco, (), dkwargs)",
+        "mutated": "return make_decorator(deco, (), )",
+        "status": "survived"
+      },
+      {
+        "line": 39,
+        "original": "return wraps(deco)(decorator_fab)",
+        "mutated": "return wraps(None)(decorator_fab)",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "if not a and not kw:",
+        "mutated": "if not a or not kw:",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "if not a and not kw:",
+        "mutated": "if a and not kw:",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "if not a and not kw:",
+        "mutated": "if not a and kw:",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "func = getattr(self._func, '__qualname__', str(self._func))",
+        "mutated": "func = getattr(None, '__qualname__', str(self._func))",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "func = getattr(self._func, '__qualname__', str(self._func))",
+        "mutated": "func = getattr(self._func, '__qualname__', None)",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "func = getattr(self._func, '__qualname__', str(self._func))",
+        "mutated": "func = getattr(self._func, 'XX__qualname__XX', str(self._func))",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "func = getattr(self._func, '__qualname__', str(self._func))",
+        "mutated": "func = getattr(self._func, '__QUALNAME__', str(self._func))",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "func = getattr(self._func, '__qualname__', str(self._func))",
+        "mutated": "func = getattr(self._func, '__qualname__', str(None))",
+        "status": "survived"
+      },
+      {
+        "line": 108,
+        "original": "count += bool(code.co_flags & inspect.CO_VARARGS)",
+        "mutated": "count += bool(code.co_flags | inspect.CO_VARARGS)",
+        "status": "survived"
+      },
+      {
+        "line": 109,
+        "original": "count += bool(code.co_flags & inspect.CO_VARKEYWORDS)",
+        "mutated": "count += bool(code.co_flags | inspect.CO_VARKEYWORDS)",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "original = getattr(func, '__original__', None) or unwrap(func)",
+        "mutated": "original = getattr(None, '__original__', None) or unwrap(func)",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "original = getattr(func, '__original__', None) or unwrap(func)",
+        "mutated": "original = getattr(func, 'XX__original__XX', None) or unwrap(func)",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "original = getattr(func, '__original__', None) or unwrap(func)",
+        "mutated": "original = getattr(func, '__ORIGINAL__', None) or unwrap(func)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "posonly_n = getattr(code, 'co_posonlyargcount', 0)",
+        "mutated": "posonly_n = getattr(None, 'co_posonlyargcount', 0)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "posonly_n = getattr(code, 'co_posonlyargcount', 0)",
+        "mutated": "posonly_n = getattr(code, 'co_posonlyargcount', None)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "posonly_n = getattr(code, 'co_posonlyargcount', 0)",
+        "mutated": "posonly_n = getattr(code, 'co_posonlyargcount', )",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "posonly_n = getattr(code, 'co_posonlyargcount', 0)",
+        "mutated": "posonly_n = getattr(code, 'XXco_posonlyargcountXX', 0)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "posonly_n = getattr(code, 'co_posonlyargcount', 0)",
+        "mutated": "posonly_n = getattr(code, 'CO_POSONLYARGCOUNT', 0)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "posonly_n = getattr(code, 'co_posonlyargcount', 0)",
+        "mutated": "posonly_n = getattr(code, 'co_posonlyargcount', 1)",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "if inspect.ismethod(func) or inspect.ismethod(original):",
+        "mutated": "if inspect.ismethod(func) and inspect.ismethod(original):",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "if inspect.ismethod(func) or inspect.ismethod(original):",
+        "mutated": "if inspect.ismethod(None) or inspect.ismethod(original):",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "if inspect.ismethod(func) or inspect.ismethod(original):",
+        "mutated": "if inspect.ismethod(func) or inspect.ismethod(None):",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "posonly_n = max(0, posonly_n - 1)",
+        "mutated": "posonly_n = None",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "posonly_n = max(0, posonly_n - 1)",
+        "mutated": "posonly_n = max(1, posonly_n - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "posonly_n = max(0, posonly_n - 1)",
+        "mutated": "posonly_n = max(0, posonly_n + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "posonly_n = max(0, posonly_n - 1)",
+        "mutated": "posonly_n = max(0, posonly_n - 2)",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "n += code.co_kwonlyargcount",
+        "mutated": "n -= code.co_kwonlyargcount",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "varposname = varkwname = None",
+        "mutated": "varposname = varkwname = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "n += 1",
+        "mutated": "n = 1",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "n += 1",
+        "mutated": "n -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "n += 1",
+        "mutated": "n += 2",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "defaults.update(zip(posnames[-len(original.__defaults__):], original.__defaults__))",
+        "mutated": "defaults.update(zip(posnames[+len(original.__defaults__):], original.__defaults__))",
+        "status": "survived"
+      },
+      {
+        "line": 147,
+        "original": "raise TypeError(\"%s() doesn't have argument named %s\" % (func.__name__, name))",
+        "mutated": "raise TypeError(\"XX%s() doesn't have argument named %sXX\" % (func.__name__, name))",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "raise TypeError(\"%s() missing required argument: '%s'\" % (func.__name__, name))",
+        "mutated": "raise TypeError(\"XX%s() missing required argument: '%s'XX\" % (func.__name__, name))",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "functools.update_wrapper(wrapper, wrapped, assigned, updated)",
+        "mutated": "functools.update_wrapper(wrapper, wrapped, assigned, )",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "return functools.partial(update_wrapper, wrapped=wrapped, assigned=assigned, updated=updated)",
+        "mutated": "return functools.partial(update_wrapper, wrapped=wrapped, updated=updated)",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "return functools.partial(update_wrapper, wrapped=wrapped, assigned=assigned, updated=updated)",
+        "mutated": "return functools.partial(update_wrapper, wrapped=wrapped, assigned=assigned, )",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.89,
+    "coverage": 2.11,
+    "mutation": 13.58
+  }
+}

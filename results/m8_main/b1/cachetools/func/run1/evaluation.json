@@ -1,0 +1,156 @@
+{
+  "target": "src/cachetools/func.py",
+  "validity": {
+    "total": 25,
+    "valid": 25,
+    "valid_ids": [
+      "tests_testpilot/test_func.py::test_cache_parameters_default",
+      "tests_testpilot/test_func.py::test_cache_parameters_typed",
+      "tests_testpilot/test_func.py::test_cache_parameters_maxsize",
+      "tests_testpilot/test_func.py::test_cache_parameters_unbounded",
+      "tests_testpilot/test_func.py::test_direct_decoration",
+      "tests_testpilot/test_func.py::test_basic_caching",
+      "tests_testpilot/test_func.py::test_eviction",
+      "tests_testpilot/test_func.py::test_typed_key",
+      "tests_testpilot/test_func.py::test_untyped_key",
+      "tests_testpilot/test_func.py::test_unbounded_maxsize",
+      "tests_testpilot/test_func.py::test_fifo_order",
+      "tests_testpilot/test_func.py::test_lru_order",
+      "tests_testpilot/test_func.py::test_lfu_order",
+      "tests_testpilot/test_func.py::test_rr_choice_property",
+      "tests_testpilot/test_func.py::test_rr_deterministic_eviction",
+      "tests_testpilot/test_func.py::test_ttl_expiry",
+      "tests_testpilot/test_func.py::test_ttl_unbounded",
+      "tests_testpilot/test_func.py::test_ttl_direct_decoration",
+      "tests_testpilot/test_func.py::test_thread_safety_single_call",
+      "tests_testpilot/test_func.py::test_cache_clear",
+      "tests_testpilot/test_func.py::test_cache_info_type",
+      "tests_testpilot/test_func.py::test_cache_info_currsize_after_eviction",
+      "tests_testpilot/test_func.py::test_exception_propagates",
+      "tests_testpilot/test_func.py::test_ttl_expire_during_set",
+      "tests_testpilot/test_func.py::test_kwargs_caching"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.59,
+        "passed": 87,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.41,
+        "passed": 87,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.4,
+        "passed": 87,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.9385474860335196,
+    "total": 179,
+    "killed": 168,
+    "survived": 11,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 168,
+      "survived": 11
+    },
+    "survivors": [
+      {
+        "line": 28,
+        "original": "wrapper = cached(cache=cache, key=key, condition=Condition(), info=True)(func)",
+        "mutated": "wrapper = cached(cache=cache, key=key, condition=None, info=True)(func)",
+        "status": "survived"
+      },
+      {
+        "line": 28,
+        "original": "wrapper = cached(cache=cache, key=key, condition=Condition(), info=True)(func)",
+        "mutated": "wrapper = cached(cache=cache, key=key, info=True)(func)",
+        "status": "survived"
+      },
+      {
+        "line": 44,
+        "original": "return _cache(FIFOCache(128), 128, typed)(maxsize)",
+        "mutated": "return _cache(FIFOCache(129), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "return _cache(LFUCache(128), 128, typed)(maxsize)",
+        "mutated": "return _cache(LFUCache(129), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "return _cache(LRUCache(128), 128, typed)(maxsize)",
+        "mutated": "return _cache(LRUCache(129), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "return _cache(RRCache(128, choice), 128, typed)(maxsize)",
+        "mutated": "return _cache(RRCache(128, None), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "return _cache(RRCache(128, choice), 128, typed)(maxsize)",
+        "mutated": "return _cache(RRCache(128, ), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "return _cache(RRCache(128, choice), 128, typed)(maxsize)",
+        "mutated": "return _cache(RRCache(129, choice), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 91,
+        "original": "def ttl_cache(maxsize=128, ttl=600, timer=time.monotonic, typed=False):",
+        "mutated": "def ttl_cache(maxsize=128, ttl=601, timer=time.monotonic, typed=False):",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "return _cache(TTLCache(128, ttl, timer), 128, typed)(maxsize)",
+        "mutated": "return _cache(TTLCache(128, ttl, ), 128, typed)(maxsize)",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "return _cache(TTLCache(128, ttl, timer), 128, typed)(maxsize)",
+        "mutated": "return _cache(TTLCache(129, ttl, timer), 128, typed)(maxsize)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.41,
+    "coverage": 2.44,
+    "mutation": 10.06
+  }
+}

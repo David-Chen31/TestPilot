@@ -1,0 +1,614 @@
+{
+  "target": "sqlparse/formatter.py",
+  "validity": {
+    "total": 50,
+    "valid": 46,
+    "valid_ids": [
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_returns_same_dict_object",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_case_valid_values",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_case_invalid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_keyword_case_error_message",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_identifier_case_error_message",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_output_format_valid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_output_format_invalid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_boolean_valid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_boolean_invalid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_reindent_valid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_reindent_aligned_valid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_reindent_aligned_invalid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_indent_columns_enforces_reindent",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_truncate_strings_valid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_truncate_strings_custom_char",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_truncate_strings_string_number",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_truncate_strings_too_small",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_truncate_strings_not_int",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_indent_tabs_true",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_indent_tabs_false",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_indent_tabs_invalid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_indent_width_valid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_indent_width_not_int",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_indent_width_not_positive",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_wrap_after_valid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_wrap_after_not_int",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_wrap_after_negative",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_right_margin_valid",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_right_margin_none",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_right_margin_too_small",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_right_margin_not_int",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_returns_stack",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_empty_options_no_filters",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_keyword_case",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_identifier_case",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_truncate_strings",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_use_space_around_operators",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_strip_comments",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_strip_whitespace",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_reindent_adds_strip_and_reindent",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_reindent_aligned",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_right_margin",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_output_php",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_output_python",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_output_sql_no_postprocess",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_full_combination"
+    ],
+    "invalid": {
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_defaults": "run 1: failed: KeyError: 'strip_comments'",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_reindent_invalid": "run 1: failed: Failed: DID NOT RAISE SQLParseError",
+      "tests_testpilot/test_formatter_s1.py::test_validate_options_truncate_strings_none_skips": "run 1: failed: AssertionError: assert 'truncate_strings' not in {'truncate_strings': None, 'indent_columns': False, 'indent_after_first': False, 'indent_char': ' ', ...}",
+      "tests_testpilot/test_formatter_s1.py::test_build_filter_stack_truncate_strings_no_char": "run 1: failed: KeyError: 'truncate_char'"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.49,
+        "passed": 86,
+        "failed": 4,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.53,
+        "passed": 86,
+        "failed": 4,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.78,
+        "passed": 86,
+        "failed": 4,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9920634920634921,
+  "branch_rate": 0.9861111111111112,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8069767441860465,
+    "total": 430,
+    "killed": 347,
+    "survived": 83,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 347,
+      "survived": 83
+    },
+    "survivors": [
+      {
+        "line": 18,
+        "original": "raise SQLParseError('Invalid value for keyword_case: '",
+        "mutated": "raise SQLParseError('XXInvalid value for keyword_case: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 23,
+        "original": "raise SQLParseError('Invalid value for identifier_case: '",
+        "mutated": "raise SQLParseError('XXInvalid value for identifier_case: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 28,
+        "original": "raise SQLParseError('Unknown output format: '",
+        "mutated": "raise SQLParseError('XXUnknown output format: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 31,
+        "original": "strip_comments = options.get('strip_comments', False)",
+        "mutated": "strip_comments = options.get('strip_comments', True)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "raise SQLParseError('Invalid value for strip_comments: '\n                            f'{strip_comments!r}')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "raise SQLParseError('Invalid value for strip_comments: '",
+        "mutated": "raise SQLParseError('XXInvalid value for strip_comments: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "raise SQLParseError('Invalid value for strip_comments: '",
+        "mutated": "raise SQLParseError('invalid value for strip_comments: '",
+        "status": "survived"
+      },
+      {
+        "line": 33,
+        "original": "raise SQLParseError('Invalid value for strip_comments: '",
+        "mutated": "raise SQLParseError('INVALID VALUE FOR STRIP_COMMENTS: '",
+        "status": "survived"
+      },
+      {
+        "line": 36,
+        "original": "space_around_operators = options.get('use_space_around_operators', False)",
+        "mutated": "space_around_operators = options.get('use_space_around_operators', True)",
+        "status": "survived"
+      },
+      {
+        "line": 38,
+        "original": "raise SQLParseError('Invalid value for use_space_around_operators: '\n                            f'{space_around_operators!r}')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 38,
+        "original": "raise SQLParseError('Invalid value for use_space_around_operators: '",
+        "mutated": "raise SQLParseError('XXInvalid value for use_space_around_operators: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 38,
+        "original": "raise SQLParseError('Invalid value for use_space_around_operators: '",
+        "mutated": "raise SQLParseError('invalid value for use_space_around_operators: '",
+        "status": "survived"
+      },
+      {
+        "line": 38,
+        "original": "raise SQLParseError('Invalid value for use_space_around_operators: '",
+        "mutated": "raise SQLParseError('INVALID VALUE FOR USE_SPACE_AROUND_OPERATORS: '",
+        "status": "survived"
+      },
+      {
+        "line": 41,
+        "original": "strip_ws = options.get('strip_whitespace', False)",
+        "mutated": "strip_ws = options.get('strip_whitespace', True)",
+        "status": "survived"
+      },
+      {
+        "line": 43,
+        "original": "raise SQLParseError('Invalid value for strip_whitespace: '\n                            f'{strip_ws!r}')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 43,
+        "original": "raise SQLParseError('Invalid value for strip_whitespace: '",
+        "mutated": "raise SQLParseError('XXInvalid value for strip_whitespace: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 43,
+        "original": "raise SQLParseError('Invalid value for strip_whitespace: '",
+        "mutated": "raise SQLParseError('invalid value for strip_whitespace: '",
+        "status": "survived"
+      },
+      {
+        "line": 43,
+        "original": "raise SQLParseError('Invalid value for strip_whitespace: '",
+        "mutated": "raise SQLParseError('INVALID VALUE FOR STRIP_WHITESPACE: '",
+        "status": "survived"
+      },
+      {
+        "line": 51,
+        "original": "raise SQLParseError('Invalid value for truncate_strings: '",
+        "mutated": "raise SQLParseError('XXInvalid value for truncate_strings: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 53,
+        "original": "if truncate_strings <= 1:",
+        "mutated": "if truncate_strings <= 2:",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "raise SQLParseError('Invalid value for truncate_strings: '",
+        "mutated": "raise SQLParseError('XXInvalid value for truncate_strings: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "raise SQLParseError('Invalid value for indent_columns: '\n                            f'{indent_columns!r}')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "raise SQLParseError('Invalid value for indent_columns: '",
+        "mutated": "raise SQLParseError('XXInvalid value for indent_columns: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "raise SQLParseError('Invalid value for indent_columns: '",
+        "mutated": "raise SQLParseError('invalid value for indent_columns: '",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "raise SQLParseError('Invalid value for indent_columns: '",
+        "mutated": "raise SQLParseError('INVALID VALUE FOR INDENT_COLUMNS: '",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "raise SQLParseError('Invalid value for reindent: '\n                            f'{reindent!r}')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "raise SQLParseError('Invalid value for reindent: '",
+        "mutated": "raise SQLParseError('XXInvalid value for reindent: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "raise SQLParseError('Invalid value for reindent: '",
+        "mutated": "raise SQLParseError('invalid value for reindent: '",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "raise SQLParseError('Invalid value for reindent: '",
+        "mutated": "raise SQLParseError('INVALID VALUE FOR REINDENT: '",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "raise SQLParseError('Invalid value for reindent_aligned: '\n                            f'{reindent!r}')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "raise SQLParseError('Invalid value for reindent_aligned: '",
+        "mutated": "raise SQLParseError('XXInvalid value for reindent_aligned: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "raise SQLParseError('Invalid value for reindent_aligned: '",
+        "mutated": "raise SQLParseError('invalid value for reindent_aligned: '",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "raise SQLParseError('Invalid value for reindent_aligned: '",
+        "mutated": "raise SQLParseError('INVALID VALUE FOR REINDENT_ALIGNED: '",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "indent_after_first = options.get('indent_after_first', False)",
+        "mutated": "indent_after_first = options.get('indent_after_first', True)",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "raise SQLParseError('Invalid value for indent_after_first: '\n                            f'{indent_after_first!r}')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "raise SQLParseError('Invalid value for indent_after_first: '",
+        "mutated": "raise SQLParseError('XXInvalid value for indent_after_first: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "raise SQLParseError('Invalid value for indent_after_first: '",
+        "mutated": "raise SQLParseError('invalid value for indent_after_first: '",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "raise SQLParseError('Invalid value for indent_after_first: '",
+        "mutated": "raise SQLParseError('INVALID VALUE FOR INDENT_AFTER_FIRST: '",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "indent_tabs = options.get('indent_tabs', False)",
+        "mutated": "indent_tabs = options.get('indent_tabs', True)",
+        "status": "survived"
+      },
+      {
+        "line": 89,
+        "original": "raise SQLParseError('Invalid value for indent_tabs: '",
+        "mutated": "raise SQLParseError('XXInvalid value for indent_tabs: XX'",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "indent_width = options.get('indent_width', 2)",
+        "mutated": "indent_width = options.get('indent_width', 3)",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "raise SQLParseError('indent_width requires an integer')",
+        "mutated": "raise SQLParseError('XXindent_width requires an integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 102,
+        "original": "raise SQLParseError('indent_width requires a positive integer')",
+        "mutated": "raise SQLParseError('XXindent_width requires a positive integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 105,
+        "original": "wrap_after = options.get('wrap_after', 0)",
+        "mutated": "wrap_after = options.get('wrap_after', 1)",
+        "status": "survived"
+      },
+      {
+        "line": 109,
+        "original": "raise SQLParseError('wrap_after requires an integer')",
+        "mutated": "raise SQLParseError('XXwrap_after requires an integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "raise SQLParseError('wrap_after requires a positive integer')",
+        "mutated": "raise SQLParseError('XXwrap_after requires a positive integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 114,
+        "original": "comma_first = options.get('comma_first', False)",
+        "mutated": "comma_first = options.get('comma_first', True)",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "raise SQLParseError('comma_first requires a boolean value')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "raise SQLParseError('comma_first requires a boolean value')",
+        "mutated": "raise SQLParseError('XXcomma_first requires a boolean valueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "raise SQLParseError('comma_first requires a boolean value')",
+        "mutated": "raise SQLParseError('COMMA_FIRST REQUIRES A BOOLEAN VALUE')",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "compact = options.get('compact', False)",
+        "mutated": "compact = options.get('compact', True)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "raise SQLParseError('compact requires a boolean value')",
+        "mutated": "raise SQLParseError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "raise SQLParseError('compact requires a boolean value')",
+        "mutated": "raise SQLParseError('XXcompact requires a boolean valueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "raise SQLParseError('compact requires a boolean value')",
+        "mutated": "raise SQLParseError('COMPACT REQUIRES A BOOLEAN VALUE')",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "raise SQLParseError('right_margin requires an integer')",
+        "mutated": "raise SQLParseError('XXright_margin requires an integerXX')",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "raise SQLParseError('right_margin requires an integer > 10')",
+        "mutated": "raise SQLParseError('XXright_margin requires an integer > 10XX')",
+        "status": "survived"
+      },
+      {
+        "line": 147,
+        "original": "filters.KeywordCaseFilter(options['keyword_case']))",
+        "mutated": "filters.KeywordCaseFilter(None))",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "filters.IdentifierCaseFilter(options['identifier_case']))",
+        "mutated": "filters.IdentifierCaseFilter(None))",
+        "status": "survived"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=None, char=options['truncate_char']))",
+        "status": "survived"
+      },
+      {
+        "line": 155,
+        "original": "width=options['truncate_strings'], char=options['truncate_char']))",
+        "mutated": "width=options['truncate_strings'], char=None))",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get('use_space_around_operators', None):",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "if options.get('use_space_around_operators', False):",
+        "mutated": "if options.get('use_space_around_operators', ):",
+        "status": "survived"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('strip_whitespace') or options.get(None):",
+        "status": "survived"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('strip_whitespace') or options.get('XXreindentXX'):",
+        "status": "survived"
+      },
+      {
+        "line": 166,
+        "original": "if options.get('strip_whitespace') or options.get('reindent'):",
+        "mutated": "if options.get('strip_whitespace') or options.get('REINDENT'):",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "char=options['indent_char'],",
+        "mutated": "char=None,",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "width=options['indent_width'],",
+        "mutated": "width=None,",
+        "status": "survived"
+      },
+      {
+        "line": 176,
+        "original": "indent_after_first=options['indent_after_first'],",
+        "mutated": "indent_after_first=None,",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "indent_columns=options['indent_columns'],",
+        "mutated": "indent_columns=None,",
+        "status": "survived"
+      },
+      {
+        "line": 178,
+        "original": "wrap_after=options['wrap_after'],",
+        "mutated": "wrap_after=None,",
+        "status": "survived"
+      },
+      {
+        "line": 179,
+        "original": "comma_first=options['comma_first'],",
+        "mutated": "comma_first=None,",
+        "status": "survived"
+      },
+      {
+        "line": 180,
+        "original": "compact=options['compact'],))",
+        "mutated": "compact=None,))",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "char=options['indent_char'],",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "width=options['indent_width'],",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 176,
+        "original": "indent_after_first=options['indent_after_first'],",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "indent_columns=options['indent_columns'],",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 178,
+        "original": "wrap_after=options['wrap_after'],",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 179,
+        "original": "comma_first=options['comma_first'],",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 180,
+        "original": "compact=options['compact'],))",
+        "mutated": "))",
+        "status": "survived"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get('reindent_aligned', None):",
+        "status": "survived"
+      },
+      {
+        "line": 182,
+        "original": "if options.get('reindent_aligned', False):",
+        "mutated": "if options.get('reindent_aligned', ):",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "filters.AlignedIndentFilter(char=options['indent_char']))",
+        "mutated": "filters.AlignedIndentFilter(char=None))",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "filters.RightMarginFilter(width=options['right_margin']))",
+        "mutated": "filters.RightMarginFilter(width=None))",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.81,
+    "coverage": 2.66,
+    "mutation": 40.07
+  }
+}

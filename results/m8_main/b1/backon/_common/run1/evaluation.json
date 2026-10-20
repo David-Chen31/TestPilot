@@ -1,0 +1,296 @@
+{
+  "target": "backon/_common.py",
+  "validity": {
+    "total": 44,
+    "valid": 44,
+    "valid_ids": [
+      "tests_testpilot/test__common.py::test_is_enabled_default_true",
+      "tests_testpilot/test__common.py::test_disable_sets_false",
+      "tests_testpilot/test__common.py::test_enable_sets_true",
+      "tests_testpilot/test__common.py::test_disable_is_idempotent",
+      "tests_testpilot/test__common.py::test_enable_is_idempotent",
+      "tests_testpilot/test__common.py::test_toggle_sequence",
+      "tests_testpilot/test__common.py::test_maybe_call_non_callable",
+      "tests_testpilot/test__common.py::test_maybe_call_callable_no_args",
+      "tests_testpilot/test__common.py::test_maybe_call_callable_with_args",
+      "tests_testpilot/test__common.py::test_maybe_call_callable_missing_args_returns_callable",
+      "tests_testpilot/test__common.py::test_maybe_call_rejects_too_many_args",
+      "tests_testpilot/test__common.py::test_maybe_call_reraises_unrelated_type_error",
+      "tests_testpilot/test__common.py::test_init_wait_gen_calls_gen_with_kwargs",
+      "tests_testpilot/test__common.py::test_next_wait_no_jitter_no_max",
+      "tests_testpilot/test__common.py::test_next_wait_with_jitter",
+      "tests_testpilot/test__common.py::test_next_wait_multiplier",
+      "tests_testpilot/test__common.py::test_next_wait_clamped_by_max_time",
+      "tests_testpilot/test__common.py::test_next_wait_not_clamped_below_max_time",
+      "tests_testpilot/test__common.py::test_apply_test_overrides_none",
+      "tests_testpilot/test__common.py::test_apply_test_overrides_set",
+      "tests_testpilot/test__common.py::test_prepare_logger_string",
+      "tests_testpilot/test__common.py::test_prepare_logger_object",
+      "tests_testpilot/test__common.py::test_config_handlers_list_and_no_logger_returns_same_list",
+      "tests_testpilot/test__common.py::test_config_handlers_none_logger_none_returns_empty",
+      "tests_testpilot/test__common.py::test_config_handlers_single_user_handler",
+      "tests_testpilot/test__common.py::test_config_handlers_iterable_user_handlers",
+      "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_no_user_handlers",
+      "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_user_handlers_iterable",
+      "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_single_user_handler",
+      "tests_testpilot/test__common.py::test_lazy_log_handler_defers_factory",
+      "tests_testpilot/test__common.py::test_log_backoff_with_exception",
+      "tests_testpilot/test__common.py::test_log_backoff_without_exception",
+      "tests_testpilot/test__common.py::test_log_backoff_without_exception_or_value",
+      "tests_testpilot/test__common.py::test_log_giveup_with_exception",
+      "tests_testpilot/test__common.py::test_log_giveup_without_exception",
+      "tests_testpilot/test__common.py::test_log_giveup_without_exception_or_value",
+      "tests_testpilot/test__common.py::test_now_and_elapsed",
+      "tests_testpilot/test__common.py::test_is_custom_wait_true",
+      "tests_testpilot/test__common.py::test_is_custom_wait_false",
+      "tests_testpilot/test__common.py::test_check_hot_loop_first_call_no_warning",
+      "tests_testpilot/test__common.py::test_check_hot_loop_increments_within_interval",
+      "tests_testpilot/test__common.py::test_check_hot_loop_resets_when_gap_large",
+      "tests_testpilot/test__common.py::test_check_hot_loop_warns_at_threshold",
+      "tests_testpilot/test__common.py::test_check_hot_loop_lock_exists"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.3,
+        "passed": 52,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.24,
+        "passed": 52,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.28,
+        "passed": 52,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9813084112149533,
+  "branch_rate": 0.96875,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8544600938967136,
+    "total": 213,
+    "killed": 182,
+    "survived": 31,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 182,
+      "survived": 29,
+      "no tests": 2
+    },
+    "survivors": [
+      {
+        "line": 103,
+        "original": "handlers.append(_LazyLogHandler(default_handler, logger, log_level))",
+        "mutated": "handlers.append(_LazyLogHandler(None, logger, log_level))",
+        "status": "survived"
+      },
+      {
+        "line": 103,
+        "original": "handlers.append(_LazyLogHandler(default_handler, logger, log_level))",
+        "mutated": "handlers.append(_LazyLogHandler(default_handler, None, log_level))",
+        "status": "survived"
+      },
+      {
+        "line": 103,
+        "original": "handlers.append(_LazyLogHandler(default_handler, logger, log_level))",
+        "mutated": "handlers.append(_LazyLogHandler(default_handler, logger, None))",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "functools.partial(default_handler, logger=None, log_level=log_level)",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "functools.partial(default_handler, logger=logger, log_level=None)",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "functools.partial(default_handler, log_level=log_level)",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "functools.partial(default_handler, logger=logger, )",
+        "status": "survived"
+      },
+      {
+        "line": 114,
+        "original": "if hasattr(user_handlers, \"__iter__\"):",
+        "mutated": "if hasattr(None, \"__iter__\"):",
+        "status": "survived"
+      },
+      {
+        "line": 114,
+        "original": "if hasattr(user_handlers, \"__iter__\"):",
+        "mutated": "if hasattr(user_handlers, \"XX__iter__XX\"):",
+        "status": "survived"
+      },
+      {
+        "line": 114,
+        "original": "if hasattr(user_handlers, \"__iter__\"):",
+        "mutated": "if hasattr(user_handlers, \"__ITER__\"):",
+        "status": "survived"
+      },
+      {
+        "line": 115,
+        "original": "handlers += list(user_handlers)",
+        "mutated": "handlers = list(user_handlers)",
+        "status": "survived"
+      },
+      {
+        "line": 115,
+        "original": "handlers += list(user_handlers)",
+        "mutated": "handlers -= list(user_handlers)",
+        "status": "survived"
+      },
+      {
+        "line": 115,
+        "original": "handlers += list(user_handlers)",
+        "mutated": "handlers += list(None)",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "return time_module.monotonic_ns() / 1_000_000_000",
+        "mutated": "return time_module.monotonic_ns() * 1_000_000_000",
+        "status": "no tests"
+      },
+      {
+        "line": 144,
+        "original": "return time_module.monotonic_ns() / 1_000_000_000",
+        "mutated": "return time_module.monotonic_ns() / 1000000001",
+        "status": "no tests"
+      },
+      {
+        "line": 160,
+        "original": "now = time_module.monotonic_ns() / 1_000_000_000",
+        "mutated": "now = time_module.monotonic_ns() / 1000000001",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "if prev > 0 and now - prev < 0.1:",
+        "mutated": "if prev >= 0 and now - prev < 0.1:",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "if prev > 0 and now - prev < 0.1:",
+        "mutated": "if prev > 1 and now - prev < 0.1:",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "if prev > 0 and now - prev < 0.1:",
+        "mutated": "if prev > 0 and now - prev <= 0.1:",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "if prev > 0 and now - prev < 0.1:",
+        "mutated": "if prev > 0 and now - prev < 1.1:",
+        "status": "survived"
+      },
+      {
+        "line": 166,
+        "original": "_hot_loop_data[\"count\"] = 0",
+        "mutated": "_hot_loop_data[\"XXcountXX\"] = 0",
+        "status": "survived"
+      },
+      {
+        "line": 166,
+        "original": "_hot_loop_data[\"count\"] = 0",
+        "mutated": "_hot_loop_data[\"COUNT\"] = 0",
+        "status": "survived"
+      },
+      {
+        "line": 172,
+        "original": "_hot_loop_data[\"count\"],\n            )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "logging.getLogger(\"backon\").warning(",
+        "mutated": "logging.getLogger(None).warning(",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "logging.getLogger(\"backon\").warning(",
+        "mutated": "logging.getLogger(\"XXbackonXX\").warning(",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "logging.getLogger(\"backon\").warning(",
+        "mutated": "logging.getLogger(\"BACKON\").warning(",
+        "status": "survived"
+      },
+      {
+        "line": 170,
+        "original": "\"Hot loop detected: %d retries in quick succession. \"",
+        "mutated": "\"XXHot loop detected: %d retries in quick succession. XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 171,
+        "original": "\"Add jitter or increase backoff.\",",
+        "mutated": "\"XXAdd jitter or increase backoff.XX\",",
+        "status": "survived"
+      },
+      {
+        "line": 171,
+        "original": "\"Add jitter or increase backoff.\",",
+        "mutated": "\"add jitter or increase backoff.\",",
+        "status": "survived"
+      },
+      {
+        "line": 171,
+        "original": "\"Add jitter or increase backoff.\",",
+        "mutated": "\"ADD JITTER OR INCREASE BACKOFF.\",",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.84,
+    "coverage": 2.37,
+    "mutation": 11.18
+  }
+}

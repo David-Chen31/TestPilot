@@ -1,0 +1,268 @@
+{
+  "target": "backon/_common.py",
+  "validity": {
+    "total": 47,
+    "valid": 47,
+    "valid_ids": [
+      "tests_testpilot/test__common.py::test_is_enabled_default_is_true",
+      "tests_testpilot/test__common.py::test_disable_sets_flag_false",
+      "tests_testpilot/test__common.py::test_enable_sets_flag_true",
+      "tests_testpilot/test__common.py::test_disable_is_idempotent",
+      "tests_testpilot/test__common.py::test_enable_is_idempotent",
+      "tests_testpilot/test__common.py::test_disable_enable_roundtrip",
+      "tests_testpilot/test__common.py::test_toggle_affects_module_global",
+      "tests_testpilot/test__common.py::test_maybe_call_with_callable_and_args",
+      "tests_testpilot/test__common.py::test_maybe_call_with_non_callable",
+      "tests_testpilot/test__common.py::test_maybe_call_with_callable_no_required_args",
+      "tests_testpilot/test__common.py::test_maybe_call_with_callable_requiring_args_returns_itself",
+      "tests_testpilot/test__common.py::test_maybe_call_propagates_unrelated_type_error",
+      "tests_testpilot/test__common.py::test_prepare_logger_with_string",
+      "tests_testpilot/test__common.py::test_prepare_logger_with_object",
+      "tests_testpilot/test__common.py::test_test_config_defaults",
+      "tests_testpilot/test__common.py::test_apply_test_overrides_without_max_retries",
+      "tests_testpilot/test__common.py::test_apply_test_overrides_with_max_retries",
+      "tests_testpilot/test__common.py::test_apply_test_overrides_defaults",
+      "tests_testpilot/test__common.py::test_is_custom_wait",
+      "tests_testpilot/test__common.py::test_init_wait_gen_calls_wait_gen",
+      "tests_testpilot/test__common.py::test_next_wait_applies_jitter_and_multiplier",
+      "tests_testpilot/test__common.py::test_next_wait_caps_at_max_time_minus_elapsed",
+      "tests_testpilot/test__common.py::test_next_wait_without_jitter",
+      "tests_testpilot/test__common.py::test_next_wait_passes_send_value",
+      "tests_testpilot/test__common.py::test_config_handlers_list_with_no_logger_returns_same_list",
+      "tests_testpilot/test__common.py::test_config_handlers_none_returns_empty_list",
+      "tests_testpilot/test__common.py::test_config_handlers_single_callable_wrapped_in_list",
+      "tests_testpilot/test__common.py::test_config_handlers_iterable_expanded",
+      "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_user_handlers_none_creates_lazy",
+      "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_single_user_handler",
+      "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_iterable_user_handlers",
+      "tests_testpilot/test__common.py::test_config_handlers_default_handler_partial_has_kwargs",
+      "tests_testpilot/test__common.py::test_lazy_log_handler_calls_handler_once",
+      "tests_testpilot/test__common.py::test_lazy_log_handler_caches_factory_result",
+      "tests_testpilot/test__common.py::test_log_backoff_with_exception",
+      "tests_testpilot/test__common.py::test_log_backoff_without_exception",
+      "tests_testpilot/test__common.py::test_log_backoff_defaults_to_unknown",
+      "tests_testpilot/test__common.py::test_log_giveup_with_exception",
+      "tests_testpilot/test__common.py::test_log_giveup_without_exception",
+      "tests_testpilot/test__common.py::test_now_returns_positive_float",
+      "tests_testpilot/test__common.py::test_elapsed_is_non_negative",
+      "tests_testpilot/test__common.py::test_elapsed_subtracts_start_from_now",
+      "tests_testpilot/test__common.py::test_check_hot_loop_first_call_sets_state",
+      "tests_testpilot/test__common.py::test_check_hot_loop_fast_successive_calls_increment_count",
+      "tests_testpilot/test__common.py::test_check_hot_loop_slow_call_resets_count",
+      "tests_testpilot/test__common.py::test_check_hot_loop_warns_and_resets_after_threshold",
+      "tests_testpilot/test__common.py::test_check_hot_loop_no_warning_below_threshold"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.37,
+        "passed": 47,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.17,
+        "passed": 47,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.21,
+        "passed": 47,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8779342723004695,
+    "total": 213,
+    "killed": 187,
+    "survived": 26,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 187,
+      "survived": 26
+    },
+    "survivors": [
+      {
+        "line": 38,
+        "original": "return f(*args, **kwargs)",
+        "mutated": "return f(*args, )",
+        "status": "survived"
+      },
+      {
+        "line": 44,
+        "original": "if \"required positional argument\" in err_msg or \"takes \" in err_msg:",
+        "mutated": "if \"required positional argument\" in err_msg or \"XXtakes XX\" in err_msg:",
+        "status": "survived"
+      },
+      {
+        "line": 44,
+        "original": "if \"required positional argument\" in err_msg or \"takes \" in err_msg:",
+        "mutated": "if \"required positional argument\" in err_msg or \"TAKES \" in err_msg:",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "functools.partial(default_handler, logger=None, log_level=log_level)",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "functools.partial(default_handler, logger=logger, log_level=None)",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "functools.partial(default_handler, log_level=log_level)",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "functools.partial(default_handler, logger=logger, log_level=log_level)",
+        "mutated": "functools.partial(default_handler, logger=logger, )",
+        "status": "survived"
+      },
+      {
+        "line": 115,
+        "original": "handlers += list(user_handlers)",
+        "mutated": "handlers = list(user_handlers)",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "msg = \"Backing off %s(...) for %.1fs (%s)\"",
+        "mutated": "msg = \"XXBacking off %s(...) for %.1fs (%s)XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "exc_fmt = details.get(\"value\", \"unknown\")",
+        "mutated": "exc_fmt = details.get(\"value\", \"XXunknownXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "msg = \"Giving up %s(...) after %d tries (%s)\"",
+        "mutated": "msg = \"XXGiving up %s(...) after %d tries (%s)XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "exc_fmt = details.get(\"value\", \"unknown\")",
+        "mutated": "exc_fmt = details.get(None, \"unknown\")",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "exc_fmt = details.get(\"value\", \"unknown\")",
+        "mutated": "exc_fmt = details.get(\"XXvalueXX\", \"unknown\")",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "exc_fmt = details.get(\"value\", \"unknown\")",
+        "mutated": "exc_fmt = details.get(\"VALUE\", \"unknown\")",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "exc_fmt = details.get(\"value\", \"unknown\")",
+        "mutated": "exc_fmt = details.get(\"value\", \"XXunknownXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "return time_module.monotonic_ns() / 1_000_000_000",
+        "mutated": "return time_module.monotonic_ns() / 1000000001",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "if prev > 0 and now - prev < 0.1:",
+        "mutated": "if prev >= 0 and now - prev < 0.1:",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "if prev > 0 and now - prev < 0.1:",
+        "mutated": "if prev > 0 and now - prev <= 0.1:",
+        "status": "survived"
+      },
+      {
+        "line": 172,
+        "original": "_hot_loop_data[\"count\"],\n            )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "logging.getLogger(\"backon\").warning(",
+        "mutated": "logging.getLogger(None).warning(",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "logging.getLogger(\"backon\").warning(",
+        "mutated": "logging.getLogger(\"XXbackonXX\").warning(",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "logging.getLogger(\"backon\").warning(",
+        "mutated": "logging.getLogger(\"BACKON\").warning(",
+        "status": "survived"
+      },
+      {
+        "line": 170,
+        "original": "\"Hot loop detected: %d retries in quick succession. \"",
+        "mutated": "\"XXHot loop detected: %d retries in quick succession. XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 171,
+        "original": "\"Add jitter or increase backoff.\",",
+        "mutated": "\"XXAdd jitter or increase backoff.XX\",",
+        "status": "survived"
+      },
+      {
+        "line": 171,
+        "original": "\"Add jitter or increase backoff.\",",
+        "mutated": "\"add jitter or increase backoff.\",",
+        "status": "survived"
+      },
+      {
+        "line": 171,
+        "original": "\"Add jitter or increase backoff.\",",
+        "mutated": "\"ADD JITTER OR INCREASE BACKOFF.\",",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.76,
+    "coverage": 2.41,
+    "mutation": 10.65
+  }
+}

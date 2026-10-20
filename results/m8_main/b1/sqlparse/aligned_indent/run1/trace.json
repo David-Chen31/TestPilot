@@ -1,0 +1,350 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T05:49:25+00:00",
+    "duration": 0.01,
+    "summary": "1 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "sqlparse/filters/aligned_indent.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "AlignedIndentFilter"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T05:49:25+00:00",
+    "duration": 0.05,
+    "summary": "依赖定义 2 个，调用处 1 个，提示词前缀 7624 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/filters/aligned_indent.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: sqlparse.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "sqlparse/__init__.py"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: sqlparse.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "sqlparse/__init__.py"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/utils.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "sqlparse/utils.py"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/utils.py",
+          "start_line": 120,
+          "end_line": 124
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "sqlparse/utils.py",
+          "start_line": 113,
+          "end_line": 117
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "AlignedIndentFilter(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `sqlparse.filters.aligned_indent` (file `sqlparse/filters/aligned_indent.py`).\n\nSource of `sqlparse/filters/aligned_indent.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | #\n    2 | # Copyright (C) 2009-2020 the sqlparse authors and contributors\n    3 | # <see AUTHORS file>\n    4 | #\n    5 | # This module is part of python-sqlparse and is released under\n    6 | # the BSD License: https://opensource.org/licenses/BSD-3-Clause\n    7 | \n    8 | from sqlparse import sql\n    9 | from sqlparse import tokens as T\n   10 | from sqlparse.utils import indent, offset\n   11 | \n   12 | \n   13 | class AlignedIndentFilter:\n   14 |     join_words = (r'((LEFT\\s+|RIGHT\\s+|FULL\\s+)?'\n   15 |                   r'(INNER\\s+|OUTER\\s+|STRAIGHT\\s+)?|'\n   16 |                   r'(CROSS\\s+|NATURAL\\s+)?)?JOIN\\b')\n   17 |     by_words = r'(GROUP|ORDER)\\s+BY\\b'\n   18 |     split_words = ('FROM',\n   19 |                    join_words, 'ON', by_words,\n   20 |                    'WHERE', 'AND', 'OR',\n   21 |                    'HAVING', 'LIMIT',\n   22 |                    'UNION', 'VALUES',\n   23 |                    'SET', 'BETWEEN', 'EXCEPT')\n   24 | \n   25 |     def __init__(self, char=' ', n='\\n'):\n   26 |         self.n = n\n   27 |         self.offset = 0\n   28 |         self.indent = 0\n   29 |         self.char = char\n   30 |         self._max_kwd_len = len('select')\n   31 | \n   32 |     def nl(self, offset=1):\n   33 |         # offset = 1 represent a single space after SELECT\n   34 |         offset = -len(offset) if not isinstance(offset, int) else offset\n   35 |         # add two for the space and parenthesis\n   36 |         indent = self.indent * (2 + self._max_kwd_len)\n   37 | \n   38 |         return sql.Token(T.Whitespace, self.n + self.char * (\n   39 |             self._max_kwd_len + offset + indent + self.offset))\n   40 | \n   41 |     def _process_statement(self, tlist):\n   42 |         if len(tlist.tokens) > 0 and tlist.tokens[0].is_whitespace \\\n   43 |                 and self.indent == 0:\n   44 |             tlist.tokens.pop(0)\n   45 | \n   46 |         # process the main query body\n   47 |         self._process(sql.TokenList(tlist.tokens))\n   48 | \n   49 |     def _process_parenthesis(self, tlist):\n   50 |         # if this isn't a subquery, don't re-indent\n   51 |         _, token = tlist.token_next_by(m=(T.DML, 'SELECT'))\n   52 |         if token is not None:\n   53 |             with indent(self):\n   54 |                 tlist.insert_after(tlist[0], self.nl('SELECT'))\n   55 |                 # process the inside of the parenthesis\n   56 |                 self._process_default(tlist)\n   57 | \n   58 |             # de-indent last parenthesis\n   59 |             tlist.insert_before(tlist[-1], self.nl())\n   60 | \n   61 |     def _process_identifierlist(self, tlist):\n   62 |         # columns being selected\n   63 |         identifiers = list(tlist.get_identifiers())\n   64 |         identifiers.pop(0)\n   65 |         [tlist.insert_before(token, self.nl()) for token in identifiers]\n   66 |         self._process_default(tlist)\n   67 | \n   68 |     def _process_case(self, tlist):\n   69 |         offset_ = len('case ') + len('when ')\n   70 |         cases = tlist.get_cases(skip_ws=True)\n   71 |         # align the end as well\n   72 |         end_token = tlist.token_next_by(m=(T.Keyword, 'END'))[1]\n   73 |         cases.append((None, [end_token]))\n   74 | \n   75 |         condition_width = [len(' '.join(map(str, cond))) if cond else 0\n   76 |                            for cond, _ in cases]\n   77 |         max_cond_width = max(condition_width)\n   78 | \n   79 |         for i, (cond, value) in enumerate(cases):\n   80 |             # cond is None when 'else or end'\n   81 |             stmt = cond[0] if cond else value[0]\n   82 | \n   83 |             if i > 0:\n   84 |                 tlist.insert_before(stmt, self.nl(offset_ - len(str(stmt))))\n   85 |             if cond:\n   86 |                 ws = sql.Token(T.Whitespace, self.char * (\n   87 |                     max_cond_width - condition_width[i]))\n   88 |                 tlist.insert_after(cond[-1], ws)\n   89 | \n   90 |     def _next_token(self, tlist, idx=-1):\n   91 |         split_words = T.Keyword, self.split_words, True\n   92 |         tidx, token = tlist.token_next_by(m=split_words, idx=idx)\n   93 |         # treat \"BETWEEN x and y\" as a single statement\n   94 |         if token and token.normalized == 'BETWEEN':\n   95 |             tidx, token = self._next_token(tlist, tidx)\n   96 |             if token and token.normalized == 'AND':\n   97 |                 tidx, token = self._next_token(tlist, tidx)\n   98 |         return tidx, token\n   99 | \n  100 |     def _split_kwds(self, tlist):\n  101 |         tidx, token = self._next_token(tlist)\n  102 |         while token:\n  103 |             # joins, group/order by are special case. only consider the first\n  104 |             # word as aligner\n  105 |             if (\n  106 |                 token.match(T.Keyword, self.join_words, regex=True)\n  107 |                 or token.match(T.Keyword, self.by_words, regex=True)\n  108 |             ):\n  109 |                 token_indent = token.value.split()[0]\n  110 |             else:\n  111 |                 token_indent = str(token)\n  112 |             tlist.insert_before(token, self.nl(token_indent))\n  113 |             tidx += 1\n  114 |             tidx, token = self._next_token(tlist, tidx)\n  115 | \n  116 |     def _process_default(self, tlist):\n  117 |         self._split_kwds(tlist)\n  118 |         # process any sub-sub statements\n  119 |         for sgroup in tlist.get_sublists():\n  120 |             idx = tlist.token_index(sgroup)\n  121 |             pidx, prev_ = tlist.token_prev(idx)\n  122 |             # HACK: make \"group/order by\" work. Longer than max_len.\n  123 |             offset_ = 3 if (\n  124 |                 prev_ and prev_.match(T.Keyword, self.by_words, regex=True)\n  125 |             ) else 0\n  126 |             with offset(self, offset_):\n  127 |                 self._process(sgroup)\n  128 | \n  129 |     def _process(self, tlist):\n  130 |         func_name = f'_process_{type(tlist).__name__}'\n  131 |         func = getattr(self, func_name.lower(), self._process_default)\n  132 |         func(tlist)\n  133 | \n  134 |     def process(self, stmt):\n  135 |         self._process(stmt)\n  136 |         return stmt\n```\n\nDefinitions imported by the module from elsewhere in the repository:\n\n# sqlparse/utils.py lines 120-124\n```python\n@contextmanager\ndef indent(filter_, n=1):\n    filter_.indent += n\n    yield\n    filter_.indent -= n\n```\n\n# sqlparse/utils.py lines 113-117\n```python\n@contextmanager\ndef offset(filter_, n=0):\n    filter_.offset += n\n    yield\n    filter_.offset -= n\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- sqlparse/formatter.py:185: `filters.AlignedIndentFilter(char=options['indent_char']))`\n\nPublic API to cover: `AlignedIndentFilter`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from sqlparse.filters.aligned_indent import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:49:37+00:00",
+    "duration": 12.07,
+    "summary": "第 1 轮：生成 443 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_aligned_indent.py",
+          "content": "<12954 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5920,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `sqlparse.filters.aligned_indent`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom sqlparse import sql\nfrom sqlparse import tokens as T\nfrom sqlparse.filters.aligned_indent import AlignedIndentFilter\n\n\ndef make_token(value, ttype=T.Keyword):\n    return sql.Token(ttype, value)\n\n\ndef test_init_defaults():\n    f = AlignedIndentFilter()\n    assert f.n == '\\n'\n    assert f.offset == 0\n    assert f.indent == 0\n    assert f.char == ' '\n    assert f._max_kwd_len == len('select')\n\n\ndef test_init_custom_char_and_n():\n    f = AlignedIndentFilter(char='\\t', n='\\r\\n')\n    assert f.char == '\\t'\n    assert f.n == '\\r\\n'\n\n\ndef test_class_attributes():\n    assert 'JOIN\\\\b' in AlignedIndentFilter.join_words\n    assert AlignedIndentFilter.by_words == r'(GROUP|ORDER)\\s+BY\\b'\n    for word in ('FROM', 'ON', 'WHERE', 'AND', 'OR', 'HAVING',\n                 'LIMIT', 'UNION', 'VALUES', 'SET', 'BETWEEN', 'EXCEPT'):\n        assert word in AlignedIndentFilter.split_words\n\n\ndef test_nl_default_offset():\n    f = AlignedIndentFilter()\n    tok = f.nl()\n    assert isinstance(tok, sql.Token)\n    assert tok.ttype == T.Whitespace\n    # _max_kwd_len (6) + offset (1) = 7 spaces\n    assert tok.value == '\\n' + ' ' * 7\n\n\ndef test_nl_int_offset():\n    f = AlignedIndentFilter()\n    assert f.nl(3).value == '\\n' + ' ' * 9\n    assert f.nl(0).value == '\\n' + ' ' * 6\n\n\ndef test_nl_string_offset():\n    f = AlignedIndentFilter()\n    # offset length negated: 'SELECT' -> -6 -> 6 - 6 = 0 spaces\n    assert f.nl('SELECT').value == '\\n'\n    # 'ON' -> -2 -> 6 - 2 = 4 spaces\n    assert f.nl('ON').value == '\\n' + ' ' * 4\n    # empty string -> 0 -> 6 spaces\n    assert f.nl('').value == '\\n' + ' ' * 6\n\n\ndef test_nl_with_indent_and_offset():\n    f = AlignedIndentFilter()\n    f.indent = 2\n    f.offset = 3\n    # indent = 2 * (2 + 6) = 16; 6 + 1 + 16 + 3 = 26\n    assert f.nl().value == '\\n' + ' ' * 26\n\n\ndef test_nl_custom_char():\n    f = AlignedIndentFilter(char='.')\n    assert f.nl().value == '\\n' + '.' * 7\n\n\ndef test_nl_custom_newline():\n    f = AlignedIndentFilter(n='#')\n    assert f.nl().value == '#' + ' ' * 7\n\n\ndef test_next_token_finds_keyword():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('foo', T.Name),\n        make_token('FROM'),\n        make_token('bar', T.Name),\n    ])\n    idx, token = f._next_token(tlist)\n    assert idx == 1\n    assert token.value == 'FROM'\n\n\ndef test_next_token_none_when_no_keyword():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([make_token('foo', T.Name)])\n    idx, token = f._next_token(tlist)\n    assert token is None\n\n\ndef test_next_token_between_and_skipped():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('BETWEEN'),\n        make_token('x', T.Name),\n        make_token('AND'),\n        make_token('y', T.Name),\n        make_token('WHERE'),\n    ])\n    idx, token = f._next_token(tlist)\n    # BETWEEN is treated as a single statement including AND\n    assert token.value == 'WHERE'\n    assert idx == 4\n\n\ndef test_next_token_between_without_and():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('BETWEEN'),\n        make_token('x', T.Name),\n        make_token('WHERE'),\n    ])\n    idx, token = f._next_token(tlist)\n    assert token.value == 'WHERE'\n\n\ndef test_split_kwds_inserts_newlines():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('SELECT'),\n        make_token('a', T.Name),\n        make_token('FROM'),\n        make_token('b', T.Name),\n    ])\n    f._split_kwds(tlist)\n    # A newline token should be inserted before each split keyword\n    values = [t.value for t in tlist.tokens]\n    assert '\\n' + ' ' * 0 in values or any(\n        v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_split_kwds_join_uses_first_word():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('LEFT JOIN'),\n        make_token('b', T.Name),\n    ])\n    f._split_kwds(tlist)\n    first = tlist.tokens[0]\n    assert isinstance(first, sql.Token)\n    assert first.ttype == T.Whitespace\n    # token_indent is 'LEFT' -> length 4; 6 - 4 = 2 spaces\n    assert first.value == '\\n' + ' ' * 2\n\n\ndef test_split_kwds_by_words_uses_first_word():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('GROUP BY'),\n        make_token('a', T.Name),\n    ])\n    f._split_kwds(tlist)\n    first = tlist.tokens[0]\n    # 'GROUP' -> length 5; 6 - 5 = 1 space\n    assert first.value == '\\n' + ' '\n\n\ndef test_process_default_processes_sublists():\n    f = AlignedIndentFilter()\n    inner = sql.TokenList([make_token('x', T.Name)])\n    tlist = sql.TokenList([\n        make_token('SELECT'),\n        inner,\n    ])\n    f._process_default(tlist)\n    # Newline inserted before sublist? At least no exception\n    assert isinstance(tlist, sql.TokenList)\n\n\ndef test_process_default_group_by_offset_hack():\n    f = AlignedIndentFilter()\n    sub = sql.TokenList([make_token('x', T.Name)])\n    tlist = sql.TokenList([\n        make_token('GROUP BY'),\n        sub,\n    ])\n    captured = {}\n\n    original_process = f._process\n\n    def recorder(t):\n        captured['offset'] = f.offset\n        original_process(t)\n\n    f._process = recorder\n    f._process_default(tlist)\n    # offset should be 3 during processing of sublist\n    assert captured.get('offset') == 3\n\n\ndef test_process_statement_pops_leading_whitespace():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, '   '),\n        make_token('SELECT'),\n    ])\n    f._process_statement(stmt)\n    assert not any(\n        t.is_whitespace and t.value == '   ' for t in stmt.tokens\n        if isinstance(t, sql.Token) and not isinstance(t, sql.TokenList))\n\n\ndef test_process_statement_keeps_whitespace_when_indented():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, '   '),\n        make_token('SELECT'),\n    ])\n    f.indent = 1\n    f._process_statement(stmt)\n    assert stmt.tokens[0].is_whitespace\n    assert stmt.tokens[0].value == '   '\n\n\ndef test_process_parenthesis_non_subquery():\n    f = AlignedIndentFilter()\n    paren = sql.Parenthesis([\n        sql.Token(T.Punctuation, '('),\n        make_token('foo', T.Name),\n        sql.Token(T.Punctuation, ')'),\n    ])\n    # No SELECT -> nothing inserted\n    f._process_parenthesis(paren)\n    assert len(paren.tokens) == 3\n\n\ndef test_process_parenthesis_subquery():\n    f = AlignedIndentFilter()\n    paren = sql.Parenthesis([\n        sql.Token(T.Punctuation, '('),\n        make_token('SELECT', T.DML),\n        make_token('x', T.Name),\n        sql.Token(T.Punctuation, ')'),\n    ])\n    f._process_parenthesis(paren)\n    # A newline should have been inserted after '(' and before ')'\n    values = [t.value for t in paren.tokens if isinstance(t, sql.Token)]\n    assert any(v.startswith('\\n') for v in values)\n\n\ndef test_process_identifierlist_inserts_newlines():\n    f = AlignedIndentFilter()\n    il = sql.IdentifierList([\n        sql.Identifier([make_token('a', T.Name)]),\n        sql.Token(T.Punctuation, ','),\n        sql.Identifier([make_token('b', T.Name)]),\n    ])\n    f._process_identifierlist(il)\n    values = [t.value for t in il.tokens if isinstance(t, sql.Token)\n              and not isinstance(t, sql.TokenList)]\n    assert any(v.startswith('\\n') for v in values)\n\n\ndef test_process_case_aligns_values():\n    f = AlignedIndentFilter()\n    case = sql.Case([\n        make_token('CASE'),\n        make_token('WHEN'),\n        make_token('a', T.Name),\n        make_token('THEN'),\n        make_token('b', T.Name),\n        make_token('ELSE'),\n        make_token('c', T.Name),\n        make_token('END'),\n    ])\n    f._process_case(case)\n    # should have inserted whitespace tokens, no exception\n    assert isinstance(case, sql.Case)\n\n\ndef test_process_dispatch_unknown_type_uses_default():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([make_token('SELECT'), make_token('x', T.Name)])\n    f._process(tlist)\n    assert isinstance(tlist, sql.TokenList)\n\n\ndef test_process_with_update():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'UPDATE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('foo', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('SET'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('bar', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        sql.Token(T.Punctuation, '='),\n        sql.Token(T.Whitespace, ' '),\n        make_token('1', T.Number.Integer),\n    ])\n    result = f.process(stmt)\n    assert result is stmt\n    # SET should have been split onto a new line\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_select_from():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_select_from_where():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('WHERE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('x', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_empty_statement():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([])\n    result = f.process(stmt)\n    assert result is stmt\n    assert len(stmt.tokens) == 0\n\n\ndef test_process_returns_same_object():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([make_token('SELECT', T.DML)])\n    assert f.process(stmt) is stmt\n\n\ndef test_process_join_group_order():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('t1', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('LEFT JOIN'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('t2', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('GROUP BY'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('ORDER BY'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens if isinstance(t, sql.Token)]\n    assert sum(1 for v in values if isinstance(v, str) and v.startswith('\\n')) >= 3\n\n\ndef test_process_between_and_not_split():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('WHERE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('x', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('BETWEEN'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('1', T.Number.Integer),\n        sql.Token(T.Whitespace, ' '),\n        make_token('AND'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('5', T.Number.Integer),\n    ])\n    f.process(stmt)\n    # AND inside BETWEEN should not be split onto a new line\n    # Count tokens beginning with newline\n    newlines = [t.value for t in stmt.tokens\n                if isinstance(t, sql.Token) and isinstance(t.value, str)\n                and t.value.startswith('\\n')]\n    # SELECT offset, FROM, WHERE would be split (3), AND in-between not\n    assert len(newlines) == 3\n\n\ndef test_process_no_select_at_start_keeps_whitespace():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, ' '),\n        make_token('foo', T.Name),\n    ])\n    f._process_statement(stmt)\n    assert stmt.tokens[0].value == ' '\n\n\ndef test_indent_context_manager_effect():\n    from sqlparse.utils import indent\n    f = AlignedIndentFilter()\n    with indent(f):\n        assert f.indent == 1\n        with indent(f):\n            assert f.indent == 2\n        assert f.indent == 1\n    assert f.indent == 0\n\n\ndef test_offset_context_manager_effect():\n    from sqlparse.utils import offset\n    f = AlignedIndentFilter()\n    with offset(f, 3):\n        assert f.offset == 3\n    assert f.offset == 0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 2160,
+      "cache_hit_tokens": 0,
+      "completion_tokens": 3760,
+      "reasoning_tokens": 0,
+      "latency": 12.07
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:49:39+00:00",
+    "duration": 1.49,
+    "summary": "通过 33，失败 2，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_aligned_indent.py"
+          ]
+        },
+        "duration": 1.49,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5920
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T05:49:39+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 33]（提升）",
+    "tool_calls": [],
+    "tokens_total": 5920,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      33
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T05:49:39+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 5920
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:49:48+00:00",
+    "duration": 10.41,
+    "summary": "第 2 轮：生成 447 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_aligned_indent.py",
+          "content": "<13233 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 16186,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_aligned_indent.py`)\n```python\nimport pytest\n\nfrom sqlparse import sql\nfrom sqlparse import tokens as T\nfrom sqlparse.filters.aligned_indent import AlignedIndentFilter\n\n\ndef make_token(value, ttype=T.Keyword):\n    return sql.Token(ttype, value)\n\n\ndef test_init_defaults():\n    f = AlignedIndentFilter()\n    assert f.n == '\\n'\n    assert f.offset == 0\n    assert f.indent == 0\n    assert f.char == ' '\n    assert f._max_kwd_len == len('select')\n\n\ndef test_init_custom_char_and_n():\n    f = AlignedIndentFilter(char='\\t', n='\\r\\n')\n    assert f.char == '\\t'\n    assert f.n == '\\r\\n'\n\n\ndef test_class_attributes():\n    assert 'JOIN\\\\b' in AlignedIndentFilter.join_words\n    assert AlignedIndentFilter.by_words == r'(GROUP|ORDER)\\s+BY\\b'\n    for word in ('FROM', 'ON', 'WHERE', 'AND', 'OR', 'HAVING',\n                 'LIMIT', 'UNION', 'VALUES', 'SET', 'BETWEEN', 'EXCEPT'):\n        assert word in AlignedIndentFilter.split_words\n\n\ndef test_nl_default_offset():\n    f = AlignedIndentFilter()\n    tok = f.nl()\n    assert isinstance(tok, sql.Token)\n    assert tok.ttype == T.Whitespace\n    # _max_kwd_len (6) + offset (1) = 7 spaces\n    assert tok.value == '\\n' + ' ' * 7\n\n\ndef test_nl_int_offset():\n    f = AlignedIndentFilter()\n    assert f.nl(3).value == '\\n' + ' ' * 9\n    assert f.nl(0).value == '\\n' + ' ' * 6\n\n\ndef test_nl_string_offset():\n    f = AlignedIndentFilter()\n    # offset length negated: 'SELECT' -> -6 -> 6 - 6 = 0 spaces\n    assert f.nl('SELECT').value == '\\n'\n    # 'ON' -> -2 -> 6 - 2 = 4 spaces\n    assert f.nl('ON').value == '\\n' + ' ' * 4\n    # empty string -> 0 -> 6 spaces\n    assert f.nl('').value == '\\n' + ' ' * 6\n\n\ndef test_nl_with_indent_and_offset():\n    f = AlignedIndentFilter()\n    f.indent = 2\n    f.offset = 3\n    # indent = 2 * (2 + 6) = 16; 6 + 1 + 16 + 3 = 26\n    assert f.nl().value == '\\n' + ' ' * 26\n\n\ndef test_nl_custom_char():\n    f = AlignedIndentFilter(char='.')\n    assert f.nl().value == '\\n' + '.' * 7\n\n\ndef test_nl_custom_newline():\n    f = AlignedIndentFilter(n='#')\n    assert f.nl().value == '#' + ' ' * 7\n\n\ndef test_next_token_finds_keyword():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('foo', T.Name),\n        make_token('FROM'),\n        make_token('bar', T.Name),\n    ])\n    idx, token = f._next_token(tlist)\n    assert idx == 1\n    assert token.value == 'FROM'\n\n\ndef test_next_token_none_when_no_keyword():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([make_token('foo', T.Name)])\n    idx, token = f._next_token(tlist)\n    assert token is None\n\n\ndef test_next_token_between_and_skipped():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('BETWEEN'),\n        make_token('x', T.Name),\n        make_token('AND'),\n        make_token('y', T.Name),\n        make_token('WHERE'),\n    ])\n    idx, token = f._next_token(tlist)\n    # BETWEEN is treated as a single statement including AND\n    assert token.value == 'WHERE'\n    assert idx == 4\n\n\ndef test_next_token_between_without_and():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('BETWEEN'),\n        make_token('x', T.Name),\n        make_token('WHERE'),\n    ])\n    idx, token = f._next_token(tlist)\n    assert token.value == 'WHERE'\n\n\ndef test_split_kwds_inserts_newlines():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('SELECT'),\n        make_token('a', T.Name),\n        make_token('FROM'),\n        make_token('b', T.Name),\n    ])\n    f._split_kwds(tlist)\n    # A newline token should be inserted before each split keyword\n    values = [t.value for t in tlist.tokens]\n    assert '\\n' + ' ' * 0 in values or any(\n        v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_split_kwds_join_uses_first_word():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('LEFT JOIN'),\n        make_token('b', T.Name),\n    ])\n    f._split_kwds(tlist)\n    first = tlist.tokens[0]\n    assert isinstance(first, sql.Token)\n    assert first.ttype == T.Whitespace\n    # token_indent is 'LEFT' -> length 4; 6 - 4 = 2 spaces\n    assert first.value == '\\n' + ' ' * 2\n\n\ndef test_split_kwds_by_words_uses_first_word():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('GROUP BY'),\n        make_token('a', T.Name),\n    ])\n    f._split_kwds(tlist)\n    first = tlist.tokens[0]\n    # 'GROUP' -> length 5; 6 - 5 = 1 space\n    assert first.value == '\\n' + ' '\n\n\ndef test_process_default_processes_sublists():\n    f = AlignedIndentFilter()\n    inner = sql.TokenList([make_token('x', T.Name)])\n    tlist = sql.TokenList([\n        make_token('SELECT'),\n        inner,\n    ])\n    f._process_default(tlist)\n    # Newline inserted before sublist? At least no exception\n    assert isinstance(tlist, sql.TokenList)\n\n\ndef test_process_default_group_by_offset_hack():\n    f = AlignedIndentFilter()\n    sub = sql.TokenList([make_token('x', T.Name)])\n    tlist = sql.TokenList([\n        make_token('GROUP BY'),\n        sub,\n    ])\n    captured = {}\n\n    original_process = f._process\n\n    def recorder(t):\n        captured['offset'] = f.offset\n        original_process(t)\n\n    f._process = recorder\n    f._process_default(tlist)\n    # offset should be 3 during processing of sublist\n    assert captured.get('offset') == 3\n\n\ndef test_process_statement_pops_leading_whitespace():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, '   '),\n        make_token('SELECT'),\n    ])\n    f._process_statement(stmt)\n    assert not any(\n        t.is_whitespace and t.value == '   ' for t in stmt.tokens\n        if isinstance(t, sql.Token) and not isinstance(t, sql.TokenList))\n\n\ndef test_process_statement_keeps_whitespace_when_indented():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, '   '),\n        make_token('SELECT'),\n    ])\n    f.indent = 1\n    f._process_statement(stmt)\n    assert stmt.tokens[0].is_whitespace\n    assert stmt.tokens[0].value == '   '\n\n\ndef test_process_parenthesis_non_subquery():\n    f = AlignedIndentFilter()\n    paren = sql.Parenthesis([\n        sql.Token(T.Punctuation, '('),\n        make_token('foo', T.Name),\n        sql.Token(T.Punctuation, ')'),\n    ])\n    # No SELECT -> nothing inserted\n    f._process_parenthesis(paren)\n    assert len(paren.tokens) == 3\n\n\ndef test_process_parenthesis_subquery():\n    f = AlignedIndentFilter()\n    paren = sql.Parenthesis([\n        sql.Token(T.Punctuation, '('),\n        make_token('SELECT', T.DML),\n        make_token('x', T.Name),\n        sql.Token(T.Punctuation, ')'),\n    ])\n    f._process_parenthesis(paren)\n    # A newline should have been inserted after '(' and before ')'\n    values = [t.value for t in paren.tokens if isinstance(t, sql.Token)]\n    assert any(v.startswith('\\n') for v in values)\n\n\ndef test_process_identifierlist_inserts_newlines():\n    f = AlignedIndentFilter()\n    il = sql.IdentifierList([\n        sql.Identifier([make_token('a', T.Name)]),\n        sql.Token(T.Punctuation, ','),\n        sql.Identifier([make_token('b', T.Name)]),\n    ])\n    f._process_identifierlist(il)\n    values = [t.value for t in il.tokens if isinstance(t, sql.Token)\n              and not isinstance(t, sql.TokenList)]\n    assert any(v.startswith('\\n') for v in values)\n\n\ndef test_process_case_aligns_values():\n    f = AlignedIndentFilter()\n    case = sql.Case([\n        make_token('CASE'),\n        make_token('WHEN'),\n        make_token('a', T.Name),\n        make_token('THEN'),\n        make_token('b', T.Name),\n        make_token('ELSE'),\n        make_token('c', T.Name),\n        make_token('END'),\n    ])\n    f._process_case(case)\n    # should have inserted whitespace tokens, no exception\n    assert isinstance(case, sql.Case)\n\n\ndef test_process_dispatch_unknown_type_uses_default():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([make_token('SELECT'), make_token('x', T.Name)])\n    f._process(tlist)\n    assert isinstance(tlist, sql.TokenList)\n\n\ndef test_process_with_update():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'UPDATE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('foo', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('SET'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('bar', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        sql.Token(T.Punctuation, '='),\n        sql.Token(T.Whitespace, ' '),\n        make_token('1', T.Number.Integer),\n    ])\n    result = f.process(stmt)\n    assert result is stmt\n    # SET should have been split onto a new line\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_select_from():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_select_from_where():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('WHERE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('x', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_empty_statement():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([])\n    result = f.process(stmt)\n    assert result is stmt\n    assert len(stmt.tokens) == 0\n\n\ndef test_process_returns_same_object():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([make_token('SELECT', T.DML)])\n    assert f.process(stmt) is stmt\n\n\ndef test_process_join_group_order():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('t1', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('LEFT JOIN'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('t2', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('GROUP BY'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('ORDER BY'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens if isinstance(t, sql.Token)]\n    assert sum(1 for v in values if isinstance(v, str) and v.startswith('\\n')) >= 3\n\n\ndef test_process_between_and_not_split():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('WHERE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('x', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('BETWEEN'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('1', T.Number.Integer),\n        sql.Token(T.Whitespace, ' '),\n        make_token('AND'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('5', T.Number.Integer),\n    ])\n    f.process(stmt)\n    # AND inside BETWEEN should not be split onto a new line\n    # Count tokens beginning with newline\n    newlines = [t.value for t in stmt.tokens\n                if isinstance(t, sql.Token) and isinstance(t.value, str)\n                and t.value.startswith('\\n')]\n    # SELECT offset, FROM, WHERE would be split (3), AND in-between not\n    assert len(newlines) == 3\n\n\ndef test_process_no_select_at_start_keeps_whitespace():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, ' '),\n        make_token('foo', T.Name),\n    ])\n    f._process_statement(stmt)\n    assert stmt.tokens[0].value == ' '\n\n\ndef test_indent_context_manager_effect():\n    from sqlparse.utils import indent\n    f = AlignedIndentFilter()\n    with indent(f):\n        assert f.indent == 1\n        with indent(f):\n            assert f.indent == 2\n        assert f.indent == 1\n    assert f.indent == 0\n\n\ndef test_offset_context_manager_effect():\n    from sqlparse.utils import offset\n    f = AlignedIndentFilter()\n    with offset(f, 3):\n        assert f.offset == 3\n    assert f.offset == 0\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 33 passed, 2 failed, 0 errors.\n- `tests_testpilot.test_aligned_indent::test_process_between_and_not_split` failed:\n```\nAssertionError: assert 2 == 3\n +  where 2 = len(['\\n  ', '\\n '])\ndef test_process_between_and_not_split():\n        f = AlignedIndentFilter()\n        stmt = sql.Statement([\n            sql.Token(T.DML, 'SELECT'),\n            sql.Token(T.Whitespace, ' '),\n            make_token('a', T.Name),\n            sql.Token(T.Whitespace, ' '),\n            make_token('FROM'),\n            sql.Token(T.Whitespace, ' '),\n            make_token('b', T.Name),\n            sql.Token(T.Whitespace, ' '),\n            make_token('WHERE'),\n            sql.Token(T.Whitespace, ' '),\n            make_token('x', T.Name),\n            sql.Token(T.Whitespace, ' '),\n            make_token('BETWEEN'),\n            sql.Token(T.Whitespace, ' '),\n            make_token('1', T.Number.Integer),\n            sql.Token(T.Whitespace, \n```\n- `tests_testpilot.test_aligned_indent::test_process_no_select_at_start_keeps_whitespace` failed:\n```\nAssertionError: assert 'foo' == ' '\n  \n  Strings contain only whitespace, escaping them using repr()\n  - ' '\n  + 'foo'\ndef test_process_no_select_at_start_keeps_whitespace():\n        f = AlignedIndentFilter()\n        stmt = sql.Statement([\n            sql.Token(T.Whitespace, ' '),\n            make_token('foo', T.Name),\n        ])\n        f._process_statement(stmt)\n>       assert stmt.tokens[0].value == ' '\nE       AssertionError: assert 'foo' == ' '\nE         \nE         Strings contain only whitespace, escaping them using repr()\nE         - ' '\nE         + 'foo'\n\ntests_testpilot/test_aligned_indent.py:424: AssertionError\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\n\nfrom sqlparse import sql\nfrom sqlparse import tokens as T\nfrom sqlparse.filters.aligned_indent import AlignedIndentFilter\n\n\ndef make_token(value, ttype=T.Keyword):\n    return sql.Token(ttype, value)\n\n\ndef test_init_defaults():\n    f = AlignedIndentFilter()\n    assert f.n == '\\n'\n    assert f.offset == 0\n    assert f.indent == 0\n    assert f.char == ' '\n    assert f._max_kwd_len == len('select')\n\n\ndef test_init_custom_char_and_n():\n    f = AlignedIndentFilter(char='\\t', n='\\r\\n')\n    assert f.char == '\\t'\n    assert f.n == '\\r\\n'\n\n\ndef test_class_attributes():\n    assert 'JOIN\\\\b' in AlignedIndentFilter.join_words\n    assert AlignedIndentFilter.by_words == r'(GROUP|ORDER)\\s+BY\\b'\n    for word in ('FROM', 'ON', 'WHERE', 'AND', 'OR', 'HAVING',\n                 'LIMIT', 'UNION', 'VALUES', 'SET', 'BETWEEN', 'EXCEPT'):\n        assert word in AlignedIndentFilter.split_words\n\n\ndef test_nl_default_offset():\n    f = AlignedIndentFilter()\n    tok = f.nl()\n    assert isinstance(tok, sql.Token)\n    assert tok.ttype == T.Whitespace\n    # _max_kwd_len (6) + offset (1) = 7 spaces\n    assert tok.value == '\\n' + ' ' * 7\n\n\ndef test_nl_int_offset():\n    f = AlignedIndentFilter()\n    assert f.nl(3).value == '\\n' + ' ' * 9\n    assert f.nl(0).value == '\\n' + ' ' * 6\n\n\ndef test_nl_string_offset():\n    f = AlignedIndentFilter()\n    # offset length negated: 'SELECT' -> -6 -> 6 - 6 = 0 spaces\n    assert f.nl('SELECT').value == '\\n'\n    # 'ON' -> -2 -> 6 - 2 = 4 spaces\n    assert f.nl('ON').value == '\\n' + ' ' * 4\n    # empty string -> 0 -> 6 spaces\n    assert f.nl('').value == '\\n' + ' ' * 6\n\n\ndef test_nl_with_indent_and_offset():\n    f = AlignedIndentFilter()\n    f.indent = 2\n    f.offset = 3\n    # indent = 2 * (2 + 6) = 16; 6 + 1 + 16 + 3 = 26\n    assert f.nl().value == '\\n' + ' ' * 26\n\n\ndef test_nl_custom_char():\n    f = AlignedIndentFilter(char='.')\n    assert f.nl().value == '\\n' + '.' * 7\n\n\ndef test_nl_custom_newline():\n    f = AlignedIndentFilter(n='#')\n    assert f.nl().value == '#' + ' ' * 7\n\n\ndef test_next_token_finds_keyword():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('foo', T.Name),\n        make_token('FROM'),\n        make_token('bar', T.Name),\n    ])\n    idx, token = f._next_token(tlist)\n    assert idx == 1\n    assert token.value == 'FROM'\n\n\ndef test_next_token_none_when_no_keyword():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([make_token('foo', T.Name)])\n    idx, token = f._next_token(tlist)\n    assert token is None\n\n\ndef test_next_token_between_and_skipped():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('BETWEEN'),\n        make_token('x', T.Name),\n        make_token('AND'),\n        make_token('y', T.Name),\n        make_token('WHERE'),\n    ])\n    idx, token = f._next_token(tlist)\n    # BETWEEN is treated as a single statement including AND\n    assert token.value == 'WHERE'\n    assert idx == 4\n\n\ndef test_next_token_between_without_and():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('BETWEEN'),\n        make_token('x', T.Name),\n        make_token('WHERE'),\n    ])\n    idx, token = f._next_token(tlist)\n    assert token.value == 'WHERE'\n\n\ndef test_split_kwds_inserts_newlines():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('SELECT'),\n        make_token('a', T.Name),\n        make_token('FROM'),\n        make_token('b', T.Name),\n    ])\n    f._split_kwds(tlist)\n    # A newline token should be inserted before each split keyword\n    values = [t.value for t in tlist.tokens]\n    assert '\\n' + ' ' * 0 in values or any(\n        v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_split_kwds_join_uses_first_word():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('LEFT JOIN'),\n        make_token('b', T.Name),\n    ])\n    f._split_kwds(tlist)\n    first = tlist.tokens[0]\n    assert isinstance(first, sql.Token)\n    assert first.ttype == T.Whitespace\n    # token_indent is 'LEFT' -> length 4; 6 - 4 = 2 spaces\n    assert first.value == '\\n' + ' ' * 2\n\n\ndef test_split_kwds_by_words_uses_first_word():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([\n        make_token('GROUP BY'),\n        make_token('a', T.Name),\n    ])\n    f._split_kwds(tlist)\n    first = tlist.tokens[0]\n    # 'GROUP' -> length 5; 6 - 5 = 1 space\n    assert first.value == '\\n' + ' '\n\n\ndef test_process_default_processes_sublists():\n    f = AlignedIndentFilter()\n    inner = sql.TokenList([make_token('x', T.Name)])\n    tlist = sql.TokenList([\n        make_token('SELECT'),\n        inner,\n    ])\n    f._process_default(tlist)\n    # Newline inserted before sublist? At least no exception\n    assert isinstance(tlist, sql.TokenList)\n\n\ndef test_process_default_group_by_offset_hack():\n    f = AlignedIndentFilter()\n    sub = sql.TokenList([make_token('x', T.Name)])\n    tlist = sql.TokenList([\n        make_token('GROUP BY'),\n        sub,\n    ])\n    captured = {}\n\n    original_process = f._process\n\n    def recorder(t):\n        captured['offset'] = f.offset\n        original_process(t)\n\n    f._process = recorder\n    f._process_default(tlist)\n    # offset should be 3 during processing of sublist\n    assert captured.get('offset') == 3\n\n\ndef test_process_statement_pops_leading_whitespace():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, '   '),\n        make_token('SELECT'),\n    ])\n    f._process_statement(stmt)\n    assert not any(\n        t.is_whitespace and t.value == '   ' for t in stmt.tokens\n        if isinstance(t, sql.Token) and not isinstance(t, sql.TokenList))\n\n\ndef test_process_statement_keeps_whitespace_when_indented():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, '   '),\n        make_token('SELECT'),\n    ])\n    f.indent = 1\n    f._process_statement(stmt)\n    assert stmt.tokens[0].is_whitespace\n    assert stmt.tokens[0].value == '   '\n\n\ndef test_process_parenthesis_non_subquery():\n    f = AlignedIndentFilter()\n    paren = sql.Parenthesis([\n        sql.Token(T.Punctuation, '('),\n        make_token('foo', T.Name),\n        sql.Token(T.Punctuation, ')'),\n    ])\n    # No SELECT -> nothing inserted\n    f._process_parenthesis(paren)\n    assert len(paren.tokens) == 3\n\n\ndef test_process_parenthesis_subquery():\n    f = AlignedIndentFilter()\n    paren = sql.Parenthesis([\n        sql.Token(T.Punctuation, '('),\n        make_token('SELECT', T.DML),\n        make_token('x', T.Name),\n        sql.Token(T.Punctuation, ')'),\n    ])\n    f._process_parenthesis(paren)\n    # A newline should have been inserted after '(' and before ')'\n    values = [t.value for t in paren.tokens if isinstance(t, sql.Token)]\n    assert any(v.startswith('\\n') for v in values)\n\n\ndef test_process_identifierlist_inserts_newlines():\n    f = AlignedIndentFilter()\n    il = sql.IdentifierList([\n        sql.Identifier([make_token('a', T.Name)]),\n        sql.Token(T.Punctuation, ','),\n        sql.Identifier([make_token('b', T.Name)]),\n    ])\n    f._process_identifierlist(il)\n    values = [t.value for t in il.tokens if isinstance(t, sql.Token)\n              and not isinstance(t, sql.TokenList)]\n    assert any(v.startswith('\\n') for v in values)\n\n\ndef test_process_case_aligns_values():\n    f = AlignedIndentFilter()\n    case = sql.Case([\n        make_token('CASE'),\n        make_token('WHEN'),\n        make_token('a', T.Name),\n        make_token('THEN'),\n        make_token('b', T.Name),\n        make_token('ELSE'),\n        make_token('c', T.Name),\n        make_token('END'),\n    ])\n    f._process_case(case)\n    # should have inserted whitespace tokens, no exception\n    assert isinstance(case, sql.Case)\n\n\ndef test_process_dispatch_unknown_type_uses_default():\n    f = AlignedIndentFilter()\n    tlist = sql.TokenList([make_token('SELECT'), make_token('x', T.Name)])\n    f._process(tlist)\n    assert isinstance(tlist, sql.TokenList)\n\n\ndef test_process_with_update():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'UPDATE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('foo', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('SET'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('bar', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        sql.Token(T.Punctuation, '='),\n        sql.Token(T.Whitespace, ' '),\n        make_token('1', T.Number.Integer),\n    ])\n    result = f.process(stmt)\n    assert result is stmt\n    # SET should have been split onto a new line\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_select_from():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_select_from_where():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('WHERE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('x', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens]\n    assert any(v.startswith('\\n') for v in values if isinstance(v, str))\n\n\ndef test_process_empty_statement():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([])\n    result = f.process(stmt)\n    assert result is stmt\n    assert len(stmt.tokens) == 0\n\n\ndef test_process_returns_same_object():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([make_token('SELECT', T.DML)])\n    assert f.process(stmt) is stmt\n\n\ndef test_process_join_group_order():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('t1', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('LEFT JOIN'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('t2', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('GROUP BY'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('ORDER BY'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n    ])\n    f.process(stmt)\n    values = [t.value for t in stmt.tokens if isinstance(t, sql.Token)]\n    assert sum(1 for v in values if isinstance(v, str) and v.startswith('\\n')) >= 3\n\n\ndef test_process_between_and_not_split():\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.DML, 'SELECT'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('a', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('FROM'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('b', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('WHERE'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('x', T.Name),\n        sql.Token(T.Whitespace, ' '),\n        make_token('BETWEEN'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('1', T.Number.Integer),\n        sql.Token(T.Whitespace, ' '),\n        make_token('AND'),\n        sql.Token(T.Whitespace, ' '),\n        make_token('5', T.Number.Integer),\n    ])\n    f.process(stmt)\n    # AND inside BETWEEN should not be split onto a new line.\n    # The implementation skips BETWEEN plus its AND when scanning, so\n    # BETWEEN and AND don't get their own newline; only a couple of split\n    # keywords remain as top-level newline-inserted tokens.\n    newlines = [t.value for t in stmt.tokens\n                if isinstance(t, sql.Token) and isinstance(t.value, str)\n                and t.value.startswith('\\n')]\n    assert len(newlines) == 2\n\n\ndef test_process_statement_with_leading_whitespace_pops_first():\n    # _process_statement pops a leading whitespace token when indent == 0,\n    # so a following non-keyword token then becomes the first token.\n    f = AlignedIndentFilter()\n    stmt = sql.Statement([\n        sql.Token(T.Whitespace, ' '),\n        make_token('foo', T.Name),\n    ])\n    f._process_statement(stmt)\n    assert len(stmt.tokens) == 1\n    assert stmt.tokens[0].value == 'foo'\n\n\ndef test_indent_context_manager_effect():\n    from sqlparse.utils import indent\n    f = AlignedIndentFilter()\n    with indent(f):\n        assert f.indent == 1\n        with indent(f):\n            assert f.indent == 2\n        assert f.indent == 1\n    assert f.indent == 0\n\n\ndef test_offset_context_manager_effect():\n    from sqlparse.utils import offset\n    f = AlignedIndentFilter()\n    with offset(f, 3):\n        assert f.offset == 3\n    assert f.offset == 0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 6440,
+      "cache_hit_tokens": 2048,
+      "completion_tokens": 3826,
+      "reasoning_tokens": 0,
+      "latency": 10.41
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:49:50+00:00",
+    "duration": 1.41,
+    "summary": "通过 35，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_aligned_indent.py"
+          ]
+        },
+        "duration": 1.41,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 16186
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T05:49:52+00:00",
+    "duration": 2.29,
+    "summary": "分数 [1, 0.0, 1.0, 1.0, 35]（提升），行覆盖 100.0%，分支覆盖 100.0%",
+    "tool_calls": [
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "sqlparse/filters/aligned_indent.py",
+          "tests": [
+            "tests_testpilot/test_aligned_indent.py"
+          ]
+        },
+        "duration": 2.29,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 16186,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      1.0,
+      35
+    ],
+    "coverage": {
+      "target": "sqlparse/filters/aligned_indent.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 79,
+      "branches": 20,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T05:49:52+00:00",
+    "duration": 0.0,
+    "summary": "全部测试通过，pytest 反馈已无可改进之处",
+    "tool_calls": [],
+    "tokens_total": 16186
+  },
+  {
+    "node": "finalize",
+    "iteration": 2,
+    "at": "2026-10-20T05:49:52+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试通过，pytest 反馈已无可改进之处；采用第 2 轮，分数 [1, 0.0, 1.0, 1.0, 35]",
+    "tool_calls": [],
+    "tokens_total": 16186,
+    "best_iteration": 2
+  }
+]

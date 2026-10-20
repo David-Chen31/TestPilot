@@ -1,0 +1,956 @@
+{
+  "target": "backon/_hedging.py",
+  "validity": {
+    "total": 32,
+    "valid": 32,
+    "valid_ids": [
+      "tests_testpilot/test__hedging.py::test_make_hedge_target_binds_args_and_kwargs",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_success",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_passes_args_and_kw",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_raises_first_exception",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_exception_filtered_then_predicate",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_predicate_controls_retry",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_on_hedge_handler_called",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_on_hedge_iterable_of_handlers",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_returns_a_fast_success_result",
+      "tests_testpilot/test__hedging.py::test_hedge_sync_timeout_zero_returns_result",
+      "tests_testpilot/test__hedging.py::test_hedge_async_is_returned_for_coroutine",
+      "tests_testpilot/test__hedging.py::test_hedge_dispatch_returns_non_coroutine_for_sync",
+      "tests_testpilot/test__hedging.py::test_hedge_async_success",
+      "tests_testpilot/test__hedging.py::test_hedge_async_raises_exception",
+      "tests_testpilot/test__hedging.py::test_hedge_async_on_hedge_handler_called",
+      "tests_testpilot/test__hedging.py::test_hedge_async_timeout_zero_returns_result",
+      "tests_testpilot/test__hedging.py::test_hedge_async_args_and_kw",
+      "tests_testpilot/test__hedging.py::test_on_hedge_decorator_sync",
+      "tests_testpilot/test__hedging.py::test_on_hedge_decorator_async",
+      "tests_testpilot/test__hedging.py::test_on_hedge_decorator_sync_error",
+      "tests_testpilot/test__hedging.py::test_on_hedge_decorator_async_error",
+      "tests_testpilot/test__hedging.py::test_on_hedge_preserves_wraps",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_sync_call",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_sync_call_rejects_async",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_sync_call_propagates_error",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_async_call",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_async_call_propagates_error",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_sync_context_manager",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_async_context_manager",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_stores_configuration",
+      "tests_testpilot/test__hedging.py::test_hedging_retrying_calls_on_hedge_handler",
+      "tests_testpilot/test__hedging.py::test_hedge_error_is_exception"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.35,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.32,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.29,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9734513274336283,
+  "branch_rate": 0.8611111111111112,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.5249169435215947,
+    "total": 305,
+    "killed": 158,
+    "survived": 143,
+    "excluded": 4,
+    "status_counts": {
+      "survived": 143,
+      "killed": 158,
+      "timeout": 4
+    },
+    "survivors": [
+      {
+        "line": 40,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 51,
+        "original": "if inspect.iscoroutinefunction(target):",
+        "mutated": "if inspect.iscoroutinefunction(None):",
+        "status": "survived"
+      },
+      {
+        "line": 53,
+        "original": "R,",
+        "mutated": "None,",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "kw=_kw,",
+        "mutated": "kw=None,",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "exception=exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 63,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 64,
+        "original": "on_hedge=on_hedge,",
+        "mutated": "on_hedge=None,",
+        "status": "survived"
+      },
+      {
+        "line": 65,
+        "original": "timeout=timeout,",
+        "mutated": "timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 56,
+        "original": "wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "args=args,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "kw=_kw,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 59,
+        "original": "max_hedge=max_hedge,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "exception=exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 63,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 64,
+        "original": "on_hedge=on_hedge,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 65,
+        "original": "timeout=timeout,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "predicate=predicate,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "**wait_gen_kwargs,\n            ),",
+        "mutated": "),",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "exception=exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 78,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "timeout=timeout,",
+        "mutated": "timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "exception=exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 78,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "timeout=timeout,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 82,
+        "original": "predicate=predicate,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "**wait_gen_kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "condition = _make_default_condition(exception, None, predicate)",
+        "mutated": "condition = _make_default_condition(None, None, predicate)",
+        "status": "survived"
+      },
+      {
+        "line": 114,
+        "original": "with ThreadPoolExecutor(max_workers=max_hedge) as executor:",
+        "mutated": "with ThreadPoolExecutor(max_workers=None) as executor:",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "wait_gen_kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 134,
+        "original": "args=args,",
+        "mutated": "args=None,",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "kwargs=kw or {},",
+        "mutated": "kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "on_success=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "on_backoff=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "on_giveup=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "on_attempt=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "before_sleep=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "sleep=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "retry_error_callback=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "raise_on_giveup=True,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 134,
+        "original": "args=args,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "kwargs=kw or {},\n            )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "kwargs=kw or {},",
+        "mutated": "kwargs=kw and {},",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "timeout=timeout,",
+        "mutated": "timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "timeout=timeout,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "return_when=FIRST_COMPLETED,\n        )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "exc = fut.exception()",
+        "mutated": "exc = None",
+        "status": "survived"
+      },
+      {
+        "line": 154,
+        "original": "return cast(T, fut.result())",
+        "mutated": "return cast(None, fut.result())",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(\"XXall hedged requests failedXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(\"ALL HEDGED REQUESTS FAILED\")",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "on_hedge_list = list(on_hedge) if hasattr(on_hedge, \"__iter__\") else [on_hedge]",
+        "mutated": "on_hedge_list = list(on_hedge) if (hasattr(on_hedge, \"__iter__\")) and False else [on_hedge]",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "on_hedge_list = list(on_hedge) if hasattr(on_hedge, \"__iter__\") else [on_hedge]",
+        "mutated": "on_hedge_list = list(None) if hasattr(on_hedge, \"__iter__\") else [on_hedge]",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "on_hedge_list = list(on_hedge) if hasattr(on_hedge, \"__iter__\") else [on_hedge]",
+        "mutated": "on_hedge_list = list(on_hedge) if hasattr(None, \"__iter__\") else [on_hedge]",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "on_hedge_list = list(on_hedge) if hasattr(on_hedge, \"__iter__\") else [on_hedge]",
+        "mutated": "on_hedge_list = list(on_hedge) if hasattr(on_hedge, \"XX__iter__XX\") else [on_hedge]",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "on_hedge_list = list(on_hedge) if hasattr(on_hedge, \"__iter__\") else [on_hedge]",
+        "mutated": "on_hedge_list = list(on_hedge) if hasattr(on_hedge, \"__ITER__\") else [on_hedge]",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "condition = _make_default_condition(exception, None, predicate)",
+        "mutated": "condition = _make_default_condition(None, None, predicate)",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "wait_gen_kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "args=args,",
+        "mutated": "args=None,",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "kwargs=kw or {},",
+        "mutated": "kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 193,
+        "original": "on_success=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 194,
+        "original": "on_backoff=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "on_giveup=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "on_attempt=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "before_sleep=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "sleep=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "retry_error_callback=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 200,
+        "original": "raise_on_giveup=True,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "args=args,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "kwargs=kw or {},\n        )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "kwargs=kw or {},",
+        "mutated": "kwargs=kw and {},",
+        "status": "survived"
+      },
+      {
+        "line": 209,
+        "original": "handler({\"max_hedge\": max_hedge, \"target\": target, \"hedge_count\": len(tasks)})  # type: ignore[typeddict-item, typeddict-unknown-key]",
+        "mutated": "handler({\"max_hedge\": max_hedge, \"XXtargetXX\": target, \"hedge_count\": len(tasks)})  # type: ignore[typeddict-item, typeddict-unknown-key]",
+        "status": "survived"
+      },
+      {
+        "line": 209,
+        "original": "handler({\"max_hedge\": max_hedge, \"target\": target, \"hedge_count\": len(tasks)})  # type: ignore[typeddict-item, typeddict-unknown-key]",
+        "mutated": "handler({\"max_hedge\": max_hedge, \"TARGET\": target, \"hedge_count\": len(tasks)})  # type: ignore[typeddict-item, typeddict-unknown-key]",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "timeout=timeout,",
+        "mutated": "timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "timeout=timeout,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "return_when=asyncio.FIRST_COMPLETED,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 222,
+        "original": "exc = task.exception()",
+        "mutated": "exc = None",
+        "status": "survived"
+      },
+      {
+        "line": 224,
+        "original": "return cast(T, task.result())",
+        "mutated": "return cast(None, task.result())",
+        "status": "survived"
+      },
+      {
+        "line": 230,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 230,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(\"XXall hedged requests failedXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 230,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(\"ALL HEDGED REQUESTS FAILED\")",
+        "status": "survived"
+      },
+      {
+        "line": 236,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 246,
+        "original": "if inspect.iscoroutinefunction(target):",
+        "mutated": "if inspect.iscoroutinefunction(None):",
+        "status": "survived"
+      },
+      {
+        "line": 267,
+        "original": "return cast(Callable[P, R], wrapper)",
+        "mutated": "return cast(None, wrapper)",
+        "status": "survived"
+      },
+      {
+        "line": 289,
+        "original": "return cast(Callable[P, R], wrapper)",
+        "mutated": "return cast(None, wrapper)",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 313,
+        "original": "self._jitter = jitter",
+        "mutated": "self._jitter = None",
+        "status": "survived"
+      },
+      {
+        "line": 332,
+        "original": "raise TypeError(\"Use async_call for async functions\")",
+        "mutated": "raise TypeError(\"XXUse async_call for async functionsXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 335,
+        "original": "return target(*args, **kwargs)",
+        "mutated": "return target(*args, )",
+        "status": "survived"
+      },
+      {
+        "line": 341,
+        "original": "exception=self._exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 342,
+        "original": "max_tries=self._max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 343,
+        "original": "max_time=self._max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 344,
+        "original": "jitter=self._jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 346,
+        "original": "timeout=self._timeout,",
+        "mutated": "timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 339,
+        "original": "self._wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 341,
+        "original": "exception=self._exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 342,
+        "original": "max_tries=self._max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 343,
+        "original": "max_time=self._max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 344,
+        "original": "jitter=self._jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 346,
+        "original": "timeout=self._timeout,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 347,
+        "original": "predicate=operator.not_,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 348,
+        "original": "**self._wait_gen_kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 355,
+        "original": "return await target(*args, **kwargs)",
+        "mutated": "return await target(*args, )",
+        "status": "survived"
+      },
+      {
+        "line": 361,
+        "original": "exception=self._exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 362,
+        "original": "max_tries=self._max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 363,
+        "original": "max_time=self._max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 364,
+        "original": "jitter=self._jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "on_hedge=self._on_hedge,",
+        "mutated": "on_hedge=None,",
+        "status": "survived"
+      },
+      {
+        "line": 366,
+        "original": "timeout=self._timeout,",
+        "mutated": "timeout=None,",
+        "status": "survived"
+      },
+      {
+        "line": 359,
+        "original": "self._wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "max_hedge=self._max_hedge,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 361,
+        "original": "exception=self._exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 362,
+        "original": "max_tries=self._max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 363,
+        "original": "max_time=self._max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 364,
+        "original": "jitter=self._jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "on_hedge=self._on_hedge,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 366,
+        "original": "timeout=self._timeout,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 367,
+        "original": "predicate=operator.not_,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 368,
+        "original": "**self._wait_gen_kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.97,
+    "coverage": 2.2,
+    "mutation": 35.53
+  }
+}

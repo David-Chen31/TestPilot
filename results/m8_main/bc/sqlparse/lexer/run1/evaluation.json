@@ -1,0 +1,194 @@
+{
+  "target": "sqlparse/lexer.py",
+  "validity": {
+    "total": 45,
+    "valid": 45,
+    "valid_ids": [
+      "tests_testpilot/test_lexer.py::TestDefaultInstance::test_singleton_returns_same_object",
+      "tests_testpilot/test_lexer.py::TestDefaultInstance::test_default_instance_is_lexer",
+      "tests_testpilot/test_lexer.py::TestDefaultInstance::test_default_instance_is_initialized",
+      "tests_testpilot/test_lexer.py::TestDefaultInstance::test_threaded_singleton",
+      "tests_testpilot/test_lexer.py::TestConfiguration::test_clear_empties_state",
+      "tests_testpilot/test_lexer.py::TestConfiguration::test_set_SQL_REGEX_compiles",
+      "tests_testpilot/test_lexer.py::TestConfiguration::test_add_keywords_preserves_order",
+      "tests_testpilot/test_lexer.py::TestConfiguration::test_default_initialization_resets",
+      "tests_testpilot/test_lexer.py::TestIsKeyword::test_known_keyword",
+      "tests_testpilot/test_lexer.py::TestIsKeyword::test_preserves_original_value",
+      "tests_testpilot/test_lexer.py::TestIsKeyword::test_unknown_becomes_name",
+      "tests_testpilot/test_lexer.py::TestIsKeyword::test_no_keywords_returns_name",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_str_input",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_text_io_object",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_bytes_utf8_default",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_bytes_with_explicit_encoding",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_bytes_with_latin1_encoding",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_bytes_fallback_unicode_escape",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_bytes_fallback_unicode_escape_full",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_bytes_invalid_unicode_escape_raises",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_invalid_type_raises",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_invalid_type_message_includes_type",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_invalid_type_none",
+      "tests_testpilot/test_lexer.py::TestGetTokensInput::test_invalid_type_list",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_empty_string",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_whitespace_only",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_keyword_case_insensitive",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_string_literal",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_number_integer",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_number_float",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_identifier_becomes_name",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_punctuation",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_comment_single_line",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_unknown_char_is_error",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_custom_regex_and_keyword",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_custom_regex_unknown_word",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_generator_type",
+      "tests_testpilot/test_lexer.py::TestTokenization::test_multiple_keywords",
+      "tests_testpilot/test_lexer.py::TestDelimitedSpans::test_dollar_quoted_literal",
+      "tests_testpilot/test_lexer.py::TestDelimitedSpans::test_dollar_quoted_literal_plain",
+      "tests_testpilot/test_lexer.py::TestDelimitedSpans::test_dollar_quoted_span_opened_via_span_openers",
+      "tests_testpilot/test_lexer.py::TestDelimitedSpans::test_multiline_comment_is_single_token",
+      "tests_testpilot/test_lexer.py::TestDelimitedSpans::test_multiline_comment_alone",
+      "tests_testpilot/test_lexer.py::TestDelimitedSpans::test_delimiter_inside_string_literal_not_resolved",
+      "tests_testpilot/test_lexer.py::TestDelimitedSpans::test_delimiter_inside_line_comment_not_resolved"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.57,
+        "passed": 45,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.49,
+        "passed": 45,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.54,
+        "passed": 45,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 0.9285714285714286,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8181818181818182,
+    "total": 77,
+    "killed": 63,
+    "survived": 14,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 63,
+      "survived": 14
+    },
+    "survivors": [
+      {
+        "line": 53,
+        "original": "cls._default_instance = cls()",
+        "mutated": "cls._default_instance = None",
+        "status": "survived"
+      },
+      {
+        "line": 63,
+        "original": "self.add_keywords(keywords.KEYWORDS_ORACLE)",
+        "mutated": "self.add_keywords(None)",
+        "status": "survived"
+      },
+      {
+        "line": 64,
+        "original": "self.add_keywords(keywords.KEYWORDS_MYSQL)",
+        "mutated": "self.add_keywords(None)",
+        "status": "survived"
+      },
+      {
+        "line": 65,
+        "original": "self.add_keywords(keywords.KEYWORDS_PLPGSQL)",
+        "mutated": "self.add_keywords(None)",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "self.add_keywords(keywords.KEYWORDS_HQL)",
+        "mutated": "self.add_keywords(None)",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "self.add_keywords(keywords.KEYWORDS_MSACCESS)",
+        "mutated": "self.add_keywords(None)",
+        "status": "survived"
+      },
+      {
+        "line": 68,
+        "original": "self.add_keywords(keywords.KEYWORDS_SNOWFLAKE)",
+        "mutated": "self.add_keywords(None)",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "self.add_keywords(keywords.KEYWORDS_BIGQUERY)",
+        "mutated": "self.add_keywords(None)",
+        "status": "survived"
+      },
+      {
+        "line": 70,
+        "original": "self.add_keywords(keywords.KEYWORDS)",
+        "mutated": "self.add_keywords(None)",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "text = text.decode('utf-8')",
+        "mutated": "text = text.decode('UTF-8')",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "text = text.decode('unicode-escape')",
+        "mutated": "text = text.decode('UNICODE-ESCAPE')",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "consume(iterable, end - pos - 1)",
+        "mutated": "consume(iterable, end + pos - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "return Lexer.get_default_instance().get_tokens(sql, encoding)",
+        "mutated": "return Lexer.get_default_instance().get_tokens(sql, None)",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "return Lexer.get_default_instance().get_tokens(sql, encoding)",
+        "mutated": "return Lexer.get_default_instance().get_tokens(sql, )",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.61,
+    "coverage": 2.79,
+    "mutation": 9.3
+  }
+}

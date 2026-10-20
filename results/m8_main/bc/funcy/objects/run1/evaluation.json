@@ -1,0 +1,151 @@
+{
+  "target": "funcy/objects.py",
+  "validity": {
+    "total": 32,
+    "valid": 32,
+    "valid_ids": [
+      "tests_testpilot/test_objects.py::test_cached_property_basic",
+      "tests_testpilot/test_objects.py::test_cached_property_class_access_returns_descriptor",
+      "tests_testpilot/test_objects.py::test_cached_property_fset_fdel_none",
+      "tests_testpilot/test_objects.py::test_cached_property_doc",
+      "tests_testpilot/test_objects.py::test_cached_property_overwritable",
+      "tests_testpilot/test_objects.py::test_cached_readonly_basic",
+      "tests_testpilot/test_objects.py::test_cached_readonly_class_access",
+      "tests_testpilot/test_objects.py::test_cached_readonly_set_raises",
+      "tests_testpilot/test_objects.py::test_cached_readonly_assign_after_access_raises",
+      "tests_testpilot/test_objects.py::test_wrap_prop_get_with_context",
+      "tests_testpilot/test_objects.py::test_wrap_prop_class_access_returns_wrapper",
+      "tests_testpilot/test_objects.py::test_wrap_prop_repr",
+      "tests_testpilot/test_objects.py::test_wrap_prop_setter_defined_in_property_class",
+      "tests_testpilot/test_objects.py::test_wrap_prop_deleter_defined_in_property_class",
+      "tests_testpilot/test_objects.py::test_wrap_prop_no_set_no_delete_only_get",
+      "tests_testpilot/test_objects.py::test_wrap_prop_custom_descriptor_set_only",
+      "tests_testpilot/test_objects.py::test_wrap_prop_custom_descriptor_delete_only",
+      "tests_testpilot/test_objects.py::test_monkey_patches_class",
+      "tests_testpilot/test_objects.py::test_monkey_original_attribute",
+      "tests_testpilot/test_objects.py::test_monkey_original_none_when_new",
+      "tests_testpilot/test_objects.py::test_monkey_strips_class_prefix",
+      "tests_testpilot/test_objects.py::test_monkey_explicit_name",
+      "tests_testpilot/test_objects.py::test_monkey_non_class_module_raises",
+      "tests_testpilot/test_objects.py::test_monkey_property_support",
+      "tests_testpilot/test_objects.py::test_monkey_module",
+      "tests_testpilot/test_objects.py::test_monkey_returns_value",
+      "tests_testpilot/test_objects.py::test_lazy_object_init_lazy",
+      "tests_testpilot/test_objects.py::test_lazy_object_attribute_triggers_setup",
+      "tests_testpilot/test_objects.py::test_lazy_object_class_rewritten_after_setup",
+      "tests_testpilot/test_objects.py::test_lazy_object_getattr_setup",
+      "tests_testpilot/test_objects.py::test_lazy_object_setattr_before_setup",
+      "tests_testpilot/test_objects.py::test_lazy_object_init_called_once"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.39,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.3,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.35,
+        "passed": 32,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.9142857142857143,
+    "total": 105,
+    "killed": 96,
+    "survived": 9,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 96,
+      "survived": 9
+    },
+    "survivors": [
+      {
+        "line": 34,
+        "original": "return super().__get__(instance, type)",
+        "mutated": "return super().__get__(instance, None)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return super().__get__(instance, type)",
+        "mutated": "return super().__get__(instance, )",
+        "status": "survived"
+      },
+      {
+        "line": 37,
+        "original": "raise AttributeError(\"property is read-only\")",
+        "mutated": "raise AttributeError(\"XXproperty is read-onlyXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 45,
+        "original": "return repr(prop)",
+        "mutated": "return repr(None)",
+        "status": "survived"
+      },
+      {
+        "line": 52,
+        "original": "return prop.__get__(instance, type)",
+        "mutated": "return prop.__get__(instance, None)",
+        "status": "survived"
+      },
+      {
+        "line": 52,
+        "original": "return prop.__get__(instance, type)",
+        "mutated": "return prop.__get__(instance, )",
+        "status": "survived"
+      },
+      {
+        "line": 74,
+        "original": "assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"",
+        "mutated": "assert isclass(cls) or ismodule(cls), \"XXAttempting to monkey patch non-class and non-moduleXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 74,
+        "original": "assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"",
+        "mutated": "assert isclass(cls) or ismodule(cls), \"attempting to monkey patch non-class and non-module\"",
+        "status": "survived"
+      },
+      {
+        "line": 74,
+        "original": "assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"",
+        "mutated": "assert isclass(cls) or ismodule(cls), \"ATTEMPTING TO MONKEY PATCH NON-CLASS AND NON-MODULE\"",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.05,
+    "coverage": 2.52,
+    "mutation": 6.78
+  }
+}

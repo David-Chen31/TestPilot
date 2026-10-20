@@ -1,0 +1,261 @@
+{
+  "target": "jmespath/lexer.py",
+  "validity": {
+    "total": 69,
+    "valid": 69,
+    "valid_ids": [
+      "tests_testpilot/test_lexer.py::TestSimpleTokens::test_single_simple_token",
+      "tests_testpilot/test_lexer.py::TestSimpleTokens::test_simple_tokens_sequence",
+      "tests_testpilot/test_lexer.py::TestIdentifiers::test_simple_identifier",
+      "tests_testpilot/test_lexer.py::TestIdentifiers::test_identifier_with_digits_and_underscore",
+      "tests_testpilot/test_lexer.py::TestIdentifiers::test_identifier_starting_with_underscore",
+      "tests_testpilot/test_lexer.py::TestIdentifiers::test_identifier_followed_by_simple_token",
+      "tests_testpilot/test_lexer.py::TestIdentifiers::test_identifier_positions",
+      "tests_testpilot/test_lexer.py::TestWhitespace::test_whitespace_is_skipped",
+      "tests_testpilot/test_lexer.py::TestWhitespace::test_all_whitespace_chars",
+      "tests_testpilot/test_lexer.py::TestWhitespace::test_whitespace_only",
+      "tests_testpilot/test_lexer.py::TestBrackets::test_lbracket_number_rbracket",
+      "tests_testpilot/test_lexer.py::TestBrackets::test_flatten",
+      "tests_testpilot/test_lexer.py::TestBrackets::test_filter",
+      "tests_testpilot/test_lexer.py::TestBrackets::test_lbracket_positions",
+      "tests_testpilot/test_lexer.py::TestNumbers::test_single_digit",
+      "tests_testpilot/test_lexer.py::TestNumbers::test_multi_digit",
+      "tests_testpilot/test_lexer.py::TestNumbers::test_number_with_leading_zeros",
+      "tests_testpilot/test_lexer.py::TestNumbers::test_number_followed_by_token",
+      "tests_testpilot/test_lexer.py::TestNumbers::test_negative_number",
+      "tests_testpilot/test_lexer.py::TestNumbers::test_negative_multi_digit_number",
+      "tests_testpilot/test_lexer.py::TestNumbers::test_lone_minus_raises",
+      "tests_testpilot/test_lexer.py::TestNumbers::test_minus_before_non_number_raises",
+      "tests_testpilot/test_lexer.py::TestRawStringLiterals::test_simple_raw_string",
+      "tests_testpilot/test_lexer.py::TestRawStringLiterals::test_raw_string_with_spaces",
+      "tests_testpilot/test_lexer.py::TestRawStringLiterals::test_escaped_quote_in_raw_string",
+      "tests_testpilot/test_lexer.py::TestRawStringLiterals::test_empty_raw_string",
+      "tests_testpilot/test_lexer.py::TestRawStringLiterals::test_unclosed_raw_string_raises",
+      "tests_testpilot/test_lexer.py::TestPipesAndLogical::test_pipe",
+      "tests_testpilot/test_lexer.py::TestPipesAndLogical::test_or",
+      "tests_testpilot/test_lexer.py::TestPipesAndLogical::test_expref",
+      "tests_testpilot/test_lexer.py::TestPipesAndLogical::test_and",
+      "tests_testpilot/test_lexer.py::TestComparisons::test_comparison_tokens",
+      "tests_testpilot/test_lexer.py::TestComparisons::test_lt_position",
+      "tests_testpilot/test_lexer.py::TestComparisons::test_lte_position",
+      "tests_testpilot/test_lexer.py::TestComparisons::test_gt_single_position",
+      "tests_testpilot/test_lexer.py::TestComparisons::test_not_single_position",
+      "tests_testpilot/test_lexer.py::TestEquality::test_eq",
+      "tests_testpilot/test_lexer.py::TestEquality::test_lone_equals_raises",
+      "tests_testpilot/test_lexer.py::TestEquality::test_equals_at_eof_position",
+      "tests_testpilot/test_lexer.py::TestEquality::test_equals_before_non_equals_position",
+      "tests_testpilot/test_lexer.py::TestQuotedIdentifiers::test_simple_quoted_identifier",
+      "tests_testpilot/test_lexer.py::TestQuotedIdentifiers::test_quoted_identifier_with_spaces",
+      "tests_testpilot/test_lexer.py::TestQuotedIdentifiers::test_empty_quoted_identifier",
+      "tests_testpilot/test_lexer.py::TestQuotedIdentifiers::test_unclosed_quoted_identifier_raises",
+      "tests_testpilot/test_lexer.py::TestQuotedIdentifiers::test_invalid_quoted_identifier_raises",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_integer_literal",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_string_literal",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_list_literal",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_dict_literal",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_boolean_literal",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_null_literal",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_unclosed_literal_raises",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_escaped_backtick",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_deprecated_bare_string_literal_warns",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_bad_literal_does_not_raise",
+      "tests_testpilot/test_lexer.py::TestLiterals::test_truly_bad_literal_raises",
+      "tests_testpilot/test_lexer.py::TestErrors::test_empty_expression_raises",
+      "tests_testpilot/test_lexer.py::TestErrors::test_none_expression_raises",
+      "tests_testpilot/test_lexer.py::TestErrors::test_unknown_char_raises",
+      "tests_testpilot/test_lexer.py::TestErrors::test_unknown_char_position",
+      "tests_testpilot/test_lexer.py::TestEof::test_eof_token",
+      "tests_testpilot/test_lexer.py::TestEof::test_eof_position_multi_char",
+      "tests_testpilot/test_lexer.py::TestComplexExpressions::test_index_expression",
+      "tests_testpilot/test_lexer.py::TestComplexExpressions::test_filter_expression",
+      "tests_testpilot/test_lexer.py::TestComplexExpressions::test_multiselect_list",
+      "tests_testpilot/test_lexer.py::TestComplexExpressions::test_multiselect_dict",
+      "tests_testpilot/test_lexer.py::TestComplexExpressions::test_flatten_then_index",
+      "tests_testpilot/test_lexer.py::TestTokenPositions::test_positions_are_contiguous",
+      "tests_testpilot/test_lexer.py::TestTokenPositions::test_identifier_end_across_whitespace"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.36,
+        "passed": 83,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.33,
+        "passed": 83,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.44,
+        "passed": 83,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.9484029484029484,
+    "total": 411,
+    "killed": 386,
+    "survived": 21,
+    "excluded": 4,
+    "status_counts": {
+      "killed": 386,
+      "timeout": 4,
+      "survived": 21
+    },
+    "survivors": [
+      {
+        "line": 114,
+        "original": "start = self._position",
+        "mutated": "start = None",
+        "status": "survived"
+      },
+      {
+        "line": 150,
+        "original": "lexer_value=self._expression[start:],",
+        "mutated": "lexer_value=None,",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "message=\"Unclosed %s delimiter\" % delimiter)",
+        "mutated": "message=\"XXUnclosed %s delimiterXX\" % delimiter)",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "parsed_json = loads('\"%s\"' % lexeme.lstrip())",
+        "mutated": "parsed_json = loads('\"%s\"' % lexeme.rstrip())",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "warnings.warn(\"deprecated string literal syntax\",",
+        "mutated": "warnings.warn(None,",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "warnings.warn(\"deprecated string literal syntax\",",
+        "mutated": "warnings.warn(\"XXdeprecated string literal syntaxXX\",",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "warnings.warn(\"deprecated string literal syntax\",",
+        "mutated": "warnings.warn(\"DEPRECATED STRING LITERAL SYNTAX\",",
+        "status": "survived"
+      },
+      {
+        "line": 172,
+        "original": "raise LexerError(lexer_position=start,",
+        "mutated": "raise LexerError(lexer_position=None,",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "lexer_value=self._expression[start:],",
+        "mutated": "lexer_value=None,",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "message=\"Bad token %s\" % lexeme)",
+        "mutated": "message=\"XXBad token %sXX\" % lexeme)",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "token_len = self._position - start",
+        "mutated": "token_len = self._position + start",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "token_len = self._position - start",
+        "mutated": "token_len = None",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "token_len = self._position - start",
+        "mutated": "token_len = self._position + start",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "'start': start, 'end': token_len}",
+        "mutated": "'start': start, 'XXendXX': token_len}",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "'start': start, 'end': token_len}",
+        "mutated": "'start': start, 'END': token_len}",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "error_message = str(e).split(':')[0]",
+        "mutated": "error_message = str(e).split(None)[0]",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "error_message = str(e).split(':')[0]",
+        "mutated": "error_message = str(None).split(':')[0]",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "error_message = str(e).split(':')[0]",
+        "mutated": "error_message = str(e).split('XX:XX')[0]",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "error_message = str(e).split(':')[0]",
+        "mutated": "error_message = str(e).split(':')[1]",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "lexer_value=lexeme,",
+        "mutated": "lexer_value=None,",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "token_len = self._position - start",
+        "mutated": "token_len = self._position + start",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.15,
+    "coverage": 2.38,
+    "mutation": 53.68
+  }
+}

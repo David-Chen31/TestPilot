@@ -1,0 +1,335 @@
+{
+  "target": "sqlparse/filters/output.py",
+  "validity": {
+    "total": 24,
+    "valid": 24,
+    "valid_ids": [
+      "tests_testpilot/test_output.py::TestOutputFilter::test_abstract_process_raises",
+      "tests_testpilot/test_output.py::TestOutputFilter::test_init_defaults",
+      "tests_testpilot/test_output.py::TestOutputFilter::test_init_custom_varname",
+      "tests_testpilot/test_output.py::TestOutputFilter::test_process_calls_abstract_raises",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_single_line",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_count_increments",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_second_call_uses_numbered_varname",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_custom_varname",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_multiline_wrapped_in_parens",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_escape_single_quote",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_escape_backslash_before_quote",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_escape_backslash",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_multiple_newline_tokens",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_multiline_indentation_preserved",
+      "tests_testpilot/test_output.py::TestOutputPythonFilter::test_has_nl_uses_wrapped",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_varname_prefix",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_single_line",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_custom_varname",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_second_call_numbered",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_multiline",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_escape_double_quote",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_escape_backslash",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_escape_backslash_before_quote",
+      "tests_testpilot/test_output.py::TestOutputPHPFilter::test_multiline_indentation"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.25,
+        "passed": 24,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.24,
+        "passed": 24,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.23,
+        "passed": 24,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8291666666666667,
+    "total": 240,
+    "killed": 199,
+    "survived": 41,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 199,
+      "survived": 41
+    },
+    "survivors": [
+      {
+        "line": 38,
+        "original": "yield sql.Token(T.Whitespace, '\\n')",
+        "mutated": "yield sql.Token(None, '\\n')",
+        "status": "survived"
+      },
+      {
+        "line": 39,
+        "original": "yield sql.Token(T.Name, varname)",
+        "mutated": "yield sql.Token(None, varname)",
+        "status": "survived"
+      },
+      {
+        "line": 40,
+        "original": "yield sql.Token(T.Whitespace, ' ')",
+        "mutated": "yield sql.Token(None, ' ')",
+        "status": "survived"
+      },
+      {
+        "line": 41,
+        "original": "yield sql.Token(T.Operator, '=')",
+        "mutated": "yield sql.Token(None, '=')",
+        "status": "survived"
+      },
+      {
+        "line": 42,
+        "original": "yield sql.Token(T.Whitespace, ' ')",
+        "mutated": "yield sql.Token(None, ' ')",
+        "status": "survived"
+      },
+      {
+        "line": 44,
+        "original": "yield sql.Token(T.Operator, '(')",
+        "mutated": "yield sql.Token(None, '(')",
+        "status": "survived"
+      },
+      {
+        "line": 45,
+        "original": "yield sql.Token(T.Text, \"'\")",
+        "mutated": "yield sql.Token(None, \"'\")",
+        "status": "survived"
+      },
+      {
+        "line": 50,
+        "original": "if token.is_whitespace and '\\n' in token.value:",
+        "mutated": "if token.is_whitespace or '\\n' in token.value:",
+        "status": "survived"
+      },
+      {
+        "line": 52,
+        "original": "yield sql.Token(T.Text, \" '\")",
+        "mutated": "yield sql.Token(None, \" '\")",
+        "status": "survived"
+      },
+      {
+        "line": 53,
+        "original": "yield sql.Token(T.Whitespace, '\\n')",
+        "mutated": "yield sql.Token(None, '\\n')",
+        "status": "survived"
+      },
+      {
+        "line": 56,
+        "original": "yield sql.Token(T.Whitespace, ' ' * (len(varname) + 4))",
+        "mutated": "yield sql.Token(None, ' ' * (len(varname) + 4))",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "yield sql.Token(T.Text, \"'\")",
+        "mutated": "yield sql.Token(None, \"'\")",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "after_lb = token.value.split('\\n', 1)[1]",
+        "mutated": "after_lb = token.value.split('\\n', )[1]",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "after_lb = token.value.split('\\n', 1)[1]",
+        "mutated": "after_lb = token.value.rsplit('\\n', 1)[1]",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "after_lb = token.value.split('\\n', 1)[1]",
+        "mutated": "after_lb = token.value.split('\\n', 2)[1]",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "yield sql.Token(T.Whitespace, after_lb)",
+        "mutated": "yield sql.Token(None, after_lb)",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "yield sql.Token(T.Text, token.value)",
+        "mutated": "yield sql.Token(None, token.value)",
+        "status": "survived"
+      },
+      {
+        "line": 75,
+        "original": "yield sql.Token(T.Text, \"'\")",
+        "mutated": "yield sql.Token(None, \"'\")",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "yield sql.Token(T.Operator, ')')",
+        "mutated": "yield sql.Token(None, ')')",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "yield sql.Token(T.Whitespace, '\\n')",
+        "mutated": "yield sql.Token(None, '\\n')",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "yield sql.Token(T.Name, varname)",
+        "mutated": "yield sql.Token(None, varname)",
+        "status": "survived"
+      },
+      {
+        "line": 88,
+        "original": "yield sql.Token(T.Whitespace, ' ')",
+        "mutated": "yield sql.Token(None, ' ')",
+        "status": "survived"
+      },
+      {
+        "line": 90,
+        "original": "yield sql.Token(T.Whitespace, ' ')",
+        "mutated": "yield sql.Token(None, ' ')",
+        "status": "survived"
+      },
+      {
+        "line": 91,
+        "original": "yield sql.Token(T.Operator, '=')",
+        "mutated": "yield sql.Token(None, '=')",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "yield sql.Token(T.Whitespace, ' ')",
+        "mutated": "yield sql.Token(None, ' ')",
+        "status": "survived"
+      },
+      {
+        "line": 93,
+        "original": "yield sql.Token(T.Text, '\"')",
+        "mutated": "yield sql.Token(None, '\"')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "if token.is_whitespace and '\\n' in token.value:",
+        "mutated": "if token.is_whitespace or '\\n' in token.value:",
+        "status": "survived"
+      },
+      {
+        "line": 100,
+        "original": "yield sql.Token(T.Text, ' \";')",
+        "mutated": "yield sql.Token(None, ' \";')",
+        "status": "survived"
+      },
+      {
+        "line": 101,
+        "original": "yield sql.Token(T.Whitespace, '\\n')",
+        "mutated": "yield sql.Token(None, '\\n')",
+        "status": "survived"
+      },
+      {
+        "line": 104,
+        "original": "yield sql.Token(T.Name, varname)",
+        "mutated": "yield sql.Token(None, varname)",
+        "status": "survived"
+      },
+      {
+        "line": 105,
+        "original": "yield sql.Token(T.Whitespace, ' ')",
+        "mutated": "yield sql.Token(None, ' ')",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "yield sql.Token(T.Operator, '.=')",
+        "mutated": "yield sql.Token(None, '.=')",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "yield sql.Token(T.Whitespace, ' ')",
+        "mutated": "yield sql.Token(None, ' ')",
+        "status": "survived"
+      },
+      {
+        "line": 108,
+        "original": "yield sql.Token(T.Text, '\"')",
+        "mutated": "yield sql.Token(None, '\"')",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "after_lb = token.value.split('\\n', 1)[1]",
+        "mutated": "after_lb = token.value.split('\\n', )[1]",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "after_lb = token.value.split('\\n', 1)[1]",
+        "mutated": "after_lb = token.value.rsplit('\\n', 1)[1]",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "after_lb = token.value.split('\\n', 1)[1]",
+        "mutated": "after_lb = token.value.split('\\n', 2)[1]",
+        "status": "survived"
+      },
+      {
+        "line": 113,
+        "original": "yield sql.Token(T.Whitespace, after_lb)",
+        "mutated": "yield sql.Token(None, after_lb)",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "yield sql.Token(T.Text, token.value)",
+        "mutated": "yield sql.Token(None, token.value)",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "yield sql.Token(T.Text, '\"')",
+        "mutated": "yield sql.Token(None, '\"')",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "yield sql.Token(T.Punctuation, ';')",
+        "mutated": "yield sql.Token(None, ';')",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.72,
+    "coverage": 2.36,
+    "mutation": 14.06
+  }
+}

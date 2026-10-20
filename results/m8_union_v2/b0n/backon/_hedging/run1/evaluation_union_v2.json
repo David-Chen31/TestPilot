@@ -1,0 +1,914 @@
+{
+  "target": "backon/_hedging.py",
+  "validity": {
+    "total": 206,
+    "valid": 145,
+    "valid_ids": [
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_both_fail_raises_one_of_them",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_first_exc_when_no_success",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_timeout_zero_raises_hedge_error",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_kw_none_ok",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_non_matching_exception_propagates",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_on_hedge_single_handler",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_on_hedge_iterable_handlers",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_on_hedge_none_no_error",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_dispatches_async_coroutine_function",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_async_returns_first_success",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_async_failures_propagate",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_async_timeout_zero_raises_hedge_error",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_async_on_hedge_handler",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_async_handler_iterable",
+      "tests_testpilot/test__hedging_s1.py::test_on_hedge_decorator_sync_handler",
+      "tests_testpilot/test__hedging_s1.py::test_on_hedge_decorator_preserves_wraps",
+      "tests_testpilot/test__hedging_s1.py::test_on_hedge_decorator_async",
+      "tests_testpilot/test__hedging_s1.py::test_on_hedge_decorator_async_wraps",
+      "tests_testpilot/test__hedging_s1.py::test_on_hedge_decorator_async_error",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_call_rejects_async",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_call_error_propagates",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_async_call",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_async_call_error",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_context_managers",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_async_context_managers",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_timeout_zero_sync",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_on_hedge_events",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_exception_filter_sync",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_error_is_exception",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_error_is_exception",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_success_first_try",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_passes_args_and_kwargs",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_raises_underlying_exception",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_raises_first_exception_after_all_fail",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_returns_truthy_predicate_none_matches",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_on_hedge_single_handler",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_on_hedge_iterable_of_handlers",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_timeout_not_done_and_done_success",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_async_success",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_async_passes_args_kwargs",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_async_raises_underlying_exception",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_async_on_hedge_handler",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_async_retries_then_succeeds",
+      "tests_testpilot/test__hedging_s2.py::test_on_hedge_decorator_sync",
+      "tests_testpilot/test__hedging_s2.py::test_on_hedge_decorator_sync_passes_through_exception",
+      "tests_testpilot/test__hedging_s2.py::test_on_hedge_decorator_async",
+      "tests_testpilot/test__hedging_s2.py::test_on_hedge_decorator_async_exception",
+      "tests_testpilot/test__hedging_s2.py::test_on_hedge_decorator_triggers_handler",
+      "tests_testpilot/test__hedging_s2.py::test_hedging_retrying_call_sync",
+      "tests_testpilot/test__hedging_s2.py::test_hedging_retrying_call_sync_raises_on_async_target",
+      "tests_testpilot/test__hedging_s2.py::test_hedging_retrying_async_call",
+      "tests_testpilot/test__hedging_s2.py::test_hedging_retrying_context_manager",
+      "tests_testpilot/test__hedging_s2.py::test_hedging_retrying_async_context_manager",
+      "tests_testpilot/test__hedging_s2.py::test_hedging_retrying_stores_config",
+      "tests_testpilot/test__hedging_s2.py::test_hedging_retrying_on_hedge_handler",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_error_is_exception",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_successful_call_returns_result",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_passes_args_and_kwargs",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_constructs_thread_pool_with_max_hedge",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_propagates_first_exception_when_all_fail",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_on_hedge_single_handler_called",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_on_hedge_iterable_of_handlers",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_async_is_awaited_by_hedge",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_async_success",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_async_all_fail_raises_first_exception",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_async_on_hedge_handler_called",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_async_on_hedge_iterable_handlers",
+      "tests_testpilot/test__hedging_s3.py::test_on_hedge_decorator_sync",
+      "tests_testpilot/test__hedging_s3.py::test_on_hedge_decorator_async",
+      "tests_testpilot/test__hedging_s3.py::test_on_hedge_decorator_propagates_exception",
+      "tests_testpilot/test__hedging_s3.py::test_on_hedge_decorator_preserves_wraps",
+      "tests_testpilot/test__hedging_s3.py::test_hedging_retrying_call_sync",
+      "tests_testpilot/test__hedging_s3.py::test_hedging_retrying_call_rejects_async",
+      "tests_testpilot/test__hedging_s3.py::test_hedging_retrying_async_call",
+      "tests_testpilot/test__hedging_s3.py::test_hedging_retrying_stores_settings",
+      "tests_testpilot/test__hedging_s3.py::test_hedging_retrying_context_managers",
+      "tests_testpilot/test__hedging_s3.py::test_hedging_retrying_call_invokes_on_hedge",
+      "tests_testpilot/test__hedging_s3.py::test_hedging_retrying_async_call_invokes_on_hedge",
+      "tests_testpilot/test__hedging_s3.py::test_hedging_retrying_call_propagates_exception",
+      "tests_testpilot/test__hedging_s3.py::test_make_hedge_target_binds_args",
+      "tests_testpilot/test__hedging_s3.py::test_hedge_none_kw_defaults_to_empty_dict",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_error_is_exception",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_timeout_raises_hedge_error",
+      "tests_testpilot/test__hedging_s4.py::test_hedging_retrying_init_stores_config",
+      "tests_testpilot/test__hedging_s4.py::test_hedging_retrying_sync_context_manager",
+      "tests_testpilot/test__hedging_s4.py::test_hedging_retrying_async_context_manager",
+      "tests_testpilot/test__hedging_s4.py::test_hedging_retrying_call_sync_rejects_coroutine",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_error_is_exception",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_sync_returns_value",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_sync_passes_kwargs",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_sync_kw_none_defaults_empty",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_sync_on_hedge_called",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_sync_on_hedge_iterable",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_sync_returns_first_success",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_dispatch_to_async",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_async_on_hedge_called",
+      "tests_testpilot/test__hedging_s5.py::test_on_hedge_decorator_sync",
+      "tests_testpilot/test__hedging_s5.py::test_on_hedge_decorator_async",
+      "tests_testpilot/test__hedging_s5.py::test_on_hedge_decorator_kwargs_passed",
+      "tests_testpilot/test__hedging_s5.py::test_hedging_retrying_sync_context",
+      "tests_testpilot/test__hedging_s5.py::test_hedging_retrying_async_context",
+      "tests_testpilot/test__hedging_s5.py::test_hedging_retrying_call_rejects_async",
+      "tests_testpilot/test__hedging_s5.py::test_hedging_retrying_stores_attributes",
+      "tests_testpilot/test__hedging_s5.py::test_hedging_retrying_on_hedge_events",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_error_is_exception",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_success_first_try",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_with_kwargs",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_on_hedge_handler",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_on_hedge_multiple_handlers",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_predicate_success",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_timeout_leads_to_hedge_error",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_dispatches_async_coroutine",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_async_on_hedge",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_async_timeout_hedge_error",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_async_with_kwargs",
+      "tests_testpilot/test__hedging_s7.py::test_on_hedge_decorator_sync",
+      "tests_testpilot/test__hedging_s7.py::test_on_hedge_decorator_sync_preserves_metadata",
+      "tests_testpilot/test__hedging_s7.py::test_on_hedge_decorator_async",
+      "tests_testpilot/test__hedging_s7.py::test_on_hedge_decorator_async_preserves_metadata",
+      "tests_testpilot/test__hedging_s7.py::test_on_hedge_decorator_forwards_kwargs_and_args",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_call_sync",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_call_sync_kwargs",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_call_async_target_raises",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_async_call",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_on_hedge",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_sync_context_manager",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_async_context_manager",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_async_call_timeout",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_stores_config",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_passes_args_and_kwargs_to_target",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_error_is_exception_subclass",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_returns_value",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_kw_passed",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_raises_after_giveup",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_on_hedge_single_handler_called",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_on_hedge_multiple_handlers",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_timeout_cancels_and_returns_first",
+      "tests_testpilot/test__hedging_s8.py::test_on_hedge_decorator_sync",
+      "tests_testpilot/test__hedging_s8.py::test_on_hedge_decorator_sync_handles_exception",
+      "tests_testpilot/test__hedging_s8.py::test_on_hedge_decorator_sync_on_hedge_handler",
+      "tests_testpilot/test__hedging_s8.py::test_hedging_retrying_sync_context_manager",
+      "tests_testpilot/test__hedging_s8.py::test_hedging_retrying_call_sync_rejects_coroutine",
+      "tests_testpilot/test__hedging_s8.py::test_hedging_retrying_call_sync_success_kwargs",
+      "tests_testpilot/test__hedging_s8.py::test_hedging_retrying_call_sync_exception",
+      "tests_testpilot/test__hedging_s8.py::test_hedging_retrying_call_sync_on_hedge_handler"
+    ],
+    "invalid": {
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_returns_first_success": "run 1: failed: assert 1 == 2",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_with_args_and_kw": "run 1: failed: assert 1 == 2",
+      "tests_testpilot/test__hedging_s1.py::test_hedge_sync_exception_predicate_filtering": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s1.py::test_on_hedge_decorator_sync": "run 1: failed: assert 1 == 2",
+      "tests_testpilot/test__hedging_s1.py::test_hedging_retrying_call_sync": "run 1: failed: assert 1 == 2",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_retries_until_success": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s2.py::test_hedge_sync_timeout_with_no_completion_raises": "run 1: failed: Failed: Timeout (>10.0s) from pytest-timeout.",
+      "tests_testpilot/test__hedging_s2.py::test_hedging_retrying_call_passes_exception_config": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_basic_success": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_with_args_and_kw": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_kw_none_defaults_to_empty": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_raises_first_exception": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_exception_not_matching_propagates": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_recovers_after_retry": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_on_hedge_callback": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_on_hedge_iterable": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_on_hedge_none": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_sync_predicate_triggers_retry": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_dispatches_async_coroutine": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_async_basic_success": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_async_with_args_kw": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_async_raises_first_exception": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedge_async_on_hedge_callback": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_on_hedge_decorator_sync": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_on_hedge_decorator_async": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_on_hedge_decorator_sync_passes_kwargs": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedging_retrying_call_sync": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedging_retrying_async_call": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedging_retrying_call_recovers_from_retriable_error": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s4.py::test_hedging_retrying_async_call_raises_on_failure": "run 1: failed: TypeError: fast_wait() missing 1 required positional argument: 'attempt'",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_sync_retries_within_single_hedge": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_sync_raises_after_giveup": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_async_retries": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s5.py::test_hedge_async_raises_after_giveup": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s5.py::test_on_hedge_decorator_exceptions": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s5.py::test_hedging_retrying_call_retries": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s5.py::test_hedging_retrying_async_call_retries": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_raises_first_exception": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_retries_until_success": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_predicate_retries": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_sync_passes_through_exception_from_done": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_async_raises_first_exception": "run 1: failed: AttributeError: 'async_generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_hedge_async_retries_until_success": "run 1: failed: AttributeError: 'async_generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_on_hedge_decorator_surfaces_errors": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_on_hedge_decorator_async_surfaces_errors": "run 1: failed: AttributeError: 'async_generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_async_call_retries": "run 1: failed: AttributeError: 'async_generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s7.py::test_hedging_retrying_sync_retries": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_async_returns_value": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_propagates_first_success": "run 1: failed: ValueError: boom",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_raises_value_error_with_exception_filter": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_async_on_hedge_handler_called": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_async_timeout_raises_hedge_error": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_async_raises_first_exception": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_on_hedge_decorator_async": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_on_hedge_decorator_async_raises": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_hedging_retrying_async_context_manager": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_hedging_retrying_async_call_success": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_hedging_retrying_async_call_exception": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_retry_until_success_with_jitter_none": "run 1: failed: RuntimeError: tmp",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_async_retry_until_success": "run 1: failed: Failed: async def functions are not natively supported.",
+      "tests_testpilot/test__hedging_s8.py::test_hedge_sync_predicate_returns_value_path": "run 1: failed: AttributeError: 'generator' object has no attribute 'next'"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": null,
+        "timed_out": true,
+        "duration": 300.12,
+        "passed": 145,
+        "failed": 61,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": null,
+        "timed_out": true,
+        "duration": 300.14,
+        "passed": 145,
+        "failed": 61,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": null,
+        "timed_out": true,
+        "duration": 300.1,
+        "passed": 145,
+        "failed": 61,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.6491803278688525,
+    "total": 305,
+    "killed": 198,
+    "survived": 107,
+    "excluded": 0,
+    "status_counts": {
+      "survived": 107,
+      "killed": 198
+    },
+    "survivors": [
+      {
+        "line": 40,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 53,
+        "original": "R,",
+        "mutated": "None,",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "exception=exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 63,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 56,
+        "original": "wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 60,
+        "original": "exception=exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 63,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "predicate=predicate,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "**wait_gen_kwargs,\n            ),",
+        "mutated": "),",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "exception=exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 78,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 76,
+        "original": "exception=exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 78,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 82,
+        "original": "predicate=predicate,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "**wait_gen_kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "condition = _make_default_condition(exception, None, predicate)",
+        "mutated": "condition = _make_default_condition(None, None, predicate)",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "wait_gen_kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 134,
+        "original": "args=args,",
+        "mutated": "args=None,",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "kwargs=kw or {},",
+        "mutated": "kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "on_success=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "on_backoff=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "on_giveup=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "on_attempt=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "before_sleep=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "sleep=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "retry_error_callback=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "raise_on_giveup=True,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 134,
+        "original": "args=args,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "kwargs=kw or {},\n            )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "kwargs=kw or {},",
+        "mutated": "kwargs=kw and {},",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "return_when=FIRST_COMPLETED,\n        )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "exc = fut.exception()",
+        "mutated": "exc = None",
+        "status": "survived"
+      },
+      {
+        "line": 154,
+        "original": "return cast(T, fut.result())",
+        "mutated": "return cast(None, fut.result())",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(\"XXall hedged requests failedXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "condition = _make_default_condition(exception, None, predicate)",
+        "mutated": "condition = _make_default_condition(None, None, predicate)",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "max_tries=max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "wait_gen_kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "args=args,",
+        "mutated": "args=None,",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "kwargs=kw or {},",
+        "mutated": "kwargs=None,",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "max_tries=max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 193,
+        "original": "on_success=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 194,
+        "original": "on_backoff=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "on_giveup=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "on_attempt=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "before_sleep=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "sleep=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "retry_error_callback=None,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 200,
+        "original": "raise_on_giveup=True,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "wait_gen_kwargs=wait_gen_kwargs,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "args=args,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "kwargs=kw or {},\n        )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "kwargs=kw or {},",
+        "mutated": "kwargs=kw and {},",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "return_when=asyncio.FIRST_COMPLETED,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 222,
+        "original": "exc = task.exception()",
+        "mutated": "exc = None",
+        "status": "survived"
+      },
+      {
+        "line": 224,
+        "original": "return cast(T, task.result())",
+        "mutated": "return cast(None, task.result())",
+        "status": "survived"
+      },
+      {
+        "line": 230,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 230,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(\"XXall hedged requests failedXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 230,
+        "original": "raise HedgeError(\"all hedged requests failed\")",
+        "mutated": "raise HedgeError(\"ALL HEDGED REQUESTS FAILED\")",
+        "status": "survived"
+      },
+      {
+        "line": 236,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 267,
+        "original": "return cast(Callable[P, R], wrapper)",
+        "mutated": "return cast(None, wrapper)",
+        "status": "survived"
+      },
+      {
+        "line": 289,
+        "original": "return cast(Callable[P, R], wrapper)",
+        "mutated": "return cast(None, wrapper)",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "max_hedge: int = 3,",
+        "mutated": "max_hedge: int = 4,",
+        "status": "survived"
+      },
+      {
+        "line": 332,
+        "original": "raise TypeError(\"Use async_call for async functions\")",
+        "mutated": "raise TypeError(\"XXUse async_call for async functionsXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 341,
+        "original": "exception=self._exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 342,
+        "original": "max_tries=self._max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 343,
+        "original": "max_time=self._max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 344,
+        "original": "jitter=self._jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 339,
+        "original": "self._wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 341,
+        "original": "exception=self._exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 342,
+        "original": "max_tries=self._max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 343,
+        "original": "max_time=self._max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 344,
+        "original": "jitter=self._jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 347,
+        "original": "predicate=operator.not_,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 348,
+        "original": "**self._wait_gen_kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 361,
+        "original": "exception=self._exception,",
+        "mutated": "exception=None,",
+        "status": "survived"
+      },
+      {
+        "line": 362,
+        "original": "max_tries=self._max_tries,",
+        "mutated": "max_tries=None,",
+        "status": "survived"
+      },
+      {
+        "line": 363,
+        "original": "max_time=self._max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 364,
+        "original": "jitter=self._jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 359,
+        "original": "self._wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 361,
+        "original": "exception=self._exception,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 362,
+        "original": "max_tries=self._max_tries,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 363,
+        "original": "max_time=self._max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 364,
+        "original": "jitter=self._jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 367,
+        "original": "predicate=operator.not_,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 368,
+        "original": "**self._wait_gen_kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 900.42,
+    "coverage": 9.27,
+    "mutation": 66.22
+  }
+}

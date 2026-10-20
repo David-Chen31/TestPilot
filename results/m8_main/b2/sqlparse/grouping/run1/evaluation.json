@@ -1,0 +1,893 @@
+{
+  "target": "sqlparse/engine/grouping.py",
+  "validity": {
+    "total": 66,
+    "valid": 66,
+    "valid_ids": [
+      "tests_testpilot/test_grouping.py::test_group_matching_depth_limit",
+      "tests_testpilot/test_grouping.py::test_group_matching_depth_boundary",
+      "tests_testpilot/test_grouping.py::test_group_matching_token_limit",
+      "tests_testpilot/test_grouping.py::test_group_matching_token_boundary",
+      "tests_testpilot/test_grouping.py::test_group_matching_depth_disabled",
+      "tests_testpilot/test_grouping.py::test_group_matching_token_limit_disabled",
+      "tests_testpilot/test_grouping.py::test_group_matching_nested_recursion",
+      "tests_testpilot/test_grouping.py::test_group_matching_multiple_groups_offset",
+      "tests_testpilot/test_grouping.py::test_group_matching_skip_unbalanced_open",
+      "tests_testpilot/test_grouping.py::test_group_matching_skip_unbalanced_close",
+      "tests_testpilot/test_grouping.py::test_group_brackets",
+      "tests_testpilot/test_grouping.py::test_group_parenthesis",
+      "tests_testpilot/test_grouping.py::test_group_parenthesis_unbalanced_ignored",
+      "tests_testpilot/test_grouping.py::test_group_case",
+      "tests_testpilot/test_grouping.py::test_group_if",
+      "tests_testpilot/test_grouping.py::test_group_for",
+      "tests_testpilot/test_grouping.py::test_group_begin",
+      "tests_testpilot/test_grouping.py::test_group_typecasts",
+      "tests_testpilot/test_grouping.py::test_group_typecasts_no_next",
+      "tests_testpilot/test_grouping.py::test_group_tzcasts",
+      "tests_testpilot/test_grouping.py::test_group_tzcasts_no_following_value",
+      "tests_testpilot/test_grouping.py::test_group_tzcasts_invalid_prev",
+      "tests_testpilot/test_grouping.py::test_group_typed_literal_extension",
+      "tests_testpilot/test_grouping.py::test_group_period",
+      "tests_testpilot/test_grouping.py::test_group_period_arrow",
+      "tests_testpilot/test_grouping.py::test_group_period_arrow_double",
+      "tests_testpilot/test_grouping.py::test_group_period_invalid_next",
+      "tests_testpilot/test_grouping.py::test_group_as",
+      "tests_testpilot/test_grouping.py::test_group_as_null_allowed",
+      "tests_testpilot/test_grouping.py::test_group_as_no_group_when_next_is_dml",
+      "tests_testpilot/test_grouping.py::test_group_assignment",
+      "tests_testpilot/test_grouping.py::test_group_assignment_keyword_invalid",
+      "tests_testpilot/test_grouping.py::test_group_assignment_semicolon_bound",
+      "tests_testpilot/test_grouping.py::test_group_comparison",
+      "tests_testpilot/test_grouping.py::test_group_comparison_null",
+      "tests_testpilot/test_grouping.py::test_group_comparison_invalid_prev",
+      "tests_testpilot/test_grouping.py::test_group_operator",
+      "tests_testpilot/test_grouping.py::test_group_operator_changes_ttype_to_operator",
+      "tests_testpilot/test_grouping.py::test_group_operator_current_date",
+      "tests_testpilot/test_grouping.py::test_group_identifier",
+      "tests_testpilot/test_grouping.py::test_group_identifier_list",
+      "tests_testpilot/test_grouping.py::test_group_over",
+      "tests_testpilot/test_grouping.py::test_group_over_name_target",
+      "tests_testpilot/test_grouping.py::test_group_over_no_target",
+      "tests_testpilot/test_grouping.py::test_group_functions",
+      "tests_testpilot/test_grouping.py::test_group_functions_create_table_no_as",
+      "tests_testpilot/test_grouping.py::test_group_functions_create_table_as",
+      "tests_testpilot/test_grouping.py::test_group_functions_over",
+      "tests_testpilot/test_grouping.py::test_group_order",
+      "tests_testpilot/test_grouping.py::test_group_arrays",
+      "tests_testpilot/test_grouping.py::test_group_comments",
+      "tests_testpilot/test_grouping.py::test_group_comments_trailing",
+      "tests_testpilot/test_grouping.py::test_group_comments_multiple",
+      "tests_testpilot/test_grouping.py::test_group_where",
+      "tests_testpilot/test_grouping.py::test_group_where_no_closer",
+      "tests_testpilot/test_grouping.py::test_group_aliased",
+      "tests_testpilot/test_grouping.py::test_align_comments",
+      "tests_testpilot/test_grouping.py::test_group_values",
+      "tests_testpilot/test_grouping.py::test_group_values_none",
+      "tests_testpilot/test_grouping.py::test_group_depth_limit",
+      "tests_testpilot/test_grouping.py::test_group_depth_boundary",
+      "tests_testpilot/test_grouping.py::test_group_token_limit",
+      "tests_testpilot/test_grouping.py::test_group_token_boundary",
+      "tests_testpilot/test_grouping.py::test_group_full",
+      "tests_testpilot/test_grouping.py::test_group_returns_self",
+      "tests_testpilot/test_grouping.py::test_group_query_method"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.26,
+        "passed": 66,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.19,
+        "passed": 66,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.19,
+        "passed": 66,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9796610169491525,
+  "branch_rate": 0.9642857142857143,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.744466800804829,
+    "total": 497,
+    "killed": 370,
+    "survived": 127,
+    "excluded": 0,
+    "status_counts": {
+      "survived": 127,
+      "killed": 370
+    },
+    "survivors": [
+      {
+        "line": 27,
+        "original": "def _group_matching(tlist, cls, depth=0):",
+        "mutated": "def _group_matching(tlist, cls, depth=1):",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "_group_matching(token, cls, depth + 1)",
+        "mutated": "_group_matching(token, cls, )",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "_group_matching(token, cls, depth + 1)",
+        "mutated": "_group_matching(token, cls, depth - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "_group_matching(token, cls, depth + 1)",
+        "mutated": "_group_matching(token, cls, depth + 2)",
+        "status": "survived"
+      },
+      {
+        "line": 59,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 73,
+        "original": "tidx_offset += close_idx - open_idx",
+        "mutated": "tidx_offset = close_idx - open_idx",
+        "status": "survived"
+      },
+      {
+        "line": 73,
+        "original": "tidx_offset += close_idx - open_idx",
+        "mutated": "tidx_offset += close_idx + open_idx",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "return token.ttype == T.Keyword.TZCast",
+        "mutated": "return token.ttype != T.Keyword.TZCast",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "return token is not None",
+        "mutated": "return token is None",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')\n            or token.match(*sql.TypedLiteral.M_CLOSE)",
+        "mutated": "or token.match(T.Keyword, 'AS') and token.match(*sql.TypedLiteral.M_CLOSE)",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "token.is_whitespace\n            or token.match(T.Keyword, 'AS')",
+        "mutated": "token.is_whitespace and token.match(T.Keyword, 'AS')",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(None, 'AS')",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(T.Keyword, None)",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match('AS')",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(T.Keyword, )",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(T.Keyword, 'XXASXX')",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(T.Keyword, 'as')",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, post)",
+        "mutated": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, None)",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, post)",
+        "mutated": "_group(tlist, sql.Identifier, match, valid_next, post)",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, post)",
+        "mutated": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, )",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "return imt(token, m=sql.TypedLiteral.M_OPEN)",
+        "mutated": "return imt(None, m=sql.TypedLiteral.M_OPEN)",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "return imt(token, m=sql.TypedLiteral.M_OPEN)",
+        "mutated": "return imt(token, m=None)",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "return imt(token, m=sql.TypedLiteral.M_OPEN)",
+        "mutated": "return imt(token, )",
+        "status": "survived"
+      },
+      {
+        "line": 147,
+        "original": "return token is not None",
+        "mutated": "return token is None",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "return token is not None and token.match(*sql.TypedLiteral.M_EXTEND)",
+        "mutated": "return token is not None or token.match(*sql.TypedLiteral.M_EXTEND)",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "return token is not None and token.match(*sql.TypedLiteral.M_EXTEND)",
+        "mutated": "return token is None and token.match(*sql.TypedLiteral.M_EXTEND)",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "post, extend=False)",
+        "mutated": "None, extend=False)",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "post, extend=False)",
+        "mutated": "post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 158,
+        "original": "_group(tlist, sql.TypedLiteral, match, valid_prev, valid_next,",
+        "mutated": "_group(tlist, sql.TypedLiteral, valid_prev, valid_next,",
+        "status": "survived"
+      },
+      {
+        "line": 158,
+        "original": "_group(tlist, sql.TypedLiteral, match, valid_prev, valid_next,",
+        "mutated": "_group(tlist, sql.TypedLiteral, match, valid_next,",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "post, extend=False)",
+        "mutated": "extend=False)",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "post, extend=False)",
+        "mutated": "post, )",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "post, extend=False)",
+        "mutated": "post, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, valid_final,",
+        "mutated": "_group(tlist, sql.TypedLiteral, match_to_extend, None, valid_final,",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, valid_final,",
+        "mutated": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, None,",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "None, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, valid_final,",
+        "mutated": "_group(tlist, sql.TypedLiteral, valid_prev, valid_final,",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, valid_final,",
+        "mutated": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_final,",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, valid_final,\n           post, extend=True)",
+        "mutated": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, post, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "post, )",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "post, extend=False)",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "sqlcls = sql.SquareBrackets, sql.Identifier",
+        "mutated": "sqlcls = None",
+        "status": "survived"
+      },
+      {
+        "line": 176,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, i=None, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 176,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "sqlcls = sql.SquareBrackets, sql.Function",
+        "mutated": "sqlcls = None",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "ttypes = T.Name, T.String.Symbol, T.Wildcard, T.String.Single",
+        "mutated": "ttypes = None",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "next_ = tlist[nidx] if nidx is not None else None",
+        "mutated": "next_ = None",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "next_ = tlist[nidx] if nidx is not None else None",
+        "mutated": "next_ = tlist[nidx] if (nidx is not None) and False else None",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = None",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(None, i=sqlcls, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(next_, i=None, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(next_, i=sqlcls, t=None)",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(next_, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(next_, i=sqlcls, )",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "return (pidx, nidx) if valid_next else (pidx, tidx)",
+        "mutated": "return (pidx, nidx) if (valid_next) and False else (pidx, tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "return token.match(T.Assignment, ':=')",
+        "mutated": "return token.match(T.Assignment, None)",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "return token is not None and token.ttype not in (T.Keyword,)",
+        "mutated": "return token is not None or token.ttype not in (T.Keyword,)",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "m_semicolon = T.Punctuation, ';'",
+        "mutated": "m_semicolon = None",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "m_semicolon = T.Punctuation, ';'",
+        "mutated": "m_semicolon = T.Punctuation, 'XX;XX'",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "snidx, _ = tlist.token_next_by(m=m_semicolon, idx=nidx)",
+        "mutated": "snidx, _ = tlist.token_next_by(m=None, idx=nidx)",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "snidx, _ = tlist.token_next_by(m=m_semicolon, idx=nidx)",
+        "mutated": "snidx, _ = tlist.token_next_by(idx=nidx)",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "snidx, _ = tlist.token_next_by(m=m_semicolon, idx=nidx)",
+        "mutated": "snidx, _ = tlist.token_next_by(m=m_semicolon, )",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'NULL'))",
+        "mutated": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword or token.normalized == 'NULL'))",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'NULL'))",
+        "mutated": "return bool(imt(token, t=ttypes, i=sqlcls) or (token or token.is_keyword and token.normalized == 'NULL'))",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, )",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 268,
+        "original": "sqlcls = sql.SquareBrackets, sql.Identifier, sql.Function",
+        "mutated": "sqlcls = None",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "ttypes = T.Name, T.String.Symbol",
+        "mutated": "ttypes = None",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(None, i=sqlcls, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, i=None, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, t=None)",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, )",
+        "status": "survived"
+      },
+      {
+        "line": 278,
+        "original": "return True",
+        "mutated": "return False",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=None, recurse=False)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True, recurse=None)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, recurse=False)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True, )",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=False, recurse=False)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True, recurse=True)",
+        "status": "survived"
+      },
+      {
+        "line": 289,
+        "original": "sqlcls = (sql.SquareBrackets, sql.Parenthesis, sql.Function,\n              sql.Identifier, sql.Operation, sql.TypedLiteral)",
+        "mutated": "sqlcls = None",
+        "status": "survived"
+      },
+      {
+        "line": 296,
+        "original": "return imt(token, i=sqlcls, t=ttypes) \\",
+        "mutated": "return imt(token, i=None, t=ttypes) \\",
+        "status": "survived"
+      },
+      {
+        "line": 296,
+        "original": "return imt(token, i=sqlcls, t=ttypes) \\",
+        "mutated": "return imt(token, t=ttypes) \\",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "None))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('current_date', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('CURRENT_DATE', 'XXCURRENT_TIMEXX', 'CURRENT_TIMESTAMP')))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('CURRENT_DATE', 'current_time', 'CURRENT_TIMESTAMP')))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('CURRENT_DATE', 'CURRENT_TIME', 'XXCURRENT_TIMESTAMPXX')))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('CURRENT_DATE', 'CURRENT_TIME', 'current_timestamp')))",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, )",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = None",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = T.Keyword, ('XXnullXX', 'role')",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = T.Keyword, ('NULL', 'role')",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = T.Keyword, ('null', 'XXroleXX')",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = T.Keyword, ('null', 'ROLE')",
+        "status": "survived"
+      },
+      {
+        "line": 314,
+        "original": "ttypes = (T_NUMERICAL + T_STRING + T_NAME\n              + (T.Keyword, T.Comment, T.Wildcard))",
+        "mutated": "ttypes = None",
+        "status": "survived"
+      },
+      {
+        "line": 318,
+        "original": "return token.match(T.Punctuation, ',')",
+        "mutated": "return token.match(T.Punctuation, None)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return imt(token, i=sqlcls, m=m_role, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, m=None, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return imt(token, i=sqlcls, m=m_role, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, m=m_role, t=None)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return imt(token, i=sqlcls, m=m_role, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return imt(token, i=sqlcls, m=m_role, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, m=m_role, )",
+        "status": "survived"
+      },
+      {
+        "line": 328,
+        "original": "valid_prev, valid_next, post, extend=True)",
+        "mutated": "valid_prev, valid_next, post, )",
+        "status": "survived"
+      },
+      {
+        "line": 431,
+        "original": "tidx, token = tlist.token_next_by(m=(T.Keyword, 'VALUES'))",
+        "mutated": "tidx, token = tlist.token_next_by(m=(T.Keyword, 'values'))",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=True)",
+        "mutated": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=True)",
+        "mutated": "tlist.group_tokens(sql.Values, start_idx, end_idx, )",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=True)",
+        "mutated": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=False)",
+        "status": "survived"
+      },
+      {
+        "line": 482,
+        "original": "extend=True,",
+        "mutated": "extend=False,",
+        "status": "survived"
+      },
+      {
+        "line": 484,
+        "original": "depth=0",
+        "mutated": "depth=1",
+        "status": "survived"
+      },
+      {
+        "line": 504,
+        "original": "tidx = idx - tidx_offset",
+        "mutated": "tidx = idx + tidx_offset",
+        "status": "survived"
+      },
+      {
+        "line": 506,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, None, True, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, None, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, True, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, True, )",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, False, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, True, depth - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, True, depth + 2)",
+        "status": "survived"
+      },
+      {
+        "line": 521,
+        "original": "tidx_offset += to_idx - from_idx",
+        "mutated": "tidx_offset = to_idx - from_idx",
+        "status": "survived"
+      },
+      {
+        "line": 521,
+        "original": "tidx_offset += to_idx - from_idx",
+        "mutated": "tidx_offset -= to_idx - from_idx",
+        "status": "survived"
+      },
+      {
+        "line": 521,
+        "original": "tidx_offset += to_idx - from_idx",
+        "mutated": "tidx_offset += to_idx + from_idx",
+        "status": "survived"
+      },
+      {
+        "line": 523,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.66,
+    "coverage": 2.09,
+    "mutation": 28.3
+  }
+}

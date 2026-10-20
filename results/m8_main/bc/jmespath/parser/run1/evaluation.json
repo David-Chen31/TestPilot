@@ -1,0 +1,951 @@
+{
+  "target": "jmespath/parser.py",
+  "validity": {
+    "total": 80,
+    "valid": 80,
+    "valid_ids": [
+      "tests_testpilot/test_parser.py::TestParserPublicAPI::test_parse_returns_parsed_result",
+      "tests_testpilot/test_parser.py::TestParserPublicAPI::test_parsed_result_search",
+      "tests_testpilot/test_parser.py::TestParserPublicAPI::test_parsed_result_search_with_options",
+      "tests_testpilot/test_parser.py::TestParserPublicAPI::test_parsed_result_repr",
+      "tests_testpilot/test_parser.py::TestParserPublicAPI::test_parsed_result_attributes",
+      "tests_testpilot/test_parser.py::TestParserPublicAPI::test_parsed_result_render_dot_file",
+      "tests_testpilot/test_parser.py::TestCaching::test_cache_hit_returns_same_object",
+      "tests_testpilot/test_parser.py::TestCaching::test_cache_shared_across_instances",
+      "tests_testpilot/test_parser.py::TestCaching::test_purge_clears_cache",
+      "tests_testpilot/test_parser.py::TestCaching::test_cache_max_size_does_not_grow_unbounded",
+      "tests_testpilot/test_parser.py::TestCaching::test_cache_cached_expression_found",
+      "tests_testpilot/test_parser.py::TestCaching::test_cache_evicts_but_parsed_result_returned",
+      "tests_testpilot/test_parser.py::TestCaching::test_cache_eviction_failure_returns_result_not_cached",
+      "tests_testpilot/test_parser.py::TestBasicExpressions::test_field",
+      "tests_testpilot/test_parser.py::TestBasicExpressions::test_dotted_field",
+      "tests_testpilot/test_parser.py::TestBasicExpressions::test_multi_level_dotted_field_flattens",
+      "tests_testpilot/test_parser.py::TestBasicExpressions::test_index",
+      "tests_testpilot/test_parser.py::TestBasicExpressions::test_quoted_identifier",
+      "tests_testpilot/test_parser.py::TestBasicExpressions::test_literal",
+      "tests_testpilot/test_parser.py::TestBasicExpressions::test_current",
+      "tests_testpilot/test_parser.py::TestBasicExpressions::test_wildcard",
+      "tests_testpilot/test_parser.py::TestOperators::test_pipe",
+      "tests_testpilot/test_parser.py::TestOperators::test_or",
+      "tests_testpilot/test_parser.py::TestOperators::test_and",
+      "tests_testpilot/test_parser.py::TestOperators::test_comparators",
+      "tests_testpilot/test_parser.py::TestOperators::test_not",
+      "tests_testpilot/test_parser.py::TestOperators::test_flatten",
+      "tests_testpilot/test_parser.py::TestOperators::test_lparen_nud",
+      "tests_testpilot/test_parser.py::TestFunctions::test_no_args",
+      "tests_testpilot/test_parser.py::TestFunctions::test_one_arg",
+      "tests_testpilot/test_parser.py::TestFunctions::test_multiple_args",
+      "tests_testpilot/test_parser.py::TestFunctions::test_lparen_after_lparen_treated_as_function",
+      "tests_testpilot/test_parser.py::TestFunctions::test_quoted_identifier_function_name",
+      "tests_testpilot/test_parser.py::TestFunctions::test_function_name_from_subexpression",
+      "tests_testpilot/test_parser.py::TestFunctions::test_function_name_from_non_field_left",
+      "tests_testpilot/test_parser.py::TestMultiSelect::test_multi_select_list",
+      "tests_testpilot/test_parser.py::TestMultiSelect::test_multi_select_list_after_dot",
+      "tests_testpilot/test_parser.py::TestMultiSelect::test_multi_select_hash",
+      "tests_testpilot/test_parser.py::TestMultiSelect::test_multi_select_hash_after_dot",
+      "tests_testpilot/test_parser.py::TestSlices::test_simple_slice",
+      "tests_testpilot/test_parser.py::TestSlices::test_step_slice",
+      "tests_testpilot/test_parser.py::TestSlices::test_slice_missing_parts",
+      "tests_testpilot/test_parser.py::TestSlices::test_slice_too_many_colons",
+      "tests_testpilot/test_parser.py::TestSlices::test_index_expression_chained",
+      "tests_testpilot/test_parser.py::TestSlices::test_star_after_bracket",
+      "tests_testpilot/test_parser.py::TestSlices::test_slice_just_colon",
+      "tests_testpilot/test_parser.py::TestSlices::test_slice_with_start_only",
+      "tests_testpilot/test_parser.py::TestSlices::test_nud_lbracket_index",
+      "tests_testpilot/test_parser.py::TestSlices::test_nud_lbracket_slice",
+      "tests_testpilot/test_parser.py::TestProjectionRhs::test_projection_rhs_lbracket",
+      "tests_testpilot/test_parser.py::TestProjectionRhs::test_projection_rhs_filter",
+      "tests_testpilot/test_parser.py::TestProjectionRhs::test_projection_rhs_dot",
+      "tests_testpilot/test_parser.py::TestProjectionRhs::test_projection_rhs_non_compliant",
+      "tests_testpilot/test_parser.py::TestProjectionRhs::test_no_led_for_token",
+      "tests_testpilot/test_parser.py::TestFilters::test_filter",
+      "tests_testpilot/test_parser.py::TestFilters::test_filter_nud",
+      "tests_testpilot/test_parser.py::TestFilters::test_filter_with_flatten",
+      "tests_testpilot/test_parser.py::TestProjections::test_star_projection_nud",
+      "tests_testpilot/test_parser.py::TestProjections::test_star_projection_led",
+      "tests_testpilot/test_parser.py::TestProjections::test_flatten_nud",
+      "tests_testpilot/test_parser.py::TestProjections::test_star_in_bracket_nud",
+      "tests_testpilot/test_parser.py::TestProjections::test_star_in_bracket_led",
+      "tests_testpilot/test_parser.py::TestProjections::test_star_nud_rbracket",
+      "tests_testpilot/test_parser.py::TestExpref::test_expref",
+      "tests_testpilot/test_parser.py::TestErrors::test_incomplete_expression",
+      "tests_testpilot/test_parser.py::TestErrors::test_invalid_token_parse_error",
+      "tests_testpilot/test_parser.py::TestErrors::test_expression_attribute_on_error",
+      "tests_testpilot/test_parser.py::TestErrors::test_lexer_error_has_expression",
+      "tests_testpilot/test_parser.py::TestErrors::test_invalid_dot_rhs",
+      "tests_testpilot/test_parser.py::TestErrors::test_missing_rparen",
+      "tests_testpilot/test_parser.py::TestErrors::test_unexpected_token",
+      "tests_testpilot/test_parser.py::TestErrors::test_multiselect_hash_missing_colon",
+      "tests_testpilot/test_parser.py::TestErrors::test_multiselect_hash_invalid_key",
+      "tests_testpilot/test_parser.py::TestErrors::test_multiselect_hash_missing_rbrace",
+      "tests_testpilot/test_parser.py::TestErrors::test_slice_invalid_token",
+      "tests_testpilot/test_parser.py::TestParserInternalHelpers::test_parser_init_lookahead",
+      "tests_testpilot/test_parser.py::TestParserInternalHelpers::test_do_parse_directly",
+      "tests_testpilot/test_parser.py::TestParserInternalHelpers::test_led_not_available",
+      "tests_testpilot/test_parser.py::TestJMESPathIntegration::test_module_level_search",
+      "tests_testpilot/test_parser.py::TestJMESPathIntegration::test_module_level_compile"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.29,
+        "passed": 85,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.17,
+        "passed": 85,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.21,
+        "passed": 85,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9841269841269841,
+  "branch_rate": 0.9583333333333334,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8149171270718232,
+    "total": 725,
+    "killed": 590,
+    "survived": 134,
+    "excluded": 1,
+    "status_counts": {
+      "survived": 128,
+      "killed": 590,
+      "timeout": 1,
+      "no tests": 6
+    },
+    "survivors": [
+      {
+        "line": 76,
+        "original": "def __init__(self, lookahead=2):",
+        "mutated": "def __init__(self, lookahead=3):",
+        "status": "survived"
+      },
+      {
+        "line": 77,
+        "original": "self.tokenizer = None",
+        "mutated": "self.tokenizer = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "t = self._lookahead_token(0)",
+        "mutated": "t = self._lookahead_token(1)",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "raise exceptions.ParseError(t['start'], t['value'], t['type'],",
+        "mutated": "raise exceptions.ParseError(t['start'], None, t['type'],",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "\"Unexpected token: %s\" % t['value'])",
+        "mutated": "\"XXUnexpected token: %sXX\" % t['value'])",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "def _expression(self, binding_power=0):",
+        "mutated": "def _expression(self, binding_power=1):",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "led = getattr(self, '_token_led_%s' % current_token, None)",
+        "mutated": "led = getattr(self, '_token_led_%s' % current_token, )",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "error_token = self._lookahead_token(0)",
+        "mutated": "error_token = None",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "error_token = self._lookahead_token(0)",
+        "mutated": "error_token = self._lookahead_token(None)",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "error_token = self._lookahead_token(0)",
+        "mutated": "error_token = self._lookahead_token(1)",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "self._error_led_token(error_token)",
+        "mutated": "self._error_led_token(None)",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "t = self._lookahead_token(0)",
+        "mutated": "t = self._lookahead_token(1)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "0, t['value'], t['type'],",
+        "mutated": "0, None, t['type'],",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "0, t['value'], t['type'],",
+        "mutated": "1, t['value'], t['type'],",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "'Quoted identifier not allowed for function names.')",
+        "mutated": "'XXQuoted identifier not allowed for function names.XX')",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "if self._current_token() == 'rbracket':",
+        "mutated": "if self._current_token() != 'rbracket':",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "if self._current_token() == 'rbracket':",
+        "mutated": "if self._current_token() == 'XXrbracketXX':",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "if self._current_token() == 'rbracket':",
+        "mutated": "if self._current_token() == 'RBRACKET':",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "right = ast.identity()",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 170,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['star'])",
+        "mutated": "right = self._parse_projection_rhs(None)",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "return self._token_led_filter(ast.identity())",
+        "mutated": "return self._token_led_filter(None)",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "left = ast.flatten(ast.identity())",
+        "mutated": "left = None",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "left = ast.flatten(ast.identity())",
+        "mutated": "left = ast.flatten(None)",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "right = self._parse_projection_rhs(\n        self.BINDING_POWER['flatten'])",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "self.BINDING_POWER['flatten'])",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "return ast.projection(left, right)",
+        "mutated": "return ast.projection(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "return ast.projection(left, right)",
+        "mutated": "return ast.projection(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "return ast.not_expression(expr)",
+        "mutated": "return ast.not_expression(None)",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "elif self._current_token() == 'star' and \\\n                self._lookahead(1) == 'rbracket':",
+        "mutated": "elif self._current_token() == 'star' or self._lookahead(1) == 'rbracket':",
+        "status": "survived"
+      },
+      {
+        "line": 206,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['star'])",
+        "mutated": "right = self._parse_projection_rhs(None)",
+        "status": "survived"
+      },
+      {
+        "line": 233,
+        "original": "while not current_token == 'rbracket' and index < 3:",
+        "mutated": "while not current_token == 'rbracket' and index <= 3:",
+        "status": "survived"
+      },
+      {
+        "line": 233,
+        "original": "while not current_token == 'rbracket' and index < 3:",
+        "mutated": "while not current_token == 'rbracket' and index < 4:",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(1), 'syntax error')",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(0), 'XXsyntax errorXX')",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(1), 'syntax error')",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(0), 'XXsyntax errorXX')",
+        "status": "survived"
+      },
+      {
+        "line": 254,
+        "original": "expression = self._expression(self.BINDING_POWER['expref'])",
+        "mutated": "expression = None",
+        "status": "survived"
+      },
+      {
+        "line": 255,
+        "original": "return ast.expref(expression)",
+        "mutated": "return ast.expref(None)",
+        "status": "survived"
+      },
+      {
+        "line": 261,
+        "original": "left['children'].append(right)",
+        "mutated": "left['children'].append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 268,
+        "original": "right = self._parse_projection_rhs(\n            self.BINDING_POWER['dot'])",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "self.BINDING_POWER['dot'])",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 270,
+        "original": "return ast.value_projection(left, right)",
+        "mutated": "return ast.value_projection(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 270,
+        "original": "return ast.value_projection(left, right)",
+        "mutated": "return ast.value_projection(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 278,
+        "original": "return ast.or_expression(left, right)",
+        "mutated": "return ast.or_expression(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 278,
+        "original": "return ast.or_expression(left, right)",
+        "mutated": "return ast.or_expression(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 282,
+        "original": "return ast.and_expression(left, right)",
+        "mutated": "return ast.and_expression(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 282,
+        "original": "return ast.and_expression(left, right)",
+        "mutated": "return ast.and_expression(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 289,
+        "original": "prev_t = self._lookahead_token(-2)",
+        "mutated": "prev_t = self._lookahead_token(+2)",
+        "status": "survived"
+      },
+      {
+        "line": 289,
+        "original": "prev_t = self._lookahead_token(-2)",
+        "mutated": "prev_t = self._lookahead_token(-3)",
+        "status": "survived"
+      },
+      {
+        "line": 291,
+        "original": "prev_t['start'], prev_t['value'], prev_t['type'],",
+        "mutated": "prev_t['start'], None, prev_t['type'],",
+        "status": "survived"
+      },
+      {
+        "line": 292,
+        "original": "\"Invalid function name '%s'\" % prev_t['value'])",
+        "mutated": "\"XXInvalid function name '%s'XX\" % prev_t['value'])",
+        "status": "survived"
+      },
+      {
+        "line": 306,
+        "original": "condition = self._expression(0)",
+        "mutated": "condition = self._expression(1)",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "if self._current_token() == 'flatten':",
+        "mutated": "if self._current_token() != 'flatten':",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "if self._current_token() == 'flatten':",
+        "mutated": "if self._current_token() == 'XXflattenXX':",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "if self._current_token() == 'flatten':",
+        "mutated": "if self._current_token() == 'FLATTEN':",
+        "status": "survived"
+      },
+      {
+        "line": 309,
+        "original": "right = ast.identity()",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['filter'])",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['filter'])",
+        "mutated": "right = self._parse_projection_rhs(None)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "return ast.filter_projection(left, right, condition)",
+        "mutated": "return ast.filter_projection(None, right, condition)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "return ast.filter_projection(left, right, condition)",
+        "mutated": "return ast.filter_projection(left, None, condition)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "return ast.filter_projection(left, right, condition)",
+        "mutated": "return ast.filter_projection(left, right, None)",
+        "status": "survived"
+      },
+      {
+        "line": 333,
+        "original": "left = ast.flatten(left)",
+        "mutated": "left = None",
+        "status": "survived"
+      },
+      {
+        "line": 333,
+        "original": "left = ast.flatten(left)",
+        "mutated": "left = ast.flatten(None)",
+        "status": "survived"
+      },
+      {
+        "line": 335,
+        "original": "self.BINDING_POWER['flatten'])",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 336,
+        "original": "return ast.projection(left, right)",
+        "mutated": "return ast.projection(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 346,
+        "original": "left['children'].append(right)",
+        "mutated": "left['children'].append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 349,
+        "original": "return self._project_if_slice(left, right)",
+        "mutated": "return self._project_if_slice(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 355,
+        "original": "return ast.projection(left, right)",
+        "mutated": "return ast.projection(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 362,
+        "original": "self._parse_projection_rhs(self.BINDING_POWER['star']))",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 362,
+        "original": "self._parse_projection_rhs(self.BINDING_POWER['star']))",
+        "mutated": "self._parse_projection_rhs(None))",
+        "status": "survived"
+      },
+      {
+        "line": 389,
+        "original": "token_types=['quoted_identifier', 'unquoted_identifier'])",
+        "mutated": "token_types=['XXquoted_identifierXX', 'unquoted_identifier'])",
+        "status": "survived"
+      },
+      {
+        "line": 389,
+        "original": "token_types=['quoted_identifier', 'unquoted_identifier'])",
+        "mutated": "token_types=['QUOTED_IDENTIFIER', 'unquoted_identifier'])",
+        "status": "survived"
+      },
+      {
+        "line": 390,
+        "original": "key_name = key_token['value']",
+        "mutated": "key_name = None",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "value = self._expression(0)",
+        "mutated": "value = self._expression(1)",
+        "status": "survived"
+      },
+      {
+        "line": 393,
+        "original": "node = ast.key_val_pair(key_name=key_name, node=value)",
+        "mutated": "node = None",
+        "status": "survived"
+      },
+      {
+        "line": 393,
+        "original": "node = ast.key_val_pair(key_name=key_name, node=value)",
+        "mutated": "node = ast.key_val_pair(key_name=None, node=value)",
+        "status": "survived"
+      },
+      {
+        "line": 393,
+        "original": "node = ast.key_val_pair(key_name=key_name, node=value)",
+        "mutated": "node = ast.key_val_pair(key_name=key_name, node=None)",
+        "status": "survived"
+      },
+      {
+        "line": 394,
+        "original": "pairs.append(node)",
+        "mutated": "pairs.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 404,
+        "original": "if self.BINDING_POWER[self._current_token()] < self._PROJECTION_STOP:",
+        "mutated": "if self.BINDING_POWER[self._current_token()] <= self._PROJECTION_STOP:",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "self._raise_parse_error_for_token(self._lookahead_token(0),",
+        "mutated": "self._raise_parse_error_for_token(None,",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "'syntax error')",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "self._raise_parse_error_for_token(self._lookahead_token(0),\n                                          'syntax error')",
+        "mutated": "self._raise_parse_error_for_token('syntax error')",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "'syntax error')",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "self._raise_parse_error_for_token(self._lookahead_token(0),",
+        "mutated": "self._raise_parse_error_for_token(self._lookahead_token(None),",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "self._raise_parse_error_for_token(self._lookahead_token(0),",
+        "mutated": "self._raise_parse_error_for_token(self._lookahead_token(1),",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "'syntax error')",
+        "mutated": "'XXsyntax errorXX')",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "'syntax error')",
+        "mutated": "'SYNTAX ERROR')",
+        "status": "survived"
+      },
+      {
+        "line": 430,
+        "original": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'star']:",
+        "mutated": "if lookahead in ['XXquoted_identifierXX', 'unquoted_identifier', 'star']:",
+        "status": "survived"
+      },
+      {
+        "line": 430,
+        "original": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'star']:",
+        "mutated": "if lookahead in ['QUOTED_IDENTIFIER', 'unquoted_identifier', 'star']:",
+        "status": "survived"
+      },
+      {
+        "line": 430,
+        "original": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'star']:",
+        "mutated": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'XXstarXX']:",
+        "status": "survived"
+      },
+      {
+        "line": 430,
+        "original": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'star']:",
+        "mutated": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'STAR']:",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "t = self._lookahead_token(0)",
+        "mutated": "t = self._lookahead_token(1)",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',\n                   'lbracket', 'lbrace']",
+        "mutated": "allowed = None",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',",
+        "mutated": "allowed = ['XXquoted_identifierXX', 'unquoted_identifier',",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',",
+        "mutated": "allowed = ['QUOTED_IDENTIFIER', 'unquoted_identifier',",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',",
+        "mutated": "allowed = ['quoted_identifier', 'XXunquoted_identifierXX',",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',",
+        "mutated": "allowed = ['quoted_identifier', 'UNQUOTED_IDENTIFIER',",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "'lbracket', 'lbrace']",
+        "mutated": "'XXlbracketXX', 'lbrace']",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "'lbracket', 'lbrace']",
+        "mutated": "'LBRACKET', 'lbrace']",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "'lbracket', 'lbrace']",
+        "mutated": "'lbracket', 'XXlbraceXX']",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "'lbracket', 'lbrace']",
+        "mutated": "'lbracket', 'LBRACE']",
+        "status": "survived"
+      },
+      {
+        "line": 443,
+        "original": "\"Expecting: %s, got: %s\" % (allowed, t['type'])",
+        "mutated": "\"XXExpecting: %s, got: %sXX\" % (allowed, t['type'])",
+        "status": "survived"
+      },
+      {
+        "line": 450,
+        "original": "token['start'], token['value'], token['type'])",
+        "mutated": "None, token['value'], token['type'])",
+        "status": "survived"
+      },
+      {
+        "line": 450,
+        "original": "token['start'], token['value'], token['type'])",
+        "mutated": "token['start'], None, token['type'])",
+        "status": "survived"
+      },
+      {
+        "line": 451,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, None)",
+        "status": "survived"
+      },
+      {
+        "line": 451,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, 'XXinvalid tokenXX')",
+        "status": "survived"
+      },
+      {
+        "line": 451,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, 'INVALID TOKEN')",
+        "status": "survived"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(None, 'invalid token')",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token('invalid token')",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, )",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, 'XXinvalid tokenXX')",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, 'INVALID TOKEN')",
+        "status": "no tests"
+      },
+      {
+        "line": 463,
+        "original": "token_type, self._lookahead_token(0))",
+        "mutated": "None, self._lookahead_token(0))",
+        "status": "survived"
+      },
+      {
+        "line": 463,
+        "original": "token_type, self._lookahead_token(0))",
+        "mutated": "token_type, self._lookahead_token(1))",
+        "status": "survived"
+      },
+      {
+        "line": 468,
+        "original": "token_types, self._lookahead_token(0))",
+        "mutated": "None, self._lookahead_token(0))",
+        "status": "survived"
+      },
+      {
+        "line": 481,
+        "original": "return self._tokens[self._index + number]",
+        "mutated": "return self._tokens[self._index - number]",
+        "status": "survived"
+      },
+      {
+        "line": 485,
+        "original": "actual_value = token['value']",
+        "mutated": "actual_value = None",
+        "status": "survived"
+      },
+      {
+        "line": 487,
+        "original": "raise exceptions.ParseError(lex_position, actual_value,",
+        "mutated": "raise exceptions.ParseError(lex_position, None,",
+        "status": "survived"
+      },
+      {
+        "line": 491,
+        "original": "lex_position = token['start']",
+        "mutated": "lex_position = None",
+        "status": "survived"
+      },
+      {
+        "line": 492,
+        "original": "actual_value = token['value']",
+        "mutated": "actual_value = None",
+        "status": "survived"
+      },
+      {
+        "line": 496,
+        "original": "lex_position, actual_value, actual_type)",
+        "mutated": "None, actual_value, actual_type)",
+        "status": "survived"
+      },
+      {
+        "line": 496,
+        "original": "lex_position, actual_value, actual_type)",
+        "mutated": "lex_position, None, actual_type)",
+        "status": "survived"
+      },
+      {
+        "line": 497,
+        "original": "message = 'Expecting: %s, got: %s' % (expected_type,\n                                          actual_type)",
+        "mutated": "message = None",
+        "status": "survived"
+      },
+      {
+        "line": 497,
+        "original": "message = 'Expecting: %s, got: %s' % (expected_type,",
+        "mutated": "message = 'XXExpecting: %s, got: %sXX' % (expected_type,",
+        "status": "survived"
+      },
+      {
+        "line": 497,
+        "original": "message = 'Expecting: %s, got: %s' % (expected_type,",
+        "mutated": "message = 'expecting: %s, got: %s' % (expected_type,",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "None, actual_value, actual_type, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, None, actual_type, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, actual_value, actual_type, None)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "actual_value, actual_type, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, actual_type, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, actual_value, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, actual_value, actual_type, )",
+        "status": "survived"
+      },
+      {
+        "line": 515,
+        "original": "interpreter = visitor.TreeInterpreter(options)",
+        "mutated": "interpreter = visitor.TreeInterpreter(None)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.7,
+    "coverage": 2.28,
+    "mutation": 41.12
+  }
+}

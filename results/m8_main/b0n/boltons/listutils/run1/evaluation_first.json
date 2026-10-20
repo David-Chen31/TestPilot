@@ -1,0 +1,982 @@
+{
+  "target": "boltons/listutils.py",
+  "validity": {
+    "total": 57,
+    "valid": 48,
+    "valid_ids": [
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_empty",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_from_iterable",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_none_iterable",
+      "tests_testpilot/test_listutils_s1.py::test_blist_alias",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_repr",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_from_iterable_classmethod",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_getitem",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_getitem_out_of_range",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_getitem_slice",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_getitem_slice_step",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_getitem_negative_slice",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_setitem_index",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_setitem_out_of_range",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_setitem_slice",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_delitem",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_delitem_out_of_range",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_delitem_slice",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_append_extend",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_insert_beginning",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_insert_middle",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_insert_negative",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_insert_clamp_append",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_insert_clamp_prepend",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_pop",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_pop_negative",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_pop_empty_raises",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_pop_out_of_range",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_iter",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_reversed",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_contains",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_len",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_iter_slice",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_iter_slice_negative_step",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_del_slice",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_sort",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_sort_large",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_reverse",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_reverse_large",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_count",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_index",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_index_not_found",
+      "tests_testpilot/test_listutils_s1.py::test_splay_list_basic",
+      "tests_testpilot/test_listutils_s1.py::test_splay_list_shift_noop",
+      "tests_testpilot/test_listutils_s1.py::test_splay_list_shift_to_front",
+      "tests_testpilot/test_listutils_s1.py::test_splay_list_shift_to_dest",
+      "tests_testpilot/test_listutils_s1.py::test_splay_list_shift_negative",
+      "tests_testpilot/test_listutils_s1.py::test_splay_list_swap",
+      "tests_testpilot/test_listutils_s1.py::test_splay_list_swap_same"
+    ],
+    "invalid": {
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_delitem_slice_step": "run 1: failed: assert [0, 2, 4, 6, 8, 0, ...] == [1, 3, 5, 7, 9]",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_balancing_grows": "run 1: failed: assert 1 > 1",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_multi_sublist_getitem": "run 1: failed: assert 1 > 1",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_multi_sublist_insert_pop": "run 1: failed: assert 1 > 1",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_multi_sublist_delete": "run 1: failed: assert 1 > 1",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_multi_sublist_setitem": "run 1: failed: assert 1 > 1",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_slicing_across_borders": "run 1: failed: assert 1 > 1",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_del_slice_with_step": "run 1: failed: assert [] == [1, 3, 5, 7, 9]",
+      "tests_testpilot/test_listutils_s1.py::test_barrel_list_index_large": "run 1: failed: assert 1 > 1"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.29,
+        "passed": 48,
+        "failed": 9,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.39,
+        "passed": 48,
+        "failed": 9,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.34,
+        "passed": 48,
+        "failed": 9,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.7440758293838863,
+  "branch_rate": 0.6081081081081081,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.5233333333333333,
+    "total": 300,
+    "killed": 157,
+    "survived": 143,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 157,
+      "survived": 124,
+      "no tests": 19
+    },
+    "survivors": [
+      {
+        "line": 114,
+        "original": "if rel_idx < len_list:",
+        "mutated": "if rel_idx <= len_list:",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "rel_idx -= len_list",
+        "mutated": "rel_idx = len_list",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "rel_idx -= len_list",
+        "mutated": "rel_idx += len_list",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "list_idx += len(self.lists)",
+        "mutated": "list_idx = len(self.lists)",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "list_idx += len(self.lists)",
+        "mutated": "list_idx -= len(self.lists)",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "if len(cur_list) > size_limit:",
+        "mutated": "if len(cur_list) >= size_limit:",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "half_limit = size_limit // 2",
+        "mutated": "half_limit = None",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "half_limit = size_limit // 2",
+        "mutated": "half_limit = size_limit / 2",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "half_limit = size_limit // 2",
+        "mutated": "half_limit = size_limit // 3",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "while len(cur_list) > half_limit:",
+        "mutated": "while len(cur_list) >= half_limit:",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "next_list_idx = list_idx + 1",
+        "mutated": "next_list_idx = None",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "next_list_idx = list_idx + 1",
+        "mutated": "next_list_idx = list_idx - 1",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "next_list_idx = list_idx + 1",
+        "mutated": "next_list_idx = list_idx + 2",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "self.lists.insert(next_list_idx, cur_list[-half_limit:])",
+        "mutated": "self.lists.insert(None, cur_list[-half_limit:])",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "self.lists.insert(next_list_idx, cur_list[-half_limit:])",
+        "mutated": "self.lists.insert(next_list_idx, None)",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "self.lists.insert(next_list_idx, cur_list[-half_limit:])",
+        "mutated": "self.lists.insert(cur_list[-half_limit:])",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "self.lists.insert(next_list_idx, cur_list[-half_limit:])",
+        "mutated": "self.lists.insert(next_list_idx, )",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "self.lists.insert(next_list_idx, cur_list[-half_limit:])",
+        "mutated": "self.lists.insert(next_list_idx, cur_list[+half_limit:])",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "del cur_list[-half_limit:]",
+        "mutated": "del cur_list[+half_limit:]",
+        "status": "survived"
+      },
+      {
+        "line": 134,
+        "original": "return True",
+        "mutated": "return False",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "return False",
+        "mutated": "return True",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "if len(self.lists) == 1:",
+        "mutated": "if len(self.lists) != 1:",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "if len(self.lists) == 1:",
+        "mutated": "if len(self.lists) == 2:",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "len_self = len(self)",
+        "mutated": "len_self = None",
+        "status": "survived"
+      },
+      {
+        "line": 143,
+        "original": "if index >= len_self:  # clamp to append, like list.insert",
+        "mutated": "if index > len_self:  # clamp to append, like list.insert",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "list_idx, rel_idx = len(self.lists) - 1, len(self.lists[-1])",
+        "mutated": "list_idx, rel_idx = None",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "list_idx, rel_idx = len(self.lists) - 1, len(self.lists[-1])",
+        "mutated": "list_idx, rel_idx = len(self.lists) + 1, len(self.lists[-1])",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "list_idx, rel_idx = len(self.lists) - 1, len(self.lists[-1])",
+        "mutated": "list_idx, rel_idx = len(self.lists) - 2, len(self.lists[-1])",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "elif index < -len_self:  # clamp to prepend, like list.insert",
+        "mutated": "elif index <= -len_self:  # clamp to prepend, like list.insert",
+        "status": "survived"
+      },
+      {
+        "line": 145,
+        "original": "elif index < -len_self:  # clamp to prepend, like list.insert",
+        "mutated": "elif index < +len_self:  # clamp to prepend, like list.insert",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "list_idx, rel_idx = 0, 0",
+        "mutated": "list_idx, rel_idx = None",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "list_idx, rel_idx = 0, 0",
+        "mutated": "list_idx, rel_idx = 1, 0",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "list_idx, rel_idx = 0, 0",
+        "mutated": "list_idx, rel_idx = 0, 1",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "list_idx, rel_idx = self._translate_index(index)",
+        "mutated": "list_idx, rel_idx = None",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "list_idx, rel_idx = self._translate_index(index)",
+        "mutated": "list_idx, rel_idx = self._translate_index(None)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "self.lists[list_idx].insert(rel_idx, item)",
+        "mutated": "self.lists[list_idx].insert(None, item)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "self.lists[list_idx].insert(rel_idx, item)",
+        "mutated": "self.lists[list_idx].insert(rel_idx, None)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "self.lists[list_idx].insert(rel_idx, item)",
+        "mutated": "self.lists[list_idx].insert(item)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "self.lists[list_idx].insert(rel_idx, item)",
+        "mutated": "self.lists[list_idx].insert(rel_idx, )",
+        "status": "survived"
+      },
+      {
+        "line": 150,
+        "original": "self._balance_list(list_idx)",
+        "mutated": "self._balance_list(None)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "if len(lists) == 1 and not a:",
+        "mutated": "if len(lists) != 1 and not a:",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "if len(lists) == 1 and not a:",
+        "mutated": "if len(lists) == 2 and not a:",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "if index == () or index is None or index == -1:",
+        "mutated": "if index == () or index is None and index == -1:",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "if index == () or index is None or index == -1:",
+        "mutated": "if index == () and index is None or index == -1:",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "if index == () or index is None or index == -1:",
+        "mutated": "if index == () or index is None or index == +1:",
+        "status": "survived"
+      },
+      {
+        "line": 165,
+        "original": "while len(lists) > 1 and not lists[-1]:",
+        "mutated": "while len(lists) > 1 or not lists[-1]:",
+        "status": "survived"
+      },
+      {
+        "line": 165,
+        "original": "while len(lists) > 1 and not lists[-1]:",
+        "mutated": "while len(lists) >= 1 and not lists[-1]:",
+        "status": "survived"
+      },
+      {
+        "line": 165,
+        "original": "while len(lists) > 1 and not lists[-1]:",
+        "mutated": "while len(lists) > 2 and not lists[-1]:",
+        "status": "survived"
+      },
+      {
+        "line": 165,
+        "original": "while len(lists) > 1 and not lists[-1]:",
+        "mutated": "while len(lists) > 1 and lists[-1]:",
+        "status": "survived"
+      },
+      {
+        "line": 165,
+        "original": "while len(lists) > 1 and not lists[-1]:",
+        "mutated": "while len(lists) > 1 and not lists[+1]:",
+        "status": "survived"
+      },
+      {
+        "line": 165,
+        "original": "while len(lists) > 1 and not lists[-1]:",
+        "mutated": "while len(lists) > 1 and not lists[-2]:",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "ret = lists[-1].pop()",
+        "mutated": "ret = None",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "ret = lists[-1].pop()",
+        "mutated": "ret = lists[+1].pop()",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "ret = lists[-1].pop()",
+        "mutated": "ret = lists[-2].pop()",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "if len(lists) > 1 and not lists[-1]:",
+        "mutated": "if len(lists) > 1 or not lists[-1]:",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "if len(lists) > 1 and not lists[-1]:",
+        "mutated": "if len(lists) >= 1 and not lists[-1]:",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "if len(lists) > 1 and not lists[-1]:",
+        "mutated": "if len(lists) > 2 and not lists[-1]:",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "if len(lists) > 1 and not lists[-1]:",
+        "mutated": "if len(lists) > 1 and lists[-1]:",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "if len(lists) > 1 and not lists[-1]:",
+        "mutated": "if len(lists) > 1 and not lists[+1]:",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "if len(lists) > 1 and not lists[-1]:",
+        "mutated": "if len(lists) > 1 and not lists[-2]:",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "if len(lists) > 1 and not lists[list_idx]:",
+        "mutated": "if len(lists) > 1 or not lists[list_idx]:",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "if len(lists) > 1 and not lists[list_idx]:",
+        "mutated": "if len(lists) >= 1 and not lists[list_idx]:",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "if len(lists) > 1 and not lists[list_idx]:",
+        "mutated": "if len(lists) > 2 and not lists[list_idx]:",
+        "status": "survived"
+      },
+      {
+        "line": 175,
+        "original": "if len(lists) > 1 and not lists[list_idx]:",
+        "mutated": "if len(lists) > 1 and lists[list_idx]:",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "if step < 0:",
+        "mutated": "if step <= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "if step < 0:",
+        "mutated": "if step < 1:",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "if step is not None and abs(step) > 1:  # punt",
+        "mutated": "if step is not None and abs(None) > 1:  # punt",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "if step is not None and abs(step) > 1:  # punt",
+        "mutated": "if step is not None and abs(step) >= 1:  # punt",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "if step is not None and abs(step) > 1:  # punt",
+        "mutated": "if step is not None and abs(step) > 2:  # punt",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),\n                         self.iter_slice(stop, None, step))",
+        "mutated": "new_list = None",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),",
+        "mutated": "new_list = chain(None,",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "self.iter_slice(stop, None, step))",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),\n                         self.iter_slice(stop, None, step))",
+        "mutated": "new_list = chain(self.iter_slice(stop, None, step))",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "self.iter_slice(stop, None, step))",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),",
+        "mutated": "new_list = chain(self.iter_slice(None, start, step),",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),",
+        "mutated": "new_list = chain(self.iter_slice(0, None, step),",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),",
+        "mutated": "new_list = chain(self.iter_slice(0, start, None),",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),",
+        "mutated": "new_list = chain(self.iter_slice(start, step),",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),",
+        "mutated": "new_list = chain(self.iter_slice(0, step),",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),",
+        "mutated": "new_list = chain(self.iter_slice(0, start, ),",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "new_list = chain(self.iter_slice(0, start, step),",
+        "mutated": "new_list = chain(self.iter_slice(1, start, step),",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "self.iter_slice(stop, None, step))",
+        "mutated": "self.iter_slice(None, None, step))",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "self.iter_slice(stop, None, step))",
+        "mutated": "self.iter_slice(stop, None, None))",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "self.iter_slice(stop, None, step))",
+        "mutated": "self.iter_slice(None, step))",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "self.iter_slice(stop, None, step))",
+        "mutated": "self.iter_slice(stop, step))",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "self.iter_slice(stop, None, step))",
+        "mutated": "self.iter_slice(stop, None, ))",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "self.lists[0][:] = new_list",
+        "mutated": "self.lists[0][:] = None",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "self.lists[0][:] = new_list",
+        "mutated": "self.lists[1][:] = new_list",
+        "status": "survived"
+      },
+      {
+        "line": 193,
+        "original": "self._balance_list(0)",
+        "mutated": "self._balance_list(None)",
+        "status": "survived"
+      },
+      {
+        "line": 193,
+        "original": "self._balance_list(0)",
+        "mutated": "self._balance_list(1)",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "start = 0",
+        "mutated": "start = None",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "start = 0",
+        "mutated": "start = 1",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "if stop is None or stop >= len(self):",
+        "mutated": "if stop is None and stop >= len(self):",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "if stop is None or stop >= len(self):",
+        "mutated": "if stop is None or stop > len(self):",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "stop_list_idx, stop_rel_idx = len(self.lists) - 1, len(self.lists[-1])",
+        "mutated": "stop_list_idx, stop_rel_idx = None",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "stop_list_idx, stop_rel_idx = len(self.lists) - 1, len(self.lists[-1])",
+        "mutated": "stop_list_idx, stop_rel_idx = len(self.lists) + 1, len(self.lists[-1])",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "stop_list_idx, stop_rel_idx = len(self.lists) - 1, len(self.lists[-1])",
+        "mutated": "stop_list_idx, stop_rel_idx = len(self.lists) - 2, len(self.lists[-1])",
+        "status": "survived"
+      },
+      {
+        "line": 209,
+        "original": "elif start_list_idx < stop_list_idx:",
+        "mutated": "elif start_list_idx <= stop_list_idx:",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "del self.lists[start_list_idx + 1:stop_list_idx]",
+        "mutated": "del self.lists[start_list_idx - 1:stop_list_idx]",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "del self.lists[start_list_idx + 1:stop_list_idx]",
+        "mutated": "del self.lists[start_list_idx + 2:stop_list_idx]",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "assert False, ('start list index should never translate to'",
+        "mutated": "assert True, ('start list index should never translate to'",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "assert False, ('start list index should never translate to'",
+        "mutated": "assert False, ('XXstart list index should never translate toXX'",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "assert False, ('start list index should never translate to'",
+        "mutated": "assert False, ('START LIST INDEX SHOULD NEVER TRANSLATE TO'",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "' greater than stop list index')",
+        "mutated": "'XX greater than stop list indexXX')",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "' greater than stop list index')",
+        "mutated": "' GREATER THAN STOP LIST INDEX')",
+        "status": "survived"
+      },
+      {
+        "line": 258,
+        "original": "self.del_slice(start, stop, step)",
+        "mutated": "self.del_slice(start, stop, None)",
+        "status": "survived"
+      },
+      {
+        "line": 258,
+        "original": "self.del_slice(start, stop, step)",
+        "mutated": "self.del_slice(start, stop, )",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "if len(self.lists) == 1:",
+        "mutated": "if len(self.lists) != 1:",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "if len(self.lists) == 1:",
+        "mutated": "if len(self.lists) == 2:",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "tmp = list(self)",
+        "mutated": "tmp = None",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "tmp = list(self)",
+        "mutated": "tmp = list(None)",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "tmp[index] = item",
+        "mutated": "tmp[index] = None",
+        "status": "survived"
+      },
+      {
+        "line": 276,
+        "original": "self.lists[:] = [tmp]",
+        "mutated": "self.lists[:] = None",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "iter_slice = self.iter_slice(start, stop, 1)",
+        "mutated": "iter_slice = None",
+        "status": "no tests"
+      },
+      {
+        "line": 285,
+        "original": "iter_slice = self.iter_slice(start, stop, 1)",
+        "mutated": "iter_slice = self.iter_slice(None, stop, 1)",
+        "status": "no tests"
+      },
+      {
+        "line": 285,
+        "original": "iter_slice = self.iter_slice(start, stop, 1)",
+        "mutated": "iter_slice = self.iter_slice(start, None, 1)",
+        "status": "no tests"
+      },
+      {
+        "line": 285,
+        "original": "iter_slice = self.iter_slice(start, stop, 1)",
+        "mutated": "iter_slice = self.iter_slice(start, stop, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 285,
+        "original": "iter_slice = self.iter_slice(start, stop, 1)",
+        "mutated": "iter_slice = self.iter_slice(stop, 1)",
+        "status": "no tests"
+      },
+      {
+        "line": 285,
+        "original": "iter_slice = self.iter_slice(start, stop, 1)",
+        "mutated": "iter_slice = self.iter_slice(start, 1)",
+        "status": "no tests"
+      },
+      {
+        "line": 285,
+        "original": "iter_slice = self.iter_slice(start, stop, 1)",
+        "mutated": "iter_slice = self.iter_slice(start, stop, )",
+        "status": "no tests"
+      },
+      {
+        "line": 285,
+        "original": "iter_slice = self.iter_slice(start, stop, 1)",
+        "mutated": "iter_slice = self.iter_slice(start, stop, 2)",
+        "status": "no tests"
+      },
+      {
+        "line": 286,
+        "original": "return self.from_iterable(iter_slice)",
+        "mutated": "return self.from_iterable(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 289,
+        "original": "if len(self.lists) == 1:",
+        "mutated": "if len(self.lists) != 1:",
+        "status": "no tests"
+      },
+      {
+        "line": 289,
+        "original": "if len(self.lists) == 1:",
+        "mutated": "if len(self.lists) == 2:",
+        "status": "no tests"
+      },
+      {
+        "line": 290,
+        "original": "self.lists[0][start:stop] = sequence",
+        "mutated": "self.lists[0][start:stop] = None",
+        "status": "no tests"
+      },
+      {
+        "line": 290,
+        "original": "self.lists[0][start:stop] = sequence",
+        "mutated": "self.lists[1][start:stop] = sequence",
+        "status": "no tests"
+      },
+      {
+        "line": 292,
+        "original": "tmp = list(self)",
+        "mutated": "tmp = None",
+        "status": "no tests"
+      },
+      {
+        "line": 292,
+        "original": "tmp = list(self)",
+        "mutated": "tmp = list(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 293,
+        "original": "tmp[start:stop] = sequence",
+        "mutated": "tmp[start:stop] = None",
+        "status": "no tests"
+      },
+      {
+        "line": 294,
+        "original": "self.lists[:] = [tmp]",
+        "mutated": "self.lists[:] = None",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "self._balance_list(0)",
+        "mutated": "self._balance_list(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 295,
+        "original": "self._balance_list(0)",
+        "mutated": "self._balance_list(1)",
+        "status": "no tests"
+      },
+      {
+        "line": 304,
+        "original": "if len(self.lists) == 1:",
+        "mutated": "if len(self.lists) != 1:",
+        "status": "survived"
+      },
+      {
+        "line": 304,
+        "original": "if len(self.lists) == 1:",
+        "mutated": "if len(self.lists) == 2:",
+        "status": "survived"
+      },
+      {
+        "line": 309,
+        "original": "tmp_sorted = sorted(chain.from_iterable(self.lists))",
+        "mutated": "tmp_sorted = None",
+        "status": "survived"
+      },
+      {
+        "line": 309,
+        "original": "tmp_sorted = sorted(chain.from_iterable(self.lists))",
+        "mutated": "tmp_sorted = sorted(None)",
+        "status": "survived"
+      },
+      {
+        "line": 309,
+        "original": "tmp_sorted = sorted(chain.from_iterable(self.lists))",
+        "mutated": "tmp_sorted = sorted(chain.from_iterable(None))",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "self.lists.append(tmp_sorted)",
+        "mutated": "self.lists.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "self._balance_list(0)",
+        "mutated": "self._balance_list(None)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "self._balance_list(0)",
+        "mutated": "self._balance_list(1)",
+        "status": "survived"
+      },
+      {
+        "line": 329,
+        "original": "len_accum += len(cur)",
+        "mutated": "len_accum = len(cur)",
+        "status": "survived"
+      },
+      {
+        "line": 329,
+        "original": "len_accum += len(cur)",
+        "mutated": "len_accum -= len(cur)",
+        "status": "survived"
+      },
+      {
+        "line": 330,
+        "original": "raise ValueError(f'{item!r} is not in list')",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.04,
+    "coverage": 2.12,
+    "mutation": 13.56
+  }
+}

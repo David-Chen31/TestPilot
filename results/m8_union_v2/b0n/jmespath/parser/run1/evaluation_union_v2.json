@@ -1,0 +1,1284 @@
+{
+  "target": "jmespath/parser.py",
+  "validity": {
+    "total": 388,
+    "valid": 351,
+    "valid_ids": [
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_returns_parsed_result",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_simple_field",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_literal",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_index",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_slice",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_current_node",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_pipe",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_or",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_and",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_comparator",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_multiselect_list",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_multiselect_hash",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_function",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_star_projection",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_value_projection",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_filter",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_flatten",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_expref",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_subexpression",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_nested_dot_chain",
+      "tests_testpilot/test_parser_s1.py::TestParserBasic::test_parse_not",
+      "tests_testpilot/test_parser_s1.py::TestParserCache::test_cache_hit_returns_same_object",
+      "tests_testpilot/test_parser_s1.py::TestParserCache::test_purge_clears_cache",
+      "tests_testpilot/test_parser_s1.py::TestParserCache::test_different_expressions_different_results",
+      "tests_testpilot/test_parser_s1.py::TestParserCache::test_cache_max_size_eviction",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_incomplete_expression_has_expression",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_parse_error_unexpected_token",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_lexer_error",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_parse_error_expression_attached",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_quoted_identifier_function_name_error",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_invalid_function_name_error",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_slice_too_many_colons",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_slice_invalid_token",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_dot_rhs_invalid",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_projection_rhs_syntax_error",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_multiselect_hash_invalid_key",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_lbracket_led_invalid",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_lparen_nud_missing_rparen",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_match_eof_incomplete",
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_cache_not_populated_on_error",
+      "tests_testpilot/test_parser_s1.py::TestParsedResult::test_search_simple",
+      "tests_testpilot/test_parser_s1.py::TestParsedResult::test_search_missing_key_returns_none",
+      "tests_testpilot/test_parser_s1.py::TestParsedResult::test_search_projection",
+      "tests_testpilot/test_parser_s1.py::TestParsedResult::test_search_with_options",
+      "tests_testpilot/test_parser_s1.py::TestParsedResult::test_repr_returns_repr_of_parsed",
+      "tests_testpilot/test_parser_s1.py::TestParsedResult::test_expression_attribute",
+      "tests_testpilot/test_parser_s1.py::TestParsedResult::test_parsed_attribute",
+      "tests_testpilot/test_parser_s1.py::TestParsedResult::test_render_dot_file",
+      "tests_testpilot/test_parser_s1.py::TestParserLookahead::test_custom_lookahead_buffer_size",
+      "tests_testpilot/test_parser_s1.py::TestParserLookahead::test_default_lookahead",
+      "tests_testpilot/test_parser_s1.py::TestParserLookahead::test_index_reset_after_parse",
+      "tests_testpilot/test_parser_s1.py::TestParserBindingPower::test_binding_power_values",
+      "tests_testpilot/test_parser_s1.py::TestParserBindingPower::test_projection_stop_value",
+      "tests_testpilot/test_parser_s1.py::TestParserBindingPower::test_max_size_value",
+      "tests_testpilot/test_parser_s2.py::TestParserBasics::test_parse_returns_parsed_result",
+      "tests_testpilot/test_parser_s2.py::TestParserBasics::test_parse_field",
+      "tests_testpilot/test_parser_s2.py::TestParserBasics::test_parse_caches_result",
+      "tests_testpilot/test_parser_s2.py::TestParserBasics::test_purge_clears_cache",
+      "tests_testpilot/test_parser_s2.py::TestParserBasics::test_cache_max_size_eviction",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_unexpected_token",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_invalid_token",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_quoted_identifier_function_name",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_invalid_function_name",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_unmatched_rparen",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_bad_slice",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_incomplete_expression_bracket",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_lexer_error_gets_expression",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_identity_star",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_flatten",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_index",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_slice_projection",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_multiselect_list",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_multiselect_hash",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_comparator_eq",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_and_or",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_pipe",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_not_expression",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_function_expression",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_function_no_args",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_filter",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_current_node",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_expref",
+      "tests_testpilot/test_parser_s2.py::TestParsesVariousConstructs::test_literal",
+      "tests_testpilot/test_parser_s2.py::TestParsedResult::test_search_field",
+      "tests_testpilot/test_parser_s2.py::TestParsedResult::test_search_missing",
+      "tests_testpilot/test_parser_s2.py::TestParsedResult::test_search_with_options",
+      "tests_testpilot/test_parser_s2.py::TestParsedResult::test_repr",
+      "tests_testpilot/test_parser_s2.py::TestParsedResult::test_render_dot_file",
+      "tests_testpilot/test_parser_s2.py::TestParserInternals::test_init_default_lookahead",
+      "tests_testpilot/test_parser_s2.py::TestParserInternals::test_init_custom_lookahead",
+      "tests_testpilot/test_parser_s2.py::TestParserInternals::test_binding_power_values",
+      "tests_testpilot/test_parser_s2.py::TestParserInternals::test_projection_stop",
+      "tests_testpilot/test_parser_s3.py::test_parse_returns_parsed_result",
+      "tests_testpilot/test_parser_s3.py::test_parse_unquoted_identifier",
+      "tests_testpilot/test_parser_s3.py::test_parse_quoted_identifier",
+      "tests_testpilot/test_parser_s3.py::test_parse_subexpression",
+      "tests_testpilot/test_parser_s3.py::test_parse_subexpression_chained_uses_append",
+      "tests_testpilot/test_parser_s3.py::test_parse_index",
+      "tests_testpilot/test_parser_s3.py::test_parse_index_optimization_appends_children",
+      "tests_testpilot/test_parser_s3.py::test_parse_pipe",
+      "tests_testpilot/test_parser_s3.py::test_parse_or_and",
+      "tests_testpilot/test_parser_s3.py::test_parse_comparators",
+      "tests_testpilot/test_parser_s3.py::test_parse_not",
+      "tests_testpilot/test_parser_s3.py::test_parse_expref",
+      "tests_testpilot/test_parser_s3.py::test_parse_paren",
+      "tests_testpilot/test_parser_s3.py::test_parse_function",
+      "tests_testpilot/test_parser_s3.py::test_parse_function_with_args",
+      "tests_testpilot/test_parser_s3.py::test_parse_multi_select_list",
+      "tests_testpilot/test_parser_s3.py::test_parse_multi_select_hash",
+      "tests_testpilot/test_parser_s3.py::test_parse_star_projection",
+      "tests_testpilot/test_parser_s3.py::test_parse_dot_star",
+      "tests_testpilot/test_parser_s3.py::test_parse_flatten",
+      "tests_testpilot/test_parser_s3.py::test_parse_index_projection",
+      "tests_testpilot/test_parser_s3.py::test_parse_filter",
+      "tests_testpilot/test_parser_s3.py::test_parse_filter_at_nud",
+      "tests_testpilot/test_parser_s3.py::test_parse_complex_expression",
+      "tests_testpilot/test_parser_s3.py::test_parse_unexpected_token",
+      "tests_testpilot/test_parser_s3.py::test_parse_lexer_error",
+      "tests_testpilot/test_parser_s3.py::test_parse_quoted_identifier_as_function_name",
+      "tests_testpilot/test_parser_s3.py::test_parse_invalid_function_name",
+      "tests_testpilot/test_parser_s3.py::test_parse_syntax_error_in_slice",
+      "tests_testpilot/test_parser_s3.py::test_parse_syntax_error_in_multi_select_hash_missing_colon",
+      "tests_testpilot/test_parser_s3.py::test_parse_invalid_after_dot",
+      "tests_testpilot/test_parser_s3.py::test_parse_error_has_expression_set",
+      "tests_testpilot/test_parser_s3.py::test_cache_hit_returns_same_object",
+      "tests_testpilot/test_parser_s3.py::test_purge_clears_cache",
+      "tests_testpilot/test_parser_s3.py::test_cache_max_size_respected",
+      "tests_testpilot/test_parser_s3.py::test_cache_evicts_oldest",
+      "tests_testpilot/test_parser_s3.py::test_parsed_result_attributes",
+      "tests_testpilot/test_parser_s3.py::test_parsed_result_repr",
+      "tests_testpilot/test_parser_s3.py::test_parsed_result_search",
+      "tests_testpilot/test_parser_s3.py::test_parsed_result_search_with_options",
+      "tests_testpilot/test_parser_s3.py::test_parsed_result_search_missing_key",
+      "tests_testpilot/test_parser_s3.py::test_parsed_result_render_dot_file",
+      "tests_testpilot/test_parser_s3.py::test_parser_init_lookahead",
+      "tests_testpilot/test_parser_s3.py::test_parser_init_custom_lookahead",
+      "tests_testpilot/test_parser_s3.py::test_binding_power_table",
+      "tests_testpilot/test_parser_s3.py::test_current_token_and_lookahead_helpers",
+      "tests_testpilot/test_parser_s3.py::test_ast_node_types_are_ast_nodes",
+      "tests_testpilot/test_parser_s4.py::test_parsed_result_attributes",
+      "tests_testpilot/test_parser_s4.py::test_parsed_result_repr_uses_parsed",
+      "tests_testpilot/test_parser_s4.py::test_parsed_result_search_returns_result",
+      "tests_testpilot/test_parser_s4.py::test_parsed_result_search_missing_key_returns_none",
+      "tests_testpilot/test_parser_s4.py::test_parsed_result_search_with_options",
+      "tests_testpilot/test_parser_s4.py::test_parsed_result_render_dot_file",
+      "tests_testpilot/test_parser_s4.py::test_parser_init_default_lookahead",
+      "tests_testpilot/test_parser_s4.py::test_parser_init_custom_lookahead",
+      "tests_testpilot/test_parser_s4.py::test_parse_caches_results",
+      "tests_testpilot/test_parser_s4.py::test_purge_clears_cache",
+      "tests_testpilot/test_parser_s4.py::test_cache_eviction_when_full",
+      "tests_testpilot/test_parser_s4.py::test_cache_eviction_returns_result_even_if_deletion_fails",
+      "tests_testpilot/test_parser_s4.py::test_parse_dot_create_subexpression",
+      "tests_testpilot/test_parser_s4.py::test_parse_dot_extends_existing_subexpression",
+      "tests_testpilot/test_parser_s4.py::test_parse_pipe",
+      "tests_testpilot/test_parser_s4.py::test_parse_or",
+      "tests_testpilot/test_parser_s4.py::test_parse_and",
+      "tests_testpilot/test_parser_s4.py::test_parse_not",
+      "tests_testpilot/test_parser_s4.py::test_parse_function_with_args",
+      "tests_testpilot/test_parser_s4.py::test_parse_multi_select_list",
+      "tests_testpilot/test_parser_s4.py::test_parse_multi_select_hash",
+      "tests_testpilot/test_parser_s4.py::test_parse_multi_select_hash_multiple_pairs",
+      "tests_testpilot/test_parser_s4.py::test_parse_index",
+      "tests_testpilot/test_parser_s4.py::test_parse_slice",
+      "tests_testpilot/test_parser_s4.py::test_parse_flatten",
+      "tests_testpilot/test_parser_s4.py::test_parse_star_projection",
+      "tests_testpilot/test_parser_s4.py::test_parse_value_projection",
+      "tests_testpilot/test_parser_s4.py::test_parse_filter",
+      "tests_testpilot/test_parser_s4.py::test_parse_nud_star",
+      "tests_testpilot/test_parser_s4.py::test_parse_nud_star_with_rbracket",
+      "tests_testpilot/test_parser_s4.py::test_parse_nud_flatten",
+      "tests_testpilot/test_parser_s4.py::test_parse_nud_filter",
+      "tests_testpilot/test_parser_s4.py::test_parse_expref",
+      "tests_testpilot/test_parser_s4.py::test_parse_nested_parens",
+      "tests_testpilot/test_parser_s4.py::test_parse_dot_multi_select_list",
+      "tests_testpilot/test_parser_s4.py::test_parse_dot_multi_select_hash",
+      "tests_testpilot/test_parser_s4.py::test_parse_dot_star",
+      "tests_testpilot/test_parser_s4.py::test_parse_filter_then_flatten",
+      "tests_testpilot/test_parser_s4.py::test_parsed_result_search_end_to_end",
+      "tests_testpilot/test_parser_s4.py::test_parse_error_sets_expression",
+      "tests_testpilot/test_parser_s4.py::test_unexpected_token_at_end",
+      "tests_testpilot/test_parser_s4.py::test_quoted_identifier_not_allowed_for_function",
+      "tests_testpilot/test_parser_s4.py::test_slice_syntax_error",
+      "tests_testpilot/test_parser_s4.py::test_slice_syntax_error_non_number",
+      "tests_testpilot/test_parser_s4.py::test_dot_rhs_error",
+      "tests_testpilot/test_parser_s4.py::test_led_error",
+      "tests_testpilot/test_parser_s4.py::test_nud_error_invalid_token",
+      "tests_testpilot/test_parser_s4.py::test_match_multiple_tokens_error",
+      "tests_testpilot/test_parser_s4.py::test_projection_rhs_error",
+      "tests_testpilot/test_parser_s4.py::test_eof_in_match_raises_incomplete",
+      "tests_testpilot/test_parser_s4.py::test_parse_index_missing_rbracket",
+      "tests_testpilot/test_parser_s5.py::TestParserInit::test_default_lookahead",
+      "tests_testpilot/test_parser_s5.py::TestParserInit::test_custom_lookahead",
+      "tests_testpilot/test_parser_s5.py::TestParserParse::test_parse_simple_field",
+      "tests_testpilot/test_parser_s5.py::TestParserParse::test_parse_returns_parsed_result",
+      "tests_testpilot/test_parser_s5.py::TestParserParse::test_parse_caches_result",
+      "tests_testpilot/test_parser_s5.py::TestParserParse::test_parse_cache_shared_across_instances",
+      "tests_testpilot/test_parser_s5.py::TestParserParse::test_purge_clears_cache",
+      "tests_testpilot/test_parser_s5.py::TestParserParse::test_purge_classmethod",
+      "tests_testpilot/test_parser_s5.py::TestParserParse::test_cache_eviction_when_full",
+      "tests_testpilot/test_parser_s5.py::TestParserParse::test_cache_eviction_does_not_grow_unbounded",
+      "tests_testpilot/test_parser_s5.py::TestParserErrors::test_parse_error_sets_expression",
+      "tests_testpilot/test_parser_s5.py::TestParserErrors::test_unexpected_token",
+      "tests_testpilot/test_parser_s5.py::TestParserErrors::test_quoted_identifier_function_name_error",
+      "tests_testpilot/test_parser_s5.py::TestParserErrors::test_invalid_function_name",
+      "tests_testpilot/test_parser_s5.py::TestParserErrors::test_dot_rhs_error",
+      "tests_testpilot/test_parser_s5.py::TestParsedResult::test_search",
+      "tests_testpilot/test_parser_s5.py::TestParsedResult::test_search_options",
+      "tests_testpilot/test_parser_s5.py::TestParsedResult::test_repr",
+      "tests_testpilot/test_parser_s5.py::TestParsedResult::test_render_dot_file",
+      "tests_testpilot/test_parser_s5.py::TestParsedResult::test_attributes",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_literal",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_quoted_identifier",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_star",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_star_with_rbracket",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_filter_nud",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_multi_select_hash",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_multi_select_list",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_lparen",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_flatten_nud",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_not",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_index_expression_nud",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_slice_nud",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_current_node",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_expref",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_dot_subexpression_merge",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_pipe",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_or",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_and",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_function_expression",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_comparators",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_flatten_led",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_lbracket_led_index",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_lbracket_led_index_chain",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_lbracket_led_slice",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_lbracket_led_star",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_dot_star",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_led_filter",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_led_filter_then_flatten",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_dot_rhs_lbracket",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_dot_rhs_lbrace",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_multi_select_hash_quoted_key",
+      "tests_testpilot/test_parser_s5.py::TestParsingConstructs::test_multi_select_hash_trailing_comma_stops",
+      "tests_testpilot/test_parser_s5.py::TestSliceParsing::test_slice_step_too_many",
+      "tests_testpilot/test_parser_s5.py::TestErrorNudToken::test_error_nud_invalid",
+      "tests_testpilot/test_parser_s5.py::TestInternalHelpers::test_project_if_slice_non_slice",
+      "tests_testpilot/test_parser_s5.py::TestInternalHelpers::test_project_if_slice_slice",
+      "tests_testpilot/test_parser_s5.py::TestInternalHelpers::test_project_if_slice_slice_stops_projection",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_returns_parsed_result",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_simple_identifier",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_literal",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_subexpression",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_index",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_slice",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_projection",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_filter",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_multi_select_list",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_function_expression",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_or_expression",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_and_expression",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_not_expression",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_pipe",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_comparator_eq",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_comparator_ne",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_comparator_lt",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_comparator_lte",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_comparator_gt",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_comparator_gte",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_current_node",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_expref",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_quoted_identifier",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_star_nud",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_flatten_nud",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_slice_start_only",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_slice_step_only",
+      "tests_testpilot/test_parser_s7.py::TestParserCache::test_parse_caches_result",
+      "tests_testpilot/test_parser_s7.py::TestParserCache::test_purge_clears_cache",
+      "tests_testpilot/test_parser_s7.py::TestParserCache::test_cache_max_size",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_unclosed_bracket_raises_incomplete",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_invalid_token_raises_parse_error",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_quoted_identifier_function_name_error",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_bad_dot_rhs",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_lexer_error_gets_expression",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_parse_error_gets_expression",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_bad_multi_select_hash_missing_colon",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_bad_multi_select_hash_non_identifier_key",
+      "tests_testpilot/test_parser_s7.py::TestParsedResult::test_attributes",
+      "tests_testpilot/test_parser_s7.py::TestParsedResult::test_search",
+      "tests_testpilot/test_parser_s7.py::TestParsedResult::test_search_with_options",
+      "tests_testpilot/test_parser_s7.py::TestParsedResult::test_search_missing_key_returns_none",
+      "tests_testpilot/test_parser_s7.py::TestParsedResult::test_search_function",
+      "tests_testpilot/test_parser_s7.py::TestParsedResult::test_repr",
+      "tests_testpilot/test_parser_s7.py::TestParsedResult::test_render_dot_file",
+      "tests_testpilot/test_parser_s7.py::TestParserBindingPowers::test_binding_power_table_present",
+      "tests_testpilot/test_parser_s7.py::TestParserBindingPowers::test_projection_stop_value",
+      "tests_testpilot/test_parser_s7.py::TestParserBindingPowers::test_custom_lookahead_constructor",
+      "tests_testpilot/test_parser_s7.py::TestParserBindingPowers::test_precedence_pipe_lower_than_or",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_returns_parsed_result",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_field",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_quoted_identifier",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_literal_number",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_literal_string",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_current_node",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_index",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_subexpression",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_subexpression_append",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_pipe",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_or",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_and",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_not",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_multi_select_list",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_multi_select_hash",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_function",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_function_multiple_args",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_function_no_args",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_star_projection",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_star_nud",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_dot_star",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_filter",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_flatten",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_parenthesized",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_expref",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_nested",
+      "tests_testpilot/test_parser_s8.py::TestParserCache::test_cache_returns_same_object",
+      "tests_testpilot/test_parser_s8.py::TestParserCache::test_cache_key_is_expression",
+      "tests_testpilot/test_parser_s8.py::TestParserCache::test_purge_clears_cache",
+      "tests_testpilot/test_parser_s8.py::TestParserCache::test_cache_new_object_after_purge",
+      "tests_testpilot/test_parser_s8.py::TestParserCache::test_cache_does_not_exceed_max_size",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_invalid_token_nud",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_unexpected_token",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_quoted_identifier_function_name",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_invalid_function_name",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_invalid_function_name_number",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_dot_rhs_error",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_dot_rhs_error_message",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_slice_syntax_error",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_match_eof_raises_incomplete",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_error_sets_expression_attr",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_lexer_error_sets_expression",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_error_led_token",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_lbrace_invalid_key",
+      "tests_testpilot/test_parser_s8.py::TestParsedResult::test_repr",
+      "tests_testpilot/test_parser_s8.py::TestParsedResult::test_expression_attribute",
+      "tests_testpilot/test_parser_s8.py::TestParsedResult::test_search_simple",
+      "tests_testpilot/test_parser_s8.py::TestParsedResult::test_search_missing_key",
+      "tests_testpilot/test_parser_s8.py::TestParsedResult::test_search_nested",
+      "tests_testpilot/test_parser_s8.py::TestParsedResult::test_search_projections",
+      "tests_testpilot/test_parser_s8.py::TestParsedResult::test_search_with_options",
+      "tests_testpilot/test_parser_s8.py::TestParsedResult::test_render_dot_file",
+      "tests_testpilot/test_parser_s8.py::TestParserLookaheadInit::test_custom_lookahead",
+      "tests_testpilot/test_parser_s8.py::TestParserLookaheadInit::test_reuse_parser",
+      "tests_testpilot/test_parser_s8.py::TestParserLookaheadInit::test_binding_power_values"
+    ],
+    "invalid": {
+      "tests_testpilot/test_parser_s1.py::TestParserErrors::test_incomplete_expression_error": "run 1: failed: jmespath.exceptions.EmptyExpressionError: Invalid JMESPath expression: cannot be empty.",
+      "tests_testpilot/test_parser_s2.py::TestParserErrors::test_empty_expression_raises_incomplete": "run 1: failed: jmespath.exceptions.EmptyExpressionError: Invalid JMESPath expression: cannot be empty.",
+      "tests_testpilot/test_parser_s3.py::test_parse_slice": "run 1: failed: IndexError: list index out of range",
+      "tests_testpilot/test_parser_s3.py::test_parse_slice_with_missing_parts": "run 1: failed: IndexError: list index out of range",
+      "tests_testpilot/test_parser_s3.py::test_parse_literal": "run 1: failed: AssertionError: assert {'type': 'lit...children': []} == {'type': 'lit...', 'value': 1}",
+      "tests_testpilot/test_parser_s3.py::test_parse_current_node": "run 1: failed: AssertionError: assert 'current' == 'current_node'",
+      "tests_testpilot/test_parser_s3.py::test_parse_negative_number_in_parens": "run 1: failed: jmespath.exceptions.ParseError: invalid token: Parse error at column 1, token \"-1\" (NUMBER), for expression:",
+      "tests_testpilot/test_parser_s3.py::test_parse_empty_expression_raises_incomplete": "run 1: failed: jmespath.exceptions.EmptyExpressionError: Invalid JMESPath expression: cannot be empty.",
+      "tests_testpilot/test_parser_s3.py::test_parse_incomplete_dot_raises": "run 1: failed: jmespath.exceptions.ParseError: Expecting: ['quoted_identifier', 'unquoted_identifier', 'lbracket', 'lbrace'], got: eof: Parse error at column 4, token \"\" (EOF), for expression:",
+      "tests_testpilot/test_parser_s3.py::test_incomplete_expression_error_has_expression": "run 1: failed: jmespath.exceptions.ParseError: Expecting: ['quoted_identifier', 'unquoted_identifier', 'lbracket', 'lbrace'], got: eof: Parse error at column 4, token \"\" (EOF), for expression:",
+      "tests_testpilot/test_parser_s3.py::test_parse_resets_index": "run 1: failed: AssertionError: assert 1 == 2",
+      "tests_testpilot/test_parser_s4.py::test_parse_returns_parsed_result": "run 1: failed: TypeError: isinstance() arg 2 must be a type, a tuple of types, or a union",
+      "tests_testpilot/test_parser_s4.py::test_parse_unquoted_identifier": "run 1: failed: TypeError: isinstance() arg 2 must be a type, a tuple of types, or a union",
+      "tests_testpilot/test_parser_s4.py::test_parse_quoted_identifier": "run 1: failed: TypeError: isinstance() arg 2 must be a type, a tuple of types, or a union",
+      "tests_testpilot/test_parser_s4.py::test_parse_literal": "run 1: failed: TypeError: isinstance() arg 2 must be a type, a tuple of types, or a union",
+      "tests_testpilot/test_parser_s4.py::test_parse_current_node": "run 1: failed: TypeError: isinstance() arg 2 must be a type, a tuple of types, or a union",
+      "tests_testpilot/test_parser_s4.py::test_parse_comparators": "run 1: failed: AssertionError: assert {'type': 'field', 'children': [], 'value': 'a'} == 'eq'",
+      "tests_testpilot/test_parser_s4.py::test_parse_function_expression": "run 1: failed: AssertionError: assert [{'type': 'cu...hildren': []}] == []",
+      "tests_testpilot/test_parser_s4.py::test_incomplete_expression_empty_string": "run 1: failed: jmespath.exceptions.EmptyExpressionError: Invalid JMESPath expression: cannot be empty.",
+      "tests_testpilot/test_parser_s4.py::test_incomplete_expression_sets_expression": "run 1: failed: jmespath.exceptions.ParseError: Expecting: ['quoted_identifier', 'unquoted_identifier', 'lbracket', 'lbrace'], got: eof: Parse error at column 4, token \"\" (EOF), for expression:",
+      "tests_testpilot/test_parser_s4.py::test_lexer_error_sets_expression": "run 1: failed: jmespath.exceptions.ParseError: Unexpected token: ]: Parse error at column 3, token \"]\" (RBRACKET), for expression:",
+      "tests_testpilot/test_parser_s4.py::test_invalid_function_name": "run 1: failed: Failed: DID NOT RAISE ParseError",
+      "tests_testpilot/test_parser_s5.py::TestParserErrors::test_incomplete_expression": "run 1: failed: jmespath.exceptions.EmptyExpressionError: Invalid JMESPath expression: cannot be empty.",
+      "tests_testpilot/test_parser_s5.py::TestParserErrors::test_incomplete_expression_sets_expression": "run 1: failed: jmespath.exceptions.ParseError: Expecting: ['quoted_identifier', 'unquoted_identifier', 'lbracket', 'lbrace'], got: eof: Parse error at column 4, token \"\" (EOF), for expression:",
+      "tests_testpilot/test_parser_s5.py::TestParserErrors::test_lexer_error_sets_expression": "run 1: failed: jmespath.exceptions.ParseError: Unexpected token: bar: Parse error at column 3, token \"bar\" (QUOTED_IDENTIFIER), for expression:",
+      "tests_testpilot/test_parser_s5.py::TestSliceParsing::test_slice_invalid_token": "run 1: failed: assert 'syntax error' in 'Expecting: comma, got: colon: Parse error at column 2, token \":\" (COLON), for expression:\\n\"[a:b]\"\\n   ^'",
+      "tests_testpilot/test_parser_s5.py::TestSliceParsing::test_slice_missing_rbracket": "run 1: failed: jmespath.exceptions.ParseError: syntax error: Parse error at column 4, token \"\" (EOF), for expression:",
+      "tests_testpilot/test_parser_s5.py::TestErrorNudToken::test_error_nud_eof": "run 1: failed: jmespath.exceptions.ParseError: invalid token: Parse error at column 0, token \".\" (DOT), for expression:",
+      "tests_testpilot/test_parser_s7.py::TestParserParse::test_parse_multi_select_hash": "run 1: failed: AssertionError: assert {'type': 'field', 'children': [], 'value': 'bar'} == 'foo'",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_empty_expression_raises_incomplete": "run 1: failed: jmespath.exceptions.EmptyExpressionError: Invalid JMESPath expression: cannot be empty.",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_invalid_function_name_error": "run 1: failed: Failed: DID NOT RAISE ParseError",
+      "tests_testpilot/test_parser_s7.py::TestParserErrors::test_incomplete_error_gets_expression": "run 1: failed: jmespath.exceptions.ParseError: Expecting: ['quoted_identifier', 'unquoted_identifier', 'lbracket', 'lbrace'], got: eof: Parse error at column 4, token \"\" (EOF), for expression:",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_slice": "run 1: failed: AssertionError: assert {'type': 'sli... [1, 3, None]} == {'type': 'sli...'step': None}}",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_slice_full": "run 1: failed: KeyError: 'value'",
+      "tests_testpilot/test_parser_s8.py::TestParserBasicParsing::test_parse_comparators": "run 1: failed: AssertionError: assert {'type': 'com...'value': 'eq'} == {'type': 'com...'value': '=='}",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_incomplete_expression_empty": "run 1: failed: jmespath.exceptions.EmptyExpressionError: Invalid JMESPath expression: cannot be empty.",
+      "tests_testpilot/test_parser_s8.py::TestParserErrors::test_incomplete_expression_dot": "run 1: failed: jmespath.exceptions.ParseError: Expecting: ['quoted_identifier', 'unquoted_identifier', 'lbracket', 'lbrace'], got: eof: Parse error at column 4, token \"\" (EOF), for expression:"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 5.58,
+        "passed": 358,
+        "failed": 37,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 5.44,
+        "passed": 358,
+        "failed": 37,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 5.25,
+        "passed": 358,
+        "failed": 37,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9777777777777777,
+  "branch_rate": 0.9166666666666666,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8091286307053942,
+    "total": 725,
+    "killed": 585,
+    "survived": 138,
+    "excluded": 2,
+    "status_counts": {
+      "killed": 585,
+      "survived": 132,
+      "timeout": 2,
+      "no tests": 6
+    },
+    "survivors": [
+      {
+        "line": 124,
+        "original": "t = self._lookahead_token(0)",
+        "mutated": "t = self._lookahead_token(1)",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "raise exceptions.ParseError(t['start'], t['value'], t['type'],",
+        "mutated": "raise exceptions.ParseError(t['start'], None, t['type'],",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "\"Unexpected token: %s\" % t['value'])",
+        "mutated": "\"XXUnexpected token: %sXX\" % t['value'])",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "def _expression(self, binding_power=0):",
+        "mutated": "def _expression(self, binding_power=1):",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "led = getattr(self, '_token_led_%s' % current_token, None)",
+        "mutated": "led = getattr(self, '_token_led_%s' % current_token, )",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "error_token = self._lookahead_token(0)",
+        "mutated": "error_token = None",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "error_token = self._lookahead_token(0)",
+        "mutated": "error_token = self._lookahead_token(None)",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "error_token = self._lookahead_token(0)",
+        "mutated": "error_token = self._lookahead_token(1)",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "self._error_led_token(error_token)",
+        "mutated": "self._error_led_token(None)",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "t = self._lookahead_token(0)",
+        "mutated": "t = self._lookahead_token(1)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "0, t['value'], t['type'],",
+        "mutated": "0, None, t['type'],",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "0, t['value'], t['type'],",
+        "mutated": "1, t['value'], t['type'],",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "'Quoted identifier not allowed for function names.')",
+        "mutated": "'XXQuoted identifier not allowed for function names.XX')",
+        "status": "survived"
+      },
+      {
+        "line": 166,
+        "original": "left = ast.identity()",
+        "mutated": "left = None",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "if self._current_token() == 'rbracket':",
+        "mutated": "if self._current_token() != 'rbracket':",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "if self._current_token() == 'rbracket':",
+        "mutated": "if self._current_token() == 'XXrbracketXX':",
+        "status": "survived"
+      },
+      {
+        "line": 167,
+        "original": "if self._current_token() == 'rbracket':",
+        "mutated": "if self._current_token() == 'RBRACKET':",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "right = ast.identity()",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 170,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['star'])",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 170,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['star'])",
+        "mutated": "right = self._parse_projection_rhs(None)",
+        "status": "survived"
+      },
+      {
+        "line": 171,
+        "original": "return ast.value_projection(left, right)",
+        "mutated": "return ast.value_projection(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 171,
+        "original": "return ast.value_projection(left, right)",
+        "mutated": "return ast.value_projection(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "return self._token_led_filter(ast.identity())",
+        "mutated": "return self._token_led_filter(None)",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "left = ast.flatten(ast.identity())",
+        "mutated": "left = None",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "left = ast.flatten(ast.identity())",
+        "mutated": "left = ast.flatten(None)",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "right = self._parse_projection_rhs(\n        self.BINDING_POWER['flatten'])",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "self.BINDING_POWER['flatten'])",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "return ast.projection(left, right)",
+        "mutated": "return ast.projection(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "return ast.projection(left, right)",
+        "mutated": "return ast.projection(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "return ast.not_expression(expr)",
+        "mutated": "return ast.not_expression(None)",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "return self._project_if_slice(ast.identity(), right)",
+        "mutated": "return self._project_if_slice(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "elif self._current_token() == 'star' and \\\n                self._lookahead(1) == 'rbracket':",
+        "mutated": "elif self._current_token() == 'star' or self._lookahead(1) == 'rbracket':",
+        "status": "survived"
+      },
+      {
+        "line": 206,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['star'])",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 206,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['star'])",
+        "mutated": "right = self._parse_projection_rhs(None)",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "return ast.projection(ast.identity(), right)",
+        "mutated": "return ast.projection(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "return ast.projection(ast.identity(), right)",
+        "mutated": "return ast.projection(ast.identity(), None)",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "if (self._lookahead(0) == 'colon' or",
+        "mutated": "if (self._lookahead(1) == 'colon' or",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "if (self._lookahead(0) == 'colon' or",
+        "mutated": "if (self._lookahead(0) == 'XXcolonXX' or",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "if (self._lookahead(0) == 'colon' or",
+        "mutated": "if (self._lookahead(0) == 'COLON' or",
+        "status": "survived"
+      },
+      {
+        "line": 233,
+        "original": "while not current_token == 'rbracket' and index < 3:",
+        "mutated": "while not current_token == 'rbracket' and index <= 3:",
+        "status": "survived"
+      },
+      {
+        "line": 233,
+        "original": "while not current_token == 'rbracket' and index < 3:",
+        "mutated": "while not current_token == 'rbracket' and index < 4:",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(1), 'syntax error')",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(0), 'XXsyntax errorXX')",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(0), None)",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(1), 'syntax error')",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(0), 'XXsyntax errorXX')",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "self._lookahead_token(0), 'syntax error')",
+        "mutated": "self._lookahead_token(0), 'SYNTAX ERROR')",
+        "status": "survived"
+      },
+      {
+        "line": 270,
+        "original": "return ast.value_projection(left, right)",
+        "mutated": "return ast.value_projection(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 270,
+        "original": "return ast.value_projection(left, right)",
+        "mutated": "return ast.value_projection(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 282,
+        "original": "return ast.and_expression(left, right)",
+        "mutated": "return ast.and_expression(None, right)",
+        "status": "survived"
+      },
+      {
+        "line": 282,
+        "original": "return ast.and_expression(left, right)",
+        "mutated": "return ast.and_expression(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 289,
+        "original": "prev_t = self._lookahead_token(-2)",
+        "mutated": "prev_t = self._lookahead_token(-3)",
+        "status": "survived"
+      },
+      {
+        "line": 291,
+        "original": "prev_t['start'], prev_t['value'], prev_t['type'],",
+        "mutated": "prev_t['start'], None, prev_t['type'],",
+        "status": "survived"
+      },
+      {
+        "line": 292,
+        "original": "\"Invalid function name '%s'\" % prev_t['value'])",
+        "mutated": "\"XXInvalid function name '%s'XX\" % prev_t['value'])",
+        "status": "survived"
+      },
+      {
+        "line": 306,
+        "original": "condition = self._expression(0)",
+        "mutated": "condition = self._expression(1)",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "if self._current_token() == 'flatten':",
+        "mutated": "if self._current_token() != 'flatten':",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "if self._current_token() == 'flatten':",
+        "mutated": "if self._current_token() == 'XXflattenXX':",
+        "status": "survived"
+      },
+      {
+        "line": 308,
+        "original": "if self._current_token() == 'flatten':",
+        "mutated": "if self._current_token() == 'FLATTEN':",
+        "status": "survived"
+      },
+      {
+        "line": 309,
+        "original": "right = ast.identity()",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['filter'])",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "right = self._parse_projection_rhs(self.BINDING_POWER['filter'])",
+        "mutated": "right = self._parse_projection_rhs(None)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "return ast.filter_projection(left, right, condition)",
+        "mutated": "return ast.filter_projection(None, right, condition)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "return ast.filter_projection(left, right, condition)",
+        "mutated": "return ast.filter_projection(left, None, condition)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "return ast.filter_projection(left, right, condition)",
+        "mutated": "return ast.filter_projection(left, right, None)",
+        "status": "survived"
+      },
+      {
+        "line": 318,
+        "original": "return self._parse_comparator(left, 'ne')",
+        "mutated": "return self._parse_comparator(None, 'ne')",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return self._parse_comparator(left, 'gt')",
+        "mutated": "return self._parse_comparator(None, 'gt')",
+        "status": "survived"
+      },
+      {
+        "line": 324,
+        "original": "return self._parse_comparator(left, 'gte')",
+        "mutated": "return self._parse_comparator(None, 'gte')",
+        "status": "survived"
+      },
+      {
+        "line": 327,
+        "original": "return self._parse_comparator(left, 'lt')",
+        "mutated": "return self._parse_comparator(None, 'lt')",
+        "status": "survived"
+      },
+      {
+        "line": 330,
+        "original": "return self._parse_comparator(left, 'lte')",
+        "mutated": "return self._parse_comparator(None, 'lte')",
+        "status": "survived"
+      },
+      {
+        "line": 333,
+        "original": "left = ast.flatten(left)",
+        "mutated": "left = ast.flatten(None)",
+        "status": "survived"
+      },
+      {
+        "line": 334,
+        "original": "right = self._parse_projection_rhs(\n        self.BINDING_POWER['flatten'])",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 335,
+        "original": "self.BINDING_POWER['flatten'])",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 336,
+        "original": "return ast.projection(left, right)",
+        "mutated": "return ast.projection(left, None)",
+        "status": "survived"
+      },
+      {
+        "line": 340,
+        "original": "if token['type'] in ['number', 'colon']:",
+        "mutated": "if token['type'] in ['number', 'XXcolonXX']:",
+        "status": "survived"
+      },
+      {
+        "line": 340,
+        "original": "if token['type'] in ['number', 'colon']:",
+        "mutated": "if token['type'] in ['number', 'COLON']:",
+        "status": "survived"
+      },
+      {
+        "line": 362,
+        "original": "self._parse_projection_rhs(self.BINDING_POWER['star']))",
+        "mutated": "self._parse_projection_rhs(None))",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "value = self._expression(0)",
+        "mutated": "value = self._expression(1)",
+        "status": "survived"
+      },
+      {
+        "line": 404,
+        "original": "if self.BINDING_POWER[self._current_token()] < self._PROJECTION_STOP:",
+        "mutated": "if self.BINDING_POWER[self._current_token()] <= self._PROJECTION_STOP:",
+        "status": "survived"
+      },
+      {
+        "line": 407,
+        "original": "elif self._current_token() == 'lbracket':",
+        "mutated": "elif self._current_token() == 'XXlbracketXX':",
+        "status": "survived"
+      },
+      {
+        "line": 407,
+        "original": "elif self._current_token() == 'lbracket':",
+        "mutated": "elif self._current_token() == 'LBRACKET':",
+        "status": "survived"
+      },
+      {
+        "line": 408,
+        "original": "right = self._expression(binding_power)",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 408,
+        "original": "right = self._expression(binding_power)",
+        "mutated": "right = self._expression(None)",
+        "status": "survived"
+      },
+      {
+        "line": 409,
+        "original": "elif self._current_token() == 'filter':",
+        "mutated": "elif self._current_token() == 'XXfilterXX':",
+        "status": "survived"
+      },
+      {
+        "line": 409,
+        "original": "elif self._current_token() == 'filter':",
+        "mutated": "elif self._current_token() == 'FILTER':",
+        "status": "survived"
+      },
+      {
+        "line": 410,
+        "original": "right = self._expression(binding_power)",
+        "mutated": "right = None",
+        "status": "survived"
+      },
+      {
+        "line": 410,
+        "original": "right = self._expression(binding_power)",
+        "mutated": "right = self._expression(None)",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "self._raise_parse_error_for_token(self._lookahead_token(0),",
+        "mutated": "self._raise_parse_error_for_token(None,",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "'syntax error')",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "self._raise_parse_error_for_token(self._lookahead_token(0),\n                                          'syntax error')",
+        "mutated": "self._raise_parse_error_for_token('syntax error')",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "'syntax error')",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "self._raise_parse_error_for_token(self._lookahead_token(0),",
+        "mutated": "self._raise_parse_error_for_token(self._lookahead_token(None),",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "self._raise_parse_error_for_token(self._lookahead_token(0),",
+        "mutated": "self._raise_parse_error_for_token(self._lookahead_token(1),",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "'syntax error')",
+        "mutated": "'XXsyntax errorXX')",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "'syntax error')",
+        "mutated": "'SYNTAX ERROR')",
+        "status": "survived"
+      },
+      {
+        "line": 430,
+        "original": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'star']:",
+        "mutated": "if lookahead in ['XXquoted_identifierXX', 'unquoted_identifier', 'star']:",
+        "status": "survived"
+      },
+      {
+        "line": 430,
+        "original": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'star']:",
+        "mutated": "if lookahead in ['QUOTED_IDENTIFIER', 'unquoted_identifier', 'star']:",
+        "status": "survived"
+      },
+      {
+        "line": 430,
+        "original": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'star']:",
+        "mutated": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'XXstarXX']:",
+        "status": "survived"
+      },
+      {
+        "line": 430,
+        "original": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'star']:",
+        "mutated": "if lookahead in ['quoted_identifier', 'unquoted_identifier', 'STAR']:",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "t = self._lookahead_token(0)",
+        "mutated": "t = self._lookahead_token(1)",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',\n                   'lbracket', 'lbrace']",
+        "mutated": "allowed = None",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',",
+        "mutated": "allowed = ['XXquoted_identifierXX', 'unquoted_identifier',",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',",
+        "mutated": "allowed = ['QUOTED_IDENTIFIER', 'unquoted_identifier',",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',",
+        "mutated": "allowed = ['quoted_identifier', 'XXunquoted_identifierXX',",
+        "status": "survived"
+      },
+      {
+        "line": 440,
+        "original": "allowed = ['quoted_identifier', 'unquoted_identifier',",
+        "mutated": "allowed = ['quoted_identifier', 'UNQUOTED_IDENTIFIER',",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "'lbracket', 'lbrace']",
+        "mutated": "'XXlbracketXX', 'lbrace']",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "'lbracket', 'lbrace']",
+        "mutated": "'LBRACKET', 'lbrace']",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "'lbracket', 'lbrace']",
+        "mutated": "'lbracket', 'XXlbraceXX']",
+        "status": "survived"
+      },
+      {
+        "line": 441,
+        "original": "'lbracket', 'lbrace']",
+        "mutated": "'lbracket', 'LBRACE']",
+        "status": "survived"
+      },
+      {
+        "line": 443,
+        "original": "\"Expecting: %s, got: %s\" % (allowed, t['type'])",
+        "mutated": "\"XXExpecting: %s, got: %sXX\" % (allowed, t['type'])",
+        "status": "survived"
+      },
+      {
+        "line": 450,
+        "original": "token['start'], token['value'], token['type'])",
+        "mutated": "None, token['value'], token['type'])",
+        "status": "survived"
+      },
+      {
+        "line": 450,
+        "original": "token['start'], token['value'], token['type'])",
+        "mutated": "token['start'], None, token['type'])",
+        "status": "survived"
+      },
+      {
+        "line": 451,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, 'XXinvalid tokenXX')",
+        "status": "survived"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(None, 'invalid token')",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token('invalid token')",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, )",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, 'XXinvalid tokenXX')",
+        "status": "no tests"
+      },
+      {
+        "line": 454,
+        "original": "self._raise_parse_error_for_token(token, 'invalid token')",
+        "mutated": "self._raise_parse_error_for_token(token, 'INVALID TOKEN')",
+        "status": "no tests"
+      },
+      {
+        "line": 463,
+        "original": "token_type, self._lookahead_token(0))",
+        "mutated": "None, self._lookahead_token(0))",
+        "status": "survived"
+      },
+      {
+        "line": 468,
+        "original": "token_types, self._lookahead_token(0))",
+        "mutated": "None, self._lookahead_token(0))",
+        "status": "survived"
+      },
+      {
+        "line": 468,
+        "original": "token_types, self._lookahead_token(0))",
+        "mutated": "token_types, self._lookahead_token(1))",
+        "status": "survived"
+      },
+      {
+        "line": 485,
+        "original": "actual_value = token['value']",
+        "mutated": "actual_value = None",
+        "status": "survived"
+      },
+      {
+        "line": 487,
+        "original": "raise exceptions.ParseError(lex_position, actual_value,",
+        "mutated": "raise exceptions.ParseError(lex_position, None,",
+        "status": "survived"
+      },
+      {
+        "line": 491,
+        "original": "lex_position = token['start']",
+        "mutated": "lex_position = None",
+        "status": "survived"
+      },
+      {
+        "line": 492,
+        "original": "actual_value = token['value']",
+        "mutated": "actual_value = None",
+        "status": "survived"
+      },
+      {
+        "line": 496,
+        "original": "lex_position, actual_value, actual_type)",
+        "mutated": "None, actual_value, actual_type)",
+        "status": "survived"
+      },
+      {
+        "line": 496,
+        "original": "lex_position, actual_value, actual_type)",
+        "mutated": "lex_position, None, actual_type)",
+        "status": "survived"
+      },
+      {
+        "line": 497,
+        "original": "message = 'Expecting: %s, got: %s' % (expected_type,\n                                          actual_type)",
+        "mutated": "message = None",
+        "status": "survived"
+      },
+      {
+        "line": 497,
+        "original": "message = 'Expecting: %s, got: %s' % (expected_type,",
+        "mutated": "message = 'XXExpecting: %s, got: %sXX' % (expected_type,",
+        "status": "survived"
+      },
+      {
+        "line": 497,
+        "original": "message = 'Expecting: %s, got: %s' % (expected_type,",
+        "mutated": "message = 'expecting: %s, got: %s' % (expected_type,",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "None, actual_value, actual_type, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, None, actual_type, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, actual_value, actual_type, None)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "actual_value, actual_type, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, actual_type, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, actual_value, message)",
+        "status": "survived"
+      },
+      {
+        "line": 500,
+        "original": "lex_position, actual_value, actual_type, message)",
+        "mutated": "lex_position, actual_value, actual_type, )",
+        "status": "survived"
+      },
+      {
+        "line": 515,
+        "original": "interpreter = visitor.TreeInterpreter(options)",
+        "mutated": "interpreter = visitor.TreeInterpreter(None)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 16.34,
+    "coverage": 7.17,
+    "mutation": 73.32
+  }
+}

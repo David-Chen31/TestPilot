@@ -1,0 +1,441 @@
+{
+  "target": "src/humanize/number.py",
+  "validity": {
+    "total": 52,
+    "valid": 52,
+    "valid_ids": [
+      "tests_testpilot/test_number.py::test_ordinal",
+      "tests_testpilot/test_number.py::test_ordinal_strings_and_floats",
+      "tests_testpilot/test_number.py::test_ordinal_gender",
+      "tests_testpilot/test_number.py::test_ordinal_not_finite",
+      "tests_testpilot/test_number.py::test_intcomma_defaults",
+      "tests_testpilot/test_number.py::test_intcomma_ndigits",
+      "tests_testpilot/test_number.py::test_intcomma_string_with_commas",
+      "tests_testpilot/test_number.py::test_intcomma_unparseable",
+      "tests_testpilot/test_number.py::test_intcomma_not_finite",
+      "tests_testpilot/test_number.py::test_intword_basic",
+      "tests_testpilot/test_number.py::test_intword_negative",
+      "tests_testpilot/test_number.py::test_intword_format",
+      "tests_testpilot/test_number.py::test_intword_unparseable",
+      "tests_testpilot/test_number.py::test_intword_not_finite",
+      "tests_testpilot/test_number.py::test_intword_carry_to_next_power",
+      "tests_testpilot/test_number.py::test_intword_googol",
+      "tests_testpilot/test_number.py::test_intword_just_below_thousand",
+      "tests_testpilot/test_number.py::test_apnumber",
+      "tests_testpilot/test_number.py::test_apnumber_strings",
+      "tests_testpilot/test_number.py::test_apnumber_unparseable",
+      "tests_testpilot/test_number.py::test_apnumber_not_finite",
+      "tests_testpilot/test_number.py::test_apnumber_negative",
+      "tests_testpilot/test_number.py::test_fractional_basic",
+      "tests_testpilot/test_number.py::test_fractional_unparseable",
+      "tests_testpilot/test_number.py::test_fractional_not_finite",
+      "tests_testpilot/test_number.py::test_fractional_negative",
+      "tests_testpilot/test_number.py::test_fractional_rounds_to_whole",
+      "tests_testpilot/test_number.py::test_fractional_denominator_limit",
+      "tests_testpilot/test_number.py::test_scientific_basic",
+      "tests_testpilot/test_number.py::test_scientific_strings",
+      "tests_testpilot/test_number.py::test_scientific_unparseable",
+      "tests_testpilot/test_number.py::test_scientific_not_finite",
+      "tests_testpilot/test_number.py::test_scientific_zero",
+      "tests_testpilot/test_number.py::test_clamp_no_limits",
+      "tests_testpilot/test_number.py::test_clamp_floor",
+      "tests_testpilot/test_number.py::test_clamp_ceil_format",
+      "tests_testpilot/test_number.py::test_clamp_callable_format",
+      "tests_testpilot/test_number.py::test_clamp_none",
+      "tests_testpilot/test_number.py::test_clamp_not_finite",
+      "tests_testpilot/test_number.py::test_clamp_custom_tokens",
+      "tests_testpilot/test_number.py::test_clamp_invalid_format",
+      "tests_testpilot/test_number.py::test_clamp_inside_bounds",
+      "tests_testpilot/test_number.py::test_metric_basic",
+      "tests_testpilot/test_number.py::test_metric_no_unit",
+      "tests_testpilot/test_number.py::test_metric_scientific_fallback",
+      "tests_testpilot/test_number.py::test_metric_not_finite",
+      "tests_testpilot/test_number.py::test_metric_zero",
+      "tests_testpilot/test_number.py::test_metric_degree_units",
+      "tests_testpilot/test_number.py::test_metric_small_numbers",
+      "tests_testpilot/test_number.py::test_metric_large_numbers",
+      "tests_testpilot/test_number.py::test_metric_rounding_carry",
+      "tests_testpilot/test_number.py::test_metric_precision"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.45,
+        "passed": 83,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.7,
+        "passed": 83,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.75,
+        "passed": 83,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9884393063583815,
+  "branch_rate": 0.9696969696969697,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8575197889182058,
+    "total": 379,
+    "killed": 325,
+    "survived": 54,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 325,
+      "survived": 54
+    },
+    "survivors": [
+      {
+        "line": 86,
+        "original": "if math.isinf(value) and value < 0:",
+        "mutated": "if math.isinf(value) and value <= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "if math.isinf(value) and value < 0:",
+        "mutated": "if math.isinf(value) and value < 1:",
+        "status": "survived"
+      },
+      {
+        "line": 88,
+        "original": "if math.isinf(value) and value > 0:",
+        "mutated": "if math.isinf(value) or value > 0:",
+        "status": "survived"
+      },
+      {
+        "line": 88,
+        "original": "if math.isinf(value) and value > 0:",
+        "mutated": "if math.isinf(value) and value >= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 88,
+        "original": "if math.isinf(value) and value > 0:",
+        "mutated": "if math.isinf(value) and value > 1:",
+        "status": "survived"
+      },
+      {
+        "line": 90,
+        "original": "return \"\"",
+        "mutated": "return \"XXXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 93,
+        "original": "def ordinal(value: NumberOrString, gender: str = \"male\") -> str:",
+        "mutated": "def ordinal(value: NumberOrString, gender: str = \"XXmaleXX\") -> str:",
+        "status": "survived"
+      },
+      {
+        "line": 93,
+        "original": "def ordinal(value: NumberOrString, gender: str = \"male\") -> str:",
+        "mutated": "def ordinal(value: NumberOrString, gender: str = \"MALE\") -> str:",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "gender = \"male\" if gender == \"male\" else \"female\"",
+        "mutated": "gender = \"male\" if (gender == \"male\") and False else \"female\"",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "gender = \"male\" if gender == \"male\" else \"female\"",
+        "mutated": "gender = \"male\" if (gender == \"male\") or True else \"female\"",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "gender = \"male\" if gender == \"male\" else \"female\"",
+        "mutated": "gender = \"male\" if gender != \"male\" else \"female\"",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "gender = \"male\" if gender == \"male\" else \"female\"",
+        "mutated": "gender = \"male\" if gender == \"XXmaleXX\" else \"female\"",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "gender = \"male\" if gender == \"male\" else \"female\"",
+        "mutated": "gender = \"male\" if gender == \"MALE\" else \"female\"",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if thousands_sep != \",\" or decimal_sep != \".\":",
+        "mutated": "if thousands_sep != \",\" and decimal_sep != \".\":",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if thousands_sep != \",\" or decimal_sep != \".\":",
+        "mutated": "if thousands_sep == \",\" or decimal_sep != \".\":",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if thousands_sep != \",\" or decimal_sep != \".\":",
+        "mutated": "if thousands_sep != \"XX,XX\" or decimal_sep != \".\":",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if thousands_sep != \",\" or decimal_sep != \".\":",
+        "mutated": "if thousands_sep != \",\" or decimal_sep == \".\":",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if thousands_sep != \",\" or decimal_sep != \".\":",
+        "mutated": "if thousands_sep != \",\" or decimal_sep != \"XX.XX\":",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "result = result.translate(str.maketrans(\",.\", thousands_sep + decimal_sep))",
+        "mutated": "result = None",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "result = result.translate(str.maketrans(\",.\", thousands_sep + decimal_sep))",
+        "mutated": "result = result.translate(None)",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "result = result.translate(str.maketrans(\",.\", thousands_sep + decimal_sep))",
+        "mutated": "result = result.translate(str.maketrans(None, thousands_sep + decimal_sep))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "result = result.translate(str.maketrans(\",.\", thousands_sep + decimal_sep))",
+        "mutated": "result = result.translate(str.maketrans(\",.\", None))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "result = result.translate(str.maketrans(\",.\", thousands_sep + decimal_sep))",
+        "mutated": "result = result.translate(str.maketrans(thousands_sep + decimal_sep))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "result = result.translate(str.maketrans(\",.\", thousands_sep + decimal_sep))",
+        "mutated": "result = result.translate(str.maketrans(\",.\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "result = result.translate(str.maketrans(\",.\", thousands_sep + decimal_sep))",
+        "mutated": "result = result.translate(str.maketrans(\"XX,.XX\", thousands_sep + decimal_sep))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "result = result.translate(str.maketrans(\",.\", thousands_sep + decimal_sep))",
+        "mutated": "result = result.translate(str.maketrans(\",.\", thousands_sep - decimal_sep))",
+        "status": "survived"
+      },
+      {
+        "line": 223,
+        "original": "def intword(value: NumberOrString, format: str = \"%.1f\") -> str:",
+        "mutated": "def intword(value: NumberOrString, format: str = \"%.1F\") -> str:",
+        "status": "survived"
+      },
+      {
+        "line": 267,
+        "original": "if value < 0:",
+        "mutated": "if value <= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 267,
+        "original": "if value < 0:",
+        "mutated": "if value < 1:",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "if not largest_ordinal and rounded_value == powers[ordinal + 1] // power:",
+        "mutated": "if not largest_ordinal and rounded_value == powers[ordinal + 1] / power:",
+        "status": "survived"
+      },
+      {
+        "line": 295,
+        "original": "unit = _ngettext(singular, plural, math.ceil(rounded_value))",
+        "mutated": "unit = _ngettext(singular, plural, None)",
+        "status": "survived"
+      },
+      {
+        "line": 297,
+        "original": "number = (format % rounded_value).replace(\".\", decimal_sep)",
+        "mutated": "number = (format % rounded_value).replace(\"XX.XX\", decimal_sep)",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "frac = Fraction(number - whole_number).limit_denominator(1000)",
+        "mutated": "frac = Fraction(number - whole_number).limit_denominator(1001)",
+        "status": "survived"
+      },
+      {
+        "line": 515,
+        "original": "if floor is not None and value < floor:",
+        "mutated": "if floor is not None and value <= floor:",
+        "status": "survived"
+      },
+      {
+        "line": 530,
+        "original": "msg = (\n        \"Invalid format. Must be either a valid formatting string, or a function \"\n        \"that accepts value and returns a string.\"\n    )",
+        "mutated": "msg = None",
+        "status": "survived"
+      },
+      {
+        "line": 531,
+        "original": "\"Invalid format. Must be either a valid formatting string, or a function \"",
+        "mutated": "\"XXInvalid format. Must be either a valid formatting string, or a function XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 531,
+        "original": "\"Invalid format. Must be either a valid formatting string, or a function \"",
+        "mutated": "\"invalid format. must be either a valid formatting string, or a function \"",
+        "status": "survived"
+      },
+      {
+        "line": 531,
+        "original": "\"Invalid format. Must be either a valid formatting string, or a function \"",
+        "mutated": "\"INVALID FORMAT. MUST BE EITHER A VALID FORMATTING STRING, OR A FUNCTION \"",
+        "status": "survived"
+      },
+      {
+        "line": 532,
+        "original": "\"that accepts value and returns a string.\"",
+        "mutated": "\"XXthat accepts value and returns a string.XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 532,
+        "original": "\"that accepts value and returns a string.\"",
+        "mutated": "\"THAT ACCEPTS VALUE AND RETURNS A STRING.\"",
+        "status": "survived"
+      },
+      {
+        "line": 534,
+        "original": "raise ValueError(msg)",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 578,
+        "original": "if exponent >= 33 or exponent < -30:",
+        "mutated": "if exponent > 33 or exponent < -30:",
+        "status": "survived"
+      },
+      {
+        "line": 578,
+        "original": "if exponent >= 33 or exponent < -30:",
+        "mutated": "if exponent >= 34 or exponent < -30:",
+        "status": "survived"
+      },
+      {
+        "line": 578,
+        "original": "if exponent >= 33 or exponent < -30:",
+        "mutated": "if exponent >= 33 or exponent <= -30:",
+        "status": "survived"
+      },
+      {
+        "line": 578,
+        "original": "if exponent >= 33 or exponent < -30:",
+        "mutated": "if exponent >= 33 or exponent < -31:",
+        "status": "survived"
+      },
+      {
+        "line": 579,
+        "original": "return scientific(value, precision - 1) + unit",
+        "mutated": "return scientific(value, ) + unit",
+        "status": "survived"
+      },
+      {
+        "line": 585,
+        "original": "if exponent < 30 and round(abs(value), digits) >= 10 ** (exponent % 3 + 1):",
+        "mutated": "if exponent <= 30 and round(abs(value), digits) >= 10 ** (exponent % 3 + 1):",
+        "status": "survived"
+      },
+      {
+        "line": 585,
+        "original": "if exponent < 30 and round(abs(value), digits) >= 10 ** (exponent % 3 + 1):",
+        "mutated": "if exponent < 31 and round(abs(value), digits) >= 10 ** (exponent % 3 + 1):",
+        "status": "survived"
+      },
+      {
+        "line": 585,
+        "original": "if exponent < 30 and round(abs(value), digits) >= 10 ** (exponent % 3 + 1):",
+        "mutated": "if exponent < 30 and round(abs(value), None) >= 10 ** (exponent % 3 + 1):",
+        "status": "survived"
+      },
+      {
+        "line": 585,
+        "original": "if exponent < 30 and round(abs(value), digits) >= 10 ** (exponent % 3 + 1):",
+        "mutated": "if exponent < 30 and round(abs(value), ) >= 10 ** (exponent % 3 + 1):",
+        "status": "survived"
+      },
+      {
+        "line": 587,
+        "original": "new_bucket = exponent // 3 * 3",
+        "mutated": "new_bucket = exponent // 4 * 3",
+        "status": "survived"
+      },
+      {
+        "line": 588,
+        "original": "value /= 10 ** (new_bucket - old_bucket)",
+        "mutated": "value *= 10 ** (new_bucket - old_bucket)",
+        "status": "survived"
+      },
+      {
+        "line": 588,
+        "original": "value /= 10 ** (new_bucket - old_bucket)",
+        "mutated": "value /= 11 ** (new_bucket - old_bucket)",
+        "status": "survived"
+      },
+      {
+        "line": 589,
+        "original": "digits = int(max(0, precision - exponent % 3 - 1))",
+        "mutated": "digits = int(max(1, precision - exponent % 3 - 1))",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.91,
+    "coverage": 3.38,
+    "mutation": 21.86
+  }
+}

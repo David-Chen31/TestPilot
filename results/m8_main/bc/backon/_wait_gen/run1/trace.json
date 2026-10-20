@@ -1,0 +1,866 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T06:30:20+00:00",
+    "duration": 0.01,
+    "summary": "2 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "backon/_wait_gen.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "wait_chain",
+      "wait_combine"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T06:30:20+00:00",
+    "duration": 0.04,
+    "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 11905 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "backon/_wait_gen.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/abc.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/abc.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/abc/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/abc/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "wait_chain(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "wait_combine(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `backon._wait_gen` (file `backon/_wait_gen.py`).\n\nSource of `backon/_wait_gen.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | from __future__ import annotations\n    2 | \n    3 | import itertools\n    4 | import math\n    5 | import random\n    6 | from collections.abc import Callable, Iterator, Sequence\n    7 | from typing import Any\n    8 | \n    9 | \n   10 | class _Wait:\n   11 |     def __init__(self, *args: Any, **kwargs: Any) -> None:\n   12 |         self._args = args\n   13 |         self._kwargs = kwargs\n   14 | \n   15 |     def next(self, send_value=None) -> float:\n   16 |         raise NotImplementedError\n   17 | \n   18 |     def __call__(self, *args: Any, **kwargs: Any) -> _Wait:\n   19 |         merged = {**self._kwargs, **kwargs}\n   20 |         new_args = args if args else self._args\n   21 |         if args:\n   22 |             param_order = list(self._kwargs.keys())\n   23 |             for i in range(len(args)):\n   24 |                 if i < len(param_order):\n   25 |                     merged.pop(param_order[i], None)\n   26 |         return self.__class__(*new_args, **merged)\n   27 | \n   28 |     def __add__(self, other: _Wait) -> _CombinedWait:\n   29 |         if isinstance(other, _CombinedWait):\n   30 |             return _CombinedWait(self, *other._waits)\n   31 |         return _CombinedWait(self, other)\n   32 | \n   33 |     def __radd__(self, other: _Wait) -> _CombinedWait:\n   34 |         return _CombinedWait(other, self)\n   35 | \n   36 | \n   37 | class _CombinedWait(_Wait):\n   38 |     def __init__(self, *waits: _Wait) -> None:\n   39 |         super().__init__()\n   40 |         self._waits = tuple(waits)\n   41 | \n   42 |     def next(self, send_value=None) -> float:\n   43 |         return sum(w.next(send_value) for w in self._waits)\n   44 | \n   45 |     def __call__(self, **kwargs: Any) -> _CombinedWait:\n   46 |         return _CombinedWait(*(w(**kwargs) for w in self._waits))\n   47 | \n   48 |     def __add__(self, other: _Wait) -> _CombinedWait:\n   49 |         if isinstance(other, _CombinedWait):\n   50 |             return _CombinedWait(*self._waits, *other._waits)\n   51 |         return _CombinedWait(*self._waits, other)\n   52 | \n   53 | \n   54 | class _WaitFactory:\n   55 |     __slots__ = (\"_cls\",)\n   56 | \n   57 |     def __init__(self, cls: type[_Wait]) -> None:\n   58 |         self._cls = cls\n   59 | \n   60 |     def __call__(self, *args: Any, **kwargs: Any) -> _Wait:\n   61 |         return self._cls(*args, **kwargs)\n   62 | \n   63 |     def __add__(self, other: _Wait) -> _CombinedWait:\n   64 |         if isinstance(other, _CombinedWait):\n   65 |             return _CombinedWait(self(), *other._waits)\n   66 |         return _CombinedWait(self(), other)\n   67 | \n   68 |     def __radd__(self, other: _Wait) -> _CombinedWait:\n   69 |         if isinstance(other, _CombinedWait):\n   70 |             return _CombinedWait(*other._waits, self())\n   71 |         return _CombinedWait(other, self())\n   72 | \n   73 | \n   74 | class _Expo(_Wait):\n   75 |     def __init__(\n   76 |         self,\n   77 |         base: float = 2,\n   78 |         factor: float = 1,\n   79 |         max_value: float | None = None,\n   80 |     ) -> None:\n   81 |         super().__init__(base=base, factor=factor, max_value=max_value)\n   82 |         self._base = base\n   83 |         self._factor = factor\n   84 |         self._max_value = max_value\n   85 |         self._n = 0\n   86 | \n   87 |     def next(self, send_value=None) -> float:\n   88 |         a = self._factor * self._base**self._n\n   89 |         if self._max_value is None or a < self._max_value:\n   90 |             self._n += 1\n   91 |             return a\n   92 |         return self._max_value\n   93 | \n   94 | \n   95 | expo = _WaitFactory(_Expo)\n   96 | \n   97 | \n   98 | class _Decay(_Wait):\n   99 |     def __init__(\n  100 |         self,\n  101 |         initial_value: float = 1,\n  102 |         decay_factor: float = 1,\n  103 |         min_value: float | None = None,\n  104 |     ) -> None:\n  105 |         super().__init__(\n  106 |             initial_value=initial_value,\n  107 |             decay_factor=decay_factor,\n  108 |             min_value=min_value,\n  109 |         )\n  110 |         self._initial_value = initial_value\n  111 |         self._decay_factor = decay_factor\n  112 |         self._min_value = min_value\n  113 |         self._t = 0\n  114 | \n  115 |     def next(self, send_value=None) -> float:\n  116 |         a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))\n  117 |         if self._min_value is None or a > self._min_value:\n  118 |             self._t += 1\n  119 |             return a\n  120 |         return self._min_value\n  121 | \n  122 | \n  123 | decay = _WaitFactory(_Decay)\n  124 | \n  125 | \n  126 | class _Fibo(_Wait):\n  127 |     def __init__(self, max_value: int | None = None) -> None:\n  128 |         super().__init__(max_value=max_value)\n  129 |         self._max_value = max_value\n  130 |         self._a = 1\n  131 |         self._b = 1\n  132 | \n  133 |     def next(self, send_value=None) -> float:\n  134 |         if self._max_value is None or self._a < self._max_value:\n  135 |             result = self._a\n  136 |             self._a, self._b = self._b, self._a + self._b\n  137 |             return float(result)\n  138 |         return float(self._max_value)\n  139 | \n  140 | \n  141 | fibo = _WaitFactory(_Fibo)\n  142 | \n  143 | \n  144 | class _Constant(_Wait):\n  145 |     def __init__(self, interval: int | float | Sequence[float] = 1) -> None:\n  146 |         super().__init__(interval=interval)\n  147 |         self._itr: Iterator[float]\n  148 |         if isinstance(interval, (int, float)):\n  149 |             self._itr = itertools.repeat(float(interval))\n  150 |         else:\n  151 |             self._itr = iter(interval)\n  152 | \n  153 |     def next(self, send_value=None) -> float:\n  154 |         return next(self._itr)\n  155 | \n  156 | \n  157 | constant = _WaitFactory(_Constant)\n  158 | \n  159 | \n  160 | class _Runtime(_Wait):\n  161 |     def __init__(self, *, value: Callable[[Any], float]) -> None:\n  162 |         super().__init__(value=value)\n  163 |         self._value = value\n  164 | \n  165 |     def next(self, send_value=None) -> float:\n  166 |         return self._value(send_value)\n  167 | \n  168 | \n  169 | runtime = _WaitFactory(_Runtime)\n  170 | \n  171 | \n  172 | class _WaitRandomExponential(_Wait):\n  173 |     def __init__(\n  174 |         self,\n  175 |         multiplier: float = 1,\n  176 |         max_value: float | None = None,\n  177 |         exp_base: float = 2,\n  178 |         min_value: float = 0,\n  179 |     ) -> None:\n  180 |         super().__init__(\n  181 |             multiplier=multiplier,\n  182 |             max_value=max_value,\n  183 |             exp_base=exp_base,\n  184 |             min_value=min_value,\n  185 |         )\n  186 |         self._multiplier = multiplier\n  187 |         self._max_value = max_value\n  188 |         self._exp_base = exp_base\n  189 |         self._min_value = min_value\n  190 |         self._n = 0\n  191 | \n  192 |     def next(self, send_value=None) -> float:\n  193 |         a = self._multiplier * self._exp_base**self._n\n  194 |         if self._max_value is not None and a > self._max_value:\n  195 |             a = self._max_value\n  196 |         if a < self._min_value:\n  197 |             a = self._min_value\n  198 |         self._n += 1\n  199 |         return random.uniform(0, a)\n  200 | \n  201 | \n  202 | wait_random_exponential = _WaitFactory(_WaitRandomExponential)\n  203 | \n  204 | \n  205 | class _WaitIncrementing(_Wait):\n  206 |     def __init__(\n  207 |         self,\n  208 |         start: float = 1,\n  209 |         increment: float = 1,\n  210 |         max_value: float | None = None,\n  211 |     ) -> None:\n  212 |         super().__init__(start=start, increment=increment, max_value=max_value)\n  213 |         self._start = start\n  214 |         self._increment = increment\n  215 |         self._max_value = max_value\n  216 |         self._n = 0\n  217 | \n  218 |     def next(self, send_value=None) -> float:\n  219 |         a = self._start + self._n * self._increment\n  220 |         self._n += 1\n  221 |         if self._max_value is not None and a > self._max_value:\n  222 |             return self._max_value\n  223 |         return a\n  224 | \n  225 | \n  226 | wait_incrementing = _WaitFactory(_WaitIncrementing)\n  227 | \n  228 | \n  229 | class _WaitChain(_Wait):\n  230 |     def __init__(self, *waits: _Wait) -> None:\n  231 |         super().__init__()\n  232 |         self._waits = list(waits)\n  233 |         self._idx = 0\n  234 | \n  235 |     def __call__(self, **kwargs: Any) -> _WaitChain:\n  236 |         return _WaitChain(*(w(**kwargs) for w in self._waits))\n  237 | \n  238 |     def next(self, send_value=None) -> float:\n  239 |         if not self._waits:\n  240 |             return 0.0\n  241 |         w = self._waits[self._idx]\n  242 |         self._idx = (self._idx + 1) % len(self._waits)\n  243 |         return w.next(send_value)\n  244 | \n  245 | \n  246 | def wait_chain(*waits: _Wait) -> _WaitChain:\n  247 |     return _WaitChain(*waits)\n  248 | \n  249 | \n  250 | def wait_combine(*waits: _Wait) -> _CombinedWait:\n  251 |     return _CombinedWait(*waits)\n  252 | \n  253 | \n  254 | class _WaitException(_Wait):\n  255 |     def __init__(self, *, value: Callable[[Any], float]) -> None:\n  256 |         super().__init__(value=value)\n  257 |         self._value = value\n  258 | \n  259 |     def next(self, send_value=None) -> float:\n  260 |         return self._value(send_value)\n  261 | \n  262 | \n  263 | wait_exception = _WaitFactory(_WaitException)\n  264 | \n  265 | \n  266 | class _WaitRandom(_Wait):\n  267 |     def __init__(self, min: float = 0, max: float = 1) -> None:\n  268 |         super().__init__(min=min, max=max)\n  269 |         self._min = min\n  270 |         self._max = max\n  271 | \n  272 |     def next(self, send_value=None) -> float:\n  273 |         return random.uniform(self._min, self._max)\n  274 | \n  275 | \n  276 | wait_random = _WaitFactory(_WaitRandom)\n  277 | \n  278 | \n  279 | class _WaitExponentialJitter(_Wait):\n  280 |     def __init__(\n  281 |         self,\n  282 |         initial: float = 1,\n  283 |         max: float = 60,\n  284 |         exp_base: float = 2,\n  285 |         jitter: float = 1,\n  286 |     ) -> None:\n  287 |         super().__init__(initial=initial, max=max, exp_base=exp_base, jitter=jitter)\n  288 |         self._initial = initial\n  289 |         self._max = max\n  290 |         self._exp_base = exp_base\n  291 |         self._jitter = jitter\n  292 |         self._n = 1\n  293 | \n  294 |     def next(self, send_value=None) -> float:\n  295 |         delay = min(self._initial * self._exp_base**self._n, self._max)\n  296 |         delay += random.uniform(0, self._jitter)\n  297 |         self._n += 1\n  298 |         return delay\n  299 | \n  300 | \n  301 | wait_exponential_jitter = _WaitFactory(_WaitExponentialJitter)\n  302 | \n  303 | \n  304 | class _WaitNone(_Wait):\n  305 |     def next(self, send_value=None) -> float:\n  306 |         return 0.0\n  307 | \n  308 | \n  309 | wait_none = _WaitFactory(_WaitNone)\n```\n\n\n\nPublic API to cover: `wait_chain`, `wait_combine`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from backon._wait_gen import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:25+00:00",
+    "duration": 6.17,
+    "summary": "第 1 轮：生成 226 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__wait_gen.py",
+          "content": "<6429 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5291,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `backon._wait_gen`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport math\nimport random\n\nimport pytest\n\nfrom backon._wait_gen import (\n    wait_chain,\n    wait_combine,\n    wait_none,\n    wait_random_exponential,\n    wait_incrementing,\n    wait_random,\n    wait_exponential_jitter,\n    constant,\n    expo,\n    decay,\n    fibo,\n    runtime,\n    wait_exception,\n    _Wait,\n    _CombinedWait,\n    _WaitChain,\n    _WaitFactory,\n)\n\n\n# --------------------------------------------------------------------------- #\n# wait_combine\n# --------------------------------------------------------------------------- #\ndef test_wait_combine_returns_combined_wait():\n    w = wait_combine(wait_none())\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_sums_waits():\n    w = wait_combine(constant(1), constant(2), constant(3))\n    assert w.next() == 6.0\n    assert w.next() == 6.0\n\n\ndef test_wait_combine_empty_returns_zero():\n    w = wait_combine()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_with_incrementing():\n    w = wait_combine(wait_incrementing(start=1, increment=1), constant(10))\n    assert w.next() == 11.0\n    assert w.next() == 12.0\n    assert w.next() == 13.0\n\n\ndef test_wait_combine_passes_send_value():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), runtime(value=fn))\n    assert w.next(5) == 10.0\n\n\ndef test_wait_combine_call_kwargs_propagates():\n    w = wait_combine(wait_incrementing(start=1), wait_incrementing(start=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _CombinedWait)\n    assert w2.next() == 2.0\n    assert w2.next() == 12.0\n\n\ndef test_combined_wait_add_combined_flattens():\n    a = wait_combine(constant(1))\n    b = wait_combine(constant(2))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_combined_wait_add_single_wait():\n    a = wait_combine(constant(1))\n    c = a + constant(4)\n    assert len(c._waits) == 2\n    assert c.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# wait_chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_returns_chain():\n    w = wait_chain(constant(1), constant(2))\n    assert isinstance(w, _WaitChain)\n\n\ndef test_wait_chain_cycles_through_waits():\n    w = wait_chain(constant(1), constant(2), constant(3))\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\ndef test_wait_chain_empty_returns_zero():\n    w = wait_chain()\n    assert w.next() == 0.0\n    assert w.next() == 0.0\n\n\ndef test_wait_chain_single_wait():\n    w = wait_chain(constant(5))\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_chain_with_stateful_waits():\n    w = wait_chain(wait_incrementing(start=0, increment=10), constant(100))\n    assert w.next() == 0.0\n    assert w.next() == 100.0\n    assert w.next() == 10.0\n    assert w.next() == 100.0\n\n\ndef test_wait_chain_call_kwargs_propagates():\n    w = wait_chain(wait_incrementing(start=1, increment=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 1.0\n    assert w2.next() == 6.0\n\n\ndef test_wait_chain_passes_send_value():\n    def fn(v):\n        return float(v) * 2\n\n    w = wait_chain(runtime(value=fn))\n    assert w.next(3) == 6.0\n\n\n# --------------------------------------------------------------------------- #\n# Mutable combinators - each next advances underlying waits\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_combine(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\ndef test_chain_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_chain(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\n# --------------------------------------------------------------------------- #\n# Error handling / NotImplementedError\n# --------------------------------------------------------------------------- #\ndef test_base_wait_next_not_implemented():\n    w = _Wait()\n    with pytest.raises(NotImplementedError):\n        w.next()\n\n\n# --------------------------------------------------------------------------- #\n# Factory callable behavior used by combinators\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_callable():\n    w = constant(2.5)\n    assert isinstance(w, _Wait)\n    assert w.next() == 2.5\n\n\ndef test_wait_factory_add_creates_combined():\n    w = constant(1) + wait_none()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# Pure wrappers - chain over none\n# --------------------------------------------------------------------------- #\ndef test_chain_of_none():\n    w = wait_chain(wait_none())\n    assert w.next() == 0.0\n\n\ndef test_combine_of_none():\n    w = wait_combine(wait_none(), wait_none())\n    assert w.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Decorator-style call forwarding\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_replaces_positional_args():\n    w = wait_chain(wait_incrementing(start=1))\n    # calling with positional-style kwargs should rebuild inner waits\n    w2 = w(start=10)\n    assert w2.next() == 10.0\n\n\ndef test_combined_call_forwards_to_children():\n    w = wait_combine(wait_random(min=0, max=0))\n    w2 = w(min=0, max=0)\n    assert w2.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Combined wait with mixed deterministic waits (no randomness)\n# --------------------------------------------------------------------------- #\ndef test_combined_mixed_deterministic():\n    w = wait_combine(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.5)\n    assert math.isclose(w.next(), 2.5)\n    assert math.isclose(w.next(), 4.5)\n\n\ndef test_chain_mixed_deterministic():\n    w = wait_chain(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), 0.5)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 0.5)\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 3575,
+      "cache_hit_tokens": 3328,
+      "completion_tokens": 1716,
+      "reasoning_tokens": 0,
+      "latency": 6.17
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:26+00:00",
+    "duration": 1.25,
+    "summary": "通过 26，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 1.25,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5291
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:32+00:00",
+    "duration": 6.16,
+    "summary": "分数 [1, 0.0, 0.6875, 0.3, 26]（提升），行覆盖 68.8%，分支覆盖 30.0%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 3.66,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "backon/_wait_gen.py",
+          "tests": [
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_returns_combined_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_sums_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_empty_returns_zero",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_with_incrementing",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_passes_send_value",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_call_kwargs_propagates",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_add_combined_flattens",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_add_single_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_returns_chain",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_cycles_through_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_empty_returns_zero",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_single_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_with_stateful_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_call_kwargs_propagates",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_passes_send_value",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_advances_underlying_state",
+            "tests_testpilot/test__wait_gen.py::test_chain_advances_underlying_state",
+            "tests_testpilot/test__wait_gen.py::test_base_wait_next_not_implemented",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_callable",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_add_creates_combined",
+            "tests_testpilot/test__wait_gen.py::test_chain_of_none",
+            "tests_testpilot/test__wait_gen.py::test_combine_of_none",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_call_replaces_positional_args",
+            "tests_testpilot/test__wait_gen.py::test_combined_call_forwards_to_children",
+            "tests_testpilot/test__wait_gen.py::test_combined_mixed_deterministic",
+            "tests_testpilot/test__wait_gen.py::test_chain_mixed_deterministic"
+          ]
+        },
+        "duration": 2.51,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5291,
+    "score": [
+      1,
+      0.0,
+      0.6875,
+      0.3,
+      26
+    ],
+    "coverage": {
+      "target": "backon/_wait_gen.py",
+      "tests_all_passed": true,
+      "line_rate": 0.6875,
+      "branch_rate": 0.3,
+      "statements": 192,
+      "branches": 30,
+      "missing_lines": [
+        22,
+        23,
+        24,
+        25,
+        30,
+        34,
+        64,
+        65,
+        66,
+        69,
+        70,
+        71,
+        92,
+        105,
+        110,
+        111,
+        112,
+        113,
+        116,
+        117,
+        118,
+        119,
+        120,
+        128,
+        129,
+        130,
+        131,
+        134,
+        135,
+        136,
+        137,
+        138,
+        151,
+        180,
+        186,
+        187,
+        188,
+        189,
+        190,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        222,
+        256,
+        257,
+        260,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        295,
+        296,
+        297,
+        298
+      ],
+      "missing_branches": [
+        [
+          21,
+          22
+        ],
+        [
+          23,
+          24
+        ],
+        [
+          23,
+          26
+        ],
+        [
+          24,
+          23
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          64,
+          65
+        ],
+        [
+          64,
+          66
+        ],
+        [
+          69,
+          70
+        ],
+        [
+          69,
+          71
+        ],
+        [
+          89,
+          92
+        ],
+        [
+          117,
+          118
+        ],
+        [
+          117,
+          120
+        ],
+        [
+          134,
+          135
+        ],
+        [
+          134,
+          138
+        ],
+        [
+          148,
+          151
+        ],
+        [
+          194,
+          195
+        ],
+        [
+          194,
+          196
+        ],
+        [
+          196,
+          197
+        ],
+        [
+          196,
+          198
+        ],
+        [
+          221,
+          222
+        ]
+      ],
+      "error": ""
+    },
+    "validity": {
+      "total": 26,
+      "valid": 26,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T06:30:32+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 5291
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:30:46+00:00",
+    "duration": 14.43,
+    "summary": "第 2 轮：生成 542 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__wait_gen.py",
+          "content": "<16785 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 15524,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test__wait_gen.py`)\n```python\nimport math\nimport random\n\nimport pytest\n\nfrom backon._wait_gen import (\n    wait_chain,\n    wait_combine,\n    wait_none,\n    wait_random_exponential,\n    wait_incrementing,\n    wait_random,\n    wait_exponential_jitter,\n    constant,\n    expo,\n    decay,\n    fibo,\n    runtime,\n    wait_exception,\n    _Wait,\n    _CombinedWait,\n    _WaitChain,\n    _WaitFactory,\n)\n\n\n# --------------------------------------------------------------------------- #\n# wait_combine\n# --------------------------------------------------------------------------- #\ndef test_wait_combine_returns_combined_wait():\n    w = wait_combine(wait_none())\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_sums_waits():\n    w = wait_combine(constant(1), constant(2), constant(3))\n    assert w.next() == 6.0\n    assert w.next() == 6.0\n\n\ndef test_wait_combine_empty_returns_zero():\n    w = wait_combine()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_with_incrementing():\n    w = wait_combine(wait_incrementing(start=1, increment=1), constant(10))\n    assert w.next() == 11.0\n    assert w.next() == 12.0\n    assert w.next() == 13.0\n\n\ndef test_wait_combine_passes_send_value():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), runtime(value=fn))\n    assert w.next(5) == 10.0\n\n\ndef test_wait_combine_call_kwargs_propagates():\n    w = wait_combine(wait_incrementing(start=1), wait_incrementing(start=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _CombinedWait)\n    assert w2.next() == 2.0\n    assert w2.next() == 12.0\n\n\ndef test_combined_wait_add_combined_flattens():\n    a = wait_combine(constant(1))\n    b = wait_combine(constant(2))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_combined_wait_add_single_wait():\n    a = wait_combine(constant(1))\n    c = a + constant(4)\n    assert len(c._waits) == 2\n    assert c.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# wait_chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_returns_chain():\n    w = wait_chain(constant(1), constant(2))\n    assert isinstance(w, _WaitChain)\n\n\ndef test_wait_chain_cycles_through_waits():\n    w = wait_chain(constant(1), constant(2), constant(3))\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\ndef test_wait_chain_empty_returns_zero():\n    w = wait_chain()\n    assert w.next() == 0.0\n    assert w.next() == 0.0\n\n\ndef test_wait_chain_single_wait():\n    w = wait_chain(constant(5))\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_chain_with_stateful_waits():\n    w = wait_chain(wait_incrementing(start=0, increment=10), constant(100))\n    assert w.next() == 0.0\n    assert w.next() == 100.0\n    assert w.next() == 10.0\n    assert w.next() == 100.0\n\n\ndef test_wait_chain_call_kwargs_propagates():\n    w = wait_chain(wait_incrementing(start=1, increment=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 1.0\n    assert w2.next() == 6.0\n\n\ndef test_wait_chain_passes_send_value():\n    def fn(v):\n        return float(v) * 2\n\n    w = wait_chain(runtime(value=fn))\n    assert w.next(3) == 6.0\n\n\n# --------------------------------------------------------------------------- #\n# Mutable combinators - each next advances underlying waits\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_combine(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\ndef test_chain_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_chain(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\n# --------------------------------------------------------------------------- #\n# Error handling / NotImplementedError\n# --------------------------------------------------------------------------- #\ndef test_base_wait_next_not_implemented():\n    w = _Wait()\n    with pytest.raises(NotImplementedError):\n        w.next()\n\n\n# --------------------------------------------------------------------------- #\n# Factory callable behavior used by combinators\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_callable():\n    w = constant(2.5)\n    assert isinstance(w, _Wait)\n    assert w.next() == 2.5\n\n\ndef test_wait_factory_add_creates_combined():\n    w = constant(1) + wait_none()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# Pure wrappers - chain over none\n# --------------------------------------------------------------------------- #\ndef test_chain_of_none():\n    w = wait_chain(wait_none())\n    assert w.next() == 0.0\n\n\ndef test_combine_of_none():\n    w = wait_combine(wait_none(), wait_none())\n    assert w.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Decorator-style call forwarding\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_replaces_positional_args():\n    w = wait_chain(wait_incrementing(start=1))\n    # calling with positional-style kwargs should rebuild inner waits\n    w2 = w(start=10)\n    assert w2.next() == 10.0\n\n\ndef test_combined_call_forwards_to_children():\n    w = wait_combine(wait_random(min=0, max=0))\n    w2 = w(min=0, max=0)\n    assert w2.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Combined wait with mixed deterministic waits (no randomness)\n# --------------------------------------------------------------------------- #\ndef test_combined_mixed_deterministic():\n    w = wait_combine(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.5)\n    assert math.isclose(w.next(), 2.5)\n    assert math.isclose(w.next(), 4.5)\n\n\ndef test_chain_mixed_deterministic():\n    w = wait_chain(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), 0.5)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 0.5)\n\n```\n\n## Feedback\nAll 26 tests pass. Coverage of `backon/_wait_gen.py` by these tests: 68.8% of lines, 30.0% of branches. The code below is NOT exercised by any test:\n- line 21: the branch to line 22 is never taken: `if args:`\n- lines 22-25 never executed: `param_order = list(self._kwargs.keys())`\n- line 29: the branch to line 30 is never taken: `if isinstance(other, _CombinedWait):`\n- line 30 never executed: `return _CombinedWait(self, *other._waits)`\n- line 34 never executed: `return _CombinedWait(other, self)`\n- lines 64-66 never executed: `if isinstance(other, _CombinedWait):`\n- lines 69-71 never executed: `if isinstance(other, _CombinedWait):`\n- line 89: the branch to line 92 is never taken: `if self._max_value is None or a < self._max_value:`\n- line 92 never executed: `return self._max_value`\n- line 105 never executed: `super().__init__(`\n- lines 110-113 never executed: `self._initial_value = initial_value`\n- lines 116-120 never executed: `a = self._initial_value * float(math.e ** (-self._t * self._decay_factor))`\n- lines 128-131 never executed: `super().__init__(max_value=max_value)`\n- lines 134-138 never executed: `if self._max_value is None or self._a < self._max_value:`\n- line 148: the branch to line 151 is never taken: `if isinstance(interval, (int, float)):`\n... and 10 more uncovered places not shown.\n\nAdd tests or extend existing ones so that this code is executed and its results are asserted precisely, while all tests still pass on the current code. Check exact return values, boundary inputs and exception messages. Some code may be unreachable through the public API; skip it rather than writing tests that rely on implementation details. Keep all existing tests.\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport math\nimport random\n\nimport pytest\n\nfrom backon._wait_gen import (\n    wait_chain,\n    wait_combine,\n    wait_none,\n    wait_random_exponential,\n    wait_incrementing,\n    wait_random,\n    wait_exponential_jitter,\n    constant,\n    expo,\n    decay,\n    fibo,\n    runtime,\n    wait_exception,\n    _Wait,\n    _CombinedWait,\n    _WaitChain,\n    _WaitFactory,\n    _Expo,\n    _Decay,\n    _Fibo,\n    _Constant,\n    _Runtime,\n    _WaitRandomExponential,\n    _WaitIncrementing,\n    _WaitRandom,\n    _WaitExponentialJitter,\n    _WaitNone,\n    _WaitException,\n)\n\n\n# --------------------------------------------------------------------------- #\n# wait_combine\n# --------------------------------------------------------------------------- #\ndef test_wait_combine_returns_combined_wait():\n    w = wait_combine(wait_none())\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_sums_waits():\n    w = wait_combine(constant(1), constant(2), constant(3))\n    assert w.next() == 6.0\n    assert w.next() == 6.0\n\n\ndef test_wait_combine_empty_returns_zero():\n    w = wait_combine()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_with_incrementing():\n    w = wait_combine(wait_incrementing(start=1, increment=1), constant(10))\n    assert w.next() == 11.0\n    assert w.next() == 12.0\n    assert w.next() == 13.0\n\n\ndef test_wait_combine_passes_send_value():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), runtime(value=fn))\n    assert w.next(5) == 10.0\n\n\ndef test_wait_combine_call_kwargs_propagates():\n    w = wait_combine(wait_incrementing(start=1), wait_incrementing(start=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _CombinedWait)\n    assert w2.next() == 2.0\n    assert w2.next() == 12.0\n\n\ndef test_combined_wait_add_combined_flattens():\n    a = wait_combine(constant(1))\n    b = wait_combine(constant(2))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_combined_wait_add_single_wait():\n    a = wait_combine(constant(1))\n    c = a + constant(4)\n    assert len(c._waits) == 2\n    assert c.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# wait_chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_returns_chain():\n    w = wait_chain(constant(1), constant(2))\n    assert isinstance(w, _WaitChain)\n\n\ndef test_wait_chain_cycles_through_waits():\n    w = wait_chain(constant(1), constant(2), constant(3))\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\ndef test_wait_chain_empty_returns_zero():\n    w = wait_chain()\n    assert w.next() == 0.0\n    assert w.next() == 0.0\n\n\ndef test_wait_chain_single_wait():\n    w = wait_chain(constant(5))\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_chain_with_stateful_waits():\n    w = wait_chain(wait_incrementing(start=0, increment=10), constant(100))\n    assert w.next() == 0.0\n    assert w.next() == 100.0\n    assert w.next() == 10.0\n    assert w.next() == 100.0\n\n\ndef test_wait_chain_call_kwargs_propagates():\n    w = wait_chain(wait_incrementing(start=1, increment=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 1.0\n    assert w2.next() == 6.0\n\n\ndef test_wait_chain_passes_send_value():\n    def fn(v):\n        return float(v) * 2\n\n    w = wait_chain(runtime(value=fn))\n    assert w.next(3) == 6.0\n\n\n# --------------------------------------------------------------------------- #\n# Mutable combinators - each next advances underlying waits\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_combine(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\ndef test_chain_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_chain(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\n# --------------------------------------------------------------------------- #\n# Error handling / NotImplementedError\n# --------------------------------------------------------------------------- #\ndef test_base_wait_next_not_implemented():\n    w = _Wait()\n    with pytest.raises(NotImplementedError):\n        w.next()\n\n\n# --------------------------------------------------------------------------- #\n# Factory callable behavior used by combinators\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_callable():\n    w = constant(2.5)\n    assert isinstance(w, _Wait)\n    assert w.next() == 2.5\n\n\ndef test_wait_factory_add_creates_combined():\n    w = constant(1) + wait_none()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# Pure wrappers - chain over none\n# --------------------------------------------------------------------------- #\ndef test_chain_of_none():\n    w = wait_chain(wait_none())\n    assert w.next() == 0.0\n\n\ndef test_combine_of_none():\n    w = wait_combine(wait_none(), wait_none())\n    assert w.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Decorator-style call forwarding\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_replaces_positional_args():\n    w = wait_chain(wait_incrementing(start=1))\n    # calling with positional-style kwargs should rebuild inner waits\n    w2 = w(start=10)\n    assert w2.next() == 10.0\n\n\ndef test_combined_call_forwards_to_children():\n    w = wait_combine(wait_random(min=0, max=0))\n    w2 = w(min=0, max=0)\n    assert w2.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Combined wait with mixed deterministic waits (no randomness)\n# --------------------------------------------------------------------------- #\ndef test_combined_mixed_deterministic():\n    w = wait_combine(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.5)\n    assert math.isclose(w.next(), 2.5)\n    assert math.isclose(w.next(), 4.5)\n\n\ndef test_chain_mixed_deterministic():\n    w = wait_chain(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), 0.5)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 0.5)\n\n\n# =========================================================================== #\n# ADDED TESTS to improve coverage\n# =========================================================================== #\n\n# --------------------------------------------------------------------------- #\n# _Wait.__call__ with positional args (lines 21-25)\n# --------------------------------------------------------------------------- #\ndef test_wait_call_with_positional_args_drops_overridden_kwargs():\n    # _Constant(interval=...) - call with positional arg overrides interval\n    w = constant(1)\n    w2 = w(5)\n    assert w2.next() == 5.0\n    # original unaffected\n    assert w.next() == 1.0\n\n\ndef test_wait_call_positional_more_args_than_kwargs():\n    # More positional args than known keyword params\n    w = constant(1)\n    w2 = w(2)\n    assert w2.next() == 2.0\n\n\ndef test_wait_call_multiple_positional_args():\n    # _WaitIncrementing has start, increment, max_value as kwargs.\n    # Passing 2 positional args should override start and increment.\n    w = wait_incrementing(start=1, increment=1)\n    w2 = w(10, 3)\n    assert w2.next() == 10.0\n    assert w2.next() == 13.0\n\n\n# --------------------------------------------------------------------------- #\n# _Wait.__add__ / __radd__ with _CombinedWait (lines 29-30, 33-34)\n# --------------------------------------------------------------------------- #\ndef test_wait_add_combined_wait_prepends():\n    a = constant(1)\n    b = wait_combine(constant(2), constant(3))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 3\n    assert c.next() == 6.0\n\n\ndef test_wait_radd_combines():\n    a = constant(1)\n    # Force use of __radd__: a _CombinedWait has __radd__ inherited from _Wait\n    # but for a plain _Wait on the right, __add__ of left combinator\n    # would kick in. Use __radd__ directly via _Wait.__radd__.\n    c = _Wait.__radd__(a, constant(2))\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitFactory.__add__ and __radd__ (lines 63-71)\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_add_combined_wait():\n    combined = wait_combine(constant(2))\n    c = constant.__add__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_add_plain_wait():\n    c = constant.__add__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\ndef test_wait_factory_radd_combined():\n    combined = wait_combine(constant(2))\n    c = constant.__radd__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_radd_plain():\n    c = constant.__radd__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# _Expo max_value branch (lines 89, 92)\n# --------------------------------------------------------------------------- #\ndef test_expo_with_max_value():\n    w = expo(base=2, factor=1, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 4.0\n    # 8 >= 5 so returns max_value and does not advance\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _Decay (lines 98-120)\n# --------------------------------------------------------------------------- #\ndef test_decay_default():\n    w = decay()\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), math.e ** -1)\n    assert math.isclose(w.next(), math.e ** -2)\n\n\ndef test_decay_with_min_value():\n    w = decay(initial_value=1, decay_factor=10, min_value=0.1)\n    a = w.next()\n    assert math.isclose(a, 1.0)\n    b = w.next()\n    assert math.isclose(b, math.e ** -10)\n    # below min_value -> returns min_value\n    assert w.next() == 0.1\n    assert w.next() == 0.1\n\n\ndef test_decay_custom_params():\n    w = decay(initial_value=2, decay_factor=1)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 2 * math.e ** -1)\n\n\n# --------------------------------------------------------------------------- #\n# _Fibo (lines 126-138)\n# --------------------------------------------------------------------------- #\ndef test_fibo_sequence():\n    w = fibo()\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    assert w.next() == 8.0\n\n\ndef test_fibo_with_max_value():\n    w = fibo(max_value=3)\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    # next a=3 >= 3 -> return max_value saturated\n    assert w.next() == 3.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _Constant with sequence (line 148 else branch, line 151)\n# --------------------------------------------------------------------------- #\ndef test_constant_with_sequence():\n    w = constant([1.5, 2.5, 3.5])\n    assert w.next() == 1.5\n    assert w.next() == 2.5\n    assert w.next() == 3.5\n    with pytest.raises(StopIteration):\n        w.next()\n\n\ndef test_constant_with_int():\n    w = constant(3)\n    assert w.next() == 3.0\n    assert isinstance(w.next(), float)\n\n\n# --------------------------------------------------------------------------- #\n# _Runtime (lines 160-166)\n# --------------------------------------------------------------------------- #\ndef test_runtime_calls_function_with_send_value():\n    w = runtime(value=lambda v: (v or 0) * 2.0)\n    assert w.next() == 0.0\n    assert w.next(5) == 10.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandomExponential (lines 172-199)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_exponential_within_bounds():\n    random.seed(12345)\n    w = wait_random_exponential(multiplier=1, max_value=4, exp_base=2, min_value=0)\n    for expected_hi in (1.0, 2.0, 4.0, 4.0, 4.0):\n        v = w.next()\n        assert 0.0 <= v <= expected_hi\n\n\ndef test_wait_random_exponential_min_value_clamps():\n    random.seed(1)\n    w = wait_random_exponential(multiplier=1, max_value=2, exp_base=2, min_value=10)\n    # a gets clamped up to min_value 10, then uniform(0, 10)\n    v = w.next()\n    assert 0.0 <= v <= 10.0\n\n\ndef test_wait_random_exponential_no_max():\n    random.seed(0)\n    w = wait_random_exponential(multiplier=1, max_value=None, exp_base=2)\n    assert 0.0 <= w.next() <= 1.0\n    assert 0.0 <= w.next() <= 2.0\n    assert 0.0 <= w.next() <= 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitIncrementing (lines 205-223)\n# --------------------------------------------------------------------------- #\ndef test_wait_incrementing_with_max_value():\n    w = wait_incrementing(start=1, increment=2, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    # next a = 7 > 5 -> returns 5\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_incrementing_defaults():\n    w = wait_incrementing()\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandom (lines 266-273)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_bounds():\n    random.seed(42)\n    w = wait_random(min=2, max=3)\n    for _ in range(20):\n        v = w.next()\n        assert 2.0 <= v <= 3.0\n\n\ndef test_wait_random_identical_bounds():\n    w = wait_random(min=1.5, max=1.5)\n    assert w.next() == 1.5\n\n\n# --------------------------------------------------------------------------- #\n# _WaitExponentialJitter (lines 279-298)\n# --------------------------------------------------------------------------- #\ndef test_wait_exponential_jitter_bounds():\n    random.seed(7)\n    w = wait_exponential_jitter(initial=1, max=10, exp_base=2, jitter=1)\n    # n starts at 1 -> delay = 1*2^1 = 2, plus [0,1]\n    v = w.next()\n    assert 2.0 <= v <= 3.0\n    # next n=2 -> 4, plus [0,1]\n    v = w.next()\n    assert 4.0 <= v <= 5.0\n    # next n=3 -> 8, plus [0,1]\n    v = w.next()\n    assert 8.0 <= v <= 9.0\n    # cap at max=10 plus jitter\n    v = w.next()\n    assert 10.0 <= v <= 11.0\n\n\ndef test_wait_exponential_jitter_zero_jitter():\n    w = wait_exponential_jitter(initial=2, max=100, exp_base=3, jitter=0)\n    assert w.next() == 6.0\n    assert w.next() == 18.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitNone (lines 304-306)\n# --------------------------------------------------------------------------- #\ndef test_wait_none_returns_zero():\n    w = wait_none()\n    assert w.next() == 0.0\n    assert w.next(10) == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitException (lines 254-263)\n# --------------------------------------------------------------------------- #\ndef test_wait_exception_class_returns_value():\n    from backon._wait_gen import _WaitException\n    w = _WaitException(value=lambda v: (v or 0) + 1.0)\n    assert w.next() == 1.0\n    assert w.next(4) == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _CombinedWait.next sums correctly with send_value\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_next_send_value_multiple():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), constant(1))\n    assert w.next(3) == 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitChain.__call__ rebuilds independent chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_rebuild():\n    w = wait_chain(wait_incrementing(start=1), wait_incrementing(start=100))\n    w2 = w(start=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 5.0\n    assert w2.next() == 100.0\n\n\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 5803,
+      "cache_hit_tokens": 3456,
+      "completion_tokens": 4430,
+      "reasoning_tokens": 0,
+      "latency": 14.42
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:30:47+00:00",
+    "duration": 1.43,
+    "summary": "通过 55，失败 2，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 1.43,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 15524
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T06:30:47+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 55]（连续 1 轮无提升）",
+    "tool_calls": [],
+    "tokens_total": 15524,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      55
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T06:30:47+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 15524
+  },
+  {
+    "node": "write_tests",
+    "iteration": 3,
+    "at": "2026-10-20T06:30:59+00:00",
+    "duration": 12.0,
+    "summary": "第 3 轮：生成 545 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__wait_gen.py",
+          "content": "<16919 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 28542,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test__wait_gen.py`)\n```python\nimport math\nimport random\n\nimport pytest\n\nfrom backon._wait_gen import (\n    wait_chain,\n    wait_combine,\n    wait_none,\n    wait_random_exponential,\n    wait_incrementing,\n    wait_random,\n    wait_exponential_jitter,\n    constant,\n    expo,\n    decay,\n    fibo,\n    runtime,\n    wait_exception,\n    _Wait,\n    _CombinedWait,\n    _WaitChain,\n    _WaitFactory,\n    _Expo,\n    _Decay,\n    _Fibo,\n    _Constant,\n    _Runtime,\n    _WaitRandomExponential,\n    _WaitIncrementing,\n    _WaitRandom,\n    _WaitExponentialJitter,\n    _WaitNone,\n    _WaitException,\n)\n\n\n# --------------------------------------------------------------------------- #\n# wait_combine\n# --------------------------------------------------------------------------- #\ndef test_wait_combine_returns_combined_wait():\n    w = wait_combine(wait_none())\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_sums_waits():\n    w = wait_combine(constant(1), constant(2), constant(3))\n    assert w.next() == 6.0\n    assert w.next() == 6.0\n\n\ndef test_wait_combine_empty_returns_zero():\n    w = wait_combine()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_with_incrementing():\n    w = wait_combine(wait_incrementing(start=1, increment=1), constant(10))\n    assert w.next() == 11.0\n    assert w.next() == 12.0\n    assert w.next() == 13.0\n\n\ndef test_wait_combine_passes_send_value():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), runtime(value=fn))\n    assert w.next(5) == 10.0\n\n\ndef test_wait_combine_call_kwargs_propagates():\n    w = wait_combine(wait_incrementing(start=1), wait_incrementing(start=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _CombinedWait)\n    assert w2.next() == 2.0\n    assert w2.next() == 12.0\n\n\ndef test_combined_wait_add_combined_flattens():\n    a = wait_combine(constant(1))\n    b = wait_combine(constant(2))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_combined_wait_add_single_wait():\n    a = wait_combine(constant(1))\n    c = a + constant(4)\n    assert len(c._waits) == 2\n    assert c.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# wait_chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_returns_chain():\n    w = wait_chain(constant(1), constant(2))\n    assert isinstance(w, _WaitChain)\n\n\ndef test_wait_chain_cycles_through_waits():\n    w = wait_chain(constant(1), constant(2), constant(3))\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\ndef test_wait_chain_empty_returns_zero():\n    w = wait_chain()\n    assert w.next() == 0.0\n    assert w.next() == 0.0\n\n\ndef test_wait_chain_single_wait():\n    w = wait_chain(constant(5))\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_chain_with_stateful_waits():\n    w = wait_chain(wait_incrementing(start=0, increment=10), constant(100))\n    assert w.next() == 0.0\n    assert w.next() == 100.0\n    assert w.next() == 10.0\n    assert w.next() == 100.0\n\n\ndef test_wait_chain_call_kwargs_propagates():\n    w = wait_chain(wait_incrementing(start=1, increment=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 1.0\n    assert w2.next() == 6.0\n\n\ndef test_wait_chain_passes_send_value():\n    def fn(v):\n        return float(v) * 2\n\n    w = wait_chain(runtime(value=fn))\n    assert w.next(3) == 6.0\n\n\n# --------------------------------------------------------------------------- #\n# Mutable combinators - each next advances underlying waits\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_combine(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\ndef test_chain_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_chain(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\n# --------------------------------------------------------------------------- #\n# Error handling / NotImplementedError\n# --------------------------------------------------------------------------- #\ndef test_base_wait_next_not_implemented():\n    w = _Wait()\n    with pytest.raises(NotImplementedError):\n        w.next()\n\n\n# --------------------------------------------------------------------------- #\n# Factory callable behavior used by combinators\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_callable():\n    w = constant(2.5)\n    assert isinstance(w, _Wait)\n    assert w.next() == 2.5\n\n\ndef test_wait_factory_add_creates_combined():\n    w = constant(1) + wait_none()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# Pure wrappers - chain over none\n# --------------------------------------------------------------------------- #\ndef test_chain_of_none():\n    w = wait_chain(wait_none())\n    assert w.next() == 0.0\n\n\ndef test_combine_of_none():\n    w = wait_combine(wait_none(), wait_none())\n    assert w.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Decorator-style call forwarding\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_replaces_positional_args():\n    w = wait_chain(wait_incrementing(start=1))\n    # calling with positional-style kwargs should rebuild inner waits\n    w2 = w(start=10)\n    assert w2.next() == 10.0\n\n\ndef test_combined_call_forwards_to_children():\n    w = wait_combine(wait_random(min=0, max=0))\n    w2 = w(min=0, max=0)\n    assert w2.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Combined wait with mixed deterministic waits (no randomness)\n# --------------------------------------------------------------------------- #\ndef test_combined_mixed_deterministic():\n    w = wait_combine(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.5)\n    assert math.isclose(w.next(), 2.5)\n    assert math.isclose(w.next(), 4.5)\n\n\ndef test_chain_mixed_deterministic():\n    w = wait_chain(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), 0.5)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 0.5)\n\n\n# =========================================================================== #\n# ADDED TESTS to improve coverage\n# =========================================================================== #\n\n# --------------------------------------------------------------------------- #\n# _Wait.__call__ with positional args (lines 21-25)\n# --------------------------------------------------------------------------- #\ndef test_wait_call_with_positional_args_drops_overridden_kwargs():\n    # _Constant(interval=...) - call with positional arg overrides interval\n    w = constant(1)\n    w2 = w(5)\n    assert w2.next() == 5.0\n    # original unaffected\n    assert w.next() == 1.0\n\n\ndef test_wait_call_positional_more_args_than_kwargs():\n    # More positional args than known keyword params\n    w = constant(1)\n    w2 = w(2)\n    assert w2.next() == 2.0\n\n\ndef test_wait_call_multiple_positional_args():\n    # _WaitIncrementing has start, increment, max_value as kwargs.\n    # Passing 2 positional args should override start and increment.\n    w = wait_incrementing(start=1, increment=1)\n    w2 = w(10, 3)\n    assert w2.next() == 10.0\n    assert w2.next() == 13.0\n\n\n# --------------------------------------------------------------------------- #\n# _Wait.__add__ / __radd__ with _CombinedWait (lines 29-30, 33-34)\n# --------------------------------------------------------------------------- #\ndef test_wait_add_combined_wait_prepends():\n    a = constant(1)\n    b = wait_combine(constant(2), constant(3))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 3\n    assert c.next() == 6.0\n\n\ndef test_wait_radd_combines():\n    a = constant(1)\n    # Force use of __radd__: a _CombinedWait has __radd__ inherited from _Wait\n    # but for a plain _Wait on the right, __add__ of left combinator\n    # would kick in. Use __radd__ directly via _Wait.__radd__.\n    c = _Wait.__radd__(a, constant(2))\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitFactory.__add__ and __radd__ (lines 63-71)\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_add_combined_wait():\n    combined = wait_combine(constant(2))\n    c = constant.__add__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_add_plain_wait():\n    c = constant.__add__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\ndef test_wait_factory_radd_combined():\n    combined = wait_combine(constant(2))\n    c = constant.__radd__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_radd_plain():\n    c = constant.__radd__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# _Expo max_value branch (lines 89, 92)\n# --------------------------------------------------------------------------- #\ndef test_expo_with_max_value():\n    w = expo(base=2, factor=1, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 4.0\n    # 8 >= 5 so returns max_value and does not advance\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _Decay (lines 98-120)\n# --------------------------------------------------------------------------- #\ndef test_decay_default():\n    w = decay()\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), math.e ** -1)\n    assert math.isclose(w.next(), math.e ** -2)\n\n\ndef test_decay_with_min_value():\n    w = decay(initial_value=1, decay_factor=10, min_value=0.1)\n    a = w.next()\n    assert math.isclose(a, 1.0)\n    b = w.next()\n    assert math.isclose(b, math.e ** -10)\n    # below min_value -> returns min_value\n    assert w.next() == 0.1\n    assert w.next() == 0.1\n\n\ndef test_decay_custom_params():\n    w = decay(initial_value=2, decay_factor=1)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 2 * math.e ** -1)\n\n\n# --------------------------------------------------------------------------- #\n# _Fibo (lines 126-138)\n# --------------------------------------------------------------------------- #\ndef test_fibo_sequence():\n    w = fibo()\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    assert w.next() == 8.0\n\n\ndef test_fibo_with_max_value():\n    w = fibo(max_value=3)\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    # next a=3 >= 3 -> return max_value saturated\n    assert w.next() == 3.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _Constant with sequence (line 148 else branch, line 151)\n# --------------------------------------------------------------------------- #\ndef test_constant_with_sequence():\n    w = constant([1.5, 2.5, 3.5])\n    assert w.next() == 1.5\n    assert w.next() == 2.5\n    assert w.next() == 3.5\n    with pytest.raises(StopIteration):\n        w.next()\n\n\ndef test_constant_with_int():\n    w = constant(3)\n    assert w.next() == 3.0\n    assert isinstance(w.next(), float)\n\n\n# --------------------------------------------------------------------------- #\n# _Runtime (lines 160-166)\n# --------------------------------------------------------------------------- #\ndef test_runtime_calls_function_with_send_value():\n    w = runtime(value=lambda v: (v or 0) * 2.0)\n    assert w.next() == 0.0\n    assert w.next(5) == 10.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandomExponential (lines 172-199)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_exponential_within_bounds():\n    random.seed(12345)\n    w = wait_random_exponential(multiplier=1, max_value=4, exp_base=2, min_value=0)\n    for expected_hi in (1.0, 2.0, 4.0, 4.0, 4.0):\n        v = w.next()\n        assert 0.0 <= v <= expected_hi\n\n\ndef test_wait_random_exponential_min_value_clamps():\n    random.seed(1)\n    w = wait_random_exponential(multiplier=1, max_value=2, exp_base=2, min_value=10)\n    # a gets clamped up to min_value 10, then uniform(0, 10)\n    v = w.next()\n    assert 0.0 <= v <= 10.0\n\n\ndef test_wait_random_exponential_no_max():\n    random.seed(0)\n    w = wait_random_exponential(multiplier=1, max_value=None, exp_base=2)\n    assert 0.0 <= w.next() <= 1.0\n    assert 0.0 <= w.next() <= 2.0\n    assert 0.0 <= w.next() <= 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitIncrementing (lines 205-223)\n# --------------------------------------------------------------------------- #\ndef test_wait_incrementing_with_max_value():\n    w = wait_incrementing(start=1, increment=2, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    # next a = 7 > 5 -> returns 5\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_incrementing_defaults():\n    w = wait_incrementing()\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandom (lines 266-273)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_bounds():\n    random.seed(42)\n    w = wait_random(min=2, max=3)\n    for _ in range(20):\n        v = w.next()\n        assert 2.0 <= v <= 3.0\n\n\ndef test_wait_random_identical_bounds():\n    w = wait_random(min=1.5, max=1.5)\n    assert w.next() == 1.5\n\n\n# --------------------------------------------------------------------------- #\n# _WaitExponentialJitter (lines 279-298)\n# --------------------------------------------------------------------------- #\ndef test_wait_exponential_jitter_bounds():\n    random.seed(7)\n    w = wait_exponential_jitter(initial=1, max=10, exp_base=2, jitter=1)\n    # n starts at 1 -> delay = 1*2^1 = 2, plus [0,1]\n    v = w.next()\n    assert 2.0 <= v <= 3.0\n    # next n=2 -> 4, plus [0,1]\n    v = w.next()\n    assert 4.0 <= v <= 5.0\n    # next n=3 -> 8, plus [0,1]\n    v = w.next()\n    assert 8.0 <= v <= 9.0\n    # cap at max=10 plus jitter\n    v = w.next()\n    assert 10.0 <= v <= 11.0\n\n\ndef test_wait_exponential_jitter_zero_jitter():\n    w = wait_exponential_jitter(initial=2, max=100, exp_base=3, jitter=0)\n    assert w.next() == 6.0\n    assert w.next() == 18.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitNone (lines 304-306)\n# --------------------------------------------------------------------------- #\ndef test_wait_none_returns_zero():\n    w = wait_none()\n    assert w.next() == 0.0\n    assert w.next(10) == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitException (lines 254-263)\n# --------------------------------------------------------------------------- #\ndef test_wait_exception_class_returns_value():\n    from backon._wait_gen import _WaitException\n    w = _WaitException(value=lambda v: (v or 0) + 1.0)\n    assert w.next() == 1.0\n    assert w.next(4) == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _CombinedWait.next sums correctly with send_value\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_next_send_value_multiple():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), constant(1))\n    assert w.next(3) == 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitChain.__call__ rebuilds independent chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_rebuild():\n    w = wait_chain(wait_incrementing(start=1), wait_incrementing(start=100))\n    w2 = w(start=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 5.0\n    assert w2.next() == 100.0\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 55 passed, 2 failed, 0 errors.\n- `tests_testpilot.test__wait_gen::test_decay_with_min_value` failed:\n```\nassert False\n +  where False = <built-in function isclose>(0.1, (2.718281828459045 ** -10))\n +    where <built-in function isclose> = math.isclose\n +    and   2.718281828459045 = math.e\ndef test_decay_with_min_value():\n        w = decay(initial_value=1, decay_factor=10, min_value=0.1)\n        a = w.next()\n        assert math.isclose(a, 1.0)\n        b = w.next()\n>       assert math.isclose(b, math.e ** -10)\nE       assert False\nE        +  where False = <built-in function isclose>(0.1, (2.718281828459045 ** -10))\nE        +    where <built-in function isclose> = math.isclose\nE        +    and   2.718281828459045 = math.e\n\ntests_testpilot/test__wait_gen.py:353: AssertionError\n```\n- `tests_testpilot.test__wait_gen::test_wait_chain_call_rebuild` failed:\n```\nassert 5 == 100.0\n +  where 5 = next()\n +    where next = <backon._wait_gen._WaitChain object at 0x72d2f0ae2610>.next\ndef test_wait_chain_call_rebuild():\n        w = wait_chain(wait_incrementing(start=1), wait_incrementing(start=100))\n        w2 = w(start=5)\n        assert isinstance(w2, _WaitChain)\n        assert w2.next() == 5.0\n>       assert w2.next() == 100.0\nE       assert 5 == 100.0\nE        +  where 5 = next()\nE        +    where next = <backon._wait_gen._WaitChain object at 0x72d2f0ae2610>.next\n\ntests_testpilot/test__wait_gen.py:542: AssertionError\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport math\nimport random\n\nimport pytest\n\nfrom backon._wait_gen import (\n    wait_chain,\n    wait_combine,\n    wait_none,\n    wait_random_exponential,\n    wait_incrementing,\n    wait_random,\n    wait_exponential_jitter,\n    constant,\n    expo,\n    decay,\n    fibo,\n    runtime,\n    wait_exception,\n    _Wait,\n    _CombinedWait,\n    _WaitChain,\n    _WaitFactory,\n    _Expo,\n    _Decay,\n    _Fibo,\n    _Constant,\n    _Runtime,\n    _WaitRandomExponential,\n    _WaitIncrementing,\n    _WaitRandom,\n    _WaitExponentialJitter,\n    _WaitNone,\n    _WaitException,\n)\n\n\n# --------------------------------------------------------------------------- #\n# wait_combine\n# --------------------------------------------------------------------------- #\ndef test_wait_combine_returns_combined_wait():\n    w = wait_combine(wait_none())\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_sums_waits():\n    w = wait_combine(constant(1), constant(2), constant(3))\n    assert w.next() == 6.0\n    assert w.next() == 6.0\n\n\ndef test_wait_combine_empty_returns_zero():\n    w = wait_combine()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_with_incrementing():\n    w = wait_combine(wait_incrementing(start=1, increment=1), constant(10))\n    assert w.next() == 11.0\n    assert w.next() == 12.0\n    assert w.next() == 13.0\n\n\ndef test_wait_combine_passes_send_value():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), runtime(value=fn))\n    assert w.next(5) == 10.0\n\n\ndef test_wait_combine_call_kwargs_propagates():\n    w = wait_combine(wait_incrementing(start=1), wait_incrementing(start=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _CombinedWait)\n    assert w2.next() == 2.0\n    assert w2.next() == 12.0\n\n\ndef test_combined_wait_add_combined_flattens():\n    a = wait_combine(constant(1))\n    b = wait_combine(constant(2))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_combined_wait_add_single_wait():\n    a = wait_combine(constant(1))\n    c = a + constant(4)\n    assert len(c._waits) == 2\n    assert c.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# wait_chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_returns_chain():\n    w = wait_chain(constant(1), constant(2))\n    assert isinstance(w, _WaitChain)\n\n\ndef test_wait_chain_cycles_through_waits():\n    w = wait_chain(constant(1), constant(2), constant(3))\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\ndef test_wait_chain_empty_returns_zero():\n    w = wait_chain()\n    assert w.next() == 0.0\n    assert w.next() == 0.0\n\n\ndef test_wait_chain_single_wait():\n    w = wait_chain(constant(5))\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_chain_with_stateful_waits():\n    w = wait_chain(wait_incrementing(start=0, increment=10), constant(100))\n    assert w.next() == 0.0\n    assert w.next() == 100.0\n    assert w.next() == 10.0\n    assert w.next() == 100.0\n\n\ndef test_wait_chain_call_kwargs_propagates():\n    w = wait_chain(wait_incrementing(start=1, increment=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 1.0\n    assert w2.next() == 6.0\n\n\ndef test_wait_chain_passes_send_value():\n    def fn(v):\n        return float(v) * 2\n\n    w = wait_chain(runtime(value=fn))\n    assert w.next(3) == 6.0\n\n\n# --------------------------------------------------------------------------- #\n# Mutable combinators - each next advances underlying waits\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_combine(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\ndef test_chain_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_chain(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\n# --------------------------------------------------------------------------- #\n# Error handling / NotImplementedError\n# --------------------------------------------------------------------------- #\ndef test_base_wait_next_not_implemented():\n    w = _Wait()\n    with pytest.raises(NotImplementedError):\n        w.next()\n\n\n# --------------------------------------------------------------------------- #\n# Factory callable behavior used by combinators\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_callable():\n    w = constant(2.5)\n    assert isinstance(w, _Wait)\n    assert w.next() == 2.5\n\n\ndef test_wait_factory_add_creates_combined():\n    w = constant(1) + wait_none()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# Pure wrappers - chain over none\n# --------------------------------------------------------------------------- #\ndef test_chain_of_none():\n    w = wait_chain(wait_none())\n    assert w.next() == 0.0\n\n\ndef test_combine_of_none():\n    w = wait_combine(wait_none(), wait_none())\n    assert w.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Decorator-style call forwarding\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_replaces_positional_args():\n    w = wait_chain(wait_incrementing(start=1))\n    # calling with positional-style kwargs should rebuild inner waits\n    w2 = w(start=10)\n    assert w2.next() == 10.0\n\n\ndef test_combined_call_forwards_to_children():\n    w = wait_combine(wait_random(min=0, max=0))\n    w2 = w(min=0, max=0)\n    assert w2.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Combined wait with mixed deterministic waits (no randomness)\n# --------------------------------------------------------------------------- #\ndef test_combined_mixed_deterministic():\n    w = wait_combine(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.5)\n    assert math.isclose(w.next(), 2.5)\n    assert math.isclose(w.next(), 4.5)\n\n\ndef test_chain_mixed_deterministic():\n    w = wait_chain(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), 0.5)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 0.5)\n\n\n# =========================================================================== #\n# ADDED TESTS to improve coverage\n# =========================================================================== #\n\n# --------------------------------------------------------------------------- #\n# _Wait.__call__ with positional args (lines 21-25)\n# --------------------------------------------------------------------------- #\ndef test_wait_call_with_positional_args_drops_overridden_kwargs():\n    # _Constant(interval=...) - call with positional arg overrides interval\n    w = constant(1)\n    w2 = w(5)\n    assert w2.next() == 5.0\n    # original unaffected\n    assert w.next() == 1.0\n\n\ndef test_wait_call_positional_more_args_than_kwargs():\n    # More positional args than known keyword params\n    w = constant(1)\n    w2 = w(2)\n    assert w2.next() == 2.0\n\n\ndef test_wait_call_multiple_positional_args():\n    # _WaitIncrementing has start, increment, max_value as kwargs.\n    # Passing 2 positional args should override start and increment.\n    w = wait_incrementing(start=1, increment=1)\n    w2 = w(10, 3)\n    assert w2.next() == 10.0\n    assert w2.next() == 13.0\n\n\n# --------------------------------------------------------------------------- #\n# _Wait.__add__ / __radd__ with _CombinedWait (lines 29-30, 33-34)\n# --------------------------------------------------------------------------- #\ndef test_wait_add_combined_wait_prepends():\n    a = constant(1)\n    b = wait_combine(constant(2), constant(3))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 3\n    assert c.next() == 6.0\n\n\ndef test_wait_radd_combines():\n    a = constant(1)\n    # Force use of __radd__: a _CombinedWait has __radd__ inherited from _Wait\n    # but for a plain _Wait on the right, __add__ of left combinator\n    # would kick in. Use __radd__ directly via _Wait.__radd__.\n    c = _Wait.__radd__(a, constant(2))\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitFactory.__add__ and __radd__ (lines 63-71)\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_add_combined_wait():\n    combined = wait_combine(constant(2))\n    c = constant.__add__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_add_plain_wait():\n    c = constant.__add__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\ndef test_wait_factory_radd_combined():\n    combined = wait_combine(constant(2))\n    c = constant.__radd__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_radd_plain():\n    c = constant.__radd__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# _Expo max_value branch (lines 89, 92)\n# --------------------------------------------------------------------------- #\ndef test_expo_with_max_value():\n    w = expo(base=2, factor=1, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 4.0\n    # 8 >= 5 so returns max_value and does not advance\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _Decay (lines 98-120)\n# --------------------------------------------------------------------------- #\ndef test_decay_default():\n    w = decay()\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), math.e ** -1)\n    assert math.isclose(w.next(), math.e ** -2)\n\n\ndef test_decay_with_min_value():\n    w = decay(initial_value=1, decay_factor=10, min_value=0.1)\n    a = w.next()\n    assert math.isclose(a, 1.0)\n    b = w.next()\n    # e^-10 ~= 4.5e-5 which is <= min_value 0.1 -> returns min_value\n    assert b == 0.1\n    assert w.next() == 0.1\n    assert w.next() == 0.1\n\n\ndef test_decay_custom_params():\n    w = decay(initial_value=2, decay_factor=1)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 2 * math.e ** -1)\n\n\n# --------------------------------------------------------------------------- #\n# _Fibo (lines 126-138)\n# --------------------------------------------------------------------------- #\ndef test_fibo_sequence():\n    w = fibo()\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    assert w.next() == 8.0\n\n\ndef test_fibo_with_max_value():\n    w = fibo(max_value=3)\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    # next a=3 >= 3 -> return max_value saturated\n    assert w.next() == 3.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _Constant with sequence (line 148 else branch, line 151)\n# --------------------------------------------------------------------------- #\ndef test_constant_with_sequence():\n    w = constant([1.5, 2.5, 3.5])\n    assert w.next() == 1.5\n    assert w.next() == 2.5\n    assert w.next() == 3.5\n    with pytest.raises(StopIteration):\n        w.next()\n\n\ndef test_constant_with_int():\n    w = constant(3)\n    assert w.next() == 3.0\n    assert isinstance(w.next(), float)\n\n\n# --------------------------------------------------------------------------- #\n# _Runtime (lines 160-166)\n# --------------------------------------------------------------------------- #\ndef test_runtime_calls_function_with_send_value():\n    w = runtime(value=lambda v: (v or 0) * 2.0)\n    assert w.next() == 0.0\n    assert w.next(5) == 10.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandomExponential (lines 172-199)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_exponential_within_bounds():\n    random.seed(12345)\n    w = wait_random_exponential(multiplier=1, max_value=4, exp_base=2, min_value=0)\n    for expected_hi in (1.0, 2.0, 4.0, 4.0, 4.0):\n        v = w.next()\n        assert 0.0 <= v <= expected_hi\n\n\ndef test_wait_random_exponential_min_value_clamps():\n    random.seed(1)\n    w = wait_random_exponential(multiplier=1, max_value=2, exp_base=2, min_value=10)\n    # a gets clamped up to min_value 10, then uniform(0, 10)\n    v = w.next()\n    assert 0.0 <= v <= 10.0\n\n\ndef test_wait_random_exponential_no_max():\n    random.seed(0)\n    w = wait_random_exponential(multiplier=1, max_value=None, exp_base=2)\n    assert 0.0 <= w.next() <= 1.0\n    assert 0.0 <= w.next() <= 2.0\n    assert 0.0 <= w.next() <= 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitIncrementing (lines 205-223)\n# --------------------------------------------------------------------------- #\ndef test_wait_incrementing_with_max_value():\n    w = wait_incrementing(start=1, increment=2, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    # next a = 7 > 5 -> returns 5\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_incrementing_defaults():\n    w = wait_incrementing()\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandom (lines 266-273)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_bounds():\n    random.seed(42)\n    w = wait_random(min=2, max=3)\n    for _ in range(20):\n        v = w.next()\n        assert 2.0 <= v <= 3.0\n\n\ndef test_wait_random_identical_bounds():\n    w = wait_random(min=1.5, max=1.5)\n    assert w.next() == 1.5\n\n\n# --------------------------------------------------------------------------- #\n# _WaitExponentialJitter (lines 279-298)\n# --------------------------------------------------------------------------- #\ndef test_wait_exponential_jitter_bounds():\n    random.seed(7)\n    w = wait_exponential_jitter(initial=1, max=10, exp_base=2, jitter=1)\n    # n starts at 1 -> delay = 1*2^1 = 2, plus [0,1]\n    v = w.next()\n    assert 2.0 <= v <= 3.0\n    # next n=2 -> 4, plus [0,1]\n    v = w.next()\n    assert 4.0 <= v <= 5.0\n    # next n=3 -> 8, plus [0,1]\n    v = w.next()\n    assert 8.0 <= v <= 9.0\n    # cap at max=10 plus jitter\n    v = w.next()\n    assert 10.0 <= v <= 11.0\n\n\ndef test_wait_exponential_jitter_zero_jitter():\n    w = wait_exponential_jitter(initial=2, max=100, exp_base=3, jitter=0)\n    assert w.next() == 6.0\n    assert w.next() == 18.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitNone (lines 304-306)\n# --------------------------------------------------------------------------- #\ndef test_wait_none_returns_zero():\n    w = wait_none()\n    assert w.next() == 0.0\n    assert w.next(10) == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitException (lines 254-263)\n# --------------------------------------------------------------------------- #\ndef test_wait_exception_class_returns_value():\n    from backon._wait_gen import _WaitException\n    w = _WaitException(value=lambda v: (v or 0) + 1.0)\n    assert w.next() == 1.0\n    assert w.next(4) == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _CombinedWait.next sums correctly with send_value\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_next_send_value_multiple():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), constant(1))\n    assert w.next(3) == 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitChain.__call__ rebuilds independent chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_rebuild():\n    w = wait_chain(wait_incrementing(start=1), wait_incrementing(start=100))\n    w2 = w(start=5)\n    assert isinstance(w2, _WaitChain)\n    # Both children receive the same kwargs; start=5 overrides both starts.\n    assert w2.next() == 5.0\n    assert w2.next() == 5.0\n    assert w2.next() == 6.0\n    assert w2.next() == 6.0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 8533,
+      "cache_hit_tokens": 3456,
+      "completion_tokens": 4485,
+      "reasoning_tokens": 0,
+      "latency": 12.0
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 3,
+    "at": "2026-10-20T06:31:01+00:00",
+    "duration": 1.32,
+    "summary": "通过 57，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 1.32,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 28542
+  },
+  {
+    "node": "analyze",
+    "iteration": 3,
+    "at": "2026-10-20T06:31:06+00:00",
+    "duration": 6.33,
+    "summary": "分数 [1, 0.0, 1.0, 0.9666666666666667, 57]（提升），行覆盖 100.0%，分支覆盖 96.7%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 3.9,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "backon/_wait_gen.py",
+          "tests": [
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_returns_combined_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_sums_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_empty_returns_zero",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_with_incrementing",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_passes_send_value",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_call_kwargs_propagates",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_add_combined_flattens",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_add_single_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_returns_chain",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_cycles_through_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_empty_returns_zero",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_single_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_with_stateful_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_call_kwargs_propagates",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_passes_send_value",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_advances_underlying_state",
+            "tests_testpilot/test__wait_gen.py::test_chain_advances_underlying_state",
+            "tests_testpilot/test__wait_gen.py::test_base_wait_next_not_implemented",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_callable",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_add_creates_combined",
+            "tests_testpilot/test__wait_gen.py::test_chain_of_none",
+            "tests_testpilot/test__wait_gen.py::test_combine_of_none",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_call_replaces_positional_args",
+            "tests_testpilot/test__wait_gen.py::test_combined_call_forwards_to_children",
+            "tests_testpilot/test__wait_gen.py::test_combined_mixed_deterministic",
+            "tests_testpilot/test__wait_gen.py::test_chain_mixed_deterministic",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_with_positional_args_drops_overridden_kwargs",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_positional_more_args_than_kwargs",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_multiple_positional_args",
+            "tests_testpilot/test__wait_gen.py::test_wait_add_combined_wait_prepends",
+            "tests_testpilot/test__wait_gen.py::test_wait_radd_combines",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_add_combined_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_add_plain_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_radd_combined",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_radd_plain",
+            "tests_testpilot/test__wait_gen.py::test_expo_with_max_value",
+            "tests_testpilot/test__wait_gen.py::test_decay_default",
+            "tests_testpilot/test__wait_gen.py::test_decay_with_min_value",
+            "tests_testpilot/test__wait_gen.py::test_decay_custom_params",
+            "tests_testpilot/test__wait_gen.py::test_fibo_sequence",
+            "tests_testpilot/test__wait_gen.py::test_fibo_with_max_value",
+            "tests_testpilot/test__wait_gen.py::test_constant_with_sequence",
+            "tests_testpilot/test__wait_gen.py::test_constant_with_int",
+            "tests_testpilot/test__wait_gen.py::test_runtime_calls_function_with_send_value",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_exponential_within_bounds",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_exponential_min_value_clamps",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_exponential_no_max",
+            "tests_testpilot/test__wait_gen.py::test_wait_incrementing_with_max_value",
+            "tests_testpilot/test__wait_gen.py::test_wait_incrementing_defaults",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_bounds",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_identical_bounds",
+            "tests_testpilot/test__wait_gen.py::test_wait_exponential_jitter_bounds",
+            "tests_testpilot/test__wait_gen.py::test_wait_exponential_jitter_zero_jitter",
+            "tests_testpilot/test__wait_gen.py::test_wait_none_returns_zero",
+            "tests_testpilot/test__wait_gen.py::test_wait_exception_class_returns_value",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_next_send_value_multiple",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_call_rebuild"
+          ]
+        },
+        "duration": 2.42,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 28542,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      0.9666666666666667,
+      57
+    ],
+    "coverage": {
+      "target": "backon/_wait_gen.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 0.9666666666666667,
+      "statements": 192,
+      "branches": 30,
+      "missing_lines": [],
+      "missing_branches": [
+        [
+          24,
+          23
+        ]
+      ],
+      "error": ""
+    },
+    "validity": {
+      "total": 57,
+      "valid": 57,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 3,
+    "at": "2026-10-20T06:31:06+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 28542
+  },
+  {
+    "node": "write_tests",
+    "iteration": 4,
+    "at": "2026-10-20T06:31:20+00:00",
+    "duration": 14.18,
+    "summary": "第 4 轮：生成 580 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__wait_gen.py",
+          "content": "<18509 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 41683,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test__wait_gen.py`)\n```python\nimport math\nimport random\n\nimport pytest\n\nfrom backon._wait_gen import (\n    wait_chain,\n    wait_combine,\n    wait_none,\n    wait_random_exponential,\n    wait_incrementing,\n    wait_random,\n    wait_exponential_jitter,\n    constant,\n    expo,\n    decay,\n    fibo,\n    runtime,\n    wait_exception,\n    _Wait,\n    _CombinedWait,\n    _WaitChain,\n    _WaitFactory,\n    _Expo,\n    _Decay,\n    _Fibo,\n    _Constant,\n    _Runtime,\n    _WaitRandomExponential,\n    _WaitIncrementing,\n    _WaitRandom,\n    _WaitExponentialJitter,\n    _WaitNone,\n    _WaitException,\n)\n\n\n# --------------------------------------------------------------------------- #\n# wait_combine\n# --------------------------------------------------------------------------- #\ndef test_wait_combine_returns_combined_wait():\n    w = wait_combine(wait_none())\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_sums_waits():\n    w = wait_combine(constant(1), constant(2), constant(3))\n    assert w.next() == 6.0\n    assert w.next() == 6.0\n\n\ndef test_wait_combine_empty_returns_zero():\n    w = wait_combine()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_with_incrementing():\n    w = wait_combine(wait_incrementing(start=1, increment=1), constant(10))\n    assert w.next() == 11.0\n    assert w.next() == 12.0\n    assert w.next() == 13.0\n\n\ndef test_wait_combine_passes_send_value():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), runtime(value=fn))\n    assert w.next(5) == 10.0\n\n\ndef test_wait_combine_call_kwargs_propagates():\n    w = wait_combine(wait_incrementing(start=1), wait_incrementing(start=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _CombinedWait)\n    assert w2.next() == 2.0\n    assert w2.next() == 12.0\n\n\ndef test_combined_wait_add_combined_flattens():\n    a = wait_combine(constant(1))\n    b = wait_combine(constant(2))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_combined_wait_add_single_wait():\n    a = wait_combine(constant(1))\n    c = a + constant(4)\n    assert len(c._waits) == 2\n    assert c.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# wait_chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_returns_chain():\n    w = wait_chain(constant(1), constant(2))\n    assert isinstance(w, _WaitChain)\n\n\ndef test_wait_chain_cycles_through_waits():\n    w = wait_chain(constant(1), constant(2), constant(3))\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\ndef test_wait_chain_empty_returns_zero():\n    w = wait_chain()\n    assert w.next() == 0.0\n    assert w.next() == 0.0\n\n\ndef test_wait_chain_single_wait():\n    w = wait_chain(constant(5))\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_chain_with_stateful_waits():\n    w = wait_chain(wait_incrementing(start=0, increment=10), constant(100))\n    assert w.next() == 0.0\n    assert w.next() == 100.0\n    assert w.next() == 10.0\n    assert w.next() == 100.0\n\n\ndef test_wait_chain_call_kwargs_propagates():\n    w = wait_chain(wait_incrementing(start=1, increment=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 1.0\n    assert w2.next() == 6.0\n\n\ndef test_wait_chain_passes_send_value():\n    def fn(v):\n        return float(v) * 2\n\n    w = wait_chain(runtime(value=fn))\n    assert w.next(3) == 6.0\n\n\n# --------------------------------------------------------------------------- #\n# Mutable combinators - each next advances underlying waits\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_combine(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\ndef test_chain_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_chain(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\n# --------------------------------------------------------------------------- #\n# Error handling / NotImplementedError\n# --------------------------------------------------------------------------- #\ndef test_base_wait_next_not_implemented():\n    w = _Wait()\n    with pytest.raises(NotImplementedError):\n        w.next()\n\n\n# --------------------------------------------------------------------------- #\n# Factory callable behavior used by combinators\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_callable():\n    w = constant(2.5)\n    assert isinstance(w, _Wait)\n    assert w.next() == 2.5\n\n\ndef test_wait_factory_add_creates_combined():\n    w = constant(1) + wait_none()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# Pure wrappers - chain over none\n# --------------------------------------------------------------------------- #\ndef test_chain_of_none():\n    w = wait_chain(wait_none())\n    assert w.next() == 0.0\n\n\ndef test_combine_of_none():\n    w = wait_combine(wait_none(), wait_none())\n    assert w.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Decorator-style call forwarding\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_replaces_positional_args():\n    w = wait_chain(wait_incrementing(start=1))\n    # calling with positional-style kwargs should rebuild inner waits\n    w2 = w(start=10)\n    assert w2.next() == 10.0\n\n\ndef test_combined_call_forwards_to_children():\n    w = wait_combine(wait_random(min=0, max=0))\n    w2 = w(min=0, max=0)\n    assert w2.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Combined wait with mixed deterministic waits (no randomness)\n# --------------------------------------------------------------------------- #\ndef test_combined_mixed_deterministic():\n    w = wait_combine(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.5)\n    assert math.isclose(w.next(), 2.5)\n    assert math.isclose(w.next(), 4.5)\n\n\ndef test_chain_mixed_deterministic():\n    w = wait_chain(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), 0.5)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 0.5)\n\n\n# =========================================================================== #\n# ADDED TESTS to improve coverage\n# =========================================================================== #\n\n# --------------------------------------------------------------------------- #\n# _Wait.__call__ with positional args (lines 21-25)\n# --------------------------------------------------------------------------- #\ndef test_wait_call_with_positional_args_drops_overridden_kwargs():\n    # _Constant(interval=...) - call with positional arg overrides interval\n    w = constant(1)\n    w2 = w(5)\n    assert w2.next() == 5.0\n    # original unaffected\n    assert w.next() == 1.0\n\n\ndef test_wait_call_positional_more_args_than_kwargs():\n    # More positional args than known keyword params\n    w = constant(1)\n    w2 = w(2)\n    assert w2.next() == 2.0\n\n\ndef test_wait_call_multiple_positional_args():\n    # _WaitIncrementing has start, increment, max_value as kwargs.\n    # Passing 2 positional args should override start and increment.\n    w = wait_incrementing(start=1, increment=1)\n    w2 = w(10, 3)\n    assert w2.next() == 10.0\n    assert w2.next() == 13.0\n\n\n# --------------------------------------------------------------------------- #\n# _Wait.__add__ / __radd__ with _CombinedWait (lines 29-30, 33-34)\n# --------------------------------------------------------------------------- #\ndef test_wait_add_combined_wait_prepends():\n    a = constant(1)\n    b = wait_combine(constant(2), constant(3))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 3\n    assert c.next() == 6.0\n\n\ndef test_wait_radd_combines():\n    a = constant(1)\n    # Force use of __radd__: a _CombinedWait has __radd__ inherited from _Wait\n    # but for a plain _Wait on the right, __add__ of left combinator\n    # would kick in. Use __radd__ directly via _Wait.__radd__.\n    c = _Wait.__radd__(a, constant(2))\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitFactory.__add__ and __radd__ (lines 63-71)\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_add_combined_wait():\n    combined = wait_combine(constant(2))\n    c = constant.__add__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_add_plain_wait():\n    c = constant.__add__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\ndef test_wait_factory_radd_combined():\n    combined = wait_combine(constant(2))\n    c = constant.__radd__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_radd_plain():\n    c = constant.__radd__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# _Expo max_value branch (lines 89, 92)\n# --------------------------------------------------------------------------- #\ndef test_expo_with_max_value():\n    w = expo(base=2, factor=1, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 4.0\n    # 8 >= 5 so returns max_value and does not advance\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _Decay (lines 98-120)\n# --------------------------------------------------------------------------- #\ndef test_decay_default():\n    w = decay()\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), math.e ** -1)\n    assert math.isclose(w.next(), math.e ** -2)\n\n\ndef test_decay_with_min_value():\n    w = decay(initial_value=1, decay_factor=10, min_value=0.1)\n    a = w.next()\n    assert math.isclose(a, 1.0)\n    b = w.next()\n    # e^-10 ~= 4.5e-5 which is <= min_value 0.1 -> returns min_value\n    assert b == 0.1\n    assert w.next() == 0.1\n    assert w.next() == 0.1\n\n\ndef test_decay_custom_params():\n    w = decay(initial_value=2, decay_factor=1)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 2 * math.e ** -1)\n\n\n# --------------------------------------------------------------------------- #\n# _Fibo (lines 126-138)\n# --------------------------------------------------------------------------- #\ndef test_fibo_sequence():\n    w = fibo()\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    assert w.next() == 8.0\n\n\ndef test_fibo_with_max_value():\n    w = fibo(max_value=3)\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    # next a=3 >= 3 -> return max_value saturated\n    assert w.next() == 3.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _Constant with sequence (line 148 else branch, line 151)\n# --------------------------------------------------------------------------- #\ndef test_constant_with_sequence():\n    w = constant([1.5, 2.5, 3.5])\n    assert w.next() == 1.5\n    assert w.next() == 2.5\n    assert w.next() == 3.5\n    with pytest.raises(StopIteration):\n        w.next()\n\n\ndef test_constant_with_int():\n    w = constant(3)\n    assert w.next() == 3.0\n    assert isinstance(w.next(), float)\n\n\n# --------------------------------------------------------------------------- #\n# _Runtime (lines 160-166)\n# --------------------------------------------------------------------------- #\ndef test_runtime_calls_function_with_send_value():\n    w = runtime(value=lambda v: (v or 0) * 2.0)\n    assert w.next() == 0.0\n    assert w.next(5) == 10.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandomExponential (lines 172-199)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_exponential_within_bounds():\n    random.seed(12345)\n    w = wait_random_exponential(multiplier=1, max_value=4, exp_base=2, min_value=0)\n    for expected_hi in (1.0, 2.0, 4.0, 4.0, 4.0):\n        v = w.next()\n        assert 0.0 <= v <= expected_hi\n\n\ndef test_wait_random_exponential_min_value_clamps():\n    random.seed(1)\n    w = wait_random_exponential(multiplier=1, max_value=2, exp_base=2, min_value=10)\n    # a gets clamped up to min_value 10, then uniform(0, 10)\n    v = w.next()\n    assert 0.0 <= v <= 10.0\n\n\ndef test_wait_random_exponential_no_max():\n    random.seed(0)\n    w = wait_random_exponential(multiplier=1, max_value=None, exp_base=2)\n    assert 0.0 <= w.next() <= 1.0\n    assert 0.0 <= w.next() <= 2.0\n    assert 0.0 <= w.next() <= 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitIncrementing (lines 205-223)\n# --------------------------------------------------------------------------- #\ndef test_wait_incrementing_with_max_value():\n    w = wait_incrementing(start=1, increment=2, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    # next a = 7 > 5 -> returns 5\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_incrementing_defaults():\n    w = wait_incrementing()\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandom (lines 266-273)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_bounds():\n    random.seed(42)\n    w = wait_random(min=2, max=3)\n    for _ in range(20):\n        v = w.next()\n        assert 2.0 <= v <= 3.0\n\n\ndef test_wait_random_identical_bounds():\n    w = wait_random(min=1.5, max=1.5)\n    assert w.next() == 1.5\n\n\n# --------------------------------------------------------------------------- #\n# _WaitExponentialJitter (lines 279-298)\n# --------------------------------------------------------------------------- #\ndef test_wait_exponential_jitter_bounds():\n    random.seed(7)\n    w = wait_exponential_jitter(initial=1, max=10, exp_base=2, jitter=1)\n    # n starts at 1 -> delay = 1*2^1 = 2, plus [0,1]\n    v = w.next()\n    assert 2.0 <= v <= 3.0\n    # next n=2 -> 4, plus [0,1]\n    v = w.next()\n    assert 4.0 <= v <= 5.0\n    # next n=3 -> 8, plus [0,1]\n    v = w.next()\n    assert 8.0 <= v <= 9.0\n    # cap at max=10 plus jitter\n    v = w.next()\n    assert 10.0 <= v <= 11.0\n\n\ndef test_wait_exponential_jitter_zero_jitter():\n    w = wait_exponential_jitter(initial=2, max=100, exp_base=3, jitter=0)\n    assert w.next() == 6.0\n    assert w.next() == 18.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitNone (lines 304-306)\n# --------------------------------------------------------------------------- #\ndef test_wait_none_returns_zero():\n    w = wait_none()\n    assert w.next() == 0.0\n    assert w.next(10) == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitException (lines 254-263)\n# --------------------------------------------------------------------------- #\ndef test_wait_exception_class_returns_value():\n    from backon._wait_gen import _WaitException\n    w = _WaitException(value=lambda v: (v or 0) + 1.0)\n    assert w.next() == 1.0\n    assert w.next(4) == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _CombinedWait.next sums correctly with send_value\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_next_send_value_multiple():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), constant(1))\n    assert w.next(3) == 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitChain.__call__ rebuilds independent chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_rebuild():\n    w = wait_chain(wait_incrementing(start=1), wait_incrementing(start=100))\n    w2 = w(start=5)\n    assert isinstance(w2, _WaitChain)\n    # Both children receive the same kwargs; start=5 overrides both starts.\n    assert w2.next() == 5.0\n    assert w2.next() == 5.0\n    assert w2.next() == 6.0\n    assert w2.next() == 6.0\n\n```\n\n## Feedback\nAll 57 tests pass. Coverage of `backon/_wait_gen.py` by these tests: 100.0% of lines, 96.7% of branches. The code below is NOT exercised by any test:\n- line 24: the branch to line 23 is never taken: `if i < len(param_order):`\n\nAdd tests or extend existing ones so that this code is executed and its results are asserted precisely, while all tests still pass on the current code. Check exact return values, boundary inputs and exception messages. Some code may be unreachable through the public API; skip it rather than writing tests that rely on implementation details. Keep all existing tests.\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport math\nimport random\n\nimport pytest\n\nfrom backon._wait_gen import (\n    wait_chain,\n    wait_combine,\n    wait_none,\n    wait_random_exponential,\n    wait_incrementing,\n    wait_random,\n    wait_exponential_jitter,\n    constant,\n    expo,\n    decay,\n    fibo,\n    runtime,\n    wait_exception,\n    _Wait,\n    _CombinedWait,\n    _WaitChain,\n    _WaitFactory,\n    _Expo,\n    _Decay,\n    _Fibo,\n    _Constant,\n    _Runtime,\n    _WaitRandomExponential,\n    _WaitIncrementing,\n    _WaitRandom,\n    _WaitExponentialJitter,\n    _WaitNone,\n    _WaitException,\n)\n\n\n# --------------------------------------------------------------------------- #\n# wait_combine\n# --------------------------------------------------------------------------- #\ndef test_wait_combine_returns_combined_wait():\n    w = wait_combine(wait_none())\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_sums_waits():\n    w = wait_combine(constant(1), constant(2), constant(3))\n    assert w.next() == 6.0\n    assert w.next() == 6.0\n\n\ndef test_wait_combine_empty_returns_zero():\n    w = wait_combine()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 0.0\n\n\ndef test_wait_combine_with_incrementing():\n    w = wait_combine(wait_incrementing(start=1, increment=1), constant(10))\n    assert w.next() == 11.0\n    assert w.next() == 12.0\n    assert w.next() == 13.0\n\n\ndef test_wait_combine_passes_send_value():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), runtime(value=fn))\n    assert w.next(5) == 10.0\n\n\ndef test_wait_combine_call_kwargs_propagates():\n    w = wait_combine(wait_incrementing(start=1), wait_incrementing(start=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _CombinedWait)\n    assert w2.next() == 2.0\n    assert w2.next() == 12.0\n\n\ndef test_combined_wait_add_combined_flattens():\n    a = wait_combine(constant(1))\n    b = wait_combine(constant(2))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_combined_wait_add_single_wait():\n    a = wait_combine(constant(1))\n    c = a + constant(4)\n    assert len(c._waits) == 2\n    assert c.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# wait_chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_returns_chain():\n    w = wait_chain(constant(1), constant(2))\n    assert isinstance(w, _WaitChain)\n\n\ndef test_wait_chain_cycles_through_waits():\n    w = wait_chain(constant(1), constant(2), constant(3))\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\ndef test_wait_chain_empty_returns_zero():\n    w = wait_chain()\n    assert w.next() == 0.0\n    assert w.next() == 0.0\n\n\ndef test_wait_chain_single_wait():\n    w = wait_chain(constant(5))\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_chain_with_stateful_waits():\n    w = wait_chain(wait_incrementing(start=0, increment=10), constant(100))\n    assert w.next() == 0.0\n    assert w.next() == 100.0\n    assert w.next() == 10.0\n    assert w.next() == 100.0\n\n\ndef test_wait_chain_call_kwargs_propagates():\n    w = wait_chain(wait_incrementing(start=1, increment=1))\n    w2 = w(increment=5)\n    assert isinstance(w2, _WaitChain)\n    assert w2.next() == 1.0\n    assert w2.next() == 6.0\n\n\ndef test_wait_chain_passes_send_value():\n    def fn(v):\n        return float(v) * 2\n\n    w = wait_chain(runtime(value=fn))\n    assert w.next(3) == 6.0\n\n\n# --------------------------------------------------------------------------- #\n# Mutable combinators - each next advances underlying waits\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_combine(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\ndef test_chain_advances_underlying_state():\n    inc = wait_incrementing(start=1, increment=1)\n    w = wait_chain(inc)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n\n\n# --------------------------------------------------------------------------- #\n# Error handling / NotImplementedError\n# --------------------------------------------------------------------------- #\ndef test_base_wait_next_not_implemented():\n    w = _Wait()\n    with pytest.raises(NotImplementedError):\n        w.next()\n\n\n# --------------------------------------------------------------------------- #\n# Factory callable behavior used by combinators\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_callable():\n    w = constant(2.5)\n    assert isinstance(w, _Wait)\n    assert w.next() == 2.5\n\n\ndef test_wait_factory_add_creates_combined():\n    w = constant(1) + wait_none()\n    assert isinstance(w, _CombinedWait)\n    assert w.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# Pure wrappers - chain over none\n# --------------------------------------------------------------------------- #\ndef test_chain_of_none():\n    w = wait_chain(wait_none())\n    assert w.next() == 0.0\n\n\ndef test_combine_of_none():\n    w = wait_combine(wait_none(), wait_none())\n    assert w.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Decorator-style call forwarding\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_replaces_positional_args():\n    w = wait_chain(wait_incrementing(start=1))\n    # calling with positional-style kwargs should rebuild inner waits\n    w2 = w(start=10)\n    assert w2.next() == 10.0\n\n\ndef test_combined_call_forwards_to_children():\n    w = wait_combine(wait_random(min=0, max=0))\n    w2 = w(min=0, max=0)\n    assert w2.next() == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# Combined wait with mixed deterministic waits (no randomness)\n# --------------------------------------------------------------------------- #\ndef test_combined_mixed_deterministic():\n    w = wait_combine(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.5)\n    assert math.isclose(w.next(), 2.5)\n    assert math.isclose(w.next(), 4.5)\n\n\ndef test_chain_mixed_deterministic():\n    w = wait_chain(expo(base=2, factor=1), constant(0.5))\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), 0.5)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 0.5)\n\n\n# =========================================================================== #\n# ADDED TESTS to improve coverage\n# =========================================================================== #\n\n# --------------------------------------------------------------------------- #\n# _Wait.__call__ with positional args (lines 21-25)\n# --------------------------------------------------------------------------- #\ndef test_wait_call_with_positional_args_drops_overridden_kwargs():\n    # _Constant(interval=...) - call with positional arg overrides interval\n    w = constant(1)\n    w2 = w(5)\n    assert w2.next() == 5.0\n    # original unaffected\n    assert w.next() == 1.0\n\n\ndef test_wait_call_positional_more_args_than_kwargs():\n    # More positional args than known keyword params\n    w = constant(1)\n    w2 = w(2)\n    assert w2.next() == 2.0\n\n\ndef test_wait_call_multiple_positional_args():\n    # _WaitIncrementing has start, increment, max_value as kwargs.\n    # Passing 2 positional args should override start and increment.\n    w = wait_incrementing(start=1, increment=1)\n    w2 = w(10, 3)\n    assert w2.next() == 10.0\n    assert w2.next() == 13.0\n\n\n# --------------------------------------------------------------------------- #\n# _Wait.__add__ / __radd__ with _CombinedWait (lines 29-30, 33-34)\n# --------------------------------------------------------------------------- #\ndef test_wait_add_combined_wait_prepends():\n    a = constant(1)\n    b = wait_combine(constant(2), constant(3))\n    c = a + b\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 3\n    assert c.next() == 6.0\n\n\ndef test_wait_radd_combines():\n    a = constant(1)\n    # Force use of __radd__: a _CombinedWait has __radd__ inherited from _Wait\n    # but for a plain _Wait on the right, __add__ of left combinator\n    # would kick in. Use __radd__ directly via _Wait.__radd__.\n    c = _Wait.__radd__(a, constant(2))\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitFactory.__add__ and __radd__ (lines 63-71)\n# --------------------------------------------------------------------------- #\ndef test_wait_factory_add_combined_wait():\n    combined = wait_combine(constant(2))\n    c = constant.__add__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_add_plain_wait():\n    c = constant.__add__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\ndef test_wait_factory_radd_combined():\n    combined = wait_combine(constant(2))\n    c = constant.__radd__(combined)\n    assert isinstance(c, _CombinedWait)\n    assert len(c._waits) == 2\n    assert c.next() == 3.0\n\n\ndef test_wait_factory_radd_plain():\n    c = constant.__radd__(wait_none())\n    assert isinstance(c, _CombinedWait)\n    assert c.next() == 1.0\n\n\n# --------------------------------------------------------------------------- #\n# _Expo max_value branch (lines 89, 92)\n# --------------------------------------------------------------------------- #\ndef test_expo_with_max_value():\n    w = expo(base=2, factor=1, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 4.0\n    # 8 >= 5 so returns max_value and does not advance\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _Decay (lines 98-120)\n# --------------------------------------------------------------------------- #\ndef test_decay_default():\n    w = decay()\n    assert math.isclose(w.next(), 1.0)\n    assert math.isclose(w.next(), math.e ** -1)\n    assert math.isclose(w.next(), math.e ** -2)\n\n\ndef test_decay_with_min_value():\n    w = decay(initial_value=1, decay_factor=10, min_value=0.1)\n    a = w.next()\n    assert math.isclose(a, 1.0)\n    b = w.next()\n    # e^-10 ~= 4.5e-5 which is <= min_value 0.1 -> returns min_value\n    assert b == 0.1\n    assert w.next() == 0.1\n    assert w.next() == 0.1\n\n\ndef test_decay_custom_params():\n    w = decay(initial_value=2, decay_factor=1)\n    assert math.isclose(w.next(), 2.0)\n    assert math.isclose(w.next(), 2 * math.e ** -1)\n\n\n# --------------------------------------------------------------------------- #\n# _Fibo (lines 126-138)\n# --------------------------------------------------------------------------- #\ndef test_fibo_sequence():\n    w = fibo()\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    assert w.next() == 8.0\n\n\ndef test_fibo_with_max_value():\n    w = fibo(max_value=3)\n    assert w.next() == 1.0\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    # next a=3 >= 3 -> return max_value saturated\n    assert w.next() == 3.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _Constant with sequence (line 148 else branch, line 151)\n# --------------------------------------------------------------------------- #\ndef test_constant_with_sequence():\n    w = constant([1.5, 2.5, 3.5])\n    assert w.next() == 1.5\n    assert w.next() == 2.5\n    assert w.next() == 3.5\n    with pytest.raises(StopIteration):\n        w.next()\n\n\ndef test_constant_with_int():\n    w = constant(3)\n    assert w.next() == 3.0\n    assert isinstance(w.next(), float)\n\n\n# --------------------------------------------------------------------------- #\n# _Runtime (lines 160-166)\n# --------------------------------------------------------------------------- #\ndef test_runtime_calls_function_with_send_value():\n    w = runtime(value=lambda v: (v or 0) * 2.0)\n    assert w.next() == 0.0\n    assert w.next(5) == 10.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandomExponential (lines 172-199)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_exponential_within_bounds():\n    random.seed(12345)\n    w = wait_random_exponential(multiplier=1, max_value=4, exp_base=2, min_value=0)\n    for expected_hi in (1.0, 2.0, 4.0, 4.0, 4.0):\n        v = w.next()\n        assert 0.0 <= v <= expected_hi\n\n\ndef test_wait_random_exponential_min_value_clamps():\n    random.seed(1)\n    w = wait_random_exponential(multiplier=1, max_value=2, exp_base=2, min_value=10)\n    # a gets clamped up to min_value 10, then uniform(0, 10)\n    v = w.next()\n    assert 0.0 <= v <= 10.0\n\n\ndef test_wait_random_exponential_no_max():\n    random.seed(0)\n    w = wait_random_exponential(multiplier=1, max_value=None, exp_base=2)\n    assert 0.0 <= w.next() <= 1.0\n    assert 0.0 <= w.next() <= 2.0\n    assert 0.0 <= w.next() <= 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitIncrementing (lines 205-223)\n# --------------------------------------------------------------------------- #\ndef test_wait_incrementing_with_max_value():\n    w = wait_incrementing(start=1, increment=2, max_value=5)\n    assert w.next() == 1.0\n    assert w.next() == 3.0\n    assert w.next() == 5.0\n    # next a = 7 > 5 -> returns 5\n    assert w.next() == 5.0\n    assert w.next() == 5.0\n\n\ndef test_wait_incrementing_defaults():\n    w = wait_incrementing()\n    assert w.next() == 1.0\n    assert w.next() == 2.0\n    assert w.next() == 3.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitRandom (lines 266-273)\n# --------------------------------------------------------------------------- #\ndef test_wait_random_bounds():\n    random.seed(42)\n    w = wait_random(min=2, max=3)\n    for _ in range(20):\n        v = w.next()\n        assert 2.0 <= v <= 3.0\n\n\ndef test_wait_random_identical_bounds():\n    w = wait_random(min=1.5, max=1.5)\n    assert w.next() == 1.5\n\n\n# --------------------------------------------------------------------------- #\n# _WaitExponentialJitter (lines 279-298)\n# --------------------------------------------------------------------------- #\ndef test_wait_exponential_jitter_bounds():\n    random.seed(7)\n    w = wait_exponential_jitter(initial=1, max=10, exp_base=2, jitter=1)\n    # n starts at 1 -> delay = 1*2^1 = 2, plus [0,1]\n    v = w.next()\n    assert 2.0 <= v <= 3.0\n    # next n=2 -> 4, plus [0,1]\n    v = w.next()\n    assert 4.0 <= v <= 5.0\n    # next n=3 -> 8, plus [0,1]\n    v = w.next()\n    assert 8.0 <= v <= 9.0\n    # cap at max=10 plus jitter\n    v = w.next()\n    assert 10.0 <= v <= 11.0\n\n\ndef test_wait_exponential_jitter_zero_jitter():\n    w = wait_exponential_jitter(initial=2, max=100, exp_base=3, jitter=0)\n    assert w.next() == 6.0\n    assert w.next() == 18.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitNone (lines 304-306)\n# --------------------------------------------------------------------------- #\ndef test_wait_none_returns_zero():\n    w = wait_none()\n    assert w.next() == 0.0\n    assert w.next(10) == 0.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitException (lines 254-263)\n# --------------------------------------------------------------------------- #\ndef test_wait_exception_class_returns_value():\n    from backon._wait_gen import _WaitException\n    w = _WaitException(value=lambda v: (v or 0) + 1.0)\n    assert w.next() == 1.0\n    assert w.next(4) == 5.0\n\n\n# --------------------------------------------------------------------------- #\n# _CombinedWait.next sums correctly with send_value\n# --------------------------------------------------------------------------- #\ndef test_combined_wait_next_send_value_multiple():\n    def fn(v):\n        return float(v)\n\n    w = wait_combine(runtime(value=fn), constant(1))\n    assert w.next(3) == 4.0\n\n\n# --------------------------------------------------------------------------- #\n# _WaitChain.__call__ rebuilds independent chain\n# --------------------------------------------------------------------------- #\ndef test_wait_chain_call_rebuild():\n    w = wait_chain(wait_incrementing(start=1), wait_incrementing(start=100))\n    w2 = w(start=5)\n    assert isinstance(w2, _WaitChain)\n    # Both children receive the same kwargs; start=5 overrides both starts.\n    assert w2.next() == 5.0\n    assert w2.next() == 5.0\n    assert w2.next() == 6.0\n    assert w2.next() == 6.0\n\n\n# =========================================================================== #\n# ADDED TESTS for previously uncovered branch (line 24)\n# =========================================================================== #\ndef test_wait_call_more_positional_args_than_params():\n    # _Constant stores a single kwarg (\"interval\"). Passing more positional\n    # args than known kwargs hits the ``i < len(param_order)`` false branch.\n    # The extra positional arg is forwarded to the constructor, which raises\n    # TypeError because _Constant only accepts one positional argument.\n    w = constant(1)\n    with pytest.raises(TypeError):\n        w(2, 3)\n\n\ndef test_wait_call_fewer_positional_args_than_params():\n    # _WaitIncrementing has 3 kwargs (start, increment, max_value). Passing\n    # exactly 2 positional args exercises the true branch for i=0,1 and then\n    # leaves the loop before i=2. The result must drop start/increment but\n    # keep max_value.\n    w = wait_incrementing(start=1, increment=2, max_value=100)\n    w2 = w(10, 20)\n    assert w2.next() == 10.0\n    assert w2.next() == 30.0\n    assert w2.next() == 50.0\n\n\ndef test_wait_call_positional_exceeds_params_raises():\n    # Passing 4 positional args to a wait that knows 3 kwargs: after the\n    # loop, all positional args are forwarded. _WaitIncrementing accepts\n    # exactly 3 positional args, so a 4th raises TypeError. This also\n    # guarantees the false branch of ``i < len(param_order)`` is executed.\n    w = wait_incrementing(start=0, increment=1, max_value=10)\n    with pytest.raises(TypeError):\n        w(1, 2, 3, 4)\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 8254,
+      "cache_hit_tokens": 6144,
+      "completion_tokens": 4887,
+      "reasoning_tokens": 0,
+      "latency": 14.17
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 4,
+    "at": "2026-10-20T06:31:21+00:00",
+    "duration": 1.27,
+    "summary": "通过 60，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 1.27,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 41683
+  },
+  {
+    "node": "analyze",
+    "iteration": 4,
+    "at": "2026-10-20T06:31:28+00:00",
+    "duration": 6.38,
+    "summary": "分数 [1, 0.0, 1.0, 1.0, 60]（提升），行覆盖 100.0%，分支覆盖 100.0%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__wait_gen.py"
+          ]
+        },
+        "duration": 4.04,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "backon/_wait_gen.py",
+          "tests": [
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_returns_combined_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_sums_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_empty_returns_zero",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_with_incrementing",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_passes_send_value",
+            "tests_testpilot/test__wait_gen.py::test_wait_combine_call_kwargs_propagates",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_add_combined_flattens",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_add_single_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_returns_chain",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_cycles_through_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_empty_returns_zero",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_single_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_with_stateful_waits",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_call_kwargs_propagates",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_passes_send_value",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_advances_underlying_state",
+            "tests_testpilot/test__wait_gen.py::test_chain_advances_underlying_state",
+            "tests_testpilot/test__wait_gen.py::test_base_wait_next_not_implemented",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_callable",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_add_creates_combined",
+            "tests_testpilot/test__wait_gen.py::test_chain_of_none",
+            "tests_testpilot/test__wait_gen.py::test_combine_of_none",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_call_replaces_positional_args",
+            "tests_testpilot/test__wait_gen.py::test_combined_call_forwards_to_children",
+            "tests_testpilot/test__wait_gen.py::test_combined_mixed_deterministic",
+            "tests_testpilot/test__wait_gen.py::test_chain_mixed_deterministic",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_with_positional_args_drops_overridden_kwargs",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_positional_more_args_than_kwargs",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_multiple_positional_args",
+            "tests_testpilot/test__wait_gen.py::test_wait_add_combined_wait_prepends",
+            "tests_testpilot/test__wait_gen.py::test_wait_radd_combines",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_add_combined_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_add_plain_wait",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_radd_combined",
+            "tests_testpilot/test__wait_gen.py::test_wait_factory_radd_plain",
+            "tests_testpilot/test__wait_gen.py::test_expo_with_max_value",
+            "tests_testpilot/test__wait_gen.py::test_decay_default",
+            "tests_testpilot/test__wait_gen.py::test_decay_with_min_value",
+            "tests_testpilot/test__wait_gen.py::test_decay_custom_params",
+            "tests_testpilot/test__wait_gen.py::test_fibo_sequence",
+            "tests_testpilot/test__wait_gen.py::test_fibo_with_max_value",
+            "tests_testpilot/test__wait_gen.py::test_constant_with_sequence",
+            "tests_testpilot/test__wait_gen.py::test_constant_with_int",
+            "tests_testpilot/test__wait_gen.py::test_runtime_calls_function_with_send_value",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_exponential_within_bounds",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_exponential_min_value_clamps",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_exponential_no_max",
+            "tests_testpilot/test__wait_gen.py::test_wait_incrementing_with_max_value",
+            "tests_testpilot/test__wait_gen.py::test_wait_incrementing_defaults",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_bounds",
+            "tests_testpilot/test__wait_gen.py::test_wait_random_identical_bounds",
+            "tests_testpilot/test__wait_gen.py::test_wait_exponential_jitter_bounds",
+            "tests_testpilot/test__wait_gen.py::test_wait_exponential_jitter_zero_jitter",
+            "tests_testpilot/test__wait_gen.py::test_wait_none_returns_zero",
+            "tests_testpilot/test__wait_gen.py::test_wait_exception_class_returns_value",
+            "tests_testpilot/test__wait_gen.py::test_combined_wait_next_send_value_multiple",
+            "tests_testpilot/test__wait_gen.py::test_wait_chain_call_rebuild",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_more_positional_args_than_params",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_fewer_positional_args_than_params",
+            "tests_testpilot/test__wait_gen.py::test_wait_call_positional_exceeds_params_raises"
+          ]
+        },
+        "duration": 2.34,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 41683,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      1.0,
+      60
+    ],
+    "coverage": {
+      "target": "backon/_wait_gen.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 192,
+      "branches": 30,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 60,
+      "valid": 60,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 4,
+    "at": "2026-10-20T06:31:28+00:00",
+    "duration": 0.0,
+    "summary": "全部测试有效，且行与分支全部覆盖",
+    "tool_calls": [],
+    "tokens_total": 41683
+  },
+  {
+    "node": "finalize",
+    "iteration": 4,
+    "at": "2026-10-20T06:31:28+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试有效，且行与分支全部覆盖；采用第 4 轮，分数 [1, 0.0, 1.0, 1.0, 60]",
+    "tool_calls": [],
+    "tokens_total": 41683,
+    "best_iteration": 4
+  }
+]

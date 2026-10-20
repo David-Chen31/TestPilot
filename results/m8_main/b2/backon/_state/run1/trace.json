@@ -1,0 +1,513 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T06:28:26+00:00",
+    "duration": 0.01,
+    "summary": "7 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "backon/_state.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "TryAgain",
+      "AttemptTimeoutError",
+      "RetryError",
+      "Attempt",
+      "AttemptResult",
+      "RetryState",
+      "RetryCallState"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T06:28:27+00:00",
+    "duration": 0.07,
+    "summary": "依赖定义 0 个，调用处 8 个，提示词前缀 5688 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "backon/_state.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/abc.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/abc.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/abc/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/abc/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "dataclasses.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: dataclasses.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "dataclasses/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: dataclasses/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "TryAgain(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "AttemptTimeoutError(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "RetryError(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "Attempt(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "AttemptResult(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "RetryState(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "RetryCallState(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `backon._state` (file `backon/_state.py`).\n\nSource of `backon/_state.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | from __future__ import annotations\n    2 | \n    3 | import threading\n    4 | import time as time_module\n    5 | from collections.abc import Callable\n    6 | from dataclasses import dataclass, field\n    7 | from typing import Any\n    8 | \n    9 | \n   10 | class TryAgain(Exception):\n   11 |     \"\"\"Raise inside a retried function to force an immediate retry.\"\"\"\n   12 | \n   13 | \n   14 | class AttemptTimeoutError(Exception):\n   15 |     \"\"\"Raised when a single attempt exceeds the configured timeout.\"\"\"\n   16 | \n   17 | \n   18 | class RetryError(Exception):\n   19 |     \"\"\"Raised when retry gives up. Wraps the last attempt's exception.\"\"\"\n   20 | \n   21 |     def __init__(self, last_attempt: Attempt) -> None:\n   22 |         self.last_attempt = last_attempt\n   23 |         cause = last_attempt.exception\n   24 |         super().__init__(f\"Retry failed after {last_attempt.tries} tries\")\n   25 |         if cause is not None:\n   26 |             self.__cause__ = cause\n   27 | \n   28 |     def reraise(self) -> None:\n   29 |         cause = self.last_attempt.exception\n   30 |         if cause is not None:\n   31 |             raise cause from None\n   32 | \n   33 | \n   34 | @dataclass\n   35 | class Attempt:\n   36 |     tries: int = 0\n   37 |     exception: BaseException | None = None\n   38 |     value: Any = None\n   39 |     wait: float = 0.0\n   40 |     elapsed: float = 0.0\n   41 | \n   42 | \n   43 | @dataclass\n   44 | class AttemptResult:\n   45 |     value: Any = None\n   46 |     exception: BaseException | None = None\n   47 | \n   48 | \n   49 | @dataclass\n   50 | class RetryState:\n   51 |     target: Callable[..., Any] = lambda: None\n   52 |     args: tuple = ()\n   53 |     kwargs: dict = field(default_factory=dict)\n   54 |     tries: int = 0\n   55 |     start_time: float = 0.0\n   56 |     elapsed: float = 0.0\n   57 |     idle_for: float = 0.0\n   58 |     outcome: Attempt | None = None\n   59 |     _lock: threading.local = field(default_factory=threading.local)\n   60 | \n   61 |     def __post_init__(self):\n   62 |         self._lock.lock = threading.Lock()\n   63 | \n   64 |     @property\n   65 |     def statistics(self) -> dict[str, Any]:\n   66 |         return {\n   67 |             \"start_time\": self.start_time,\n   68 |             \"attempt_number\": self.tries,\n   69 |             \"idle_for\": self.idle_for,\n   70 |             \"elapsed\": self.elapsed,\n   71 |         }\n   72 | \n   73 |     def to_details(self) -> dict[str, Any]:\n   74 |         return {\n   75 |             \"target\": self.target,\n   76 |             \"args\": self.args,\n   77 |             \"kwargs\": self.kwargs,\n   78 |             \"tries\": self.tries,\n   79 |             \"elapsed\": self.elapsed,\n   80 |         }\n   81 | \n   82 | \n   83 | @dataclass\n   84 | class RetryCallState:\n   85 |     fn: Callable[..., Any] | None = None\n   86 |     args: tuple = ()\n   87 |     kwargs: dict = field(default_factory=dict)\n   88 |     attempt_number: int = 1\n   89 |     outcome: Attempt | None = None\n   90 |     outcome_timestamp: float | None = None\n   91 |     start_time: float = 0.0\n   92 |     idle_for: float = 0.0\n   93 |     upcoming_sleep: float = 0.0\n   94 | \n   95 |     @property\n   96 |     def elapsed(self) -> float:\n   97 |         if self.start_time == 0:\n   98 |             return 0.0\n   99 |         return time_module.monotonic() - self.start_time\n  100 | \n  101 |     @property\n  102 |     def seconds_since_start(self) -> float:\n  103 |         return self.elapsed\n  104 | \n  105 |     @property\n  106 |     def statistics(self) -> dict[str, Any]:\n  107 |         return {\n  108 |             \"start_time\": self.start_time,\n  109 |             \"attempt_number\": self.attempt_number,\n  110 |             \"idle_for\": self.idle_for,\n  111 |             \"elapsed\": self.elapsed,\n  112 |         }\n  113 | \n  114 |     def to_details(self) -> dict[str, Any]:\n  115 |         return {\n  116 |             \"target\": self.fn,\n  117 |             \"args\": self.args,\n  118 |             \"kwargs\": self.kwargs,\n  119 |             \"tries\": self.attempt_number,\n  120 |             \"elapsed\": self.elapsed,\n  121 |         }\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- backon/_retry/_loops.py:83: `raise AttemptTimeoutError() from None`\n- backon/_retry/_loops.py:234: `raise AttemptTimeoutError() from None`\n- backon/_retry/_classes.py:174: `outcome = Attempt(`\n- backon/_retry/_classes.py:203: `attempt = _RetryAttempt()`\n- backon/_retry/_classes.py:154: `self._iter_state = RetryState(target=self._name or \"Retrying\")`\n- backon/_retry/_loops.py:48: `state = RetryState(target=target, args=args, kwargs=kwargs or {})`\n- backon/_retry/_loops.py:51: `call_state = RetryCallState(`\n- backon/_retry/_loops.py:206: `call_state = RetryCallState(`\n\nPublic API to cover: `TryAgain`, `AttemptTimeoutError`, `RetryError`, `Attempt`, `AttemptResult`, `RetryState`, `RetryCallState`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from backon._state import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:28:35+00:00",
+    "duration": 8.94,
+    "summary": "第 1 轮：生成 361 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__state.py",
+          "content": "<11280 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4425,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `backon._state`. Return the complete test file in one ```python code block.",
+      "response": "```python\nfrom __future__ import annotations\n\nimport threading\n\nimport pytest\n\nfrom backon._state import (\n    Attempt,\n    AttemptResult,\n    AttemptTimeoutError,\n    RetryCallState,\n    RetryError,\n    RetryState,\n    TryAgain,\n)\n\n\n# ---------------------------------------------------------------------------\n# Exceptions\n# ---------------------------------------------------------------------------\n\n\nclass TestExceptions:\n    def test_try_again_is_exception(self):\n        assert issubclass(TryAgain, Exception)\n        err = TryAgain(\"retry please\")\n        assert str(err) == \"retry please\"\n\n    def test_attempt_timeout_error_is_exception(self):\n        assert issubclass(AttemptTimeoutError, Exception)\n        err = AttemptTimeoutError()\n        assert isinstance(err, Exception)\n\n\nclass TestRetryError:\n    def test_message_and_last_attempt(self):\n        exc = ValueError(\"boom\")\n        attempt = Attempt(tries=3, exception=exc)\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 3 tries\"\n        assert err.last_attempt is attempt\n        assert err.__cause__ is exc\n\n    def test_no_exception_means_no_cause(self):\n        attempt = Attempt(tries=2, exception=None)\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 2 tries\"\n        assert err.last_attempt is attempt\n        assert err.__cause__ is None\n\n    def test_default_attempt_zero_tries(self):\n        attempt = Attempt()\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 0 tries\"\n        assert err.__cause__ is None\n\n    def test_reraise_raises_cause_without_context(self):\n        exc = RuntimeError(\"original\")\n        attempt = Attempt(tries=1, exception=exc)\n        err = RetryError(attempt)\n        with pytest.raises(RuntimeError) as excinfo:\n            err.reraise()\n        assert excinfo.value is exc\n        assert excinfo.value.__context__ is None\n        assert excinfo.value.__suppress_context__ is True\n\n    def test_reraise_no_exception_is_noop(self):\n        attempt = Attempt(tries=1, exception=None)\n        err = RetryError(attempt)\n        # Should simply return without raising.\n        assert err.reraise() is None\n\n    def test_reraise_custom_base_exception(self):\n        exc = KeyboardInterrupt()\n        attempt = Attempt(tries=1, exception=exc)\n        err = RetryError(attempt)\n        with pytest.raises(KeyboardInterrupt):\n            err.reraise()\n\n\n# ---------------------------------------------------------------------------\n# Attempt / AttemptResult dataclasses\n# ---------------------------------------------------------------------------\n\n\nclass TestAttempt:\n    def test_defaults(self):\n        attempt = Attempt()\n        assert attempt.tries == 0\n        assert attempt.exception is None\n        assert attempt.value is None\n        assert attempt.wait == 0.0\n        assert attempt.elapsed == 0.0\n\n    def test_custom_values(self):\n        exc = ValueError(\"x\")\n        attempt = Attempt(tries=5, exception=exc, value=\"v\", wait=1.5, elapsed=2.5)\n        assert attempt.tries == 5\n        assert attempt.exception is exc\n        assert attempt.value == \"v\"\n        assert attempt.wait == 1.5\n        assert attempt.elapsed == 2.5\n\n    def test_equality(self):\n        assert Attempt(tries=1, value=5) == Attempt(tries=1, value=5)\n        assert Attempt(tries=1) != Attempt(tries=2)\n\n\nclass TestAttemptResult:\n    def test_defaults(self):\n        result = AttemptResult()\n        assert result.value is None\n        assert result.exception is None\n\n    def test_custom(self):\n        exc = ValueError(\"x\")\n        result = AttemptResult(value=42, exception=exc)\n        assert result.value == 42\n        assert result.exception is exc\n\n    def test_equality(self):\n        assert AttemptResult(value=1) == AttemptResult(value=1)\n\n\n# ---------------------------------------------------------------------------\n# RetryState\n# ---------------------------------------------------------------------------\n\n\nclass TestRetryState:\n    def test_defaults(self):\n        state = RetryState()\n        assert state.args == ()\n        assert state.kwargs == {}\n        assert state.tries == 0\n        assert state.start_time == 0.0\n        assert state.elapsed == 0.0\n        assert state.idle_for == 0.0\n        assert state.outcome is None\n\n    def test_default_target_callable_returns_none(self):\n        state = RetryState()\n        assert state.target() is None\n\n    def test_post_init_creates_lock(self):\n        state = RetryState()\n        assert isinstance(state._lock.lock, type(threading.Lock()))\n\n    def test_each_instance_has_own_lock(self):\n        s1 = RetryState()\n        s2 = RetryState()\n        # thread-local objects are distinct per instance (default_factory)\n        assert s1._lock is not s2._lock\n        # But in the same thread the stored lock attribute is the same object.\n        assert s1._lock.lock is s2._lock.lock\n\n    def test_lock_is_thread_local(self):\n        # The lock attribute is only set in the thread where __post_init__ ran.\n        state = RetryState()\n        assert hasattr(state._lock, \"lock\")\n        captured = {}\n\n        def worker():\n            captured[\"has_lock\"] = hasattr(state._lock, \"lock\")\n\n        t = threading.Thread(target=worker)\n        t.start()\n        t.join()\n        assert captured[\"has_lock\"] is False\n\n    def test_kwargs_default_factory_not_shared(self):\n        s1 = RetryState()\n        s2 = RetryState()\n        s1.kwargs[\"a\"] = 1\n        assert s2.kwargs == {}\n\n    def test_custom_values(self):\n        target = lambda x: x\n\n        def fn(*args, **kwargs):\n            return None\n\n        state = RetryState(\n            target=fn,\n            args=(1, 2),\n            kwargs={\"k\": \"v\"},\n            tries=3,\n            start_time=10.0,\n            elapsed=1.5,\n            idle_for=0.5,\n        )\n        assert state.target is fn\n        assert state.args == (1, 2)\n        assert state.kwargs == {\"k\": \"v\"}\n        assert state.tries == 3\n        assert state.start_time == 10.0\n        assert state.elapsed == 1.5\n        assert state.idle_for == 0.5\n\n    def test_statistics(self):\n        state = RetryState(tries=4, start_time=100.0, elapsed=2.0, idle_for=0.25)\n        assert state.statistics == {\n            \"start_time\": 100.0,\n            \"attempt_number\": 4,\n            \"idle_for\": 0.25,\n            \"elapsed\": 2.0,\n        }\n\n    def test_statistics_keys(self):\n        state = RetryState()\n        stats = state.statistics\n        assert set(stats.keys()) == {\n            \"start_time\",\n            \"attempt_number\",\n            \"idle_for\",\n            \"elapsed\",\n        }\n\n    def test_to_details(self):\n        def target():\n            return None\n\n        kwargs = {\"a\": 1}\n        state = RetryState(target=target, args=(1,), kwargs=kwargs, tries=2, elapsed=3.0)\n        details = state.to_details()\n        assert details == {\n            \"target\": target,\n            \"args\": (1,),\n            \"kwargs\": kwargs,\n            \"tries\": 2,\n            \"elapsed\": 3.0,\n        }\n\n    def test_to_details_default(self):\n        state = RetryState()\n        details = state.to_details()\n        assert details[\"args\"] == ()\n        assert details[\"kwargs\"] == {}\n        assert details[\"tries\"] == 0\n        assert details[\"elapsed\"] == 0.0\n        assert details[\"target\"] is state.target\n\n\n# ---------------------------------------------------------------------------\n# RetryCallState\n# ---------------------------------------------------------------------------\n\n\nclass TestRetryCallState:\n    def test_defaults(self):\n        state = RetryCallState()\n        assert state.fn is None\n        assert state.args == ()\n        assert state.kwargs == {}\n        assert state.attempt_number == 1\n        assert state.outcome is None\n        assert state.outcome_timestamp is None\n        assert state.start_time == 0.0\n        assert state.idle_for == 0.0\n        assert state.upcoming_sleep == 0.0\n\n    def test_elapsed_zero_when_start_time_zero(self, monkeypatch):\n        state = RetryCallState()\n        # Even if monotonic advances, start_time == 0 yields 0.0\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 12345.0\n        )\n        assert state.elapsed == 0.0\n\n    def test_elapsed_computed_from_start_time(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 100.0\n        )\n        state = RetryCallState(start_time=40.0)\n        assert state.elapsed == 60.0\n\n    def test_elapsed_negative_when_start_in_future(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 10.0\n        )\n        state = RetryCallState(start_time=20.0)\n        assert state.elapsed == -10.0\n\n    def test_seconds_since_start_equals_elapsed(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 50.5\n        )\n        state = RetryCallState(start_time=0.5)\n        assert state.seconds_since_start == state.elapsed\n        assert state.seconds_since_start == 50.0\n\n    def test_seconds_since_start_zero(self):\n        state = RetryCallState()\n        assert state.seconds_since_start == 0.0\n\n    def test_statistics(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 10.0\n        )\n        state = RetryCallState(\n            attempt_number=3, idle_for=0.5, start_time=4.0\n        )\n        assert state.statistics == {\n            \"start_time\": 4.0,\n            \"attempt_number\": 3,\n            \"idle_for\": 0.5,\n            \"elapsed\": 6.0,\n        }\n\n    def test_statistics_with_zero_start(self):\n        state = RetryCallState(attempt_number=2, idle_for=1.0)\n        assert state.statistics == {\n            \"start_time\": 0.0,\n            \"attempt_number\": 2,\n            \"idle_for\": 1.0,\n            \"elapsed\": 0.0,\n        }\n\n    def test_to_details(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 20.0\n        )\n\n        def fn():\n            return None\n\n        kwargs = {\"a\": 1}\n        state = RetryCallState(\n            fn=fn, args=(1, 2), kwargs=kwargs, attempt_number=4, start_time=5.0\n        )\n        details = state.to_details()\n        assert details == {\n            \"target\": fn,\n            \"args\": (1, 2),\n            \"kwargs\": kwargs,\n            \"tries\": 4,\n            \"elapsed\": 15.0,\n        }\n\n    def test_to_details_default(self):\n        state = RetryCallState()\n        details = state.to_details()\n        assert details[\"target\"] is None\n        assert details[\"args\"] == ()\n        assert details[\"kwargs\"] == {}\n        assert details[\"tries\"] == 1\n        assert details[\"elapsed\"] == 0.0\n\n    def test_kwargs_default_factory_not_shared(self):\n        s1 = RetryCallState()\n        s2 = RetryCallState()\n        s1.kwargs[\"x\"] = 1\n        assert s2.kwargs == {}\n\n    def test_outcome_and_timestamp_assignable(self):\n        state = RetryCallState()\n        attempt = Attempt(tries=1, value=7)\n        state.outcome = attempt\n        state.outcome_timestamp = 123.0\n        assert state.outcome is attempt\n        assert state.outcome_timestamp == 123.0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 1673,
+      "cache_hit_tokens": 1536,
+      "completion_tokens": 2752,
+      "reasoning_tokens": 0,
+      "latency": 8.93
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:28:37+00:00",
+    "duration": 1.21,
+    "summary": "通过 36，失败 1，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__state.py"
+          ]
+        },
+        "duration": 1.21,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4425
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T06:28:37+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 36]（提升）",
+    "tool_calls": [],
+    "tokens_total": 4425,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      36
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T06:28:37+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 4425
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:28:43+00:00",
+    "duration": 7.66,
+    "summary": "第 2 轮：生成 362 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__state.py",
+          "content": "<11358 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 12034,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test__state.py`)\n```python\nfrom __future__ import annotations\n\nimport threading\n\nimport pytest\n\nfrom backon._state import (\n    Attempt,\n    AttemptResult,\n    AttemptTimeoutError,\n    RetryCallState,\n    RetryError,\n    RetryState,\n    TryAgain,\n)\n\n\n# ---------------------------------------------------------------------------\n# Exceptions\n# ---------------------------------------------------------------------------\n\n\nclass TestExceptions:\n    def test_try_again_is_exception(self):\n        assert issubclass(TryAgain, Exception)\n        err = TryAgain(\"retry please\")\n        assert str(err) == \"retry please\"\n\n    def test_attempt_timeout_error_is_exception(self):\n        assert issubclass(AttemptTimeoutError, Exception)\n        err = AttemptTimeoutError()\n        assert isinstance(err, Exception)\n\n\nclass TestRetryError:\n    def test_message_and_last_attempt(self):\n        exc = ValueError(\"boom\")\n        attempt = Attempt(tries=3, exception=exc)\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 3 tries\"\n        assert err.last_attempt is attempt\n        assert err.__cause__ is exc\n\n    def test_no_exception_means_no_cause(self):\n        attempt = Attempt(tries=2, exception=None)\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 2 tries\"\n        assert err.last_attempt is attempt\n        assert err.__cause__ is None\n\n    def test_default_attempt_zero_tries(self):\n        attempt = Attempt()\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 0 tries\"\n        assert err.__cause__ is None\n\n    def test_reraise_raises_cause_without_context(self):\n        exc = RuntimeError(\"original\")\n        attempt = Attempt(tries=1, exception=exc)\n        err = RetryError(attempt)\n        with pytest.raises(RuntimeError) as excinfo:\n            err.reraise()\n        assert excinfo.value is exc\n        assert excinfo.value.__context__ is None\n        assert excinfo.value.__suppress_context__ is True\n\n    def test_reraise_no_exception_is_noop(self):\n        attempt = Attempt(tries=1, exception=None)\n        err = RetryError(attempt)\n        # Should simply return without raising.\n        assert err.reraise() is None\n\n    def test_reraise_custom_base_exception(self):\n        exc = KeyboardInterrupt()\n        attempt = Attempt(tries=1, exception=exc)\n        err = RetryError(attempt)\n        with pytest.raises(KeyboardInterrupt):\n            err.reraise()\n\n\n# ---------------------------------------------------------------------------\n# Attempt / AttemptResult dataclasses\n# ---------------------------------------------------------------------------\n\n\nclass TestAttempt:\n    def test_defaults(self):\n        attempt = Attempt()\n        assert attempt.tries == 0\n        assert attempt.exception is None\n        assert attempt.value is None\n        assert attempt.wait == 0.0\n        assert attempt.elapsed == 0.0\n\n    def test_custom_values(self):\n        exc = ValueError(\"x\")\n        attempt = Attempt(tries=5, exception=exc, value=\"v\", wait=1.5, elapsed=2.5)\n        assert attempt.tries == 5\n        assert attempt.exception is exc\n        assert attempt.value == \"v\"\n        assert attempt.wait == 1.5\n        assert attempt.elapsed == 2.5\n\n    def test_equality(self):\n        assert Attempt(tries=1, value=5) == Attempt(tries=1, value=5)\n        assert Attempt(tries=1) != Attempt(tries=2)\n\n\nclass TestAttemptResult:\n    def test_defaults(self):\n        result = AttemptResult()\n        assert result.value is None\n        assert result.exception is None\n\n    def test_custom(self):\n        exc = ValueError(\"x\")\n        result = AttemptResult(value=42, exception=exc)\n        assert result.value == 42\n        assert result.exception is exc\n\n    def test_equality(self):\n        assert AttemptResult(value=1) == AttemptResult(value=1)\n\n\n# ---------------------------------------------------------------------------\n# RetryState\n# ---------------------------------------------------------------------------\n\n\nclass TestRetryState:\n    def test_defaults(self):\n        state = RetryState()\n        assert state.args == ()\n        assert state.kwargs == {}\n        assert state.tries == 0\n        assert state.start_time == 0.0\n        assert state.elapsed == 0.0\n        assert state.idle_for == 0.0\n        assert state.outcome is None\n\n    def test_default_target_callable_returns_none(self):\n        state = RetryState()\n        assert state.target() is None\n\n    def test_post_init_creates_lock(self):\n        state = RetryState()\n        assert isinstance(state._lock.lock, type(threading.Lock()))\n\n    def test_each_instance_has_own_lock(self):\n        s1 = RetryState()\n        s2 = RetryState()\n        # thread-local objects are distinct per instance (default_factory)\n        assert s1._lock is not s2._lock\n        # But in the same thread the stored lock attribute is the same object.\n        assert s1._lock.lock is s2._lock.lock\n\n    def test_lock_is_thread_local(self):\n        # The lock attribute is only set in the thread where __post_init__ ran.\n        state = RetryState()\n        assert hasattr(state._lock, \"lock\")\n        captured = {}\n\n        def worker():\n            captured[\"has_lock\"] = hasattr(state._lock, \"lock\")\n\n        t = threading.Thread(target=worker)\n        t.start()\n        t.join()\n        assert captured[\"has_lock\"] is False\n\n    def test_kwargs_default_factory_not_shared(self):\n        s1 = RetryState()\n        s2 = RetryState()\n        s1.kwargs[\"a\"] = 1\n        assert s2.kwargs == {}\n\n    def test_custom_values(self):\n        target = lambda x: x\n\n        def fn(*args, **kwargs):\n            return None\n\n        state = RetryState(\n            target=fn,\n            args=(1, 2),\n            kwargs={\"k\": \"v\"},\n            tries=3,\n            start_time=10.0,\n            elapsed=1.5,\n            idle_for=0.5,\n        )\n        assert state.target is fn\n        assert state.args == (1, 2)\n        assert state.kwargs == {\"k\": \"v\"}\n        assert state.tries == 3\n        assert state.start_time == 10.0\n        assert state.elapsed == 1.5\n        assert state.idle_for == 0.5\n\n    def test_statistics(self):\n        state = RetryState(tries=4, start_time=100.0, elapsed=2.0, idle_for=0.25)\n        assert state.statistics == {\n            \"start_time\": 100.0,\n            \"attempt_number\": 4,\n            \"idle_for\": 0.25,\n            \"elapsed\": 2.0,\n        }\n\n    def test_statistics_keys(self):\n        state = RetryState()\n        stats = state.statistics\n        assert set(stats.keys()) == {\n            \"start_time\",\n            \"attempt_number\",\n            \"idle_for\",\n            \"elapsed\",\n        }\n\n    def test_to_details(self):\n        def target():\n            return None\n\n        kwargs = {\"a\": 1}\n        state = RetryState(target=target, args=(1,), kwargs=kwargs, tries=2, elapsed=3.0)\n        details = state.to_details()\n        assert details == {\n            \"target\": target,\n            \"args\": (1,),\n            \"kwargs\": kwargs,\n            \"tries\": 2,\n            \"elapsed\": 3.0,\n        }\n\n    def test_to_details_default(self):\n        state = RetryState()\n        details = state.to_details()\n        assert details[\"args\"] == ()\n        assert details[\"kwargs\"] == {}\n        assert details[\"tries\"] == 0\n        assert details[\"elapsed\"] == 0.0\n        assert details[\"target\"] is state.target\n\n\n# ---------------------------------------------------------------------------\n# RetryCallState\n# ---------------------------------------------------------------------------\n\n\nclass TestRetryCallState:\n    def test_defaults(self):\n        state = RetryCallState()\n        assert state.fn is None\n        assert state.args == ()\n        assert state.kwargs == {}\n        assert state.attempt_number == 1\n        assert state.outcome is None\n        assert state.outcome_timestamp is None\n        assert state.start_time == 0.0\n        assert state.idle_for == 0.0\n        assert state.upcoming_sleep == 0.0\n\n    def test_elapsed_zero_when_start_time_zero(self, monkeypatch):\n        state = RetryCallState()\n        # Even if monotonic advances, start_time == 0 yields 0.0\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 12345.0\n        )\n        assert state.elapsed == 0.0\n\n    def test_elapsed_computed_from_start_time(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 100.0\n        )\n        state = RetryCallState(start_time=40.0)\n        assert state.elapsed == 60.0\n\n    def test_elapsed_negative_when_start_in_future(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 10.0\n        )\n        state = RetryCallState(start_time=20.0)\n        assert state.elapsed == -10.0\n\n    def test_seconds_since_start_equals_elapsed(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 50.5\n        )\n        state = RetryCallState(start_time=0.5)\n        assert state.seconds_since_start == state.elapsed\n        assert state.seconds_since_start == 50.0\n\n    def test_seconds_since_start_zero(self):\n        state = RetryCallState()\n        assert state.seconds_since_start == 0.0\n\n    def test_statistics(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 10.0\n        )\n        state = RetryCallState(\n            attempt_number=3, idle_for=0.5, start_time=4.0\n        )\n        assert state.statistics == {\n            \"start_time\": 4.0,\n            \"attempt_number\": 3,\n            \"idle_for\": 0.5,\n            \"elapsed\": 6.0,\n        }\n\n    def test_statistics_with_zero_start(self):\n        state = RetryCallState(attempt_number=2, idle_for=1.0)\n        assert state.statistics == {\n            \"start_time\": 0.0,\n            \"attempt_number\": 2,\n            \"idle_for\": 1.0,\n            \"elapsed\": 0.0,\n        }\n\n    def test_to_details(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 20.0\n        )\n\n        def fn():\n            return None\n\n        kwargs = {\"a\": 1}\n        state = RetryCallState(\n            fn=fn, args=(1, 2), kwargs=kwargs, attempt_number=4, start_time=5.0\n        )\n        details = state.to_details()\n        assert details == {\n            \"target\": fn,\n            \"args\": (1, 2),\n            \"kwargs\": kwargs,\n            \"tries\": 4,\n            \"elapsed\": 15.0,\n        }\n\n    def test_to_details_default(self):\n        state = RetryCallState()\n        details = state.to_details()\n        assert details[\"target\"] is None\n        assert details[\"args\"] == ()\n        assert details[\"kwargs\"] == {}\n        assert details[\"tries\"] == 1\n        assert details[\"elapsed\"] == 0.0\n\n    def test_kwargs_default_factory_not_shared(self):\n        s1 = RetryCallState()\n        s2 = RetryCallState()\n        s1.kwargs[\"x\"] = 1\n        assert s2.kwargs == {}\n\n    def test_outcome_and_timestamp_assignable(self):\n        state = RetryCallState()\n        attempt = Attempt(tries=1, value=7)\n        state.outcome = attempt\n        state.outcome_timestamp = 123.0\n        assert state.outcome is attempt\n        assert state.outcome_timestamp == 123.0\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 36 passed, 1 failed, 0 errors.\n- `tests_testpilot.test__state.TestRetryState::test_each_instance_has_own_lock` failed:\n```\nassert <unlocked _thread.lock object at 0x7285e8232900> is <unlocked _thread.lock object at 0x7285e82327c0>\n +  where <unlocked _thread.lock object at 0x7285e8232900> = <_thread._local object at 0x7285e82d6340>.lock\n +    where <_thread._local object at 0x7285e82d6340> = RetryState(target=<function RetryState.<lambda> at 0x7285e8228a40>, args=(), kwargs={}, tries=0, start_time=0.0, elapsed=0.0, idle_for=0.0, outcome=None, _lock=<_thread._local object at 0x7285e82d6340>)._lock\n +  and   <unlocked _thread.lock object at 0x7285e82327c0> = <_thread._local object at 0x7285e82d6520>.lock\n +    where <_thread._local object at 0x7285e82d6520> = RetryState(target=<function RetryState.<lambda> at 0x7285e8228a40>, args=(), kwargs={}, tries=0, start_ti\n... [省略 700 个字符] ...\nlocal object at 0x7285e82d63\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nfrom __future__ import annotations\n\nimport threading\n\nimport pytest\n\nfrom backon._state import (\n    Attempt,\n    AttemptResult,\n    AttemptTimeoutError,\n    RetryCallState,\n    RetryError,\n    RetryState,\n    TryAgain,\n)\n\n\n# ---------------------------------------------------------------------------\n# Exceptions\n# ---------------------------------------------------------------------------\n\n\nclass TestExceptions:\n    def test_try_again_is_exception(self):\n        assert issubclass(TryAgain, Exception)\n        err = TryAgain(\"retry please\")\n        assert str(err) == \"retry please\"\n\n    def test_attempt_timeout_error_is_exception(self):\n        assert issubclass(AttemptTimeoutError, Exception)\n        err = AttemptTimeoutError()\n        assert isinstance(err, Exception)\n\n\nclass TestRetryError:\n    def test_message_and_last_attempt(self):\n        exc = ValueError(\"boom\")\n        attempt = Attempt(tries=3, exception=exc)\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 3 tries\"\n        assert err.last_attempt is attempt\n        assert err.__cause__ is exc\n\n    def test_no_exception_means_no_cause(self):\n        attempt = Attempt(tries=2, exception=None)\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 2 tries\"\n        assert err.last_attempt is attempt\n        assert err.__cause__ is None\n\n    def test_default_attempt_zero_tries(self):\n        attempt = Attempt()\n        err = RetryError(attempt)\n        assert str(err) == \"Retry failed after 0 tries\"\n        assert err.__cause__ is None\n\n    def test_reraise_raises_cause_without_context(self):\n        exc = RuntimeError(\"original\")\n        attempt = Attempt(tries=1, exception=exc)\n        err = RetryError(attempt)\n        with pytest.raises(RuntimeError) as excinfo:\n            err.reraise()\n        assert excinfo.value is exc\n        assert excinfo.value.__context__ is None\n        assert excinfo.value.__suppress_context__ is True\n\n    def test_reraise_no_exception_is_noop(self):\n        attempt = Attempt(tries=1, exception=None)\n        err = RetryError(attempt)\n        # Should simply return without raising.\n        assert err.reraise() is None\n\n    def test_reraise_custom_base_exception(self):\n        exc = KeyboardInterrupt()\n        attempt = Attempt(tries=1, exception=exc)\n        err = RetryError(attempt)\n        with pytest.raises(KeyboardInterrupt):\n            err.reraise()\n\n\n# ---------------------------------------------------------------------------\n# Attempt / AttemptResult dataclasses\n# ---------------------------------------------------------------------------\n\n\nclass TestAttempt:\n    def test_defaults(self):\n        attempt = Attempt()\n        assert attempt.tries == 0\n        assert attempt.exception is None\n        assert attempt.value is None\n        assert attempt.wait == 0.0\n        assert attempt.elapsed == 0.0\n\n    def test_custom_values(self):\n        exc = ValueError(\"x\")\n        attempt = Attempt(tries=5, exception=exc, value=\"v\", wait=1.5, elapsed=2.5)\n        assert attempt.tries == 5\n        assert attempt.exception is exc\n        assert attempt.value == \"v\"\n        assert attempt.wait == 1.5\n        assert attempt.elapsed == 2.5\n\n    def test_equality(self):\n        assert Attempt(tries=1, value=5) == Attempt(tries=1, value=5)\n        assert Attempt(tries=1) != Attempt(tries=2)\n\n\nclass TestAttemptResult:\n    def test_defaults(self):\n        result = AttemptResult()\n        assert result.value is None\n        assert result.exception is None\n\n    def test_custom(self):\n        exc = ValueError(\"x\")\n        result = AttemptResult(value=42, exception=exc)\n        assert result.value == 42\n        assert result.exception is exc\n\n    def test_equality(self):\n        assert AttemptResult(value=1) == AttemptResult(value=1)\n\n\n# ---------------------------------------------------------------------------\n# RetryState\n# ---------------------------------------------------------------------------\n\n\nclass TestRetryState:\n    def test_defaults(self):\n        state = RetryState()\n        assert state.args == ()\n        assert state.kwargs == {}\n        assert state.tries == 0\n        assert state.start_time == 0.0\n        assert state.elapsed == 0.0\n        assert state.idle_for == 0.0\n        assert state.outcome is None\n\n    def test_default_target_callable_returns_none(self):\n        state = RetryState()\n        assert state.target() is None\n\n    def test_post_init_creates_lock(self):\n        state = RetryState()\n        assert isinstance(state._lock.lock, type(threading.Lock()))\n\n    def test_each_instance_has_own_lock(self):\n        s1 = RetryState()\n        s2 = RetryState()\n        # thread-local objects are distinct per instance (default_factory)\n        assert s1._lock is not s2._lock\n        # Since __post_init__ creates a fresh threading.Lock per instance,\n        # the stored lock attributes in the same thread are distinct objects.\n        assert s1._lock.lock is not s2._lock.lock\n\n    def test_lock_is_thread_local(self):\n        # The lock attribute is only set in the thread where __post_init__ ran.\n        state = RetryState()\n        assert hasattr(state._lock, \"lock\")\n        captured = {}\n\n        def worker():\n            captured[\"has_lock\"] = hasattr(state._lock, \"lock\")\n\n        t = threading.Thread(target=worker)\n        t.start()\n        t.join()\n        assert captured[\"has_lock\"] is False\n\n    def test_kwargs_default_factory_not_shared(self):\n        s1 = RetryState()\n        s2 = RetryState()\n        s1.kwargs[\"a\"] = 1\n        assert s2.kwargs == {}\n\n    def test_custom_values(self):\n        target = lambda x: x\n\n        def fn(*args, **kwargs):\n            return None\n\n        state = RetryState(\n            target=fn,\n            args=(1, 2),\n            kwargs={\"k\": \"v\"},\n            tries=3,\n            start_time=10.0,\n            elapsed=1.5,\n            idle_for=0.5,\n        )\n        assert state.target is fn\n        assert state.args == (1, 2)\n        assert state.kwargs == {\"k\": \"v\"}\n        assert state.tries == 3\n        assert state.start_time == 10.0\n        assert state.elapsed == 1.5\n        assert state.idle_for == 0.5\n\n    def test_statistics(self):\n        state = RetryState(tries=4, start_time=100.0, elapsed=2.0, idle_for=0.25)\n        assert state.statistics == {\n            \"start_time\": 100.0,\n            \"attempt_number\": 4,\n            \"idle_for\": 0.25,\n            \"elapsed\": 2.0,\n        }\n\n    def test_statistics_keys(self):\n        state = RetryState()\n        stats = state.statistics\n        assert set(stats.keys()) == {\n            \"start_time\",\n            \"attempt_number\",\n            \"idle_for\",\n            \"elapsed\",\n        }\n\n    def test_to_details(self):\n        def target():\n            return None\n\n        kwargs = {\"a\": 1}\n        state = RetryState(target=target, args=(1,), kwargs=kwargs, tries=2, elapsed=3.0)\n        details = state.to_details()\n        assert details == {\n            \"target\": target,\n            \"args\": (1,),\n            \"kwargs\": kwargs,\n            \"tries\": 2,\n            \"elapsed\": 3.0,\n        }\n\n    def test_to_details_default(self):\n        state = RetryState()\n        details = state.to_details()\n        assert details[\"args\"] == ()\n        assert details[\"kwargs\"] == {}\n        assert details[\"tries\"] == 0\n        assert details[\"elapsed\"] == 0.0\n        assert details[\"target\"] is state.target\n\n\n# ---------------------------------------------------------------------------\n# RetryCallState\n# ---------------------------------------------------------------------------\n\n\nclass TestRetryCallState:\n    def test_defaults(self):\n        state = RetryCallState()\n        assert state.fn is None\n        assert state.args == ()\n        assert state.kwargs == {}\n        assert state.attempt_number == 1\n        assert state.outcome is None\n        assert state.outcome_timestamp is None\n        assert state.start_time == 0.0\n        assert state.idle_for == 0.0\n        assert state.upcoming_sleep == 0.0\n\n    def test_elapsed_zero_when_start_time_zero(self, monkeypatch):\n        state = RetryCallState()\n        # Even if monotonic advances, start_time == 0 yields 0.0\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 12345.0\n        )\n        assert state.elapsed == 0.0\n\n    def test_elapsed_computed_from_start_time(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 100.0\n        )\n        state = RetryCallState(start_time=40.0)\n        assert state.elapsed == 60.0\n\n    def test_elapsed_negative_when_start_in_future(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 10.0\n        )\n        state = RetryCallState(start_time=20.0)\n        assert state.elapsed == -10.0\n\n    def test_seconds_since_start_equals_elapsed(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 50.5\n        )\n        state = RetryCallState(start_time=0.5)\n        assert state.seconds_since_start == state.elapsed\n        assert state.seconds_since_start == 50.0\n\n    def test_seconds_since_start_zero(self):\n        state = RetryCallState()\n        assert state.seconds_since_start == 0.0\n\n    def test_statistics(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 10.0\n        )\n        state = RetryCallState(\n            attempt_number=3, idle_for=0.5, start_time=4.0\n        )\n        assert state.statistics == {\n            \"start_time\": 4.0,\n            \"attempt_number\": 3,\n            \"idle_for\": 0.5,\n            \"elapsed\": 6.0,\n        }\n\n    def test_statistics_with_zero_start(self):\n        state = RetryCallState(attempt_number=2, idle_for=1.0)\n        assert state.statistics == {\n            \"start_time\": 0.0,\n            \"attempt_number\": 2,\n            \"idle_for\": 1.0,\n            \"elapsed\": 0.0,\n        }\n\n    def test_to_details(self, monkeypatch):\n        monkeypatch.setattr(\n            \"backon._state.time_module.monotonic\", lambda: 20.0\n        )\n\n        def fn():\n            return None\n\n        kwargs = {\"a\": 1}\n        state = RetryCallState(\n            fn=fn, args=(1, 2), kwargs=kwargs, attempt_number=4, start_time=5.0\n        )\n        details = state.to_details()\n        assert details == {\n            \"target\": fn,\n            \"args\": (1, 2),\n            \"kwargs\": kwargs,\n            \"tries\": 4,\n            \"elapsed\": 15.0,\n        }\n\n    def test_to_details_default(self):\n        state = RetryCallState()\n        details = state.to_details()\n        assert details[\"target\"] is None\n        assert details[\"args\"] == ()\n        assert details[\"kwargs\"] == {}\n        assert details[\"tries\"] == 1\n        assert details[\"elapsed\"] == 0.0\n\n    def test_kwargs_default_factory_not_shared(self):\n        s1 = RetryCallState()\n        s2 = RetryCallState()\n        s1.kwargs[\"x\"] = 1\n        assert s2.kwargs == {}\n\n    def test_outcome_and_timestamp_assignable(self):\n        state = RetryCallState()\n        attempt = Attempt(tries=1, value=7)\n        state.outcome = attempt\n        state.outcome_timestamp = 123.0\n        assert state.outcome is attempt\n        assert state.outcome_timestamp == 123.0\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 4842,
+      "cache_hit_tokens": 1408,
+      "completion_tokens": 2767,
+      "reasoning_tokens": 0,
+      "latency": 7.65
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:28:44+00:00",
+    "duration": 1.2,
+    "summary": "通过 37，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__state.py"
+          ]
+        },
+        "duration": 1.2,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 12034
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T06:28:54+00:00",
+    "duration": 9.3,
+    "summary": "分数 [1, 1.0, 1.0, 1.0, 37]（提升），行覆盖 100.0%，分支覆盖 100.0%，变异得分 100.0%（存活 0）",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__state.py"
+          ]
+        },
+        "duration": 3.33,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "backon/_state.py",
+          "tests": [
+            "tests_testpilot/test__state.py::TestExceptions::test_try_again_is_exception",
+            "tests_testpilot/test__state.py::TestExceptions::test_attempt_timeout_error_is_exception",
+            "tests_testpilot/test__state.py::TestRetryError::test_message_and_last_attempt",
+            "tests_testpilot/test__state.py::TestRetryError::test_no_exception_means_no_cause",
+            "tests_testpilot/test__state.py::TestRetryError::test_default_attempt_zero_tries",
+            "tests_testpilot/test__state.py::TestRetryError::test_reraise_raises_cause_without_context",
+            "tests_testpilot/test__state.py::TestRetryError::test_reraise_no_exception_is_noop",
+            "tests_testpilot/test__state.py::TestRetryError::test_reraise_custom_base_exception",
+            "tests_testpilot/test__state.py::TestAttempt::test_defaults",
+            "tests_testpilot/test__state.py::TestAttempt::test_custom_values",
+            "tests_testpilot/test__state.py::TestAttempt::test_equality",
+            "tests_testpilot/test__state.py::TestAttemptResult::test_defaults",
+            "tests_testpilot/test__state.py::TestAttemptResult::test_custom",
+            "tests_testpilot/test__state.py::TestAttemptResult::test_equality",
+            "tests_testpilot/test__state.py::TestRetryState::test_defaults",
+            "tests_testpilot/test__state.py::TestRetryState::test_default_target_callable_returns_none",
+            "tests_testpilot/test__state.py::TestRetryState::test_post_init_creates_lock",
+            "tests_testpilot/test__state.py::TestRetryState::test_each_instance_has_own_lock",
+            "tests_testpilot/test__state.py::TestRetryState::test_lock_is_thread_local",
+            "tests_testpilot/test__state.py::TestRetryState::test_kwargs_default_factory_not_shared",
+            "tests_testpilot/test__state.py::TestRetryState::test_custom_values",
+            "tests_testpilot/test__state.py::TestRetryState::test_statistics",
+            "tests_testpilot/test__state.py::TestRetryState::test_statistics_keys",
+            "tests_testpilot/test__state.py::TestRetryState::test_to_details",
+            "tests_testpilot/test__state.py::TestRetryState::test_to_details_default",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_defaults",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_elapsed_zero_when_start_time_zero",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_elapsed_computed_from_start_time",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_elapsed_negative_when_start_in_future",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_seconds_since_start_equals_elapsed",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_seconds_since_start_zero",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_statistics",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_statistics_with_zero_start",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_to_details",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_to_details_default",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_kwargs_default_factory_not_shared",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_outcome_and_timestamp_assignable"
+          ]
+        },
+        "duration": 1.96,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "run_mutation",
+        "args": {
+          "target": "backon/_state.py",
+          "tests": [
+            "tests_testpilot/test__state.py::TestExceptions::test_try_again_is_exception",
+            "tests_testpilot/test__state.py::TestExceptions::test_attempt_timeout_error_is_exception",
+            "tests_testpilot/test__state.py::TestRetryError::test_message_and_last_attempt",
+            "tests_testpilot/test__state.py::TestRetryError::test_no_exception_means_no_cause",
+            "tests_testpilot/test__state.py::TestRetryError::test_default_attempt_zero_tries",
+            "tests_testpilot/test__state.py::TestRetryError::test_reraise_raises_cause_without_context",
+            "tests_testpilot/test__state.py::TestRetryError::test_reraise_no_exception_is_noop",
+            "tests_testpilot/test__state.py::TestRetryError::test_reraise_custom_base_exception",
+            "tests_testpilot/test__state.py::TestAttempt::test_defaults",
+            "tests_testpilot/test__state.py::TestAttempt::test_custom_values",
+            "tests_testpilot/test__state.py::TestAttempt::test_equality",
+            "tests_testpilot/test__state.py::TestAttemptResult::test_defaults",
+            "tests_testpilot/test__state.py::TestAttemptResult::test_custom",
+            "tests_testpilot/test__state.py::TestAttemptResult::test_equality",
+            "tests_testpilot/test__state.py::TestRetryState::test_defaults",
+            "tests_testpilot/test__state.py::TestRetryState::test_default_target_callable_returns_none",
+            "tests_testpilot/test__state.py::TestRetryState::test_post_init_creates_lock",
+            "tests_testpilot/test__state.py::TestRetryState::test_each_instance_has_own_lock",
+            "tests_testpilot/test__state.py::TestRetryState::test_lock_is_thread_local",
+            "tests_testpilot/test__state.py::TestRetryState::test_kwargs_default_factory_not_shared",
+            "tests_testpilot/test__state.py::TestRetryState::test_custom_values",
+            "tests_testpilot/test__state.py::TestRetryState::test_statistics",
+            "tests_testpilot/test__state.py::TestRetryState::test_statistics_keys",
+            "tests_testpilot/test__state.py::TestRetryState::test_to_details",
+            "tests_testpilot/test__state.py::TestRetryState::test_to_details_default",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_defaults",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_elapsed_zero_when_start_time_zero",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_elapsed_computed_from_start_time",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_elapsed_negative_when_start_in_future",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_seconds_since_start_equals_elapsed",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_seconds_since_start_zero",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_statistics",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_statistics_with_zero_start",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_to_details",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_to_details_default",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_kwargs_default_factory_not_shared",
+            "tests_testpilot/test__state.py::TestRetryCallState::test_outcome_and_timestamp_assignable"
+          ],
+          "max_survivors": 200
+        },
+        "duration": 4.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 12034,
+    "score": [
+      1,
+      1.0,
+      1.0,
+      1.0,
+      37
+    ],
+    "coverage": {
+      "target": "backon/_state.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 72,
+      "branches": 6,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 37,
+      "valid": 37,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": {
+      "target": "backon/_state.py",
+      "score": 1.0,
+      "total": 28,
+      "killed": 28,
+      "survived": 0,
+      "excluded": 0,
+      "status_counts": {
+        "killed": 28
+      },
+      "survivors_truncated": false,
+      "error": ""
+    }
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T06:28:54+00:00",
+    "duration": 0.0,
+    "summary": "全部测试有效，且没有存活的变异体",
+    "tool_calls": [],
+    "tokens_total": 12034
+  },
+  {
+    "node": "finalize",
+    "iteration": 2,
+    "at": "2026-10-20T06:28:54+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试有效，且没有存活的变异体；采用第 2 轮，分数 [1, 1.0, 1.0, 1.0, 37]",
+    "tool_calls": [],
+    "tokens_total": 12034,
+    "best_iteration": 2
+  }
+]

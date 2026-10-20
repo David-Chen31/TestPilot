@@ -1,0 +1,1413 @@
+{
+  "target": "sqlparse/filters/reindent.py",
+  "validity": {
+    "total": 356,
+    "valid": 271,
+    "valid_ids": [
+      "tests_testpilot/test_reindent_s1.py::TestConstructor::test_defaults",
+      "tests_testpilot/test_reindent_s1.py::TestConstructor::test_indent_after_first",
+      "tests_testpilot/test_reindent_s1.py::TestConstructor::test_custom_values",
+      "tests_testpilot/test_reindent_s1.py::TestConstructor::test_leading_ws_property",
+      "tests_testpilot/test_reindent_s1.py::TestNl::test_nl_default",
+      "tests_testpilot/test_reindent_s1.py::TestNl::test_nl_with_indent",
+      "tests_testpilot/test_reindent_s1.py::TestNl::test_nl_with_offset",
+      "tests_testpilot/test_reindent_s1.py::TestNl::test_nl_negative_offset_clamped",
+      "tests_testpilot/test_reindent_s1.py::TestNl::test_nl_custom_char_newline",
+      "tests_testpilot/test_reindent_s1.py::TestNextToken::test_finds_from",
+      "tests_testpilot/test_reindent_s1.py::TestCurrentLineLen::test_empty_when_stmt_is_itself",
+      "tests_testpilot/test_reindent_s1.py::TestSplitStatements::test_noop_for_single_statement",
+      "tests_testpilot/test_reindent_s1.py::TestSplitKwds::test_split_from",
+      "tests_testpilot/test_reindent_s1.py::TestSplitKwds::test_noop_without_keywords",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_process_returns_stmt",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_process_sets_curr_stmt",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_select_from_newline",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_two_statements_separated",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_where_indented",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_parenthesis_inside_statement",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_function",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_case_expression",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_values",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_identifier_list_wrap",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_comma_first",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_indent_columns",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_compact_case",
+      "tests_testpilot/test_reindent_s1.py::TestProcess::test_custom_newline",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_process_where_without_where_keyword",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_process_parenthesis_without_open",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_process_default_no_statements",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_where_indent_restored",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_identifierlist_within_function",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_identifierlist_within_values",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_case_single_when",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_leading_ws_with_char_tab",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_two_statements_last_ends_with_newline",
+      "tests_testpilot/test_reindent_s2.py::test_constructor_defaults",
+      "tests_testpilot/test_reindent_s2.py::test_constructor_indent_after_first",
+      "tests_testpilot/test_reindent_s2.py::test_constructor_custom_values",
+      "tests_testpilot/test_reindent_s2.py::test_leading_ws_default",
+      "tests_testpilot/test_reindent_s2.py::test_leading_ws_with_indent",
+      "tests_testpilot/test_reindent_s2.py::test_leading_ws_with_offset",
+      "tests_testpilot/test_reindent_s2.py::test_nl_default",
+      "tests_testpilot/test_reindent_s2.py::test_nl_with_offset",
+      "tests_testpilot/test_reindent_s2.py::test_nl_negative_offset_clamped",
+      "tests_testpilot/test_reindent_s2.py::test_nl_uses_custom_char_and_newline",
+      "tests_testpilot/test_reindent_s2.py::test_next_token_finds_keyword",
+      "tests_testpilot/test_reindent_s2.py::test_next_token_none_when_absent",
+      "tests_testpilot/test_reindent_s2.py::test_current_line_len_simple",
+      "tests_testpilot/test_reindent_s2.py::test_current_line_len_within_token_stops_at_stmt",
+      "tests_testpilot/test_reindent_s2.py::test_current_line_len_after_newline",
+      "tests_testpilot/test_reindent_s2.py::test_get_offset_matches_line_len_minus_leading_ws",
+      "tests_testpilot/test_reindent_s2.py::test_process_returns_stmt",
+      "tests_testpilot/test_reindent_s2.py::test_process_second_statement_gets_leading_newlines",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_keywords_on_own_lines",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_and_or_join_split",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_custom_width",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_comma_first",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_identifierlist_wrap",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_columns",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_values",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_case",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_compact_case",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_multiple_statements",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_subquery_parenthesis",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_function_call",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_tabs_char",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_empty_input",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_plain_keyword_only",
+      "tests_testpilot/test_reindent_s2.py::test_reindent_wrap_after_zero_no_wrapping",
+      "tests_testpilot/test_reindent_s2.py::test_process_where_without_where_returns",
+      "tests_testpilot/test_reindent_s2.py::test_split_statements_inserts_breaks",
+      "tests_testpilot/test_reindent_s2.py::test_split_kwds_noop_when_no_keywords",
+      "tests_testpilot/test_reindent_s2.py::test_process_parenthesis_no_open_token_returns",
+      "tests_testpilot/test_reindent_s2.py::test_process_dispatch_unknown_uses_default",
+      "tests_testpilot/test_reindent_s3.py::test_default_attributes",
+      "tests_testpilot/test_reindent_s3.py::test_custom_attributes",
+      "tests_testpilot/test_reindent_s3.py::test_leading_ws_default",
+      "tests_testpilot/test_reindent_s3.py::test_leading_ws_with_indent",
+      "tests_testpilot/test_reindent_s3.py::test_leading_ws_with_offset",
+      "tests_testpilot/test_reindent_s3.py::test_nl_default",
+      "tests_testpilot/test_reindent_s3.py::test_nl_with_offset",
+      "tests_testpilot/test_reindent_s3.py::test_nl_negative_offset_clamped",
+      "tests_testpilot/test_reindent_s3.py::test_nl_custom_char_and_n",
+      "tests_testpilot/test_reindent_s3.py::test_nl_respects_indent",
+      "tests_testpilot/test_reindent_s3.py::test_current_line_len_first_token",
+      "tests_testpilot/test_reindent_s3.py::test_current_line_len_middle_token",
+      "tests_testpilot/test_reindent_s3.py::test_current_line_len_stops_at_newline",
+      "tests_testpilot/test_reindent_s3.py::test_get_offset_simple",
+      "tests_testpilot/test_reindent_s3.py::test_get_offset_with_leading_ws",
+      "tests_testpilot/test_reindent_s3.py::test_next_token_finds_from",
+      "tests_testpilot/test_reindent_s3.py::test_next_token_none",
+      "tests_testpilot/test_reindent_s3.py::test_process_returns_stmt",
+      "tests_testpilot/test_reindent_s3.py::test_process_two_statements_inserts_separator",
+      "tests_testpilot/test_reindent_s3.py::test_process_second_stmt_after_trailing_newline",
+      "tests_testpilot/test_reindent_s3.py::test_split_statements_no_break_for_first_token",
+      "tests_testpilot/test_reindent_s3.py::test_split_statements_removes_ws_before_select",
+      "tests_testpilot/test_reindent_s3.py::test_split_kwds_inserts_newline_before_keyword",
+      "tests_testpilot/test_reindent_s3.py::test_process_where_no_where_keyword",
+      "tests_testpilot/test_reindent_s3.py::test_process_where_inserts_newline",
+      "tests_testpilot/test_reindent_s3.py::test_process_parenthesis_no_open",
+      "tests_testpilot/test_reindent_s3.py::test_process_parenthesis_simple",
+      "tests_testpilot/test_reindent_s3.py::test_process_parenthesis_with_dml",
+      "tests_testpilot/test_reindent_s3.py::test_process_function_sets_last_func",
+      "tests_testpilot/test_reindent_s3.py::test_process_identifierlist_wraps",
+      "tests_testpilot/test_reindent_s3.py::test_process_identifierlist_indent_columns",
+      "tests_testpilot/test_reindent_s3.py::test_process_identifierlist_indent_columns_tab",
+      "tests_testpilot/test_reindent_s3.py::test_process_identifierlist_comma_first",
+      "tests_testpilot/test_reindent_s3.py::test_process_identifierlist_within_function_ensure_ws",
+      "tests_testpilot/test_reindent_s3.py::test_process_identifierlist_function_wraps",
+      "tests_testpilot/test_reindent_s3.py::test_process_case_basic",
+      "tests_testpilot/test_reindent_s3.py::test_process_case_compact_no_newlines",
+      "tests_testpilot/test_reindent_s3.py::test_process_case_wraps",
+      "tests_testpilot/test_reindent_s3.py::test_process_values_comma_first",
+      "tests_testpilot/test_reindent_s3.py::test_process_default_recurses_into_sublists",
+      "tests_testpilot/test_reindent_s3.py::test_process_dispatches_default",
+      "tests_testpilot/test_reindent_s3.py::test_process_dispatches_named_handler",
+      "tests_testpilot/test_reindent_s3.py::test_indent_context_manager_restores",
+      "tests_testpilot/test_reindent_s3.py::test_offset_context_manager_restores",
+      "tests_testpilot/test_reindent_s4.py::TestInit::test_defaults",
+      "tests_testpilot/test_reindent_s4.py::TestInit::test_custom",
+      "tests_testpilot/test_reindent_s4.py::TestLeadingWs::test_leading_ws",
+      "tests_testpilot/test_reindent_s4.py::TestLeadingWs::test_leading_ws_with_char",
+      "tests_testpilot/test_reindent_s4.py::TestNl::test_nl_basic",
+      "tests_testpilot/test_reindent_s4.py::TestNl::test_nl_with_indent",
+      "tests_testpilot/test_reindent_s4.py::TestNl::test_nl_with_offset",
+      "tests_testpilot/test_reindent_s4.py::TestNl::test_nl_negative_clamped",
+      "tests_testpilot/test_reindent_s4.py::TestNl::test_nl_custom_newline_and_char",
+      "tests_testpilot/test_reindent_s4.py::TestCurrentLineLen::test_empty_statement",
+      "tests_testpilot/test_reindent_s4.py::TestCurrentLineLen::test_counts_preceding_tokens",
+      "tests_testpilot/test_reindent_s4.py::TestCurrentLineLen::test_counts_after_newline_text",
+      "tests_testpilot/test_reindent_s4.py::TestCurrentLineLen::test_returns_zero_when_node_is_curr_stmt",
+      "tests_testpilot/test_reindent_s4.py::TestGetOffset::test_basic",
+      "tests_testpilot/test_reindent_s4.py::TestGetOffset::test_with_leading_ws",
+      "tests_testpilot/test_reindent_s4.py::TestGetOffset::test_line_len_minus_ws",
+      "tests_testpilot/test_reindent_s4.py::TestNextToken::test_finds_from",
+      "tests_testpilot/test_reindent_s4.py::TestNextToken::test_skips_between_and",
+      "tests_testpilot/test_reindent_s4.py::TestNextToken::test_between_at_end",
+      "tests_testpilot/test_reindent_s4.py::TestSplitStatements::test_simple_select",
+      "tests_testpilot/test_reindent_s4.py::TestSplitKwds::test_from_split",
+      "tests_testpilot/test_reindent_s4.py::TestSplitKwds::test_and_split",
+      "tests_testpilot/test_reindent_s4.py::TestProcessWhere::test_where_within_statement",
+      "tests_testpilot/test_reindent_s4.py::TestProcessWhere::test_no_where",
+      "tests_testpilot/test_reindent_s4.py::TestProcessParenthesis::test_simple_paren",
+      "tests_testpilot/test_reindent_s4.py::TestProcessParenthesis::test_dml_in_paren",
+      "tests_testpilot/test_reindent_s4.py::TestProcessFunction::test_function_sets_last_func",
+      "tests_testpilot/test_reindent_s4.py::TestProcessIdentifierlist::test_wrap_after",
+      "tests_testpilot/test_reindent_s4.py::TestProcessIdentifierlist::test_comma_first",
+      "tests_testpilot/test_reindent_s4.py::TestProcessIdentifierlist::test_indent_columns",
+      "tests_testpilot/test_reindent_s4.py::TestProcessIdentifierlist::test_tab_char",
+      "tests_testpilot/test_reindent_s4.py::TestProcessIdentifierlist::test_in_function_no_wrap",
+      "tests_testpilot/test_reindent_s4.py::TestProcessIdentifierlist::test_in_values",
+      "tests_testpilot/test_reindent_s4.py::TestProcessCase::test_case_split",
+      "tests_testpilot/test_reindent_s4.py::TestProcessCase::test_compact_case",
+      "tests_testpilot/test_reindent_s4.py::TestProcessValues::test_values_split",
+      "tests_testpilot/test_reindent_s4.py::TestProcessValues::test_values_comma_first",
+      "tests_testpilot/test_reindent_s4.py::TestProcessDefault::test_stmts_false",
+      "tests_testpilot/test_reindent_s4.py::TestProcess::test_returns_stmt",
+      "tests_testpilot/test_reindent_s4.py::TestProcess::test_sets_curr_and_last",
+      "tests_testpilot/test_reindent_s4.py::TestProcess::test_multiple_statements_get_separator",
+      "tests_testpilot/test_reindent_s4.py::TestProcess::test_last_stmt_ending_newline",
+      "tests_testpilot/test_reindent_s4.py::TestProcess::test_last_stmt_no_trailing_newline",
+      "tests_testpilot/test_reindent_s4.py::TestProcess::test_join_split",
+      "tests_testpilot/test_reindent_s4.py::TestProcess::test_group_by_split",
+      "tests_testpilot/test_reindent_s4.py::TestIndentOffsetContext::test_indent_context_applied",
+      "tests_testpilot/test_reindent_s4.py::TestIndentOffsetContext::test_previous_filter_state_clean",
+      "tests_testpilot/test_reindent_s5.py::test_default_attributes",
+      "tests_testpilot/test_reindent_s5.py::test_custom_attributes",
+      "tests_testpilot/test_reindent_s5.py::test_leading_ws_property",
+      "tests_testpilot/test_reindent_s5.py::test_nl_generates_newline_token",
+      "tests_testpilot/test_reindent_s5.py::test_process_where_none_returns_early",
+      "tests_testpilot/test_reindent_s5.py::test_process_parenthesis_no_first_returns",
+      "tests_testpilot/test_reindent_s5.py::test_process_identifierlist_empty_identifiers",
+      "tests_testpilot/test_reindent_s6.py::TestInit::test_defaults",
+      "tests_testpilot/test_reindent_s6.py::TestInit::test_custom_values",
+      "tests_testpilot/test_reindent_s6.py::TestLeadingWs::test_default",
+      "tests_testpilot/test_reindent_s6.py::TestLeadingWs::test_with_indent",
+      "tests_testpilot/test_reindent_s6.py::TestLeadingWs::test_indent_after_first",
+      "tests_testpilot/test_reindent_s6.py::TestNl::test_nl_default",
+      "tests_testpilot/test_reindent_s6.py::TestNl::test_nl_with_indent",
+      "tests_testpilot/test_reindent_s6.py::TestNl::test_nl_negative_offset_clamped",
+      "tests_testpilot/test_reindent_s6.py::TestNl::test_nl_positive_offset",
+      "tests_testpilot/test_reindent_s6.py::TestNl::test_nl_custom_n_char",
+      "tests_testpilot/test_reindent_s6.py::TestNextToken::test_finds_from",
+      "tests_testpilot/test_reindent_s6.py::TestNextToken::test_no_match_returns_none",
+      "tests_testpilot/test_reindent_s6.py::TestNextToken::test_between_and_skip",
+      "tests_testpilot/test_reindent_s6.py::TestSplitKwds::test_no_keyword_noop",
+      "tests_testpilot/test_reindent_s6.py::TestSplitStatements::test_first_dml_no_newline",
+      "tests_testpilot/test_reindent_s6.py::TestCurrentLineLen::test_current_line_len_is_curr_stmt",
+      "tests_testpilot/test_reindent_s6.py::TestProcessWhere::test_where_without_where_returns",
+      "tests_testpilot/test_reindent_s6.py::TestProcessCase::test_case_simple",
+      "tests_testpilot/test_reindent_s6.py::TestProcessCase::test_case_compact_no_newlines",
+      "tests_testpilot/test_reindent_s6.py::TestProcessParenthesis::test_parenthesis_basic",
+      "tests_testpilot/test_reindent_s6.py::TestProcessParenthesis::test_parenthesis_no_open_returns",
+      "tests_testpilot/test_reindent_s6.py::TestProcessFunction::test_function_records_last_func",
+      "tests_testpilot/test_reindent_s6.py::TestProcessIdentifierlist::test_identifierlist_within_function",
+      "tests_testpilot/test_reindent_s6.py::TestProcessIdentifierlist::test_identifierlist_wrapping",
+      "tests_testpilot/test_reindent_s6.py::TestProcessIdentifierlist::test_identifierlist_comma_first",
+      "tests_testpilot/test_reindent_s6.py::TestProcessIdentifierlist::test_identifierlist_indent_columns",
+      "tests_testpilot/test_reindent_s6.py::TestProcessValues::test_values_basic",
+      "tests_testpilot/test_reindent_s6.py::TestProcessValues::test_values_comma_first",
+      "tests_testpilot/test_reindent_s6.py::TestProcessDispatch::test_process_dispatch_unknown_uses_default",
+      "tests_testpilot/test_reindent_s6.py::TestProcessDispatch::test_process_default_without_trailing_statements",
+      "tests_testpilot/test_reindent_s6.py::TestIntegration::test_reindent_via_parse_and_filter",
+      "tests_testpilot/test_reindent_s6.py::TestIntegration::test_indent_and_offset_context_managers_restore",
+      "tests_testpilot/test_reindent_s7.py::test_default_attributes",
+      "tests_testpilot/test_reindent_s7.py::test_custom_attributes",
+      "tests_testpilot/test_reindent_s7.py::test_leading_ws_default",
+      "tests_testpilot/test_reindent_s7.py::test_leading_ws_with_indent",
+      "tests_testpilot/test_reindent_s7.py::test_leading_ws_with_offset",
+      "tests_testpilot/test_reindent_s7.py::test_nl_default",
+      "tests_testpilot/test_reindent_s7.py::test_nl_with_offset",
+      "tests_testpilot/test_reindent_s7.py::test_nl_negative_offset_clamped",
+      "tests_testpilot/test_reindent_s7.py::test_nl_char",
+      "tests_testpilot/test_reindent_s7.py::test_nl_custom_newline",
+      "tests_testpilot/test_reindent_s7.py::test_next_token_finds_keyword",
+      "tests_testpilot/test_reindent_s7.py::test_next_token_none",
+      "tests_testpilot/test_reindent_s7.py::test_split_statements_inserts_newline_between",
+      "tests_testpilot/test_reindent_s7.py::test_process_dispatch_uses_process_default",
+      "tests_testpilot/test_reindent_s7.py::test_process_parenthesis_no_open_returns",
+      "tests_testpilot/test_reindent_s7.py::test_process_default_recurses_sublists",
+      "tests_testpilot/test_reindent_s7.py::test_process_returns_stmt",
+      "tests_testpilot/test_reindent_s7.py::test_process_second_stmt_gets_leading_blank_line",
+      "tests_testpilot/test_reindent_s7.py::test_process_second_stmt_after_trailing_newline_uses_single_nl",
+      "tests_testpilot/test_reindent_s7.py::test_process_simple_from_newline",
+      "tests_testpilot/test_reindent_s7.py::test_process_with_where_indented",
+      "tests_testpilot/test_reindent_s7.py::test_process_comma_first_wrapping",
+      "tests_testpilot/test_reindent_s7.py::test_process_indent_columns",
+      "tests_testpilot/test_reindent_s7.py::test_process_values",
+      "tests_testpilot/test_reindent_s7.py::test_process_function_last_func_set",
+      "tests_testpilot/test_reindent_s7.py::test_process_case_compact",
+      "tests_testpilot/test_reindent_s7.py::test_process_case_non_compact",
+      "tests_testpilot/test_reindent_s7.py::test_process_multiple_statements",
+      "tests_testpilot/test_reindent_s8.py::test_constructor_defaults",
+      "tests_testpilot/test_reindent_s8.py::test_constructor_custom_values",
+      "tests_testpilot/test_reindent_s8.py::test_indent_after_first_sets_indent",
+      "tests_testpilot/test_reindent_s8.py::test_leading_ws_property",
+      "tests_testpilot/test_reindent_s8.py::test_nl_creates_whitespace_token",
+      "tests_testpilot/test_reindent_s8.py::test_nl_with_indent",
+      "tests_testpilot/test_reindent_s8.py::test_nl_with_offset_arg",
+      "tests_testpilot/test_reindent_s8.py::test_nl_negative_clamped_to_zero",
+      "tests_testpilot/test_reindent_s8.py::test_nl_custom_newline_char",
+      "tests_testpilot/test_reindent_s8.py::test_current_line_len_no_parent_returns_zero",
+      "tests_testpilot/test_reindent_s8.py::test_get_offset_relative_to_leading_ws",
+      "tests_testpilot/test_reindent_s8.py::test_process_returns_stmt",
+      "tests_testpilot/test_reindent_s8.py::test_process_sets_curr_and_last_stmt",
+      "tests_testpilot/test_reindent_s8.py::test_process_inserts_blank_line_between_statements",
+      "tests_testpilot/test_reindent_s8.py::test_process_single_newline_when_prev_ends_with_newline",
+      "tests_testpilot/test_reindent_s8.py::test_next_token_finds_from_keyword",
+      "tests_testpilot/test_reindent_s8.py::test_next_token_none_when_absent",
+      "tests_testpilot/test_reindent_s8.py::test_split_statements_skips_first_token",
+      "tests_testpilot/test_reindent_s8.py::test_process_default_dispatches",
+      "tests_testpilot/test_reindent_s8.py::test_process_default_without_statements_split",
+      "tests_testpilot/test_reindent_s8.py::test_process_where_no_where_token_returns",
+      "tests_testpilot/test_reindent_s8.py::test_process_parenthesis_no_paren_returns",
+      "tests_testpilot/test_reindent_s8.py::test_process_parenthesis_with_paren",
+      "tests_testpilot/test_reindent_s8.py::test_identifierlist_no_wrap_short",
+      "tests_testpilot/test_reindent_s8.py::test_identifierlist_wrap_after",
+      "tests_testpilot/test_reindent_s8.py::test_identifierlist_comma_first",
+      "tests_testpilot/test_reindent_s8.py::test_identifierlist_indent_columns",
+      "tests_testpilot/test_reindent_s8.py::test_identifierlist_tab_char",
+      "tests_testpilot/test_reindent_s8.py::test_process_case_basic",
+      "tests_testpilot/test_reindent_s8.py::test_process_case_compact",
+      "tests_testpilot/test_reindent_s8.py::test_process_case_wrap",
+      "tests_testpilot/test_reindent_s8.py::test_process_values_newline_insertion",
+      "tests_testpilot/test_reindent_s8.py::test_process_values_comma_first",
+      "tests_testpilot/test_reindent_s8.py::test_end_to_end_reindent",
+      "tests_testpilot/test_reindent_s8.py::test_indent_after_first_option",
+      "tests_testpilot/test_reindent_s8.py::test_compact_option",
+      "tests_testpilot/test_reindent_s8.py::test_reindent_width_custom"
+    ],
+    "invalid": {
+      "tests_testpilot/test_reindent_s1.py::TestNextToken::test_no_match_returns_none": "run 1: failed: assert None == -1",
+      "tests_testpilot/test_reindent_s1.py::TestNextToken::test_between_and_skipped": "run 1: failed: assert None is not None",
+      "tests_testpilot/test_reindent_s1.py::TestNextToken::test_between_then_and": "run 1: failed: assert None is not None",
+      "tests_testpilot/test_reindent_s1.py::TestCurrentLineLen::test_measures_preceding_tokens": "run 1: failed: AttributeError: 'NoneType' object has no attribute 'parent'",
+      "tests_testpilot/test_reindent_s1.py::TestCurrentLineLen::test_stops_at_newline": "run 1: failed: AttributeError: 'NoneType' object has no attribute 'parent'",
+      "tests_testpilot/test_reindent_s1.py::TestCurrentLineLen::test_get_offset": "run 1: failed: AttributeError: 'NoneType' object has no attribute 'parent'",
+      "tests_testpilot/test_reindent_s1.py::TestSplitStatements::test_split_on_keyword_dml": "run 1: failed: AssertionError: assert '\\nSELECT 2' in 'SELECT 1; '",
+      "tests_testpilot/test_reindent_s1.py::TestEdgeCases::test_empty_statement": "run 1: failed: IndexError: tuple index out of range",
+      "tests_testpilot/test_reindent_s2.py::test_next_token_skips_between_and": "run 1: failed: assert None is not None",
+      "tests_testpilot/test_reindent_s2.py::test_process_where_inserts_newline": "run 1: failed: assert False",
+      "tests_testpilot/test_reindent_s3.py::test_current_line_len_trailing_newline": "run 1: failed: AssertionError: assert 4 == 2",
+      "tests_testpilot/test_reindent_s3.py::test_next_token_between_skips_to_and": "run 1: failed: assert None is not None",
+      "tests_testpilot/test_reindent_s3.py::test_split_statements_inserts_newline_before_select": "run 1: failed: assert None is not None",
+      "tests_testpilot/test_reindent_s3.py::test_split_kwds_no_extra_newline_if_already": "run 1: failed: AssertionError: assert Token.Name is Token.Text.Whitespace",
+      "tests_testpilot/test_reindent_s3.py::test_process_identifierlist_no_wrap": "run 1: failed: AssertionError: assert '\\n' not in 'c0, \\nc1, \\nc2'",
+      "tests_testpilot/test_reindent_s3.py::test_process_values": "run 1: failed: AssertionError: assert False",
+      "tests_testpilot/test_reindent_s3.py::test_process_default_splits_keywords": "run 1: failed: AssertionError: assert False",
+      "tests_testpilot/test_reindent_s3.py::test_end_to_end_select_simple": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s3.py::test_end_to_end_where": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s3.py::test_end_to_end_two_statements": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s3.py::test_end_to_end_compact_width_char": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s4.py::TestCurrentLineLen::test_stops_at_newline": "run 1: failed: AssertionError: assert 8 == 0",
+      "tests_testpilot/test_reindent_s4.py::TestNextToken::test_finds_select": "run 1: failed: assert (None, None) == (-1, None)",
+      "tests_testpilot/test_reindent_s4.py::TestSplitStatements::test_two_statements": "run 1: failed: AssertionError: assert 'SELECT 1;\\nSELECT 2' in 'SELECT 1; '",
+      "tests_testpilot/test_reindent_s4.py::TestSplitKwds::test_already_newlined": "run 1: failed: AssertionError: assert 0 == 1",
+      "tests_testpilot/test_reindent_s4.py::TestProcessWhere::test_where_split": "run 1: failed: AttributeError: 'NoneType' object has no attribute 'parent'",
+      "tests_testpilot/test_reindent_s4.py::TestProcess::test_full_select_formatting": "run 1: failed: AssertionError: assert '\\nFROM' in 'select a, \\n       b\\nfrom foo \\nwhere x = 1\\n  and y = 2'",
+      "tests_testpilot/test_reindent_s5.py::test_nl_custom_newline_and_char": "run 1: failed: AssertionError: assert '\\r\\n\\t\\t' == '\\r\\n\\t'",
+      "tests_testpilot/test_reindent_s5.py::test_next_token_finds_keyword": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_next_token_skips_between_and": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_next_token_none_when_no_match": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_returns_same_statements_object": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_breaks_before_keywords": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_multiple_statements_blank_line": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_last_stmt_ending_newline_single": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_last_stmt_no_newline_double": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_where": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_parenthesis_simple": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_parenthesis_with_dml": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_function_records_last_func": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_indent_columns_identifierlist": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_indent_columns_tab_width": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_identifierlist_wrap_after": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_identifierlist_comma_first": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_identifierlist_within_function_whitespace": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_identifierlist_within_function_wraps": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_case": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_case_compact": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_case_wrap": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_values": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_values_comma_first": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_current_line_len_empty": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_get_offset_basic": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_get_offset_with_leading_ws": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_split_statements_inserts_nl": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_split_kwds_no_double_newline": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_uses_default_for_unknown_group": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_default_no_stmts": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s5.py::test_process_case_no_end_close": "run 1: failed: ModuleNotFoundError: No module named 'sqlparse.parser'",
+      "tests_testpilot/test_reindent_s6.py::TestSplitKwds::test_splits_from": "run 1: failed: TypeError: 'tuple' object doesn't support item deletion",
+      "tests_testpilot/test_reindent_s6.py::TestSplitStatements::test_splits_second_dml": "run 1: failed: assert False",
+      "tests_testpilot/test_reindent_s6.py::TestCurrentLineLen::test_current_line_len_all_on_one_line": "run 1: failed: AttributeError: 'tuple' object has no attribute 'pop'",
+      "tests_testpilot/test_reindent_s6.py::TestCurrentLineLen::test_current_line_len_after_newline": "run 1: failed: AttributeError: 'tuple' object has no attribute 'insert'",
+      "tests_testpilot/test_reindent_s6.py::TestGetOffset::test_get_offset_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'pop'",
+      "tests_testpilot/test_reindent_s6.py::TestGetOffset::test_get_offset_with_indent": "run 1: failed: AttributeError: 'tuple' object has no attribute 'pop'",
+      "tests_testpilot/test_reindent_s6.py::TestProcess::test_process_basic_select": "run 1: failed: TypeError: 'tuple' object doesn't support item deletion",
+      "tests_testpilot/test_reindent_s6.py::TestProcess::test_process_two_statements_adds_blank_line": "run 1: failed: AttributeError: 'tuple' object has no attribute 'insert'",
+      "tests_testpilot/test_reindent_s6.py::TestProcess::test_process_second_stmt_single_newline_when_prev_ends_with_nl": "run 1: failed: AttributeError: 'tuple' object has no attribute 'insert'",
+      "tests_testpilot/test_reindent_s6.py::TestProcessWhere::test_where_gets_newline": "run 1: failed: AssertionError: assert '\\nWHERE' in 'SELECT x WHERE y'",
+      "tests_testpilot/test_reindent_s7.py::test_next_token_between_skips": "run 1: failed: AssertionError: assert 'LIMIT' == 'BETWEEN'",
+      "tests_testpilot/test_reindent_s7.py::test_split_kwds_inserts_newline": "run 1: failed: AttributeError: module 'sqlparse.tokens' has no attribute 'Identifier'",
+      "tests_testpilot/test_reindent_s7.py::test_split_kwds_existing_newline_untouched": "run 1: failed: AssertionError: assert 'FROM' == '\\n'",
+      "tests_testpilot/test_reindent_s7.py::test_split_statements_first_token_not_preceded": "run 1: failed: AttributeError: module 'sqlparse.tokens' has no attribute 'Identifier'",
+      "tests_testpilot/test_reindent_s7.py::test_process_where_returns_without_where": "run 1: failed: AttributeError: module 'sqlparse.tokens' has no attribute 'Identifier'",
+      "tests_testpilot/test_reindent_s7.py::test_process_where_inserts_newline": "run 1: failed: AttributeError: module 'sqlparse.tokens' has no attribute 'Identifier'",
+      "tests_testpilot/test_reindent_s7.py::test_process_parenthesis_subquery": "run 1: failed: AssertionError: assert '(\\n' in 'SELECT *\\nFROM \\n  (SELECT a\\n   FROM b) x'",
+      "tests_testpilot/test_reindent_s7.py::test_current_line_len_single_token": "run 1: failed: AttributeError: module 'sqlparse.tokens' has no attribute 'Identifier'",
+      "tests_testpilot/test_reindent_s7.py::test_current_line_len_with_previous": "run 1: failed: AttributeError: module 'sqlparse.tokens' has no attribute 'Identifier'",
+      "tests_testpilot/test_reindent_s7.py::test_current_line_len_after_newline": "run 1: failed: AttributeError: module 'sqlparse.tokens' has no attribute 'Identifier'",
+      "tests_testpilot/test_reindent_s7.py::test_get_offset_subtracts_leading_ws": "run 1: failed: AttributeError: module 'sqlparse.tokens' has no attribute 'Identifier'",
+      "tests_testpilot/test_reindent_s8.py::test_split_kwds_inserts_newlines": "run 1: failed: AssertionError: assert '\\nFROM' in 'select a\\nfrom b'",
+      "tests_testpilot/test_reindent_s8.py::test_split_statements_inserts_newlines_between_dml": "run 1: failed: AssertionError: assert 0 == 2",
+      "tests_testpilot/test_reindent_s8.py::test_process_where_inserts_newline": "run 1: failed: AssertionError: assert '\\nWHERE' in 'select a from b where c = 1'",
+      "tests_testpilot/test_reindent_s8.py::test_process_function_sets_last_func": "run 1: failed: AssertionError: assert None in (Token.Name, Token.Keyword)",
+      "tests_testpilot/test_reindent_s8.py::test_end_to_end_multiple_statements": "run 1: failed: AssertionError: assert 0 == 2"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 3.84,
+        "passed": 277,
+        "failed": 85,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 3.47,
+        "passed": 277,
+        "failed": 85,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 3.44,
+        "passed": 277,
+        "failed": 85,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9646464646464646,
+  "branch_rate": 0.8846153846153846,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.6726190476190477,
+    "total": 513,
+    "killed": 339,
+    "survived": 165,
+    "excluded": 9,
+    "status_counts": {
+      "killed": 339,
+      "survived": 165,
+      "timeout": 9
+    },
+    "survivors": [
+      {
+        "line": 57,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "if len(lines) > 2:",
+        "mutated": "if len(lines) >= 2:",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "if len(lines) > 2:",
+        "mutated": "if len(lines) > 3:",
+        "status": "survived"
+      },
+      {
+        "line": 82,
+        "original": "length = len(lines[0])",
+        "mutated": "length = None",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('from', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'XXSTRAIGHT_JOIN$XX', 'JOIN$', 'AND', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'straight_join$', 'JOIN$', 'AND', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'join$', 'AND', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'and', 'OR',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'XXORXX',",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'OR',",
+        "mutated": "split_words = ('FROM', 'STRAIGHT_JOIN$', 'JOIN$', 'AND', 'or',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'group by', 'ORDER BY', 'UNION', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'XXORDER BYXX', 'UNION', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'order by', 'UNION', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'ORDER BY', 'XXUNIONXX', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'ORDER BY', 'union', 'VALUES',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'ORDER BY', 'UNION', 'XXVALUESXX',",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "'GROUP BY', 'ORDER BY', 'UNION', 'VALUES',",
+        "mutated": "'GROUP BY', 'ORDER BY', 'UNION', 'values',",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'XXSETXX', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'set', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'between', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'XXEXCEPTXX', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'except', 'HAVING', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'EXCEPT', 'XXHAVINGXX', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'EXCEPT', 'having', 'LIMIT')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'XXLIMITXX')",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'LIMIT')",
+        "mutated": "'SET', 'BETWEEN', 'EXCEPT', 'HAVING', 'limit')",
+        "status": "survived"
+      },
+      {
+        "line": 113,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(None, skip_ws=False)",
+        "status": "survived"
+      },
+      {
+        "line": 113,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 113,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, )",
+        "status": "survived"
+      },
+      {
+        "line": 113,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=True)",
+        "status": "survived"
+      },
+      {
+        "line": 114,
+        "original": "uprev = str(prev_)",
+        "mutated": "uprev = str(None)",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "if prev_ and prev_.is_whitespace:",
+        "mutated": "if prev_ or prev_.is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "tidx -= 1",
+        "mutated": "tidx = 1",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "tidx -= 1",
+        "mutated": "tidx -= 2",
+        "status": "survived"
+      },
+      {
+        "line": 120,
+        "original": "if not (uprev.endswith('\\n') or uprev.endswith('\\r')):",
+        "mutated": "if not (uprev.endswith('\\n') and uprev.endswith('\\r')):",
+        "status": "survived"
+      },
+      {
+        "line": 120,
+        "original": "if not (uprev.endswith('\\n') or uprev.endswith('\\r')):",
+        "mutated": "if not (uprev.endswith('XX\\nXX') or uprev.endswith('\\r')):",
+        "status": "survived"
+      },
+      {
+        "line": 120,
+        "original": "if not (uprev.endswith('\\n') or uprev.endswith('\\r')):",
+        "mutated": "if not (uprev.endswith('\\n') or uprev.endswith('XX\\rXX')):",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "tidx += 1",
+        "mutated": "tidx += 2",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 137,
+        "original": "tidx += 1",
+        "mutated": "tidx += 2",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "tidx, token = tlist.token_next_by(m=(T.Keyword, 'WHERE'))",
+        "mutated": "tidx, token = tlist.token_next_by(m=(T.Keyword, 'where'))",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, 1 if (is_dml_dll) and False else 0):",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, 1 if (is_dml_dll) or True else 0):",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, 2 if is_dml_dll else 0):",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "with indent(self, 1 if is_dml_dll else 0):",
+        "mutated": "with indent(self, 1 if is_dml_dll else 1):",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "tlist.tokens.insert(0, self.nl()) if is_dml_dll else None",
+        "mutated": "tlist.tokens.insert(0, self.nl()) if (is_dml_dll) or True else None",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "with offset(self, self._get_offset(first) + 1):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "with offset(self, self._get_offset(first) + 1):",
+        "mutated": "with offset(self, self._get_offset(first) - 1):",
+        "status": "survived"
+      },
+      {
+        "line": 163,
+        "original": "with offset(self, self._get_offset(first) + 1):",
+        "mutated": "with offset(self, self._get_offset(first) + 2):",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "self._process_default(tlist, not is_dml_dll)",
+        "mutated": "self._process_default(tlist, None)",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "self._process_default(tlist, not is_dml_dll)",
+        "mutated": "self._process_default(tlist, )",
+        "status": "survived"
+      },
+      {
+        "line": 164,
+        "original": "self._process_default(tlist, not is_dml_dll)",
+        "mutated": "self._process_default(tlist, is_dml_dll)",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "first = next(identifiers[0].flatten())",
+        "mutated": "first = None",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "first = next(identifiers[0].flatten())",
+        "mutated": "first = next(identifiers[1].flatten())",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 1 if (self.char == '\\t') and False else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 1 if (self.char == '\\t') or True else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 2 if self.char == '\\t' else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 1 if self.char != '\\t' else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "num_offset = 1 if self.char == '\\t' else self.width",
+        "mutated": "num_offset = 1 if self.char == 'XX\\tXX' else self.width",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "num_offset = 1 if self.char == '\\t' else self._get_offset(first)",
+        "mutated": "num_offset = 1 if (self.char == '\\t') and False else self._get_offset(first)",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "num_offset = 1 if self.char == '\\t' else self._get_offset(first)",
+        "mutated": "num_offset = 1 if (self.char == '\\t') or True else self._get_offset(first)",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "num_offset = 1 if self.char == '\\t' else self._get_offset(first)",
+        "mutated": "num_offset = 2 if self.char == '\\t' else self._get_offset(first)",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "num_offset = 1 if self.char == '\\t' else self._get_offset(first)",
+        "mutated": "num_offset = 1 if self.char != '\\t' else self._get_offset(first)",
+        "status": "survived"
+      },
+      {
+        "line": 177,
+        "original": "num_offset = 1 if self.char == '\\t' else self._get_offset(first)",
+        "mutated": "num_offset = 1 if self.char == 'XX\\tXX' else self._get_offset(first)",
+        "status": "survived"
+      },
+      {
+        "line": 179,
+        "original": "if not tlist.within(sql.Function) and not tlist.within(sql.Values):",
+        "mutated": "if not tlist.within(sql.Function) or not tlist.within(sql.Values):",
+        "status": "survived"
+      },
+      {
+        "line": 180,
+        "original": "with offset(self, num_offset):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "position = 0",
+        "mutated": "position = 1",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position = len(token.value) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position += len(token.value) - 1",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position += len(token.value) + 2",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "if position > (self.wrap_after - self.offset):",
+        "mutated": "if position >= (self.wrap_after - self.offset):",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "adjust = 0",
+        "mutated": "adjust = 1",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "adjust = -2",
+        "mutated": "adjust = +2",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "adjust = -2",
+        "mutated": "adjust = -3",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "None, skip_ws=False)",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), )",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), skip_ws=True)",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "if (ws is not None\n                                and ws.ttype is not T.Text.Whitespace):",
+        "mutated": "if (ws is not None or ws.ttype is not T.Text.Whitespace):",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "if (ws is not None",
+        "mutated": "if (ws is None",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "and ws.ttype is not T.Text.Whitespace):",
+        "mutated": "and ws.ttype is T.Text.Whitespace):",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "None, sql.Token(T.Whitespace, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, None)",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "sql.Token(T.Whitespace, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, )",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(None, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(T.Whitespace, None))",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(' '))",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(T.Whitespace, ))",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(T.Whitespace, 'XX XX'))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "position = 0",
+        "mutated": "position = 1",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), )",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "tlist.token_index(token), skip_ws=False)",
+        "mutated": "tlist.token_index(token), skip_ws=True)",
+        "status": "survived"
+      },
+      {
+        "line": 208,
+        "original": "if token.value == ',' and not next_ws.is_whitespace:",
+        "mutated": "if token.value == 'XX,XX' and not next_ws.is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 208,
+        "original": "if token.value == ',' and not next_ws.is_whitespace:",
+        "mutated": "if token.value == ',' and next_ws.is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "None, sql.Token(T.Whitespace, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, None)",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "sql.Token(T.Whitespace, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, )",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(None, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(T.Whitespace, None))",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(' '))",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(T.Whitespace, ))",
+        "status": "survived"
+      },
+      {
+        "line": 210,
+        "original": "token, sql.Token(T.Whitespace, ' '))",
+        "mutated": "token, sql.Token(T.Whitespace, 'XX XX'))",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "end_at = self.offset + sum(len(i.value) + 1 for i in identifiers)",
+        "mutated": "end_at = self.offset - sum(len(i.value) + 1 for i in identifiers)",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "end_at = self.offset + sum(len(i.value) + 1 for i in identifiers)",
+        "mutated": "end_at = self.offset + sum(len(i.value) - 1 for i in identifiers)",
+        "status": "survived"
+      },
+      {
+        "line": 212,
+        "original": "end_at = self.offset + sum(len(i.value) + 1 for i in identifiers)",
+        "mutated": "end_at = self.offset + sum(len(i.value) + 2 for i in identifiers)",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "adjusted_offset = 0",
+        "mutated": "adjusted_offset = 1",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "and end_at > (self.wrap_after - self.offset)\n                and self._last_func):",
+        "mutated": "and end_at > (self.wrap_after - self.offset) or self._last_func):",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "if (self.wrap_after > 0\n                and end_at > (self.wrap_after - self.offset)",
+        "mutated": "if (self.wrap_after > 0 or end_at > (self.wrap_after - self.offset)",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "if (self.wrap_after > 0",
+        "mutated": "if (self.wrap_after >= 0",
+        "status": "survived"
+      },
+      {
+        "line": 214,
+        "original": "if (self.wrap_after > 0",
+        "mutated": "if (self.wrap_after > 1",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "and end_at > (self.wrap_after - self.offset)",
+        "mutated": "and end_at >= (self.wrap_after - self.offset)",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "and end_at > (self.wrap_after - self.offset)",
+        "mutated": "and end_at > (self.wrap_after + self.offset)",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "adjusted_offset = -len(self._last_func.value) - 1",
+        "mutated": "adjusted_offset = -len(self._last_func.value) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "adjusted_offset = -len(self._last_func.value) - 1",
+        "mutated": "adjusted_offset = +len(self._last_func.value) - 1",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "adjusted_offset = -len(self._last_func.value) - 1",
+        "mutated": "adjusted_offset = -len(self._last_func.value) - 2",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "with offset(self, adjusted_offset), indent(self):",
+        "mutated": "with offset(self, ), indent(self):",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "if adjusted_offset < 0:",
+        "mutated": "if adjusted_offset <= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "if adjusted_offset < 0:",
+        "mutated": "if adjusted_offset < 1:",
+        "status": "survived"
+      },
+      {
+        "line": 221,
+        "original": "tlist.insert_before(identifiers[0], self.nl())",
+        "mutated": "tlist.insert_before(identifiers[1], self.nl())",
+        "status": "survived"
+      },
+      {
+        "line": 222,
+        "original": "position = 0",
+        "mutated": "position = 1",
+        "status": "survived"
+      },
+      {
+        "line": 225,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position = len(token.value) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 225,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position -= len(token.value) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 225,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position += len(token.value) - 1",
+        "status": "survived"
+      },
+      {
+        "line": 225,
+        "original": "position += len(token.value) + 1",
+        "mutated": "position += len(token.value) + 2",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "if (self.wrap_after > 0\n                        and position > (self.wrap_after - self.offset)):",
+        "mutated": "if (self.wrap_after > 0 or position > (self.wrap_after - self.offset)):",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "if (self.wrap_after > 0",
+        "mutated": "if (self.wrap_after >= 0",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "if (self.wrap_after > 0",
+        "mutated": "if (self.wrap_after > 1",
+        "status": "survived"
+      },
+      {
+        "line": 227,
+        "original": "and position > (self.wrap_after - self.offset)):",
+        "mutated": "and position >= (self.wrap_after - self.offset)):",
+        "status": "survived"
+      },
+      {
+        "line": 227,
+        "original": "and position > (self.wrap_after - self.offset)):",
+        "mutated": "and position > (self.wrap_after + self.offset)):",
+        "status": "survived"
+      },
+      {
+        "line": 228,
+        "original": "adjust = 0",
+        "mutated": "adjust = 1",
+        "status": "survived"
+      },
+      {
+        "line": 230,
+        "original": "position = 0",
+        "mutated": "position = 1",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "with offset(self, self._get_offset(tlist[0])):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "with offset(self, self._get_offset(tlist[0])):",
+        "mutated": "with offset(self, self._get_offset(tlist[1])):",
+        "status": "survived"
+      },
+      {
+        "line": 239,
+        "original": "with offset(self, self._get_offset(first)):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 241,
+        "original": "str_cond = ''.join(str(x) for x in cond or [])",
+        "mutated": "str_cond = 'XXXX'.join(str(x) for x in cond or [])",
+        "status": "survived"
+      },
+      {
+        "line": 241,
+        "original": "str_cond = ''.join(str(x) for x in cond or [])",
+        "mutated": "str_cond = ''.join(str(None) for x in cond or [])",
+        "status": "survived"
+      },
+      {
+        "line": 242,
+        "original": "str_value = ''.join(str(x) for x in value)",
+        "mutated": "str_value = 'XXXX'.join(str(x) for x in value)",
+        "status": "survived"
+      },
+      {
+        "line": 242,
+        "original": "str_value = ''.join(str(x) for x in value)",
+        "mutated": "str_value = ''.join(str(None) for x in value)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "end_pos = self.offset + 1 + len(str_cond) + len(str_value)",
+        "mutated": "end_pos = self.offset + 1 + len(str_cond) - len(str_value)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "end_pos = self.offset + 1 + len(str_cond) + len(str_value)",
+        "mutated": "end_pos = self.offset + 1 - len(str_cond) + len(str_value)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "end_pos = self.offset + 1 + len(str_cond) + len(str_value)",
+        "mutated": "end_pos = self.offset - 1 + len(str_cond) + len(str_value)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "end_pos = self.offset + 1 + len(str_cond) + len(str_value)",
+        "mutated": "end_pos = self.offset + 2 + len(str_cond) + len(str_value)",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "if (not self.compact and end_pos > self.wrap_after):",
+        "mutated": "if (not self.compact and end_pos >= self.wrap_after):",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "token = value[0] if cond is None else cond[0]",
+        "mutated": "token = value[0] if (cond is None) or True else cond[0]",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "token = value[0] if cond is None else cond[0]",
+        "mutated": "token = value[1] if cond is None else cond[0]",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "token = value[0] if cond is None else cond[0]",
+        "mutated": "token = value[0] if cond is None else cond[1]",
+        "status": "survived"
+      },
+      {
+        "line": 250,
+        "original": "with offset(self, len(\"WHEN \")):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      },
+      {
+        "line": 252,
+        "original": "end_idx, end = tlist.token_next_by(m=sql.Case.M_CLOSE)",
+        "mutated": "end_idx, end = tlist.token_next_by(m=None)",
+        "status": "survived"
+      },
+      {
+        "line": 253,
+        "original": "if end_idx is not None and not self.compact:",
+        "mutated": "if end_idx is None and not self.compact:",
+        "status": "survived"
+      },
+      {
+        "line": 257,
+        "original": "tlist.insert_before(0, self.nl())",
+        "mutated": "tlist.insert_before(1, self.nl())",
+        "status": "survived"
+      },
+      {
+        "line": 265,
+        "original": "adjust = -2",
+        "mutated": "adjust = +2",
+        "status": "survived"
+      },
+      {
+        "line": 265,
+        "original": "adjust = -2",
+        "mutated": "adjust = -3",
+        "status": "survived"
+      },
+      {
+        "line": 266,
+        "original": "offset = self._get_offset(first_token) + adjust",
+        "mutated": "offset = self._get_offset(first_token) - adjust",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "tidx, token = tlist.token_next_by(i=sql.Parenthesis, idx=tidx)",
+        "mutated": "tidx, token = tlist.token_next_by(i=None, idx=tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "tidx, token = tlist.token_next_by(i=sql.Parenthesis, idx=tidx)",
+        "mutated": "tidx, token = tlist.token_next_by(idx=tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 273,
+        "original": "def _process_default(self, tlist, stmts=True):",
+        "mutated": "def _process_default(self, tlist, stmts=False):",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "self._split_statements(tlist) if stmts else None",
+        "mutated": "self._split_statements(tlist) if (stmts) and False else None",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "self._split_statements(tlist) if stmts else None",
+        "mutated": "self._split_statements(tlist) if (stmts) or True else None",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 10.95,
+    "coverage": 4.15,
+    "mutation": 87.61
+  }
+}

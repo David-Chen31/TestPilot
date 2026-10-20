@@ -1,0 +1,178 @@
+{
+  "target": "boltons/queueutils.py",
+  "validity": {
+    "total": 35,
+    "valid": 35,
+    "valid_ids": [
+      "tests_testpilot/test_queueutils.py::test_priority_queue_alias",
+      "tests_testpilot/test_queueutils.py::test_constructor_empty",
+      "tests_testpilot/test_queueutils.py::test_constructor_unexpected_kwargs",
+      "tests_testpilot/test_queueutils.py::test_constructor_custom_priority_key",
+      "tests_testpilot/test_queueutils.py::test_default_priority_key_negation",
+      "tests_testpilot/test_queueutils.py::test_none_priority_equivalent_to_zero",
+      "tests_testpilot/test_queueutils.py::test_add_and_len",
+      "tests_testpilot/test_queueutils.py::test_add_existing_task_updates_priority",
+      "tests_testpilot/test_queueutils.py::test_add_existing_task_lower_priority",
+      "tests_testpilot/test_queueutils.py::test_fifo_tiebreak_by_counter",
+      "tests_testpilot/test_queueutils.py::test_peek_does_not_remove",
+      "tests_testpilot/test_queueutils.py::test_peek_empty_raises",
+      "tests_testpilot/test_queueutils.py::test_peek_empty_default",
+      "tests_testpilot/test_queueutils.py::test_peek_nonempty_ignores_default",
+      "tests_testpilot/test_queueutils.py::test_pop_order_and_len",
+      "tests_testpilot/test_queueutils.py::test_pop_empty_raises",
+      "tests_testpilot/test_queueutils.py::test_pop_empty_default",
+      "tests_testpilot/test_queueutils.py::test_pop_removes_from_entry_map",
+      "tests_testpilot/test_queueutils.py::test_remove_present",
+      "tests_testpilot/test_queueutils.py::test_remove_absent_raises",
+      "tests_testpilot/test_queueutils.py::test_remove_then_peek_skips_removed",
+      "tests_testpilot/test_queueutils.py::test_remove_all_then_pop_raises",
+      "tests_testpilot/test_queueutils.py::test_remove_all_then_peek_empty_default",
+      "tests_testpilot/test_queueutils.py::test_re_add_after_remove",
+      "tests_testpilot/test_queueutils.py::test_cull_removes_tombstones",
+      "tests_testpilot/test_queueutils.py::test_cull_empty_raises",
+      "tests_testpilot/test_queueutils.py::test_cull_empty_no_raise",
+      "tests_testpilot/test_queueutils.py::test_base_priority_queue_len_and_add",
+      "tests_testpilot/test_queueutils.py::test_base_priority_queue_peek_empty_raises",
+      "tests_testpilot/test_queueutils.py::test_base_push_entry_returns_none",
+      "tests_testpilot/test_queueutils.py::test_base_pop_entry_returns_none",
+      "tests_testpilot/test_queueutils.py::test_entry_shape",
+      "tests_testpilot/test_queueutils.py::test_sorted_backend_is_sorted_by_priority",
+      "tests_testpilot/test_queueutils.py::test_heap_push_pop_entry",
+      "tests_testpilot/test_queueutils.py::test_sorted_push_pop_entry"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.59,
+        "passed": 61,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.4,
+        "passed": 61,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.49,
+        "passed": 61,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9534883720930233,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8115942028985508,
+    "total": 69,
+    "killed": 56,
+    "survived": 13,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 56,
+      "survived": 13
+    },
+    "survivors": [
+      {
+        "line": 114,
+        "original": "raise TypeError('unexpected keyword arguments: %r' % kw.keys())",
+        "mutated": "raise TypeError('XXunexpected keyword arguments: %rXX' % kw.keys())",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "count = next(self._counter)",
+        "mutated": "count = None",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "\"Remove entries marked as removed by previous :meth:`remove` calls.\"",
+        "mutated": "\"XXRemove entries marked as removed by previous :meth:`remove` calls.XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "\"Remove entries marked as removed by previous :meth:`remove` calls.\"",
+        "mutated": "\"remove entries marked as removed by previous :meth:`remove` calls.\"",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "\"Remove entries marked as removed by previous :meth:`remove` calls.\"",
+        "mutated": "\"REMOVE ENTRIES MARKED AS REMOVED BY PREVIOUS :METH:`REMOVE` CALLS.\"",
+        "status": "survived"
+      },
+      {
+        "line": 156,
+        "original": "raise IndexError('empty priority queue')",
+        "mutated": "raise IndexError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 156,
+        "original": "raise IndexError('empty priority queue')",
+        "mutated": "raise IndexError('XXempty priority queueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 156,
+        "original": "raise IndexError('empty priority queue')",
+        "mutated": "raise IndexError('EMPTY PRIORITY QUEUE')",
+        "status": "survived"
+      },
+      {
+        "line": 169,
+        "original": "raise IndexError('peek on empty queue')",
+        "mutated": "raise IndexError('XXpeek on empty queueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "raise IndexError('pop on empty queue')",
+        "mutated": "raise IndexError('XXpop on empty queueXX')",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "\"Return the number of tasks in the queue.\"",
+        "mutated": "\"XXReturn the number of tasks in the queue.XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "\"Return the number of tasks in the queue.\"",
+        "mutated": "\"return the number of tasks in the queue.\"",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "\"Return the number of tasks in the queue.\"",
+        "mutated": "\"RETURN THE NUMBER OF TASKS IN THE QUEUE.\"",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.5,
+    "coverage": 2.77,
+    "mutation": 6.77
+  }
+}

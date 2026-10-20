@@ -1,0 +1,1784 @@
+{
+  "target": "src/tomli/_parser.py",
+  "validity": {
+    "total": 140,
+    "valid": 140,
+    "valid_ids": [
+      "tests_testpilot/test__parser.py::test_load_basic",
+      "tests_testpilot/test__parser.py::test_load_text_file_raises_typeerror",
+      "tests_testpilot/test__parser.py::test_load_respects_parse_float",
+      "tests_testpilot/test__parser.py::test_loads_empty",
+      "tests_testpilot/test__parser.py::test_loads_basic",
+      "tests_testpilot/test__parser.py::test_loads_crlf_normalized",
+      "tests_testpilot/test__parser.py::test_loads_crlf_in_multiline_basic_string",
+      "tests_testpilot/test__parser.py::test_loads_rejects_non_str",
+      "tests_testpilot/test__parser.py::test_loads_comment_only",
+      "tests_testpilot/test__parser.py::test_loads_invalid_statement",
+      "tests_testpilot/test__parser.py::test_loads_expect_newline_after_statement",
+      "tests_testpilot/test__parser.py::test_loads_table",
+      "tests_testpilot/test__parser.py::test_loads_array_of_tables",
+      "tests_testpilot/test__parser.py::test_decode_error_basic_attrs",
+      "tests_testpilot/test__parser.py::test_decode_error_first_line_column",
+      "tests_testpilot/test__parser.py::test_decode_error_end_of_document",
+      "tests_testpilot/test__parser.py::test_decode_error_free_form_args_deprecated",
+      "tests_testpilot/test__parser.py::test_decode_error_free_form_with_pos",
+      "tests_testpilot/test__parser.py::test_decode_error_extra_args_deprecated",
+      "tests_testpilot/test__parser.py::test_deprecated_default_sentinel_is_a_class",
+      "tests_testpilot/test__parser.py::test_flags_set_and_is_non_recursive",
+      "tests_testpilot/test__parser.py::test_flags_is_empty_key_always_false",
+      "tests_testpilot/test__parser.py::test_flags_set_empty_key_raises_index_error",
+      "tests_testpilot/test__parser.py::test_flags_recursive_propagates_to_children",
+      "tests_testpilot/test__parser.py::test_flags_non_recursive_does_not_propagate",
+      "tests_testpilot/test__parser.py::test_flags_unset_all_removes",
+      "tests_testpilot/test__parser.py::test_flags_unset_all_missing_path_noop",
+      "tests_testpilot/test__parser.py::test_flags_pending",
+      "tests_testpilot/test__parser.py::test_nesteddict_get_or_create_nest",
+      "tests_testpilot/test__parser.py::test_nesteddict_access_lists",
+      "tests_testpilot/test__parser.py::test_nesteddict_access_lists_false",
+      "tests_testpilot/test__parser.py::test_nesteddict_no_nest_behind_key",
+      "tests_testpilot/test__parser.py::test_nesteddict_append_nest_to_list_create",
+      "tests_testpilot/test__parser.py::test_nesteddict_append_nest_to_list_append",
+      "tests_testpilot/test__parser.py::test_nesteddict_append_not_a_list",
+      "tests_testpilot/test__parser.py::test_output",
+      "tests_testpilot/test__parser.py::test_skip_chars",
+      "tests_testpilot/test__parser.py::test_skip_until_found",
+      "tests_testpilot/test__parser.py::test_skip_until_eof_ok",
+      "tests_testpilot/test__parser.py::test_skip_until_eof_error",
+      "tests_testpilot/test__parser.py::test_skip_until_error_on_char",
+      "tests_testpilot/test__parser.py::test_skip_comment_none",
+      "tests_testpilot/test__parser.py::test_skip_comment_with_comment",
+      "tests_testpilot/test__parser.py::test_skip_comment_at_eof",
+      "tests_testpilot/test__parser.py::test_skip_comment_index_error",
+      "tests_testpilot/test__parser.py::test_skip_comment_illegal_char",
+      "tests_testpilot/test__parser.py::test_skip_comments_and_array_ws",
+      "tests_testpilot/test__parser.py::test_skip_comments_and_array_ws_stops",
+      "tests_testpilot/test__parser.py::test_create_dict_rule",
+      "tests_testpilot/test__parser.py::test_create_dict_rule_twice_raises",
+      "tests_testpilot/test__parser.py::test_create_dict_rule_missing_bracket",
+      "tests_testpilot/test__parser.py::test_create_dict_rule_overwrite_value",
+      "tests_testpilot/test__parser.py::test_create_list_rule",
+      "tests_testpilot/test__parser.py::test_create_list_rule_append",
+      "tests_testpilot/test__parser.py::test_create_list_rule_missing_brackets",
+      "tests_testpilot/test__parser.py::test_create_list_rule_frozen_raises",
+      "tests_testpilot/test__parser.py::test_create_list_rule_overwrite_value",
+      "tests_testpilot/test__parser.py::test_key_value_rule_simple",
+      "tests_testpilot/test__parser.py::test_key_value_rule_duplicate",
+      "tests_testpilot/test__parser.py::test_key_value_rule_with_header",
+      "tests_testpilot/test__parser.py::test_key_value_rule_frozen_parent",
+      "tests_testpilot/test__parser.py::test_key_value_rule_dotted_redefine",
+      "tests_testpilot/test__parser.py::test_key_value_rule_freeze_dict_value",
+      "tests_testpilot/test__parser.py::test_key_value_rule_freeze_list_value",
+      "tests_testpilot/test__parser.py::test_parse_key_value_pair",
+      "tests_testpilot/test__parser.py::test_parse_key_value_pair_missing_equals",
+      "tests_testpilot/test__parser.py::test_parse_key_simple",
+      "tests_testpilot/test__parser.py::test_parse_key_dotted",
+      "tests_testpilot/test__parser.py::test_parse_key_quoted",
+      "tests_testpilot/test__parser.py::test_parse_key_literal",
+      "tests_testpilot/test__parser.py::test_parse_key_too_many_parts",
+      "tests_testpilot/test__parser.py::test_parse_key_part_bare",
+      "tests_testpilot/test__parser.py::test_parse_key_part_basic_str",
+      "tests_testpilot/test__parser.py::test_parse_key_part_literal_str",
+      "tests_testpilot/test__parser.py::test_parse_key_part_invalid",
+      "tests_testpilot/test__parser.py::test_parse_one_line_basic_str",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_simple",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_unterminated",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_illegal_char",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_multiline",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_multiline_quotes_inside",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape_simple",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape_hex",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape_invalid",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape_multiline_line_ending",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape_multiline_space",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape_multiline_space_tab",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape_multiline_space_eof",
+      "tests_testpilot/test__parser.py::test_parse_basic_str_escape_multiline_space_bad",
+      "tests_testpilot/test__parser.py::test_parse_hex_char_invalid",
+      "tests_testpilot/test__parser.py::test_parse_hex_char_too_short",
+      "tests_testpilot/test__parser.py::test_parse_hex_char_not_scalar",
+      "tests_testpilot/test__parser.py::test_parse_literal_str",
+      "tests_testpilot/test__parser.py::test_parse_literal_str_unterminated",
+      "tests_testpilot/test__parser.py::test_parse_multiline_str_basic",
+      "tests_testpilot/test__parser.py::test_parse_multiline_str_literal",
+      "tests_testpilot/test__parser.py::test_parse_multiline_str_extra_quote",
+      "tests_testpilot/test__parser.py::test_parse_multiline_str_extra_two_quotes",
+      "tests_testpilot/test__parser.py::test_parse_multiline_str_literal_extra_quote",
+      "tests_testpilot/test__parser.py::test_parse_array_empty",
+      "tests_testpilot/test__parser.py::test_parse_array_values",
+      "tests_testpilot/test__parser.py::test_parse_array_trailing_comma",
+      "tests_testpilot/test__parser.py::test_parse_array_with_comments_and_ws",
+      "tests_testpilot/test__parser.py::test_parse_array_unclosed",
+      "tests_testpilot/test__parser.py::test_parse_inline_table_empty",
+      "tests_testpilot/test__parser.py::test_parse_inline_table_values",
+      "tests_testpilot/test__parser.py::test_parse_inline_table_trailing_comma",
+      "tests_testpilot/test__parser.py::test_parse_inline_table_dotted",
+      "tests_testpilot/test__parser.py::test_parse_inline_table_duplicate_key",
+      "tests_testpilot/test__parser.py::test_parse_inline_table_unclosed",
+      "tests_testpilot/test__parser.py::test_parse_inline_table_frozen_namespace",
+      "tests_testpilot/test__parser.py::test_parse_inline_table_overwrite_value",
+      "tests_testpilot/test__parser.py::test_parse_value_basic_str",
+      "tests_testpilot/test__parser.py::test_parse_value_multiline_basic_str",
+      "tests_testpilot/test__parser.py::test_parse_value_literal_str",
+      "tests_testpilot/test__parser.py::test_parse_value_multiline_literal_str",
+      "tests_testpilot/test__parser.py::test_parse_value_booleans",
+      "tests_testpilot/test__parser.py::test_parse_value_array",
+      "tests_testpilot/test__parser.py::test_parse_value_inline_table",
+      "tests_testpilot/test__parser.py::test_parse_value_date",
+      "tests_testpilot/test__parser.py::test_parse_value_datetime",
+      "tests_testpilot/test__parser.py::test_parse_value_out_of_range_date",
+      "tests_testpilot/test__parser.py::test_parse_value_invalid_month_not_matched_as_date",
+      "tests_testpilot/test__parser.py::test_parse_value_localtime",
+      "tests_testpilot/test__parser.py::test_parse_value_integer",
+      "tests_testpilot/test__parser.py::test_parse_value_float",
+      "tests_testpilot/test__parser.py::test_parse_value_special_floats",
+      "tests_testpilot/test__parser.py::test_parse_value_invalid",
+      "tests_testpilot/test__parser.py::test_parse_value_eof",
+      "tests_testpilot/test__parser.py::test_parse_value_nesting_limit",
+      "tests_testpilot/test__parser.py::test_is_unicode_scalar_value",
+      "tests_testpilot/test__parser.py::test_make_safe_parse_float_default_identity",
+      "tests_testpilot/test__parser.py::test_make_safe_parse_float_ok",
+      "tests_testpilot/test__parser.py::test_make_safe_parse_float_rejects_dict",
+      "tests_testpilot/test__parser.py::test_make_safe_parse_float_rejects_list",
+      "tests_testpilot/test__parser.py::test_make_safe_parse_float_used_by_loads",
+      "tests_testpilot/test__parser.py::test_escape_replacements_content",
+      "tests_testpilot/test__parser.py::test_max_key_parts_matches_recursion_limit",
+      "tests_testpilot/test__parser.py::test_max_inline_nesting_value"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.65,
+        "passed": 148,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.72,
+        "passed": 148,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.72,
+        "passed": 148,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9695121951219512,
+  "branch_rate": 0.96875,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.7959658650116369,
+    "total": 1301,
+    "killed": 1026,
+    "survived": 263,
+    "excluded": 12,
+    "status_counts": {
+      "survived": 263,
+      "killed": 1026,
+      "timeout": 12
+    },
+    "survivors": [
+      {
+        "line": 112,
+        "original": "or not isinstance(doc, str)\n        or not isinstance(pos, int)",
+        "mutated": "or not isinstance(doc, str) and not isinstance(pos, int)",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "or not isinstance(msg, str)\n        or not isinstance(doc, str)",
+        "mutated": "or not isinstance(msg, str) and not isinstance(doc, str)",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "\"Free-form arguments for TOMLDecodeError are deprecated. \"\n            \"Please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\",",
+        "mutated": "None,",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "stacklevel=2,\n        )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "\"Free-form arguments for TOMLDecodeError are deprecated. \"",
+        "mutated": "\"XXFree-form arguments for TOMLDecodeError are deprecated. XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "\"Free-form arguments for TOMLDecodeError are deprecated. \"",
+        "mutated": "\"free-form arguments for tomldecodeerror are deprecated. \"",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "\"Free-form arguments for TOMLDecodeError are deprecated. \"",
+        "mutated": "\"FREE-FORM ARGUMENTS FOR TOMLDECODEERROR ARE DEPRECATED. \"",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "\"Please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\",",
+        "mutated": "\"XXPlease set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.XX\",",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "\"Please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\",",
+        "mutated": "\"please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\",",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "\"Please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\",",
+        "mutated": "\"PLEASE SET 'MSG' (STR), 'DOC' (STR) AND 'POS' (INT) ARGUMENTS ONLY.\",",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "stacklevel=2,",
+        "mutated": "stacklevel=3,",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "lineno = doc.count(\"\\n\", 0, pos) + 1",
+        "mutated": "lineno = doc.count(\"\\n\", None, pos) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "lineno = doc.count(\"\\n\", 0, pos) + 1",
+        "mutated": "lineno = doc.count(\"\\n\", 1, pos) + 1",
+        "status": "survived"
+      },
+      {
+        "line": 136,
+        "original": "colno = pos - doc.rindex(\"\\n\", 0, pos)",
+        "mutated": "colno = pos - doc.rindex(\"\\n\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 136,
+        "original": "colno = pos - doc.rindex(\"\\n\", 0, pos)",
+        "mutated": "colno = pos - doc.rindex(\"\\n\", 0, None)",
+        "status": "survived"
+      },
+      {
+        "line": 136,
+        "original": "colno = pos - doc.rindex(\"\\n\", 0, pos)",
+        "mutated": "colno = pos - doc.rindex(\"\\n\", 0, )",
+        "status": "survived"
+      },
+      {
+        "line": 136,
+        "original": "colno = pos - doc.rindex(\"\\n\", 0, pos)",
+        "mutated": "colno = pos - doc.index(\"\\n\", 0, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 136,
+        "original": "colno = pos - doc.rindex(\"\\n\", 0, pos)",
+        "mutated": "colno = pos - doc.rindex(\"\\n\", 1, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 139,
+        "original": "coord_repr = \"end of document\"",
+        "mutated": "coord_repr = \"XXend of documentXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"",
+        "mutated": "\"XXFile must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"",
+        "mutated": "\"file must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "f\"Expected str object, not '{type(__s).__qualname__}'\"",
+        "mutated": "f\"Expected str object, not '{type(None).__qualname__}'\"",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "if char == \"\\n\":",
+        "mutated": "if char == \"XX\\nXX\":",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "pos += 1",
+        "mutated": "pos = 1",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "pos += 1",
+        "mutated": "pos -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "pos += 1",
+        "mutated": "pos += 2",
+        "status": "survived"
+      },
+      {
+        "line": 200,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 208,
+        "original": "second_char = None",
+        "mutated": "second_char = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "raise TOMLDecodeError(\"Invalid statement\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid statement\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "raise TOMLDecodeError(\"Invalid statement\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid statement\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "raise TOMLDecodeError(\"Invalid statement\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid statement\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "raise TOMLDecodeError(\"Invalid statement\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid statement\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "raise TOMLDecodeError(\"Invalid statement\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXInvalid statementXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 228,
+        "original": "\"Expected newline or end of document after a statement\", src, pos",
+        "mutated": "\"Expected newline or end of document after a statement\", None, pos",
+        "status": "survived"
+      },
+      {
+        "line": 228,
+        "original": "\"Expected newline or end of document after a statement\", src, pos",
+        "mutated": "\"Expected newline or end of document after a statement\", src, None",
+        "status": "survived"
+      },
+      {
+        "line": 228,
+        "original": "\"Expected newline or end of document after a statement\", src, pos",
+        "mutated": "\"Expected newline or end of document after a statement\", pos",
+        "status": "survived"
+      },
+      {
+        "line": 228,
+        "original": "\"Expected newline or end of document after a statement\", src, pos\n            )",
+        "mutated": "\"Expected newline or end of document after a statement\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 228,
+        "original": "\"Expected newline or end of document after a statement\", src, pos",
+        "mutated": "\"XXExpected newline or end of document after a statementXX\", src, pos",
+        "status": "survived"
+      },
+      {
+        "line": 253,
+        "original": "self.set(key, flag, recursive=False)",
+        "mutated": "self.set(key, flag, recursive=None)",
+        "status": "survived"
+      },
+      {
+        "line": 253,
+        "original": "self.set(key, flag, recursive=False)",
+        "mutated": "self.set(key, flag, recursive=True)",
+        "status": "survived"
+      },
+      {
+        "line": 258,
+        "original": "for k in key[:-1]:",
+        "mutated": "for k in key[:+1]:",
+        "status": "survived"
+      },
+      {
+        "line": 266,
+        "original": "key_parent, key_stem = key[:-1], key[-1]",
+        "mutated": "key_parent, key_stem = key[:-2], key[-1]",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "cont[k] = {\"flags\": set(), \"recursive_flags\": set(), \"nested\": {}}",
+        "mutated": "cont[k] = {\"XXflagsXX\": set(), \"recursive_flags\": set(), \"nested\": {}}",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "cont[k] = {\"flags\": set(), \"recursive_flags\": set(), \"nested\": {}}",
+        "mutated": "cont[k] = {\"FLAGS\": set(), \"recursive_flags\": set(), \"nested\": {}}",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "raise KeyError(\"There is no nest behind this key\")",
+        "mutated": "raise KeyError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "raise KeyError(\"There is no nest behind this key\")",
+        "mutated": "raise KeyError(\"XXThere is no nest behind this keyXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "raise KeyError(\"There is no nest behind this key\")",
+        "mutated": "raise KeyError(\"there is no nest behind this key\")",
+        "status": "survived"
+      },
+      {
+        "line": 312,
+        "original": "raise KeyError(\"There is no nest behind this key\")",
+        "mutated": "raise KeyError(\"THERE IS NO NEST BEHIND THIS KEY\")",
+        "status": "survived"
+      },
+      {
+        "line": 316,
+        "original": "cont = self.get_or_create_nest(key[:-1])",
+        "mutated": "cont = self.get_or_create_nest(key[:-2])",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "raise KeyError(\"An object other than list found behind this key\")",
+        "mutated": "raise KeyError(\"XXAn object other than list found behind this keyXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "raise KeyError(\"An object other than list found behind this key\")",
+        "mutated": "raise KeyError(\"an object other than list found behind this key\")",
+        "status": "survived"
+      },
+      {
+        "line": 355,
+        "original": "raise TOMLDecodeError(f\"Expected {expect!r}\", src, new_pos) from None",
+        "mutated": "raise TOMLDecodeError(f\"Expected {expect!r}\", None, new_pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 355,
+        "original": "raise TOMLDecodeError(f\"Expected {expect!r}\", src, new_pos) from None",
+        "mutated": "raise TOMLDecodeError(f\"Expected {expect!r}\", src, None) from None",
+        "status": "survived"
+      },
+      {
+        "line": 355,
+        "original": "raise TOMLDecodeError(f\"Expected {expect!r}\", src, new_pos) from None",
+        "mutated": "raise TOMLDecodeError(f\"Expected {expect!r}\", new_pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 355,
+        "original": "raise TOMLDecodeError(f\"Expected {expect!r}\", src, new_pos) from None",
+        "mutated": "raise TOMLDecodeError(f\"Expected {expect!r}\", src, ) from None",
+        "status": "survived"
+      },
+      {
+        "line": 358,
+        "original": "while src[pos] not in error_on:",
+        "mutated": "while src[pos] in error_on:",
+        "status": "survived"
+      },
+      {
+        "line": 359,
+        "original": "pos += 1",
+        "mutated": "pos -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 360,
+        "original": "raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 368,
+        "original": "char = None",
+        "mutated": "char = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 371,
+        "original": "src, pos + 1, \"\\n\", error_on=ILLEGAL_COMMENT_CHARS, error_on_eof=False",
+        "mutated": "src, pos + 1, \"\\n\", error_on=ILLEGAL_COMMENT_CHARS, error_on_eof=None",
+        "status": "survived"
+      },
+      {
+        "line": 371,
+        "original": "src, pos + 1, \"\\n\", error_on=ILLEGAL_COMMENT_CHARS, error_on_eof=False",
+        "mutated": "src, pos + 2, \"\\n\", error_on=ILLEGAL_COMMENT_CHARS, error_on_eof=False",
+        "status": "survived"
+      },
+      {
+        "line": 386,
+        "original": "pos += 1  # Skip \"[\"",
+        "mutated": "pos = 1  # Skip \"[\"",
+        "status": "survived"
+      },
+      {
+        "line": 390,
+        "original": "if out.flags.is_(key, Flags.EXPLICIT_NEST) or out.flags.is_(key, Flags.FROZEN):",
+        "mutated": "if out.flags.is_(key, Flags.EXPLICIT_NEST) or out.flags.is_(None, Flags.FROZEN):",
+        "status": "survived"
+      },
+      {
+        "line": 390,
+        "original": "if out.flags.is_(key, Flags.EXPLICIT_NEST) or out.flags.is_(key, Flags.FROZEN):",
+        "mutated": "if out.flags.is_(key, Flags.EXPLICIT_NEST) or out.flags.is_(key, None):",
+        "status": "survived"
+      },
+      {
+        "line": 391,
+        "original": "raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot declare {key} twice\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 391,
+        "original": "raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 391,
+        "original": "raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot declare {key} twice\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 391,
+        "original": "raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)",
+        "mutated": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=None)",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)",
+        "mutated": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=True)",
+        "status": "survived"
+      },
+      {
+        "line": 396,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", None, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 396,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, None) from None",
+        "status": "survived"
+      },
+      {
+        "line": 396,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 396,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, ) from None",
+        "status": "survived"
+      },
+      {
+        "line": 396,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"XXCannot overwrite a valueXX\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 400,
+        "original": "\"Expected ']' at the end of a table declaration\", src, pos",
+        "mutated": "\"Expected ']' at the end of a table declaration\", None, pos",
+        "status": "survived"
+      },
+      {
+        "line": 400,
+        "original": "\"Expected ']' at the end of a table declaration\", src, pos",
+        "mutated": "\"Expected ']' at the end of a table declaration\", src, None",
+        "status": "survived"
+      },
+      {
+        "line": 400,
+        "original": "\"Expected ']' at the end of a table declaration\", src, pos",
+        "mutated": "\"Expected ']' at the end of a table declaration\", pos",
+        "status": "survived"
+      },
+      {
+        "line": 400,
+        "original": "\"Expected ']' at the end of a table declaration\", src, pos\n        )",
+        "mutated": "\"Expected ']' at the end of a table declaration\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 400,
+        "original": "\"Expected ']' at the end of a table declaration\", src, pos",
+        "mutated": "\"XXExpected ']' at the end of a table declarationXX\", src, pos",
+        "status": "survived"
+      },
+      {
+        "line": 411,
+        "original": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 411,
+        "original": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 411,
+        "original": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 411,
+        "original": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)",
+        "mutated": "out.flags.set(key, None, recursive=False)",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)",
+        "mutated": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=None)",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)",
+        "mutated": "out.flags.set(key, Flags.EXPLICIT_NEST, recursive=True)",
+        "status": "survived"
+      },
+      {
+        "line": 419,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", None, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 419,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, None) from None",
+        "status": "survived"
+      },
+      {
+        "line": 419,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 419,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, ) from None",
+        "status": "survived"
+      },
+      {
+        "line": 419,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"XXCannot overwrite a valueXX\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 423,
+        "original": "\"Expected ']]' at the end of an array declaration\", src, pos",
+        "mutated": "\"Expected ']]' at the end of an array declaration\", None, pos",
+        "status": "survived"
+      },
+      {
+        "line": 423,
+        "original": "\"Expected ']]' at the end of an array declaration\", src, pos",
+        "mutated": "\"Expected ']]' at the end of an array declaration\", src, None",
+        "status": "survived"
+      },
+      {
+        "line": 423,
+        "original": "\"Expected ']]' at the end of an array declaration\", src, pos",
+        "mutated": "\"Expected ']]' at the end of an array declaration\", pos",
+        "status": "survived"
+      },
+      {
+        "line": 423,
+        "original": "\"Expected ']]' at the end of an array declaration\", src, pos\n        )",
+        "mutated": "\"Expected ']]' at the end of an array declaration\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 423,
+        "original": "\"Expected ']]' at the end of an array declaration\", src, pos",
+        "mutated": "\"XXExpected ']]' at the end of an array declarationXX\", src, pos",
+        "status": "survived"
+      },
+      {
+        "line": 431,
+        "original": "pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl=0)",
+        "mutated": "pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl=1)",
+        "status": "survived"
+      },
+      {
+        "line": 432,
+        "original": "key_parent, key_stem = key[:-1], key[-1]",
+        "mutated": "key_parent, key_stem = key[:-2], key[-1]",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 442,
+        "original": "out.flags.add_pending(cont_key, Flags.EXPLICIT_NEST)",
+        "mutated": "out.flags.add_pending(None, Flags.EXPLICIT_NEST)",
+        "status": "survived"
+      },
+      {
+        "line": 442,
+        "original": "out.flags.add_pending(cont_key, Flags.EXPLICIT_NEST)",
+        "mutated": "out.flags.add_pending(cont_key, None)",
+        "status": "survived"
+      },
+      {
+        "line": 442,
+        "original": "out.flags.add_pending(cont_key, Flags.EXPLICIT_NEST)",
+        "mutated": "out.flags.add_pending(Flags.EXPLICIT_NEST)",
+        "status": "survived"
+      },
+      {
+        "line": 442,
+        "original": "out.flags.add_pending(cont_key, Flags.EXPLICIT_NEST)",
+        "mutated": "out.flags.add_pending(cont_key, )",
+        "status": "survived"
+      },
+      {
+        "line": 446,
+        "original": "f\"Cannot mutate immutable namespace {abs_key_parent}\", src, pos",
+        "mutated": "f\"Cannot mutate immutable namespace {abs_key_parent}\", None, pos",
+        "status": "survived"
+      },
+      {
+        "line": 446,
+        "original": "f\"Cannot mutate immutable namespace {abs_key_parent}\", src, pos",
+        "mutated": "f\"Cannot mutate immutable namespace {abs_key_parent}\", src, None",
+        "status": "survived"
+      },
+      {
+        "line": 446,
+        "original": "f\"Cannot mutate immutable namespace {abs_key_parent}\", src, pos",
+        "mutated": "f\"Cannot mutate immutable namespace {abs_key_parent}\", pos",
+        "status": "survived"
+      },
+      {
+        "line": 446,
+        "original": "f\"Cannot mutate immutable namespace {abs_key_parent}\", src, pos\n        )",
+        "mutated": "f\"Cannot mutate immutable namespace {abs_key_parent}\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(None, src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", None, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, None) from None",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, ) from None",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"XXCannot overwrite a valueXX\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"cannot overwrite a value\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 452,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"CANNOT OVERWRITE A VALUE\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 454,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 454,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 454,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 454,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 454,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXCannot overwrite a valueXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 457,
+        "original": "out.flags.set(header + key, Flags.FROZEN, recursive=True)",
+        "mutated": "out.flags.set(header + key, Flags.FROZEN, recursive=None)",
+        "status": "survived"
+      },
+      {
+        "line": 457,
+        "original": "out.flags.set(header + key, Flags.FROZEN, recursive=True)",
+        "mutated": "out.flags.set(header + key, Flags.FROZEN, recursive=False)",
+        "status": "survived"
+      },
+      {
+        "line": 469,
+        "original": "char = None",
+        "mutated": "char = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 471,
+        "original": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 471,
+        "original": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 471,
+        "original": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 471,
+        "original": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 471,
+        "original": "raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXExpected '=' after a key in a key/value pairXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 472,
+        "original": "pos += 1",
+        "mutated": "pos += 2",
+        "status": "survived"
+      },
+      {
+        "line": 486,
+        "original": "char = None",
+        "mutated": "char = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 493,
+        "original": "if len(key) > MAX_KEY_PARTS:",
+        "mutated": "if len(key) >= MAX_KEY_PARTS:",
+        "status": "survived"
+      },
+      {
+        "line": 495,
+        "original": "f\"TOML key has more than the allowed {MAX_KEY_PARTS} parts\"",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 504,
+        "original": "char = None",
+        "mutated": "char = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "raise TOMLDecodeError(\"Invalid initial character for a key part\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid initial character for a key part\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "raise TOMLDecodeError(\"Invalid initial character for a key part\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid initial character for a key part\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "raise TOMLDecodeError(\"Invalid initial character for a key part\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid initial character for a key part\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "raise TOMLDecodeError(\"Invalid initial character for a key part\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid initial character for a key part\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "raise TOMLDecodeError(\"Invalid initial character for a key part\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXInvalid initial character for a key partXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 518,
+        "original": "return parse_basic_str(src, pos, multiline=False)",
+        "mutated": "return parse_basic_str(src, pos, multiline=None)",
+        "status": "survived"
+      },
+      {
+        "line": 531,
+        "original": "pos, val = parse_value(src, pos, parse_float, nest_lvl)",
+        "mutated": "pos, val = parse_value(src, pos, None, nest_lvl)",
+        "status": "survived"
+      },
+      {
+        "line": 539,
+        "original": "raise TOMLDecodeError(\"Unclosed array\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unclosed array\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 539,
+        "original": "raise TOMLDecodeError(\"Unclosed array\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unclosed array\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 539,
+        "original": "raise TOMLDecodeError(\"Unclosed array\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unclosed array\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 539,
+        "original": "raise TOMLDecodeError(\"Unclosed array\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unclosed array\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 539,
+        "original": "raise TOMLDecodeError(\"Unclosed array\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXUnclosed arrayXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 544,
+        "original": "return pos + 1, array",
+        "mutated": "return pos - 1, array",
+        "status": "survived"
+      },
+      {
+        "line": 544,
+        "original": "return pos + 1, array",
+        "mutated": "return pos + 2, array",
+        "status": "survived"
+      },
+      {
+        "line": 558,
+        "original": "pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl)",
+        "mutated": "pos, key, value = parse_key_value_pair(src, pos, None, nest_lvl)",
+        "status": "survived"
+      },
+      {
+        "line": 561,
+        "original": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 561,
+        "original": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 561,
+        "original": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 561,
+        "original": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 563,
+        "original": "nest = nested_dict.get_or_create_nest(key_parent, access_lists=False)",
+        "mutated": "nest = nested_dict.get_or_create_nest(key_parent, access_lists=None)",
+        "status": "survived"
+      },
+      {
+        "line": 563,
+        "original": "nest = nested_dict.get_or_create_nest(key_parent, access_lists=False)",
+        "mutated": "nest = nested_dict.get_or_create_nest(key_parent, )",
+        "status": "survived"
+      },
+      {
+        "line": 563,
+        "original": "nest = nested_dict.get_or_create_nest(key_parent, access_lists=False)",
+        "mutated": "nest = nested_dict.get_or_create_nest(key_parent, access_lists=True)",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(None, src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", None, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, None) from None",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, ) from None",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"XXCannot overwrite a valueXX\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"cannot overwrite a value\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 565,
+        "original": "raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"CANNOT OVERWRITE A VALUE\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 567,
+        "original": "raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 567,
+        "original": "raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 567,
+        "original": "raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 567,
+        "original": "raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "raise TOMLDecodeError(\"Unclosed inline table\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unclosed inline table\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "raise TOMLDecodeError(\"Unclosed inline table\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unclosed inline table\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "raise TOMLDecodeError(\"Unclosed inline table\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unclosed inline table\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "raise TOMLDecodeError(\"Unclosed inline table\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unclosed inline table\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "raise TOMLDecodeError(\"Unclosed inline table\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXUnclosed inline tableXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 578,
+        "original": "return pos + 1, nested_dict.dict",
+        "mutated": "return pos - 1, nested_dict.dict",
+        "status": "survived"
+      },
+      {
+        "line": 578,
+        "original": "return pos + 1, nested_dict.dict",
+        "mutated": "return pos + 2, nested_dict.dict",
+        "status": "survived"
+      },
+      {
+        "line": 584,
+        "original": "src: str, pos: Pos, *, multiline: bool = False",
+        "mutated": "src: str, pos: Pos, *, multiline: bool = True",
+        "status": "survived"
+      },
+      {
+        "line": 588,
+        "original": "if multiline and escape_id in {\"\\\\ \", \"\\\\\\t\", \"\\\\\\n\"}:",
+        "mutated": "if multiline or escape_id in {\"\\\\ \", \"\\\\\\t\", \"\\\\\\n\"}:",
+        "status": "survived"
+      },
+      {
+        "line": 598,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 598,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 598,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 598,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 598,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXUnescaped '\\\\' in a stringXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 599,
+        "original": "pos += 1",
+        "mutated": "pos = 1",
+        "status": "survived"
+      },
+      {
+        "line": 599,
+        "original": "pos += 1",
+        "mutated": "pos -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 611,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", None, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 611,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, None) from None",
+        "status": "survived"
+      },
+      {
+        "line": 611,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 611,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, ) from None",
+        "status": "survived"
+      },
+      {
+        "line": 611,
+        "original": "raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"XXUnescaped '\\\\' in a stringXX\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 621,
+        "original": "raise TOMLDecodeError(\"Invalid hex value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid hex value\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 621,
+        "original": "raise TOMLDecodeError(\"Invalid hex value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid hex value\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 621,
+        "original": "raise TOMLDecodeError(\"Invalid hex value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid hex value\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 621,
+        "original": "raise TOMLDecodeError(\"Invalid hex value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid hex value\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 621,
+        "original": "raise TOMLDecodeError(\"Invalid hex value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXInvalid hex valueXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 626,
+        "original": "\"Escaped character is not a Unicode scalar value\", src, pos",
+        "mutated": "\"Escaped character is not a Unicode scalar value\", None, pos",
+        "status": "survived"
+      },
+      {
+        "line": 626,
+        "original": "\"Escaped character is not a Unicode scalar value\", src, pos",
+        "mutated": "\"Escaped character is not a Unicode scalar value\", src, None",
+        "status": "survived"
+      },
+      {
+        "line": 626,
+        "original": "\"Escaped character is not a Unicode scalar value\", src, pos",
+        "mutated": "\"Escaped character is not a Unicode scalar value\", pos",
+        "status": "survived"
+      },
+      {
+        "line": 626,
+        "original": "\"Escaped character is not a Unicode scalar value\", src, pos\n        )",
+        "mutated": "\"Escaped character is not a Unicode scalar value\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 626,
+        "original": "\"Escaped character is not a Unicode scalar value\", src, pos",
+        "mutated": "\"XXEscaped character is not a Unicode scalar valueXX\", src, pos",
+        "status": "survived"
+      },
+      {
+        "line": 626,
+        "original": "\"Escaped character is not a Unicode scalar value\", src, pos",
+        "mutated": "\"escaped character is not a unicode scalar value\", src, pos",
+        "status": "survived"
+      },
+      {
+        "line": 641,
+        "original": "pos += 3",
+        "mutated": "pos = 3",
+        "status": "survived"
+      },
+      {
+        "line": 652,
+        "original": "error_on_eof=True,",
+        "mutated": "error_on_eof=None,",
+        "status": "survived"
+      },
+      {
+        "line": 652,
+        "original": "error_on_eof=True,",
+        "mutated": "error_on_eof=False,",
+        "status": "survived"
+      },
+      {
+        "line": 674,
+        "original": "parse_escapes = parse_basic_str_escape_multiline",
+        "mutated": "parse_escapes = None",
+        "status": "survived"
+      },
+      {
+        "line": 684,
+        "original": "raise TOMLDecodeError(\"Unterminated string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Unterminated string\", None, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 684,
+        "original": "raise TOMLDecodeError(\"Unterminated string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Unterminated string\", src, None) from None",
+        "status": "survived"
+      },
+      {
+        "line": 684,
+        "original": "raise TOMLDecodeError(\"Unterminated string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Unterminated string\", pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 684,
+        "original": "raise TOMLDecodeError(\"Unterminated string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"Unterminated string\", src, ) from None",
+        "status": "survived"
+      },
+      {
+        "line": 684,
+        "original": "raise TOMLDecodeError(\"Unterminated string\", src, pos) from None",
+        "mutated": "raise TOMLDecodeError(\"XXUnterminated stringXX\", src, pos) from None",
+        "status": "survived"
+      },
+      {
+        "line": 690,
+        "original": "pos += 1",
+        "mutated": "pos += 2",
+        "status": "survived"
+      },
+      {
+        "line": 693,
+        "original": "result += src[start_pos:pos]",
+        "mutated": "result = src[start_pos:pos]",
+        "status": "survived"
+      },
+      {
+        "line": 699,
+        "original": "raise TOMLDecodeError(f\"Illegal character {char!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Illegal character {char!r}\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 699,
+        "original": "raise TOMLDecodeError(f\"Illegal character {char!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Illegal character {char!r}\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 699,
+        "original": "raise TOMLDecodeError(f\"Illegal character {char!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Illegal character {char!r}\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 699,
+        "original": "raise TOMLDecodeError(f\"Illegal character {char!r}\", src, pos)",
+        "mutated": "raise TOMLDecodeError(f\"Illegal character {char!r}\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 706,
+        "original": "if nest_lvl > MAX_INLINE_NESTING:",
+        "mutated": "if nest_lvl >= MAX_INLINE_NESTING:",
+        "status": "survived"
+      },
+      {
+        "line": 710,
+        "original": "\"TOML inline arrays/tables are nested more than the allowed\"\n            f\" {MAX_INLINE_NESTING} levels\"",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 710,
+        "original": "\"TOML inline arrays/tables are nested more than the allowed\"",
+        "mutated": "\"XXTOML inline arrays/tables are nested more than the allowedXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 710,
+        "original": "\"TOML inline arrays/tables are nested more than the allowed\"",
+        "mutated": "\"toml inline arrays/tables are nested more than the allowed\"",
+        "status": "survived"
+      },
+      {
+        "line": 710,
+        "original": "\"TOML inline arrays/tables are nested more than the allowed\"",
+        "mutated": "\"TOML INLINE ARRAYS/TABLES ARE NESTED MORE THAN THE ALLOWED\"",
+        "status": "survived"
+      },
+      {
+        "line": 717,
+        "original": "char = None",
+        "mutated": "char = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 723,
+        "original": "if src.startswith('\"\"\"', pos):",
+        "mutated": "if src.startswith('\"\"\"', None):",
+        "status": "survived"
+      },
+      {
+        "line": 723,
+        "original": "if src.startswith('\"\"\"', pos):",
+        "mutated": "if src.startswith('\"\"\"', ):",
+        "status": "survived"
+      },
+      {
+        "line": 724,
+        "original": "return parse_multiline_str(src, pos, literal=False)",
+        "mutated": "return parse_multiline_str(src, pos, literal=None)",
+        "status": "survived"
+      },
+      {
+        "line": 729,
+        "original": "if src.startswith(\"'''\", pos):",
+        "mutated": "if src.startswith(\"'''\", None):",
+        "status": "survived"
+      },
+      {
+        "line": 729,
+        "original": "if src.startswith(\"'''\", pos):",
+        "mutated": "if src.startswith(\"'''\", ):",
+        "status": "survived"
+      },
+      {
+        "line": 735,
+        "original": "if src.startswith(\"true\", pos):",
+        "mutated": "if src.startswith(\"true\", None):",
+        "status": "survived"
+      },
+      {
+        "line": 735,
+        "original": "if src.startswith(\"true\", pos):",
+        "mutated": "if src.startswith(\"true\", ):",
+        "status": "survived"
+      },
+      {
+        "line": 738,
+        "original": "if src.startswith(\"false\", pos):",
+        "mutated": "if src.startswith(\"false\", None):",
+        "status": "survived"
+      },
+      {
+        "line": 738,
+        "original": "if src.startswith(\"false\", pos):",
+        "mutated": "if src.startswith(\"false\", ):",
+        "status": "survived"
+      },
+      {
+        "line": 743,
+        "original": "return parse_array(src, pos, parse_float, nest_lvl + 1)",
+        "mutated": "return parse_array(src, pos, None, nest_lvl + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 743,
+        "original": "return parse_array(src, pos, parse_float, nest_lvl + 1)",
+        "mutated": "return parse_array(src, pos, parse_float, nest_lvl - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 743,
+        "original": "return parse_array(src, pos, parse_float, nest_lvl + 1)",
+        "mutated": "return parse_array(src, pos, parse_float, nest_lvl + 2)",
+        "status": "survived"
+      },
+      {
+        "line": 747,
+        "original": "return parse_inline_table(src, pos, parse_float, nest_lvl + 1)",
+        "mutated": "return parse_inline_table(src, pos, None, nest_lvl + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 747,
+        "original": "return parse_inline_table(src, pos, parse_float, nest_lvl + 1)",
+        "mutated": "return parse_inline_table(src, pos, parse_float, nest_lvl - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 747,
+        "original": "return parse_inline_table(src, pos, parse_float, nest_lvl + 1)",
+        "mutated": "return parse_inline_table(src, pos, parse_float, nest_lvl + 2)",
+        "status": "survived"
+      },
+      {
+        "line": 750,
+        "original": "datetime_match = RE_DATETIME.match(src, pos)",
+        "mutated": "datetime_match = RE_DATETIME.match(src, )",
+        "status": "survived"
+      },
+      {
+        "line": 755,
+        "original": "raise TOMLDecodeError(\"Invalid date or datetime\", src, pos) from e",
+        "mutated": "raise TOMLDecodeError(\"Invalid date or datetime\", None, pos) from e",
+        "status": "survived"
+      },
+      {
+        "line": 755,
+        "original": "raise TOMLDecodeError(\"Invalid date or datetime\", src, pos) from e",
+        "mutated": "raise TOMLDecodeError(\"Invalid date or datetime\", src, None) from e",
+        "status": "survived"
+      },
+      {
+        "line": 755,
+        "original": "raise TOMLDecodeError(\"Invalid date or datetime\", src, pos) from e",
+        "mutated": "raise TOMLDecodeError(\"Invalid date or datetime\", pos) from e",
+        "status": "survived"
+      },
+      {
+        "line": 755,
+        "original": "raise TOMLDecodeError(\"Invalid date or datetime\", src, pos) from e",
+        "mutated": "raise TOMLDecodeError(\"Invalid date or datetime\", src, ) from e",
+        "status": "survived"
+      },
+      {
+        "line": 755,
+        "original": "raise TOMLDecodeError(\"Invalid date or datetime\", src, pos) from e",
+        "mutated": "raise TOMLDecodeError(\"XXInvalid date or datetimeXX\", src, pos) from e",
+        "status": "survived"
+      },
+      {
+        "line": 757,
+        "original": "localtime_match = RE_LOCALTIME.match(src, pos)",
+        "mutated": "localtime_match = RE_LOCALTIME.match(src, )",
+        "status": "survived"
+      },
+      {
+        "line": 769,
+        "original": "first_three = src[pos : pos + 3]",
+        "mutated": "first_three = src[pos : pos + 4]",
+        "status": "survived"
+      },
+      {
+        "line": 771,
+        "original": "return pos + 3, parse_float(first_three)",
+        "mutated": "return pos - 3, parse_float(first_three)",
+        "status": "survived"
+      },
+      {
+        "line": 771,
+        "original": "return pos + 3, parse_float(first_three)",
+        "mutated": "return pos + 4, parse_float(first_three)",
+        "status": "survived"
+      },
+      {
+        "line": 772,
+        "original": "first_four = src[pos : pos + 4]",
+        "mutated": "first_four = src[pos : pos + 5]",
+        "status": "survived"
+      },
+      {
+        "line": 774,
+        "original": "return pos + 4, parse_float(first_four)",
+        "mutated": "return pos - 4, parse_float(first_four)",
+        "status": "survived"
+      },
+      {
+        "line": 774,
+        "original": "return pos + 4, parse_float(first_four)",
+        "mutated": "return pos + 5, parse_float(first_four)",
+        "status": "survived"
+      },
+      {
+        "line": 776,
+        "original": "raise TOMLDecodeError(\"Invalid value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid value\", None, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 776,
+        "original": "raise TOMLDecodeError(\"Invalid value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid value\", src, None)",
+        "status": "survived"
+      },
+      {
+        "line": 776,
+        "original": "raise TOMLDecodeError(\"Invalid value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid value\", pos)",
+        "status": "survived"
+      },
+      {
+        "line": 776,
+        "original": "raise TOMLDecodeError(\"Invalid value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"Invalid value\", src, )",
+        "status": "survived"
+      },
+      {
+        "line": 776,
+        "original": "raise TOMLDecodeError(\"Invalid value\", src, pos)",
+        "mutated": "raise TOMLDecodeError(\"XXInvalid valueXX\", src, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 798,
+        "original": "raise ValueError(\"parse_float must not return dicts or lists\")",
+        "mutated": "raise ValueError(\"XXparse_float must not return dicts or listsXX\")",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 5.11,
+    "coverage": 3.23,
+    "mutation": 147.27
+  }
+}

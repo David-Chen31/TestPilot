@@ -1,0 +1,574 @@
+{
+  "target": "src/llmground/normalize.py",
+  "validity": {
+    "total": 119,
+    "valid": 119,
+    "valid_ids": [
+      "tests_testpilot/test_normalize.py::TestFoldUnicode::test_smart_quotes_and_dashes",
+      "tests_testpilot/test_normalize.py::TestFoldUnicode::test_non_breaking_spaces",
+      "tests_testpilot/test_normalize.py::TestFoldUnicode::test_zero_width_chars_removed",
+      "tests_testpilot/test_normalize.py::TestFoldUnicode::test_ellipsis",
+      "tests_testpilot/test_normalize.py::TestFoldUnicode::test_nfkc_ligature",
+      "tests_testpilot/test_normalize.py::TestFoldUnicode::test_nfkc_fullwidth",
+      "tests_testpilot/test_normalize.py::TestFoldUnicode::test_plain_ascii_unchanged",
+      "tests_testpilot/test_normalize.py::TestFoldUnicode::test_empty",
+      "tests_testpilot/test_normalize.py::TestNormalizeText::test_casefold_default",
+      "tests_testpilot/test_normalize.py::TestNormalizeText::test_casefold_false",
+      "tests_testpilot/test_normalize.py::TestNormalizeText::test_collapses_whitespace",
+      "tests_testpilot/test_normalize.py::TestNormalizeText::test_strips",
+      "tests_testpilot/test_normalize.py::TestNormalizeText::test_folds_unicode",
+      "tests_testpilot/test_normalize.py::TestNormalizeText::test_empty",
+      "tests_testpilot/test_normalize.py::TestNormalizeText::test_whitespace_only",
+      "tests_testpilot/test_normalize.py::TestStripPunctuation::test_removes_punct",
+      "tests_testpilot/test_normalize.py::TestStripPunctuation::test_keeps_underscore",
+      "tests_testpilot/test_normalize.py::TestStripPunctuation::test_keeps_digits",
+      "tests_testpilot/test_normalize.py::TestStripPunctuation::test_empty",
+      "tests_testpilot/test_normalize.py::TestStripPunctuation::test_all_punct",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_plain_int",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_plain_float",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_negative",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_positive_sign",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_us_thousands",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_us_thousands_no_decimal_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_european",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_european_thousands_only_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_comma_decimal_two_digit_tail",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_space_thousands",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_currency_dollar",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_currency_euro",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_currency_code_suffix",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_currency_code_prefix",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_accounting_negative",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_accounting_negative_with_currency",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_none_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_empty_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_whitespace_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_no_digit_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_currency_only_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_lone_dot_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_garbage_with_digits",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_negative_comma_decimal",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_folds_unicode",
+      "tests_testpilot/test_normalize.py::TestParseNumber::test_leading_dot_decimal",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_equal",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_not_equal",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_none_left",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_none_right",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_both_none",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_tolerance_within",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_tolerance_boundary",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_tolerance_exceeded",
+      "tests_testpilot/test_normalize.py::TestNumbersEqual::test_tolerance_both_none",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_ymd",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_ymd_slash",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_ymd_dot",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_unambiguous_day_first",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_unambiguous_month_first",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_ambiguous_none",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_ambiguous_day_first_true",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_ambiguous_day_first_false",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_dmonthy",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_dmonthy_abbrev",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_dmonthy_ordinal",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_dmonthy_comma",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_monthdy",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_monthdy_ordinal",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_monthdy_abbrev",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_invalid_date_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_none_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_empty_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_no_date_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_unknown_month_returns_none",
+      "tests_testpilot/test_normalize.py::TestParseDate::test_folds_unicode_dash",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_identical",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_reordered",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_punctuation_ignored",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_partial_overlap",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_no_overlap",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_empty_left",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_empty_right",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_both_empty",
+      "tests_testpilot/test_normalize.py::TestTokenSetRatio::test_duplicates_ignored",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_equal",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_empty_left",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_empty_right",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_both_empty",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_substitution",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_insertion",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_deletion",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_classic",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_completely_different",
+      "tests_testpilot/test_normalize.py::TestLevenshtein::test_symmetric",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_identical",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_both_empty",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_left_empty",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_right_empty",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_one_edit",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_case_insensitive",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_whitespace_normalized",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_range",
+      "tests_testpilot/test_normalize.py::TestSimilarity::test_completely_different",
+      "tests_testpilot/test_normalize.py::TestIterNumbers::test_single_number",
+      "tests_testpilot/test_normalize.py::TestIterNumbers::test_multiple_numbers",
+      "tests_testpilot/test_normalize.py::TestIterNumbers::test_spans_correct",
+      "tests_testpilot/test_normalize.py::TestIterNumbers::test_no_numbers",
+      "tests_testpilot/test_normalize.py::TestIterNumbers::test_empty",
+      "tests_testpilot/test_normalize.py::TestIterNumbers::test_folds_unicode",
+      "tests_testpilot/test_normalize.py::TestIterNumbers::test_negative_number",
+      "tests_testpilot/test_normalize.py::TestIterDates::test_single_iso",
+      "tests_testpilot/test_normalize.py::TestIterDates::test_multiple_dates",
+      "tests_testpilot/test_normalize.py::TestIterDates::test_day_first_applied",
+      "tests_testpilot/test_normalize.py::TestIterDates::test_ambiguous_excluded_without_hint",
+      "tests_testpilot/test_normalize.py::TestIterDates::test_no_dates",
+      "tests_testpilot/test_normalize.py::TestIterDates::test_empty",
+      "tests_testpilot/test_normalize.py::TestIterDates::test_month_name_date",
+      "tests_testpilot/test_normalize.py::TestIterDates::test_spans_correct"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.85,
+        "passed": 119,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.97,
+        "passed": 119,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.8,
+        "passed": 119,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9554140127388535,
+  "branch_rate": 0.9318181818181818,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8456057007125891,
+    "total": 421,
+    "killed": 356,
+    "survived": 65,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 356,
+      "survived": 65
+    },
+    "survivors": [
+      {
+        "line": 89,
+        "original": "negative = False",
+        "mutated": "negative = None",
+        "status": "survived"
+      },
+      {
+        "line": 91,
+        "original": "if s.startswith(\"(\") and s.endswith(\")\"):",
+        "mutated": "if s.startswith(\"(\") or s.endswith(\")\"):",
+        "status": "survived"
+      },
+      {
+        "line": 93,
+        "original": "s = s[1:-1].strip()",
+        "mutated": "s = s[1:-2].strip()",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "s = re.sub(r\"\\b(?:USD|EUR|GBP|PKR|INR|JPY|AED|SAR|CAD|AUD)\\b\", \"\", s, flags=re.IGNORECASE)",
+        "mutated": "s = re.sub(r\"\\b(?:USD|EUR|GBP|PKR|INR|JPY|AED|SAR|CAD|AUD)\\b\", \"\", s, )",
+        "status": "survived"
+      },
+      {
+        "line": 97,
+        "original": "s = re.sub(r\"\\b(?:USD|EUR|GBP|PKR|INR|JPY|AED|SAR|CAD|AUD)\\b\", \"\", s, flags=re.IGNORECASE)",
+        "mutated": "s = re.sub(r\"\\b(?:usd|eur|gbp|pkr|inr|jpy|aed|sar|cad|aud)\\b\", \"\", s, flags=re.IGNORECASE)",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "s = s.replace(\" \", \"\").replace(\"\\u00a0\", \"\").strip()",
+        "mutated": "s = s.replace(\" \", \"\").replace(\"XX\\u00a0XX\", \"\").strip()",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "s = s.replace(\" \", \"\").replace(\"\\u00a0\", \"\").strip()",
+        "mutated": "s = s.replace(\" \", \"\").replace(\"\\u00A0\", \"\").strip()",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "s = s.replace(\" \", \"\").replace(\"\\u00a0\", \"\").strip()",
+        "mutated": "s = s.replace(\" \", \"\").replace(\"\\u00a0\", \"XXXX\").strip()",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "if not s or not re.search(r\"\\d\", s):",
+        "mutated": "if not s and not re.search(r\"\\d\", s):",
+        "status": "survived"
+      },
+      {
+        "line": 110,
+        "original": "last_comma = s.rfind(\",\")",
+        "mutated": "last_comma = s.find(\",\")",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "last_dot = s.rfind(\".\")",
+        "mutated": "last_dot = s.find(\".\")",
+        "status": "survived"
+      },
+      {
+        "line": 113,
+        "original": "if last_comma > last_dot:",
+        "mutated": "if last_comma >= last_dot:",
+        "status": "survived"
+      },
+      {
+        "line": 116,
+        "original": "elif last_dot > last_comma:",
+        "mutated": "elif last_dot >= last_comma:",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "sep = \",\" if last_comma >= 0 else \"\"",
+        "mutated": "sep = None",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "sep = \",\" if last_comma >= 0 else \"\"",
+        "mutated": "sep = \",\" if (last_comma >= 0) and False else \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "sep = \",\" if last_comma >= 0 else \"\"",
+        "mutated": "sep = \",\" if (last_comma >= 0) or True else \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "sep = \",\" if last_comma >= 0 else \"\"",
+        "mutated": "sep = \"XX,XX\" if last_comma >= 0 else \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "sep = \",\" if last_comma >= 0 else \"\"",
+        "mutated": "sep = \",\" if last_comma > 0 else \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "sep = \",\" if last_comma >= 0 else \"\"",
+        "mutated": "sep = \",\" if last_comma >= 1 else \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "sep = \",\" if last_comma >= 0 else \"\"",
+        "mutated": "sep = \",\" if last_comma >= 0 else \"XXXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "parts = s.split(\",\")",
+        "mutated": "parts = None",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "parts = s.split(\",\")",
+        "mutated": "parts = s.split(None)",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "parts = s.split(\",\")",
+        "mutated": "parts = s.split(\"XX,XX\")",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "if len(parts[-1]) == 3 and all(len(p) <= 3 for p in parts):",
+        "mutated": "if len(parts[-1]) == 3 or all(len(p) <= 3 for p in parts):",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "if len(parts[-1]) == 3 and all(len(p) <= 3 for p in parts):",
+        "mutated": "if len(parts[-1]) != 3 and all(len(p) <= 3 for p in parts):",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "if len(parts[-1]) == 3 and all(len(p) <= 3 for p in parts):",
+        "mutated": "if len(parts[-1]) == 4 and all(len(p) <= 3 for p in parts):",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "if len(parts[-1]) == 3 and all(len(p) <= 3 for p in parts):",
+        "mutated": "if len(parts[-1]) == 3 and all(None):",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "if len(parts[-1]) == 3 and all(len(p) <= 3 for p in parts):",
+        "mutated": "if len(parts[-1]) == 3 and all(len(p) < 3 for p in parts):",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "if len(parts[-1]) == 3 and all(len(p) <= 3 for p in parts):",
+        "mutated": "if len(parts[-1]) == 3 and all(len(p) <= 4 for p in parts):",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "s = s.replace(\",\", \"\")",
+        "mutated": "s = None",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "s = s.replace(\",\", \"\")",
+        "mutated": "s = s.replace(None, \"\")",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "s = s.replace(\",\", \"\")",
+        "mutated": "s = s.replace(\",\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "s = s.replace(\",\", \"\")",
+        "mutated": "s = s.replace(\"\")",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "s = s.replace(\",\", \"\")",
+        "mutated": "s = s.replace(\",\", )",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "s = s.replace(\",\", \"\")",
+        "mutated": "s = s.replace(\"XX,XX\", \"\")",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "s = s.replace(\",\", \"\")",
+        "mutated": "s = s.replace(\",\", \"XXXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "s = s.replace(\",\", \".\")",
+        "mutated": "s = None",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "s = s.replace(\",\", \".\")",
+        "mutated": "s = s.replace(None, \".\")",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "s = s.replace(\",\", \".\")",
+        "mutated": "s = s.replace(\",\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "s = s.replace(\",\", \".\")",
+        "mutated": "s = s.replace(\".\")",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "s = s.replace(\",\", \".\")",
+        "mutated": "s = s.replace(\",\", )",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "s = s.replace(\",\", \".\")",
+        "mutated": "s = s.replace(\"XX,XX\", \".\")",
+        "status": "survived"
+      },
+      {
+        "line": 128,
+        "original": "s = s.replace(\",\", \".\")",
+        "mutated": "s = s.replace(\",\", \"XX.XX\")",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "if not re.fullmatch(r\"\\d*\\.?\\d*\", s) or s in {\"\", \".\"}:",
+        "mutated": "if not re.fullmatch(r\"\\d*\\.?\\d*\", s) and s in {\"\", \".\"}:",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "if not re.fullmatch(r\"\\d*\\.?\\d*\", s) or s in {\"\", \".\"}:",
+        "mutated": "if not re.fullmatch(r\"\\d*\\.?\\d*\", s) or s in {\"XXXX\", \".\"}:",
+        "status": "survived"
+      },
+      {
+        "line": 130,
+        "original": "if not re.fullmatch(r\"\\d*\\.?\\d*\", s) or s in {\"\", \".\"}:",
+        "mutated": "if not re.fullmatch(r\"\\d*\\.?\\d*\", s) or s in {\"\", \"XX.XX\"}:",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "if a is None or b is None:",
+        "mutated": "if a is None and b is None:",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "if first > 12 and second <= 12:",
+        "mutated": "if first >= 12 and second <= 12:",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "if first > 12 and second <= 12:",
+        "mutated": "if first > 13 and second <= 12:",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "if first > 12 and second <= 12:",
+        "mutated": "if first > 12 and second <= 13:",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if second > 12 and first <= 12:",
+        "mutated": "if second >= 12 and first <= 12:",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if second > 12 and first <= 12:",
+        "mutated": "if second > 13 and first <= 12:",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if second > 12 and first <= 12:",
+        "mutated": "if second > 12 and first < 12:",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "if second > 12 and first <= 12:",
+        "mutated": "if second > 12 and first <= 13:",
+        "status": "survived"
+      },
+      {
+        "line": 209,
+        "original": "month = _MONTHS.get(m.group(2).lower().rstrip(\".\"))",
+        "mutated": "month = _MONTHS.get(m.group(2).lower().rstrip(None))",
+        "status": "survived"
+      },
+      {
+        "line": 209,
+        "original": "month = _MONTHS.get(m.group(2).lower().rstrip(\".\"))",
+        "mutated": "month = _MONTHS.get(m.group(2).lower().lstrip(\".\"))",
+        "status": "survived"
+      },
+      {
+        "line": 209,
+        "original": "month = _MONTHS.get(m.group(2).lower().rstrip(\".\"))",
+        "mutated": "month = _MONTHS.get(m.group(2).lower().rstrip(\"XX.XX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "month = _MONTHS.get(m.group(1).lower().rstrip(\".\"))",
+        "mutated": "month = _MONTHS.get(m.group(1).lower().rstrip(None))",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "month = _MONTHS.get(m.group(1).lower().rstrip(\".\"))",
+        "mutated": "month = _MONTHS.get(m.group(1).lower().lstrip(\".\"))",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "month = _MONTHS.get(m.group(1).lower().rstrip(\".\"))",
+        "mutated": "month = _MONTHS.get(m.group(1).lower().rstrip(\"XX.XX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 235,
+        "original": "if not ta or not tb:",
+        "mutated": "if not ta and not tb:",
+        "status": "survived"
+      },
+      {
+        "line": 255,
+        "original": "prev = list(range(len(b) + 1))",
+        "mutated": "prev = list(range(len(b) + 2))",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "if not a_n or not b_n:",
+        "mutated": "if not a_n and not b_n:",
+        "status": "survived"
+      },
+      {
+        "line": 302,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 305,
+        "original": "seen.add(span)",
+        "mutated": "seen.add(None)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 5.64,
+    "coverage": 3.34,
+    "mutation": 29.46
+  }
+}

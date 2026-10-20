@@ -1,0 +1,596 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T04:51:12+00:00",
+    "duration": 0.01,
+    "summary": "5 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "funcy/calc.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "SkipMemory",
+      "memoize",
+      "cache",
+      "CacheMemory",
+      "has_arg_types"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T04:51:12+00:00",
+    "duration": 0.07,
+    "summary": "依赖定义 1 个，调用处 0 个，提示词前缀 7670 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/calc.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "datetime.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: datetime.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "datetime/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: datetime/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "bisect.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: bisect.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "bisect/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: bisect/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/decorators.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "funcy/decorators.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/decorators.py",
+          "start_line": 183,
+          "end_line": 186
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "SkipMemory(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "memoize(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "cache(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "CacheMemory(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "has_arg_types(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `funcy.calc` (file `funcy/calc.py`).\n\nSource of `funcy/calc.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | from datetime import timedelta\n    2 | import time\n    3 | import inspect\n    4 | from collections import deque\n    5 | from bisect import bisect\n    6 | \n    7 | from .decorators import wraps\n    8 | \n    9 | \n   10 | __all__ = ['memoize', 'make_lookuper', 'silent_lookuper', 'cache']\n   11 | \n   12 | \n   13 | \n   14 | class SkipMemory(Exception):\n   15 |     pass\n   16 | \n   17 | \n   18 | # Makes kwargs keys never equal to positional args keys\n   19 | _KWARGS_MARK = object()\n   20 | \n   21 | \n   22 | # TODO: use pos-only arg once in Python 3.8+ only\n   23 | def memoize(_func=None, *, key_func=None):\n   24 |     \"\"\"@memoize(key_func=None). Makes decorated function memoize its results.\n   25 | \n   26 |     If key_func is specified uses key_func(*func_args, **func_kwargs) as memory key.\n   27 |     Otherwise uses args, adding frozenset(kwargs.items()) if there are any.\n   28 | \n   29 |     Exposes its memory via .memory attribute.\n   30 |     \"\"\"\n   31 |     if _func is not None:\n   32 |         return memoize(key_func=key_func)(_func)\n   33 |     return _memory_decorator(dict, key_func)\n   34 | \n   35 | memoize.skip = SkipMemory\n   36 | \n   37 | \n   38 | def cache(timeout, *, key_func=None):\n   39 |     \"\"\"Caches a function results for timeout seconds.\"\"\"\n   40 |     if isinstance(timeout, timedelta):\n   41 |         timeout = timeout.total_seconds()\n   42 | \n   43 |     return _memory_decorator(lambda: CacheMemory(timeout), key_func)\n   44 | \n   45 | cache.skip = SkipMemory\n   46 | \n   47 | \n   48 | def _memory_decorator(memory_factory, key_func):\n   49 |     def decorator(func):\n   50 |         memory = memory_factory()\n   51 | \n   52 |         @wraps(func)\n   53 |         def wrapper(*args, **kwargs):\n   54 |             # We inline this here since @memoize also targets microoptimizations\n   55 |             key = key_func(*args, **kwargs) if key_func else \\\n   56 |                   (_KWARGS_MARK, args, frozenset(kwargs.items())) if kwargs else args\n   57 |             try:\n   58 |                 return memory[key]\n   59 |             except KeyError:\n   60 |                 try:\n   61 |                     value = memory[key] = func(*args, **kwargs)\n   62 |                     return value\n   63 |                 except SkipMemory as e:\n   64 |                     return e.args[0] if e.args else None\n   65 | \n   66 |         def invalidate(*args, **kwargs):\n   67 |             key = key_func(*args, **kwargs) if key_func else \\\n   68 |                   (_KWARGS_MARK, args, frozenset(kwargs.items())) if kwargs else args\n   69 |             memory.pop(key, None)\n   70 |         wrapper.invalidate = invalidate\n   71 | \n   72 |         def invalidate_all():\n   73 |             memory.clear()\n   74 |         wrapper.invalidate_all = invalidate_all\n   75 | \n   76 |         wrapper.memory = memory\n   77 |         return wrapper\n   78 |     return decorator\n   79 | \n   80 | class CacheMemory(dict):\n   81 |     def __init__(self, timeout):\n   82 |         self.timeout = timeout\n   83 |         self.clear()\n   84 | \n   85 |     def __setitem__(self, key, value):\n   86 |         expires_at = time.monotonic() + self.timeout\n   87 |         dict.__setitem__(self, key, (value, expires_at))\n   88 |         self._keys.append(key)\n   89 |         self._expires.append(expires_at)\n   90 | \n   91 |     def __getitem__(self, key):\n   92 |         value, expires_at = dict.__getitem__(self, key)\n   93 |         if expires_at <= time.monotonic():\n   94 |             self.expire()\n   95 |             raise KeyError(key)\n   96 |         return value\n   97 | \n   98 |     def expire(self):\n   99 |         i = bisect(self._expires, time.monotonic())\n  100 |         for _ in range(i):\n  101 |             expires_at = self._expires.popleft()\n  102 |             key = self._keys.popleft()\n  103 |             entry = self.get(key)\n  104 |             if entry is not None and entry[1] <= expires_at:\n  105 |                 self.pop(key, None)\n  106 | \n  107 |     def clear(self):\n  108 |         dict.clear(self)\n  109 |         self._keys = deque()\n  110 |         self._expires = deque()\n  111 | \n  112 | \n  113 | def _make_lookuper(silent):\n  114 |     def make_lookuper(func):\n  115 |         \"\"\"\n  116 |         Creates a single argument function looking up result in a memory.\n  117 | \n  118 |         Decorated function is called once on first lookup and should return all available\n  119 |         arg-value pairs.\n  120 | \n  121 |         Resulting function will raise LookupError when using @make_lookuper\n  122 |         or simply return None when using @silent_lookuper.\n  123 |         \"\"\"\n  124 |         has_args, has_keys = has_arg_types(func)\n  125 |         assert not has_keys, \\\n  126 |             'Lookup table building function should not have keyword arguments'\n  127 | \n  128 |         if has_args:\n  129 |             @memoize\n  130 |             def wrapper(*args):\n  131 |                 f = lambda: func(*args)\n  132 |                 f.__name__ = '%s(%s)' % (func.__name__, ', '.join(map(str, args)))\n  133 |                 return make_lookuper(f)\n  134 |         else:\n  135 |             memory = {}\n  136 | \n  137 |             def wrapper(arg):\n  138 |                 if not memory:\n  139 |                     try:\n  140 |                         memory.update(func())\n  141 |                     except BaseException:\n  142 |                         memory.clear()\n  143 |                         raise\n  144 |                     memory[object()] = None # prevent continuos memory refilling\n  145 | \n  146 |                 if silent:\n  147 |                     return memory.get(arg)\n  148 |                 elif arg in memory:\n  149 |                     return memory[arg]\n  150 |                 else:\n  151 |                     raise LookupError(\"Failed to look up %s(%s)\" % (func.__name__, arg))\n  152 | \n  153 |         return wraps(func)(wrapper)\n  154 |     return make_lookuper\n  155 | \n  156 | make_lookuper = _make_lookuper(False)\n  157 | silent_lookuper = _make_lookuper(True)\n  158 | silent_lookuper.__name__ = 'silent_lookuper'\n  159 | \n  160 | \n  161 | def has_arg_types(func):\n  162 |     params = inspect.signature(func).parameters.values()\n  163 |     return any(p.kind in (p.POSITIONAL_ONLY, p.POSITIONAL_OR_KEYWORD, p.VAR_POSITIONAL)\n  164 |                for p in params), \\\n  165 |            any(p.kind in (p.KEYWORD_ONLY, p.VAR_KEYWORD) for p in params)\n```\n\nDefinitions imported by the module from elsewhere in the repository:\n\n# funcy/decorators.py lines 183-186\n```python\ndef wraps(wrapped,\n          assigned = functools.WRAPPER_ASSIGNMENTS,\n          updated = functools.WRAPPER_UPDATES):\n    return functools.partial(update_wrapper, wrapped=wrapped, assigned=assigned, updated=updated)\n```\n\nPublic API to cover: `SkipMemory`, `memoize`, `cache`, `CacheMemory`, `has_arg_types`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from funcy.calc import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T04:51:19+00:00",
+    "duration": 7.89,
+    "summary": "第 1 轮：生成 403 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_calc.py",
+          "content": "<8167 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4411,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `funcy.calc`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport pytest\nfrom datetime import timedelta\n\nfrom funcy.calc import (\n    SkipMemory,\n    memoize,\n    cache,\n    CacheMemory,\n    has_arg_types,\n    make_lookuper,\n    silent_lookuper,\n)\n\n\n# ---------------------------------------------------------------------------\n# SkipMemory\n# ---------------------------------------------------------------------------\n\ndef test_skip_memory_is_exception():\n    assert issubclass(SkipMemory, Exception)\n    # memoize.skip and cache.skip are the same class\n    assert memoize.skip is SkipMemory\n    assert cache.skip is SkipMemory\n\n\n# ---------------------------------------------------------------------------\n# memoize\n# ---------------------------------------------------------------------------\n\ndef test_memoize_returns_cached_values():\n    calls = []\n\n    @memoize\n    def add(a, b):\n        calls.append((a, b))\n        return a + b\n\n    assert add(1, 2) == 3\n    assert add(1, 2) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_distinguishes_args():\n    calls = []\n\n    @memoize\n    def ident(x):\n        calls.append(x)\n        return x\n\n    assert ident(1) == 1\n    assert ident(2) == 2\n    assert ident(1) == 1\n    assert calls == [1, 2]\n\n\ndef test_memoize_kwargs_keys():\n    calls = []\n\n    @memoize\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    assert f(1, b=2) == 3\n    assert calls == [(1, 2)]\n    # positional vs keyword are distinct calls\n    assert f(1, 2) == 3\n    assert calls == [(1, 2), (1, 2)]\n\n\ndef test_memoize_keyword_order_independent():\n    calls = []\n\n    @memoize\n    def f(**kwargs):\n        calls.append(kwargs)\n        return sum(kwargs.values())\n\n    assert f(a=1, b=2) == 3\n    assert f(b=2, a=1) == 3\n    assert len(calls) == 1\n\n\ndef test_memoize_exposes_memory():\n    @memoize\n    def f(x):\n        return x * 10\n\n    assert f.memory == {}\n    assert f(3) == 30\n    assert f.memory[3] == 30\n\n\ndef test_memoize_with_key_func():\n    calls = []\n\n    @memoize(key_func=lambda a, b=0: a)\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    # different b, same key -> cached\n    assert f(1, b=100) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_called_with_func_directly():\n    calls = []\n\n    def raw(x):\n        calls.append(x)\n        return x * 2\n\n    wrapped = memoize(raw)\n    assert wrapped(4) == 8\n    assert wrapped(4) == 8\n    assert calls == [4]\n\n\ndef test_memoize_invalidate():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n\n\ndef test_memoize_invalidate_missing_key_no_error():\n    @memoize\n    def f(x):\n        return x\n\n    # invalidating a never-called key should not raise\n    f.invalidate(99)\n    assert f.memory == {}\n\n\ndef test_memoize_invalidate_all():\n    @memoize\n    def f(x):\n        return x\n\n    f(1)\n    f(2)\n    assert len(f.memory) == 2\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        raise SkipMemory(x * 100)\n\n    result = f(2)\n    assert result == 200\n    # not cached, calls again\n    assert f(2) == 200\n    assert calls == [2, 2]\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory_without_args():\n    @memoize\n    def f(x):\n        raise SkipMemory()\n\n    assert f(1) is None\n\n\ndef test_memoize_wraps_metadata():\n    @memoize\n    def named_func(x):\n        \"\"\"docstring here\"\"\"\n        return x\n\n    assert named_func.__name__ == 'named_func'\n    assert named_func.__doc__ == 'docstring here'\n\n\n# ---------------------------------------------------------------------------\n# cache / CacheMemory\n# ---------------------------------------------------------------------------\n\ndef test_cache_basic():\n    calls = []\n\n    @cache(60)\n    def f(x):\n        calls.append(x)\n        return x * 2\n\n    assert f(3) == 6\n    assert f(3) == 6\n    assert calls == [3]\n\n\ndef test_cache_timedelta_timeout():\n    c = CacheMemory(timedelta(seconds=60))\n    assert c.timeout == 60\n\n\ndef test_cache_decorator_timedelta():\n    @cache(timedelta(minutes=1))\n    def f(x):\n        return x\n\n    assert f(1) == 1\n    assert f.memory.timeout == 60\n\n\ndef test_cache_memory_set_and_get():\n    m = CacheMemory(1000)\n    m['a'] = 42\n    assert m['a'] == 42\n    assert len(m) == 1\n\n\ndef test_cache_memory_expire_removes_entries():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    # Force expiration by manipulating stored expiry directly\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    # also fix the _expires deque entry\n    m._expires[0] = 0\n    m.expire()\n    assert 'a' not in m\n\n\ndef test_cache_memory_expired_get_raises_keyerror():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    m._expires[0] = 0\n    with pytest.raises(KeyError):\n        m['a']\n\n\ndef test_cache_memory_clear():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    m.clear()\n    assert len(m) == 0\n    assert len(m._keys) == 0\n    assert len(m._expires) == 0\n\n\ndef test_cache_decorator_invalidate_and_all():\n    calls = []\n\n    @cache(1000)\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_cache_skip_memory():\n    @cache(1000)\n    def f(x):\n        raise SkipMemory('skipped')\n\n    assert f(1) == 'skipped'\n    assert len(f.memory) == 0\n\n\n# ---------------------------------------------------------------------------\n# has_arg_types\n# ---------------------------------------------------------------------------\n\ndef test_has_arg_types_none():\n    def f():\n        pass\n\n    assert has_arg_types(f) == (False, False)\n\n\ndef test_has_arg_types_positional():\n    def f(a, b):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\ndef test_has_arg_types_keyword():\n    def f(*, a):\n        pass\n\n    assert has_arg_types(f) == (False, True)\n\n\ndef test_has_arg_types_both():\n    def f(a, *, b):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_varargs():\n    def f(*args, **kwargs):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_positional_only():\n    def f(a, /):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\n# ---------------------------------------------------------------------------\n# make_lookuper / silent_lookuper (supporting public behavior)\n# ---------------------------------------------------------------------------\n\ndef test_make_lookuper_no_args():\n    @make_lookuper\n    def table():\n        return {'a': 1, 'b': 2}\n\n    assert table('a') == 1\n    assert table('b') == 2\n    with pytest.raises(LookupError):\n        table('c')\n\n\ndef test_silent_lookuper_no_args():\n    @silent_lookuper\n    def table():\n        return {'a': 1}\n\n    assert table('a') == 1\n    assert table('missing') is None\n\n\ndef test_make_lookuper_with_args():\n    calls = []\n\n    @make_lookuper\n    def table(prefix):\n        calls.append(prefix)\n        return {prefix + '1': 1, prefix + '2': 2}\n\n    assert table('x', 'y') == 1  # unused extra args accepted\n    assert table('x') == 1\n    # caching: the second call for same args didn't rebuild\n    assert calls == ['x']\n\n\ndef test_make_lookuper_rejects_kwargs_builder():\n    with pytest.raises(AssertionError):\n        @make_lookuper\n        def table(**kwargs):\n            return {}\n\n\ndef test_lookuper_builder_error_propagates():\n    calls = []\n\n    def builder():\n        calls.append(1)\n        raise ValueError('boom')\n\n    looked = make_lookuper(builder)\n    with pytest.raises(ValueError):\n        looked('a')\n    # memory cleared on error, retries builder\n    with pytest.raises(ValueError):\n        looked('a')\n    assert calls == [1, 1]\n\n\ndef test_silent_lookuper_missing_none():\n    @silent_lookuper\n    def table():\n        return {}\n\n    assert table('anything') is None\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 2071,
+      "cache_hit_tokens": 1920,
+      "completion_tokens": 2340,
+      "reasoning_tokens": 0,
+      "latency": 7.88
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T04:51:21+00:00",
+    "duration": 1.18,
+    "summary": "通过 32，失败 3，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_calc.py"
+          ]
+        },
+        "duration": 1.18,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4411
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T04:51:21+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 32]（提升）",
+    "tool_calls": [],
+    "tokens_total": 4411,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      32
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T04:51:21+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 4411
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T04:51:27+00:00",
+    "duration": 7.02,
+    "summary": "第 2 轮：生成 416 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_calc.py",
+          "content": "<8694 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 11897,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_calc.py`)\n```python\nimport pytest\nfrom datetime import timedelta\n\nfrom funcy.calc import (\n    SkipMemory,\n    memoize,\n    cache,\n    CacheMemory,\n    has_arg_types,\n    make_lookuper,\n    silent_lookuper,\n)\n\n\n# ---------------------------------------------------------------------------\n# SkipMemory\n# ---------------------------------------------------------------------------\n\ndef test_skip_memory_is_exception():\n    assert issubclass(SkipMemory, Exception)\n    # memoize.skip and cache.skip are the same class\n    assert memoize.skip is SkipMemory\n    assert cache.skip is SkipMemory\n\n\n# ---------------------------------------------------------------------------\n# memoize\n# ---------------------------------------------------------------------------\n\ndef test_memoize_returns_cached_values():\n    calls = []\n\n    @memoize\n    def add(a, b):\n        calls.append((a, b))\n        return a + b\n\n    assert add(1, 2) == 3\n    assert add(1, 2) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_distinguishes_args():\n    calls = []\n\n    @memoize\n    def ident(x):\n        calls.append(x)\n        return x\n\n    assert ident(1) == 1\n    assert ident(2) == 2\n    assert ident(1) == 1\n    assert calls == [1, 2]\n\n\ndef test_memoize_kwargs_keys():\n    calls = []\n\n    @memoize\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    assert f(1, b=2) == 3\n    assert calls == [(1, 2)]\n    # positional vs keyword are distinct calls\n    assert f(1, 2) == 3\n    assert calls == [(1, 2), (1, 2)]\n\n\ndef test_memoize_keyword_order_independent():\n    calls = []\n\n    @memoize\n    def f(**kwargs):\n        calls.append(kwargs)\n        return sum(kwargs.values())\n\n    assert f(a=1, b=2) == 3\n    assert f(b=2, a=1) == 3\n    assert len(calls) == 1\n\n\ndef test_memoize_exposes_memory():\n    @memoize\n    def f(x):\n        return x * 10\n\n    assert f.memory == {}\n    assert f(3) == 30\n    assert f.memory[3] == 30\n\n\ndef test_memoize_with_key_func():\n    calls = []\n\n    @memoize(key_func=lambda a, b=0: a)\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    # different b, same key -> cached\n    assert f(1, b=100) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_called_with_func_directly():\n    calls = []\n\n    def raw(x):\n        calls.append(x)\n        return x * 2\n\n    wrapped = memoize(raw)\n    assert wrapped(4) == 8\n    assert wrapped(4) == 8\n    assert calls == [4]\n\n\ndef test_memoize_invalidate():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n\n\ndef test_memoize_invalidate_missing_key_no_error():\n    @memoize\n    def f(x):\n        return x\n\n    # invalidating a never-called key should not raise\n    f.invalidate(99)\n    assert f.memory == {}\n\n\ndef test_memoize_invalidate_all():\n    @memoize\n    def f(x):\n        return x\n\n    f(1)\n    f(2)\n    assert len(f.memory) == 2\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        raise SkipMemory(x * 100)\n\n    result = f(2)\n    assert result == 200\n    # not cached, calls again\n    assert f(2) == 200\n    assert calls == [2, 2]\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory_without_args():\n    @memoize\n    def f(x):\n        raise SkipMemory()\n\n    assert f(1) is None\n\n\ndef test_memoize_wraps_metadata():\n    @memoize\n    def named_func(x):\n        \"\"\"docstring here\"\"\"\n        return x\n\n    assert named_func.__name__ == 'named_func'\n    assert named_func.__doc__ == 'docstring here'\n\n\n# ---------------------------------------------------------------------------\n# cache / CacheMemory\n# ---------------------------------------------------------------------------\n\ndef test_cache_basic():\n    calls = []\n\n    @cache(60)\n    def f(x):\n        calls.append(x)\n        return x * 2\n\n    assert f(3) == 6\n    assert f(3) == 6\n    assert calls == [3]\n\n\ndef test_cache_timedelta_timeout():\n    c = CacheMemory(timedelta(seconds=60))\n    assert c.timeout == 60\n\n\ndef test_cache_decorator_timedelta():\n    @cache(timedelta(minutes=1))\n    def f(x):\n        return x\n\n    assert f(1) == 1\n    assert f.memory.timeout == 60\n\n\ndef test_cache_memory_set_and_get():\n    m = CacheMemory(1000)\n    m['a'] = 42\n    assert m['a'] == 42\n    assert len(m) == 1\n\n\ndef test_cache_memory_expire_removes_entries():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    # Force expiration by manipulating stored expiry directly\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    # also fix the _expires deque entry\n    m._expires[0] = 0\n    m.expire()\n    assert 'a' not in m\n\n\ndef test_cache_memory_expired_get_raises_keyerror():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    m._expires[0] = 0\n    with pytest.raises(KeyError):\n        m['a']\n\n\ndef test_cache_memory_clear():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    m.clear()\n    assert len(m) == 0\n    assert len(m._keys) == 0\n    assert len(m._expires) == 0\n\n\ndef test_cache_decorator_invalidate_and_all():\n    calls = []\n\n    @cache(1000)\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_cache_skip_memory():\n    @cache(1000)\n    def f(x):\n        raise SkipMemory('skipped')\n\n    assert f(1) == 'skipped'\n    assert len(f.memory) == 0\n\n\n# ---------------------------------------------------------------------------\n# has_arg_types\n# ---------------------------------------------------------------------------\n\ndef test_has_arg_types_none():\n    def f():\n        pass\n\n    assert has_arg_types(f) == (False, False)\n\n\ndef test_has_arg_types_positional():\n    def f(a, b):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\ndef test_has_arg_types_keyword():\n    def f(*, a):\n        pass\n\n    assert has_arg_types(f) == (False, True)\n\n\ndef test_has_arg_types_both():\n    def f(a, *, b):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_varargs():\n    def f(*args, **kwargs):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_positional_only():\n    def f(a, /):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\n# ---------------------------------------------------------------------------\n# make_lookuper / silent_lookuper (supporting public behavior)\n# ---------------------------------------------------------------------------\n\ndef test_make_lookuper_no_args():\n    @make_lookuper\n    def table():\n        return {'a': 1, 'b': 2}\n\n    assert table('a') == 1\n    assert table('b') == 2\n    with pytest.raises(LookupError):\n        table('c')\n\n\ndef test_silent_lookuper_no_args():\n    @silent_lookuper\n    def table():\n        return {'a': 1}\n\n    assert table('a') == 1\n    assert table('missing') is None\n\n\ndef test_make_lookuper_with_args():\n    calls = []\n\n    @make_lookuper\n    def table(prefix):\n        calls.append(prefix)\n        return {prefix + '1': 1, prefix + '2': 2}\n\n    assert table('x', 'y') == 1  # unused extra args accepted\n    assert table('x') == 1\n    # caching: the second call for same args didn't rebuild\n    assert calls == ['x']\n\n\ndef test_make_lookuper_rejects_kwargs_builder():\n    with pytest.raises(AssertionError):\n        @make_lookuper\n        def table(**kwargs):\n            return {}\n\n\ndef test_lookuper_builder_error_propagates():\n    calls = []\n\n    def builder():\n        calls.append(1)\n        raise ValueError('boom')\n\n    looked = make_lookuper(builder)\n    with pytest.raises(ValueError):\n        looked('a')\n    # memory cleared on error, retries builder\n    with pytest.raises(ValueError):\n        looked('a')\n    assert calls == [1, 1]\n\n\ndef test_silent_lookuper_missing_none():\n    @silent_lookuper\n    def table():\n        return {}\n\n    assert table('anything') is None\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 32 passed, 3 failed, 0 errors.\n- `tests_testpilot.test_calc::test_memoize_exposes_memory` failed:\n```\nKeyError: 3\ndef test_memoize_exposes_memory():\n        @memoize\n        def f(x):\n            return x * 10\n    \n        assert f.memory == {}\n        assert f(3) == 30\n>       assert f.memory[3] == 30\n               ^^^^^^^^^^^\nE       KeyError: 3\n\ntests_testpilot/test_calc.py:93: KeyError\n```\n- `tests_testpilot.test_calc::test_cache_timedelta_timeout` failed:\n```\nassert datetime.timedelta(seconds=60) == 60\n +  where datetime.timedelta(seconds=60) = {}.timeout\ndef test_cache_timedelta_timeout():\n        c = CacheMemory(timedelta(seconds=60))\n>       assert c.timeout == 60\nE       assert datetime.timedelta(seconds=60) == 60\nE        +  where datetime.timedelta(seconds=60) = {}.timeout\n\ntests_testpilot/test_calc.py:214: AssertionError\n```\n- `tests_testpilot.test_calc::test_make_lookuper_with_args` failed:\n```\nAssertionError: assert <function _make_lookuper.<locals>.make_lookuper.<locals>.wrapper.<locals>.<lambda> at 0x793b72e1f600> == 1\n +  where <function _make_lookuper.<locals>.make_lookuper.<locals>.wrapper.<locals>.<lambda> at 0x793b72e1f600> = <function test_make_lookuper_with_args.<locals>.table at 0x793b72e1f380>('x', 'y')\ndef test_make_lookuper_with_args():\n        calls = []\n    \n        @make_lookuper\n        def table(prefix):\n            calls.append(prefix)\n            return {prefix + '1': 1, prefix + '2': 2}\n    \n>       assert table('x', 'y') == 1  # unused extra args accepted\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       AssertionError: assert <function _make_lookuper.<locals>.make_lookuper.<locals>.wrapper.<locals>.<lambda> at 0x793b72e1f600> == 1\nE        +  where <function _ma\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\nfrom datetime import timedelta\n\nfrom funcy.calc import (\n    SkipMemory,\n    memoize,\n    cache,\n    CacheMemory,\n    has_arg_types,\n    make_lookuper,\n    silent_lookuper,\n    _KWARGS_MARK,\n)\n\n\n# ---------------------------------------------------------------------------\n# SkipMemory\n# ---------------------------------------------------------------------------\n\ndef test_skip_memory_is_exception():\n    assert issubclass(SkipMemory, Exception)\n    # memoize.skip and cache.skip are the same class\n    assert memoize.skip is SkipMemory\n    assert cache.skip is SkipMemory\n\n\n# ---------------------------------------------------------------------------\n# memoize\n# ---------------------------------------------------------------------------\n\ndef test_memoize_returns_cached_values():\n    calls = []\n\n    @memoize\n    def add(a, b):\n        calls.append((a, b))\n        return a + b\n\n    assert add(1, 2) == 3\n    assert add(1, 2) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_distinguishes_args():\n    calls = []\n\n    @memoize\n    def ident(x):\n        calls.append(x)\n        return x\n\n    assert ident(1) == 1\n    assert ident(2) == 2\n    assert ident(1) == 1\n    assert calls == [1, 2]\n\n\ndef test_memoize_kwargs_keys():\n    calls = []\n\n    @memoize\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    assert f(1, b=2) == 3\n    assert calls == [(1, 2)]\n    # positional vs keyword are distinct calls\n    assert f(1, 2) == 3\n    assert calls == [(1, 2), (1, 2)]\n\n\ndef test_memoize_keyword_order_independent():\n    calls = []\n\n    @memoize\n    def f(**kwargs):\n        calls.append(kwargs)\n        return sum(kwargs.values())\n\n    assert f(a=1, b=2) == 3\n    assert f(b=2, a=1) == 3\n    assert len(calls) == 1\n\n\ndef test_memoize_exposes_memory():\n    @memoize\n    def f(x):\n        return x * 10\n\n    assert f.memory == {}\n    assert f(3) == 30\n    # The key is the args tuple used by the wrapper (no kwargs -> plain tuple)\n    assert f.memory[(3,)] == 30\n\n\ndef test_memoize_with_key_func():\n    calls = []\n\n    @memoize(key_func=lambda a, b=0: a)\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    # different b, same key -> cached\n    assert f(1, b=100) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_called_with_func_directly():\n    calls = []\n\n    def raw(x):\n        calls.append(x)\n        return x * 2\n\n    wrapped = memoize(raw)\n    assert wrapped(4) == 8\n    assert wrapped(4) == 8\n    assert calls == [4]\n\n\ndef test_memoize_invalidate():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n\n\ndef test_memoize_invalidate_missing_key_no_error():\n    @memoize\n    def f(x):\n        return x\n\n    # invalidating a never-called key should not raise\n    f.invalidate(99)\n    assert f.memory == {}\n\n\ndef test_memoize_invalidate_all():\n    @memoize\n    def f(x):\n        return x\n\n    f(1)\n    f(2)\n    assert len(f.memory) == 2\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        raise SkipMemory(x * 100)\n\n    result = f(2)\n    assert result == 200\n    # not cached, calls again\n    assert f(2) == 200\n    assert calls == [2, 2]\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory_without_args():\n    @memoize\n    def f(x):\n        raise SkipMemory()\n\n    assert f(1) is None\n\n\ndef test_memoize_wraps_metadata():\n    @memoize\n    def named_func(x):\n        \"\"\"docstring here\"\"\"\n        return x\n\n    assert named_func.__name__ == 'named_func'\n    assert named_func.__doc__ == 'docstring here'\n\n\n# ---------------------------------------------------------------------------\n# cache / CacheMemory\n# ---------------------------------------------------------------------------\n\ndef test_cache_basic():\n    calls = []\n\n    @cache(60)\n    def f(x):\n        calls.append(x)\n        return x * 2\n\n    assert f(3) == 6\n    assert f(3) == 6\n    assert calls == [3]\n\n\ndef test_cache_timedelta_timeout():\n    # CacheMemory does not convert timedelta; only the cache() decorator does.\n    c = CacheMemory(timedelta(seconds=60))\n    assert c.timeout == timedelta(seconds=60)\n\n\ndef test_cache_decorator_timedelta():\n    @cache(timedelta(minutes=1))\n    def f(x):\n        return x\n\n    assert f(1) == 1\n    assert f.memory.timeout == 60\n\n\ndef test_cache_memory_set_and_get():\n    m = CacheMemory(1000)\n    m['a'] = 42\n    assert m['a'] == 42\n    assert len(m) == 1\n\n\ndef test_cache_memory_expire_removes_entries():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    # Force expiration by manipulating stored expiry directly\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    # also fix the _expires deque entry\n    m._expires[0] = 0\n    m.expire()\n    assert 'a' not in m\n\n\ndef test_cache_memory_expired_get_raises_keyerror():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    m._expires[0] = 0\n    with pytest.raises(KeyError):\n        m['a']\n\n\ndef test_cache_memory_clear():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    m.clear()\n    assert len(m) == 0\n    assert len(m._keys) == 0\n    assert len(m._expires) == 0\n\n\ndef test_cache_decorator_invalidate_and_all():\n    calls = []\n\n    @cache(1000)\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_cache_skip_memory():\n    @cache(1000)\n    def f(x):\n        raise SkipMemory('skipped')\n\n    assert f(1) == 'skipped'\n    assert len(f.memory) == 0\n\n\n# ---------------------------------------------------------------------------\n# has_arg_types\n# ---------------------------------------------------------------------------\n\ndef test_has_arg_types_none():\n    def f():\n        pass\n\n    assert has_arg_types(f) == (False, False)\n\n\ndef test_has_arg_types_positional():\n    def f(a, b):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\ndef test_has_arg_types_keyword():\n    def f(*, a):\n        pass\n\n    assert has_arg_types(f) == (False, True)\n\n\ndef test_has_arg_types_both():\n    def f(a, *, b):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_varargs():\n    def f(*args, **kwargs):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_positional_only():\n    def f(a, /):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\n# ---------------------------------------------------------------------------\n# make_lookuper / silent_lookuper (supporting public behavior)\n# ---------------------------------------------------------------------------\n\ndef test_make_lookuper_no_args():\n    @make_lookuper\n    def table():\n        return {'a': 1, 'b': 2}\n\n    assert table('a') == 1\n    assert table('b') == 2\n    with pytest.raises(LookupError):\n        table('c')\n\n\ndef test_silent_lookuper_no_args():\n    @silent_lookuper\n    def table():\n        return {'a': 1}\n\n    assert table('a') == 1\n    assert table('missing') is None\n\n\ndef test_make_lookuper_with_args():\n    # With args, the decorated function takes the *builder* arguments and\n    # returns a per-args lookuper function which must then be called with\n    # a single lookup argument.\n    calls = []\n\n    @make_lookuper\n    def table(prefix):\n        calls.append(prefix)\n        return {prefix + '1': 1, prefix + '2': 2}\n\n    lookup = table('x')\n    assert callable(lookup)\n    assert lookup('x1') == 1\n    assert lookup('x2') == 2\n    with pytest.raises(LookupError):\n        lookup('zzz')\n\n    # Re-calling with the same builder args returns the memoized lookuper\n    lookup2 = table('x')\n    assert lookup2 is lookup\n    assert calls == ['x']\n\n\ndef test_make_lookuper_rejects_kwargs_builder():\n    with pytest.raises(AssertionError):\n        @make_lookuper\n        def table(**kwargs):\n            return {}\n\n\ndef test_lookuper_builder_error_propagates():\n    calls = []\n\n    def builder():\n        calls.append(1)\n        raise ValueError('boom')\n\n    looked = make_lookuper(builder)\n    with pytest.raises(ValueError):\n        looked('a')\n    # memory cleared on error, retries builder\n    with pytest.raises(ValueError):\n        looked('a')\n    assert calls == [1, 1]\n\n\ndef test_silent_lookuper_missing_none():\n    @silent_lookuper\n    def table():\n        return {}\n\n    assert table('anything') is None\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 5015,
+      "cache_hit_tokens": 1920,
+      "completion_tokens": 2471,
+      "reasoning_tokens": 0,
+      "latency": 7.02
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T04:51:28+00:00",
+    "duration": 1.4,
+    "summary": "通过 35，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_calc.py"
+          ]
+        },
+        "duration": 1.4,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 11897
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T04:51:35+00:00",
+    "duration": 6.97,
+    "summary": "分数 [1, 0.0, 1.0, 0.9444444444444444, 35]（提升），行覆盖 100.0%，分支覆盖 94.4%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_calc.py"
+          ]
+        },
+        "duration": 4.27,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "funcy/calc.py",
+          "tests": [
+            "tests_testpilot/test_calc.py::test_skip_memory_is_exception",
+            "tests_testpilot/test_calc.py::test_memoize_returns_cached_values",
+            "tests_testpilot/test_calc.py::test_memoize_distinguishes_args",
+            "tests_testpilot/test_calc.py::test_memoize_kwargs_keys",
+            "tests_testpilot/test_calc.py::test_memoize_keyword_order_independent",
+            "tests_testpilot/test_calc.py::test_memoize_exposes_memory",
+            "tests_testpilot/test_calc.py::test_memoize_with_key_func",
+            "tests_testpilot/test_calc.py::test_memoize_called_with_func_directly",
+            "tests_testpilot/test_calc.py::test_memoize_invalidate",
+            "tests_testpilot/test_calc.py::test_memoize_invalidate_missing_key_no_error",
+            "tests_testpilot/test_calc.py::test_memoize_invalidate_all",
+            "tests_testpilot/test_calc.py::test_memoize_skip_memory",
+            "tests_testpilot/test_calc.py::test_memoize_skip_memory_without_args",
+            "tests_testpilot/test_calc.py::test_memoize_wraps_metadata",
+            "tests_testpilot/test_calc.py::test_cache_basic",
+            "tests_testpilot/test_calc.py::test_cache_timedelta_timeout",
+            "tests_testpilot/test_calc.py::test_cache_decorator_timedelta",
+            "tests_testpilot/test_calc.py::test_cache_memory_set_and_get",
+            "tests_testpilot/test_calc.py::test_cache_memory_expire_removes_entries",
+            "tests_testpilot/test_calc.py::test_cache_memory_expired_get_raises_keyerror",
+            "tests_testpilot/test_calc.py::test_cache_memory_clear",
+            "tests_testpilot/test_calc.py::test_cache_decorator_invalidate_and_all",
+            "tests_testpilot/test_calc.py::test_cache_skip_memory",
+            "tests_testpilot/test_calc.py::test_has_arg_types_none",
+            "tests_testpilot/test_calc.py::test_has_arg_types_positional",
+            "tests_testpilot/test_calc.py::test_has_arg_types_keyword",
+            "tests_testpilot/test_calc.py::test_has_arg_types_both",
+            "tests_testpilot/test_calc.py::test_has_arg_types_varargs",
+            "tests_testpilot/test_calc.py::test_has_arg_types_positional_only",
+            "tests_testpilot/test_calc.py::test_make_lookuper_no_args",
+            "tests_testpilot/test_calc.py::test_silent_lookuper_no_args",
+            "tests_testpilot/test_calc.py::test_make_lookuper_with_args",
+            "tests_testpilot/test_calc.py::test_make_lookuper_rejects_kwargs_builder",
+            "tests_testpilot/test_calc.py::test_lookuper_builder_error_propagates",
+            "tests_testpilot/test_calc.py::test_silent_lookuper_missing_none"
+          ]
+        },
+        "duration": 2.7,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 11897,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      0.9444444444444444,
+      35
+    ],
+    "coverage": {
+      "target": "funcy/calc.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 0.9444444444444444,
+      "statements": 103,
+      "branches": 18,
+      "missing_lines": [],
+      "missing_branches": [
+        [
+          104,
+          100
+        ]
+      ],
+      "error": ""
+    },
+    "validity": {
+      "total": 35,
+      "valid": 35,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T04:51:35+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 11897
+  },
+  {
+    "node": "write_tests",
+    "iteration": 3,
+    "at": "2026-10-20T04:51:44+00:00",
+    "duration": 8.36,
+    "summary": "第 3 轮：生成 450 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_calc.py",
+          "content": "<9953 chars>"
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 19495,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_calc.py`)\n```python\nimport pytest\nfrom datetime import timedelta\n\nfrom funcy.calc import (\n    SkipMemory,\n    memoize,\n    cache,\n    CacheMemory,\n    has_arg_types,\n    make_lookuper,\n    silent_lookuper,\n    _KWARGS_MARK,\n)\n\n\n# ---------------------------------------------------------------------------\n# SkipMemory\n# ---------------------------------------------------------------------------\n\ndef test_skip_memory_is_exception():\n    assert issubclass(SkipMemory, Exception)\n    # memoize.skip and cache.skip are the same class\n    assert memoize.skip is SkipMemory\n    assert cache.skip is SkipMemory\n\n\n# ---------------------------------------------------------------------------\n# memoize\n# ---------------------------------------------------------------------------\n\ndef test_memoize_returns_cached_values():\n    calls = []\n\n    @memoize\n    def add(a, b):\n        calls.append((a, b))\n        return a + b\n\n    assert add(1, 2) == 3\n    assert add(1, 2) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_distinguishes_args():\n    calls = []\n\n    @memoize\n    def ident(x):\n        calls.append(x)\n        return x\n\n    assert ident(1) == 1\n    assert ident(2) == 2\n    assert ident(1) == 1\n    assert calls == [1, 2]\n\n\ndef test_memoize_kwargs_keys():\n    calls = []\n\n    @memoize\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    assert f(1, b=2) == 3\n    assert calls == [(1, 2)]\n    # positional vs keyword are distinct calls\n    assert f(1, 2) == 3\n    assert calls == [(1, 2), (1, 2)]\n\n\ndef test_memoize_keyword_order_independent():\n    calls = []\n\n    @memoize\n    def f(**kwargs):\n        calls.append(kwargs)\n        return sum(kwargs.values())\n\n    assert f(a=1, b=2) == 3\n    assert f(b=2, a=1) == 3\n    assert len(calls) == 1\n\n\ndef test_memoize_exposes_memory():\n    @memoize\n    def f(x):\n        return x * 10\n\n    assert f.memory == {}\n    assert f(3) == 30\n    # The key is the args tuple used by the wrapper (no kwargs -> plain tuple)\n    assert f.memory[(3,)] == 30\n\n\ndef test_memoize_with_key_func():\n    calls = []\n\n    @memoize(key_func=lambda a, b=0: a)\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    # different b, same key -> cached\n    assert f(1, b=100) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_called_with_func_directly():\n    calls = []\n\n    def raw(x):\n        calls.append(x)\n        return x * 2\n\n    wrapped = memoize(raw)\n    assert wrapped(4) == 8\n    assert wrapped(4) == 8\n    assert calls == [4]\n\n\ndef test_memoize_invalidate():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n\n\ndef test_memoize_invalidate_missing_key_no_error():\n    @memoize\n    def f(x):\n        return x\n\n    # invalidating a never-called key should not raise\n    f.invalidate(99)\n    assert f.memory == {}\n\n\ndef test_memoize_invalidate_all():\n    @memoize\n    def f(x):\n        return x\n\n    f(1)\n    f(2)\n    assert len(f.memory) == 2\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        raise SkipMemory(x * 100)\n\n    result = f(2)\n    assert result == 200\n    # not cached, calls again\n    assert f(2) == 200\n    assert calls == [2, 2]\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory_without_args():\n    @memoize\n    def f(x):\n        raise SkipMemory()\n\n    assert f(1) is None\n\n\ndef test_memoize_wraps_metadata():\n    @memoize\n    def named_func(x):\n        \"\"\"docstring here\"\"\"\n        return x\n\n    assert named_func.__name__ == 'named_func'\n    assert named_func.__doc__ == 'docstring here'\n\n\n# ---------------------------------------------------------------------------\n# cache / CacheMemory\n# ---------------------------------------------------------------------------\n\ndef test_cache_basic():\n    calls = []\n\n    @cache(60)\n    def f(x):\n        calls.append(x)\n        return x * 2\n\n    assert f(3) == 6\n    assert f(3) == 6\n    assert calls == [3]\n\n\ndef test_cache_timedelta_timeout():\n    # CacheMemory does not convert timedelta; only the cache() decorator does.\n    c = CacheMemory(timedelta(seconds=60))\n    assert c.timeout == timedelta(seconds=60)\n\n\ndef test_cache_decorator_timedelta():\n    @cache(timedelta(minutes=1))\n    def f(x):\n        return x\n\n    assert f(1) == 1\n    assert f.memory.timeout == 60\n\n\ndef test_cache_memory_set_and_get():\n    m = CacheMemory(1000)\n    m['a'] = 42\n    assert m['a'] == 42\n    assert len(m) == 1\n\n\ndef test_cache_memory_expire_removes_entries():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    # Force expiration by manipulating stored expiry directly\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    # also fix the _expires deque entry\n    m._expires[0] = 0\n    m.expire()\n    assert 'a' not in m\n\n\ndef test_cache_memory_expired_get_raises_keyerror():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    m._expires[0] = 0\n    with pytest.raises(KeyError):\n        m['a']\n\n\ndef test_cache_memory_clear():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    m.clear()\n    assert len(m) == 0\n    assert len(m._keys) == 0\n    assert len(m._expires) == 0\n\n\ndef test_cache_decorator_invalidate_and_all():\n    calls = []\n\n    @cache(1000)\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_cache_skip_memory():\n    @cache(1000)\n    def f(x):\n        raise SkipMemory('skipped')\n\n    assert f(1) == 'skipped'\n    assert len(f.memory) == 0\n\n\n# ---------------------------------------------------------------------------\n# has_arg_types\n# ---------------------------------------------------------------------------\n\ndef test_has_arg_types_none():\n    def f():\n        pass\n\n    assert has_arg_types(f) == (False, False)\n\n\ndef test_has_arg_types_positional():\n    def f(a, b):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\ndef test_has_arg_types_keyword():\n    def f(*, a):\n        pass\n\n    assert has_arg_types(f) == (False, True)\n\n\ndef test_has_arg_types_both():\n    def f(a, *, b):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_varargs():\n    def f(*args, **kwargs):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_positional_only():\n    def f(a, /):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\n# ---------------------------------------------------------------------------\n# make_lookuper / silent_lookuper (supporting public behavior)\n# ---------------------------------------------------------------------------\n\ndef test_make_lookuper_no_args():\n    @make_lookuper\n    def table():\n        return {'a': 1, 'b': 2}\n\n    assert table('a') == 1\n    assert table('b') == 2\n    with pytest.raises(LookupError):\n        table('c')\n\n\ndef test_silent_lookuper_no_args():\n    @silent_lookuper\n    def table():\n        return {'a': 1}\n\n    assert table('a') == 1\n    assert table('missing') is None\n\n\ndef test_make_lookuper_with_args():\n    # With args, the decorated function takes the *builder* arguments and\n    # returns a per-args lookuper function which must then be called with\n    # a single lookup argument.\n    calls = []\n\n    @make_lookuper\n    def table(prefix):\n        calls.append(prefix)\n        return {prefix + '1': 1, prefix + '2': 2}\n\n    lookup = table('x')\n    assert callable(lookup)\n    assert lookup('x1') == 1\n    assert lookup('x2') == 2\n    with pytest.raises(LookupError):\n        lookup('zzz')\n\n    # Re-calling with the same builder args returns the memoized lookuper\n    lookup2 = table('x')\n    assert lookup2 is lookup\n    assert calls == ['x']\n\n\ndef test_make_lookuper_rejects_kwargs_builder():\n    with pytest.raises(AssertionError):\n        @make_lookuper\n        def table(**kwargs):\n            return {}\n\n\ndef test_lookuper_builder_error_propagates():\n    calls = []\n\n    def builder():\n        calls.append(1)\n        raise ValueError('boom')\n\n    looked = make_lookuper(builder)\n    with pytest.raises(ValueError):\n        looked('a')\n    # memory cleared on error, retries builder\n    with pytest.raises(ValueError):\n        looked('a')\n    assert calls == [1, 1]\n\n\ndef test_silent_lookuper_missing_none():\n    @silent_lookuper\n    def table():\n        return {}\n\n    assert table('anything') is None\n\n```\n\n## Feedback\nAll 35 tests pass. Coverage of `funcy/calc.py` by these tests: 100.0% of lines, 94.4% of branches. The code below is NOT exercised by any test:\n- line 104: the branch to line 100 is never taken: `if entry is not None and entry[1] <= expires_at:`\n\nAdd tests or extend existing ones so that this code is executed and its results are asserted precisely, while all tests still pass on the current code. Check exact return values, boundary inputs and exception messages. Some code may be unreachable through the public API; skip it rather than writing tests that rely on implementation details. Keep all existing tests.\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport pytest\nfrom datetime import timedelta\n\nfrom funcy.calc import (\n    SkipMemory,\n    memoize,\n    cache,\n    CacheMemory,\n    has_arg_types,\n    make_lookuper,\n    silent_lookuper,\n    _KWARGS_MARK,\n)\n\n\n# ---------------------------------------------------------------------------\n# SkipMemory\n# ---------------------------------------------------------------------------\n\ndef test_skip_memory_is_exception():\n    assert issubclass(SkipMemory, Exception)\n    # memoize.skip and cache.skip are the same class\n    assert memoize.skip is SkipMemory\n    assert cache.skip is SkipMemory\n\n\n# ---------------------------------------------------------------------------\n# memoize\n# ---------------------------------------------------------------------------\n\ndef test_memoize_returns_cached_values():\n    calls = []\n\n    @memoize\n    def add(a, b):\n        calls.append((a, b))\n        return a + b\n\n    assert add(1, 2) == 3\n    assert add(1, 2) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_distinguishes_args():\n    calls = []\n\n    @memoize\n    def ident(x):\n        calls.append(x)\n        return x\n\n    assert ident(1) == 1\n    assert ident(2) == 2\n    assert ident(1) == 1\n    assert calls == [1, 2]\n\n\ndef test_memoize_kwargs_keys():\n    calls = []\n\n    @memoize\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    assert f(1, b=2) == 3\n    assert calls == [(1, 2)]\n    # positional vs keyword are distinct calls\n    assert f(1, 2) == 3\n    assert calls == [(1, 2), (1, 2)]\n\n\ndef test_memoize_keyword_order_independent():\n    calls = []\n\n    @memoize\n    def f(**kwargs):\n        calls.append(kwargs)\n        return sum(kwargs.values())\n\n    assert f(a=1, b=2) == 3\n    assert f(b=2, a=1) == 3\n    assert len(calls) == 1\n\n\ndef test_memoize_exposes_memory():\n    @memoize\n    def f(x):\n        return x * 10\n\n    assert f.memory == {}\n    assert f(3) == 30\n    # The key is the args tuple used by the wrapper (no kwargs -> plain tuple)\n    assert f.memory[(3,)] == 30\n\n\ndef test_memoize_with_key_func():\n    calls = []\n\n    @memoize(key_func=lambda a, b=0: a)\n    def f(a, b=0):\n        calls.append((a, b))\n        return a + b\n\n    assert f(1, b=2) == 3\n    # different b, same key -> cached\n    assert f(1, b=100) == 3\n    assert calls == [(1, 2)]\n\n\ndef test_memoize_called_with_func_directly():\n    calls = []\n\n    def raw(x):\n        calls.append(x)\n        return x * 2\n\n    wrapped = memoize(raw)\n    assert wrapped(4) == 8\n    assert wrapped(4) == 8\n    assert calls == [4]\n\n\ndef test_memoize_invalidate():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n\n\ndef test_memoize_invalidate_missing_key_no_error():\n    @memoize\n    def f(x):\n        return x\n\n    # invalidating a never-called key should not raise\n    f.invalidate(99)\n    assert f.memory == {}\n\n\ndef test_memoize_invalidate_all():\n    @memoize\n    def f(x):\n        return x\n\n    f(1)\n    f(2)\n    assert len(f.memory) == 2\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory():\n    calls = []\n\n    @memoize\n    def f(x):\n        calls.append(x)\n        raise SkipMemory(x * 100)\n\n    result = f(2)\n    assert result == 200\n    # not cached, calls again\n    assert f(2) == 200\n    assert calls == [2, 2]\n    assert f.memory == {}\n\n\ndef test_memoize_skip_memory_without_args():\n    @memoize\n    def f(x):\n        raise SkipMemory()\n\n    assert f(1) is None\n\n\ndef test_memoize_wraps_metadata():\n    @memoize\n    def named_func(x):\n        \"\"\"docstring here\"\"\"\n        return x\n\n    assert named_func.__name__ == 'named_func'\n    assert named_func.__doc__ == 'docstring here'\n\n\n# ---------------------------------------------------------------------------\n# cache / CacheMemory\n# ---------------------------------------------------------------------------\n\ndef test_cache_basic():\n    calls = []\n\n    @cache(60)\n    def f(x):\n        calls.append(x)\n        return x * 2\n\n    assert f(3) == 6\n    assert f(3) == 6\n    assert calls == [3]\n\n\ndef test_cache_timedelta_timeout():\n    # CacheMemory does not convert timedelta; only the cache() decorator does.\n    c = CacheMemory(timedelta(seconds=60))\n    assert c.timeout == timedelta(seconds=60)\n\n\ndef test_cache_decorator_timedelta():\n    @cache(timedelta(minutes=1))\n    def f(x):\n        return x\n\n    assert f(1) == 1\n    assert f.memory.timeout == 60\n\n\ndef test_cache_memory_set_and_get():\n    m = CacheMemory(1000)\n    m['a'] = 42\n    assert m['a'] == 42\n    assert len(m) == 1\n\n\ndef test_cache_memory_expire_removes_entries():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    # Force expiration by manipulating stored expiry directly\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    # also fix the _expires deque entry\n    m._expires[0] = 0\n    m.expire()\n    assert 'a' not in m\n\n\ndef test_cache_memory_expired_get_raises_keyerror():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    value, _ = dict.__getitem__(m, 'a')\n    dict.__setitem__(m, 'a', (value, 0))\n    m._expires[0] = 0\n    with pytest.raises(KeyError):\n        m['a']\n\n\ndef test_cache_memory_clear():\n    m = CacheMemory(1000)\n    m['a'] = 1\n    m.clear()\n    assert len(m) == 0\n    assert len(m._keys) == 0\n    assert len(m._expires) == 0\n\n\ndef test_cache_decorator_invalidate_and_all():\n    calls = []\n\n    @cache(1000)\n    def f(x):\n        calls.append(x)\n        return x\n\n    assert f(1) == 1\n    assert f(1) == 1\n    assert calls == [1]\n    f.invalidate(1)\n    assert f(1) == 1\n    assert calls == [1, 1]\n    f.invalidate_all()\n    assert f.memory == {}\n\n\ndef test_cache_skip_memory():\n    @cache(1000)\n    def f(x):\n        raise SkipMemory('skipped')\n\n    assert f(1) == 'skipped'\n    assert len(f.memory) == 0\n\n\ndef test_cache_memory_expire_with_replaced_key():\n    \"\"\"Exercise the branch where a key was replaced in dict but old entry\n    is still in the deques: entry is not None and entry[1] <= expires_at.\"\"\"\n    m = CacheMemory(1000)\n    m['a'] = 1\n    # Replace 'a' with a new value+expiry: dict now has a later expiry, but\n    # the old deque entry for 'a' remains at the front.\n    value, _ = dict.__getitem__(m, 'a')\n    # Set the dict entry to a *later* expiry than the deque entry.\n    dict.__setitem__(m, 'a', (value, 10**18))\n    # Force the first deque entry to be expired, keeping dict entry valid.\n    m._expires[0] = 0\n    m.expire()\n    # Branch taken: entry exists but entry[1] (large) > expires_at (0),\n    # so the key must remain.\n    assert 'a' in m\n    assert m['a'] == 1\n\n\ndef test_cache_memory_expire_removes_stale_entry():\n    \"\"\"Exercise branch where entry exists and its stored expiry <= expires_at:\n    the key gets popped.\"\"\"\n    m = CacheMemory(1000)\n    m['a'] = 1\n    value, _ = dict.__getitem__(m, 'a')\n    # Align dict entry expiry with deque entry so both are expired.\n    dict.__setitem__(m, 'a', (value, 0))\n    m._expires[0] = 0\n    m.expire()\n    assert 'a' not in m\n    assert len(m._keys) == 0\n    assert len(m._expires) == 0\n\n\n# ---------------------------------------------------------------------------\n# has_arg_types\n# ---------------------------------------------------------------------------\n\ndef test_has_arg_types_none():\n    def f():\n        pass\n\n    assert has_arg_types(f) == (False, False)\n\n\ndef test_has_arg_types_positional():\n    def f(a, b):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\ndef test_has_arg_types_keyword():\n    def f(*, a):\n        pass\n\n    assert has_arg_types(f) == (False, True)\n\n\ndef test_has_arg_types_both():\n    def f(a, *, b):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_varargs():\n    def f(*args, **kwargs):\n        pass\n\n    assert has_arg_types(f) == (True, True)\n\n\ndef test_has_arg_types_positional_only():\n    def f(a, /):\n        pass\n\n    assert has_arg_types(f) == (True, False)\n\n\n# ---------------------------------------------------------------------------\n# make_lookuper / silent_lookuper (supporting public behavior)\n# ---------------------------------------------------------------------------\n\ndef test_make_lookuper_no_args():\n    @make_lookuper\n    def table():\n        return {'a': 1, 'b': 2}\n\n    assert table('a') == 1\n    assert table('b') == 2\n    with pytest.raises(LookupError):\n        table('c')\n\n\ndef test_silent_lookuper_no_args():\n    @silent_lookuper\n    def table():\n        return {'a': 1}\n\n    assert table('a') == 1\n    assert table('missing') is None\n\n\ndef test_make_lookuper_with_args():\n    # With args, the decorated function takes the *builder* arguments and\n    # returns a per-args lookuper function which must then be called with\n    # a single lookup argument.\n    calls = []\n\n    @make_lookuper\n    def table(prefix):\n        calls.append(prefix)\n        return {prefix + '1': 1, prefix + '2': 2}\n\n    lookup = table('x')\n    assert callable(lookup)\n    assert lookup('x1') == 1\n    assert lookup('x2') == 2\n    with pytest.raises(LookupError):\n        lookup('zzz')\n\n    # Re-calling with the same builder args returns the memoized lookuper\n    lookup2 = table('x')\n    assert lookup2 is lookup\n    assert calls == ['x']\n\n\ndef test_make_lookuper_rejects_kwargs_builder():\n    with pytest.raises(AssertionError):\n        @make_lookuper\n        def table(**kwargs):\n            return {}\n\n\ndef test_lookuper_builder_error_propagates():\n    calls = []\n\n    def builder():\n        calls.append(1)\n        raise ValueError('boom')\n\n    looked = make_lookuper(builder)\n    with pytest.raises(ValueError):\n        looked('a')\n    # memory cleared on error, retries builder\n    with pytest.raises(ValueError):\n        looked('a')\n    assert calls == [1, 1]\n\n\ndef test_silent_lookuper_missing_none():\n    @silent_lookuper\n    def table():\n        return {}\n\n    assert table('anything') is None\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 4742,
+      "cache_hit_tokens": 1920,
+      "completion_tokens": 2856,
+      "reasoning_tokens": 0,
+      "latency": 8.36
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 3,
+    "at": "2026-10-20T04:51:45+00:00",
+    "duration": 1.12,
+    "summary": "通过 37，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_calc.py"
+          ]
+        },
+        "duration": 1.12,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 19495
+  },
+  {
+    "node": "analyze",
+    "iteration": 3,
+    "at": "2026-10-20T04:51:51+00:00",
+    "duration": 5.74,
+    "summary": "分数 [1, 0.0, 1.0, 1.0, 37]（提升），行覆盖 100.0%，分支覆盖 100.0%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_calc.py"
+          ]
+        },
+        "duration": 3.65,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "funcy/calc.py",
+          "tests": [
+            "tests_testpilot/test_calc.py::test_skip_memory_is_exception",
+            "tests_testpilot/test_calc.py::test_memoize_returns_cached_values",
+            "tests_testpilot/test_calc.py::test_memoize_distinguishes_args",
+            "tests_testpilot/test_calc.py::test_memoize_kwargs_keys",
+            "tests_testpilot/test_calc.py::test_memoize_keyword_order_independent",
+            "tests_testpilot/test_calc.py::test_memoize_exposes_memory",
+            "tests_testpilot/test_calc.py::test_memoize_with_key_func",
+            "tests_testpilot/test_calc.py::test_memoize_called_with_func_directly",
+            "tests_testpilot/test_calc.py::test_memoize_invalidate",
+            "tests_testpilot/test_calc.py::test_memoize_invalidate_missing_key_no_error",
+            "tests_testpilot/test_calc.py::test_memoize_invalidate_all",
+            "tests_testpilot/test_calc.py::test_memoize_skip_memory",
+            "tests_testpilot/test_calc.py::test_memoize_skip_memory_without_args",
+            "tests_testpilot/test_calc.py::test_memoize_wraps_metadata",
+            "tests_testpilot/test_calc.py::test_cache_basic",
+            "tests_testpilot/test_calc.py::test_cache_timedelta_timeout",
+            "tests_testpilot/test_calc.py::test_cache_decorator_timedelta",
+            "tests_testpilot/test_calc.py::test_cache_memory_set_and_get",
+            "tests_testpilot/test_calc.py::test_cache_memory_expire_removes_entries",
+            "tests_testpilot/test_calc.py::test_cache_memory_expired_get_raises_keyerror",
+            "tests_testpilot/test_calc.py::test_cache_memory_clear",
+            "tests_testpilot/test_calc.py::test_cache_decorator_invalidate_and_all",
+            "tests_testpilot/test_calc.py::test_cache_skip_memory",
+            "tests_testpilot/test_calc.py::test_cache_memory_expire_with_replaced_key",
+            "tests_testpilot/test_calc.py::test_cache_memory_expire_removes_stale_entry",
+            "tests_testpilot/test_calc.py::test_has_arg_types_none",
+            "tests_testpilot/test_calc.py::test_has_arg_types_positional",
+            "tests_testpilot/test_calc.py::test_has_arg_types_keyword",
+            "tests_testpilot/test_calc.py::test_has_arg_types_both",
+            "tests_testpilot/test_calc.py::test_has_arg_types_varargs",
+            "tests_testpilot/test_calc.py::test_has_arg_types_positional_only",
+            "tests_testpilot/test_calc.py::test_make_lookuper_no_args",
+            "tests_testpilot/test_calc.py::test_silent_lookuper_no_args",
+            "tests_testpilot/test_calc.py::test_make_lookuper_with_args",
+            "tests_testpilot/test_calc.py::test_make_lookuper_rejects_kwargs_builder",
+            "tests_testpilot/test_calc.py::test_lookuper_builder_error_propagates",
+            "tests_testpilot/test_calc.py::test_silent_lookuper_missing_none"
+          ]
+        },
+        "duration": 2.09,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 19495,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      1.0,
+      37
+    ],
+    "coverage": {
+      "target": "funcy/calc.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 103,
+      "branches": 18,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 37,
+      "valid": 37,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 3,
+    "at": "2026-10-20T04:51:51+00:00",
+    "duration": 0.0,
+    "summary": "全部测试有效，且行与分支全部覆盖",
+    "tool_calls": [],
+    "tokens_total": 19495
+  },
+  {
+    "node": "finalize",
+    "iteration": 3,
+    "at": "2026-10-20T04:51:51+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试有效，且行与分支全部覆盖；采用第 3 轮，分数 [1, 0.0, 1.0, 1.0, 37]",
+    "tool_calls": [],
+    "tokens_total": 19495,
+    "best_iteration": 3
+  }
+]

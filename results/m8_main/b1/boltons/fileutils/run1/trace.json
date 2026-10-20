@@ -1,0 +1,507 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T04:17:52+00:00",
+    "duration": 0.01,
+    "summary": "9 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "boltons/fileutils.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "mkdir_p",
+      "FilePerms",
+      "atomic_save",
+      "path_to_unicode",
+      "AtomicSaver",
+      "iter_find_files",
+      "copy_tree",
+      "DummyFile",
+      "rotate_file"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T04:17:52+00:00",
+    "duration": 0.12,
+    "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 32316 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "boltons/fileutils.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "boltons/fileutils.py",
+          "start_line": 401
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "shutil.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: shutil.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "shutil/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: shutil/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "mkdir_p(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "FilePerms(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "atomic_save(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "path_to_unicode(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "AtomicSaver(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "iter_find_files(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "copy_tree(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "DummyFile(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "rotate_file(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `boltons.fileutils` (file `boltons/fileutils.py`).\n\nSource of `boltons/fileutils.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | # Copyright (c) 2013, Mahmoud Hashemi\n    2 | #\n    3 | # Redistribution and use in source and binary forms, with or without\n    4 | # modification, are permitted provided that the following conditions are\n    5 | # met:\n    6 | #\n    7 | #    * Redistributions of source code must retain the above copyright\n    8 | #      notice, this list of conditions and the following disclaimer.\n    9 | #\n   10 | #    * Redistributions in binary form must reproduce the above\n   11 | #      copyright notice, this list of conditions and the following\n   12 | #      disclaimer in the documentation and/or other materials provided\n   13 | #      with the distribution.\n   14 | #\n   15 | #    * The names of the contributors may not be used to endorse or\n   16 | #      promote products derived from this software without specific\n   17 | #      prior written permission.\n   18 | #\n   19 | # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n   20 | # \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n   21 | # LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n   22 | # A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n   23 | # OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n   24 | # SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n   25 | # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n   26 | # DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n   27 | # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n   28 | # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n   29 | # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n   30 | \n   31 | \"\"\"Virtually every Python programmer has used Python for wrangling\n   32 | disk contents, and ``fileutils`` collects solutions to some of the\n   33 | most commonly-found gaps in the standard library.\n   34 | \"\"\"\n   35 | \n   36 | \n   37 | import os\n   38 | import re\n   39 | import sys\n   40 | import stat\n   41 | import errno\n   42 | import fnmatch\n   43 | from shutil import copy2, copystat, Error\n   44 | \n   45 | \n   46 | __all__ = ['mkdir_p', 'atomic_save', 'AtomicSaver', 'FilePerms',\n   47 |            'iter_find_files', 'copytree']\n   48 | \n   49 | \n   50 | FULL_PERMS = 0o777\n   51 | RW_PERMS = 438\n   52 | _SINGLE_FULL_PERM = 7\n   53 | \n   54 | \n   55 | def mkdir_p(path):\n   56 |     \"\"\"Creates a directory and any parent directories that may need to\n   57 |     be created along the way, without raising errors for any existing\n   58 |     directories. This function mimics the behavior of the ``mkdir -p``\n   59 |     command available in Linux/BSD environments, but also works on\n   60 |     Windows.\n   61 |     \"\"\"\n   62 |     try:\n   63 |         os.makedirs(path)\n   64 |     except OSError as exc:\n   65 |         if exc.errno == errno.EEXIST and os.path.isdir(path):\n   66 |             return\n   67 |         raise\n   68 |     return\n   69 | \n   70 | \n   71 | class FilePerms:\n   72 |     \"\"\"The :class:`FilePerms` type is used to represent standard POSIX\n   73 |     filesystem permissions:\n   74 | \n   75 |       * Read\n   76 |       * Write\n   77 |       * Execute\n   78 | \n   79 |     Across three classes of user:\n   80 | \n   81 |       * Owning (u)ser\n   82 |       * Owner's (g)roup\n   83 |       * Any (o)ther user\n   84 | \n   85 |     This class assists with computing new permissions, as well as\n   86 |     working with numeric octal ``777``-style and ``rwx``-style\n   87 |     permissions. Currently it only considers the bottom 9 permission\n   88 |     bits; it does not support sticky bits or more advanced permission\n   89 |     systems.\n   90 | \n   91 |     Args:\n   92 |         user (str): A string in the 'rwx' format, omitting characters\n   93 |             for which owning user's permissions are not provided.\n   94 |         group (str): A string in the 'rwx' format, omitting characters\n   95 |             for which owning group permissions are not provided.\n   96 |         other (str): A string in the 'rwx' format, omitting characters\n   97 |             for which owning other/world permissions are not provided.\n   98 | \n   99 |     There are many ways to use :class:`FilePerms`:\n  100 | \n  101 |     >>> FilePerms(user='rwx', group='xrw', other='wxr')  # note character order\n  102 |     FilePerms(user='rwx', group='rwx', other='rwx')\n  103 |     >>> int(FilePerms('r', 'r', ''))\n  104 |     288\n  105 |     >>> oct(288)[-3:]  # XXX Py3k\n  106 |     '440'\n  107 | \n  108 |     See also the :meth:`FilePerms.from_int` and\n  109 |     :meth:`FilePerms.from_path` classmethods for useful alternative\n  110 |     ways to construct :class:`FilePerms` objects.\n  111 |     \"\"\"\n  112 |     # TODO: consider more than the lower 9 bits\n  113 |     class _FilePermProperty:\n  114 |         _perm_chars = 'rwx'\n  115 |         _perm_set = frozenset('rwx')\n  116 |         _perm_val = {'r': 4, 'w': 2, 'x': 1}  # for sorting\n  117 | \n  118 |         def __init__(self, attribute, offset):\n  119 |             self.attribute = attribute\n  120 |             self.offset = offset\n  121 | \n  122 |         def __get__(self, fp_obj, type_=None):\n  123 |             if fp_obj is None:\n  124 |                 return self\n  125 |             return getattr(fp_obj, self.attribute)\n  126 | \n  127 |         def __set__(self, fp_obj, value):\n  128 |             cur = getattr(fp_obj, self.attribute)\n  129 |             if cur == value:\n  130 |                 return\n  131 |             try:\n  132 |                 invalid_chars = set(str(value)) - self._perm_set\n  133 |             except TypeError:\n  134 |                 raise TypeError('expected string, not %r' % value)\n  135 |             if invalid_chars:\n  136 |                 raise ValueError('got invalid chars %r in permission'\n  137 |                                  ' specification %r, expected empty string'\n  138 |                                  ' or one or more of %r'\n  139 |                                  % (invalid_chars, value, self._perm_chars))\n  140 | \n  141 |             def sort_key(c): return self._perm_val[c]\n  142 |             new_value = ''.join(sorted(set(value),\n  143 |                                        key=sort_key, reverse=True))\n  144 |             setattr(fp_obj, self.attribute, new_value)\n  145 |             self._update_integer(fp_obj, new_value)\n  146 | \n  147 |         def _update_integer(self, fp_obj, value):\n  148 |             mode = 0\n  149 |             key = 'xwr'\n  150 |             for symbol in value:\n  151 |                 bit = 2 ** key.index(symbol)\n  152 |                 mode |= (bit << (self.offset * 3))\n  153 |             fp_obj._integer |= mode\n  154 | \n  155 |     def __init__(self, user='', group='', other=''):\n  156 |         self._user, self._group, self._other = '', '', ''\n  157 |         self._integer = 0\n  158 |         self.user = user\n  159 |         self.group = group\n  160 |         self.other = other\n  161 | \n  162 |     @classmethod\n  163 |     def from_int(cls, i):\n  164 |         \"\"\"Create a :class:`FilePerms` object from an integer.\n  165 | \n  166 |         >>> FilePerms.from_int(0o644)  # note the leading zero-oh for octal\n  167 |         FilePerms(user='rw', group='r', other='r')\n  168 |         \"\"\"\n  169 |         i &= FULL_PERMS\n  170 |         key = ('', 'x', 'w', 'xw', 'r', 'rx', 'rw', 'rwx')\n  171 |         parts = []\n  172 |         while i:\n  173 |             parts.append(key[i & _SINGLE_FULL_PERM])\n  174 |             i >>= 3\n  175 |         parts.reverse()\n  176 |         return cls(*parts)\n  177 | \n  178 |     @classmethod\n  179 |     def from_path(cls, path):\n  180 |         \"\"\"Make a new :class:`FilePerms` object based on the permissions\n  181 |         assigned to the file or directory at *path*.\n  182 | \n  183 |         Args:\n  184 |             path (str): Filesystem path of the target file.\n  185 | \n  186 |         Here's an example that holds true on most systems:\n  187 | \n  188 |         >>> import tempfile\n  189 |         >>> 'r' in FilePerms.from_path(tempfile.gettempdir()).user\n  190 |         True\n  191 |         \"\"\"\n  192 |         stat_res = os.stat(path)\n  193 |         return cls.from_int(stat.S_IMODE(stat_res.st_mode))\n  194 | \n  195 |     def __int__(self):\n  196 |         return self._integer\n  197 | \n  198 |     # Sphinx tip: attribute docstrings come after the attribute\n  199 |     user = _FilePermProperty('_user', 2)\n  200 |     \"Stores the ``rwx``-formatted *user* permission.\"\n  201 |     group = _FilePermProperty('_group', 1)\n  202 |     \"Stores the ``rwx``-formatted *group* permission.\"\n  203 |     other = _FilePermProperty('_other', 0)\n  204 |     \"Stores the ``rwx``-formatted *other* permission.\"\n  205 | \n  206 |     def __repr__(self):\n  207 |         cn = self.__class__.__name__\n  208 |         return ('%s(user=%r, group=%r, other=%r)'\n  209 |                 % (cn, self.user, self.group, self.other))\n  210 | \n  211 | ####\n  212 | \n  213 | \n  214 | _TEXT_OPENFLAGS = os.O_RDWR | os.O_CREAT | os.O_EXCL\n  215 | if hasattr(os, 'O_NOINHERIT'):\n  216 |     _TEXT_OPENFLAGS |= os.O_NOINHERIT\n  217 | if hasattr(os, 'O_NOFOLLOW'):\n  218 |     _TEXT_OPENFLAGS |= os.O_NOFOLLOW\n  219 | _BIN_OPENFLAGS = _TEXT_OPENFLAGS\n  220 | if hasattr(os, 'O_BINARY'):\n  221 |     _BIN_OPENFLAGS |= os.O_BINARY\n  222 | \n  223 | \n  224 | try:\n  225 |     import fcntl as fcntl\n  226 | except ImportError:\n  227 |     def set_cloexec(fd):\n  228 |         \"Dummy set_cloexec for platforms without fcntl support\"\n  229 |         pass\n  230 | else:\n  231 |     def set_cloexec(fd):\n  232 |         \"\"\"Does a best-effort :func:`fcntl.fcntl` call to set a fd to be\n  233 |         automatically closed by any future child processes.\n  234 | \n  235 |         Implementation from the :mod:`tempfile` module.\n  236 |         \"\"\"\n  237 |         try:\n  238 |             flags = fcntl.fcntl(fd, fcntl.F_GETFD, 0)\n  239 |         except OSError:\n  240 |             pass\n  241 |         else:\n  242 |             # flags read successfully, modify\n  243 |             flags |= fcntl.FD_CLOEXEC\n  244 |             fcntl.fcntl(fd, fcntl.F_SETFD, flags)\n  245 |         return\n  246 | \n  247 | \n  248 | def atomic_save(dest_path, **kwargs):\n  249 |     \"\"\"A convenient interface to the :class:`AtomicSaver` type. Example:\n  250 | \n  251 |     >>> try:\n  252 |     ...     with atomic_save(\"file.txt\", text_mode=True) as fo:\n  253 |     ...         _ = fo.write('bye')\n  254 |     ...         1/0  # will error\n  255 |     ...         fo.write('bye')\n  256 |     ... except ZeroDivisionError:\n  257 |     ...     pass  # at least our file.txt didn't get overwritten\n  258 | \n  259 |     See the :class:`AtomicSaver` documentation for details.\n  260 |     \"\"\"\n  261 |     return AtomicSaver(dest_path, **kwargs)\n  262 | \n  263 | \n  264 | def path_to_unicode(path):\n  265 |     if isinstance(path, str):\n  266 |         return path\n  267 |     encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()\n  268 |     return path.decode(encoding)\n  269 | \n  270 | \n  271 | if os.name == 'nt':\n  272 |     import ctypes\n  273 |     from ctypes import c_wchar_p\n  274 |     from ctypes.wintypes import DWORD, LPVOID\n  275 | \n  276 |     _ReplaceFile = ctypes.windll.kernel32.ReplaceFile\n  277 |     _ReplaceFile.argtypes = [c_wchar_p, c_wchar_p, c_wchar_p,\n  278 |                              DWORD, LPVOID, LPVOID]\n  279 | \n  280 |     def replace(src, dst):\n  281 |         # argument names match stdlib docs, docstring below\n  282 |         try:\n  283 |             # ReplaceFile fails if the dest file does not exist, so\n  284 |             # first try to rename it into position\n  285 |             os.rename(src, dst)\n  286 |             return\n  287 |         except OSError as we:\n  288 |             if we.errno == errno.EEXIST:\n  289 |                 pass  # continue with the ReplaceFile logic below\n  290 |             else:\n  291 |                 raise\n  292 | \n  293 |         src = path_to_unicode(src)\n  294 |         dst = path_to_unicode(dst)\n  295 |         res = _ReplaceFile(c_wchar_p(dst), c_wchar_p(src),\n  296 |                            None, 0, None, None)\n  297 |         if not res:\n  298 |             raise OSError(f'failed to replace {dst!r} with {src!r}')\n  299 |         return\n  300 | \n  301 |     def atomic_rename(src, dst, overwrite=False):\n  302 |         \"Rename *src* to *dst*, replacing *dst* if *overwrite is True\"\n  303 |         if overwrite:\n  304 |             replace(src, dst)\n  305 |         else:\n  306 |             os.rename(src, dst)\n  307 |         return\n  308 | else:\n  309 |     # wrapper func for cross compat + docs\n  310 |     def replace(src, dst):\n  311 |         # os.replace does the same thing on unix\n  312 |         return os.rename(src, dst)\n  313 | \n  314 |     def atomic_rename(src, dst, overwrite=False):\n  315 |         \"Rename *src* to *dst*, replacing *dst* if *overwrite is True\"\n  316 |         if overwrite:\n  317 |             os.rename(src, dst)\n  318 |         else:\n  319 |             os.link(src, dst)\n  320 |             os.unlink(src)\n  321 |         return\n  322 | \n  323 | \n  324 | _atomic_rename = atomic_rename  # backwards compat\n  325 | \n  326 | replace.__doc__ = \"\"\"Similar to :func:`os.replace` in Python 3.3+,\n  327 | this function will atomically create or replace the file at path\n  328 | *dst* with the file at path *src*.\n  329 | \n  330 | On Windows, this function uses the ReplaceFile API for maximum\n  331 | possible atomicity on a range of filesystems.\n  332 | \"\"\"\n  333 | \n  334 | \n  335 | class AtomicSaver:\n  336 |     \"\"\"``AtomicSaver`` is a configurable `context manager`_ that provides\n  337 |     a writable :class:`file` which will be moved into place as long as\n  338 |     no exceptions are raised within the context manager's block. These\n  339 |     \"part files\" are created in the same directory as the destination\n  340 |     path to ensure atomic move operations (i.e., no cross-filesystem\n  341 |     moves occur).\n  342 | \n  343 |     Args:\n  344 |         dest_path (str): The path where the completed file will be\n  345 |             written.\n  346 |         overwrite (bool): Whether to overwrite the destination file if\n  347 |             it exists at completion time. Defaults to ``True``.\n  348 |         file_perms (int): Integer representation of file permissions\n  349 |             for the newly-created file. Defaults are, when the\n  350 |             destination path already exists, to copy the permissions\n  351 |             from the previous file, or if the file did not exist, to\n  352 |             respect the user's configured `umask`_, usually resulting\n  353 |             in octal 0644 or 0664.\n  354 |         text_mode (bool): Whether to open the destination file in text\n  355 |             mode (i.e., ``'w'`` not ``'wb'``). Defaults to ``False`` (``wb``).\n  356 |         part_file (str): Name of the temporary *part_file*. Defaults\n  357 |             to *dest_path* + ``.part``. Note that this argument is\n  358 |             just the filename, and not the full path of the part\n  359 |             file. To guarantee atomic saves, part files are always\n  360 |             created in the same directory as the destination path.\n  361 |         overwrite_part (bool): Whether to overwrite the *part_file*,\n  362 |             should it exist at setup time. Defaults to ``False``,\n  363 |             which results in an :exc:`OSError` being raised on\n  364 |             pre-existing part files. Be careful of setting this to\n  365 |             ``True`` in situations when multiple threads or processes\n  366 |             could be writing to the same part file.\n  367 |         rm_part_on_exc (bool): Remove *part_file* on exception cases.\n  368 |             Defaults to ``True``, but ``False`` can be useful for\n  369 |             recovery in some cases. Note that resumption is not\n  370 |             automatic and by default an :exc:`OSError` is raised if\n  371 |             the *part_file* exists.\n  372 | \n  373 |     Practically, the AtomicSaver serves a few purposes:\n  374 | \n  375 |       * Avoiding overwriting an existing, valid file with a partially\n  376 |         written one.\n  377 |       * Providing a reasonable guarantee that a part file only has one\n  378 |         writer at a time.\n  379 |       * Optional recovery of partial data in failure cases.\n  380 | \n  381 |     .. _context manager: https://docs.python.org/2/reference/compound_stmts.html#with\n  382 |     .. _umask: https://en.wikipedia.org/wiki/Umask\n  383 | \n  384 |     \"\"\"\n  385 |     _default_file_perms = RW_PERMS\n  386 | \n  387 |     # TODO: option to abort if target file modify date has changed since start?\n  388 |     def __init__(self, dest_path, **kwargs):\n  389 |         self.dest_path = os.fspath(dest_path)\n  390 |         self.overwrite = kwargs.pop('overwrite', True)\n  391 |         self.file_perms = kwargs.pop('file_perms', None)\n  392 |         self.overwrite_part = kwargs.pop('overwrite_part', False)\n  393 |         self.part_filename = kwargs.pop('part_file', None)\n  394 |         self.rm_part_on_exc = kwargs.pop('rm_part_on_exc', True)\n  395 |         self.text_mode = kwargs.pop('text_mode', False)\n  396 |         self.buffering = kwargs.pop('buffering', -1)\n  397 |         if kwargs:\n  398 |             raise TypeError(f'unexpected kwargs: {kwargs.keys()!r}')\n  399 | \n  400 |         self.dest_path = os.path.abspath(self.dest_path)\n  401 |         self.dest_dir = os.path.dirname(self.dest_path)\n  402 |         if not self.part_filename:\n  403 |             self.part_path = self.dest_path + '.part'\n  404 |         else:\n  405 |             self.part_path = os.path.join(self.dest_dir, self.part_filename)\n  406 |         self.mode = 'w+' if self.text_mode else 'w+b'\n  407 |         self.open_flags = _TEXT_OPENFLAGS if self.text_mode else _BIN_OPENFLAGS\n  408 | \n  409 |         self.part_file = None\n  410 | \n  411 |     def _open_part_file(self):\n  412 |         do_chmod = True\n  413 |         file_perms = self.file_perms\n  414 |         if file_perms is None:\n  415 |             try:\n  416 |                 # try to copy from file being replaced\n  417 |                 stat_res = os.stat(self.dest_path)\n  418 |                 file_perms = stat.S_IMODE(stat_res.st_mode)\n  419 |             except OSError:\n  420 |                 # default if no destination file exists\n  421 |                 file_perms = self._default_file_perms\n  422 |                 do_chmod = False  # respect the umask\n  423 | \n  424 |         fd = os.open(self.part_path, self.open_flags, file_perms)\n  425 |         set_cloexec(fd)\n  426 |         self.part_file = os.fdopen(fd, self.mode, self.buffering)\n  427 | \n  428 |         # if default perms are overridden by the user or previous dest_path\n  429 |         # chmod away the effects of the umask\n  430 |         if do_chmod:\n  431 |             try:\n  432 |                 os.chmod(self.part_path, file_perms)\n  433 |             except OSError:\n  434 |                 self.part_file.close()\n  435 |                 raise\n  436 |         return\n  437 | \n  438 |     def setup(self):\n  439 |         \"\"\"Called on context manager entry (the :keyword:`with` statement),\n  440 |         the ``setup()`` method creates the temporary file in the same\n  441 |         directory as the destination file.\n  442 | \n  443 |         ``setup()`` tests for a writable directory with rename permissions\n  444 |         early, as the part file may not be written to immediately (not\n  445 |         using :func:`os.access` because of the potential issues of\n  446 |         effective vs. real privileges).\n  447 | \n  448 |         If the caller is not using the :class:`AtomicSaver` as a\n  449 |         context manager, this method should be called explicitly\n  450 |         before writing.\n  451 |         \"\"\"\n  452 |         if os.path.lexists(self.dest_path):\n  453 |             if not self.overwrite:\n  454 |                 raise OSError(errno.EEXIST,\n  455 |                               'Overwrite disabled and file already exists',\n  456 |                               self.dest_path)\n  457 |         if self.overwrite_part and os.path.lexists(self.part_path):\n  458 |             os.unlink(self.part_path)\n  459 |         self._open_part_file()\n  460 |         return\n  461 | \n  462 |     def __enter__(self):\n  463 |         self.setup()\n  464 |         return self.part_file\n  465 | \n  466 |     def __exit__(self, exc_type, exc_val, exc_tb):\n  467 |         if self.part_file:\n  468 |             # Ensure data is flushed and synced to disk before closing\n  469 |             self.part_file.flush()\n  470 |             os.fsync(self.part_file.fileno())\n  471 |             self.part_file.close()\n  472 |         if exc_type:\n  473 |             if self.rm_part_on_exc:\n  474 |                 try:\n  475 |                     os.unlink(self.part_path)\n  476 |                 except Exception:\n  477 |                     pass  # avoid masking original error\n  478 |             return\n  479 |         try:\n  480 |             atomic_rename(self.part_path, self.dest_path,\n  481 |                           overwrite=self.overwrite)\n  482 |         except OSError:\n  483 |             if self.rm_part_on_exc:\n  484 |                 try:\n  485 |                     os.unlink(self.part_path)\n  486 |                 except Exception:\n  487 |                     pass  # avoid masking original error\n  488 |             raise  # could not save destination file\n  489 |         return\n  490 | \n  491 | \n  492 | def iter_find_files(directory, patterns, ignored=None, include_dirs=False, max_depth=None):\n  493 |     \"\"\"Returns a generator that yields file paths under a *directory*,\n  494 |     matching *patterns* using `glob`_ syntax (e.g., ``*.txt``). Also\n  495 |     supports *ignored* patterns.\n  496 | \n  497 |     Args:\n  498 |         directory (str): Path that serves as the root of the\n  499 |             search. Yielded paths will include this as a prefix.\n  500 |         patterns (str or list): A single pattern or list of\n  501 |             glob-formatted patterns to find under *directory*.\n  502 |         ignored (str or list): A single pattern or list of\n  503 |             glob-formatted patterns to ignore.\n  504 |         include_dirs (bool): Whether to include directories that match\n  505 |            patterns, as well. Defaults to ``False``.\n  506 |         max_depth (int): traverse up to this level of subdirectory.\n  507 |            I.e., 0 for the specified *directory* only, 1 for *directory* \n  508 |            and one level of subdirectory.\n  509 | \n  510 |     For example, finding Python files in the current directory:\n  511 | \n  512 |     >>> _CUR_DIR = os.path.dirname(os.path.abspath(__file__))\n  513 |     >>> filenames = sorted(iter_find_files(_CUR_DIR, '*.py'))\n  514 |     >>> os.path.basename(filenames[-1])\n  515 |     'urlutils.py'\n  516 | \n  517 |     Or, Python files while ignoring emacs lockfiles:\n  518 | \n  519 |     >>> filenames = iter_find_files(_CUR_DIR, '*.py', ignored='.#*')\n  520 | \n  521 |     .. _glob: https://en.wikipedia.org/wiki/Glob_%28programming%29\n  522 | \n  523 |     \"\"\"\n  524 |     if isinstance(patterns, str):\n  525 |         patterns = [patterns]\n  526 |     pats_re = re.compile('|'.join([fnmatch.translate(p) for p in patterns]))\n  527 | \n  528 |     if not ignored:\n  529 |         ignored = []\n  530 |     elif isinstance(ignored, str):\n  531 |         ignored = [ignored]\n  532 |     ign_re = re.compile('|'.join([fnmatch.translate(p) for p in ignored]))\n  533 |     directory = os.fspath(directory)\n  534 |     start_depth = len(directory.split(os.path.sep))\n  535 |     for root, dirs, files in os.walk(directory):\n  536 |         if max_depth is not None and (len(root.split(os.path.sep)) - start_depth) > max_depth:\n  537 |             continue\n  538 |         if include_dirs:\n  539 |             for basename in dirs:\n  540 |                 if pats_re.match(basename):\n  541 |                     if ignored and ign_re.match(basename):\n  542 |                         continue\n  543 |                     filename = os.path.join(root, basename)\n  544 |                     yield filename\n  545 | \n  546 |         for basename in files:\n  547 |             if pats_re.match(basename):\n  548 |                 if ignored and ign_re.match(basename):\n  549 |                     continue\n  550 |                 filename = os.path.join(root, basename)\n  551 |                 yield filename\n  552 |     return\n  553 | \n  554 | \n  555 | def copy_tree(src, dst, symlinks=False, ignore=None):\n  556 |     \"\"\"The ``copy_tree`` function is an exact copy of the built-in\n  557 |     :func:`shutil.copytree`, with one key difference: it will not\n  558 |     raise an exception if part of the tree already exists. It achieves\n  559 |     this by using :func:`mkdir_p`.\n  560 | \n  561 |     As of Python 3.8, you may pass :func:`shutil.copytree` the\n  562 |     `dirs_exist_ok=True` flag to achieve the same effect.\n  563 | \n  564 |     Args:\n  565 |         src (str): Path of the source directory to copy.\n  566 |         dst (str): Destination path. Existing directories accepted.\n  567 |         symlinks (bool): If ``True``, copy symlinks rather than their\n  568 |             contents.\n  569 |         ignore (callable): A callable that takes a path and directory\n  570 |             listing, returning the files within the listing to be ignored.\n  571 | \n  572 |     For more details, check out :func:`shutil.copytree` and\n  573 |     :func:`shutil.copy2`.\n  574 | \n  575 |     \"\"\"\n  576 |     names = os.listdir(src)\n  577 |     if ignore is not None:\n  578 |         ignored_names = ignore(src, names)\n  579 |     else:\n  580 |         ignored_names = set()\n  581 | \n  582 |     mkdir_p(dst)\n  583 |     errors = []\n  584 |     for name in names:\n  585 |         if name in ignored_names:\n  586 |             continue\n  587 |         srcname = os.path.join(src, name)\n  588 |         dstname = os.path.join(dst, name)\n  589 |         try:\n  590 |             if symlinks and os.path.islink(srcname):\n  591 |                 linkto = os.readlink(srcname)\n  592 |                 os.symlink(linkto, dstname)\n  593 |             elif os.path.isdir(srcname):\n  594 |                 copytree(srcname, dstname, symlinks, ignore)\n  595 |             else:\n  596 |                 # Will raise a SpecialFileError for unsupported file types\n  597 |                 copy2(srcname, dstname)\n  598 |         # catch the Error from the recursive copytree so that we can\n  599 |         # continue with other files\n  600 |         except Error as e:\n  601 |             errors.extend(e.args[0])\n  602 |         except OSError as why:\n  603 |             errors.append((srcname, dstname, str(why)))\n  604 |     try:\n  605 |         copystat(src, dst)\n  606 |     except OSError as why:\n  607 |         errors.append((src, dst, str(why)))\n  608 |     if errors:\n  609 |         raise Error(errors)\n  610 | \n  611 | \n  612 | copytree = copy_tree  # alias for drop-in replacement of shutil\n  613 | \n  614 | \n  615 | # like open(os.devnull) but with even fewer side effects\n  616 | class DummyFile:\n  617 |     # TODO: raise ValueErrors on closed for all methods?\n  618 |     # TODO: enforce read/write\n  619 |     def __init__(self, path, mode='r', buffering=None):\n  620 |         self.name = path\n  621 |         self.mode = mode\n  622 |         self.closed = False\n  623 |         self.errors = None\n  624 |         self.isatty = False\n  625 |         self.encoding = None\n  626 |         self.newlines = None\n  627 |         self.softspace = 0\n  628 | \n  629 |     def close(self):\n  630 |         self.closed = True\n  631 | \n  632 |     def fileno(self):\n  633 |         return -1\n  634 | \n  635 |     def flush(self):\n  636 |         if self.closed:\n  637 |             raise ValueError('I/O operation on a closed file')\n  638 |         return\n  639 | \n  640 |     def next(self):\n  641 |         raise StopIteration()\n  642 | \n  643 |     def read(self, size=0):\n  644 |         if self.closed:\n  645 |             raise ValueError('I/O operation on a closed file')\n  646 |         return ''\n  647 | \n  648 |     def readline(self, size=0):\n  649 |         if self.closed:\n  650 |             raise ValueError('I/O operation on a closed file')\n  651 |         return ''\n  652 | \n  653 |     def readlines(self, size=0):\n  654 |         if self.closed:\n  655 |             raise ValueError('I/O operation on a closed file')\n  656 |         return []\n  657 | \n  658 |     def seek(self):\n  659 |         if self.closed:\n  660 |             raise ValueError('I/O operation on a closed file')\n  661 |         return\n  662 | \n  663 |     def tell(self):\n  664 |         if self.closed:\n  665 |             raise ValueError('I/O operation on a closed file')\n  666 |         return 0\n  667 | \n  668 |     def truncate(self):\n  669 |         if self.closed:\n  670 |             raise ValueError('I/O operation on a closed file')\n  671 |         return\n  672 | \n  673 |     def write(self, string):\n  674 |         if self.closed:\n  675 |             raise ValueError('I/O operation on a closed file')\n  676 |         return\n  677 | \n  678 |     def writelines(self, list_of_strings):\n  679 |         if self.closed:\n  680 |             raise ValueError('I/O operation on a closed file')\n  681 |         return\n  682 | \n  683 |     def __next__(self):\n  684 |         raise StopIteration()\n  685 | \n  686 |     def __enter__(self):\n  687 |         if self.closed:\n  688 |             raise ValueError('I/O operation on a closed file')\n  689 |         return\n  690 | \n  691 |     def __exit__(self, exc_type, exc_val, exc_tb):\n  692 |         return\n  693 | \n  694 | \n  695 | def rotate_file(filename, *, keep: int = 5):\n  696 |     \"\"\"\n  697 |     If *filename.ext* exists, it will be moved to *filename.1.ext*, \n  698 |     with all conflicting filenames being moved up by one, dropping any files beyond *keep*.\n  699 | \n  700 |     After rotation, *filename* will be available for creation as a new file.\n  701 | \n  702 |     Fails if *filename* is not a file or if *keep* is not > 0.\n  703 |     \"\"\"\n  704 |     if keep < 1:\n  705 |         raise ValueError(f'expected \"keep\" to be >=1, not {keep}')\n  706 |     if not os.path.exists(filename):\n  707 |         return\n  708 |     if not os.path.isfile(filename):\n  709 |         raise ValueError(f'expected {filename} to be a file')\n  710 | \n  711 |     fn_root, fn_ext = os.path.splitext(filename)\n  712 |     kept_names = []\n  713 |     for i in range(1, keep + 1):\n  714 |         if fn_ext:\n  715 |             kept_names.append(f'{fn_root}.{i}{fn_ext}')\n  716 |         else:\n  717 |             kept_names.append(f'{fn_root}.{i}')\n  718 | \n  719 |     fns = [filename] + kept_names\n  720 |     for orig_name, kept_name in reversed(list(zip(fns, fns[1:]))):\n  721 |         if not os.path.exists(orig_name):\n  722 |             continue\n  723 |         os.rename(orig_name, kept_name)\n  724 | \n  725 |     if os.path.exists(kept_names[-1]):\n  726 |         os.remove(kept_names[-1])\n  727 | \n  728 |     return\n```\n\n\n\nPublic API to cover: `mkdir_p`, `FilePerms`, `atomic_save`, `path_to_unicode`, `AtomicSaver`, `iter_find_files`, `copy_tree`, `DummyFile`, `rotate_file`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from boltons.fileutils import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T04:18:03+00:00",
+    "duration": 10.62,
+    "summary": "第 1 轮：生成 500 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_fileutils.py",
+          "content": "<13695 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 12761,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `boltons.fileutils`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport errno\nimport os\nimport stat\n\nimport pytest\n\nfrom boltons.fileutils import (\n    mkdir_p,\n    FilePerms,\n    atomic_save,\n    path_to_unicode,\n    AtomicSaver,\n    iter_find_files,\n    copy_tree,\n    copytree,\n    DummyFile,\n    rotate_file,\n)\n\n\n# ---------------------------------------------------------------- mkdir_p\n\ndef test_mkdir_p_creates_nested(tmp_path):\n    target = tmp_path / \"a\" / \"b\" / \"c\"\n    mkdir_p(str(target))\n    assert target.is_dir()\n\n\ndef test_mkdir_p_existing_dir_no_error(tmp_path):\n    target = tmp_path / \"existing\"\n    target.mkdir()\n    # Should not raise\n    mkdir_p(str(target))\n    assert target.is_dir()\n\n\ndef test_mkdir_p_reraises_when_path_is_file(tmp_path):\n    target = tmp_path / \"afile\"\n    target.write_text(\"x\")\n    with pytest.raises(OSError) as excinfo:\n        mkdir_p(str(target))\n    assert excinfo.value.errno == errno.EEXIST\n\n\n# ---------------------------------------------------------------- FilePerms\n\ndef test_fileperms_basic_construction():\n    fp = FilePerms(user=\"rwx\", group=\"xrw\", other=\"wxr\")\n    assert fp.user == \"rwx\"\n    assert fp.group == \"rwx\"\n    assert fp.other == \"rwx\"\n\n\ndef test_fileperms_int_value():\n    fp = FilePerms(\"r\", \"r\", \"\")\n    assert int(fp) == 288\n    assert oct(288)[-3:] == \"440\"\n\n\ndef test_fileperms_from_int():\n    fp = FilePerms.from_int(0o644)\n    assert fp.user == \"rw\"\n    assert fp.group == \"r\"\n    assert fp.other == \"r\"\n    assert int(fp) == 0o644\n\n\ndef test_fileperms_from_int_zero():\n    fp = FilePerms.from_int(0)\n    assert fp.user == \"\"\n    assert fp.group == \"\"\n    assert fp.other == \"\"\n    assert int(fp) == 0\n\n\ndef test_fileperms_from_int_masks_full_perms():\n    fp = FilePerms.from_int(0o7777)\n    assert int(fp) == 0o777\n\n\ndef test_fileperms_repr():\n    fp = FilePerms.from_int(0o644)\n    assert repr(fp) == \"FilePerms(user='rw', group='r', other='r')\"\n\n\ndef test_fileperms_invalid_chars():\n    with pytest.raises(ValueError):\n        FilePerms(user=\"abc\")\n\n\ndef test_fileperms_invalid_type():\n    with pytest.raises(TypeError):\n        FilePerms(user=123)\n\n\ndef test_fileperms_setter_updates_to_sorted():\n    fp = FilePerms()\n    fp.user = \"xrw\"\n    assert fp.user == \"rwx\"\n    assert int(fp) == 0o700\n\n\ndef test_fileperms_setter_same_value_noop():\n    fp = FilePerms(user=\"rwx\")\n    before = int(fp)\n    fp.user = \"rwx\"\n    assert int(fp) == before\n\n\ndef test_fileperms_setter_clearing():\n    fp = FilePerms(user=\"rwx\")\n    fp.user = \"\"\n    assert fp.user == \"\"\n    assert int(fp) == 0\n\n\ndef test_fileperms_from_path(tmp_path):\n    target = tmp_path / \"permfile\"\n    target.write_text(\"hi\")\n    os.chmod(str(target), 0o640)\n    fp = FilePerms.from_path(str(target))\n    assert fp.user == \"rw\"\n    assert fp.group == \"r\"\n    assert fp.other == \"\"\n    assert int(fp) == stat.S_IMODE(os.stat(str(target)).st_mode)\n\n\n# ---------------------------------------------------------------- path_to_unicode\n\ndef test_path_to_unicode_str():\n    assert path_to_unicode(\"hello\") == \"hello\"\n\n\ndef test_path_to_unicode_bytes():\n    result = path_to_unicode(b\"hello\")\n    assert result == \"hello\"\n\n\n# ---------------------------------------------------------------- AtomicSaver / atomic_save\n\ndef test_atomic_save_writes_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"content\")\n    assert dest.read_text() == \"content\"\n    assert not os.path.exists(str(dest) + \".part\")\n\n\ndef test_atomic_save_exception_leaves_no_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with pytest.raises(ZeroDivisionError):\n        with atomic_save(str(dest), text_mode=True) as fo:\n            fo.write(\"bye\")\n            1 / 0\n    assert not dest.exists()\n    assert not os.path.exists(str(dest) + \".part\")\n\n\ndef test_atomic_saver_binary_mode(tmp_path):\n    dest = tmp_path / \"out.bin\"\n    saver = AtomicSaver(str(dest))\n    with saver as fo:\n        fo.write(b\"binary\")\n    assert dest.read_bytes() == b\"binary\"\n\n\ndef test_atomic_saver_overwrite_copies_perms(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    os.chmod(str(dest), 0o600)\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n    assert stat.S_IMODE(os.stat(str(dest)).st_mode) == 0o600\n\n\ndef test_atomic_saver_explicit_file_perms(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True, file_perms=0o644) as fo:\n        fo.write(\"x\")\n    assert stat.S_IMODE(os.stat(str(dest)).st_mode) == 0o644\n\n\ndef test_atomic_saver_overwrite_disabled(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    with pytest.raises(OSError) as excinfo:\n        with atomic_save(str(dest), text_mode=True, overwrite=False):\n            pass\n    assert excinfo.value.errno == errno.EEXIST\n    assert dest.read_text() == \"old\"\n\n\ndef test_atomic_saver_overwrite_true(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n\n\ndef test_atomic_saver_preexisting_part_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    open(part, \"wb\").close()\n    with pytest.raises(OSError) as excinfo:\n        with atomic_save(str(dest), text_mode=True):\n            pass\n    assert excinfo.value.errno == errno.EEXIST\n\n\ndef test_atomic_saver_overwrite_part(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    open(part, \"wb\").close()\n    with atomic_save(str(dest), text_mode=True, overwrite_part=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n    assert not os.path.exists(part)\n\n\ndef test_atomic_saver_custom_part_filename(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True, part_file=\"my.part\") as fo:\n        fo.write(\"data\")\n    assert dest.read_text() == \"data\"\n    assert not (tmp_path / \"my.part\").exists()\n\n\ndef test_atomic_saver_rm_part_on_exc_false(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    with pytest.raises(ValueError):\n        with atomic_save(str(dest), text_mode=True, rm_part_on_exc=False) as fo:\n            fo.write(\"partial\")\n            raise ValueError(\"boom\")\n    assert os.path.exists(part)\n    assert not dest.exists()\n\n\ndef test_atomic_saver_unexpected_kwargs(tmp_path):\n    with pytest.raises(TypeError):\n        AtomicSaver(str(tmp_path / \"x\"), bogus_arg=1)\n\n\ndef test_atomic_saver_setup_manual(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    saver = AtomicSaver(str(dest), text_mode=True)\n    saver.setup()\n    try:\n        saver.part_file.write(\"manual\")\n    finally:\n        saver.part_file.flush()\n        saver.part_file.close()\n    # part file exists but dest not yet\n    assert os.path.exists(str(dest) + \".part\")\n    assert not dest.exists()\n\n\n# ---------------------------------------------------------------- iter_find_files\n\ndef _make_tree(tmp_path):\n    (tmp_path / \"a.txt\").write_text(\"a\")\n    (tmp_path / \"b.py\").write_text(\"b\")\n    sub = tmp_path / \"sub\"\n    sub.mkdir()\n    (sub / \"c.txt\").write_text(\"c\")\n    (sub / \"d.py\").write_text(\"d\")\n    return tmp_path\n\n\ndef test_iter_find_files_single_pattern(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\"))\n    expected = sorted([str(tmp_path / \"a.txt\"), str(tmp_path / \"sub\" / \"c.txt\")])\n    assert found == expected\n\n\ndef test_iter_find_files_list_patterns(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), [\"*.txt\", \"*.py\"]))\n    assert len(found) == 4\n\n\ndef test_iter_find_files_ignored(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", ignored=\"a.txt\"))\n    assert found == [str(tmp_path / \"sub\" / \"c.txt\")]\n\n\ndef test_iter_find_files_ignored_list(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", ignored=[\"a.txt\", \"c.txt\"]))\n    assert found == []\n\n\ndef test_iter_find_files_include_dirs(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"sub\", include_dirs=True))\n    assert found == [str(tmp_path / \"sub\")]\n\n\ndef test_iter_find_files_include_dirs_ignored(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"sub\", ignored=\"sub\", include_dirs=True))\n    assert found == []\n\n\ndef test_iter_find_files_max_depth_zero(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", max_depth=0))\n    assert found == [str(tmp_path / \"a.txt\")]\n\n\ndef test_iter_find_files_max_depth_one(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", max_depth=1))\n    assert found == sorted([str(tmp_path / \"a.txt\"), str(tmp_path / \"sub\" / \"c.txt\")])\n\n\ndef test_iter_find_files_no_match(tmp_path):\n    _make_tree(tmp_path)\n    found = list(iter_find_files(str(tmp_path), \"*.nonexistent\"))\n    assert found == []\n\n\n# ---------------------------------------------------------------- copy_tree\n\ndef test_copy_tree_basic(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"f1.txt\").write_text(\"one\")\n    (src / \"sub\").mkdir()\n    (src / \"sub\" / \"f2.txt\").write_text(\"two\")\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst))\n\n    assert (dst / \"f1.txt\").read_text() == \"one\"\n    assert (dst / \"sub\" / \"f2.txt\").read_text() == \"two\"\n\n\ndef test_copy_tree_existing_dir(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"f1.txt\").write_text(\"one\")\n    dst = tmp_path / \"dst\"\n    dst.mkdir()\n    (dst / \"existing.txt\").write_text(\"keep\")\n\n    copy_tree(str(src), str(dst))\n    assert (dst / \"f1.txt\").read_text() == \"one\"\n    assert (dst / \"existing.txt\").read_text() == \"keep\"\n\n\ndef test_copy_tree_ignore(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"keep.txt\").write_text(\"keep\")\n    (src / \"skip.txt\").write_text(\"skip\")\n\n    def ignore_func(path, names):\n        return [n for n in names if n == \"skip.txt\"]\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst), ignore=ignore_func)\n    assert (dst / \"keep.txt\").exists()\n    assert not (dst / \"skip.txt\").exists()\n\n\ndef test_copy_tree_symlinks(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"real.txt\").write_text(\"real\")\n    os.symlink(str(src / \"real.txt\"), str(src / \"link.txt\"))\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst), symlinks=True)\n    assert os.path.islink(str(dst / \"link.txt\"))\n\n\ndef test_copytree_alias():\n    assert copytree is copy_tree\n\n\n# ---------------------------------------------------------------- DummyFile\n\ndef test_dummyfile_basic():\n    df = DummyFile(\"/dev/null\")\n    assert df.name == \"/dev/null\"\n    assert df.mode == \"r\"\n    assert df.closed is False\n    assert df.fileno() == -1\n    assert df.read() == \"\"\n    assert df.readline() == \"\"\n    assert df.readlines() == []\n    assert df.tell() == 0\n\n\ndef test_dummyfile_write_returns_none():\n    df = DummyFile(\"x\")\n    assert df.write(\"hello\") is None\n    assert df.writelines([\"a\", \"b\"]) is None\n\n\ndef test_dummyfile_close():\n    df = DummyFile(\"x\")\n    df.close()\n    assert df.closed is True\n\n\ndef test_dummyfile_operations_after_close():\n    df = DummyFile(\"x\")\n    df.close()\n    for meth in [df.flush, df.read, df.readline, df.readlines,\n                 df.seek, df.tell, df.truncate]:\n        with pytest.raises(ValueError):\n            meth()\n    with pytest.raises(ValueError):\n        df.write(\"x\")\n    with pytest.raises(ValueError):\n        df.writelines([\"x\"])\n    with pytest.raises(ValueError):\n        df.__enter__()\n\n\ndef test_dummyfile_next():\n    df = DummyFile(\"x\")\n    with pytest.raises(StopIteration):\n        next(df)\n    with pytest.raises(StopIteration):\n        df.next()\n\n\ndef test_dummyfile_context_manager():\n    df = DummyFile(\"x\")\n    assert df.__enter__() is None\n    assert df.__exit__(None, None, None) is None\n\n\n# ---------------------------------------------------------------- rotate_file\n\ndef test_rotate_file_no_existing(tmp_path):\n    fname = str(tmp_path / \"log.txt\")\n    # no file, no-op\n    rotate_file(fname)\n    assert not os.path.exists(fname)\n\n\ndef test_rotate_file_keep_invalid(tmp_path):\n    fname = str(tmp_path / \"log.txt\")\n    with pytest.raises(ValueError):\n        rotate_file(fname, keep=0)\n\n\ndef test_rotate_file_dir_raises(tmp_path):\n    d = tmp_path / \"adir\"\n    d.mkdir()\n    with pytest.raises(ValueError):\n        rotate_file(str(d))\n\n\ndef test_rotate_file_basic_rotation(tmp_path):\n    fname = str(tmp_path / \"log.txt\")\n    with open(fname, \"w\") as f:\n        f.write(\"original\")\n\n    rotate_file(fname)\n\n    assert not os.path.exists(fname)\n    assert os.path.exists(str(tmp_path / \"log.1.txt\"))\n    with open(str(tmp_path / \"log.1.txt\")) as f:\n        assert f.read() == \"original\"\n\n\ndef test_rotate_file_multiple(tmp_path):\n    root = tmp_path / \"log\"\n    # create log, log.1, log.2 with distinct contents\n    (root).write_text(\"v0\")\n    (tmp_path / \"log.1\").write_text(\"v1\")\n    (tmp_path / \"log.2\").write_text(\"v2\")\n\n    rotate_file(str(root), keep=3)\n\n    assert not os.path.exists(str(root))\n    assert (tmp_path / \"log.1\").read_text() == \"v0\"\n    assert (tmp_path / \"log.2\").read_text() == \"v1\"\n    assert (tmp_path / \"log.3\").read_text() == \"v2\"\n\n\ndef test_rotate_file_drops_beyond_keep(tmp_path):\n    root = tmp_path / \"log.txt\"\n    (root).write_text(\"v0\")\n    (tmp_path / \"log.1.txt\").write_text(\"v1\")\n    (tmp_path / \"log.2.txt\").write_text(\"v2\")\n\n    rotate_file(str(root), keep=1)\n\n    assert (tmp_path / \"log.1.txt\").read_text() == \"v0\"\n    assert not (tmp_path / \"log.2.txt\").exists()\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 8912,
+      "cache_hit_tokens": 0,
+      "completion_tokens": 3849,
+      "reasoning_tokens": 0,
+      "latency": 10.61
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T04:18:04+00:00",
+    "duration": 1.58,
+    "summary": "通过 52，失败 4，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_fileutils.py"
+          ]
+        },
+        "duration": 1.58,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 12761
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T04:18:04+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 52]（提升）",
+    "tool_calls": [],
+    "tokens_total": 12761,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      52
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T04:18:04+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 12761
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T04:18:19+00:00",
+    "duration": 15.2,
+    "summary": "第 2 轮：生成 504 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_fileutils.py",
+          "content": "<14048 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 32004,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_fileutils.py`)\n```python\nimport errno\nimport os\nimport stat\n\nimport pytest\n\nfrom boltons.fileutils import (\n    mkdir_p,\n    FilePerms,\n    atomic_save,\n    path_to_unicode,\n    AtomicSaver,\n    iter_find_files,\n    copy_tree,\n    copytree,\n    DummyFile,\n    rotate_file,\n)\n\n\n# ---------------------------------------------------------------- mkdir_p\n\ndef test_mkdir_p_creates_nested(tmp_path):\n    target = tmp_path / \"a\" / \"b\" / \"c\"\n    mkdir_p(str(target))\n    assert target.is_dir()\n\n\ndef test_mkdir_p_existing_dir_no_error(tmp_path):\n    target = tmp_path / \"existing\"\n    target.mkdir()\n    # Should not raise\n    mkdir_p(str(target))\n    assert target.is_dir()\n\n\ndef test_mkdir_p_reraises_when_path_is_file(tmp_path):\n    target = tmp_path / \"afile\"\n    target.write_text(\"x\")\n    with pytest.raises(OSError) as excinfo:\n        mkdir_p(str(target))\n    assert excinfo.value.errno == errno.EEXIST\n\n\n# ---------------------------------------------------------------- FilePerms\n\ndef test_fileperms_basic_construction():\n    fp = FilePerms(user=\"rwx\", group=\"xrw\", other=\"wxr\")\n    assert fp.user == \"rwx\"\n    assert fp.group == \"rwx\"\n    assert fp.other == \"rwx\"\n\n\ndef test_fileperms_int_value():\n    fp = FilePerms(\"r\", \"r\", \"\")\n    assert int(fp) == 288\n    assert oct(288)[-3:] == \"440\"\n\n\ndef test_fileperms_from_int():\n    fp = FilePerms.from_int(0o644)\n    assert fp.user == \"rw\"\n    assert fp.group == \"r\"\n    assert fp.other == \"r\"\n    assert int(fp) == 0o644\n\n\ndef test_fileperms_from_int_zero():\n    fp = FilePerms.from_int(0)\n    assert fp.user == \"\"\n    assert fp.group == \"\"\n    assert fp.other == \"\"\n    assert int(fp) == 0\n\n\ndef test_fileperms_from_int_masks_full_perms():\n    fp = FilePerms.from_int(0o7777)\n    assert int(fp) == 0o777\n\n\ndef test_fileperms_repr():\n    fp = FilePerms.from_int(0o644)\n    assert repr(fp) == \"FilePerms(user='rw', group='r', other='r')\"\n\n\ndef test_fileperms_invalid_chars():\n    with pytest.raises(ValueError):\n        FilePerms(user=\"abc\")\n\n\ndef test_fileperms_invalid_type():\n    with pytest.raises(TypeError):\n        FilePerms(user=123)\n\n\ndef test_fileperms_setter_updates_to_sorted():\n    fp = FilePerms()\n    fp.user = \"xrw\"\n    assert fp.user == \"rwx\"\n    assert int(fp) == 0o700\n\n\ndef test_fileperms_setter_same_value_noop():\n    fp = FilePerms(user=\"rwx\")\n    before = int(fp)\n    fp.user = \"rwx\"\n    assert int(fp) == before\n\n\ndef test_fileperms_setter_clearing():\n    fp = FilePerms(user=\"rwx\")\n    fp.user = \"\"\n    assert fp.user == \"\"\n    assert int(fp) == 0\n\n\ndef test_fileperms_from_path(tmp_path):\n    target = tmp_path / \"permfile\"\n    target.write_text(\"hi\")\n    os.chmod(str(target), 0o640)\n    fp = FilePerms.from_path(str(target))\n    assert fp.user == \"rw\"\n    assert fp.group == \"r\"\n    assert fp.other == \"\"\n    assert int(fp) == stat.S_IMODE(os.stat(str(target)).st_mode)\n\n\n# ---------------------------------------------------------------- path_to_unicode\n\ndef test_path_to_unicode_str():\n    assert path_to_unicode(\"hello\") == \"hello\"\n\n\ndef test_path_to_unicode_bytes():\n    result = path_to_unicode(b\"hello\")\n    assert result == \"hello\"\n\n\n# ---------------------------------------------------------------- AtomicSaver / atomic_save\n\ndef test_atomic_save_writes_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"content\")\n    assert dest.read_text() == \"content\"\n    assert not os.path.exists(str(dest) + \".part\")\n\n\ndef test_atomic_save_exception_leaves_no_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with pytest.raises(ZeroDivisionError):\n        with atomic_save(str(dest), text_mode=True) as fo:\n            fo.write(\"bye\")\n            1 / 0\n    assert not dest.exists()\n    assert not os.path.exists(str(dest) + \".part\")\n\n\ndef test_atomic_saver_binary_mode(tmp_path):\n    dest = tmp_path / \"out.bin\"\n    saver = AtomicSaver(str(dest))\n    with saver as fo:\n        fo.write(b\"binary\")\n    assert dest.read_bytes() == b\"binary\"\n\n\ndef test_atomic_saver_overwrite_copies_perms(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    os.chmod(str(dest), 0o600)\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n    assert stat.S_IMODE(os.stat(str(dest)).st_mode) == 0o600\n\n\ndef test_atomic_saver_explicit_file_perms(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True, file_perms=0o644) as fo:\n        fo.write(\"x\")\n    assert stat.S_IMODE(os.stat(str(dest)).st_mode) == 0o644\n\n\ndef test_atomic_saver_overwrite_disabled(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    with pytest.raises(OSError) as excinfo:\n        with atomic_save(str(dest), text_mode=True, overwrite=False):\n            pass\n    assert excinfo.value.errno == errno.EEXIST\n    assert dest.read_text() == \"old\"\n\n\ndef test_atomic_saver_overwrite_true(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n\n\ndef test_atomic_saver_preexisting_part_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    open(part, \"wb\").close()\n    with pytest.raises(OSError) as excinfo:\n        with atomic_save(str(dest), text_mode=True):\n            pass\n    assert excinfo.value.errno == errno.EEXIST\n\n\ndef test_atomic_saver_overwrite_part(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    open(part, \"wb\").close()\n    with atomic_save(str(dest), text_mode=True, overwrite_part=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n    assert not os.path.exists(part)\n\n\ndef test_atomic_saver_custom_part_filename(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True, part_file=\"my.part\") as fo:\n        fo.write(\"data\")\n    assert dest.read_text() == \"data\"\n    assert not (tmp_path / \"my.part\").exists()\n\n\ndef test_atomic_saver_rm_part_on_exc_false(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    with pytest.raises(ValueError):\n        with atomic_save(str(dest), text_mode=True, rm_part_on_exc=False) as fo:\n            fo.write(\"partial\")\n            raise ValueError(\"boom\")\n    assert os.path.exists(part)\n    assert not dest.exists()\n\n\ndef test_atomic_saver_unexpected_kwargs(tmp_path):\n    with pytest.raises(TypeError):\n        AtomicSaver(str(tmp_path / \"x\"), bogus_arg=1)\n\n\ndef test_atomic_saver_setup_manual(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    saver = AtomicSaver(str(dest), text_mode=True)\n    saver.setup()\n    try:\n        saver.part_file.write(\"manual\")\n    finally:\n        saver.part_file.flush()\n        saver.part_file.close()\n    # part file exists but dest not yet\n    assert os.path.exists(str(dest) + \".part\")\n    assert not dest.exists()\n\n\n# ---------------------------------------------------------------- iter_find_files\n\ndef _make_tree(tmp_path):\n    (tmp_path / \"a.txt\").write_text(\"a\")\n    (tmp_path / \"b.py\").write_text(\"b\")\n    sub = tmp_path / \"sub\"\n    sub.mkdir()\n    (sub / \"c.txt\").write_text(\"c\")\n    (sub / \"d.py\").write_text(\"d\")\n    return tmp_path\n\n\ndef test_iter_find_files_single_pattern(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\"))\n    expected = sorted([str(tmp_path / \"a.txt\"), str(tmp_path / \"sub\" / \"c.txt\")])\n    assert found == expected\n\n\ndef test_iter_find_files_list_patterns(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), [\"*.txt\", \"*.py\"]))\n    assert len(found) == 4\n\n\ndef test_iter_find_files_ignored(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", ignored=\"a.txt\"))\n    assert found == [str(tmp_path / \"sub\" / \"c.txt\")]\n\n\ndef test_iter_find_files_ignored_list(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", ignored=[\"a.txt\", \"c.txt\"]))\n    assert found == []\n\n\ndef test_iter_find_files_include_dirs(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"sub\", include_dirs=True))\n    assert found == [str(tmp_path / \"sub\")]\n\n\ndef test_iter_find_files_include_dirs_ignored(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"sub\", ignored=\"sub\", include_dirs=True))\n    assert found == []\n\n\ndef test_iter_find_files_max_depth_zero(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", max_depth=0))\n    assert found == [str(tmp_path / \"a.txt\")]\n\n\ndef test_iter_find_files_max_depth_one(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", max_depth=1))\n    assert found == sorted([str(tmp_path / \"a.txt\"), str(tmp_path / \"sub\" / \"c.txt\")])\n\n\ndef test_iter_find_files_no_match(tmp_path):\n    _make_tree(tmp_path)\n    found = list(iter_find_files(str(tmp_path), \"*.nonexistent\"))\n    assert found == []\n\n\n# ---------------------------------------------------------------- copy_tree\n\ndef test_copy_tree_basic(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"f1.txt\").write_text(\"one\")\n    (src / \"sub\").mkdir()\n    (src / \"sub\" / \"f2.txt\").write_text(\"two\")\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst))\n\n    assert (dst / \"f1.txt\").read_text() == \"one\"\n    assert (dst / \"sub\" / \"f2.txt\").read_text() == \"two\"\n\n\ndef test_copy_tree_existing_dir(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"f1.txt\").write_text(\"one\")\n    dst = tmp_path / \"dst\"\n    dst.mkdir()\n    (dst / \"existing.txt\").write_text(\"keep\")\n\n    copy_tree(str(src), str(dst))\n    assert (dst / \"f1.txt\").read_text() == \"one\"\n    assert (dst / \"existing.txt\").read_text() == \"keep\"\n\n\ndef test_copy_tree_ignore(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"keep.txt\").write_text(\"keep\")\n    (src / \"skip.txt\").write_text(\"skip\")\n\n    def ignore_func(path, names):\n        return [n for n in names if n == \"skip.txt\"]\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst), ignore=ignore_func)\n    assert (dst / \"keep.txt\").exists()\n    assert not (dst / \"skip.txt\").exists()\n\n\ndef test_copy_tree_symlinks(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"real.txt\").write_text(\"real\")\n    os.symlink(str(src / \"real.txt\"), str(src / \"link.txt\"))\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst), symlinks=True)\n    assert os.path.islink(str(dst / \"link.txt\"))\n\n\ndef test_copytree_alias():\n    assert copytree is copy_tree\n\n\n# ---------------------------------------------------------------- DummyFile\n\ndef test_dummyfile_basic():\n    df = DummyFile(\"/dev/null\")\n    assert df.name == \"/dev/null\"\n    assert df.mode == \"r\"\n    assert df.closed is False\n    assert df.fileno() == -1\n    assert df.read() == \"\"\n    assert df.readline() == \"\"\n    assert df.readlines() == []\n    assert df.tell() == 0\n\n\ndef test_dummyfile_write_returns_none():\n    df = DummyFile(\"x\")\n    assert df.write(\"hello\") is None\n    assert df.writelines([\"a\", \"b\"]) is None\n\n\ndef test_dummyfile_close():\n    df = DummyFile(\"x\")\n    df.close()\n    assert df.closed is True\n\n\ndef test_dummyfile_operations_after_close():\n    df = DummyFile(\"x\")\n    df.close()\n    for meth in [df.flush, df.read, df.readline, df.readlines,\n                 df.seek, df.tell, df.truncate]:\n        with pytest.raises(ValueError):\n            meth()\n    with pytest.raises(ValueError):\n        df.write(\"x\")\n    with pytest.raises(ValueError):\n        df.writelines([\"x\"])\n    with pytest.raises(ValueError):\n        df.__enter__()\n\n\ndef test_dummyfile_next():\n    df = DummyFile(\"x\")\n    with pytest.raises(StopIteration):\n        next(df)\n    with pytest.raises(StopIteration):\n        df.next()\n\n\ndef test_dummyfile_context_manager():\n    df = DummyFile(\"x\")\n    assert df.__enter__() is None\n    assert df.__exit__(None, None, None) is None\n\n\n# ---------------------------------------------------------------- rotate_file\n\ndef test_rotate_file_no_existing(tmp_path):\n    fname = str(tmp_path / \"log.txt\")\n    # no file, no-op\n    rotate_file(fname)\n    assert not os.path.exists(fname)\n\n\ndef test_rotate_file_keep_invalid(tmp_path):\n    fname = str(tmp_path / \"log.txt\")\n    with pytest.raises(ValueError):\n        rotate_file(fname, keep=0)\n\n\ndef test_rotate_file_dir_raises(tmp_path):\n    d = tmp_path / \"adir\"\n    d.mkdir()\n    with pytest.raises(ValueError):\n        rotate_file(str(d))\n\n\ndef test_rotate_file_basic_rotation(tmp_path):\n    fname = str(tmp_path / \"log.txt\")\n    with open(fname, \"w\") as f:\n        f.write(\"original\")\n\n    rotate_file(fname)\n\n    assert not os.path.exists(fname)\n    assert os.path.exists(str(tmp_path / \"log.1.txt\"))\n    with open(str(tmp_path / \"log.1.txt\")) as f:\n        assert f.read() == \"original\"\n\n\ndef test_rotate_file_multiple(tmp_path):\n    root = tmp_path / \"log\"\n    # create log, log.1, log.2 with distinct contents\n    (root).write_text(\"v0\")\n    (tmp_path / \"log.1\").write_text(\"v1\")\n    (tmp_path / \"log.2\").write_text(\"v2\")\n\n    rotate_file(str(root), keep=3)\n\n    assert not os.path.exists(str(root))\n    assert (tmp_path / \"log.1\").read_text() == \"v0\"\n    assert (tmp_path / \"log.2\").read_text() == \"v1\"\n    assert (tmp_path / \"log.3\").read_text() == \"v2\"\n\n\ndef test_rotate_file_drops_beyond_keep(tmp_path):\n    root = tmp_path / \"log.txt\"\n    (root).write_text(\"v0\")\n    (tmp_path / \"log.1.txt\").write_text(\"v1\")\n    (tmp_path / \"log.2.txt\").write_text(\"v2\")\n\n    rotate_file(str(root), keep=1)\n\n    assert (tmp_path / \"log.1.txt\").read_text() == \"v0\"\n    assert not (tmp_path / \"log.2.txt\").exists()\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 52 passed, 4 failed, 0 errors.\n- `tests_testpilot.test_fileutils::test_fileperms_invalid_type` failed:\n```\nValueError: got invalid chars {'1', '3', '2'} in permission specification 123, expected empty string or one or more of 'rwx'\ndef test_fileperms_invalid_type():\n        with pytest.raises(TypeError):\n>           FilePerms(user=123)\n\ntests_testpilot/test_fileutils.py:93: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nboltons/fileutils.py:158: in __init__\n    self.user = user\n    ^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <boltons.fileutils.FilePerms._FilePermProperty object at 0x7bbe218764d0>\nfp_obj = FilePerms(user='', group='', other=''), value = 123\n\n    def __set__(self, fp_obj, value):\n        cur = getattr(fp_obj, self.attribute)\n        if cur == value:\n            return\n        try:\n          \n```\n- `tests_testpilot.test_fileutils::test_fileperms_setter_clearing` failed:\n```\nAssertionError: assert 448 == 0\n +  where 448 = int(FilePerms(user='', group='', other=''))\ndef test_fileperms_setter_clearing():\n        fp = FilePerms(user=\"rwx\")\n        fp.user = \"\"\n        assert fp.user == \"\"\n>       assert int(fp) == 0\nE       AssertionError: assert 448 == 0\nE        +  where 448 = int(FilePerms(user='', group='', other=''))\n\ntests_testpilot/test_fileutils.py:114: AssertionError\n```\n- `tests_testpilot.test_fileutils::test_rotate_file_multiple` failed:\n```\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-45/test_rotate_file_multiple0/log.3'\ntmp_path = PosixPath('/tmp/pytest-of-root/pytest-45/test_rotate_file_multiple0')\n\n    def test_rotate_file_multiple(tmp_path):\n        root = tmp_path / \"log\"\n        # create log, log.1, log.2 with distinct contents\n        (root).write_text(\"v0\")\n        (tmp_path / \"log.1\").write_text(\"v1\")\n        (tmp_path / \"log.2\").write_text(\"v2\")\n    \n        rotate_file(str(root), keep=3)\n    \n        assert not os.path.exists(str(root))\n        assert (tmp_path / \"log.1\").read_text() == \"v0\"\n        assert (tmp_path / \"log.2\").read_text() == \"v1\"\n>       assert (tmp_path / \"log.3\").read_text() == \"v2\"\n               ^^^^^^^^^^^\n... [省略 479 个字符] ...\nmultiple0/log.3')\nmode = 'r'\n```\n- `tests_testpilot.test_fileutils::test_rotate_file_drops_beyond_keep` failed:\n```\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-45/test_rotate_file_drops_beyond_0/log.1.txt'\ntmp_path = PosixPath('/tmp/pytest-of-root/pytest-45/test_rotate_file_drops_beyond_0')\n\n    def test_rotate_file_drops_beyond_keep(tmp_path):\n        root = tmp_path / \"log.txt\"\n        (root).write_text(\"v0\")\n        (tmp_path / \"log.1.txt\").write_text(\"v1\")\n        (tmp_path / \"log.2.txt\").write_text(\"v2\")\n    \n        rotate_file(str(root), keep=1)\n    \n>       assert (tmp_path / \"log.1.txt\").read_text() == \"v0\"\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests_testpilot/test_fileutils.py:499: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/usr/local/lib/python3.11/pa\n... [省略 325 个字符] ...\n.1.txt')\nmode = 'r', bufferi\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "Looking at the failures, I need to understand the actual behavior of `rotate_file` and `FilePerms`:\n\n1. **`test_fileperms_invalid_type`**: `FilePerms(user=123)` — the code does `set(str(value))` which converts `123` to `\"123\"`, producing a `ValueError`, not a `TypeError`.\n\n2. **`test_fileperms_setter_clearing`**: Setting `fp.user = \"\"` updates the integer via `|= mode` where mode=0, so `_integer` retains its old value (448 remains). The `__set__` only ORs bits; it never clears them. So `int(fp)` stays at 448.\n\n3. **`test_rotate_file_multiple`**: Let me trace the algorithm carefully.\n\nThe rotation code:\n```python\nfns = [filename] + kept_names\nfor orig_name, kept_name in reversed(list(zip(fns, fns[1:]))):\n    if not os.path.exists(orig_name):\n        continue\n    os.rename(orig_name, kept_name)\n```\n\nFor `log` with `keep=3`: `kept_names = ['log.1', 'log.2', 'log.3']`, `fns = ['log', 'log.1', 'log.2', 'log.3']`. `zip` pairs: `(log,log.1),(log.1,log.2),(log.2,log.3)`. Reversed: `(log.2,log.3),(log.1,log.2),(log,log.1)`.\n- `log.2` exists (v2) → rename to `log.3`: v2 at log.3... but wait, then `log` gets moved to `log.1`.\n\nWait, the test expected `log.3 == \"v2\"`. Let me re-check. Actually the error was that `log.3` doesn't exist. Hmm. Let me trace again.\n\nAfter reversing:\n- `(log.2, log.3)`: log.2 exists → rename to log.3. Now log.3=v2, log.2 gone.\n- `(log.1, log.2)`: log.1 exists → rename to log.2. Now log.2=v1, log.1 gone.\n- `(log, log.1)`: log exists → rename to log.1. Now log.1=v0.\n\nSo we should have log.1=v0, log.2=v1, log.3=v2. But the error says log.3 doesn't exist!\n\nThen the final step: `if os.path.exists(kept_names[-1]): os.remove(kept_names[-1])`. `kept_names[-1]` is `log.3`! So it deletes log.3 (v2). That's the bug in my understanding of the code — the code REMOVES the last kept name after rotation.\n\nSo actually after `keep=3`, `log.3` is removed. Result: log.1=v0, log.2=v1, no log.3.\n\nHmm wait, but that's a genuine bug in the code — but the task says assert what the code actually does. Let me re-trace:\n\nYes: `kept_names = ['log.1','log.2','log.3']`, after rotation all three exist, then `os.remove(kept_names[-1])` removes `log.3`. So final: log.1=v0, log.2=v1. No log.3.\n\nWait, but that seems wrong. Let me re-read... yes the code does that. So the code keeps at most `keep-1` rotations + original = `keep` files but actually removes the last one. Let me just assert actual behavior.\n\nActually let me reconsider: for `keep=3`, kept_names has 3 entries. After rotation we have log.1, log.2, log.3. Then remove log.3. So we end with log.1=v0, log.2=v1. Two files. That's what actually happens.\n\n4. **`test_rotate_file_drops_beyond_keep`**: For `log.txt`, `keep=1`: `kept_names = ['log.1.txt']`, `fns = ['log.txt', 'log.1.txt']`. zip pairs: `(log.txt, log.1.txt)`. Reversed: same.\n- `(log.txt, log.1.txt)`: log.txt exists → rename to log.1.txt. Now log.1.txt=v0.\n- Then `os.remove(kept_names[-1])` = remove `log.1.txt`. So log.1.txt is deleted!\n\nResult: no log.1.txt, no log.txt. So keep=1 deletes everything.\n\nLet me reconsider — the \"remove last if exists\" always fires if the last rotation target was created. So for keep=1, we end with nothing. For keep=3, we end with log.1, log.2.\n\nActually wait, `kept_names[-1]` for keep=3 is `log.3`, which exists after rotation, so it's removed. For keep=1, `log.1.txt` exists after rotation, removed. So in all cases the \"last\" file is dropped, leaving at most `keep-1` rotated files.\n\nLet me revise those two tests to match actual behavior. Let me verify the trace once more for keep=3 carefully to be sure about which files remain:\n\nfns = ['log', 'log.1', 'log.2', 'log.3']\npairs = [(log, log.1), (log.1, log.2), (log.2, log.3)]\nreversed = [(log.2, log.3), (log.1, log.2), (log, log.1)]\n\nInitial: log=v0, log.1=v1, log.2=v2\n1. (log.2, log.3): log.2 exists → rename. log.3=v2. log.2 gone.\n2. (log.1, log.2): log.1 exists → rename. log.2=v1. log.1 gone.\n3. (log, log.1): log exists → rename. log.1=v0. log gone.\n\nNow: log.1=v0, log.2=v1, log.3=v2.\nThen remove kept_names[-1]=log.3 → log.3 gone.\nFinal: log.1=v0, log.2=v1.\n\nFor keep=1 with log.txt:\nfns = ['log.txt', 'log.1.txt']\npairs = [(log.txt, log.1.txt)]\n1. (log.txt, log.1.txt): log.txt exists → rename. log.1.txt=v0. log.txt gone.\nThen remove kept_names[-1]=log.1.txt → gone.\nFinal: nothing exists.\n\nGood, let me write the corrected tests.\n\n```python\nimport errno\nimport os\nimport stat\n\nimport pytest\n\nfrom boltons.fileutils import (\n    mkdir_p,\n    FilePerms,\n    atomic_save,\n    path_to_unicode,\n    AtomicSaver,\n    iter_find_files,\n    copy_tree,\n    copytree,\n    DummyFile,\n    rotate_file,\n)\n\n\n# ---------------------------------------------------------------- mkdir_p\n\ndef test_mkdir_p_creates_nested(tmp_path):\n    target = tmp_path / \"a\" / \"b\" / \"c\"\n    mkdir_p(str(target))\n    assert target.is_dir()\n\n\ndef test_mkdir_p_existing_dir_no_error(tmp_path):\n    target = tmp_path / \"existing\"\n    target.mkdir()\n    mkdir_p(str(target))\n    assert target.is_dir()\n\n\ndef test_mkdir_p_reraises_when_path_is_file(tmp_path):\n    target = tmp_path / \"afile\"\n    target.write_text(\"x\")\n    with pytest.raises(OSError) as excinfo:\n        mkdir_p(str(target))\n    assert excinfo.value.errno == errno.EEXIST\n\n\n# ---------------------------------------------------------------- FilePerms\n\ndef test_fileperms_basic_construction():\n    fp = FilePerms(user=\"rwx\", group=\"xrw\", other=\"wxr\")\n    assert fp.user == \"rwx\"\n    assert fp.group == \"rwx\"\n    assert fp.other == \"rwx\"\n\n\ndef test_fileperms_int_value():\n    fp = FilePerms(\"r\", \"r\", \"\")\n    assert int(fp) == 288\n    assert oct(288)[-3:] == \"440\"\n\n\ndef test_fileperms_from_int():\n    fp = FilePerms.from_int(0o644)\n    assert fp.user == \"rw\"\n    assert fp.group == \"r\"\n    assert fp.other == \"r\"\n    assert int(fp) == 0o644\n\n\ndef test_fileperms_from_int_zero():\n    fp = FilePerms.from_int(0)\n    assert fp.user == \"\"\n    assert fp.group == \"\"\n    assert fp.other == \"\"\n    assert int(fp) == 0\n\n\ndef test_fileperms_from_int_masks_full_perms():\n    fp = FilePerms.from_int(0o7777)\n    assert int(fp) == 0o777\n\n\ndef test_fileperms_repr():\n    fp = FilePerms.from_int(0o644)\n    assert repr(fp) == \"FilePerms(user='rw', group='r', other='r')\"\n\n\ndef test_fileperms_invalid_chars():\n    with pytest.raises(ValueError):\n        FilePerms(user=\"abc\")\n\n\ndef test_fileperms_invalid_type():\n    # Non-string values are stringified, yielding a ValueError on invalid chars\n    with pytest.raises(ValueError):\n        FilePerms(user=123)\n\n\ndef test_fileperms_setter_updates_to_sorted():\n    fp = FilePerms()\n    fp.user = \"xrw\"\n    assert fp.user == \"rwx\"\n    assert int(fp) == 0o700\n\n\ndef test_fileperms_setter_same_value_noop():\n    fp = FilePerms(user=\"rwx\")\n    before = int(fp)\n    fp.user = \"rwx\"\n    assert int(fp) == before\n\n\ndef test_fileperms_setter_clearing():\n    # The setter only ORs bits into the integer; it never clears them.\n    fp = FilePerms(user=\"rwx\")\n    fp.user = \"\"\n    assert fp.user == \"\"\n    # integer is not reset by clearing the string attribute\n    assert int(fp) == 0o700\n\n\ndef test_fileperms_from_path(tmp_path):\n    target = tmp_path / \"permfile\"\n    target.write_text(\"hi\")\n    os.chmod(str(target), 0o640)\n    fp = FilePerms.from_path(str(target))\n    assert fp.user == \"rw\"\n    assert fp.group == \"r\"\n    assert fp.other == \"\"\n    assert int(fp) == stat.S_IMODE(os.stat(str(target)).st_mode)\n\n\n# ---------------------------------------------------------------- path_to_unicode\n\ndef test_path_to_unicode_str():\n    assert path_to_unicode(\"hello\") == \"hello\"\n\n\ndef test_path_to_unicode_bytes():\n    result = path_to_unicode(b\"hello\")\n    assert result == \"hello\"\n\n\n# ---------------------------------------------------------------- AtomicSaver / atomic_save\n\ndef test_atomic_save_writes_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"content\")\n    assert dest.read_text() == \"content\"\n    assert not os.path.exists(str(dest) + \".part\")\n\n\ndef test_atomic_save_exception_leaves_no_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with pytest.raises(ZeroDivisionError):\n        with atomic_save(str(dest), text_mode=True) as fo:\n            fo.write(\"bye\")\n            1 / 0\n    assert not dest.exists()\n    assert not os.path.exists(str(dest) + \".part\")\n\n\ndef test_atomic_saver_binary_mode(tmp_path):\n    dest = tmp_path / \"out.bin\"\n    saver = AtomicSaver(str(dest))\n    with saver as fo:\n        fo.write(b\"binary\")\n    assert dest.read_bytes() == b\"binary\"\n\n\ndef test_atomic_saver_overwrite_copies_perms(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    os.chmod(str(dest), 0o600)\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n    assert stat.S_IMODE(os.stat(str(dest)).st_mode) == 0o600\n\n\ndef test_atomic_saver_explicit_file_perms(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True, file_perms=0o644) as fo:\n        fo.write(\"x\")\n    assert stat.S_IMODE(os.stat(str(dest)).st_mode) == 0o644\n\n\ndef test_atomic_saver_overwrite_disabled(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    with pytest.raises(OSError) as excinfo:\n        with atomic_save(str(dest), text_mode=True, overwrite=False):\n            pass\n    assert excinfo.value.errno == errno.EEXIST\n    assert dest.read_text() == \"old\"\n\n\ndef test_atomic_saver_overwrite_true(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    dest.write_text(\"old\")\n    with atomic_save(str(dest), text_mode=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n\n\ndef test_atomic_saver_preexisting_part_file(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    open(part, \"wb\").close()\n    with pytest.raises(OSError) as excinfo:\n        with atomic_save(str(dest), text_mode=True):\n            pass\n    assert excinfo.value.errno == errno.EEXIST\n\n\ndef test_atomic_saver_overwrite_part(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    open(part, \"wb\").close()\n    with atomic_save(str(dest), text_mode=True, overwrite_part=True) as fo:\n        fo.write(\"new\")\n    assert dest.read_text() == \"new\"\n    assert not os.path.exists(part)\n\n\ndef test_atomic_saver_custom_part_filename(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    with atomic_save(str(dest), text_mode=True, part_file=\"my.part\") as fo:\n        fo.write(\"data\")\n    assert dest.read_text() == \"data\"\n    assert not (tmp_path / \"my.part\").exists()\n\n\ndef test_atomic_saver_rm_part_on_exc_false(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    part = str(dest) + \".part\"\n    with pytest.raises(ValueError):\n        with atomic_save(str(dest), text_mode=True, rm_part_on_exc=False) as fo:\n            fo.write(\"partial\")\n            raise ValueError(\"boom\")\n    assert os.path.exists(part)\n    assert not dest.exists()\n\n\ndef test_atomic_saver_unexpected_kwargs(tmp_path):\n    with pytest.raises(TypeError):\n        AtomicSaver(str(tmp_path / \"x\"), bogus_arg=1)\n\n\ndef test_atomic_saver_setup_manual(tmp_path):\n    dest = tmp_path / \"out.txt\"\n    saver = AtomicSaver(str(dest), text_mode=True)\n    saver.setup()\n    try:\n        saver.part_file.write(\"manual\")\n    finally:\n        saver.part_file.flush()\n        saver.part_file.close()\n    assert os.path.exists(str(dest) + \".part\")\n    assert not dest.exists()\n\n\n# ---------------------------------------------------------------- iter_find_files\n\ndef _make_tree(tmp_path):\n    (tmp_path / \"a.txt\").write_text(\"a\")\n    (tmp_path / \"b.py\").write_text(\"b\")\n    sub = tmp_path / \"sub\"\n    sub.mkdir()\n    (sub / \"c.txt\").write_text(\"c\")\n    (sub / \"d.py\").write_text(\"d\")\n    return tmp_path\n\n\ndef test_iter_find_files_single_pattern(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\"))\n    expected = sorted([str(tmp_path / \"a.txt\"), str(tmp_path / \"sub\" / \"c.txt\")])\n    assert found == expected\n\n\ndef test_iter_find_files_list_patterns(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), [\"*.txt\", \"*.py\"]))\n    assert len(found) == 4\n\n\ndef test_iter_find_files_ignored(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", ignored=\"a.txt\"))\n    assert found == [str(tmp_path / \"sub\" / \"c.txt\")]\n\n\ndef test_iter_find_files_ignored_list(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", ignored=[\"a.txt\", \"c.txt\"]))\n    assert found == []\n\n\ndef test_iter_find_files_include_dirs(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"sub\", include_dirs=True))\n    assert found == [str(tmp_path / \"sub\")]\n\n\ndef test_iter_find_files_include_dirs_ignored(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"sub\", ignored=\"sub\", include_dirs=True))\n    assert found == []\n\n\ndef test_iter_find_files_max_depth_zero(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", max_depth=0))\n    assert found == [str(tmp_path / \"a.txt\")]\n\n\ndef test_iter_find_files_max_depth_one(tmp_path):\n    _make_tree(tmp_path)\n    found = sorted(iter_find_files(str(tmp_path), \"*.txt\", max_depth=1))\n    assert found == sorted([str(tmp_path / \"a.txt\"), str(tmp_path / \"sub\" / \"c.txt\")])\n\n\ndef test_iter_find_files_no_match(tmp_path):\n    _make_tree(tmp_path)\n    found = list(iter_find_files(str(tmp_path), \"*.nonexistent\"))\n    assert found == []\n\n\n# ---------------------------------------------------------------- copy_tree\n\ndef test_copy_tree_basic(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"f1.txt\").write_text(\"one\")\n    (src / \"sub\").mkdir()\n    (src / \"sub\" / \"f2.txt\").write_text(\"two\")\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst))\n\n    assert (dst / \"f1.txt\").read_text() == \"one\"\n    assert (dst / \"sub\" / \"f2.txt\").read_text() == \"two\"\n\n\ndef test_copy_tree_existing_dir(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"f1.txt\").write_text(\"one\")\n    dst = tmp_path / \"dst\"\n    dst.mkdir()\n    (dst / \"existing.txt\").write_text(\"keep\")\n\n    copy_tree(str(src), str(dst))\n    assert (dst / \"f1.txt\").read_text() == \"one\"\n    assert (dst / \"existing.txt\").read_text() == \"keep\"\n\n\ndef test_copy_tree_ignore(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"keep.txt\").write_text(\"keep\")\n    (src / \"skip.txt\").write_text(\"skip\")\n\n    def ignore_func(path, names):\n        return [n for n in names if n == \"skip.txt\"]\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst), ignore=ignore_func)\n    assert (dst / \"keep.txt\").exists()\n    assert not (dst / \"skip.txt\").exists()\n\n\ndef test_copy_tree_symlinks(tmp_path):\n    src = tmp_path / \"src\"\n    src.mkdir()\n    (src / \"real.txt\").write_text(\"real\")\n    os.symlink(str(src / \"real.txt\"), str(src / \"link.txt\"))\n\n    dst = tmp_path / \"dst\"\n    copy_tree(str(src), str(dst), symlinks=True)\n    assert os.path.islink(str(dst / \"link.txt\"))\n\n\ndef test_copytree_alias():\n    assert copytree is copy_tree\n\n\n# ---------------------------------------------------------------- DummyFile\n\ndef test_dummyfile_basic():\n    df = DummyFile(\"/dev/null\")\n    assert df.name == \"/dev/null\"\n    assert df.mode == \"r\"\n    assert df.closed is False\n    assert df.fileno() == -1\n    assert df.read() == \"\"\n    assert df.readline() == \"\"\n    assert df.readlines() == []\n    assert df.tell() == 0\n\n\ndef test_dummyfile_write_returns_none():\n    df = DummyFile(\"x\")\n    assert df.write(\"hello\") is None\n    assert df.writelines([\"a\", \"b\"]) is None\n\n\ndef test_dummyfile_close():\n    df = DummyFile(\"x\")\n    df.close()\n    assert df.closed is True\n\n\ndef test_dummyfile_operations_after_close():\n    df = DummyFile(\"x\")\n    df.close()\n    for meth in [df.flush, df.read, df.readline, df.readlines,\n                 df.seek, df.tell, df.truncate]:\n        with pytest.raises(ValueError):\n            meth()\n    with pytest.raises(ValueError):\n        df.write(\"x\")\n    with pytest.raises(ValueError):\n        df.writelines([\"x\"])\n    with pytest.raises(ValueError):\n        df.__enter__()\n\n\ndef test_dummyfile_next():\n    df = DummyFile(\"x\")\n    with pytest.raises(StopIteration):\n        next(df)\n    with pytest.raises(StopIteration):\n        df.next()\n\n\ndef test_dummyfile_context_manager():\n    df = DummyFile(\"x\")\n    assert df.__enter__() is None\n    assert df.__exit__(None, None, None) is None\n\n\n# ---------------------------------------------------------------- rotate_file\n\ndef test_rotate_file_no_existing(tmp_path):\n    fname = str(tmp_path / \"log.txt\")\n    rotate_file(fname)\n    assert not os.path.exists(fname)\n\n\ndef test_rotate_file_keep_invalid(tmp_path):\n    fname = str(tmp_path / \"log.txt\")\n    with pytest.raises(ValueError):\n        rotate_file(fname, keep=0)\n\n\ndef test_rotate_file_dir_raises(tmp_path):\n    d = tmp_path / \"adir\"\n    d.mkdir()\n    with pytest.raises(ValueError):\n        rotate_file(str(d))\n\n\ndef test_rotate_file_basic_rotation(tmp_path):\n    # With keep=1, the single rotated name gets removed at the end,\n    # so nothing remains.\n    fname = str(tmp_path / \"log.txt\")\n    with open(fname, \"w\") as f:\n        f.write(\"original\")\n\n    rotate_file(fname)\n\n    assert not os.path.exists(fname)\n    # keep defaults to 5 -> kept_names = log.1.txt .. log.5.txt, last removed\n    assert (tmp_path / \"log.1.txt\").read_text() == \"original\"\n    assert not (tmp_path / \"log.5.txt\").exists()\n\n\ndef test_rotate_file_multiple(tmp_path):\n    root = tmp_path / \"log\"\n    (root).write_text(\"v0\")\n    (tmp_path / \"log.1\").write_text(\"v1\")\n    (tmp_path / \"log.2\").write_text(\"v2\")\n\n    rotate_file(str(root), keep=3)\n\n    assert not os.path.exists(str(root))\n    # the last kept name (log.3) is removed at the end\n    assert (tmp_path / \"log.1\").read_text() == \"v0\"\n    assert (tmp_path / \"log.2\").read_text() == \"v1\"\n    assert not (tmp_path / \"log.3\").exists()\n\n\ndef test_rotate_file_drops_beyond_keep(tmp_path):\n    root = tmp_path / \"log.txt\"\n    (root).write_text(\"v0\")\n    (tmp_path / \"log.1.txt\").write_text(\"v1\")\n    (tmp_path / \"log.2.txt\").write_text(\"v2\")\n\n    rotate_file(str(root), keep=1)\n\n    # With keep=1, the only kept name (log.1.txt) is renamed then removed,\n    # so nothing remains.\n    assert not os.path.exists(str(root))\n    assert not (tmp_path / \"log.1.txt\").exists()\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 13815,
+      "cache_hit_tokens": 8832,
+      "completion_tokens": 5428,
+      "reasoning_tokens": 0,
+      "latency": 15.19
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T04:18:21+00:00",
+    "duration": 1.29,
+    "summary": "通过 56，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_fileutils.py"
+          ]
+        },
+        "duration": 1.29,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 32004
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T04:18:23+00:00",
+    "duration": 2.22,
+    "summary": "分数 [1, 0.0, 0.8356545961002786, 0.8412698412698413, 56]（提升），行覆盖 83.6%，分支覆盖 84.1%",
+    "tool_calls": [
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "boltons/fileutils.py",
+          "tests": [
+            "tests_testpilot/test_fileutils.py"
+          ]
+        },
+        "duration": 2.22,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 32004,
+    "score": [
+      1,
+      0.0,
+      0.8356545961002786,
+      0.8412698412698413,
+      56
+    ],
+    "coverage": {
+      "target": "boltons/fileutils.py",
+      "tests_all_passed": true,
+      "line_rate": 0.8356545961002786,
+      "branch_rate": 0.8412698412698413,
+      "statements": 359,
+      "branches": 126,
+      "missing_lines": [
+        124,
+        133,
+        134,
+        216,
+        221,
+        226,
+        227,
+        229,
+        239,
+        240,
+        272,
+        273,
+        274,
+        276,
+        277,
+        280,
+        282,
+        285,
+        286,
+        287,
+        288,
+        289,
+        291,
+        293,
+        294,
+        295,
+        297,
+        298,
+        299,
+        301,
+        303,
+        304,
+        306,
+        307,
+        312,
+        319,
+        320,
+        433,
+        434,
+        435,
+        476,
+        477,
+        482,
+        483,
+        484,
+        485,
+        486,
+        487,
+        488,
+        600,
+        601,
+        602,
+        603,
+        606,
+        607,
+        609,
+        638,
+        661,
+        671
+      ],
+      "missing_branches": [
+        [
+          123,
+          124
+        ],
+        [
+          215,
+          216
+        ],
+        [
+          217,
+          219
+        ],
+        [
+          220,
+          221
+        ],
+        [
+          271,
+          272
+        ],
+        [
+          288,
+          289
+        ],
+        [
+          288,
+          291
+        ],
+        [
+          297,
+          298
+        ],
+        [
+          297,
+          299
+        ],
+        [
+          303,
+          304
+        ],
+        [
+          303,
+          306
+        ],
+        [
+          316,
+          319
+        ],
+        [
+          467,
+          472
+        ],
+        [
+          483,
+          484
+        ],
+        [
+          483,
+          488
+        ],
+        [
+          540,
+          539
+        ],
+        [
+          608,
+          609
+        ],
+        [
+          636,
+          638
+        ],
+        [
+          659,
+          661
+        ],
+        [
+          669,
+          671
+        ]
+      ],
+      "error": ""
+    },
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T04:18:23+00:00",
+    "duration": 0.0,
+    "summary": "全部测试通过，pytest 反馈已无可改进之处",
+    "tool_calls": [],
+    "tokens_total": 32004
+  },
+  {
+    "node": "finalize",
+    "iteration": 2,
+    "at": "2026-10-20T04:18:23+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试通过，pytest 反馈已无可改进之处；采用第 2 轮，分数 [1, 0.0, 0.8356545961002786, 0.8412698412698413, 56]",
+    "tool_calls": [],
+    "tokens_total": 32004,
+    "best_iteration": 2
+  }
+]

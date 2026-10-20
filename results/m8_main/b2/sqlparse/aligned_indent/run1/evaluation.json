@@ -1,0 +1,369 @@
+{
+  "target": "sqlparse/filters/aligned_indent.py",
+  "validity": {
+    "total": 33,
+    "valid": 33,
+    "valid_ids": [
+      "tests_testpilot/test_aligned_indent.py::TestInit::test_defaults",
+      "tests_testpilot/test_aligned_indent.py::TestInit::test_custom_char",
+      "tests_testpilot/test_aligned_indent.py::TestInit::test_custom_n",
+      "tests_testpilot/test_aligned_indent.py::TestNl::test_nl_default",
+      "tests_testpilot/test_aligned_indent.py::TestNl::test_nl_int_offset",
+      "tests_testpilot/test_aligned_indent.py::TestNl::test_nl_string_offset",
+      "tests_testpilot/test_aligned_indent.py::TestNl::test_nl_with_indent",
+      "tests_testpilot/test_aligned_indent.py::TestNl::test_nl_with_offset",
+      "tests_testpilot/test_aligned_indent.py::TestNl::test_nl_custom_char",
+      "tests_testpilot/test_aligned_indent.py::TestNl::test_nl_custom_n",
+      "tests_testpilot/test_aligned_indent.py::TestProcessStatement::test_pops_leading_whitespace",
+      "tests_testpilot/test_aligned_indent.py::TestProcessStatement::test_does_not_pop_when_indented",
+      "tests_testpilot/test_aligned_indent.py::TestProcessStatement::test_empty_statement",
+      "tests_testpilot/test_aligned_indent.py::TestProcessParenthesis::test_subquery_reindented",
+      "tests_testpilot/test_aligned_indent.py::TestProcessParenthesis::test_non_select_parenthesis_not_reindented",
+      "tests_testpilot/test_aligned_indent.py::TestProcessIdentifierlist::test_identifiers_split_on_newline",
+      "tests_testpilot/test_aligned_indent.py::TestProcessCase::test_case_alignment",
+      "tests_testpilot/test_aligned_indent.py::TestNextToken::test_finds_select",
+      "tests_testpilot/test_aligned_indent.py::TestNextToken::test_between_skips_to_and",
+      "tests_testpilot/test_aligned_indent.py::TestNextToken::test_no_keyword_returns_none",
+      "tests_testpilot/test_aligned_indent.py::TestSplitKwds::test_split_from_where",
+      "tests_testpilot/test_aligned_indent.py::TestSplitKwds::test_group_by_uses_first_word",
+      "tests_testpilot/test_aligned_indent.py::TestProcessDefault::test_processes_sublists",
+      "tests_testpilot/test_aligned_indent.py::TestProcessDefault::test_by_words_offset_hack",
+      "tests_testpilot/test_aligned_indent.py::TestProcessDispatch::test_dispatch_default",
+      "tests_testpilot/test_aligned_indent.py::TestProcessDispatch::test_dispatch_statement",
+      "tests_testpilot/test_aligned_indent.py::TestProcessPublic::test_returns_same_object",
+      "tests_testpilot/test_aligned_indent.py::TestProcessPublic::test_does_not_mutate_indent_offset_after",
+      "tests_testpilot/test_aligned_indent.py::TestContextManagers::test_indent_context",
+      "tests_testpilot/test_aligned_indent.py::TestContextManagers::test_offset_context",
+      "tests_testpilot/test_aligned_indent.py::TestSplitWords::test_join_words_constant",
+      "tests_testpilot/test_aligned_indent.py::TestSplitWords::test_by_words_constant",
+      "tests_testpilot/test_aligned_indent.py::TestSplitWords::test_split_words_contains_keywords"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.41,
+        "passed": 33,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.23,
+        "passed": 33,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.28,
+        "passed": 33,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 0.95,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.7783251231527094,
+    "total": 207,
+    "killed": 158,
+    "survived": 45,
+    "excluded": 4,
+    "status_counts": {
+      "killed": 158,
+      "survived": 45,
+      "timeout": 4
+    },
+    "survivors": [
+      {
+        "line": 42,
+        "original": "if len(tlist.tokens) > 0 and tlist.tokens[0].is_whitespace \\",
+        "mutated": "if len(tlist.tokens) > 1 and tlist.tokens[0].is_whitespace \\",
+        "status": "survived"
+      },
+      {
+        "line": 47,
+        "original": "self._process(sql.TokenList(tlist.tokens))",
+        "mutated": "self._process(sql.TokenList(None))",
+        "status": "survived"
+      },
+      {
+        "line": 51,
+        "original": "_, token = tlist.token_next_by(m=(T.DML, 'SELECT'))",
+        "mutated": "_, token = tlist.token_next_by(m=(T.DML, 'select'))",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "tlist.insert_after(tlist[0], self.nl('SELECT'))",
+        "mutated": "tlist.insert_after(tlist[0], self.nl('XXSELECTXX'))",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "tlist.insert_after(tlist[0], self.nl('SELECT'))",
+        "mutated": "tlist.insert_after(tlist[0], self.nl('select'))",
+        "status": "survived"
+      },
+      {
+        "line": 59,
+        "original": "tlist.insert_before(tlist[-1], self.nl())",
+        "mutated": "tlist.insert_before(tlist[+1], self.nl())",
+        "status": "survived"
+      },
+      {
+        "line": 59,
+        "original": "tlist.insert_before(tlist[-1], self.nl())",
+        "mutated": "tlist.insert_before(tlist[-2], self.nl())",
+        "status": "survived"
+      },
+      {
+        "line": 64,
+        "original": "identifiers.pop(0)",
+        "mutated": "identifiers.pop(1)",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "offset_ = len('case ') + len('when ')",
+        "mutated": "offset_ = len('case ') - len('when ')",
+        "status": "survived"
+      },
+      {
+        "line": 70,
+        "original": "cases = tlist.get_cases(skip_ws=True)",
+        "mutated": "cases = tlist.get_cases(skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 70,
+        "original": "cases = tlist.get_cases(skip_ws=True)",
+        "mutated": "cases = tlist.get_cases(skip_ws=False)",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "end_token = tlist.token_next_by(m=(T.Keyword, 'END'))[1]",
+        "mutated": "end_token = tlist.token_next_by(m=(T.Keyword, 'end'))[1]",
+        "status": "survived"
+      },
+      {
+        "line": 75,
+        "original": "condition_width = [len(' '.join(map(str, cond))) if cond else 0",
+        "mutated": "condition_width = [len(' '.join(map(str, cond))) if (cond) and False else 0",
+        "status": "survived"
+      },
+      {
+        "line": 75,
+        "original": "condition_width = [len(' '.join(map(str, cond))) if cond else 0",
+        "mutated": "condition_width = [len(' '.join(map(str, cond))) if cond else 1",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "stmt = cond[0] if cond else value[0]",
+        "mutated": "stmt = cond[0] if (cond) and False else value[0]",
+        "status": "survived"
+      },
+      {
+        "line": 81,
+        "original": "stmt = cond[0] if cond else value[0]",
+        "mutated": "stmt = cond[1] if cond else value[0]",
+        "status": "survived"
+      },
+      {
+        "line": 83,
+        "original": "if i > 0:",
+        "mutated": "if i >= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 84,
+        "original": "tlist.insert_before(stmt, self.nl(offset_ - len(str(stmt))))",
+        "mutated": "tlist.insert_before(stmt, self.nl(offset_ + len(str(stmt))))",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "ws = sql.Token(T.Whitespace, self.char * (",
+        "mutated": "ws = sql.Token(None, self.char * (",
+        "status": "survived"
+      },
+      {
+        "line": 86,
+        "original": "ws = sql.Token(T.Whitespace, self.char * (\n                max_cond_width - condition_width[i]))",
+        "mutated": "ws = sql.Token(T.Whitespace, None)",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "max_cond_width - condition_width[i]))",
+        "mutated": "max_cond_width + condition_width[i]))",
+        "status": "survived"
+      },
+      {
+        "line": 88,
+        "original": "tlist.insert_after(cond[-1], ws)",
+        "mutated": "tlist.insert_after(cond[+1], ws)",
+        "status": "survived"
+      },
+      {
+        "line": 88,
+        "original": "tlist.insert_after(cond[-1], ws)",
+        "mutated": "tlist.insert_after(cond[-2], ws)",
+        "status": "survived"
+      },
+      {
+        "line": 96,
+        "original": "if token and token.normalized == 'AND':",
+        "mutated": "if token or token.normalized == 'AND':",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "token.match(T.Keyword, self.join_words, regex=True)",
+        "mutated": "token.match(None, self.join_words, regex=True)",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "token.match(T.Keyword, self.join_words, regex=True)",
+        "mutated": "token.match(T.Keyword, None, regex=True)",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "token.match(T.Keyword, self.join_words, regex=True)",
+        "mutated": "token.match(T.Keyword, self.join_words, regex=None)",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "token.match(T.Keyword, self.join_words, regex=True)",
+        "mutated": "token.match(T.Keyword, self.join_words, )",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "token.match(T.Keyword, self.join_words, regex=True)",
+        "mutated": "token.match(T.Keyword, self.join_words, regex=False)",
+        "status": "survived"
+      },
+      {
+        "line": 107,
+        "original": "or token.match(T.Keyword, self.by_words, regex=True)",
+        "mutated": "or token.match(T.Keyword, None, regex=True)",
+        "status": "survived"
+      },
+      {
+        "line": 111,
+        "original": "token_indent = str(token)",
+        "mutated": "token_indent = str(None)",
+        "status": "survived"
+      },
+      {
+        "line": 113,
+        "original": "tidx += 1",
+        "mutated": "tidx += 2",
+        "status": "survived"
+      },
+      {
+        "line": 120,
+        "original": "idx = tlist.token_index(sgroup)",
+        "mutated": "idx = None",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "pidx, prev_ = tlist.token_prev(idx)",
+        "mutated": "pidx, prev_ = tlist.token_prev(None)",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "offset_ = 3 if (\n            prev_ and prev_.match(T.Keyword, self.by_words, regex=True)\n        ) else 0",
+        "mutated": "offset_ = 3 if (prev_ and prev_.match(T.Keyword, self.by_words, regex=True)) and False else 0",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "offset_ = 3 if (\n            prev_ and prev_.match(T.Keyword, self.by_words, regex=True)\n        ) else 0",
+        "mutated": "offset_ = 3 if (prev_ and prev_.match(T.Keyword, self.by_words, regex=True)) or True else 0",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "offset_ = 3 if (",
+        "mutated": "offset_ = 4 if (",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "prev_ and prev_.match(T.Keyword, self.by_words, regex=True)",
+        "mutated": "prev_ or prev_.match(T.Keyword, self.by_words, regex=True)",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "prev_ and prev_.match(T.Keyword, self.by_words, regex=True)",
+        "mutated": "prev_ and prev_.match(None, self.by_words, regex=True)",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "prev_ and prev_.match(T.Keyword, self.by_words, regex=True)",
+        "mutated": "prev_ and prev_.match(T.Keyword, None, regex=True)",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "prev_ and prev_.match(T.Keyword, self.by_words, regex=True)",
+        "mutated": "prev_ and prev_.match(T.Keyword, self.by_words, regex=None)",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "prev_ and prev_.match(T.Keyword, self.by_words, regex=True)",
+        "mutated": "prev_ and prev_.match(T.Keyword, self.by_words, )",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "prev_ and prev_.match(T.Keyword, self.by_words, regex=True)",
+        "mutated": "prev_ and prev_.match(T.Keyword, self.by_words, regex=False)",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": ") else 0",
+        "mutated": ") else 1",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "with offset(self, offset_):",
+        "mutated": "with offset(self, ):",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.92,
+    "coverage": 2.38,
+    "mutation": 32.75
+  }
+}

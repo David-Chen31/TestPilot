@@ -1,0 +1,480 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T06:12:50+00:00",
+    "duration": 0.01,
+    "summary": "3 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "backon/_common.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "disable",
+      "enable",
+      "is_enabled"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T06:12:49+00:00",
+    "duration": 0.15,
+    "summary": "依赖定义 0 个，调用处 6 个，提示词前缀 7434 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "backon/_common.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "__future__/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: __future__/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "typing/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: typing/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "disable(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "enable(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "is_enabled(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `backon._common` (file `backon/_common.py`).\n\nSource of `backon/_common.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | from __future__ import annotations\n    2 | \n    3 | import functools\n    4 | import logging\n    5 | import threading\n    6 | import time as time_module\n    7 | from typing import Any\n    8 | \n    9 | _logger = logging.getLogger(\"backon\")\n   10 | _logger.addHandler(logging.NullHandler())\n   11 | \n   12 | _GLOBAL_ENABLED = True\n   13 | \n   14 | _TEST_CONFIG: dict[str, Any] = {\n   15 |     \"max_retries\": None,\n   16 |     \"backoff_multiplier\": 1.0,\n   17 |     \"max_backoff\": None,\n   18 | }\n   19 | \n   20 | \n   21 | def disable():\n   22 |     global _GLOBAL_ENABLED\n   23 |     _GLOBAL_ENABLED = False\n   24 | \n   25 | \n   26 | def enable():\n   27 |     global _GLOBAL_ENABLED\n   28 |     _GLOBAL_ENABLED = True\n   29 | \n   30 | \n   31 | def is_enabled():\n   32 |     return _GLOBAL_ENABLED\n   33 | \n   34 | \n   35 | def _maybe_call(f, *args, **kwargs):\n   36 |     if callable(f):\n   37 |         try:\n   38 |             return f(*args, **kwargs)\n   39 |         except TypeError as e:\n   40 |             # Only catch TypeError caused by the value not being callable\n   41 |             # with the given arguments. Legitimate errors from the called\n   42 |             # function should propagate.\n   43 |             err_msg = str(e)\n   44 |             if \"required positional argument\" in err_msg or \"takes \" in err_msg:\n   45 |                 return f\n   46 |             raise\n   47 |     return f\n   48 | \n   49 | \n   50 | def _init_wait_gen(wait_gen, wait_gen_kwargs):\n   51 |     kwargs = {k: _maybe_call(v) for k, v in wait_gen_kwargs.items()}\n   52 |     return wait_gen(**kwargs)\n   53 | \n   54 | \n   55 | def _next_wait(wait, send_value, jitter, elapsed, max_time):\n   56 |     value = wait.next(send_value)\n   57 |     seconds = jitter(value) if jitter is not None else value\n   58 | \n   59 |     seconds *= _TEST_CONFIG[\"backoff_multiplier\"]\n   60 | \n   61 |     if max_time is not None:\n   62 |         seconds = min(seconds, max_time - elapsed)\n   63 | \n   64 |     return seconds\n   65 | \n   66 | \n   67 | def _apply_test_overrides(max_tries=None, max_time=None):\n   68 |     tc = _TEST_CONFIG\n   69 |     if tc[\"max_retries\"] is not None:\n   70 |         max_tries = tc[\"max_retries\"]\n   71 |     return max_tries, max_time\n   72 | \n   73 | \n   74 | def _prepare_logger(logger):\n   75 |     if isinstance(logger, str):\n   76 |         logger = logging.getLogger(logger)\n   77 |     return logger\n   78 | \n   79 | \n   80 | class _LazyLogHandler:\n   81 |     __slots__ = (\"_factory\", \"_handler\")\n   82 | \n   83 |     def __init__(self, handler, logger, log_level):\n   84 |         self._handler = None\n   85 |         self._factory = lambda: functools.partial(\n   86 |             handler, logger=logger, log_level=log_level\n   87 |         )\n   88 | \n   89 |     def __call__(self, details):\n   90 |         if self._handler is None:\n   91 |             self._handler = self._factory()\n   92 |         self._handler(details)\n   93 | \n   94 | \n   95 | def _config_handlers(\n   96 |     user_handlers, *, default_handler=None, logger=None, log_level=None\n   97 | ):\n   98 |     if isinstance(user_handlers, list) and logger is None:\n   99 |         return user_handlers\n  100 |     handlers = []\n  101 |     if logger is not None and user_handlers is None:\n  102 |         assert log_level is not None\n  103 |         handlers.append(_LazyLogHandler(default_handler, logger, log_level))\n  104 |     elif logger is not None:\n  105 |         assert log_level is not None\n  106 |         handlers.append(\n  107 |             functools.partial(default_handler, logger=logger, log_level=log_level)\n  108 |         )\n  109 |         if hasattr(user_handlers, \"__iter__\"):\n  110 |             handlers += list(user_handlers)\n  111 |         else:\n  112 |             handlers.append(user_handlers)\n  113 |     elif user_handlers is not None:\n  114 |         if hasattr(user_handlers, \"__iter__\"):\n  115 |             handlers += list(user_handlers)\n  116 |         else:\n  117 |             handlers.append(user_handlers)\n  118 |     return handlers\n  119 | \n  120 | \n  121 | def _log_backoff(details, logger, log_level):\n  122 |     msg = \"Backing off %s(...) for %.1fs (%s)\"\n  123 |     exc = details.get(\"exception\")\n  124 |     if exc is not None:\n  125 |         exc_fmt = f\"{type(exc).__name__}: {exc}\"\n  126 |     else:\n  127 |         exc_fmt = details.get(\"value\", \"unknown\")\n  128 |     log_args = [details[\"target\"].__name__, details[\"wait\"], exc_fmt]\n  129 |     logger.log(log_level, msg, *log_args)\n  130 | \n  131 | \n  132 | def _log_giveup(details, logger, log_level):\n  133 |     msg = \"Giving up %s(...) after %d tries (%s)\"\n  134 |     exc = details.get(\"exception\")\n  135 |     if exc is not None:\n  136 |         exc_fmt = f\"{type(exc).__name__}: {exc}\"\n  137 |     else:\n  138 |         exc_fmt = details.get(\"value\", \"unknown\")\n  139 |     log_args = [details[\"target\"].__name__, details[\"tries\"], exc_fmt]\n  140 |     logger.log(log_level, msg, *log_args)\n  141 | \n  142 | \n  143 | def _now():\n  144 |     return time_module.monotonic_ns() / 1_000_000_000\n  145 | \n  146 | \n  147 | def _elapsed(start):\n  148 |     return _now() - start\n  149 | \n  150 | \n  151 | def _is_custom_wait(value):\n  152 |     return isinstance(value, (int, float)) and not isinstance(value, bool)\n  153 | \n  154 | \n  155 | _hot_loop_data: dict[str, float | int] = {\"last_retry\": 0.0, \"count\": 0}\n  156 | _hot_loop_lock = threading.Lock()\n  157 | \n  158 | \n  159 | def _check_hot_loop() -> None:\n  160 |     now = time_module.monotonic_ns() / 1_000_000_000\n  161 |     with _hot_loop_lock:\n  162 |         prev = _hot_loop_data[\"last_retry\"]\n  163 |         if prev > 0 and now - prev < 0.1:\n  164 |             _hot_loop_data[\"count\"] += 1\n  165 |         else:\n  166 |             _hot_loop_data[\"count\"] = 0\n  167 |         _hot_loop_data[\"last_retry\"] = now\n  168 |         if _hot_loop_data[\"count\"] >= 5:\n  169 |             logging.getLogger(\"backon\").warning(\n  170 |                 \"Hot loop detected: %d retries in quick succession. \"\n  171 |                 \"Add jitter or increase backoff.\",\n  172 |                 _hot_loop_data[\"count\"],\n  173 |             )\n  174 |             _hot_loop_data[\"count\"] = 0\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- backon/_testing.py:42: `_global_disable()`\n- backon/_testing.py:57: `_global_disable()`\n- backon/_testing.py:46: `_global_enable()`\n- backon/_testing.py:52: `_global_enable()`\n- backon/_decorator.py:349: `if not is_enabled():`\n- backon/_decorator.py:374: `if not is_enabled():`\n\nPublic API to cover: `disable`, `enable`, `is_enabled`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from backon._common import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:12:57+00:00",
+    "duration": 7.8,
+    "summary": "第 1 轮：生成 330 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__common.py",
+          "content": "<9114 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4581,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `backon._common`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport logging\n\nimport pytest\n\nimport backon._common as common\nfrom backon._common import disable, enable, is_enabled\n\n\n@pytest.fixture(autouse=True)\ndef restore_global_state():\n    \"\"\"Ensure the module-global enabled flag is restored after each test.\"\"\"\n    original = common._GLOBAL_ENABLED\n    yield\n    common._GLOBAL_ENABLED = original\n\n\n# ---------------------------------------------------------------------------\n# enable / disable / is_enabled\n# ---------------------------------------------------------------------------\n\n\ndef test_is_enabled_default_is_true():\n    common._GLOBAL_ENABLED = True\n    assert is_enabled() is True\n\n\ndef test_disable_sets_flag_false():\n    assert is_enabled() is True\n    result = disable()\n    assert result is None\n    assert is_enabled() is False\n\n\ndef test_enable_sets_flag_true():\n    common._GLOBAL_ENABLED = False\n    assert is_enabled() is False\n    result = enable()\n    assert result is None\n    assert is_enabled() is True\n\n\ndef test_disable_is_idempotent():\n    disable()\n    disable()\n    assert is_enabled() is False\n\n\ndef test_enable_is_idempotent():\n    enable()\n    enable()\n    assert is_enabled() is True\n\n\ndef test_disable_enable_roundtrip():\n    disable()\n    assert is_enabled() is False\n    enable()\n    assert is_enabled() is True\n    disable()\n    assert is_enabled() is False\n    enable()\n    assert is_enabled() is True\n\n\ndef test_toggle_affects_module_global():\n    disable()\n    assert common._GLOBAL_ENABLED is False\n    enable()\n    assert common._GLOBAL_ENABLED is True\n\n\n# ---------------------------------------------------------------------------\n# Helpers / internal branches relevant to the public behavior\n# ---------------------------------------------------------------------------\n\n\ndef test_maybe_call_with_callable_and_args():\n    assert common._maybe_call(lambda a, b: a + b, 1, 2) == 3\n\n\ndef test_maybe_call_with_non_callable():\n    value = 42\n    assert common._maybe_call(value) is value\n\n\ndef test_maybe_call_with_callable_no_required_args():\n    def fn():\n        return \"called\"\n\n    assert common._maybe_call(fn) == \"called\"\n\n\ndef test_maybe_call_with_callable_requiring_args_returns_itself():\n    def fn(a):\n        return a\n\n    # Callable requires a positional argument; _maybe_call returns f itself.\n    result = common._maybe_call(fn)\n    assert result is fn\n\n\ndef test_maybe_call_propagates_unrelated_type_error():\n    def fn():\n        raise TypeError(\"boom happened inside\")\n\n    with pytest.raises(TypeError, match=\"boom happened inside\"):\n        common._maybe_call(fn)\n\n\ndef test_prepare_logger_with_string():\n    logger = common._prepare_logger(\"backon._test_logger\")\n    assert logger is logging.getLogger(\"backon._test_logger\")\n\n\ndef test_prepare_logger_with_object():\n    logger = logging.getLogger(\"backon._test_obj\")\n    assert common._prepare_logger(logger) is logger\n\n\ndef test_test_config_defaults():\n    assert common._TEST_CONFIG[\"max_retries\"] is None\n    assert common._TEST_CONFIG[\"backoff_multiplier\"] == 1.0\n    assert common._TEST_CONFIG[\"max_backoff\"] is None\n\n\ndef test_apply_test_overrides_without_max_retries():\n    saved = common._TEST_CONFIG[\"max_retries\"]\n    common._TEST_CONFIG[\"max_retries\"] = None\n    try:\n        assert common._apply_test_overrides(max_tries=5, max_time=10) == (5, 10)\n    finally:\n        common._TEST_CONFIG[\"max_retries\"] = saved\n\n\ndef test_apply_test_overrides_with_max_retries():\n    saved = common._TEST_CONFIG[\"max_retries\"]\n    common._TEST_CONFIG[\"max_retries\"] = 3\n    try:\n        assert common._apply_test_overrides(max_tries=5, max_time=10) == (3, 10)\n    finally:\n        common._TEST_CONFIG[\"max_retries\"] = saved\n\n\ndef test_is_custom_wait():\n    assert common._is_custom_wait(1) is True\n    assert common._is_custom_wait(1.5) is True\n    assert common._is_custom_wait(True) is False\n    assert common._is_custom_wait(False) is False\n    assert common._is_custom_wait(\"x\") is False\n    assert common._is_custom_wait(None) is False\n\n\ndef test_init_wait_gen_calls_wait_gen():\n    def gen(factor):\n        yield factor\n\n    result = common._init_wait_gen(gen, {\"factor\": 2})\n    assert next(result) == 2\n\n\ndef test_next_wait_applies_jitter_and_multiplier():\n    class FakeWait:\n        def next(self, value):\n            return 10\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 2.0\n    try:\n        seconds = common._next_wait(\n            FakeWait(), None, lambda v: v + 5, elapsed=0, max_time=None\n        )\n        assert seconds == 30.0\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\ndef test_next_wait_caps_at_max_time_minus_elapsed():\n    class FakeWait:\n        def next(self, value):\n            return 10\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 1.0\n    try:\n        seconds = common._next_wait(\n            FakeWait(), None, None, elapsed=3, max_time=5\n        )\n        assert seconds == 2\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\ndef test_next_wait_without_jitter():\n    class FakeWait:\n        def next(self, value):\n            return 7\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 1.0\n    try:\n        assert common._next_wait(FakeWait(), None, None, 0, None) == 7\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\n# ---------------------------------------------------------------------------\n# _config_handlers branches\n# ---------------------------------------------------------------------------\n\n\ndef test_config_handlers_list_with_no_logger_returns_same_list():\n    handlers = [object(), object()]\n    assert common._config_handlers(handlers, logger=None) is handlers\n\n\ndef test_config_handlers_none_returns_empty_list():\n    assert common._config_handlers(None) == []\n\n\ndef test_config_handlers_single_callable_wrapped_in_list():\n    def handler(details):\n        return details\n\n    result = common._config_handlers(handler)\n    assert result == [handler]\n\n\ndef test_config_handlers_iterable_expanded():\n    handlers = (object(), object())\n    result = common._config_handlers(handlers)\n    assert list(result) == list(handlers)\n\n\ndef test_config_handlers_with_logger_and_user_handlers_none_creates_lazy():\n    def default_handler(details, logger, log_level):\n        return None\n\n    result = common._config_handlers(\n        None, default_handler=default_handler, logger=\"x\", log_level=logging.INFO\n    )\n    assert len(result) == 1\n    assert isinstance(result[0], common._LazyLogHandler)\n\n\ndef test_config_handlers_with_logger_and_single_user_handler():\n    def default_handler(details, logger, log_level):\n        return None\n\n    def user_handler(details):\n        return details\n\n    result = common._config_handlers(\n        user_handler,\n        default_handler=default_handler,\n        logger=\"x\",\n        log_level=logging.INFO,\n    )\n    assert len(result) == 2\n    assert result[1] is user_handler\n\n\ndef test_lazy_log_handler_calls_handler_once():\n    calls = []\n\n    def handler(details, logger, log_level):\n        calls.append((details, logger, log_level))\n\n    lazy = common._LazyLogHandler(handler, \"logname\", logging.WARNING)\n    lazy({\"a\": 1})\n    lazy({\"b\": 2})\n    assert len(calls) == 2\n    assert calls[0][0] == {\"a\": 1}\n    assert calls[0][1] == \"logname\"\n    assert calls[0][2] == logging.WARNING\n    assert calls[1][0] == {\"b\": 2}\n\n\ndef test_log_backoff_with_exception(caplog):\n    logger = logging.getLogger(\"backon._test_backoff\")\n\n    def target():\n        return None\n\n    details = {\n        \"target\": target,\n        \"wait\": 1.5,\n        \"exception\": ValueError(\"bad\"),\n    }\n    with caplog.at_level(logging.WARNING):\n        common._log_backoff(details, logger, logging.WARNING)\n    assert \"Backing off target(...) for 1.5s\" in caplog.text\n    assert \"ValueError: bad\" in caplog.text\n\n\ndef test_log_backoff_without_exception(caplog):\n    logger = logging.getLogger(\"backon._test_backoff2\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"wait\": 0.5, \"value\": \"somevalue\"}\n    with caplog.at_level(logging.WARNING):\n        common._log_backoff(details, logger, logging.WARNING)\n    assert \"somevalue\" in caplog.text\n\n\ndef test_log_giveup_with_exception(caplog):\n    logger = logging.getLogger(\"backon._test_giveup\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"tries\": 3, \"exception\": RuntimeError(\"stop\")}\n    with caplog.at_level(logging.ERROR):\n        common._log_giveup(details, logger, logging.ERROR)\n    assert \"Giving up target(...) after 3 tries\" in caplog.text\n    assert \"RuntimeError: stop\" in caplog.text\n\n\ndef test_log_giveup_without_exception(caplog):\n    logger = logging.getLogger(\"backon._test_giveup2\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"tries\": 2}\n    with caplog.at_level(logging.ERROR):\n        common._log_giveup(details, logger, logging.ERROR)\n    assert \"after 2 tries\" in caplog.text\n    assert \"unknown\" in caplog.text\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 2228,
+      "cache_hit_tokens": 2048,
+      "completion_tokens": 2353,
+      "reasoning_tokens": 0,
+      "latency": 7.79
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T06:12:58+00:00",
+    "duration": 1.35,
+    "summary": "通过 33，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__common.py"
+          ]
+        },
+        "duration": 1.35,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4581
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T06:13:04+00:00",
+    "duration": 6.28,
+    "summary": "分数 [1, 0.0, 0.8785046728971962, 0.84375, 33]（提升），行覆盖 87.9%，分支覆盖 84.4%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__common.py"
+          ]
+        },
+        "duration": 4.11,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "backon/_common.py",
+          "tests": [
+            "tests_testpilot/test__common.py::test_is_enabled_default_is_true",
+            "tests_testpilot/test__common.py::test_disable_sets_flag_false",
+            "tests_testpilot/test__common.py::test_enable_sets_flag_true",
+            "tests_testpilot/test__common.py::test_disable_is_idempotent",
+            "tests_testpilot/test__common.py::test_enable_is_idempotent",
+            "tests_testpilot/test__common.py::test_disable_enable_roundtrip",
+            "tests_testpilot/test__common.py::test_toggle_affects_module_global",
+            "tests_testpilot/test__common.py::test_maybe_call_with_callable_and_args",
+            "tests_testpilot/test__common.py::test_maybe_call_with_non_callable",
+            "tests_testpilot/test__common.py::test_maybe_call_with_callable_no_required_args",
+            "tests_testpilot/test__common.py::test_maybe_call_with_callable_requiring_args_returns_itself",
+            "tests_testpilot/test__common.py::test_maybe_call_propagates_unrelated_type_error",
+            "tests_testpilot/test__common.py::test_prepare_logger_with_string",
+            "tests_testpilot/test__common.py::test_prepare_logger_with_object",
+            "tests_testpilot/test__common.py::test_test_config_defaults",
+            "tests_testpilot/test__common.py::test_apply_test_overrides_without_max_retries",
+            "tests_testpilot/test__common.py::test_apply_test_overrides_with_max_retries",
+            "tests_testpilot/test__common.py::test_is_custom_wait",
+            "tests_testpilot/test__common.py::test_init_wait_gen_calls_wait_gen",
+            "tests_testpilot/test__common.py::test_next_wait_applies_jitter_and_multiplier",
+            "tests_testpilot/test__common.py::test_next_wait_caps_at_max_time_minus_elapsed",
+            "tests_testpilot/test__common.py::test_next_wait_without_jitter",
+            "tests_testpilot/test__common.py::test_config_handlers_list_with_no_logger_returns_same_list",
+            "tests_testpilot/test__common.py::test_config_handlers_none_returns_empty_list",
+            "tests_testpilot/test__common.py::test_config_handlers_single_callable_wrapped_in_list",
+            "tests_testpilot/test__common.py::test_config_handlers_iterable_expanded",
+            "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_user_handlers_none_creates_lazy",
+            "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_single_user_handler",
+            "tests_testpilot/test__common.py::test_lazy_log_handler_calls_handler_once",
+            "tests_testpilot/test__common.py::test_log_backoff_with_exception",
+            "tests_testpilot/test__common.py::test_log_backoff_without_exception",
+            "tests_testpilot/test__common.py::test_log_giveup_with_exception",
+            "tests_testpilot/test__common.py::test_log_giveup_without_exception"
+          ]
+        },
+        "duration": 2.17,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 4581,
+    "score": [
+      1,
+      0.0,
+      0.8785046728971962,
+      0.84375,
+      33
+    ],
+    "coverage": {
+      "target": "backon/_common.py",
+      "tests_all_passed": true,
+      "line_rate": 0.8785046728971962,
+      "branch_rate": 0.84375,
+      "statements": 107,
+      "branches": 32,
+      "missing_lines": [
+        110,
+        144,
+        148,
+        160,
+        161,
+        162,
+        163,
+        164,
+        166,
+        167,
+        168,
+        169,
+        174
+      ],
+      "missing_branches": [
+        [
+          109,
+          110
+        ],
+        [
+          163,
+          164
+        ],
+        [
+          163,
+          166
+        ],
+        [
+          168,
+          -159
+        ],
+        [
+          168,
+          169
+        ]
+      ],
+      "error": ""
+    },
+    "validity": {
+      "total": 33,
+      "valid": 33,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T06:13:04+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 4581
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:13:16+00:00",
+    "duration": 12.18,
+    "summary": "第 2 轮：生成 531 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__common.py",
+          "content": "<15492 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 13561,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test__common.py`)\n```python\nimport logging\n\nimport pytest\n\nimport backon._common as common\nfrom backon._common import disable, enable, is_enabled\n\n\n@pytest.fixture(autouse=True)\ndef restore_global_state():\n    \"\"\"Ensure the module-global enabled flag is restored after each test.\"\"\"\n    original = common._GLOBAL_ENABLED\n    yield\n    common._GLOBAL_ENABLED = original\n\n\n# ---------------------------------------------------------------------------\n# enable / disable / is_enabled\n# ---------------------------------------------------------------------------\n\n\ndef test_is_enabled_default_is_true():\n    common._GLOBAL_ENABLED = True\n    assert is_enabled() is True\n\n\ndef test_disable_sets_flag_false():\n    assert is_enabled() is True\n    result = disable()\n    assert result is None\n    assert is_enabled() is False\n\n\ndef test_enable_sets_flag_true():\n    common._GLOBAL_ENABLED = False\n    assert is_enabled() is False\n    result = enable()\n    assert result is None\n    assert is_enabled() is True\n\n\ndef test_disable_is_idempotent():\n    disable()\n    disable()\n    assert is_enabled() is False\n\n\ndef test_enable_is_idempotent():\n    enable()\n    enable()\n    assert is_enabled() is True\n\n\ndef test_disable_enable_roundtrip():\n    disable()\n    assert is_enabled() is False\n    enable()\n    assert is_enabled() is True\n    disable()\n    assert is_enabled() is False\n    enable()\n    assert is_enabled() is True\n\n\ndef test_toggle_affects_module_global():\n    disable()\n    assert common._GLOBAL_ENABLED is False\n    enable()\n    assert common._GLOBAL_ENABLED is True\n\n\n# ---------------------------------------------------------------------------\n# Helpers / internal branches relevant to the public behavior\n# ---------------------------------------------------------------------------\n\n\ndef test_maybe_call_with_callable_and_args():\n    assert common._maybe_call(lambda a, b: a + b, 1, 2) == 3\n\n\ndef test_maybe_call_with_non_callable():\n    value = 42\n    assert common._maybe_call(value) is value\n\n\ndef test_maybe_call_with_callable_no_required_args():\n    def fn():\n        return \"called\"\n\n    assert common._maybe_call(fn) == \"called\"\n\n\ndef test_maybe_call_with_callable_requiring_args_returns_itself():\n    def fn(a):\n        return a\n\n    # Callable requires a positional argument; _maybe_call returns f itself.\n    result = common._maybe_call(fn)\n    assert result is fn\n\n\ndef test_maybe_call_propagates_unrelated_type_error():\n    def fn():\n        raise TypeError(\"boom happened inside\")\n\n    with pytest.raises(TypeError, match=\"boom happened inside\"):\n        common._maybe_call(fn)\n\n\ndef test_prepare_logger_with_string():\n    logger = common._prepare_logger(\"backon._test_logger\")\n    assert logger is logging.getLogger(\"backon._test_logger\")\n\n\ndef test_prepare_logger_with_object():\n    logger = logging.getLogger(\"backon._test_obj\")\n    assert common._prepare_logger(logger) is logger\n\n\ndef test_test_config_defaults():\n    assert common._TEST_CONFIG[\"max_retries\"] is None\n    assert common._TEST_CONFIG[\"backoff_multiplier\"] == 1.0\n    assert common._TEST_CONFIG[\"max_backoff\"] is None\n\n\ndef test_apply_test_overrides_without_max_retries():\n    saved = common._TEST_CONFIG[\"max_retries\"]\n    common._TEST_CONFIG[\"max_retries\"] = None\n    try:\n        assert common._apply_test_overrides(max_tries=5, max_time=10) == (5, 10)\n    finally:\n        common._TEST_CONFIG[\"max_retries\"] = saved\n\n\ndef test_apply_test_overrides_with_max_retries():\n    saved = common._TEST_CONFIG[\"max_retries\"]\n    common._TEST_CONFIG[\"max_retries\"] = 3\n    try:\n        assert common._apply_test_overrides(max_tries=5, max_time=10) == (3, 10)\n    finally:\n        common._TEST_CONFIG[\"max_retries\"] = saved\n\n\ndef test_is_custom_wait():\n    assert common._is_custom_wait(1) is True\n    assert common._is_custom_wait(1.5) is True\n    assert common._is_custom_wait(True) is False\n    assert common._is_custom_wait(False) is False\n    assert common._is_custom_wait(\"x\") is False\n    assert common._is_custom_wait(None) is False\n\n\ndef test_init_wait_gen_calls_wait_gen():\n    def gen(factor):\n        yield factor\n\n    result = common._init_wait_gen(gen, {\"factor\": 2})\n    assert next(result) == 2\n\n\ndef test_next_wait_applies_jitter_and_multiplier():\n    class FakeWait:\n        def next(self, value):\n            return 10\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 2.0\n    try:\n        seconds = common._next_wait(\n            FakeWait(), None, lambda v: v + 5, elapsed=0, max_time=None\n        )\n        assert seconds == 30.0\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\ndef test_next_wait_caps_at_max_time_minus_elapsed():\n    class FakeWait:\n        def next(self, value):\n            return 10\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 1.0\n    try:\n        seconds = common._next_wait(\n            FakeWait(), None, None, elapsed=3, max_time=5\n        )\n        assert seconds == 2\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\ndef test_next_wait_without_jitter():\n    class FakeWait:\n        def next(self, value):\n            return 7\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 1.0\n    try:\n        assert common._next_wait(FakeWait(), None, None, 0, None) == 7\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\n# ---------------------------------------------------------------------------\n# _config_handlers branches\n# ---------------------------------------------------------------------------\n\n\ndef test_config_handlers_list_with_no_logger_returns_same_list():\n    handlers = [object(), object()]\n    assert common._config_handlers(handlers, logger=None) is handlers\n\n\ndef test_config_handlers_none_returns_empty_list():\n    assert common._config_handlers(None) == []\n\n\ndef test_config_handlers_single_callable_wrapped_in_list():\n    def handler(details):\n        return details\n\n    result = common._config_handlers(handler)\n    assert result == [handler]\n\n\ndef test_config_handlers_iterable_expanded():\n    handlers = (object(), object())\n    result = common._config_handlers(handlers)\n    assert list(result) == list(handlers)\n\n\ndef test_config_handlers_with_logger_and_user_handlers_none_creates_lazy():\n    def default_handler(details, logger, log_level):\n        return None\n\n    result = common._config_handlers(\n        None, default_handler=default_handler, logger=\"x\", log_level=logging.INFO\n    )\n    assert len(result) == 1\n    assert isinstance(result[0], common._LazyLogHandler)\n\n\ndef test_config_handlers_with_logger_and_single_user_handler():\n    def default_handler(details, logger, log_level):\n        return None\n\n    def user_handler(details):\n        return details\n\n    result = common._config_handlers(\n        user_handler,\n        default_handler=default_handler,\n        logger=\"x\",\n        log_level=logging.INFO,\n    )\n    assert len(result) == 2\n    assert result[1] is user_handler\n\n\ndef test_lazy_log_handler_calls_handler_once():\n    calls = []\n\n    def handler(details, logger, log_level):\n        calls.append((details, logger, log_level))\n\n    lazy = common._LazyLogHandler(handler, \"logname\", logging.WARNING)\n    lazy({\"a\": 1})\n    lazy({\"b\": 2})\n    assert len(calls) == 2\n    assert calls[0][0] == {\"a\": 1}\n    assert calls[0][1] == \"logname\"\n    assert calls[0][2] == logging.WARNING\n    assert calls[1][0] == {\"b\": 2}\n\n\ndef test_log_backoff_with_exception(caplog):\n    logger = logging.getLogger(\"backon._test_backoff\")\n\n    def target():\n        return None\n\n    details = {\n        \"target\": target,\n        \"wait\": 1.5,\n        \"exception\": ValueError(\"bad\"),\n    }\n    with caplog.at_level(logging.WARNING):\n        common._log_backoff(details, logger, logging.WARNING)\n    assert \"Backing off target(...) for 1.5s\" in caplog.text\n    assert \"ValueError: bad\" in caplog.text\n\n\ndef test_log_backoff_without_exception(caplog):\n    logger = logging.getLogger(\"backon._test_backoff2\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"wait\": 0.5, \"value\": \"somevalue\"}\n    with caplog.at_level(logging.WARNING):\n        common._log_backoff(details, logger, logging.WARNING)\n    assert \"somevalue\" in caplog.text\n\n\ndef test_log_giveup_with_exception(caplog):\n    logger = logging.getLogger(\"backon._test_giveup\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"tries\": 3, \"exception\": RuntimeError(\"stop\")}\n    with caplog.at_level(logging.ERROR):\n        common._log_giveup(details, logger, logging.ERROR)\n    assert \"Giving up target(...) after 3 tries\" in caplog.text\n    assert \"RuntimeError: stop\" in caplog.text\n\n\ndef test_log_giveup_without_exception(caplog):\n    logger = logging.getLogger(\"backon._test_giveup2\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"tries\": 2}\n    with caplog.at_level(logging.ERROR):\n        common._log_giveup(details, logger, logging.ERROR)\n    assert \"after 2 tries\" in caplog.text\n    assert \"unknown\" in caplog.text\n\n```\n\n## Feedback\nAll 33 tests pass. Coverage of `backon/_common.py` by these tests: 87.9% of lines, 84.4% of branches. The code below is NOT exercised by any test:\n- line 109: the branch to line 110 is never taken: `if hasattr(user_handlers, \"__iter__\"):`\n- line 110 never executed: `handlers += list(user_handlers)`\n- line 144 never executed: `return time_module.monotonic_ns() / 1_000_000_000`\n- line 148 never executed: `return _now() - start`\n- lines 160-169 never executed: `now = time_module.monotonic_ns() / 1_000_000_000`\n- line 174 never executed: `_hot_loop_data[\"count\"] = 0`\n\nAdd tests or extend existing ones so that this code is executed and its results are asserted precisely, while all tests still pass on the current code. Check exact return values, boundary inputs and exception messages. Some code may be unreachable through the public API; skip it rather than writing tests that rely on implementation details. Keep all existing tests.\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport logging\n\nimport pytest\n\nimport backon._common as common\nfrom backon._common import disable, enable, is_enabled\n\n\n@pytest.fixture(autouse=True)\ndef restore_global_state():\n    \"\"\"Ensure the module-global enabled flag is restored after each test.\"\"\"\n    original = common._GLOBAL_ENABLED\n    yield\n    common._GLOBAL_ENABLED = original\n\n\n@pytest.fixture(autouse=True)\ndef restore_hot_loop_state():\n    \"\"\"Restore hot loop tracking state so tests don't bleed into each other.\"\"\"\n    saved = dict(common._hot_loop_data)\n    yield\n    with common._hot_loop_lock:\n        common._hot_loop_data.clear()\n        common._hot_loop_data.update(saved)\n\n\n# ---------------------------------------------------------------------------\n# enable / disable / is_enabled\n# ---------------------------------------------------------------------------\n\n\ndef test_is_enabled_default_is_true():\n    common._GLOBAL_ENABLED = True\n    assert is_enabled() is True\n\n\ndef test_disable_sets_flag_false():\n    assert is_enabled() is True\n    result = disable()\n    assert result is None\n    assert is_enabled() is False\n\n\ndef test_enable_sets_flag_true():\n    common._GLOBAL_ENABLED = False\n    assert is_enabled() is False\n    result = enable()\n    assert result is None\n    assert is_enabled() is True\n\n\ndef test_disable_is_idempotent():\n    disable()\n    disable()\n    assert is_enabled() is False\n\n\ndef test_enable_is_idempotent():\n    enable()\n    enable()\n    assert is_enabled() is True\n\n\ndef test_disable_enable_roundtrip():\n    disable()\n    assert is_enabled() is False\n    enable()\n    assert is_enabled() is True\n    disable()\n    assert is_enabled() is False\n    enable()\n    assert is_enabled() is True\n\n\ndef test_toggle_affects_module_global():\n    disable()\n    assert common._GLOBAL_ENABLED is False\n    enable()\n    assert common._GLOBAL_ENABLED is True\n\n\n# ---------------------------------------------------------------------------\n# Helpers / internal branches relevant to the public behavior\n# ---------------------------------------------------------------------------\n\n\ndef test_maybe_call_with_callable_and_args():\n    assert common._maybe_call(lambda a, b: a + b, 1, 2) == 3\n\n\ndef test_maybe_call_with_non_callable():\n    value = 42\n    assert common._maybe_call(value) is value\n\n\ndef test_maybe_call_with_callable_no_required_args():\n    def fn():\n        return \"called\"\n\n    assert common._maybe_call(fn) == \"called\"\n\n\ndef test_maybe_call_with_callable_requiring_args_returns_itself():\n    def fn(a):\n        return a\n\n    # Callable requires a positional argument; _maybe_call returns f itself.\n    result = common._maybe_call(fn)\n    assert result is fn\n\n\ndef test_maybe_call_propagates_unrelated_type_error():\n    def fn():\n        raise TypeError(\"boom happened inside\")\n\n    with pytest.raises(TypeError, match=\"boom happened inside\"):\n        common._maybe_call(fn)\n\n\ndef test_prepare_logger_with_string():\n    logger = common._prepare_logger(\"backon._test_logger\")\n    assert logger is logging.getLogger(\"backon._test_logger\")\n\n\ndef test_prepare_logger_with_object():\n    logger = logging.getLogger(\"backon._test_obj\")\n    assert common._prepare_logger(logger) is logger\n\n\ndef test_test_config_defaults():\n    assert common._TEST_CONFIG[\"max_retries\"] is None\n    assert common._TEST_CONFIG[\"backoff_multiplier\"] == 1.0\n    assert common._TEST_CONFIG[\"max_backoff\"] is None\n\n\ndef test_apply_test_overrides_without_max_retries():\n    saved = common._TEST_CONFIG[\"max_retries\"]\n    common._TEST_CONFIG[\"max_retries\"] = None\n    try:\n        assert common._apply_test_overrides(max_tries=5, max_time=10) == (5, 10)\n    finally:\n        common._TEST_CONFIG[\"max_retries\"] = saved\n\n\ndef test_apply_test_overrides_with_max_retries():\n    saved = common._TEST_CONFIG[\"max_retries\"]\n    common._TEST_CONFIG[\"max_retries\"] = 3\n    try:\n        assert common._apply_test_overrides(max_tries=5, max_time=10) == (3, 10)\n    finally:\n        common._TEST_CONFIG[\"max_retries\"] = saved\n\n\ndef test_apply_test_overrides_defaults():\n    saved = common._TEST_CONFIG[\"max_retries\"]\n    common._TEST_CONFIG[\"max_retries\"] = None\n    try:\n        assert common._apply_test_overrides() == (None, None)\n    finally:\n        common._TEST_CONFIG[\"max_retries\"] = saved\n\n\ndef test_is_custom_wait():\n    assert common._is_custom_wait(1) is True\n    assert common._is_custom_wait(1.5) is True\n    assert common._is_custom_wait(True) is False\n    assert common._is_custom_wait(False) is False\n    assert common._is_custom_wait(\"x\") is False\n    assert common._is_custom_wait(None) is False\n\n\ndef test_init_wait_gen_calls_wait_gen():\n    def gen(factor):\n        yield factor\n\n    result = common._init_wait_gen(gen, {\"factor\": 2})\n    assert next(result) == 2\n\n\ndef test_next_wait_applies_jitter_and_multiplier():\n    class FakeWait:\n        def next(self, value):\n            return 10\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 2.0\n    try:\n        seconds = common._next_wait(\n            FakeWait(), None, lambda v: v + 5, elapsed=0, max_time=None\n        )\n        assert seconds == 30.0\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\ndef test_next_wait_caps_at_max_time_minus_elapsed():\n    class FakeWait:\n        def next(self, value):\n            return 10\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 1.0\n    try:\n        seconds = common._next_wait(\n            FakeWait(), None, None, elapsed=3, max_time=5\n        )\n        assert seconds == 2\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\ndef test_next_wait_without_jitter():\n    class FakeWait:\n        def next(self, value):\n            return 7\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 1.0\n    try:\n        assert common._next_wait(FakeWait(), None, None, 0, None) == 7\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n\n\ndef test_next_wait_passes_send_value():\n    received = []\n\n    class FakeWait:\n        def next(self, value):\n            received.append(value)\n            return 1\n\n    saved = common._TEST_CONFIG[\"backoff_multiplier\"]\n    common._TEST_CONFIG[\"backoff_multiplier\"] = 1.0\n    try:\n        common._next_wait(FakeWait(), \"sentinel\", None, 0, None)\n    finally:\n        common._TEST_CONFIG[\"backoff_multiplier\"] = saved\n    assert received == [\"sentinel\"]\n\n\n# ---------------------------------------------------------------------------\n# _config_handlers branches\n# ---------------------------------------------------------------------------\n\n\ndef test_config_handlers_list_with_no_logger_returns_same_list():\n    handlers = [object(), object()]\n    assert common._config_handlers(handlers, logger=None) is handlers\n\n\ndef test_config_handlers_none_returns_empty_list():\n    assert common._config_handlers(None) == []\n\n\ndef test_config_handlers_single_callable_wrapped_in_list():\n    def handler(details):\n        return details\n\n    result = common._config_handlers(handler)\n    assert result == [handler]\n\n\ndef test_config_handlers_iterable_expanded():\n    handlers = (object(), object())\n    result = common._config_handlers(handlers)\n    assert list(result) == list(handlers)\n\n\ndef test_config_handlers_with_logger_and_user_handlers_none_creates_lazy():\n    def default_handler(details, logger, log_level):\n        return None\n\n    result = common._config_handlers(\n        None, default_handler=default_handler, logger=\"x\", log_level=logging.INFO\n    )\n    assert len(result) == 1\n    assert isinstance(result[0], common._LazyLogHandler)\n\n\ndef test_config_handlers_with_logger_and_single_user_handler():\n    def default_handler(details, logger, log_level):\n        return None\n\n    def user_handler(details):\n        return details\n\n    result = common._config_handlers(\n        user_handler,\n        default_handler=default_handler,\n        logger=\"x\",\n        log_level=logging.INFO,\n    )\n    assert len(result) == 2\n    assert result[1] is user_handler\n\n\ndef test_config_handlers_with_logger_and_iterable_user_handlers():\n    def default_handler(details, logger, log_level):\n        return None\n\n    def user_handler_a(details):\n        return details\n\n    def user_handler_b(details):\n        return details\n\n    result = common._config_handlers(\n        [user_handler_a, user_handler_b],\n        default_handler=default_handler,\n        logger=\"x\",\n        log_level=logging.INFO,\n    )\n    assert len(result) == 3\n    assert result[0].func is default_handler\n    assert result[1] is user_handler_a\n    assert result[2] is user_handler_b\n\n\ndef test_config_handlers_default_handler_partial_has_kwargs():\n    def default_handler(details, logger, log_level):\n        return None\n\n    log = logging.getLogger(\"backon._test_partial\")\n    result = common._config_handlers(\n        None,\n        default_handler=default_handler,\n        logger=log,\n        log_level=logging.INFO,\n    )\n    lazy = result[0]\n    # Trigger lazy construction, then check the partial's bound kwargs.\n    lazy({\"x\": 1})\n    inner = lazy._handler\n    assert inner.func is default_handler\n    assert inner.keywords == {\"logger\": log, \"log_level\": logging.INFO}\n\n\ndef test_lazy_log_handler_calls_handler_once():\n    calls = []\n\n    def handler(details, logger, log_level):\n        calls.append((details, logger, log_level))\n\n    lazy = common._LazyLogHandler(handler, \"logname\", logging.WARNING)\n    lazy({\"a\": 1})\n    lazy({\"b\": 2})\n    assert len(calls) == 2\n    assert calls[0][0] == {\"a\": 1}\n    assert calls[0][1] == \"logname\"\n    assert calls[0][2] == logging.WARNING\n    assert calls[1][0] == {\"b\": 2}\n\n\ndef test_lazy_log_handler_caches_factory_result():\n    created = []\n\n    def handler(details, logger, log_level):\n        created.append(1)\n\n    lazy = common._LazyLogHandler(handler, \"logname\", logging.WARNING)\n    assert lazy._handler is None\n    lazy({\"a\": 1})\n    first = lazy._handler\n    assert first is not None\n    lazy({\"b\": 2})\n    assert lazy._handler is first\n    assert created == [1, 1]\n\n\ndef test_log_backoff_with_exception(caplog):\n    logger = logging.getLogger(\"backon._test_backoff\")\n\n    def target():\n        return None\n\n    details = {\n        \"target\": target,\n        \"wait\": 1.5,\n        \"exception\": ValueError(\"bad\"),\n    }\n    with caplog.at_level(logging.WARNING):\n        common._log_backoff(details, logger, logging.WARNING)\n    assert \"Backing off target(...) for 1.5s\" in caplog.text\n    assert \"ValueError: bad\" in caplog.text\n\n\ndef test_log_backoff_without_exception(caplog):\n    logger = logging.getLogger(\"backon._test_backoff2\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"wait\": 0.5, \"value\": \"somevalue\"}\n    with caplog.at_level(logging.WARNING):\n        common._log_backoff(details, logger, logging.WARNING)\n    assert \"somevalue\" in caplog.text\n\n\ndef test_log_backoff_defaults_to_unknown(caplog):\n    logger = logging.getLogger(\"backon._test_backoff3\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"wait\": 0.5}\n    with caplog.at_level(logging.WARNING):\n        common._log_backoff(details, logger, logging.WARNING)\n    assert \"unknown\" in caplog.text\n    assert \"target(...) for 0.5s\" in caplog.text\n\n\ndef test_log_giveup_with_exception(caplog):\n    logger = logging.getLogger(\"backon._test_giveup\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"tries\": 3, \"exception\": RuntimeError(\"stop\")}\n    with caplog.at_level(logging.ERROR):\n        common._log_giveup(details, logger, logging.ERROR)\n    assert \"Giving up target(...) after 3 tries\" in caplog.text\n    assert \"RuntimeError: stop\" in caplog.text\n\n\ndef test_log_giveup_without_exception(caplog):\n    logger = logging.getLogger(\"backon._test_giveup2\")\n\n    def target():\n        return None\n\n    details = {\"target\": target, \"tries\": 2}\n    with caplog.at_level(logging.ERROR):\n        common._log_giveup(details, logger, logging.ERROR)\n    assert \"after 2 tries\" in caplog.text\n    assert \"unknown\" in caplog.text\n\n\n# ---------------------------------------------------------------------------\n# _now / _elapsed\n# ---------------------------------------------------------------------------\n\n\ndef test_now_returns_positive_float():\n    value = common._now()\n    assert isinstance(value, float)\n    assert value > 0\n\n\ndef test_elapsed_is_non_negative():\n    start = common._now()\n    elapsed = common._elapsed(start)\n    assert isinstance(elapsed, float)\n    assert elapsed >= 0\n\n\ndef test_elapsed_subtracts_start_from_now(monkeypatch):\n    monkeypatch.setattr(common, \"_now\", lambda: 100.0)\n    assert common._elapsed(40.0) == 60.0\n\n\n# ---------------------------------------------------------------------------\n# _check_hot_loop\n# ---------------------------------------------------------------------------\n\n\ndef _reset_hot_loop():\n    with common._hot_loop_lock:\n        common._hot_loop_data[\"last_retry\"] = 0.0\n        common._hot_loop_data[\"count\"] = 0\n\n\ndef test_check_hot_loop_first_call_sets_state(monkeypatch):\n    _reset_hot_loop()\n    monkeypatch.setattr(common.time_module, \"monotonic_ns\", lambda: 5_000_000_000)\n    common._check_hot_loop()\n    assert common._hot_loop_data[\"last_retry\"] == 5.0\n    assert common._hot_loop_data[\"count\"] == 0\n\n\ndef test_check_hot_loop_fast_successive_calls_increment_count(monkeypatch):\n    _reset_hot_loop()\n    monkeypatch.setattr(common.time_module, \"monotonic_ns\", lambda: 1_000_000_000)\n    common._check_hot_loop()\n    assert common._hot_loop_data[\"count\"] == 0\n    # Second call within 0.1s increments the counter.\n    monkeypatch.setattr(common.time_module, \"monotonic_ns\", lambda: 1_050_000_000)\n    common._check_hot_loop()\n    assert common._hot_loop_data[\"count\"] == 1\n    assert common._hot_loop_data[\"last_retry\"] == 1.05\n\n\ndef test_check_hot_loop_slow_call_resets_count(monkeypatch):\n    _reset_hot_loop()\n    with common._hot_loop_lock:\n        common._hot_loop_data[\"last_retry\"] = 1.0\n        common._hot_loop_data[\"count\"] = 3\n    # A gap >= 0.1s resets the count.\n    monkeypatch.setattr(common.time_module, \"monotonic_ns\", lambda: 2_000_000_000)\n    common._check_hot_loop()\n    assert common._hot_loop_data[\"count\"] == 0\n    assert common._hot_loop_data[\"last_retry\"] == 2.0\n\n\ndef test_check_hot_loop_warns_and_resets_after_threshold(monkeypatch, caplog):\n    _reset_hot_loop()\n    times = iter([1_000_000_000 + i * 10_000_000 for i in range(7)])\n    monkeypatch.setattr(common.time_module, \"monotonic_ns\", lambda: next(times))\n\n    # First call initializes; subsequent fast calls increment count.\n    # After 5 increments (count reaches 5) a warning is emitted and count reset.\n    with caplog.at_level(logging.WARNING, logger=\"backon\"):\n        for _ in range(6):\n            common._check_hot_loop()\n\n    assert \"Hot loop detected\" in caplog.text\n    assert common._hot_loop_data[\"count\"] == 0\n\n\ndef test_check_hot_loop_no_warning_below_threshold(monkeypatch, caplog):\n    _reset_hot_loop()\n    times = iter([1_000_000_000 + i * 10_000_000 for i in range(5)])\n    monkeypatch.setattr(common.time_module, \"monotonic_ns\", lambda: next(times))\n\n    with caplog.at_level(logging.WARNING, logger=\"backon\"):\n        for _ in range(5):\n            common._check_hot_loop()\n\n    # count reaches 4, just below threshold; no warning.\n    assert \"Hot loop detected\" not in caplog.text\n    assert common._hot_loop_data[\"count\"] == 4\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 4892,
+      "cache_hit_tokens": 2176,
+      "completion_tokens": 4088,
+      "reasoning_tokens": 0,
+      "latency": 12.18
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T06:13:18+00:00",
+    "duration": 1.15,
+    "summary": "通过 47，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__common.py"
+          ]
+        },
+        "duration": 1.15,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 13561
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T06:13:23+00:00",
+    "duration": 6.36,
+    "summary": "分数 [1, 0.0, 1.0, 1.0, 47]（提升），行覆盖 100.0%，分支覆盖 100.0%",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__common.py"
+          ]
+        },
+        "duration": 3.84,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "backon/_common.py",
+          "tests": [
+            "tests_testpilot/test__common.py::test_is_enabled_default_is_true",
+            "tests_testpilot/test__common.py::test_disable_sets_flag_false",
+            "tests_testpilot/test__common.py::test_enable_sets_flag_true",
+            "tests_testpilot/test__common.py::test_disable_is_idempotent",
+            "tests_testpilot/test__common.py::test_enable_is_idempotent",
+            "tests_testpilot/test__common.py::test_disable_enable_roundtrip",
+            "tests_testpilot/test__common.py::test_toggle_affects_module_global",
+            "tests_testpilot/test__common.py::test_maybe_call_with_callable_and_args",
+            "tests_testpilot/test__common.py::test_maybe_call_with_non_callable",
+            "tests_testpilot/test__common.py::test_maybe_call_with_callable_no_required_args",
+            "tests_testpilot/test__common.py::test_maybe_call_with_callable_requiring_args_returns_itself",
+            "tests_testpilot/test__common.py::test_maybe_call_propagates_unrelated_type_error",
+            "tests_testpilot/test__common.py::test_prepare_logger_with_string",
+            "tests_testpilot/test__common.py::test_prepare_logger_with_object",
+            "tests_testpilot/test__common.py::test_test_config_defaults",
+            "tests_testpilot/test__common.py::test_apply_test_overrides_without_max_retries",
+            "tests_testpilot/test__common.py::test_apply_test_overrides_with_max_retries",
+            "tests_testpilot/test__common.py::test_apply_test_overrides_defaults",
+            "tests_testpilot/test__common.py::test_is_custom_wait",
+            "tests_testpilot/test__common.py::test_init_wait_gen_calls_wait_gen",
+            "tests_testpilot/test__common.py::test_next_wait_applies_jitter_and_multiplier",
+            "tests_testpilot/test__common.py::test_next_wait_caps_at_max_time_minus_elapsed",
+            "tests_testpilot/test__common.py::test_next_wait_without_jitter",
+            "tests_testpilot/test__common.py::test_next_wait_passes_send_value",
+            "tests_testpilot/test__common.py::test_config_handlers_list_with_no_logger_returns_same_list",
+            "tests_testpilot/test__common.py::test_config_handlers_none_returns_empty_list",
+            "tests_testpilot/test__common.py::test_config_handlers_single_callable_wrapped_in_list",
+            "tests_testpilot/test__common.py::test_config_handlers_iterable_expanded",
+            "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_user_handlers_none_creates_lazy",
+            "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_single_user_handler",
+            "tests_testpilot/test__common.py::test_config_handlers_with_logger_and_iterable_user_handlers",
+            "tests_testpilot/test__common.py::test_config_handlers_default_handler_partial_has_kwargs",
+            "tests_testpilot/test__common.py::test_lazy_log_handler_calls_handler_once",
+            "tests_testpilot/test__common.py::test_lazy_log_handler_caches_factory_result",
+            "tests_testpilot/test__common.py::test_log_backoff_with_exception",
+            "tests_testpilot/test__common.py::test_log_backoff_without_exception",
+            "tests_testpilot/test__common.py::test_log_backoff_defaults_to_unknown",
+            "tests_testpilot/test__common.py::test_log_giveup_with_exception",
+            "tests_testpilot/test__common.py::test_log_giveup_without_exception",
+            "tests_testpilot/test__common.py::test_now_returns_positive_float",
+            "tests_testpilot/test__common.py::test_elapsed_is_non_negative",
+            "tests_testpilot/test__common.py::test_elapsed_subtracts_start_from_now",
+            "tests_testpilot/test__common.py::test_check_hot_loop_first_call_sets_state",
+            "tests_testpilot/test__common.py::test_check_hot_loop_fast_successive_calls_increment_count",
+            "tests_testpilot/test__common.py::test_check_hot_loop_slow_call_resets_count",
+            "tests_testpilot/test__common.py::test_check_hot_loop_warns_and_resets_after_threshold",
+            "tests_testpilot/test__common.py::test_check_hot_loop_no_warning_below_threshold"
+          ]
+        },
+        "duration": 2.51,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 13561,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      1.0,
+      47
+    ],
+    "coverage": {
+      "target": "backon/_common.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 107,
+      "branches": 32,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 47,
+      "valid": 47,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T06:13:23+00:00",
+    "duration": 0.0,
+    "summary": "全部测试有效，且行与分支全部覆盖",
+    "tool_calls": [],
+    "tokens_total": 13561
+  },
+  {
+    "node": "finalize",
+    "iteration": 2,
+    "at": "2026-10-20T06:13:23+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试有效，且行与分支全部覆盖；采用第 2 轮，分数 [1, 0.0, 1.0, 1.0, 47]",
+    "tool_calls": [],
+    "tokens_total": 13561,
+    "best_iteration": 2
+  }
+]

@@ -1,0 +1,3658 @@
+[
+  [
+    {
+      "node": "plan",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:28+00:00",
+      "duration": 0.01,
+      "summary": "4 个公开符号",
+      "tool_calls": [
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "public_symbols": [
+        "hashkey",
+        "methodkey",
+        "typedkey",
+        "typedmethodkey"
+      ]
+    },
+    {
+      "node": "retrieve_context",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:28+00:00",
+      "duration": 0.03,
+      "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+    },
+    {
+      "node": "write_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:35+00:00",
+      "duration": 7.24,
+      "summary": "第 1 轮：生成 333 行测试",
+      "tool_calls": [
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7590 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3180,
+      "llm": {
+        "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+        "response": "```python\n\"\"\"Tests for cachetools.keys.\"\"\"\n\nimport pickle\n\nimport pytest\n\nimport cachetools.keys as keys\nfrom cachetools.keys import (\n    _HashedTuple,\n    _kwmark,\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n)\n\n\n# ---------------------------------------------------------------------------\n# _HashedTuple\n# ---------------------------------------------------------------------------\n\n\ndef test_hashed_tuple_is_tuple():\n    t = _HashedTuple((1, 2, 3))\n    assert isinstance(t, tuple)\n    assert tuple.__eq__(t, (1, 2, 3))\n    assert t == (1, 2, 3)\n\n\ndef test_hashed_tuple_hash_cached():\n    t = _HashedTuple((1, 2, 3))\n    first = t.__hashvalue\n    assert first is None\n    h = hash(t)\n    assert h == hash((1, 2, 3))\n    assert t.__hashvalue == h\n    # Second call returns the same cached value.\n    assert hash(t) == h\n    assert t.__hashvalue == h\n\n\ndef test_hashed_tuple_hash_equal_to_tuple():\n    t = _HashedTuple((\"a\", \"b\"))\n    assert hash(t) == hash((\"a\", \"b\"))\n\n\ndef test_hashed_tuple_add_returns_hashed_tuple():\n    t = _HashedTuple((1, 2))\n    result = t + (3, 4)\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3, 4)\n\n\ndef test_hashed_tuple_radd_returns_hashed_tuple():\n    t = _HashedTuple((3, 4))\n    result = (1, 2) + t\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3, 4)\n\n\ndef test_hashed_tuple_radd_list():\n    t = _HashedTuple((3, 4))\n    result = [1, 2] + t\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3, 4)\n\n\ndef test_hashed_tuple_pickle_roundtrip():\n    t = _HashedTuple((1, \"two\", 3.0))\n    restored = pickle.loads(pickle.dumps(t))\n    assert isinstance(restored, _HashedTuple)\n    assert restored == t\n    assert hash(restored) == hash(t)\n    # getstate returns empty dict\n    assert t.__getstate__() == {}\n\n\ndef test_hashed_tuple_hash_unhashable():\n    t = _HashedTuple(([1],))\n    with pytest.raises(TypeError):\n        hash(t)\n\n\ndef test_kwmark_identity_preserved_through_pickle():\n    restored = pickle.loads(pickle.dumps(_kwmark))\n    assert restored[0] is _HashedTuple\n\n\n# ---------------------------------------------------------------------------\n# hashkey\n# ---------------------------------------------------------------------------\n\n\ndef test_hashkey_no_args():\n    k = hashkey()\n    assert isinstance(k, _HashedTuple)\n    assert k == ()\n    assert _kwmark not in k\n\n\ndef test_hashkey_positional_only():\n    k = hashkey(1, 2, 3)\n    assert isinstance(k, _HashedTuple)\n    assert k == (1, 2, 3)\n\n\ndef test_hashkey_with_kwargs():\n    k = hashkey(1, b=2, a=3)\n    # kwargs sorted by name\n    assert k == (1, _kwmark, (\"a\", 3), (\"b\", 2))\n\n\ndef test_hashkey_kwargs_only():\n    k = hashkey(x=1, y=2)\n    assert k == (_kwmark, (\"x\", 1), (\"y\", 2))\n\n\ndef test_hashkey_kwargs_sorted_order():\n    k1 = hashkey(a=1, b=2, c=3)\n    k2 = hashkey(c=3, b=2, a=1)\n    assert k1 == k2\n    assert hash(k1) == hash(k2)\n\n\ndef test_hashkey_differs_with_positional():\n    assert hashkey(1) != hashkey(2)\n    assert hashkey(1, 2) != hashkey(2, 1)\n\n\ndef test_hashkey_positional_vs_kwarg():\n    # (1, 2) positional should not equal kwargs form\n    assert hashkey(1, 2) != hashkey(a=1, b=2)\n\n\ndef test_hashkey_empty_kwargs_same_as_no_kwargs():\n    # explicit empty kwargs means branch is not taken\n    assert hashkey(1, 2) == hashkey(1, 2, **{})\n\n\ndef test_hashkey_hash_consistent():\n    k = hashkey(1, 2, a=3)\n    assert hash(k) == hash(k)\n\n\ndef test_hashkey_unhashable_arg():\n    with pytest.raises(TypeError):\n        hash(hashkey([1, 2]))\n\n\n# ---------------------------------------------------------------------------\n# methodkey\n# ---------------------------------------------------------------------------\n\n\ndef test_methodkey_ignores_self():\n    class C:\n        pass\n\n    obj = C()\n    k = methodkey(obj, 1, 2)\n    # methodkey drops self\n    assert k == (1, 2)\n    assert isinstance(k, _HashedTuple)\n\n\ndef test_methodkey_with_kwargs_ignores_self():\n    class C:\n        pass\n\n    obj = C()\n    k = methodkey(obj, 1, a=2)\n    assert k == (1, _kwmark, (\"a\", 2))\n\n\ndef test_methodkey_two_instances_same_key():\n    class C:\n        pass\n\n    k1 = methodkey(C(), 1)\n    k2 = methodkey(C(), 1)\n    assert k1 == k2\n    assert hash(k1) == hash(k2)\n\n\ndef test_methodkey_no_args():\n    k = methodkey(object())\n    assert k == ()\n\n\n# ---------------------------------------------------------------------------\n# typedkey\n# ---------------------------------------------------------------------------\n\n\ndef test_typedkey_no_args():\n    k = typedkey()\n    assert isinstance(k, _HashedTuple)\n    assert k == ()\n\n\ndef test_typedkey_positional_only():\n    # No kwargs: key = args + types of args\n    k = typedkey(1, 2)\n    assert k == (1, 2, int, int)\n\n\ndef test_typedkey_positional_differs_by_type():\n    assert typedkey(1) != typedkey(1.0)\n    assert typedkey(1) != typedkey(True)\n\n\ndef test_typedkey_same_value_same_type_equal():\n    assert typedkey(1) == typedkey(1)\n    assert hash(typedkey(1)) == hash(typedkey(1))\n\n\ndef test_typedkey_with_kwargs():\n    k = typedkey(1, a=2)\n    # args + _kwmark + sorted_kwargs + types of sorted kwarg values + types of args\n    assert k == (1, _kwmark, (\"a\", 2), int, int)\n\n\ndef test_typedkey_kwargs_only():\n    k = typedkey(a=2)\n    assert k == (_kwmark, (\"a\", 2), int)\n\n\ndef test_typedkey_kwargs_sorted_order():\n    k1 = typedkey(a=1, b=2)\n    k2 = typedkey(b=2, a=1)\n    assert k1 == k2\n\n\ndef test_typedkey_kwargs_differs_by_type():\n    assert typedkey(a=1) != typedkey(a=1.0)\n\n\ndef test_typedkey_mixed_types():\n    k = typedkey(\"x\", 1, b=True, c=2.0)\n    assert k == (\n        \"x\",\n        1,\n        _kwmark,\n        (\"b\", True),\n        (\"c\", 2.0),\n        bool,\n        float,\n        str,\n        int,\n    )\n\n\ndef test_typedkey_is_hashed_tuple_after_add():\n    k = typedkey(1, 2)\n    assert isinstance(k, _HashedTuple)\n\n\ndef test_typedkey_unhashable_arg():\n    with pytest.raises(TypeError):\n        hash(typedkey([1]))\n\n\n# ---------------------------------------------------------------------------\n# typedmethodkey\n# ---------------------------------------------------------------------------\n\n\ndef test_typedmethodkey_ignores_self():\n    class C:\n        pass\n\n    obj = C()\n    k = typedmethodkey(obj, 1)\n    assert k == (1, int)\n\n\ndef test_typedmethodkey_with_kwargs_ignores_self():\n    class C:\n        pass\n\n    obj = C()\n    k = typedmethodkey(obj, 1, a=2)\n    assert k == (1, _kwmark, (\"a\", 2), int, int)\n\n\ndef test_typedmethodkey_two_instances_same_key():\n    class C:\n        pass\n\n    k1 = typedmethodkey(C(), 1)\n    k2 = typedmethodkey(C(), 1)\n    assert k1 == k2\n    assert hash(k1) == hash(k2)\n\n\ndef test_typedmethodkey_differs_by_type():\n    class C:\n        pass\n\n    assert typedmethodkey(C(), 1) != typedmethodkey(C(), 1.0)\n\n\ndef test_typedmethodkey_no_args():\n    k = typedmethodkey(object())\n    assert k == ()\n\n\n# ---------------------------------------------------------------------------\n# Cross-function sanity\n# ---------------------------------------------------------------------------\n\n\ndef test_hashkey_vs_typedkey():\n    # Differ when types distinguish equal-hashing values\n    assert hashkey(1) != typedkey(1)\n    assert hashkey(1) == (1,)\n    assert typedkey(1) == (1, int)\n\n\ndef test_kwmark_in_key_only_with_kwargs():\n    assert _kwmark not in hashkey(1, 2)\n    assert _kwmark in hashkey(a=1)\n    assert _kwmark not in typedkey(1, 2)\n    assert _kwmark in typedkey(a=1)\n\n\ndef test_all_exports():\n    assert set(keys.__all__) == {\n        \"hashkey\",\n        \"methodkey\",\n        \"typedkey\",\n        \"typedmethodkey\",\n    }\n```",
+        "finish_reason": "stop",
+        "prompt_tokens": 961,
+        "cache_hit_tokens": 768,
+        "completion_tokens": 2219,
+        "reasoning_tokens": 0,
+        "latency": 7.24
+      }
+    },
+    {
+      "node": "run_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:37+00:00",
+      "duration": 1.81,
+      "summary": "通过 32，失败 10，错误 0",
+      "tool_calls": [
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.81,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3180
+    },
+    {
+      "node": "analyze",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:37+00:00",
+      "duration": 0.0,
+      "summary": "分数 [0, 0.0, 0.0, 0.0, 32]（提升）",
+      "tool_calls": [],
+      "tokens_total": 3180,
+      "score": [
+        0,
+        0.0,
+        0.0,
+        0.0,
+        32
+      ],
+      "coverage": null,
+      "validity": null,
+      "mutation": null
+    },
+    {
+      "node": "decide",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:37+00:00",
+      "duration": 0.0,
+      "summary": "单次生成（无反馈）",
+      "tool_calls": [],
+      "tokens_total": 3180
+    },
+    {
+      "node": "finalize",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:37+00:00",
+      "duration": 0.0,
+      "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 32]",
+      "tool_calls": [],
+      "tokens_total": 3180,
+      "best_iteration": 1
+    }
+  ],
+  [
+    {
+      "node": "plan",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:37+00:00",
+      "duration": 0.01,
+      "summary": "4 个公开符号",
+      "tool_calls": [
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7590 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.81,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "public_symbols": [
+        "hashkey",
+        "methodkey",
+        "typedkey",
+        "typedmethodkey"
+      ]
+    },
+    {
+      "node": "retrieve_context",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:37+00:00",
+      "duration": 0.02,
+      "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+    },
+    {
+      "node": "write_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:43+00:00",
+      "duration": 5.45,
+      "summary": "第 1 轮：生成 227 行测试",
+      "tool_calls": [
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<5865 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 2652,
+      "llm": {
+        "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+        "response": "```python\nimport pickle\n\nimport pytest\n\nfrom cachetools.keys import (\n    _HashedTuple,\n    _kwmark,\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n)\n\n\n# ---------------------------------------------------------------------------\n# hashkey\n# ---------------------------------------------------------------------------\n\ndef test_hashkey_no_args():\n    key = hashkey()\n    assert key == ()\n    assert isinstance(key, tuple)\n\n\ndef test_hashkey_positional_only():\n    key = hashkey(1, 2, 3)\n    assert key == (1, 2, 3)\n    assert isinstance(key, tuple)\n\n\ndef test_hashkey_kwargs_sorted():\n    key = hashkey(b=2, a=1)\n    assert key == (() + _kwmark + ((\"a\", 1), (\"b\", 2)))\n    # sentinel separates args from kwargs\n    assert key[len(_kwmark) - 1] is _kwmark[0]\n\n\ndef test_hashkey_args_and_kwargs():\n    key = hashkey(1, 2, c=3, b=4)\n    assert key == ((1, 2) + _kwmark + ((\"b\", 4), (\"c\", 3)))\n\n\ndef test_hashkey_kwarg_order_independent():\n    assert hashkey(a=1, b=2) == hashkey(b=2, a=1)\n\n\ndef test_hashkey_args_vs_kwargs_differ():\n    assert hashkey(1) != hashkey(a=1)\n    assert hashkey(b=2, a=1) != hashkey(1, 2)\n\n\ndef test_hashkey_returns_hashed_tuple():\n    key = hashkey(1, 2, 3)\n    assert isinstance(key, _HashedTuple)\n\n\n# ---------------------------------------------------------------------------\n# methodkey\n# ---------------------------------------------------------------------------\n\ndef test_methodkey_ignores_self():\n    class Obj:\n        pass\n\n    obj = Obj()\n    key = methodkey(obj, 1, 2)\n    assert key == (1, 2)\n    assert isinstance(key, _HashedTuple)\n\n\ndef test_methodkey_ignores_self_with_kwargs():\n    key = methodkey(\"self\", 1, b=2, a=3)\n    assert key == ((1,) + _kwmark + ((\"a\", 3), (\"b\", 2)))\n\n\ndef test_methodkey_same_as_hashkey_without_self():\n    assert methodkey(object(), 1, 2) == hashkey(1, 2)\n\n\n# ---------------------------------------------------------------------------\n# typedkey\n# ---------------------------------------------------------------------------\n\ndef test_typedkey_no_args():\n    key = typedkey()\n    assert key == ()\n    assert isinstance(key, _HashedTuple)\n\n\ndef test_typedkey_positional_only():\n    key = typedkey(1, 2)\n    assert key == (1, 2, int, int)\n\n\ndef test_typedkey_distinguishes_types_when_no_kwargs():\n    assert typedkey(1) != typedkey(1.0)\n    assert typedkey(\"1\") != typedkey(1)\n\n\ndef test_typedkey_kwargs_sorted():\n    key = typedkey(b=2, a=1)\n    assert key == (() + _kwmark + ((\"a\", 1), (\"b\", 2)) + (int, int))\n\n\ndef test_typedkey_args_and_kwargs():\n    key = typedkey(1, \"x\", c=3, b=2.0)\n    sorted_kwargs = ((\"b\", 2.0), (\"c\", 3))\n    expected = (\n        (1, \"x\")\n        + _kwmark\n        + sorted_kwargs\n        + (float, int)   # types of kwargs values in sorted order\n        + (int, str)     # types of positional args\n    )\n    assert key == expected\n\n\ndef test_typedkey_kwarg_order_independent():\n    assert typedkey(a=1, b=2) == typedkey(b=2, a=1)\n\n\ndef test_typedkey_kwargs_types_only_for_kwargs_when_no_args():\n    key = typedkey(x=1, y=\"a\")\n    assert key == (() + _kwmark + ((\"x\", 1), (\"y\", \"a\")) + (int, str))\n\n\ndef test_typedkey_distinguishes_kwarg_types():\n    assert typedkey(a=1) != typedkey(a=1.0)\n\n\ndef test_typedkey_returns_hashed_tuple():\n    assert isinstance(typedkey(1, a=2), _HashedTuple)\n\n\n# ---------------------------------------------------------------------------\n# typedmethodkey\n# ---------------------------------------------------------------------------\n\ndef test_typedmethodkey_ignores_self():\n    class Obj:\n        pass\n\n    obj = Obj()\n    key = typedmethodkey(obj, 1, \"a\")\n    assert key == (1, \"a\", int, str)\n\n\ndef test_typedmethodkey_with_kwargs():\n    key = typedmethodkey(\"self\", 1, b=2.0, a=3)\n    assert key == ((1,) + _kwmark + ((\"a\", 3), (\"b\", 2.0)) + (int, float) + (int,))\n\n\ndef test_typedmethodkey_same_as_typedkey_without_self():\n    assert typedmethodkey(object(), 1, 2) == typedkey(1, 2)\n\n\n# ---------------------------------------------------------------------------\n# _HashedTuple behavior\n# ---------------------------------------------------------------------------\n\ndef test_hashed_tuple_hash_cached():\n    ht = _HashedTuple((1, 2, 3))\n    first = hash(ht)\n    assert hash(ht) == first\n    # second call returns stored value\n    assert hash(ht) == first\n\n\ndef test_hashed_tuple_equals_tuple():\n    assert _HashedTuple((1, 2)) == (1, 2)\n    assert hash(_HashedTuple((1, 2))) == hash((1, 2))\n\n\ndef test_hashed_tuple_add_returns_hashed_tuple():\n    ht = _HashedTuple((1, 2))\n    result = ht + (3,)\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3)\n\n\ndef test_hashed_tuple_radd_returns_hashed_tuple():\n    ht = _HashedTuple((2, 3))\n    result = (1,) + ht\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3)\n\n\ndef test_hashed_tuple_getstate_empty():\n    ht = _HashedTuple((1, 2))\n    assert ht.__getstate__() == {}\n\n\ndef test_hashed_tuple_pickle_roundtrip():\n    ht = _HashedTuple((1, \"a\", 2.5))\n    restored = pickle.loads(pickle.dumps(ht))\n    assert isinstance(restored, _HashedTuple)\n    assert restored == ht\n    assert hash(restored) == hash(ht)\n\n\ndef test_kwmark_identity_preserved_by_pickle():\n    mark = pickle.loads(pickle.dumps(_kwmark))\n    assert mark == _kwmark\n\n\n# ---------------------------------------------------------------------------\n# error handling / unhashable\n# ---------------------------------------------------------------------------\n\ndef test_hashkey_unhashable_arg_raises():\n    with pytest.raises(TypeError):\n        hashkey([1, 2])\n\n\ndef test_hashkey_unhashable_kwarg_raises():\n    with pytest.raises(TypeError):\n        hashkey(a=[1, 2])\n\n\ndef test_typedkey_unhashable_raises():\n    with pytest.raises(TypeError):\n        typedkey([1, 2])\n\n\ndef test_typedkey_unhashable_kwarg_raises():\n    with pytest.raises(TypeError):\n        typedkey(a=object())\n```",
+        "finish_reason": "stop",
+        "prompt_tokens": 961,
+        "cache_hit_tokens": 768,
+        "completion_tokens": 1691,
+        "reasoning_tokens": 0,
+        "latency": 5.44
+      }
+    },
+    {
+      "node": "run_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:44+00:00",
+      "duration": 1.5,
+      "summary": "通过 29，失败 4，错误 0",
+      "tool_calls": [
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.5,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 2652
+    },
+    {
+      "node": "analyze",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:44+00:00",
+      "duration": 0.0,
+      "summary": "分数 [0, 0.0, 0.0, 0.0, 29]（提升）",
+      "tool_calls": [],
+      "tokens_total": 2652,
+      "score": [
+        0,
+        0.0,
+        0.0,
+        0.0,
+        29
+      ],
+      "coverage": null,
+      "validity": null,
+      "mutation": null
+    },
+    {
+      "node": "decide",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:44+00:00",
+      "duration": 0.0,
+      "summary": "单次生成（无反馈）",
+      "tool_calls": [],
+      "tokens_total": 2652
+    },
+    {
+      "node": "finalize",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:44+00:00",
+      "duration": 0.0,
+      "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 29]",
+      "tool_calls": [],
+      "tokens_total": 2652,
+      "best_iteration": 1
+    }
+  ],
+  [
+    {
+      "node": "plan",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:44+00:00",
+      "duration": 0.01,
+      "summary": "4 个公开符号",
+      "tool_calls": [
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7590 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.81,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<5865 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.5,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "public_symbols": [
+        "hashkey",
+        "methodkey",
+        "typedkey",
+        "typedmethodkey"
+      ]
+    },
+    {
+      "node": "retrieve_context",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:44+00:00",
+      "duration": 0.03,
+      "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+    },
+    {
+      "node": "write_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:50+00:00",
+      "duration": 5.52,
+      "summary": "第 1 轮：生成 202 行测试",
+      "tool_calls": [
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<6077 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 2590,
+      "llm": {
+        "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+        "response": "```python\n\"\"\"Tests for cachetools.keys.\"\"\"\n\nimport pickle\n\nimport pytest\n\nfrom cachetools.keys import (\n    _HashedTuple,\n    _kwmark,\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n)\n\n\n# ---------------------------------------------------------------------------\n# _HashedTuple\n# ---------------------------------------------------------------------------\n\nclass TestHashedTuple:\n    def test_is_tuple_subclass(self):\n        key = _HashedTuple((1, 2, 3))\n        assert isinstance(key, tuple)\n        assert key == (1, 2, 3)\n\n    def test_hash_is_cached(self, monkeypatch):\n        key = _HashedTuple((1, 2, 3))\n        calls = []\n        real_hash = tuple.__hash__\n\n        def counting_hash(self):\n            calls.append(1)\n            return real_hash(self)\n\n        monkeypatch.setattr(tuple, \"__hash__\", counting_hash)\n        first = key.__hash__()\n        second = key.__hash__()\n        assert first == second == real_hash((1, 2, 3))\n        assert len(calls) == 1\n\n    def test_add_returns_hashed_tuple(self):\n        key = _HashedTuple((1, 2))\n        result = key + (3, 4)\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3, 4)\n\n    def test_radd_returns_hashed_tuple(self):\n        key = _HashedTuple((3, 4))\n        result = (1, 2) + key\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3, 4)\n\n    def test_getstate(self):\n        key = _HashedTuple((1, 2))\n        key.__hash__()  # populate cache\n        assert key.__getstate__() == {}\n\n    def test_pickle_roundtrip(self):\n        key = _HashedTuple((1, 2, 3))\n        key.__hash__()\n        restored = pickle.loads(pickle.dumps(key))\n        assert restored == key\n        assert isinstance(restored, _HashedTuple)\n\n\n# ---------------------------------------------------------------------------\n# hashkey\n# ---------------------------------------------------------------------------\n\nclass TestHashkey:\n    def test_no_args_no_kwargs(self):\n        key = hashkey()\n        assert isinstance(key, _HashedTuple)\n        assert key == ()\n\n    def test_positional_args_only(self):\n        key = hashkey(1, 2, 3)\n        assert isinstance(key, _HashedTuple)\n        assert key == (1, 2, 3)\n        assert _kwmark not in key\n\n    def test_kwargs_only(self):\n        key = hashkey(a=1, b=2)\n        assert key == (_kwmark, (\"a\", 1), (\"b\", 2))\n\n    def test_kwargs_sorted(self):\n        key1 = hashkey(b=2, a=1)\n        key2 = hashkey(a=1, b=2)\n        assert key1 == key2\n        assert key1 == (_kwmark,) + ((\"a\", 1), (\"b\", 2))\n\n    def test_args_and_kwargs(self):\n        key = hashkey(10, b=2, a=1)\n        assert key == (10, _kwmark, (\"a\", 1), (\"b\", 2))\n\n    def test_kwmark_separates_args_from_kwargs(self):\n        assert hashkey(\"a\", 1) != hashkey(\"a\", a=1)\n        assert hashkey((\"a\", 1)) != hashkey(a=1)\n\n    def test_hashable(self):\n        key = hashkey(1, 2, a=3)\n        assert isinstance(hash(key), int)\n\n    def test_equal_keys_equal_hashes(self):\n        assert hashkey(1, a=2) == hashkey(1, a=2)\n        assert hash(hashkey(1, a=2)) == hash(hashkey(1, a=2))\n\n    def test_unhashable_raises(self):\n        key = hashkey([1, 2, 3])\n        with pytest.raises(TypeError):\n            hash(key)\n\n\n# ---------------------------------------------------------------------------\n# methodkey\n# ---------------------------------------------------------------------------\n\nclass TestMethodkey:\n    def test_ignores_self(self):\n        class Obj:\n            pass\n\n        obj = Obj()\n        other = Obj()\n        assert methodkey(obj, 1, 2) == methodkey(other, 1, 2)\n        assert methodkey(obj) == ()\n        assert methodkey(obj, 1, 2) == hashkey(1, 2)\n\n    def test_with_kwargs(self):\n        obj = object()\n        assert methodkey(obj, a=1) == hashkey(a=1)\n\n    def test_returns_hashed_tuple(self):\n        assert isinstance(methodkey(object(), 1), _HashedTuple)\n\n\n# ---------------------------------------------------------------------------\n# typedkey\n# ---------------------------------------------------------------------------\n\nclass TestTypedkey:\n    def test_no_args_no_kwargs(self):\n        key = typedkey()\n        assert isinstance(key, _HashedTuple)\n        assert key == ()\n\n    def test_positional_args_only(self):\n        key = typedkey(1, 2)\n        assert key == (1, 2, int, int)\n\n    def test_kwargs_only(self):\n        key = typedkey(a=1)\n        assert key == (_kwmark, (\"a\", 1), int)\n\n    def test_args_and_kwargs(self):\n        key = typedkey(1, a=\"x\")\n        assert key == (1, _kwmark, (\"a\", \"x\"), str, int)\n\n    def test_kwargs_sorted(self):\n        assert typedkey(b=2, a=1) == typedkey(a=1, b=2)\n        assert typedkey(b=2, a=1) == (_kwmark, (\"a\", 1), (\"b\", 2), int, int)\n\n    def test_distinguishes_types(self):\n        assert typedkey(1) != typedkey(1.0)\n        assert typedkey(1) == typedkey(1)\n        assert typedkey(a=1) != typedkey(a=1.0)\n\n    def test_distinguishes_bool_and_int(self):\n        assert typedkey(True) != typedkey(1)\n        assert typedkey(True) == typedkey(True)\n\n    def test_no_type_of_str(self):\n        # types are only appended for argument values, not the keys of kwargs\n        key = typedkey(a=1)\n        assert key == (_kwmark, (\"a\", 1), int)\n\n    def test_hashable(self):\n        key = typedkey(1, a=\"x\")\n        assert isinstance(hash(key), int)\n\n    def test_returns_hashed_tuple(self):\n        assert isinstance(typedkey(1), _HashedTuple)\n\n\n# ---------------------------------------------------------------------------\n# typedmethodkey\n# ---------------------------------------------------------------------------\n\nclass TestTypedmethodkey:\n    def test_ignores_self(self):\n        obj1 = object()\n        obj2 = object()\n        assert typedmethodkey(obj1, 1) == typedmethodkey(obj2, 1)\n        assert typedmethodkey(obj1, 1) == typedkey(1)\n\n    def test_with_kwargs(self):\n        obj = object()\n        assert typedmethodkey(obj, a=1) == typedkey(a=1)\n\n    def test_returns_hashed_tuple(self):\n        assert isinstance(typedmethodkey(object(), 1), _HashedTuple)\n```",
+        "finish_reason": "stop",
+        "prompt_tokens": 961,
+        "cache_hit_tokens": 768,
+        "completion_tokens": 1629,
+        "reasoning_tokens": 0,
+        "latency": 5.52
+      }
+    },
+    {
+      "node": "run_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:51+00:00",
+      "duration": 1.54,
+      "summary": "通过 23，失败 8，错误 0",
+      "tool_calls": [
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.54,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 2590
+    },
+    {
+      "node": "analyze",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:51+00:00",
+      "duration": 0.0,
+      "summary": "分数 [0, 0.0, 0.0, 0.0, 23]（提升）",
+      "tool_calls": [],
+      "tokens_total": 2590,
+      "score": [
+        0,
+        0.0,
+        0.0,
+        0.0,
+        23
+      ],
+      "coverage": null,
+      "validity": null,
+      "mutation": null
+    },
+    {
+      "node": "decide",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:51+00:00",
+      "duration": 0.0,
+      "summary": "单次生成（无反馈）",
+      "tool_calls": [],
+      "tokens_total": 2590
+    },
+    {
+      "node": "finalize",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:51+00:00",
+      "duration": 0.0,
+      "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 23]",
+      "tool_calls": [],
+      "tokens_total": 2590,
+      "best_iteration": 1
+    }
+  ],
+  [
+    {
+      "node": "plan",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:51+00:00",
+      "duration": 0.01,
+      "summary": "4 个公开符号",
+      "tool_calls": [
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7590 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.81,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<5865 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.5,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<6077 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.54,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "public_symbols": [
+        "hashkey",
+        "methodkey",
+        "typedkey",
+        "typedmethodkey"
+      ]
+    },
+    {
+      "node": "retrieve_context",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:51+00:00",
+      "duration": 0.03,
+      "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+    },
+    {
+      "node": "write_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:58+00:00",
+      "duration": 7.59,
+      "summary": "第 1 轮：生成 307 行测试",
+      "tool_calls": [
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<8300 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3387,
+      "llm": {
+        "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+        "response": "```python\n\"\"\"Tests for cachetools.keys.\"\"\"\n\nimport pickle\n\nimport pytest\n\nfrom cachetools.keys import (\n    _HashedTuple,\n    _kwmark,\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n)\n\n\nclass TestHashedTuple:\n    def test_is_tuple(self):\n        ht = _HashedTuple((1, 2, 3))\n        assert isinstance(ht, tuple)\n        assert ht == (1, 2, 3)\n        assert tuple(ht) == (1, 2, 3)\n\n    def test_hash_caching(self):\n        ht = _HashedTuple((1, 2, 3))\n        first = hash(ht)\n        assert first == hash((1, 2, 3))\n        # After first hash, __hashvalue is set\n        assert ht._HashedTuple__hashvalue == first\n        # Second call returns cached value\n        assert ht._HashedTuple__hashvalue == first\n\n    def test_hash_cached_even_if_objects_change_hash(self):\n        class H:\n            def __init__(self):\n                self.calls = 0\n                self.value = 1\n\n            def __hash__(self):\n                self.calls += 1\n                return self.value\n\n            def __eq__(self, other):\n                return self is other\n\n        h = H()\n        ht = _HashedTuple((h,))\n        hash(ht)\n        assert h.calls == 1\n        hash(ht)\n        assert h.calls == 1\n\n    def test_add_returns_hashed_tuple(self):\n        ht = _HashedTuple((1, 2))\n        result = ht + (3,)\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3)\n\n    def test_radd_returns_hashed_tuple(self):\n        ht = _HashedTuple((2, 3))\n        result = (1,) + ht\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3)\n\n    def test_getstate(self):\n        ht = _HashedTuple((1, 2))\n        assert ht.__getstate__() == {}\n\n    def test_pickle_roundtrip(self):\n        ht = _HashedTuple((1, 2, 3))\n        restored = pickle.loads(pickle.dumps(ht))\n        assert isinstance(restored, _HashedTuple)\n        assert restored == ht\n        assert hash(restored) == hash(ht)\n\n\nclass TestHashkey:\n    def test_no_args(self):\n        key = hashkey()\n        assert isinstance(key, _HashedTuple)\n        assert key == ()\n\n    def test_positional_args(self):\n        key = hashkey(1, 2, 3)\n        assert isinstance(key, _HashedTuple)\n        assert key == (1, 2, 3)\n\n    def test_kwargs_only(self):\n        key = hashkey(a=1, b=2)\n        assert isinstance(key, _HashedTuple)\n        assert key == _kwmark + ((\"a\", 1), (\"b\", 2))\n\n    def test_args_and_kwargs(self):\n        key = hashkey(1, 2, a=3, b=4)\n        assert key == (1, 2) + _kwmark + ((\"a\", 3), (\"b\", 4))\n\n    def test_kwargs_sorted(self):\n        key1 = hashkey(b=2, a=1)\n        key2 = hashkey(a=1, b=2)\n        assert key1 == key2\n\n    def test_kwargs_sorted_multiple(self):\n        key = hashkey(c=3, a=1, b=2)\n        assert key == _kwmark + ((\"a\", 1), (\"b\", 2), (\"c\", 3))\n\n    def test_no_args_no_kwargs_equality(self):\n        assert hashkey() == hashkey()\n\n    def test_equal_keys_equal_hash(self):\n        assert hash(hashkey(1, 2, a=3)) == hash(hashkey(1, 2, a=3))\n\n    def test_args_and_kwargs_differ(self):\n        # (1, 2) with empty kwargs vs. no kwargs\n        assert hashkey(1, 2) != hashkey(1, 2, a=3)\n\n    def test_positional_kwmark_collision_avoided(self):\n        # A positional argument equal to _kwmark should not be confused\n        key = hashkey(_kwmark)\n        assert key == (_kwmark,)\n\n    def test_unhashable_raises(self):\n        with pytest.raises(TypeError):\n            hash(hashkey([1, 2]))\n\n    def test_kwmark_identity_preserved_on_pickle(self):\n        key = hashkey(1, a=2)\n        restored = pickle.loads(pickle.dumps(key))\n        assert restored == key\n\n    def test_only_one_hash_per_element(self):\n        class H:\n            def __init__(self):\n                self.calls = 0\n\n            def __hash__(self):\n                self.calls += 1\n                return 42\n\n            def __eq__(self, other):\n                return self is other\n\n        h = H()\n        key = hashkey(h)\n        hash(key)\n        hash(key)\n        hash(key)\n        assert h.calls == 1\n\n\nclass TestMethodkey:\n    def test_drops_self(self):\n        class C:\n            pass\n\n        obj = C()\n        assert methodkey(obj, 1, 2) == hashkey(1, 2)\n        assert methodkey(obj) == hashkey()\n\n    def test_with_kwargs(self):\n        class C:\n            pass\n\n        obj = C()\n        assert methodkey(obj, a=1, b=2) == hashkey(a=1, b=2)\n\n    def test_with_args_and_kwargs(self):\n        class C:\n            pass\n\n        obj = C()\n        assert methodkey(obj, 1, a=2) == hashkey(1, a=2)\n\n    def test_returns_hashed_tuple(self):\n        assert isinstance(methodkey(object(), 1), _HashedTuple)\n\n    def test_different_self_same_key(self):\n        a = object()\n        b = object()\n        assert methodkey(a, 1) == methodkey(b, 1)\n\n\nclass TestTypedkey:\n    def test_no_args(self):\n        key = typedkey()\n        assert isinstance(key, _HashedTuple)\n        assert key == ()\n\n    def test_positional_args(self):\n        key = typedkey(1, 2)\n        assert isinstance(key, _HashedTuple)\n        assert key == (1, 2, int, int)\n\n    def test_kwargs_only(self):\n        key = typedkey(a=1, b=2)\n        assert key == _kwmark + ((\"a\", 1), (\"b\", 2)) + (int, int)\n\n    def test_args_and_kwargs(self):\n        key = typedkey(1, a=2)\n        assert key == (1,) + _kwmark + ((\"a\", 2),) + (int,) + (int,)\n\n    def test_kwargs_sorted(self):\n        assert typedkey(b=2, a=1) == typedkey(a=1, b=2)\n\n    def test_type_included_for_equal_values(self):\n        assert typedkey(1) != typedkey(1.0)\n        assert typedkey(True) != typedkey(1)\n\n    def test_type_included_for_kwargs(self):\n        assert typedkey(a=1) != typedkey(a=1.0)\n\n    def test_same_values_same_types_equal(self):\n        assert typedkey(1, 2, a=3) == typedkey(1, 2, a=3)\n\n    def test_different_kwargs_value_types(self):\n        k1 = typedkey(x=1)\n        k2 = typedkey(x=1.0)\n        assert k1 != k2\n\n    def test_type_order_follows_args(self):\n        key = typedkey(1, \"a\", 2.0, x=1, y=\"b\")\n        expected = (\n            (1, \"a\", 2.0)\n            + _kwmark\n            + ((\"x\", 1), (\"y\", \"b\"))\n            + (int, str)  # kwarg value types sorted by key: x->int, y->str\n            + (int, str, float)  # positional arg types\n        )\n        assert key == expected\n\n    def test_unhashable_raises(self):\n        with pytest.raises(TypeError):\n            hash(typedkey([1, 2]))\n\n    def test_only_one_hash_per_element(self):\n        class H:\n            def __init__(self):\n                self.calls = 0\n\n            def __hash__(self):\n                self.calls += 1\n                return 7\n\n            def __eq__(self, other):\n                return self is other\n\n        h = H()\n        key = typedkey(h)\n        hash(key)\n        hash(key)\n        assert h.calls == 1\n\n    def test_type_only_attached_for_args(self):\n        # No kwargs: only arg types appended\n        key = typedkey(1, 2)\n        assert key[-2:] == (int, int)\n        assert len(key) == 4\n\n\nclass TestTypedmethodkey:\n    def test_drops_self(self):\n        class C:\n            pass\n\n        obj = C()\n        assert typedmethodkey(obj, 1, 2) == typedkey(1, 2)\n        assert typedmethodkey(obj) == typedkey()\n\n    def test_with_kwargs(self):\n        class C:\n            pass\n\n        obj = C()\n        assert typedmethodkey(obj, a=1, b=2) == typedkey(a=1, b=2)\n\n    def test_with_args_and_kwargs(self):\n        class C:\n            pass\n\n        obj = C()\n        assert typedmethodkey(obj, 1, a=2) == typedkey(1, a=2)\n\n    def test_returns_hashed_tuple(self):\n        assert isinstance(typedmethodkey(object(), 1), _HashedTuple)\n\n    def test_types_differ(self):\n        class C:\n            pass\n\n        obj = C()\n        assert typedmethodkey(obj, 1) != typedmethodkey(obj, 1.0)\n\n\nclass TestKwmark:\n    def test_is_single_element_tuple(self):\n        assert isinstance(_kwmark, tuple)\n        assert len(_kwmark) == 1\n        assert _kwmark[0] is _HashedTuple\n\n    def test_pickle_preserves_identity(self):\n        restored = pickle.loads(pickle.dumps(_kwmark))\n        assert restored is _kwmark\n\n    def test_hashkey_uses_kwmark_only_with_kwargs(self):\n        key_no_kwargs = hashkey(1, 2)\n        key_kwargs = hashkey(1, 2, a=3)\n        assert _kwmark not in key_no_kwargs\n        assert _kwmark in key_kwargs\n```",
+        "finish_reason": "stop",
+        "prompt_tokens": 961,
+        "cache_hit_tokens": 768,
+        "completion_tokens": 2426,
+        "reasoning_tokens": 0,
+        "latency": 7.59
+      }
+    },
+    {
+      "node": "run_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:59+00:00",
+      "duration": 1.3,
+      "summary": "通过 44，失败 2，错误 0",
+      "tool_calls": [
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.3,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3387
+    },
+    {
+      "node": "analyze",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:59+00:00",
+      "duration": 0.0,
+      "summary": "分数 [0, 0.0, 0.0, 0.0, 44]（提升）",
+      "tool_calls": [],
+      "tokens_total": 3387,
+      "score": [
+        0,
+        0.0,
+        0.0,
+        0.0,
+        44
+      ],
+      "coverage": null,
+      "validity": null,
+      "mutation": null
+    },
+    {
+      "node": "decide",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:59+00:00",
+      "duration": 0.0,
+      "summary": "单次生成（无反馈）",
+      "tool_calls": [],
+      "tokens_total": 3387
+    },
+    {
+      "node": "finalize",
+      "iteration": 1,
+      "at": "2026-10-20T05:43:59+00:00",
+      "duration": 0.0,
+      "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 44]",
+      "tool_calls": [],
+      "tokens_total": 3387,
+      "best_iteration": 1
+    }
+  ],
+  [
+    {
+      "node": "plan",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:59+00:00",
+      "duration": 0.01,
+      "summary": "4 个公开符号",
+      "tool_calls": [
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7590 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.81,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<5865 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.5,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<6077 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.54,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<8300 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.3,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "public_symbols": [
+        "hashkey",
+        "methodkey",
+        "typedkey",
+        "typedmethodkey"
+      ]
+    },
+    {
+      "node": "retrieve_context",
+      "iteration": 0,
+      "at": "2026-10-20T05:43:59+00:00",
+      "duration": 0.03,
+      "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+    },
+    {
+      "node": "write_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:07+00:00",
+      "duration": 7.6,
+      "summary": "第 1 轮：生成 306 行测试",
+      "tool_calls": [
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7082 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3117,
+      "llm": {
+        "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+        "response": "```python\n\"\"\"Tests for cachetools.keys.\"\"\"\n\nimport pickle\n\nimport pytest\n\nfrom cachetools.keys import (\n    _HashedTuple,\n    _kwmark,\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n)\n\n\n# --- basic return types ---------------------------------------------------\n\n\ndef test_hashkey_returns_hashed_tuple():\n    key = hashkey(1, 2, 3)\n    assert isinstance(key, _HashedTuple)\n    assert key == (1, 2, 3)\n    assert isinstance(key, tuple)\n\n\ndef test_hashkey_no_args():\n    key = hashkey()\n    assert isinstance(key, _HashedTuple)\n    assert key == ()\n\n\ndef test_hashkey_single_arg():\n    assert hashkey(\"a\") == (\"a\",)\n\n\ndef test_hashkey_positional_only():\n    assert hashkey(1, \"x\", None) == (1, \"x\", None)\n\n\n# --- kwargs handling ------------------------------------------------------\n\n\ndef test_hashkey_with_kwargs():\n    key = hashkey(1, b=2, a=3)\n    # kwargs are sorted and separated from args by _kwmark\n    assert key == (1, _kwmark, (\"a\", 3), (\"b\", 2))\n\n\ndef test_hashkey_kwargs_sorted():\n    k1 = hashkey(a=1, b=2, c=3)\n    k2 = hashkey(c=3, b=2, a=1)\n    assert k1 == k2\n\n\ndef test_hashkey_no_kwargs_has_no_marker():\n    assert _kwmark not in hashkey(1, 2, 3)\n    assert _kwmark not in hashkey()\n\n\ndef test_hashkey_empty_kwargs_treated_as_no_kwargs():\n    # explicit empty kwargs -> falsy -> no marker\n    assert hashkey(1, 2, **{}) == (1, 2)\n\n\ndef test_hashkey_args_and_kwargs_distinct():\n    assert hashkey(1, 2) != hashkey(1, b=2)\n    assert hashkey(1, 2) == (1, 2)\n    assert hashkey(1, b=2) == (1, _kwmark, (\"b\", 2))\n\n\ndef test_hashkey_kwarg_value_ordering_preserved():\n    # values are not sorted, only items by key\n    key = hashkey(z=1, a=2)\n    assert key == (_kwmark, (\"a\", 2), (\"z\", 1))\n\n\n# --- methodkey ------------------------------------------------------------\n\n\ndef test_methodkey_ignores_self():\n    class C:\n        pass\n\n    obj = C()\n    assert methodkey(obj, 1, 2) == hashkey(1, 2)\n    assert methodkey(obj, 1, 2) == (1, 2)\n\n\ndef test_methodkey_with_kwargs():\n    class C:\n        pass\n\n    obj = C()\n    assert methodkey(obj, x=1) == hashkey(x=1)\n    assert methodkey(obj, x=1) == (_kwmark, (\"x\", 1))\n\n\ndef test_methodkey_self_not_in_key():\n    class C:\n        pass\n\n    a, b = C(), C()\n    assert methodkey(a, 1) == methodkey(b, 1)\n\n\n# --- typedkey -------------------------------------------------------------\n\n\ndef test_typedkey_no_args():\n    assert typedkey() == ()\n\n\ndef test_typedkey_no_kwargs():\n    assert typedkey(1, \"x\") == (1, \"x\", int, str)\n\n\ndef test_typedkey_distinguishes_types():\n    assert typedkey(1) != typedkey(\"1\")\n    assert typedkey(1) == (1, int)\n    assert typedkey(\"1\") == (\"1\", str)\n\n\ndef test_typedkey_with_kwargs():\n    key = typedkey(1, a=2)\n    # args + marker + sorted kwargs, then types of kwarg values, then types of args\n    assert key == (1, _kwmark, (\"a\", 2), int, int)\n\n\ndef test_typedkey_kwargs_sorted():\n    assert typedkey(a=1, b=2) == typedkey(b=2, a=1)\n\n\ndef test_typedkey_kwargs_types_included():\n    key = typedkey(a=1)\n    assert key == (_kwmark, (\"a\", 1), int)\n\n\ndef test_typedkey_kwarg_key_type_not_included():\n    # only kwarg *values* types are included; keys are strings\n    key = typedkey(a=1)\n    # result length: _kwmark, (\"a\", 1), int\n    assert len(key) == 3\n\n\ndef test_typedkey_args_and_kwargs_types_order():\n    key = typedkey(1, a=\"x\")\n    # args=(1), marker, (\"a\",\"x\"), types of kwarg values=(str,), types of args=(int,)\n    assert key == (1, _kwmark, (\"a\", \"x\"), str, int)\n\n\ndef test_typedkey_bool_vs_int():\n    # bool is subclass of int but type() differs\n    assert typedkey(True) == (True, bool)\n    assert typedkey(1) == (1, int)\n    assert typedkey(True) != typedkey(1)\n\n\n# --- typedmethodkey -------------------------------------------------------\n\n\ndef test_typedmethodkey_ignores_self():\n    class C:\n        pass\n\n    obj = C()\n    assert typedmethodkey(obj, 1) == typedkey(1)\n    assert typedmethodkey(obj, 1) == (1, int)\n\n\ndef test_typedmethodkey_with_kwargs():\n    class C:\n        pass\n\n    obj = C()\n    assert typedmethodkey(obj, a=1) == typedkey(a=1)\n\n\n# --- _HashedTuple behavior ------------------------------------------------\n\n\ndef test_hashed_tuple_caches_hash():\n    calls = []\n\n    class HashCounter:\n        def __init__(self, value):\n            self.value = value\n            self.count = 0\n\n        def __hash__(self):\n            self.count += 1\n            return hash(self.value)\n\n        def __eq__(self, other):\n            return self.value == other.value\n\n    hc = HashCounter(42)\n    t = _HashedTuple((hc,))\n    h1 = hash(t)\n    h2 = hash(t)\n    assert h1 == h2\n    assert hc.count == 1\n\n\ndef test_hashed_tuple_add_returns_hashed_tuple():\n    t = _HashedTuple((1, 2))\n    result = t + (3,)\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3)\n\n\ndef test_hashed_tuple_radd_returns_hashed_tuple():\n    t = _HashedTuple((2, 3))\n    result = (1,) + t\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3)\n\n\ndef test_hashed_tuple_add_with_list():\n    t = _HashedTuple((1,))\n    result = t + [2, 3]\n    assert isinstance(result, _HashedTuple)\n    assert result == (1, 2, 3)\n\n\ndef test_hashed_tuple_getstate():\n    t = _HashedTuple((1, 2))\n    assert t.__getstate__() == {}\n\n\ndef test_hashed_tuple_pickle():\n    t = _HashedTuple((1, 2, 3))\n    restored = pickle.loads(pickle.dumps(t))\n    assert isinstance(restored, _HashedTuple)\n    assert restored == t\n\n\ndef test_kwmark_is_hashed_tuple_class():\n    assert _kwmark == (_HashedTuple,)\n    assert _kwmark[0] is _HashedTuple\n\n\ndef test_hashed_tuple_is_tuple():\n    assert issubclass(_HashedTuple, tuple)\n\n\n# --- equality across functions -------------------------------------------\n\n\ndef test_hashkey_vs_typedkey_differ():\n    assert hashkey(1) != typedkey(1)\n    assert hashkey() != typedkey()\n\n\ndef test_typedkey_chaining_uses_hashed_tuple():\n    key = typedkey(1, a=2)\n    assert isinstance(key, _HashedTuple)\n\n\ndef test_hashkey_and_methodkey_equivalent():\n    class C:\n        pass\n\n    obj = C()\n    assert hashkey(1, 2) == methodkey(obj, 1, 2)\n    assert hashkey(a=1) == methodkey(obj, a=1)\n\n\ndef test_typedkey_and_typedmethodkey_equivalent():\n    class C:\n        pass\n\n    obj = C()\n    assert typedkey(1, 2) == typedmethodkey(obj, 1, 2)\n    assert typedkey(a=1) == typedmethodkey(obj, a=1)\n\n\n# --- hashing the keys themselves works -----------------------------------\n\n\ndef test_keys_are_hashable():\n    assert hash(hashkey(1, a=2)) == hash(hashkey(1, a=2))\n    assert hash(typedkey(1, a=2)) == hash(typedkey(1, a=2))\n    assert isinstance(hash(hashkey()), int)\n    assert isinstance(hash(typedkey()), int)\n\n\ndef test_keys_usable_as_dict_keys():\n    d = {}\n    d[hashkey(1, a=2)] = \"value\"\n    assert d[hashkey(1, a=2)] == \"value\"\n\n\ndef test_unhashable_arg_raises():\n    with pytest.raises(TypeError):\n        hash(hashkey([1, 2]))\n\n\ndef test_unhashable_kwarg_value_raises():\n    with pytest.raises(TypeError):\n        hash(hashkey(a=[1, 2]))\n\n\ndef test_unhashable_arg_typedkey_raises():\n    with pytest.raises(TypeError):\n        hash(typedkey([1, 2]))\n```",
+        "finish_reason": "stop",
+        "prompt_tokens": 961,
+        "cache_hit_tokens": 768,
+        "completion_tokens": 2156,
+        "reasoning_tokens": 0,
+        "latency": 7.6
+      }
+    },
+    {
+      "node": "run_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:08+00:00",
+      "duration": 1.44,
+      "summary": "通过 32，失败 9，错误 0",
+      "tool_calls": [
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.44,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3117
+    },
+    {
+      "node": "analyze",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:08+00:00",
+      "duration": 0.0,
+      "summary": "分数 [0, 0.0, 0.0, 0.0, 32]（提升）",
+      "tool_calls": [],
+      "tokens_total": 3117,
+      "score": [
+        0,
+        0.0,
+        0.0,
+        0.0,
+        32
+      ],
+      "coverage": null,
+      "validity": null,
+      "mutation": null
+    },
+    {
+      "node": "decide",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:08+00:00",
+      "duration": 0.0,
+      "summary": "单次生成（无反馈）",
+      "tool_calls": [],
+      "tokens_total": 3117
+    },
+    {
+      "node": "finalize",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:08+00:00",
+      "duration": 0.0,
+      "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 32]",
+      "tool_calls": [],
+      "tokens_total": 3117,
+      "best_iteration": 1
+    }
+  ],
+  [
+    {
+      "node": "plan",
+      "iteration": 0,
+      "at": "2026-10-20T05:44:08+00:00",
+      "duration": 0.01,
+      "summary": "4 个公开符号",
+      "tool_calls": [
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7590 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.81,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<5865 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.5,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<6077 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.54,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<8300 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.3,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7082 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.44,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "public_symbols": [
+        "hashkey",
+        "methodkey",
+        "typedkey",
+        "typedmethodkey"
+      ]
+    },
+    {
+      "node": "retrieve_context",
+      "iteration": 0,
+      "at": "2026-10-20T05:44:08+00:00",
+      "duration": 0.03,
+      "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+    },
+    {
+      "node": "write_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:17+00:00",
+      "duration": 8.67,
+      "summary": "第 1 轮：生成 352 行测试",
+      "tool_calls": [
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<9993 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3642,
+      "llm": {
+        "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+        "response": "```python\n\"\"\"Unit tests for cachetools.keys.\"\"\"\n\nimport pickle\n\nimport pytest\n\nfrom cachetools.keys import (\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n    _HashedTuple,\n    _kwmark,\n)\n\n\n# ---------------------------------------------------------------------------\n# _HashedTuple\n# ---------------------------------------------------------------------------\n\nclass TestHashedTuple:\n    def test_is_tuple(self):\n        t = _HashedTuple((1, 2, 3))\n        assert isinstance(t, tuple)\n        assert t == (1, 2, 3)\n\n    def test_hash_called_once(self):\n        calls = []\n\n        class Tracker:\n            def __hash__(self):\n                calls.append(1)\n                return 42\n\n            def __eq__(self, other):\n                return self is other\n\n        tracker = Tracker()\n        t = _HashedTuple((tracker,))\n\n        # repeated hashing should only invoke the element's __hash__ once\n        h1 = hash(t)\n        h2 = hash(t)\n        h3 = hash(t)\n        assert h1 == h2 == h3\n        assert len(calls) == 1\n\n    def test_hash_cached_value_consistent_with_tuple(self):\n        t = _HashedTuple((1, 2, 3))\n        assert hash(t) == hash((1, 2, 3))\n        # also equal to hashing the tuple contents directly\n        assert hash(t) == hash(t)\n\n    def test_add_returns_hashed_tuple(self):\n        t = _HashedTuple((1, 2))\n        result = t + (3,)\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3)\n\n    def test_radd_returns_hashed_tuple(self):\n        t = _HashedTuple((2, 3))\n        result = (1,) + t\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3)\n\n    def test_add_with_other_hashed_tuple(self):\n        a = _HashedTuple((1, 2))\n        b = _HashedTuple((3, 4))\n        result = a + b\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3, 4)\n\n    def test_getstate_empty(self):\n        t = _HashedTuple((1, 2, 3))\n        state = t.__getstate__()\n        assert state == {}\n\n    def test_pickle_roundtrip(self):\n        t = _HashedTuple((1, 2, 3))\n        restored = pickle.loads(pickle.dumps(t))\n        assert isinstance(restored, _HashedTuple)\n        assert restored == t\n        assert hash(restored) == hash(t)\n\n    def test_hash_after_unpickle(self):\n        calls = []\n\n        class Tracker:\n            def __hash__(self):\n                calls.append(1)\n                return 7\n\n            def __eq__(self, other):\n                return self is other\n\n        tracker = Tracker()\n        t = _HashedTuple((tracker,))\n        restored = pickle.loads(pickle.dumps(t))\n        # hash value must be recomputed lazily but only once\n        h1 = hash(restored)\n        h2 = hash(restored)\n        assert h1 == h2\n\n\n# ---------------------------------------------------------------------------\n# _kwmark\n# ---------------------------------------------------------------------------\n\nclass TestKwmark:\n    def test_is_single_element_tuple(self):\n        assert isinstance(_kwmark, tuple)\n        assert len(_kwmark) == 1\n        assert _kwmark[0] is _HashedTuple\n\n    def test_identity_after_pickle(self):\n        restored = pickle.loads(pickle.dumps(_kwmark))\n        assert restored == _kwmark\n        assert restored[0] is _HashedTuple\n\n\n# ---------------------------------------------------------------------------\n# hashkey\n# ---------------------------------------------------------------------------\n\nclass TestHashkey:\n    def test_no_args(self):\n        k = hashkey()\n        assert isinstance(k, _HashedTuple)\n        assert k == ()\n\n    def test_positional_args(self):\n        k = hashkey(1, 2, 3)\n        assert isinstance(k, _HashedTuple)\n        assert k == (1, 2, 3)\n\n    def test_single_arg(self):\n        k = hashkey(\"a\")\n        assert k == (\"a\",)\n\n    def test_kwargs_only(self):\n        k = hashkey(a=1, b=2)\n        assert k == (_kwmark[0], (\"a\", 1), (\"b\", 2))\n\n    def test_kwargs_sorted(self):\n        k1 = hashkey(a=1, b=2)\n        k2 = hashkey(b=2, a=1)\n        assert k1 == k2\n        assert k1 == (_kwmark[0], (\"a\", 1), (\"b\", 2))\n\n    def test_args_and_kwargs(self):\n        k = hashkey(1, 2, a=3, b=4)\n        assert k == (1, 2, _kwmark[0], (\"a\", 3), (\"b\", 4))\n\n    def test_args_and_kwargs_sorted_independent_of_order(self):\n        k1 = hashkey(1, a=3, b=4)\n        k2 = hashkey(1, b=4, a=3)\n        assert k1 == k2\n\n    def test_different_types_differ(self):\n        assert hashkey(1) != hashkey(\"1\")\n\n    def test_unhashable_raises(self):\n        with pytest.raises(TypeError):\n            hashkey([1, 2, 3])\n\n    def test_unhashable_kwarg_raises(self):\n        with pytest.raises(TypeError):\n            hashkey(a=[1, 2, 3])\n\n    def test_returned_key_is_hashable(self):\n        k = hashkey(1, 2, a=3)\n        assert isinstance(hash(k), int)\n\n    def test_kwargs_separated_from_args(self):\n        # A single positional dict-like marker must not collide\n        k1 = hashkey(1, 2)\n        k2 = hashkey(1, (\"a\", 2)) if False else None  # placeholder no-op\n        # explicit: args-only key is a plain arg tuple, no marker inserted\n        assert k1 == (1, 2)\n        assert _kwmark[0] not in k1\n\n    def test_marker_distinguishes_arg_from_kwarg(self):\n        # hashkey with kwarg b=2 differs from treating it as positional tuple\n        assert hashkey(b=2) != hashkey((\"b\", 2))\n\n\n# ---------------------------------------------------------------------------\n# methodkey\n# ---------------------------------------------------------------------------\n\nclass TestMethodkey:\n    def test_ignores_self(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert methodkey(obj, 1, 2) == hashkey(1, 2)\n        assert methodkey(obj, 1, 2) == (1, 2)\n\n    def test_with_kwargs(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        k = methodkey(obj, 1, a=2)\n        assert k == hashkey(1, a=2)\n        assert k == (1, _kwmark[0], (\"a\", 2))\n\n    def test_no_extra_args(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert methodkey(obj) == hashkey()\n        assert methodkey(obj) == ()\n\n    def test_two_objects_same_key(self):\n        class Dummy:\n            pass\n\n        assert methodkey(Dummy(), 1) == methodkey(Dummy(), 1)\n\n    def test_returned_type(self):\n        class Dummy:\n            pass\n\n        assert isinstance(methodkey(Dummy(), 1), _HashedTuple)\n\n\n# ---------------------------------------------------------------------------\n# typedkey\n# ---------------------------------------------------------------------------\n\nclass TestTypedkey:\n    def test_no_args(self):\n        k = typedkey()\n        assert isinstance(k, _HashedTuple)\n        assert k == ()\n\n    def test_positional_args_include_types(self):\n        k = typedkey(1, 2)\n        assert k == (1, 2, int, int)\n\n    def test_diff_types_differ(self):\n        assert typedkey(1) != typedkey(1.0)\n        assert typedkey(1) == (1, int)\n        assert typedkey(1.0) == (1.0, float)\n\n    def test_kwargs_only(self):\n        k = typedkey(a=1, b=2)\n        assert k == (\n            _kwmark[0],\n            (\"a\", 1),\n            (\"b\", 2),\n            int,\n            int,\n        )\n\n    def test_kwargs_sorted(self):\n        assert typedkey(a=1, b=2) == typedkey(b=2, a=1)\n\n    def test_args_and_kwargs(self):\n        k = typedkey(1, a=2)\n        assert k == (1, _kwmark[0], (\"a\", 2), int, int)\n\n    def test_kwarg_types_append_in_sorted_order(self):\n        # kwargs sorted a, b ; types appended a's then b's, then args' types\n        k = typedkey(a=\"x\", b=1)\n        assert k == (_kwmark[0], (\"a\", \"x\"), (\"b\", 1), str, int)\n\n    def test_args_types_appended_last(self):\n        k = typedkey(1.5, \"s\", a=2)\n        # order: args + marker + sorted kwargs + kwargs types + args types\n        assert k == (1.5, \"s\", _kwmark[0], (\"a\", 2), int, float, str)\n\n    def test_diff_kwarg_types_differ(self):\n        assert typedkey(a=1) != typedkey(a=1.0)\n        assert typedkey(a=1) == (_kwmark[0], (\"a\", 1), int)\n\n    def test_unhashable_raises(self):\n        with pytest.raises(TypeError):\n            typedkey([1, 2, 3])\n\n    def test_unhashable_kwarg_raises(self):\n        with pytest.raises(TypeError):\n            typedkey(a=[1, 2, 3])\n\n    def test_returned_key_is_hashable(self):\n        k = typedkey(1, 2, a=3)\n        assert isinstance(hash(k), int)\n        assert isinstance(k, _HashedTuple)\n\n    def test_type_of_value_not_name(self):\n        # different named classes with same equality but different types\n        class A:\n            def __eq__(self, other):\n                return isinstance(other, A)\n\n            def __hash__(self):\n                return 1\n\n        class B:\n            def __eq__(self, other):\n                return isinstance(other, B)\n\n            def __hash__(self):\n                return 1\n\n        assert typedkey(A()) != typedkey(B())\n\n\n# ---------------------------------------------------------------------------\n# typedmethodkey\n# ---------------------------------------------------------------------------\n\nclass TestTypedmethodkey:\n    def test_ignores_self(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert typedmethodkey(obj, 1, 2) == typedkey(1, 2)\n        assert typedmethodkey(obj, 1, 2) == (1, 2, int, int)\n\n    def test_with_kwargs(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        k = typedmethodkey(obj, 1, a=2)\n        assert k == typedkey(1, a=2)\n        assert k == (1, _kwmark[0], (\"a\", 2), int, int)\n\n    def test_no_extra_args(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert typedmethodkey(obj) == typedkey()\n        assert typedmethodkey(obj) == ()\n\n    def test_diff_types_differ(self):\n        class Dummy:\n            pass\n\n        assert typedmethodkey(Dummy(), 1) != typedmethodkey(Dummy(), 1.0)\n\n    def test_returned_type(self):\n        class Dummy:\n            pass\n\n        assert isinstance(typedmethodkey(Dummy(), 1), _HashedTuple)\n```",
+        "finish_reason": "stop",
+        "prompt_tokens": 961,
+        "cache_hit_tokens": 768,
+        "completion_tokens": 2681,
+        "reasoning_tokens": 0,
+        "latency": 8.67
+      }
+    },
+    {
+      "node": "run_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:18+00:00",
+      "duration": 1.43,
+      "summary": "通过 42，失败 5，错误 0",
+      "tool_calls": [
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.43,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3642
+    },
+    {
+      "node": "analyze",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:18+00:00",
+      "duration": 0.0,
+      "summary": "分数 [0, 0.0, 0.0, 0.0, 42]（提升）",
+      "tool_calls": [],
+      "tokens_total": 3642,
+      "score": [
+        0,
+        0.0,
+        0.0,
+        0.0,
+        42
+      ],
+      "coverage": null,
+      "validity": null,
+      "mutation": null
+    },
+    {
+      "node": "decide",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:18+00:00",
+      "duration": 0.0,
+      "summary": "单次生成（无反馈）",
+      "tool_calls": [],
+      "tokens_total": 3642
+    },
+    {
+      "node": "finalize",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:18+00:00",
+      "duration": 0.0,
+      "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 42]",
+      "tool_calls": [],
+      "tokens_total": 3642,
+      "best_iteration": 1
+    }
+  ],
+  [
+    {
+      "node": "plan",
+      "iteration": 0,
+      "at": "2026-10-20T05:44:18+00:00",
+      "duration": 0.0,
+      "summary": "4 个公开符号",
+      "tool_calls": [
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7590 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.81,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<5865 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.5,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<6077 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.54,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<8300 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.3,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7082 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.44,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<9993 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.43,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "public_symbols": [
+        "hashkey",
+        "methodkey",
+        "typedkey",
+        "typedmethodkey"
+      ]
+    },
+    {
+      "node": "retrieve_context",
+      "iteration": 0,
+      "at": "2026-10-20T05:44:18+00:00",
+      "duration": 0.03,
+      "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+    },
+    {
+      "node": "write_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:24+00:00",
+      "duration": 6.83,
+      "summary": "第 1 轮：生成 246 行测试",
+      "tool_calls": [
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7721 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3059,
+      "llm": {
+        "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+        "response": "```python\n\"\"\"Tests for cachetools.keys.\"\"\"\n\nimport pickle\nimport pytest\n\nfrom cachetools.keys import (\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n    _HashedTuple,\n    _kwmark,\n)\n\n\n# ---------------------------------------------------------------------------\n# _HashedTuple behavior (used by public functions, worth covering directly)\n# ---------------------------------------------------------------------------\n\nclass TestHashedTuple:\n    def test_is_tuple_subclass(self):\n        assert isinstance(_HashedTuple((1, 2)), tuple)\n\n    def test_hashvalue_cached(self):\n        t = _HashedTuple((1, 2, 3))\n        # Access the mangled name to verify the cached value semantics\n        assert t._HashedTuple__hashvalue is None\n        h1 = hash(t)\n        assert t._HashedTuple__hashvalue == h1\n        h2 = hash(t)\n        assert h1 == h2\n\n    def test_hash_equals_tuple_hash(self):\n        data = (1, \"a\", (2, 3))\n        assert hash(_HashedTuple(data)) == hash(data)\n\n    def test_add_returns_hashedtuple(self):\n        t = _HashedTuple((1, 2))\n        result = t + (3, 4)\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3, 4)\n\n    def test_radd_returns_hashedtuple(self):\n        t = _HashedTuple((3, 4))\n        result = (1, 2) + t\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3, 4)\n\n    def test_getstate_empty(self):\n        t = _HashedTuple((1, 2))\n        assert t.__getstate__() == {}\n\n    def test_pickle_roundtrip(self):\n        t = _HashedTuple((1, 2, 3))\n        loaded = pickle.loads(pickle.dumps(t))\n        assert isinstance(loaded, _HashedTuple)\n        assert loaded == t\n\n    def test_pickle_resets_hashvalue(self):\n        t = _HashedTuple((1, 2))\n        hash(t)  # populate cache\n        loaded = pickle.loads(pickle.dumps(t))\n        assert loaded._HashedTuple__hashvalue is None\n\n\n# ---------------------------------------------------------------------------\n# hashkey\n# ---------------------------------------------------------------------------\n\nclass TestHashkey:\n    def test_empty(self):\n        assert hashkey() == ()\n\n    def test_positional(self):\n        key = hashkey(1, 2, 3)\n        assert isinstance(key, _HashedTuple)\n        assert key == (1, 2, 3)\n\n    def test_kwargs_sorted(self):\n        key = hashkey(a=1, b=2)\n        assert key == (_kwmark, (\"a\", 1), (\"b\", 2))\n\n    def test_kwargs_order_independent(self):\n        assert hashkey(a=1, b=2) == hashkey(b=2, a=1)\n\n    def test_args_and_kwargs(self):\n        key = hashkey(1, 2, x=3, y=4)\n        assert key == (1, 2, _kwmark, (\"x\", 3), (\"y\", 4))\n\n    def test_kwmark_separates_positional_from_kwargs(self):\n        # A positional arg equal to _kwmark must still produce a different key\n        key = hashkey(_kwmark, a=1)\n        assert key == (_kwmark, _kwmark, (\"a\", 1))\n\n    def test_returns_hashedtuple(self):\n        assert isinstance(hashkey(1, 2), _HashedTuple)\n        assert isinstance(hashkey(a=1), _HashedTuple)\n\n    def test_hashable(self):\n        key = hashkey(1, [])  # tuple with list: unhashable element\n        with pytest.raises(TypeError):\n            hash(key)\n\n    def test_equal_keys_hash_equal(self):\n        k1 = hashkey(1, 2, a=3)\n        k2 = hashkey(1, 2, a=3)\n        assert k1 == k2\n        assert hash(k1) == hash(k2)\n\n    def test_distinct_keys_differ(self):\n        assert hashkey(1) != hashkey(2)\n        assert hashkey(a=1) != hashkey(a=2)\n        assert hashkey(1) != hashkey(1, 2)\n\n    def test_pickle_roundtrip(self):\n        key = hashkey(1, 2, a=3)\n        loaded = pickle.loads(pickle.dumps(key))\n        assert loaded == key\n        assert isinstance(loaded, _HashedTuple)\n\n\n# ---------------------------------------------------------------------------\n# methodkey\n# ---------------------------------------------------------------------------\n\nclass TestMethodkey:\n    def test_ignores_self(self):\n        # methodkey takes self as first parameter and drops it\n        assert methodkey(\"self-val\", 1, 2) == hashkey(1, 2)\n\n    def test_no_args(self):\n        assert methodkey(\"self-val\") == hashkey()\n\n    def test_kwargs(self):\n        assert methodkey(\"self-val\", a=1, b=2) == hashkey(a=1, b=2)\n\n    def test_args_and_kwargs(self):\n        assert methodkey(\"self-val\", 10, x=1) == hashkey(10, x=1)\n\n    def test_returns_hashedtuple(self):\n        assert isinstance(methodkey(\"self-val\", 1), _HashedTuple)\n\n    def test_different_self_same_key(self):\n        assert methodkey(\"a\", 1) == methodkey(\"b\", 1)\n\n\n# ---------------------------------------------------------------------------\n# typedkey\n# ---------------------------------------------------------------------------\n\nclass TestTypedkey:\n    def test_empty(self):\n        assert typedkey() == ()\n\n    def test_positional_includes_types(self):\n        key = typedkey(1, 2)\n        assert key == (1, 2, int, int)\n\n    def test_kwargs_includes_types(self):\n        key = typedkey(a=1, b=2)\n        assert key == (_kwmark, (\"a\", 1), (\"b\", 2), int, int)\n\n    def test_args_and_kwargs(self):\n        key = typedkey(1, x=\"s\")\n        assert key == (1, _kwmark, (\"x\", \"s\"), str, int)\n\n    def test_kwargs_sorted(self):\n        k1 = typedkey(a=1, b=2)\n        k2 = typedkey(b=2, a=1)\n        assert k1 == k2\n\n    def test_type_distinguishes(self):\n        assert typedkey(1) != typedkey(1.0)\n        assert typedkey(1) != typedkey(True)\n\n    def test_value_distinguishes(self):\n        assert typedkey(1) != typedkey(2)\n\n    def test_kwargs_order_types(self):\n        # types follow the sorted kwargs order\n        key = typedkey(b=\"s\", a=1)\n        assert key == (_kwmark, (\"a\", 1), (\"b\", \"s\"), int, str)\n\n    def test_returns_hashedtuple(self):\n        assert isinstance(typedkey(1), _HashedTuple)\n        assert isinstance(typedkey(a=1), _HashedTuple)\n\n    def test_hashable(self):\n        key = typedkey(1, 2)\n        hash(key)\n\n    def test_unhashable_value_raises(self):\n        key = typedkey([])\n        with pytest.raises(TypeError):\n            hash(key)\n\n    def test_equal_keys_hash_equal(self):\n        k1 = typedkey(1, a=2)\n        k2 = typedkey(1, a=2)\n        assert k1 == k2\n        assert hash(k1) == hash(k2)\n\n    def test_pickle_roundtrip(self):\n        key = typedkey(1, a=\"s\")\n        loaded = pickle.loads(pickle.dumps(key))\n        assert loaded == key\n\n\n# ---------------------------------------------------------------------------\n# typedmethodkey\n# ---------------------------------------------------------------------------\n\nclass TestTypedmethodkey:\n    def test_ignores_self(self):\n        assert typedmethodkey(\"self-val\", 1, 2) == typedkey(1, 2)\n\n    def test_no_args(self):\n        assert typedmethodkey(\"self-val\") == typedkey()\n\n    def test_kwargs(self):\n        assert typedmethodkey(\"self-val\", a=1) == typedkey(a=1)\n\n    def test_args_and_kwargs(self):\n        assert typedmethodkey(\"self-val\", 1, x=\"s\") == typedkey(1, x=\"s\")\n\n    def test_returns_hashedtuple(self):\n        assert isinstance(typedmethodkey(\"self-val\", 1), _HashedTuple)\n\n    def test_different_self_same_key(self):\n        assert typedmethodkey(\"a\", 1) == typedmethodkey(\"b\", 1)\n\n\n# ---------------------------------------------------------------------------\n# Cross-function sanity\n# ---------------------------------------------------------------------------\n\nclass TestCrossFunction:\n    def test_hashkey_vs_typedkey(self):\n        assert hashkey(1) != typedkey(1)\n        # hashkey(1) == (1,), typedkey(1) == (1, int)\n        assert hashkey(1) == (1,)\n        assert typedkey(1) == (1, int)\n\n    def test_method_equivalence(self):\n        assert methodkey(\"s\", 1, a=2) == hashkey(1, a=2)\n        assert typedmethodkey(\"s\", 1, a=2) == typedkey(1, a=2)\n```",
+        "finish_reason": "stop",
+        "prompt_tokens": 961,
+        "cache_hit_tokens": 768,
+        "completion_tokens": 2098,
+        "reasoning_tokens": 0,
+        "latency": 6.83
+      }
+    },
+    {
+      "node": "run_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:26+00:00",
+      "duration": 1.37,
+      "summary": "通过 40，失败 6，错误 0",
+      "tool_calls": [
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.37,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3059
+    },
+    {
+      "node": "analyze",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:26+00:00",
+      "duration": 0.0,
+      "summary": "分数 [0, 0.0, 0.0, 0.0, 40]（提升）",
+      "tool_calls": [],
+      "tokens_total": 3059,
+      "score": [
+        0,
+        0.0,
+        0.0,
+        0.0,
+        40
+      ],
+      "coverage": null,
+      "validity": null,
+      "mutation": null
+    },
+    {
+      "node": "decide",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:26+00:00",
+      "duration": 0.0,
+      "summary": "单次生成（无反馈）",
+      "tool_calls": [],
+      "tokens_total": 3059
+    },
+    {
+      "node": "finalize",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:26+00:00",
+      "duration": 0.0,
+      "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 40]",
+      "tool_calls": [],
+      "tokens_total": 3059,
+      "best_iteration": 1
+    }
+  ],
+  [
+    {
+      "node": "plan",
+      "iteration": 0,
+      "at": "2026-10-20T05:44:26+00:00",
+      "duration": 0.0,
+      "summary": "4 个公开符号",
+      "tool_calls": [
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7590 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.81,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<5865 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.5,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<6077 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.54,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<8300 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.3,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7082 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.44,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<9993 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.43,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<7721 chars>"
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.37,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "list_symbols",
+          "args": {
+            "path": "src/cachetools/keys.py"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "public_symbols": [
+        "hashkey",
+        "methodkey",
+        "typedkey",
+        "typedmethodkey"
+      ]
+    },
+    {
+      "node": "retrieve_context",
+      "iteration": 0,
+      "at": "2026-10-20T05:44:26+00:00",
+      "duration": 0.03,
+      "summary": "依赖定义 0 个，调用处 0 个，提示词前缀 3369 字符",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/cachetools/keys.py",
+            "start_line": 1
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "hashkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "methodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "search_code",
+          "args": {
+            "query": "typedmethodkey(",
+            "max_results": 50
+          },
+          "duration": 0.01,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 0,
+      "prompt_prefix": "Module under test: `cachetools.keys` (file `src/cachetools/keys.py`).\n\nSource of `src/cachetools/keys.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"Key functions for memoizing decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"hashkey\", \"methodkey\", \"typedkey\", \"typedmethodkey\")\n    4 | \n    5 | \n    6 | class _HashedTuple(tuple):\n    7 |     \"\"\"A tuple that ensures that hash() will be called no more than once\n    8 |     per element, since cache decorators will hash the key multiple\n    9 |     times on a cache miss.  See also _HashedSeq in the standard\n   10 |     library functools implementation.\n   11 | \n   12 |     \"\"\"\n   13 | \n   14 |     __hashvalue = None  # default value, set in instance on first use\n   15 | \n   16 |     def __hash__(self, hash=tuple.__hash__):\n   17 |         hashvalue = self.__hashvalue\n   18 |         if hashvalue is None:\n   19 |             self.__hashvalue = hashvalue = hash(self)\n   20 |         return hashvalue\n   21 | \n   22 |     def __add__(self, other, add=tuple.__add__):\n   23 |         return _HashedTuple(add(self, other))\n   24 | \n   25 |     def __radd__(self, other, add=tuple.__add__):\n   26 |         return _HashedTuple(add(other, self))\n   27 | \n   28 |     def __getstate__(self):\n   29 |         return {}\n   30 | \n   31 | \n   32 | # A sentinel for separating args from kwargs.  Using the class itself\n   33 | # ensures uniqueness and preserves identity when pickling/unpickling.\n   34 | _kwmark = (_HashedTuple,)\n   35 | \n   36 | \n   37 | def hashkey(*args, **kwargs):\n   38 |     \"\"\"Return a cache key for the specified hashable arguments.\"\"\"\n   39 | \n   40 |     if kwargs:\n   41 |         return _HashedTuple(args + _kwmark + tuple(sorted(kwargs.items())))\n   42 |     else:\n   43 |         return _HashedTuple(args)\n   44 | \n   45 | \n   46 | def methodkey(self, *args, **kwargs):\n   47 |     \"\"\"Return a cache key for use with cached methods.\"\"\"\n   48 |     return hashkey(*args, **kwargs)\n   49 | \n   50 | \n   51 | def typedkey(*args, **kwargs):\n   52 |     \"\"\"Return a typed cache key for the specified hashable arguments.\"\"\"\n   53 | \n   54 |     if kwargs:\n   55 |         sorted_kwargs = tuple(sorted(kwargs.items()))\n   56 |         key = _HashedTuple(args + _kwmark + sorted_kwargs)\n   57 |         key += tuple(type(v) for _, v in sorted_kwargs)\n   58 |     else:\n   59 |         key = _HashedTuple(args)\n   60 |     key += tuple(type(v) for v in args)\n   61 |     return key\n   62 | \n   63 | \n   64 | def typedmethodkey(self, *args, **kwargs):\n   65 |     \"\"\"Return a typed cache key for use with cached methods.\"\"\"\n   66 |     return typedkey(*args, **kwargs)\n```\n\n\n\nPublic API to cover: `hashkey`, `methodkey`, `typedkey`, `typedmethodkey`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.keys import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+    },
+    {
+      "node": "write_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:35+00:00",
+      "duration": 9.23,
+      "summary": "第 1 轮：生成 364 行测试",
+      "tool_calls": [
+        {
+          "name": "write_test_file",
+          "args": {
+            "path": "tests_testpilot/test_keys.py",
+            "content": "<10719 chars>"
+          },
+          "duration": 0.0,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3722,
+      "llm": {
+        "task": "## Task\nWrite the pytest test file for `cachetools.keys`. Return the complete test file in one ```python code block.",
+        "response": "```python\n\"\"\"Unit tests for cachetools.keys.\"\"\"\n\nimport pickle\n\nimport pytest\n\nfrom cachetools.keys import (\n    _HashedTuple,\n    _kwmark,\n    hashkey,\n    methodkey,\n    typedkey,\n    typedmethodkey,\n)\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\nclass HashCounter:\n    \"\"\"A hashable object that counts how many times it has been hashed.\"\"\"\n\n    def __init__(self, value):\n        self.value = value\n        self.hash_count = 0\n\n    def __hash__(self):\n        self.hash_count += 1\n        return hash(self.value)\n\n    def __eq__(self, other):\n        return isinstance(other, HashCounter) and self.value == other.value\n\n\n# ---------------------------------------------------------------------------\n# _HashedTuple\n# ---------------------------------------------------------------------------\n\nclass TestHashedTuple:\n    def test_is_tuple_subclass(self):\n        t = _HashedTuple((1, 2, 3))\n        assert isinstance(t, tuple)\n        assert t == (1, 2, 3)\n\n    def test_hash_cached(self):\n        item = HashCounter(\"x\")\n        t = _HashedTuple((item,))\n        h1 = hash(t)\n        assert item.hash_count == 1\n        h2 = hash(t)\n        # The cached hash value is reused; the element is not re-hashed.\n        assert item.hash_count == 1\n        assert h1 == h2\n\n    def test_hash_matches_tuple_hash(self):\n        t = _HashedTuple((1, 2, 3))\n        assert hash(t) == hash((1, 2, 3))\n\n    def test_add_returns_hashedtuple(self):\n        t = _HashedTuple((1, 2))\n        result = t + (3, 4)\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3, 4)\n\n    def test_radd_returns_hashedtuple(self):\n        t = _HashedTuple((3, 4))\n        result = (1, 2) + t\n        assert isinstance(result, _HashedTuple)\n        assert result == (1, 2, 3, 4)\n\n    def test_add_is_truple_equivalent(self):\n        t = _HashedTuple((1,))\n        assert (t + (2,)) == ((1,) + (2,))\n\n    def test_getstate_empty(self):\n        t = _HashedTuple((1, 2, 3))\n        assert t.__getstate__() == {}\n\n    def test_pickle_roundtrip(self):\n        t = _HashedTuple((1, 2, 3))\n        restored = pickle.loads(pickle.dumps(t))\n        assert isinstance(restored, _HashedTuple)\n        assert restored == t\n        # Hash still works after unpickling (cached value reset to None).\n        assert hash(restored) == hash(t)\n\n    def test_hash_updates_hashvalue_after_unpickle(self):\n        t = _HashedTuple((10,))\n        restored = pickle.loads(pickle.dumps(t))\n        h = hash(restored)\n        assert h == hash((10,))\n\n\n# ---------------------------------------------------------------------------\n# _kwmark sentinel\n# ---------------------------------------------------------------------------\n\nclass TestKwmark:\n    def test_kwmark_is_tuple_containing_hashedtuple_class(self):\n        assert _kwmark == (_HashedTuple,)\n        assert _kwmark[0] is _HashedTuple\n\n    def test_kwmark_pickle_identity(self):\n        restored = pickle.loads(pickle.dumps(_kwmark))\n        assert restored[0] is _HashedTuple\n\n\n# ---------------------------------------------------------------------------\n# hashkey\n# ---------------------------------------------------------------------------\n\nclass TestHashkey:\n    def test_no_kwargs_returns_hashedtuple(self):\n        key = hashkey(1, 2, 3)\n        assert isinstance(key, _HashedTuple)\n        assert key == (1, 2, 3)\n\n    def test_no_args_no_kwargs(self):\n        key = hashkey()\n        assert isinstance(key, _HashedTuple)\n        assert key == ()\n\n    def test_with_kwargs(self):\n        key = hashkey(1, 2, a=3, b=4)\n        assert isinstance(key, _HashedTuple)\n        assert key == (1, 2, _kwmark, (\"a\", 3), (\"b\", 4))\n\n    def test_kwargs_sorted(self):\n        key1 = hashkey(b=4, a=3)\n        key2 = hashkey(a=3, b=4)\n        assert key1 == key2\n        assert key1 == (_kwmark, (\"a\", 3), (\"b\", 4))\n\n    def test_kwargs_only(self):\n        key = hashkey(x=1)\n        assert key == (_kwmark, (\"x\", 1))\n\n    def test_args_and_kwargs_distinct(self):\n        # Different argument/kwarg arrangement must produce different keys.\n        assert hashkey(1, x=1) != hashkey(1, 1)\n\n    def test_same_args_produce_equal_keys(self):\n        assert hashkey(1, 2) == hashkey(1, 2)\n\n    def test_different_args_produce_different_keys(self):\n        assert hashkey(1, 2) != hashkey(1, 3)\n\n    def test_type_sensitive_for_hash_equality(self):\n        # hashkey is not typed; but different values should differ.\n        assert hashkey(1) != hashkey(\"1\")\n\n    def test_hash_is_cached_via_hashedtuple(self):\n        item = HashCounter(\"y\")\n        key = hashkey(item)\n        hash(key)\n        assert item.hash_count == 1\n        hash(key)\n        assert item.hash_count == 1\n\n    def test_kwarg_values_hashed(self):\n        item = HashCounter(\"z\")\n        key = hashkey(a=item)\n        hash(key)\n        assert item.hash_count == 1\n        hash(key)\n        assert item.hash_count == 1\n\n    def test_kwmark_prevents_collision(self):\n        # A single tuple argument equal to _kwmark-ish must not collide with\n        # kwargs-only key.\n        key_with_kwmark = hashkey(\"a\", 1)\n        key_kwargs = hashkey(a=1)\n        assert key_with_kwmark != key_kwargs\n\n    def test_unhashable_argument_raises(self):\n        with pytest.raises(TypeError):\n            hash(hashkey([1, 2, 3]))\n\n    def test_unhashable_kwarg_raises(self):\n        with pytest.raises(TypeError):\n            hash(hashkey(a=[1, 2, 3]))\n\n    def test_pickle_roundtrip(self):\n        key = hashkey(1, 2, a=3)\n        restored = pickle.loads(pickle.dumps(key))\n        assert restored == key\n        assert hash(restored) == hash(key)\n\n\n# ---------------------------------------------------------------------------\n# methodkey\n# ---------------------------------------------------------------------------\n\nclass TestMethodkey:\n    def test_ignores_self(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        # methodkey's first positional is bound to `self` and excluded.\n        assert methodkey(obj, 1, 2) == hashkey(1, 2)\n\n    def test_kwargs(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert methodkey(obj, 1, a=2) == hashkey(1, a=2)\n\n    def test_returns_hashedtuple(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        key = methodkey(obj, 5)\n        assert isinstance(key, _HashedTuple)\n        assert key == (5,)\n\n    def test_self_not_in_key(self):\n        class Dummy:\n            pass\n\n        obj1, obj2 = Dummy(), Dummy()\n        assert methodkey(obj1, 1) == methodkey(obj2, 1)\n\n\n# ---------------------------------------------------------------------------\n# typedkey\n# ---------------------------------------------------------------------------\n\nclass TestTypedkey:\n    def test_no_kwargs(self):\n        key = typedkey(1, 2)\n        assert isinstance(key, _HashedTuple)\n        assert key == (1, 2, int, int)\n\n    def test_no_args_no_kwargs(self):\n        key = typedkey()\n        assert key == ()\n\n    def test_with_kwargs(self):\n        key = typedkey(1, a=2)\n        assert isinstance(key, _HashedTuple)\n        # args, _kwmark, sorted kwargs items, types of kwarg values, types of args\n        assert key == (1, _kwmark, (\"a\", 2), int, int)\n\n    def test_kwargs_sorted(self):\n        key1 = typedkey(b=4, a=3)\n        key2 = typedkey(a=3, b=4)\n        assert key1 == key2\n\n    def test_type_included_in_key(self):\n        assert typedkey(1) != typedkey(True)\n\n    def test_int_vs_float(self):\n        assert typedkey(1) != typedkey(1.0)\n\n    def test_typed_matches_for_same_types(self):\n        assert typedkey(1, 2) == typedkey(1, 2)\n\n    def test_type_difference_only(self):\n        # Same value, different types, must yield different keys.\n        assert typedkey(0) != typedkey(0.0)\n        assert typedkey(0) != typedkey(False)\n\n    def test_kwargs_type_matters(self):\n        assert typedkey(a=1) != typedkey(a=1.0)\n\n    def test_multiple_kwarg_types_order(self):\n        key = typedkey(a=1, b=\"x\")\n        assert key == (_kwmark, (\"a\", 1), (\"b\", \"x\"), int, str)\n\n    def test_args_types_at_end(self):\n        key = typedkey(\"s\", 1)\n        assert key == (\"s\", 1, str, int)\n\n    def test_hash_cached(self):\n        item = HashCounter(1)\n        key = typedkey(item)\n        hash(key)\n        count = item.hash_count\n        hash(key)\n        assert item.hash_count == count\n\n    def test_unhashable_raises(self):\n        with pytest.raises(TypeError):\n            hash(typedkey([1]))\n\n    def test_pickle_roundtrip(self):\n        key = typedkey(1, a=2)\n        restored = pickle.loads(pickle.dumps(key))\n        assert restored == key\n        assert hash(restored) == hash(key)\n\n\n# ---------------------------------------------------------------------------\n# typedmethodkey\n# ---------------------------------------------------------------------------\n\nclass TestTypedmethodkey:\n    def test_ignores_self(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert typedmethodkey(obj, 1) == typedkey(1)\n\n    def test_kwargs(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert typedmethodkey(obj, a=1) == typedkey(a=1)\n\n    def test_returns_hashedtuple(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        key = typedmethodkey(obj, 5)\n        assert isinstance(key, _HashedTuple)\n        assert key == (5, int)\n\n    def test_self_not_in_key(self):\n        class Dummy:\n            pass\n\n        obj1, obj2 = Dummy(), Dummy()\n        assert typedmethodkey(obj1, 1) == typedmethodkey(obj2, 1)\n\n\n# ---------------------------------------------------------------------------\n# Cross-function behavior\n# ---------------------------------------------------------------------------\n\nclass TestCrossFunction:\n    def test_hashkey_vs_typedkey_different_for_bound_methods(self):\n        # hashkey and typedkey differ when types are involved.\n        assert hashkey(1) != typedkey(1)\n\n    def test_all_keys_hashable(self):\n        for factory in (hashkey, typedkey):\n            for key in (\n                factory(),\n                factory(1, 2),\n                factory(1, a=2),\n                factory(a=1),\n            ):\n                assert isinstance(hash(key), int)\n\n    def test_methodkey_equivalent_to_hashkey(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert methodkey(obj, 1, 2, a=3) == hashkey(1, 2, a=3)\n\n    def test_typedmethodkey_equivalent_to_typedkey(self):\n        class Dummy:\n            pass\n\n        obj = Dummy()\n        assert typedmethodkey(obj, 1, 2, a=3) == typedkey(1, 2, a=3)\n```",
+        "finish_reason": "stop",
+        "prompt_tokens": 961,
+        "cache_hit_tokens": 768,
+        "completion_tokens": 2761,
+        "reasoning_tokens": 0,
+        "latency": 9.22
+      }
+    },
+    {
+      "node": "run_tests",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:36+00:00",
+      "duration": 1.44,
+      "summary": "通过 47，失败 5，错误 0",
+      "tool_calls": [
+        {
+          "name": "run_pytest",
+          "args": {
+            "tests": [
+              "tests_testpilot/test_keys.py"
+            ]
+          },
+          "duration": 1.44,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "tokens_total": 3722
+    },
+    {
+      "node": "analyze",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:36+00:00",
+      "duration": 0.0,
+      "summary": "分数 [0, 0.0, 0.0, 0.0, 47]（提升）",
+      "tool_calls": [],
+      "tokens_total": 3722,
+      "score": [
+        0,
+        0.0,
+        0.0,
+        0.0,
+        47
+      ],
+      "coverage": null,
+      "validity": null,
+      "mutation": null
+    },
+    {
+      "node": "decide",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:36+00:00",
+      "duration": 0.0,
+      "summary": "单次生成（无反馈）",
+      "tool_calls": [],
+      "tokens_total": 3722
+    },
+    {
+      "node": "finalize",
+      "iteration": 1,
+      "at": "2026-10-20T05:44:36+00:00",
+      "duration": 0.0,
+      "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 47]",
+      "tool_calls": [],
+      "tokens_total": 3722,
+      "best_iteration": 1
+    }
+  ]
+]

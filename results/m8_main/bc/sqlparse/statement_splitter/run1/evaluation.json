@@ -1,0 +1,180 @@
+{
+  "target": "sqlparse/engine/statement_splitter.py",
+  "validity": {
+    "total": 61,
+    "valid": 61,
+    "valid_ids": [
+      "tests_testpilot/test_statement_splitter.py::test_init_resets_state",
+      "tests_testpilot/test_statement_splitter.py::test_reset_restores_defaults",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_semicolon",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_parenthesis",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_unbalanced_paren_not_negative",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_non_keyword",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_non_keyword_punctuation",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_create",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_create_or_replace",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_declare_only_for_create",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_declare_requires_empty_stack",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_begin",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_begin_transition_from_declare",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_begin_lowercase",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_begin_transaction",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_begin_transaction_no_begin_block",
+      "tests_testpilot/test_statement_splitter.py::test_change_splitlevel_transaction_name_token",
+      "tests_testpilot/test_statement_splitter.py::test_handle_nested_block_for",
+      "tests_testpilot/test_statement_splitter.py::test_handle_nested_block_while",
+      "tests_testpilot/test_statement_splitter.py::test_handle_nested_block_loop_after_for",
+      "tests_testpilot/test_statement_splitter.py::test_handle_nested_block_do_after_while",
+      "tests_testpilot/test_statement_splitter.py::test_handle_nested_block_loop_standalone",
+      "tests_testpilot/test_statement_splitter.py::test_handle_nested_block_do_without_starter",
+      "tests_testpilot/test_statement_splitter.py::test_handle_nested_block_if_and_case",
+      "tests_testpilot/test_statement_splitter.py::test_handle_nested_block_other_returns_none",
+      "tests_testpilot/test_statement_splitter.py::test_nested_block_via_change_splitlevel",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_if",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_if_wrong_top",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_if_empty_stack",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_for",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_for_wrong_top",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_for_empty_stack",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_while",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_while_wrong_top",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_while_empty_stack",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_loop",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_loop_wrong_top",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_case",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_case_wrong",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_pops_any",
+      "tests_testpilot/test_statement_splitter.py::test_closing_end_empty_stack",
+      "tests_testpilot/test_statement_splitter.py::test_closing_unknown_kw",
+      "tests_testpilot/test_statement_splitter.py::test_process_single_statement",
+      "tests_testpilot/test_statement_splitter.py::test_process_split_on_semicolon",
+      "tests_testpilot/test_statement_splitter.py::test_process_empty_stream",
+      "tests_testpilot/test_statement_splitter.py::test_process_whitespace_only",
+      "tests_testpilot/test_statement_splitter.py::test_process_trailing_semicolon_yields_one",
+      "tests_testpilot/test_statement_splitter.py::test_process_begin_end_does_not_split_inside",
+      "tests_testpilot/test_statement_splitter.py::test_process_begin_end_split_after",
+      "tests_testpilot/test_statement_splitter.py::test_process_keyword_go_splits",
+      "tests_testpilot/test_statement_splitter.py::test_process_standalone_begin_semicolon_transaction",
+      "tests_testpilot/test_statement_splitter.py::test_semicolon_seen_begin_without_begin_on_stack",
+      "tests_testpilot/test_statement_splitter.py::test_semicolon_seen_begin_empty_stack",
+      "tests_testpilot/test_statement_splitter.py::test_process_parens_do_not_split",
+      "tests_testpilot/test_statement_splitter.py::test_process_parenthesis_nesting",
+      "tests_testpilot/test_statement_splitter.py::test_seen_begin_reset_by_non_ws_token",
+      "tests_testpilot/test_statement_splitter.py::test_seen_begin_kept_by_begin_keyword",
+      "tests_testpilot/test_statement_splitter.py::test_process_resets_after_split",
+      "tests_testpilot/test_statement_splitter.py::test_process_semicolon_then_whitespace_trailing",
+      "tests_testpilot/test_statement_splitter.py::test_process_nested_for_loop",
+      "tests_testpilot/test_statement_splitter.py::test_process_ddl_create_declare_begin"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.27,
+        "passed": 69,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.3,
+        "passed": 69,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.22,
+        "passed": 69,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.96875,
+    "total": 288,
+    "killed": 279,
+    "survived": 9,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 279,
+      "survived": 9
+    },
+    "survivors": [
+      {
+        "line": 108,
+        "original": "if ttype is T.Keyword.DDL and unified.startswith('CREATE'):",
+        "mutated": "if ttype is T.Keyword.DDL or unified.startswith('CREATE'):",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "(ttype is T.Keyword or ttype is T.Name) and \\",
+        "mutated": "(ttype is T.Keyword or ttype is not T.Name) and \\",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "self._seen_begin = False",
+        "mutated": "self._seen_begin = None",
+        "status": "survived"
+      },
+      {
+        "line": 181,
+        "original": "self._seen_begin = False",
+        "mutated": "self._seen_begin = True",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "if self.level <= 0 and 'BEGIN' not in self._block_stack:",
+        "mutated": "if self.level <= 0 and 'XXBEGINXX' not in self._block_stack:",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "if self.level <= 0 and 'BEGIN' not in self._block_stack:",
+        "mutated": "if self.level <= 0 and 'begin' not in self._block_stack:",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "elif (ttype not in (T.Whitespace, T.Newline, T.Comment.Single,",
+        "mutated": "elif (ttype in (T.Whitespace, T.Newline, T.Comment.Single,",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "and not (ttype is T.Keyword and value.upper() == 'BEGIN')):",
+        "mutated": "and not (ttype is T.Keyword or value.upper() == 'BEGIN')):",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "self._seen_begin = False",
+        "mutated": "self._seen_begin = None",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.8,
+    "coverage": 2.41,
+    "mutation": 16.56
+  }
+}

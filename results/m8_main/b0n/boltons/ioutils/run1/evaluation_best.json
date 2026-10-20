@@ -1,0 +1,682 @@
+{
+  "target": "boltons/ioutils.py",
+  "validity": {
+    "total": 63,
+    "valid": 60,
+    "valid_ids": [
+      "tests_testpilot/test_ioutils_s2.py::test_is_text_fileobj_stringio",
+      "tests_testpilot/test_ioutils_s2.py::test_is_text_fileobj_bytesio",
+      "tests_testpilot/test_ioutils_s2.py::test_is_text_fileobj_textwrapper",
+      "tests_testpilot/test_ioutils_s2.py::test_is_text_fileobj_plain_object",
+      "tests_testpilot/test_ioutils_s2.py::test_is_text_fileobj_getvalue_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_is_text_fileobj_getvalue_bytes",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_basic_roundtrip",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_write_bytearray_and_memoryview",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_write_text_raises_typeerror",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_not_rolled_by_default",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_rollover_on_max_size",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_len",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_len_after_rollover",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_readline",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_readlines",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_iteration",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_writelines_no_separators",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_truncate_no_arg",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_truncate_with_size",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_truncate_size_larger_than_pos",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_truncate_negative_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_closed_operations_raise",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_softspace_property",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_pos_buf_properties",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_bool_true",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_context_manager",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_equality",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_inequality",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_equality_other_type",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_fileno_rolls_over",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_seekable_readable_writable",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_isatty",
+      "tests_testpilot/test_ioutils_s2.py::test_bytesio_flush",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_basic_roundtrip",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_write_non_str_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_tell_in_codepoints",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_len_codepoints",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_seek_set_negative_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_seek_cur",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_seek_cur_negative_backwards",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_seek_cur_before_start_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_seek_end",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_seek_invalid_whence",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_readline_and_readlines",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_rollover_on_max_size",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_not_rolled_default",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_truncate",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_getvalue",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_closed_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_equality",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_inequality",
+      "tests_testpilot/test_ioutils_s2.py::test_stringio_context_manager",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_bytes_read",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_text_read",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_non_filelike_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_missing_seek_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_mixed_types_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_seek_to_start",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_seek_non_start_raises",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_seek_invalid_whence_raises"
+    ],
+    "invalid": {
+      "tests_testpilot/test_ioutils_s2.py::test_io_base_is_abstract": "run 1: failed: Failed: DID NOT RAISE TypeError",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_bytes_read_all": "run 1: failed: AssertionError: assert b'' == b'cd'",
+      "tests_testpilot/test_ioutils_s2.py::test_mfr_empty": "run 1: failed: AssertionError: assert '' == b''"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.39,
+        "passed": 60,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.56,
+        "passed": 60,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.4,
+        "passed": 60,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9495548961424333,
+  "branch_rate": 0.9230769230769231,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.6816608996539792,
+    "total": 297,
+    "killed": 197,
+    "survived": 92,
+    "excluded": 8,
+    "status_counts": {
+      "survived": 92,
+      "killed": 197,
+      "timeout": 8
+    },
+    "survivors": [
+      {
+        "line": 72,
+        "original": "def __init__(self, max_size=5000000, dir=None):",
+        "mutated": "def __init__(self, max_size=5000001, dir=None):",
+        "status": "survived"
+      },
+      {
+        "line": 74,
+        "original": "self._dir = dir",
+        "mutated": "self._dir = None",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "raise ValueError('I/O operation on closed file.'\n                         if msg is None else msg)",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "if msg is None else msg)",
+        "mutated": "if (msg is None) and False else msg)",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "if msg is None else msg)",
+        "mutated": "if (msg is None) or True else msg)",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "raise ValueError('I/O operation on closed file.'",
+        "mutated": "raise ValueError('XXI/O operation on closed file.XX'",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "raise ValueError('I/O operation on closed file.'",
+        "mutated": "raise ValueError('i/o operation on closed file.'",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "raise ValueError('I/O operation on closed file.'",
+        "mutated": "raise ValueError('I/O OPERATION ON CLOSED FILE.'",
+        "status": "survived"
+      },
+      {
+        "line": 80,
+        "original": "if msg is None else msg)",
+        "mutated": "if msg is not None else msg)",
+        "status": "survived"
+      },
+      {
+        "line": 182,
+        "original": "if size < 0:",
+        "mutated": "if size <= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 182,
+        "original": "if size < 0:",
+        "mutated": "if size < 1:",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "raise OSError(EINVAL, \"Negative size not allowed\")",
+        "mutated": "raise OSError(None, \"Negative size not allowed\")",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "raise OSError(EINVAL, \"Negative size not allowed\")",
+        "mutated": "raise OSError(EINVAL, None)",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "raise OSError(EINVAL, \"Negative size not allowed\")",
+        "mutated": "raise OSError(\"Negative size not allowed\")",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "raise OSError(EINVAL, \"Negative size not allowed\")",
+        "mutated": "raise OSError(EINVAL, )",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "raise OSError(EINVAL, \"Negative size not allowed\")",
+        "mutated": "raise OSError(EINVAL, \"XXNegative size not allowedXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "raise OSError(EINVAL, \"Negative size not allowed\")",
+        "mutated": "raise OSError(EINVAL, \"negative size not allowed\")",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "raise OSError(EINVAL, \"Negative size not allowed\")",
+        "mutated": "raise OSError(EINVAL, \"NEGATIVE SIZE NOT ALLOWED\")",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "if pos < size:",
+        "mutated": "if pos <= size:",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "self.buffer.seek(pos)",
+        "mutated": "self.buffer.seek(None)",
+        "status": "survived"
+      },
+      {
+        "line": 255,
+        "original": "self.seek(self_pos)",
+        "mutated": "self.seek(None)",
+        "status": "survived"
+      },
+      {
+        "line": 259,
+        "original": "other.seek(other_pos)",
+        "mutated": "other.seek(None)",
+        "status": "survived"
+      },
+      {
+        "line": 268,
+        "original": "return not self.__eq__(other)",
+        "mutated": "return not self.__eq__(None)",
+        "status": "survived"
+      },
+      {
+        "line": 300,
+        "original": "return self.buffer.read(n)",
+        "mutated": "return self.buffer.read(None)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return self.buffer.readlines(sizehint)",
+        "mutated": "return self.buffer.readlines(None)",
+        "status": "survived"
+      },
+      {
+        "line": 326,
+        "original": "tmp = TemporaryFile(dir=self._dir)",
+        "mutated": "tmp = TemporaryFile(dir=None)",
+        "status": "survived"
+      },
+      {
+        "line": 383,
+        "original": "super().__init__(*args, **kwargs)",
+        "mutated": "super().__init__(**kwargs)",
+        "status": "survived"
+      },
+      {
+        "line": 387,
+        "original": "ret = self.buffer.reader.read(n, n)",
+        "mutated": "ret = self.buffer.reader.read(n)",
+        "status": "survived"
+      },
+      {
+        "line": 387,
+        "original": "ret = self.buffer.reader.read(n, n)",
+        "mutated": "ret = self.buffer.reader.read(n, )",
+        "status": "survived"
+      },
+      {
+        "line": 394,
+        "original": "raise TypeError(\"str expected, got {}\".format(\n            type(s).__name__\n        ))",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 395,
+        "original": "type(s).__name__",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 394,
+        "original": "raise TypeError(\"str expected, got {}\".format(",
+        "mutated": "raise TypeError(\"XXstr expected, got {}XX\".format(",
+        "status": "survived"
+      },
+      {
+        "line": 394,
+        "original": "raise TypeError(\"str expected, got {}\".format(",
+        "mutated": "raise TypeError(\"STR EXPECTED, GOT {}\".format(",
+        "status": "survived"
+      },
+      {
+        "line": 395,
+        "original": "type(s).__name__",
+        "mutated": "type(None).__name__",
+        "status": "survived"
+      },
+      {
+        "line": 398,
+        "original": "if self.buffer.tell() + len(s.encode('utf-8')) >= self._max_size:",
+        "mutated": "if self.buffer.tell() + len(s.encode('utf-8')) > self._max_size:",
+        "status": "survived"
+      },
+      {
+        "line": 400,
+        "original": "self.buffer.write(s.encode('utf-8'))",
+        "mutated": "self.buffer.write(s.encode('UTF-8'))",
+        "status": "survived"
+      },
+      {
+        "line": 410,
+        "original": "break",
+        "mutated": "return",
+        "status": "survived"
+      },
+      {
+        "line": 414,
+        "original": "if current_position + READ_CHUNK_SIZE > dest:",
+        "mutated": "if current_position + READ_CHUNK_SIZE >= dest:",
+        "status": "survived"
+      },
+      {
+        "line": 416,
+        "original": "break",
+        "mutated": "return",
+        "status": "survived"
+      },
+      {
+        "line": 418,
+        "original": "ret = self.read(READ_CHUNK_SIZE)",
+        "mutated": "ret = None",
+        "status": "survived"
+      },
+      {
+        "line": 418,
+        "original": "ret = self.read(READ_CHUNK_SIZE)",
+        "mutated": "ret = self.read(None)",
+        "status": "survived"
+      },
+      {
+        "line": 421,
+        "original": "current_position += READ_CHUNK_SIZE",
+        "mutated": "current_position = READ_CHUNK_SIZE",
+        "status": "survived"
+      },
+      {
+        "line": 421,
+        "original": "current_position += READ_CHUNK_SIZE",
+        "mutated": "current_position -= READ_CHUNK_SIZE",
+        "status": "survived"
+      },
+      {
+        "line": 425,
+        "original": "if not ret:",
+        "mutated": "if ret:",
+        "status": "survived"
+      },
+      {
+        "line": 426,
+        "original": "break",
+        "mutated": "return",
+        "status": "survived"
+      },
+      {
+        "line": 436,
+        "original": "raise ValueError(\"negative seek position\")",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 436,
+        "original": "raise ValueError(\"negative seek position\")",
+        "mutated": "raise ValueError(\"XXnegative seek positionXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 436,
+        "original": "raise ValueError(\"negative seek position\")",
+        "mutated": "raise ValueError(\"NEGATIVE SEEK POSITION\")",
+        "status": "survived"
+      },
+      {
+        "line": 438,
+        "original": "self._traverse_codepoints(0, pos)",
+        "mutated": "self._traverse_codepoints(1, pos)",
+        "status": "survived"
+      },
+      {
+        "line": 444,
+        "original": "if destination < 0:",
+        "mutated": "if destination <= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 444,
+        "original": "if destination < 0:",
+        "mutated": "if destination < 1:",
+        "status": "survived"
+      },
+      {
+        "line": 445,
+        "original": "raise ValueError(\"negative seek position\")",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 445,
+        "original": "raise ValueError(\"negative seek position\")",
+        "mutated": "raise ValueError(\"XXnegative seek positionXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 445,
+        "original": "raise ValueError(\"negative seek position\")",
+        "mutated": "raise ValueError(\"NEGATIVE SEEK POSITION\")",
+        "status": "survived"
+      },
+      {
+        "line": 446,
+        "original": "if pos < 0:",
+        "mutated": "if pos <= 0:",
+        "status": "survived"
+      },
+      {
+        "line": 446,
+        "original": "if pos < 0:",
+        "mutated": "if pos < 1:",
+        "status": "survived"
+      },
+      {
+        "line": 454,
+        "original": "self._traverse_codepoints(0, dest_position)",
+        "mutated": "self._traverse_codepoints(1, dest_position)",
+        "status": "survived"
+      },
+      {
+        "line": 458,
+        "original": "f\"Invalid whence ({mode}, should be 0, 1, or 2)\"",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 464,
+        "original": "ret = self.buffer.readline(length).decode('utf-8')",
+        "mutated": "ret = self.buffer.readline(None).decode('utf-8')",
+        "status": "survived"
+      },
+      {
+        "line": 464,
+        "original": "ret = self.buffer.readline(length).decode('utf-8')",
+        "mutated": "ret = self.buffer.readline(length).decode('UTF-8')",
+        "status": "survived"
+      },
+      {
+        "line": 465,
+        "original": "self._tell = self.tell() + len(ret)",
+        "mutated": "self._tell = self.tell() - len(ret)",
+        "status": "survived"
+      },
+      {
+        "line": 468,
+        "original": "def readlines(self, sizehint=0):",
+        "mutated": "def readlines(self, sizehint=1):",
+        "status": "survived"
+      },
+      {
+        "line": 469,
+        "original": "ret = [x.decode('utf-8') for x in self.buffer.readlines(sizehint)]",
+        "mutated": "ret = [x.decode('UTF-8') for x in self.buffer.readlines(sizehint)]",
+        "status": "survived"
+      },
+      {
+        "line": 469,
+        "original": "ret = [x.decode('utf-8') for x in self.buffer.readlines(sizehint)]",
+        "mutated": "ret = [x.decode('utf-8') for x in self.buffer.readlines(None)]",
+        "status": "survived"
+      },
+      {
+        "line": 470,
+        "original": "self._tell = self.tell() + sum(len(x) for x in ret)",
+        "mutated": "self._tell = None",
+        "status": "survived"
+      },
+      {
+        "line": 470,
+        "original": "self._tell = self.tell() + sum(len(x) for x in ret)",
+        "mutated": "self._tell = self.tell() - sum(len(x) for x in ret)",
+        "status": "survived"
+      },
+      {
+        "line": 488,
+        "original": "tmp = EncodedFile(TemporaryFile(dir=self._dir),",
+        "mutated": "tmp = EncodedFile(TemporaryFile(dir=None),",
+        "status": "survived"
+      },
+      {
+        "line": 489,
+        "original": "data_encoding='utf-8')",
+        "mutated": "data_encoding='UTF-8')",
+        "status": "survived"
+      },
+      {
+        "line": 517,
+        "original": "if getattr(fileobj, 'encoding', False):",
+        "mutated": "if getattr(fileobj, 'encoding', None):",
+        "status": "survived"
+      },
+      {
+        "line": 520,
+        "original": "if getattr(fileobj, 'getvalue', False):",
+        "mutated": "if getattr(fileobj, 'getvalue', None):",
+        "status": "survived"
+      },
+      {
+        "line": 520,
+        "original": "if getattr(fileobj, 'getvalue', False):",
+        "mutated": "if getattr(fileobj, 'getvalue', True):",
+        "status": "survived"
+      },
+      {
+        "line": 550,
+        "original": "raise TypeError('MultiFileReader expected file-like objects'\n                        ' with .read() and .seek()')",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 550,
+        "original": "raise TypeError('MultiFileReader expected file-like objects'",
+        "mutated": "raise TypeError('XXMultiFileReader expected file-like objectsXX'",
+        "status": "survived"
+      },
+      {
+        "line": 550,
+        "original": "raise TypeError('MultiFileReader expected file-like objects'",
+        "mutated": "raise TypeError('multifilereader expected file-like objects'",
+        "status": "survived"
+      },
+      {
+        "line": 550,
+        "original": "raise TypeError('MultiFileReader expected file-like objects'",
+        "mutated": "raise TypeError('MULTIFILEREADER EXPECTED FILE-LIKE OBJECTS'",
+        "status": "survived"
+      },
+      {
+        "line": 551,
+        "original": "' with .read() and .seek()')",
+        "mutated": "'XX with .read() and .seek()XX')",
+        "status": "survived"
+      },
+      {
+        "line": 551,
+        "original": "' with .read() and .seek()')",
+        "mutated": "' WITH .READ() AND .SEEK()')",
+        "status": "survived"
+      },
+      {
+        "line": 556,
+        "original": "raise ValueError('All arguments to MultiFileReader must handle'\n                         ' bytes OR text, not a mix')",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 556,
+        "original": "raise ValueError('All arguments to MultiFileReader must handle'",
+        "mutated": "raise ValueError('XXAll arguments to MultiFileReader must handleXX'",
+        "status": "survived"
+      },
+      {
+        "line": 556,
+        "original": "raise ValueError('All arguments to MultiFileReader must handle'",
+        "mutated": "raise ValueError('all arguments to multifilereader must handle'",
+        "status": "survived"
+      },
+      {
+        "line": 556,
+        "original": "raise ValueError('All arguments to MultiFileReader must handle'",
+        "mutated": "raise ValueError('ALL ARGUMENTS TO MULTIFILEREADER MUST HANDLE'",
+        "status": "survived"
+      },
+      {
+        "line": 557,
+        "original": "' bytes OR text, not a mix')",
+        "mutated": "'XX bytes OR text, not a mixXX')",
+        "status": "survived"
+      },
+      {
+        "line": 557,
+        "original": "' bytes OR text, not a mix')",
+        "mutated": "' bytes or text, not a mix')",
+        "status": "survived"
+      },
+      {
+        "line": 557,
+        "original": "' bytes OR text, not a mix')",
+        "mutated": "' BYTES OR TEXT, NOT A MIX')",
+        "status": "survived"
+      },
+      {
+        "line": 587,
+        "original": "'MultiFileReader.seek() only supports os.SEEK_SET')",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 587,
+        "original": "'MultiFileReader.seek() only supports os.SEEK_SET')",
+        "mutated": "'XXMultiFileReader.seek() only supports os.SEEK_SETXX')",
+        "status": "survived"
+      },
+      {
+        "line": 587,
+        "original": "'MultiFileReader.seek() only supports os.SEEK_SET')",
+        "mutated": "'multifilereader.seek() only supports os.seek_set')",
+        "status": "survived"
+      },
+      {
+        "line": 587,
+        "original": "'MultiFileReader.seek() only supports os.SEEK_SET')",
+        "mutated": "'MULTIFILEREADER.SEEK() ONLY SUPPORTS OS.SEEK_SET')",
+        "status": "survived"
+      },
+      {
+        "line": 590,
+        "original": "'MultiFileReader only supports seeking to start at this time')",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 590,
+        "original": "'MultiFileReader only supports seeking to start at this time')",
+        "mutated": "'XXMultiFileReader only supports seeking to start at this timeXX')",
+        "status": "survived"
+      },
+      {
+        "line": 590,
+        "original": "'MultiFileReader only supports seeking to start at this time')",
+        "mutated": "'multifilereader only supports seeking to start at this time')",
+        "status": "survived"
+      },
+      {
+        "line": 590,
+        "original": "'MultiFileReader only supports seeking to start at this time')",
+        "mutated": "'MULTIFILEREADER ONLY SUPPORTS SEEKING TO START AT THIS TIME')",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.36,
+    "coverage": 2.49,
+    "mutation": 54.27
+  }
+}

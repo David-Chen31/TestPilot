@@ -1,0 +1,444 @@
+{
+  "target": "sqlparse/filters/others.py",
+  "validity": {
+    "total": 47,
+    "valid": 42,
+    "valid_ids": [
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_single_comment_replaced_by_space_when_between_words",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_newline_preserved_from_multiline_comment",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_comment_at_start_not_replaced",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_comment_at_start_no_next_not_replaced",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_hint_token_is_skipped",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_hint_multiline_token_is_skipped",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_comment_group_with_hint_first_token_is_skipped",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_comment_group_without_hint_is_removed",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_empty_comment_group_is_removed",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_processes_sublists",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_comment_after_multiple_newlines_preserves_last",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_insert_token_without_newline_returns_space",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_default_collapses_whitespace",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_default_single_ws_between_words_becomes_space",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_identifierlist_removes_newline_before_comma",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_parenthesis_strips_inner_whitespace",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_process_strips_trailing_ws_at_top_level",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_process_keeps_trailing_ws_at_nested_depth",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_process_dispatches_to_type_specific",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_process_on_statement_with_no_tokens",
+      "tests_testpilot/test_others_s1.py::TestSpacesAroundOperatorsFilter::test_operator_gets_spaces_both_sides",
+      "tests_testpilot/test_others_s1.py::TestSpacesAroundOperatorsFilter::test_operator_existing_spaces_untouched",
+      "tests_testpilot/test_others_s1.py::TestSpacesAroundOperatorsFilter::test_comparison_gets_spaces",
+      "tests_testpilot/test_others_s1.py::TestSpacesAroundOperatorsFilter::test_operator_at_start",
+      "tests_testpilot/test_others_s1.py::TestSpacesAroundOperatorsFilter::test_operator_at_end",
+      "tests_testpilot/test_others_s1.py::TestSpacesAroundOperatorsFilter::test_multiple_operators",
+      "tests_testpilot/test_others_s1.py::TestSpacesAroundOperatorsFilter::test_no_operators_unchanged",
+      "tests_testpilot/test_others_s1.py::TestSpacesAroundOperatorsFilter::test_processes_sublists",
+      "tests_testpilot/test_others_s1.py::TestStripTrailingSemicolonFilter::test_removes_trailing_semicolon",
+      "tests_testpilot/test_others_s1.py::TestStripTrailingSemicolonFilter::test_removes_trailing_whitespace_and_semicolon",
+      "tests_testpilot/test_others_s1.py::TestStripTrailingSemicolonFilter::test_removes_multiple_semicolons_and_whitespace",
+      "tests_testpilot/test_others_s1.py::TestStripTrailingSemicolonFilter::test_no_trailing_semicolon_unchanged",
+      "tests_testpilot/test_others_s1.py::TestStripTrailingSemicolonFilter::test_empty_statement",
+      "tests_testpilot/test_others_s1.py::TestStripTrailingSemicolonFilter::test_semicolon_only",
+      "tests_testpilot/test_others_s1.py::TestStripTrailingSemicolonFilter::test_semicolon_not_at_end_kept",
+      "tests_testpilot/test_others_s1.py::TestSerializerUnicode::test_simple",
+      "tests_testpilot/test_others_s1.py::TestSerializerUnicode::test_trailing_whitespace_per_line_stripped",
+      "tests_testpilot/test_others_s1.py::TestSerializerUnicode::test_newlines_normalized",
+      "tests_testpilot/test_others_s1.py::TestSerializerUnicode::test_crlf_normalized_to_lf",
+      "tests_testpilot/test_others_s1.py::TestSerializerUnicode::test_multiline_each_line_rstripped",
+      "tests_testpilot/test_others_s1.py::TestSerializerUnicode::test_empty",
+      "tests_testpilot/test_others_s1.py::TestSerializerUnicode::test_is_static"
+    ],
+    "invalid": {
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_removes_single_line_comment_between_whitespace": "run 1: failed: AssertionError: assert ['SELECT', ' ', ' ', ' ', 'a'] == ['SELECT', ' ', ' ', 'a']",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_comment_between_whitespace_not_replaced": "run 1: failed: AssertionError: assert ['a', ' ', ' ', ' ', 'b'] == ['a', ' ', ' ', 'b']",
+      "tests_testpilot/test_others_s1.py::TestStripCommentsFilter::test_comment_after_paren": "run 1: failed: AssertionError: assert (['(', 'b', ')'] == ['(', '-- c', 'b', ')']",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_identifierlist_no_newline_keeps_comma": "run 1: failed: AssertionError: assert ['a', ',', 'b'] == ['a', ' ', ',', 'b']",
+      "tests_testpilot/test_others_s1.py::TestStripWhitespaceFilter::test_parenthesis_strips_trailing_ws_in_last_group": "run 1: failed: AssertionError: assert ['(', 'x ', ')'] == ['(', 'x', ')']"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.83,
+        "passed": 42,
+        "failed": 5,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.77,
+        "passed": 42,
+        "failed": 5,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.57,
+        "passed": 42,
+        "failed": 5,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9809523809523809,
+  "branch_rate": 0.9090909090909091,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.7533632286995515,
+    "total": 225,
+    "killed": 168,
+    "survived": 55,
+    "excluded": 2,
+    "status_counts": {
+      "killed": 168,
+      "timeout": 2,
+      "survived": 55
+    },
+    "survivors": [
+      {
+        "line": 39,
+        "original": "is_sql_hint = False",
+        "mutated": "is_sql_hint = None",
+        "status": "survived"
+      },
+      {
+        "line": 44,
+        "original": "if len(comment_tokens) > 0:",
+        "mutated": "if len(comment_tokens) > 1:",
+        "status": "survived"
+      },
+      {
+        "line": 53,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 55,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 55,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, )",
+        "status": "survived"
+      },
+      {
+        "line": 55,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=True)",
+        "status": "survived"
+      },
+      {
+        "line": 56,
+        "original": "nidx, next_ = tlist.token_next(tidx, skip_ws=False)",
+        "mutated": "nidx, next_ = tlist.token_next(None, skip_ws=False)",
+        "status": "survived"
+      },
+      {
+        "line": 56,
+        "original": "nidx, next_ = tlist.token_next(tidx, skip_ws=False)",
+        "mutated": "nidx, next_ = tlist.token_next(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 56,
+        "original": "nidx, next_ = tlist.token_next(tidx, skip_ws=False)",
+        "mutated": "nidx, next_ = tlist.token_next(tidx, )",
+        "status": "survived"
+      },
+      {
+        "line": 56,
+        "original": "nidx, next_ = tlist.token_next(tidx, skip_ws=False)",
+        "mutated": "nidx, next_ = tlist.token_next(tidx, skip_ws=True)",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "or next_.is_whitespace or next_.match(T.Punctuation, ')')",
+        "mutated": "or next_.is_whitespace and next_.match(T.Punctuation, ')')",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "or prev_.is_whitespace or prev_.match(T.Punctuation, '(')\n            or next_.is_whitespace or next_.match(T.Punctuation, ')')",
+        "mutated": "or prev_.is_whitespace or prev_.match(T.Punctuation, '(') and next_.is_whitespace or next_.match(T.Punctuation, ')')",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "or prev_.is_whitespace or prev_.match(T.Punctuation, '(')",
+        "mutated": "or prev_.is_whitespace and prev_.match(T.Punctuation, '(')",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "or prev_.is_whitespace or prev_.match(T.Punctuation, '(')",
+        "mutated": "or prev_.is_whitespace or prev_.match(None, '(')",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "or prev_.is_whitespace or prev_.match(T.Punctuation, '(')",
+        "mutated": "or prev_.is_whitespace or prev_.match(T.Punctuation, None)",
+        "status": "survived"
+      },
+      {
+        "line": 61,
+        "original": "or prev_.is_whitespace or prev_.match(T.Punctuation, '(')",
+        "mutated": "or prev_.is_whitespace or prev_.match(T.Punctuation, 'XX(XX')",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "or next_.is_whitespace or next_.match(T.Punctuation, ')')",
+        "mutated": "or next_.is_whitespace or next_.match(None, ')')",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "or next_.is_whitespace or next_.match(T.Punctuation, ')')",
+        "mutated": "or next_.is_whitespace or next_.match(T.Punctuation, None)",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "or next_.is_whitespace or next_.match(T.Punctuation, ')')",
+        "mutated": "or next_.is_whitespace or next_.match(T.Punctuation, 'XX)XX')",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "if prev_ is not None and not prev_.match(T.Punctuation, '('):",
+        "mutated": "if prev_ is not None and not prev_.match(None, '('):",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "if prev_ is not None and not prev_.match(T.Punctuation, '('):",
+        "mutated": "if prev_ is not None and not prev_.match(T.Punctuation, None):",
+        "status": "survived"
+      },
+      {
+        "line": 66,
+        "original": "if prev_ is not None and not prev_.match(T.Punctuation, '('):",
+        "mutated": "if prev_ is not None and not prev_.match(T.Punctuation, 'XX(XX'):",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "tidx -= 1",
+        "mutated": "tidx = 1",
+        "status": "survived"
+      },
+      {
+        "line": 69,
+        "original": "tidx -= 1",
+        "mutated": "tidx += 1",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "last_was_ws = False",
+        "mutated": "last_was_ws = None",
+        "status": "survived"
+      },
+      {
+        "line": 92,
+        "original": "last_was_ws = False",
+        "mutated": "last_was_ws = True",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "is_first_char = False",
+        "mutated": "is_first_char = None",
+        "status": "survived"
+      },
+      {
+        "line": 102,
+        "original": "last_nl = None",
+        "mutated": "last_nl = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 104,
+        "original": "if last_nl and token.ttype is T.Punctuation and token.value == ',':",
+        "mutated": "if last_nl and token.ttype is T.Punctuation or token.value == ',':",
+        "status": "survived"
+      },
+      {
+        "line": 104,
+        "original": "if last_nl and token.ttype is T.Punctuation and token.value == ',':",
+        "mutated": "if last_nl or token.ttype is T.Punctuation and token.value == ',':",
+        "status": "survived"
+      },
+      {
+        "line": 106,
+        "original": "last_nl = token if token.is_whitespace else None",
+        "mutated": "last_nl = token if (token.is_whitespace) or True else None",
+        "status": "survived"
+      },
+      {
+        "line": 117,
+        "original": "while tlist.tokens[-2].is_whitespace:",
+        "mutated": "while tlist.tokens[+2].is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 118,
+        "original": "tlist.tokens.pop(-2)",
+        "mutated": "tlist.tokens.pop(+2)",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "if tlist.tokens[-2].is_group:",
+        "mutated": "if tlist.tokens[+2].is_group:",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "if tlist.tokens[-2].is_group:",
+        "mutated": "if tlist.tokens[-3].is_group:",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "while tlist.tokens[-2].tokens[-1].is_whitespace:",
+        "mutated": "while tlist.tokens[+2].tokens[-1].is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "while tlist.tokens[-2].tokens[-1].is_whitespace:",
+        "mutated": "while tlist.tokens[-3].tokens[-1].is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "while tlist.tokens[-2].tokens[-1].is_whitespace:",
+        "mutated": "while tlist.tokens[-2].tokens[+1].is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "while tlist.tokens[-2].tokens[-1].is_whitespace:",
+        "mutated": "while tlist.tokens[-2].tokens[-2].is_whitespace:",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "tlist.tokens[-2].tokens.pop(-1)",
+        "mutated": "tlist.tokens[-2].tokens.pop(None)",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "tlist.tokens[-2].tokens.pop(-1)",
+        "mutated": "tlist.tokens[+2].tokens.pop(-1)",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "tlist.tokens[-2].tokens.pop(-1)",
+        "mutated": "tlist.tokens[-3].tokens.pop(-1)",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "tlist.tokens[-2].tokens.pop(-1)",
+        "mutated": "tlist.tokens[-2].tokens.pop(+1)",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "tlist.tokens[-2].tokens.pop(-1)",
+        "mutated": "tlist.tokens[-2].tokens.pop(-2)",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "[self.process(sgroup, depth + 1) for sgroup in stmt.get_sublists()]",
+        "mutated": "[self.process(sgroup, None) for sgroup in stmt.get_sublists()]",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "[self.process(sgroup, depth + 1) for sgroup in stmt.get_sublists()]",
+        "mutated": "[self.process(sgroup, depth - 1) for sgroup in stmt.get_sublists()]",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "[self.process(sgroup, depth + 1) for sgroup in stmt.get_sublists()]",
+        "mutated": "[self.process(sgroup, depth + 2) for sgroup in stmt.get_sublists()]",
+        "status": "survived"
+      },
+      {
+        "line": 129,
+        "original": "stmt.tokens.pop(-1)",
+        "mutated": "stmt.tokens.pop(+1)",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "nidx, next_ = tlist.token_next(tidx, skip_ws=False)",
+        "mutated": "nidx, next_ = tlist.token_next(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "tlist.insert_after(tidx, sql.Token(T.Whitespace, ' '))",
+        "mutated": "tlist.insert_after(tidx, sql.Token(None, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=False)",
+        "mutated": "pidx, prev_ = tlist.token_prev(tidx, skip_ws=None)",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "tlist.insert_before(tidx, sql.Token(T.Whitespace, ' '))",
+        "mutated": "tlist.insert_before(tidx, sql.Token(None, ' '))",
+        "status": "survived"
+      },
+      {
+        "line": 147,
+        "original": "tidx += 1  # has to shift since token inserted before it",
+        "mutated": "tidx = 1  # has to shift since token inserted before it",
+        "status": "survived"
+      },
+      {
+        "line": 147,
+        "original": "tidx += 1  # has to shift since token inserted before it",
+        "mutated": "tidx -= 1  # has to shift since token inserted before it",
+        "status": "survived"
+      },
+      {
+        "line": 147,
+        "original": "tidx += 1  # has to shift since token inserted before it",
+        "mutated": "tidx += 2  # has to shift since token inserted before it",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 5.19,
+    "coverage": 2.57,
+    "mutation": 27.05
+  }
+}

@@ -1,0 +1,484 @@
+{
+  "target": "src/llmground/verify.py",
+  "validity": {
+    "total": 64,
+    "valid": 59,
+    "valid_ids": [
+      "tests_testpilot/test_verify_s1.py::TestVerdict::test_members",
+      "tests_testpilot/test_verify_s1.py::TestVerdict::test_is_str",
+      "tests_testpilot/test_verify_s1.py::TestFieldResult::test_defaults",
+      "tests_testpilot/test_verify_s1.py::TestFieldResult::test_is_hallucination_true",
+      "tests_testpilot/test_verify_s1.py::TestFieldResult::test_is_hallucination_false",
+      "tests_testpilot/test_verify_s1.py::TestFieldResult::test_to_dict_basic",
+      "tests_testpilot/test_verify_s1.py::TestFieldResult::test_to_dict_non_jsonable_value",
+      "tests_testpilot/test_verify_s1.py::TestFieldResult::test_to_dict_none_value",
+      "tests_testpilot/test_verify_s1.py::TestFieldResult::test_to_dict_bool_value",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_empty_defaults",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_iter_and_len",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_checked_excludes_skipped",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_ungrounded_property",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_weak_property",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_grounded_property",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_grounding_rate",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_grounding_rate_all_skipped",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_get_found",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_get_missing",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_to_dict",
+      "tests_testpilot/test_verify_s1.py::TestReport::test_summary",
+      "tests_testpilot/test_verify_s1.py::TestVerifyErrors::test_source_must_be_str",
+      "tests_testpilot/test_verify_s1.py::TestVerifyErrors::test_source_none",
+      "tests_testpilot/test_verify_s1.py::TestVerifySkips::test_none_is_skipped",
+      "tests_testpilot/test_verify_s1.py::TestVerifySkips::test_bool_is_skipped",
+      "tests_testpilot/test_verify_s1.py::TestVerifySkips::test_empty_string_skipped",
+      "tests_testpilot/test_verify_s1.py::TestVerifySkips::test_whitespace_string_skipped",
+      "tests_testpilot/test_verify_s1.py::TestVerifySkips::test_ignore_set",
+      "tests_testpilot/test_verify_s1.py::TestVerifySkips::test_custom_classifier_skip",
+      "tests_testpilot/test_verify_s1.py::TestVerifyText::test_exact_text",
+      "tests_testpilot/test_verify_s1.py::TestVerifyText::test_ungrounded_text",
+      "tests_testpilot/test_verify_s1.py::TestVerifyText::test_normalized_case",
+      "tests_testpilot/test_verify_s1.py::TestVerifyText::test_fuzzy_weak_by_default",
+      "tests_testpilot/test_verify_s1.py::TestVerifyText::test_fuzzy_accepted",
+      "tests_testpilot/test_verify_s1.py::TestVerifyText::test_fuzzy_threshold_high_rejects",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_int_exact",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_int_formatted_differently",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_number_ungrounded",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_number_tolerance",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_number_tolerance_fails",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_float_value",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_leading_zero_id_stays_text",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_id_hint_makes_text",
+      "tests_testpilot/test_verify_s1.py::TestVerifyDates::test_date_kind_by_hint",
+      "tests_testpilot/test_verify_s1.py::TestVerifyDates::test_date_exact",
+      "tests_testpilot/test_verify_s1.py::TestVerifyDates::test_date_ungrounded",
+      "tests_testpilot/test_verify_s1.py::TestVerifyDates::test_date_not_parsed_text",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_nested_dict_paths",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_list_paths",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_tuple_traversal",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_set_traversal",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_top_level_list",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_dataclass_traversal",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_pydantic_like",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_broken_pydantic_falls_through",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_dataclass_class_not_instance",
+      "tests_testpilot/test_verify_s1.py::TestVerifyTraversal::test_mixed_empty_nested",
+      "tests_testpilot/test_verify_s1.py::TestVerifyClassifierOverride::test_override_forces_text",
+      "tests_testpilot/test_verify_s1.py::TestVerifyIntegration::test_report_overall"
+    ],
+    "invalid": {
+      "tests_testpilot/test_verify_s1.py::TestFieldResult::test_to_dict_decimal_value": "run 1: failed: AssertionError: assert '1.50' == '1.5'",
+      "tests_testpilot/test_verify_s1.py::TestVerifyText::test_trivial_note_becomes_skipped": "run 1: failed: AssertionError: assert <Verdict.GROUNDED: 'grounded'> is <Verdict.SKIPPED: 'skipped'>",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_decimal_kind": "run 1: failed: assert <Verdict.UNGROUNDED: 'ungrounded'> is <Verdict.GROUNDED: 'grounded'>",
+      "tests_testpilot/test_verify_s1.py::TestVerifyNumbers::test_numeric_string_becomes_number": "run 1: failed: assert <Verdict.UNGROUNDED: 'ungrounded'> is <Verdict.GROUNDED: 'grounded'>",
+      "tests_testpilot/test_verify_s1.py::TestVerifyClassifierOverride::test_override_forces_number": "run 1: failed: assert <Verdict.UNGROUNDED: 'ungrounded'> is <Verdict.GROUNDED: 'grounded'>"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.47,
+        "passed": 59,
+        "failed": 5,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.48,
+        "passed": 59,
+        "failed": 5,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.44,
+        "passed": 59,
+        "failed": 5,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9565217391304348,
+  "branch_rate": 0.8846153846153846,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.75,
+    "total": 236,
+    "killed": 177,
+    "survived": 59,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 177,
+      "survived": 59
+    },
+    "survivors": [
+      {
+        "line": 169,
+        "original": "return str(value)",
+        "mutated": "return str(None)",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "if isinstance(value, bool) or value is None:",
+        "mutated": "if isinstance(value, bool) and value is None:",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "return \"skip\"",
+        "mutated": "return \"XXskipXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "return \"skip\"",
+        "mutated": "return \"SKIP\"",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k not in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"XXdobXX\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"DOB\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"XXissuedXX\", \"expiry\", \"expires\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"ISSUED\", \"expiry\", \"expires\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"XXexpiryXX\", \"expires\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"EXPIRY\", \"expires\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"XXexpiresXX\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"EXPIRES\", \"due\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"XXdueXX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"due\"))",
+        "mutated": "date_hint = any(k in lowered for k in (\"date\", \"dob\", \"issued\", \"expiry\", \"expires\", \"DUE\"))",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "if date_hint and parse_date(value) is not None:",
+        "mutated": "if date_hint and parse_date(None) is not None:",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k not in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"XXnumberXX\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"NUMBER\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"XXnoXX\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"NO\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"XXcodeXX\", \"ref\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"CODE\", \"ref\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"XXrefXX\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"REF\", \"phone\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"XXphoneXX\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"PHONE\", \"zip\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"XXzipXX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"zip\"))",
+        "mutated": "id_hint = any(k in lowered for k in (\"id\", \"number\", \"no\", \"code\", \"ref\", \"phone\", \"ZIP\"))",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "if not id_hint and parse_number(value) is not None and any(c.isdigit() for c in value):",
+        "mutated": "if not id_hint and parse_number(None) is not None and any(c.isdigit() for c in value):",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "if not id_hint and parse_number(value) is not None and any(c.isdigit() for c in value):",
+        "mutated": "if not id_hint and parse_number(value) is None and any(c.isdigit() for c in value):",
+        "status": "survived"
+      },
+      {
+        "line": 203,
+        "original": "if not id_hint and parse_number(value) is not None and any(c.isdigit() for c in value):",
+        "mutated": "if not id_hint and parse_number(value) is not None and any(None):",
+        "status": "survived"
+      },
+      {
+        "line": 204,
+        "original": "stripped = value.strip()",
+        "mutated": "stripped = None",
+        "status": "survived"
+      },
+      {
+        "line": 205,
+        "original": "if not (len(stripped) > 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "mutated": "if (len(stripped) > 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "status": "survived"
+      },
+      {
+        "line": 205,
+        "original": "if not (len(stripped) > 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "mutated": "if not (len(stripped) > 1 and stripped.startswith(\"0\") or stripped.isdigit()):",
+        "status": "survived"
+      },
+      {
+        "line": 205,
+        "original": "if not (len(stripped) > 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "mutated": "if not (len(stripped) > 1 or stripped.startswith(\"0\") and stripped.isdigit()):",
+        "status": "survived"
+      },
+      {
+        "line": 205,
+        "original": "if not (len(stripped) > 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "mutated": "if not (len(stripped) >= 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "status": "survived"
+      },
+      {
+        "line": 205,
+        "original": "if not (len(stripped) > 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "mutated": "if not (len(stripped) > 2 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "status": "survived"
+      },
+      {
+        "line": 205,
+        "original": "if not (len(stripped) > 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "mutated": "if not (len(stripped) > 1 and stripped.startswith(None) and stripped.isdigit()):",
+        "status": "survived"
+      },
+      {
+        "line": 205,
+        "original": "if not (len(stripped) > 1 and stripped.startswith(\"0\") and stripped.isdigit()):",
+        "mutated": "if not (len(stripped) > 1 and stripped.startswith(\"XX0XX\") and stripped.isdigit()):",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "return \"number\"",
+        "mutated": "return \"XXnumberXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "return \"number\"",
+        "mutated": "return \"NUMBER\"",
+        "status": "survived"
+      },
+      {
+        "line": 208,
+        "original": "if parse_date(value) is not None and date_hint:",
+        "mutated": "if parse_date(None) is not None and date_hint:",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "return \"date\"",
+        "mutated": "return \"XXdateXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "return \"date\"",
+        "mutated": "return \"DATE\"",
+        "status": "survived"
+      },
+      {
+        "line": 247,
+        "original": "raise TypeError(\"source must be a string\")",
+        "mutated": "raise TypeError(\"XXsource must be a stringXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 262,
+        "original": "if kind == \"skip\" or value is None or (isinstance(value, str) and not value.strip()):",
+        "mutated": "if kind == \"skip\" or value is None and (isinstance(value, str) and not value.strip()):",
+        "status": "survived"
+      },
+      {
+        "line": 264,
+        "original": "FieldResult(path, value, Verdict.SKIPPED, Match(MatchTier.NONE), kind)",
+        "mutated": "FieldResult(path, None, Verdict.SKIPPED, Match(MatchTier.NONE), kind)",
+        "status": "survived"
+      },
+      {
+        "line": 264,
+        "original": "FieldResult(path, value, Verdict.SKIPPED, Match(MatchTier.NONE), kind)",
+        "mutated": "FieldResult(path, value, Verdict.SKIPPED, Match(MatchTier.NONE), None)",
+        "status": "survived"
+      },
+      {
+        "line": 264,
+        "original": "FieldResult(path, value, Verdict.SKIPPED, Match(MatchTier.NONE), kind)",
+        "mutated": "FieldResult(path, value, Verdict.SKIPPED, Match(MatchTier.NONE), )",
+        "status": "survived"
+      },
+      {
+        "line": 258,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "m = match_date(value, source, day_first=day_first)",
+        "mutated": "m = match_date(value, source, day_first=None)",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "m = match_date(value, source, day_first=day_first)",
+        "mutated": "m = match_date(value, source, )",
+        "status": "survived"
+      },
+      {
+        "line": 276,
+        "original": "if m.note in {\"value too trivial to verify\", \"value is not numeric\"}:",
+        "mutated": "if m.note in {\"XXvalue too trivial to verifyXX\", \"value is not numeric\"}:",
+        "status": "survived"
+      },
+      {
+        "line": 276,
+        "original": "if m.note in {\"value too trivial to verify\", \"value is not numeric\"}:",
+        "mutated": "if m.note in {\"VALUE TOO TRIVIAL TO VERIFY\", \"value is not numeric\"}:",
+        "status": "survived"
+      },
+      {
+        "line": 276,
+        "original": "if m.note in {\"value too trivial to verify\", \"value is not numeric\"}:",
+        "mutated": "if m.note in {\"value too trivial to verify\", \"XXvalue is not numericXX\"}:",
+        "status": "survived"
+      },
+      {
+        "line": 276,
+        "original": "if m.note in {\"value too trivial to verify\", \"value is not numeric\"}:",
+        "mutated": "if m.note in {\"value too trivial to verify\", \"VALUE IS NOT NUMERIC\"}:",
+        "status": "survived"
+      },
+      {
+        "line": 277,
+        "original": "verdict = Verdict.SKIPPED",
+        "mutated": "verdict = None",
+        "status": "survived"
+      },
+      {
+        "line": 285,
+        "original": "report.results.append(FieldResult(path, value, verdict, m, kind))",
+        "mutated": "report.results.append(FieldResult(path, None, verdict, m, kind))",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.41,
+    "coverage": 2.57,
+    "mutation": 15.6
+  }
+}

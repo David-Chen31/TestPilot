@@ -1,0 +1,409 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T05:38:41+00:00",
+    "duration": 0.01,
+    "summary": "5 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "src/cachetools/func.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "fifo_cache",
+      "lfu_cache",
+      "lru_cache",
+      "rr_cache",
+      "ttl_cache"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T05:38:41+00:00",
+    "duration": 0.09,
+    "summary": "依赖定义 6 个，调用处 0 个，提示词前缀 16870 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/func.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/threading.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/threading.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/threading/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/threading/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/cachetools.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "src/cachetools/__init__.py"
+        },
+        "duration": 0.02,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/__init__.py",
+          "start_line": 171,
+          "end_line": 200
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/__init__.py",
+          "start_line": 203,
+          "end_line": 284
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/__init__.py",
+          "start_line": 287,
+          "end_line": 326
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/__init__.py",
+          "start_line": 329,
+          "end_line": 369
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/__init__.py",
+          "start_line": 450,
+          "end_line": 589
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/cachetools/__init__.py",
+          "start_line": 738,
+          "end_line": 766
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "fifo_cache(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "lfu_cache(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "lru_cache(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "rr_cache(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "ttl_cache(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `cachetools.func` (file `src/cachetools/func.py`).\n\nSource of `src/cachetools/func.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | \"\"\"`functools.lru_cache` compatible memoizing function decorators.\"\"\"\n    2 | \n    3 | __all__ = (\"fifo_cache\", \"lfu_cache\", \"lru_cache\", \"rr_cache\", \"ttl_cache\")\n    4 | \n    5 | import math\n    6 | import random\n    7 | import time\n    8 | from threading import Condition\n    9 | \n   10 | from . import FIFOCache, LFUCache, LRUCache, RRCache, TTLCache, cached, keys\n   11 | \n   12 | \n   13 | class _UnboundTTLCache(TTLCache):\n   14 |     def __init__(self, ttl, timer):\n   15 |         TTLCache.__init__(self, math.inf, ttl, timer)\n   16 | \n   17 |     @property\n   18 |     def maxsize(self):  # type: ignore\n   19 |         return None\n   20 | \n   21 | \n   22 | def _cache(cache, maxsize, typed):\n   23 |     def decorator(func):\n   24 |         # like functools.lru_cache, this has to be thread-safe;\n   25 |         # additionally, this also prevents cache stampede scenarios\n   26 |         # using a condition variable\n   27 |         key = keys.typedkey if typed else keys.hashkey\n   28 |         wrapper = cached(cache=cache, key=key, condition=Condition(), info=True)(func)\n   29 |         wrapper.cache_parameters = lambda: {\"maxsize\": maxsize, \"typed\": typed}  # type: ignore\n   30 |         return wrapper\n   31 | \n   32 |     return decorator\n   33 | \n   34 | \n   35 | def fifo_cache(maxsize=128, typed=False):\n   36 |     \"\"\"Decorator to wrap a function with a memoizing callable that saves\n   37 |     up to `maxsize` results based on a First In First Out (FIFO)\n   38 |     algorithm.\n   39 | \n   40 |     \"\"\"\n   41 |     if maxsize is None:\n   42 |         return _cache({}, None, typed)\n   43 |     elif callable(maxsize):\n   44 |         return _cache(FIFOCache(128), 128, typed)(maxsize)\n   45 |     else:\n   46 |         return _cache(FIFOCache(maxsize), maxsize, typed)\n   47 | \n   48 | \n   49 | def lfu_cache(maxsize=128, typed=False):\n   50 |     \"\"\"Decorator to wrap a function with a memoizing callable that saves\n   51 |     up to `maxsize` results based on a Least Frequently Used (LFU)\n   52 |     algorithm.\n   53 | \n   54 |     \"\"\"\n   55 |     if maxsize is None:\n   56 |         return _cache({}, None, typed)\n   57 |     elif callable(maxsize):\n   58 |         return _cache(LFUCache(128), 128, typed)(maxsize)\n   59 |     else:\n   60 |         return _cache(LFUCache(maxsize), maxsize, typed)\n   61 | \n   62 | \n   63 | def lru_cache(maxsize=128, typed=False):\n   64 |     \"\"\"Decorator to wrap a function with a memoizing callable that saves\n   65 |     up to `maxsize` results based on a Least Recently Used (LRU)\n   66 |     algorithm.\n   67 | \n   68 |     \"\"\"\n   69 |     if maxsize is None:\n   70 |         return _cache({}, None, typed)\n   71 |     elif callable(maxsize):\n   72 |         return _cache(LRUCache(128), 128, typed)(maxsize)\n   73 |     else:\n   74 |         return _cache(LRUCache(maxsize), maxsize, typed)\n   75 | \n   76 | \n   77 | def rr_cache(maxsize=128, choice=random.choice, typed=False):\n   78 |     \"\"\"Decorator to wrap a function with a memoizing callable that saves\n   79 |     up to `maxsize` results based on a Random Replacement (RR)\n   80 |     algorithm.\n   81 | \n   82 |     \"\"\"\n   83 |     if maxsize is None:\n   84 |         return _cache({}, None, typed)\n   85 |     elif callable(maxsize):\n   86 |         return _cache(RRCache(128, choice), 128, typed)(maxsize)\n   87 |     else:\n   88 |         return _cache(RRCache(maxsize, choice), maxsize, typed)\n   89 | \n   90 | \n   91 | def ttl_cache(maxsize=128, ttl=600, timer=time.monotonic, typed=False):\n   92 |     \"\"\"Decorator to wrap a function with a memoizing callable that saves\n   93 |     up to `maxsize` results based on a Least Recently Used (LRU)\n   94 |     algorithm with a per-item time-to-live (TTL) value.\n   95 | \n   96 |     \"\"\"\n   97 |     if maxsize is None:\n   98 |         return _cache(_UnboundTTLCache(ttl, timer), None, typed)\n   99 |     elif callable(maxsize):\n  100 |         return _cache(TTLCache(128, ttl, timer), 128, typed)(maxsize)\n  101 |     else:\n  102 |         return _cache(TTLCache(maxsize, ttl, timer), maxsize, typed)\n```\n\nDefinitions imported by the module from elsewhere in the repository:\n\n# src/cachetools/__init__.py lines 171-200\n```python\nclass FIFOCache(Cache):\n    \"\"\"First In First Out (FIFO) cache implementation.\"\"\"\n\n    def __init__(self, maxsize, getsizeof=None):\n        Cache.__init__(self, maxsize, getsizeof)\n        self.__order = collections.OrderedDict()\n\n    def __setitem__(self, key, value, cache_setitem=Cache.__setitem__):\n        cache_setitem(self, key, value)\n        if key in self.__order:\n            self.__order.move_to_end(key)\n        else:\n            self.__order[key] = None\n\n    def __delitem__(self, key, cache_delitem=Cache.__delitem__):\n        cache_delitem(self, key)\n        del self.__order[key]\n\n    def popitem(self):\n        \"\"\"Remove and return the `(key, value)` pair first inserted.\"\"\"\n        try:\n            key = next(iter(self.__order))\n        except StopIteration:\n            raise KeyError(\"%s is empty\" % type(self).__name__) from None\n        else:\n            return (key, self.pop(key))\n\n    def clear(self):\n        Cache.clear(self)\n        self.__order.clear()\n```\n\n# src/cachetools/__init__.py lines 203-284\n```python\nclass LFUCache(Cache):\n    \"\"\"Least Frequently Used (LFU) cache implementation.\"\"\"\n\n    class _Link:\n        __slots__ = (\"count\", \"keys\", \"next\", \"prev\")\n\n        def __init__(self, count):\n            self.count = count\n            self.keys = set()\n\n        def unlink(self):\n            next = self.next\n            prev = self.prev\n            prev.next = next\n            next.prev = prev\n\n    def __init__(self, maxsize, getsizeof=None):\n        Cache.__init__(self, maxsize, getsizeof)\n        self.__root = root = LFUCache._Link(0)  # sentinel\n        root.prev = root.next = root\n        self.__links = {}\n\n    def __getitem__(self, key, cache_getitem=Cache.__getitem__):\n        value = cache_getitem(self, key)\n        if key in self:  # __missing__ may not store item\n            self.__touch(key)\n        return value\n\n    def __setitem__(self, key, value, cache_setitem=Cache.__setitem__):\n        cache_setitem(self, key, value)\n        if key in self.__links:\n            self.__touch(key)\n            return\n        root = self.__root\n        link = root.next\n        if link.count != 1:\n            link = LFUCache._Link(1)\n            link.next = root.next\n            root.next = link.next.prev = link\n            link.prev = root\n        link.keys.add(key)\n        self.__links[key] = link\n\n    def __delitem__(self, key, cache_delitem=Cache.__delitem__):\n        cache_delitem(self, key)\n        link = self.__links.pop(key)\n        link.keys.remove(key)\n        if not link.keys:\n            link.unlink()\n\n    def popitem(self):\n        \"\"\"Remove and return the `(key, value)` pair least frequently used.\"\"\"\n        root = self.__root\n        curr = root.next\n        if curr is root:\n            raise KeyError(\"%s is empty\" % type(self).__name__) from None\n        key = next(iter(curr.keys))  # remove an arbitrary element\n        return (key, self.pop(key))\n\n    def clear(self):\n        Cache.clear(self)\n        root = self.__root\n        root.prev = root.next = root\n        self.__links.clear()\n\n    def __touch(self, key):\n        \"\"\"Increment use count\"\"\"\n        link = self.__links[key]\n        curr = link.next\n        if curr.count != link.count + 1:\n            if len(link.keys) == 1:\n                link.count += 1\n                return\n            curr = LFUCache._Link(link.count + 1)\n            curr.next = link.next\n            link.next = curr.next.prev = curr\n            curr.prev = link\n        curr.keys.add(key)\n        link.keys.remove(key)\n        if not link.keys:\n            link.unlink()\n        self.__links[key] = curr\n```\n\n# src/cachetools/__init__.py lines 287-326\n```python\nclass LRUCache(Cache):\n    \"\"\"Least Recently Used (LRU) cache implementation.\"\"\"\n\n    def __init__(self, maxsize, getsizeof=None):\n        Cache.__init__(self, maxsize, getsizeof)\n        self.__order = collections.OrderedDict()\n\n    def __getitem__(self, key, cache_getitem=Cache.__getitem__):\n        value = cache_getitem(self, key)\n        if key in self:  # __missing__ may not store item\n            self.__touch(key)\n        return value\n\n    def __setitem__(self, key, value, cache_setitem=Cache.__setitem__):\n        cache_setitem(self, key, value)\n        self.__touch(key)\n\n    def __delitem__(self, key, cache_delitem=Cache.__delitem__):\n        cache_delitem(self, key)\n        del self.__order[key]\n\n    def popitem(self):\n        \"\"\"Remove and return the `(key, value)` pair least recently used.\"\"\"\n        try:\n            key = next(iter(self.__order))\n        except StopIteration:\n            raise KeyError(\"%s is empty\" % type(self).__name__) from None\n        else:\n            return (key, self.pop(key))\n\n    def clear(self):\n        Cache.clear(self)\n        self.__order.clear()\n\n    def __touch(self, key):\n        \"\"\"Mark as recently used\"\"\"\n        try:\n            self.__order.move_to_end(key)\n        except KeyError:\n            self.__order[key] = None\n```\n\n# src/cachetools/__init__.py lines 329-369\n```python\nclass RRCache(Cache):\n    \"\"\"Random Replacement (RR) cache implementation.\"\"\"\n\n    def __init__(self, maxsize, choice=random.choice, getsizeof=None):\n        Cache.__init__(self, maxsize, getsizeof)\n        self.__choice = choice\n        self.__index = {}\n        self.__keys = []\n\n    @property\n    def choice(self):\n        \"\"\"The `choice` function used by the cache.\"\"\"\n        return self.__choice\n\n    def __setitem__(self, key, value, cache_setitem=Cache.__setitem__):\n        cache_setitem(self, key, value)\n        if key not in self.__index:\n            self.__index[key] = len(self.__keys)\n            self.__keys.append(key)\n\n    def __delitem__(self, key, cache_delitem=Cache.__delitem__):\n        cache_delitem(self, key)\n        index = self.__index.pop(key)\n        if index != len(self.__keys) - 1:\n            last = self.__keys[-1]\n            self.__keys[index] = last\n            self.__index[last] = index\n        self.__keys.pop()\n\n    def popitem(self):\n        \"\"\"Remove and return a random `(key, value)` pair.\"\"\"\n        keys = self.__keys\n        if not keys:\n            raise KeyError(\"%s is empty\" % type(self).__name__) from None\n        key = self.__choice(keys)\n        return (key, self.pop(key))\n\n    def clear(self):\n        Cache.clear(self)\n        self.__index.clear()\n        del self.__keys[:]\n```\n\n# src/cachetools/__init__.py lines 450-589\n```python\nclass TTLCache(_TimedCache):\n    \"\"\"LRU Cache implementation with per-item time-to-live (TTL) value.\"\"\"\n\n    class _Link:\n        __slots__ = (\"expires\", \"key\", \"next\", \"prev\")\n\n        def __init__(self, key=None, expires=None):\n            self.key = key\n            self.expires = expires\n\n        def __reduce__(self):\n            return TTLCache._Link, (self.key, self.expires)\n\n        def unlink(self):\n            next = self.next\n            prev = self.prev\n            prev.next = next\n            next.prev = prev\n\n    def __init__(self, maxsize, ttl, timer=time.monotonic, getsizeof=None):\n        _TimedCache.__init__(self, maxsize, timer, getsizeof)\n        self.__root = root = TTLCache._Link()\n        root.prev = root.next = root\n        self.__links = collections.OrderedDict()\n        self.__ttl = ttl\n\n    def __contains__(self, key):\n        try:\n            link = self.__links[key]  # no reordering\n        except KeyError:\n            return False\n        else:\n            return self.timer() < link.expires\n\n    def __getitem__(self, key, cache_getitem=Cache.__getitem__):\n        try:\n            link = self.__getlink(key)\n        except KeyError:\n            expired = False\n        else:\n            expired = not (self.timer() < link.expires)\n        if expired:\n            return self.__missing__(key)\n        else:\n            return cache_getitem(self, key)\n\n    def __setitem__(self, key, value, cache_setitem=Cache.__setitem__):\n        with self.timer as time:\n            expires = time + self.__ttl\n            self.expire(time)\n            cache_setitem(self, key, value)\n        try:\n            link = self.__getlink(key)\n        except KeyError:\n            self.__links[key] = link = TTLCache._Link(key)\n        else:\n            link.unlink()\n        link.expires = expires\n        link.next = root = self.__root\n        link.prev = prev = root.prev\n        prev.next = root.prev = link\n\n    def __delitem__(self, key, cache_delitem=Cache.__delitem__):\n        cache_delitem(self, key)\n        link = self.__links.pop(key)\n        link.unlink()\n        if not (self.timer() < link.expires):\n            raise KeyError(key)\n\n    def __iter__(self):\n        root = self.__root\n        curr = root.next\n        while curr is not root:\n            # \"freeze\" time for iterator access\n            with self.timer as time:\n                if time < curr.expires:\n                    yield curr.key\n            curr = curr.next\n\n    def __setstate__(self, state):\n        self.__dict__.update(state)\n        root = self.__root\n        root.prev = root.next = root\n        for link in sorted(self.__links.values(), key=lambda obj: obj.expires):\n            link.next = root\n            link.prev = prev = root.prev\n            prev.next = root.prev = link\n        self.expire(self.timer())\n\n    @property\n    def ttl(self):\n        \"\"\"The time-to-live value of the cache's items.\"\"\"\n        return self.__ttl\n\n    def expire(self, time=None):\n        \"\"\"Remove expired items from the cache and return an iterable of the\n        expired `(key, value)` pairs.\n\n        \"\"\"\n        if time is None:\n            time = self.timer()\n        root = self.__root\n        curr = root.next\n        links = self.__links\n        expired = []\n        cache_delitem = Cache.__delitem__\n        cache_getitem = Cache.__getitem__\n        while curr is not root and not (time < curr.expires):\n            expired.append((curr.key, cache_getitem(self, curr.key)))\n            cache_delitem(self, curr.key)\n            del links[curr.key]\n            next = curr.next\n            curr.unlink()\n            curr = next\n        return expired\n\n    def popitem(self):\n        \"\"\"Remove and return the `(key, value)` pair least recently used that\n        has not already expired.\n\n        \"\"\"\n        with self.timer as time:\n            self.expire(time)\n            try:\n                key = next(iter(self.__links))\n            except StopIteration:\n                raise KeyError(\"%s is empty\" % type(self).__name__) from None\n            else:\n                return (key, self.pop(key))\n\n    def clear(self):\n        _TimedCache.clear(self)\n        root = self.__root\n        root.prev = root.next = root\n        self.__links.clear()\n\n    def __getlink(self, key):\n        value = self.__links[key]\n        self.__links.move_to_end(key)\n        return value\n```\n\n# src/cachetools/__init__.py lines 738-766\n```python\ndef cached(cache, key=keys.hashkey, lock=None, condition=None, info=False):\n    \"\"\"Decorator to wrap a function with a memoizing callable that saves\n    results in a cache.\n\n    \"\"\"\n    from ._cached import _wrapper\n\n    def decorator(func):\n        if info:\n            if isinstance(cache, Cache):\n\n                def make_info(hits, misses):\n                    return _CacheInfo(hits, misses, cache.maxsize, cache.currsize)\n\n            elif isinstance(cache, collections.abc.Mapping):\n\n                def make_info(hits, misses):\n                    return _CacheInfo(hits, misses, None, len(cache))\n\n            else:\n\n                def make_info(hits, misses):\n                    return _CacheInfo(hits, misses, 0, 0)\n\n            return _wrapper(func, cache, key, lock, condition, info=make_info)\n        else:\n            return _wrapper(func, cache, key, lock, condition)\n\n    return decorator\n```\n\nPublic API to cover: `fifo_cache`, `lfu_cache`, `lru_cache`, `rr_cache`, `ttl_cache`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from cachetools.func import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:38:52+00:00",
+    "duration": 11.16,
+    "summary": "第 1 轮：生成 466 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_func.py",
+          "content": "<13079 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 7871,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `cachetools.func`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport math\nimport threading\nimport time\n\nimport pytest\n\nfrom cachetools import _CacheInfo\nfrom cachetools.func import (\n    fifo_cache,\n    lfu_cache,\n    lru_cache,\n    rr_cache,\n    ttl_cache,\n)\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\ndef _counting(fn):\n    \"\"\"Wrap a function so each call increments a counter.\"\"\"\n    calls = []\n\n    def inner(*args, **kwargs):\n        calls.append((args, kwargs))\n        return fn(*args, **kwargs)\n\n    inner.calls = calls\n    return inner\n\n\nclass FakeTimer:\n    \"\"\"Deterministic timer implementing the required context manager API.\"\"\"\n\n    def __init__(self, start=0.0):\n        self.time = start\n\n    def __call__(self):\n        return self.time\n\n    def __enter__(self):\n        return self.time\n\n    def __exit__(self, *exc):\n        return False\n\n    def advance(self, delta):\n        self.time += delta\n\n\n# ---------------------------------------------------------------------------\n# _cache / cache_parameters shared across decorators\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_default(decorator):\n    @decorator()\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_typed(decorator):\n    @decorator(typed=True)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": True}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_maxsize(decorator):\n    @decorator(maxsize=42)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 42, \"typed\": False}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_unbounded(decorator):\n    @decorator(maxsize=None)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": None, \"typed\": False}\n\n\n# ---------------------------------------------------------------------------\n# Direct decoration without parentheses\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_direct_decoration(decorator):\n    @decorator\n    def fn(x):\n        return x * 2\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n    assert fn(3) == 6\n    assert fn(3) == 6\n    assert fn.cache_info().hits == 1\n    assert fn.cache_info().misses == 1\n\n\n# ---------------------------------------------------------------------------\n# Basic caching behaviour for all decorators\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_basic_caching(decorator):\n    def compute(x):\n        return x + 1\n\n    fn = _counting(compute)\n    wrapped = decorator(maxsize=10)(fn)\n\n    assert wrapped(1) == 2\n    assert wrapped(1) == 2\n    assert wrapped(2) == 3\n    assert len(fn.calls) == 2\n\n    info = wrapped.cache_info()\n    assert info.hits == 1\n    assert info.misses == 2\n    assert info.maxsize == 10\n    assert info.currsize == 2\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache])\ndef test_eviction(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(3)  # evicts one\n    assert wrapped.cache_info().currsize == 2\n\n    info = wrapped.cache_info()\n    assert info.misses == 3\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_typed_key(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(typed=True)(fn)\n\n    wrapped(1)\n    wrapped(1.0)\n    # 1 and 1.0 are different keys under typed key\n    assert len(fn.calls) == 2\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_untyped_key(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(typed=False)(fn)\n\n    wrapped(1)\n    wrapped(1.0)\n    # 1 == 1.0 -> same hashkey -> cached\n    assert len(fn.calls) == 1\n    assert wrapped.cache_info().hits == 1\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_unbounded_maxsize(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=None)(fn)\n\n    for i in range(1000):\n        wrapped(i)\n    assert len(fn.calls) == 1000\n    assert wrapped.cache_info().currsize == 1000\n\n    # second loop hits all\n    for i in range(1000):\n        wrapped(i)\n    assert len(fn.calls) == 1000\n    assert wrapped.cache_info().hits == 1000\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: FIFO\n# ---------------------------------------------------------------------------\n\ndef test_fifo_order():\n    fn = _counting(lambda x: x)\n    wrapped = fifo_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    # accessing 1 does not change FIFO order\n    wrapped(1)\n    wrapped(3)  # should evict 1 (first in)\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # miss\n    assert len(fn.calls) == 4\n    # 2 was evicted too? First in was 1 (evicted), then 2, then 3; now inserting 1 -> evicts 2\n    wrapped(2)  # miss\n    assert len(fn.calls) == 5\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: LRU\n# ---------------------------------------------------------------------------\n\ndef test_lru_order():\n    fn = _counting(lambda x: x)\n    wrapped = lru_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(1)  # touch 1\n    wrapped(3)  # should evict 2\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # hit\n    assert len(fn.calls) == 3\n    wrapped(2)  # miss\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: LFU\n# ---------------------------------------------------------------------------\n\ndef test_lfu_order():\n    fn = _counting(lambda x: x)\n    wrapped = lfu_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(1)  # 1 used twice\n    wrapped(3)  # should evict 2 (less frequently used)\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # hit\n    assert len(fn.calls) == 3\n    wrapped(2)  # miss\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: RR with deterministic choice\n# ---------------------------------------------------------------------------\n\ndef test_rr_choice_property():\n    def my_choice(seq):\n        return seq[0]\n\n    wrapped = rr_cache(maxsize=5, choice=my_choice)(lambda x: x)\n    # Access the cache through closure is not possible; use popitem side effect\n    # via eviction instead.\n    wrapped.cache_info()  # touch to ensure wrapper exists\n\n\ndef test_rr_deterministic_eviction():\n    chosen = []\n\n    def my_choice(seq):\n        chosen.append(list(seq))\n        return seq[0]\n\n    fn = _counting(lambda x: x)\n    wrapped = rr_cache(maxsize=2, choice=my_choice)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(3)  # popitem chooses first of keys; keys order after inserts: [1, 2]\n    assert chosen[-1][0] == 1\n    # 1 was evicted\n    wrapped(1)\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: TTL\n# ---------------------------------------------------------------------------\n\ndef test_ttl_expiry():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=10, ttl=5, timer=timer)(fn)\n\n    wrapped(1)\n    assert len(fn.calls) == 1\n    timer.advance(4)\n    wrapped(1)  # still valid\n    assert len(fn.calls) == 1\n    timer.advance(2)  # now expired\n    wrapped(1)\n    assert len(fn.calls) == 2\n\n\ndef test_ttl_unbounded():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=None, ttl=10, timer=timer)(fn)\n\n    assert wrapped.cache_parameters() == {\"maxsize\": None, \"typed\": False}\n    for i in range(100):\n        wrapped(i)\n    assert wrapped.cache_info().currsize == 100\n    timer.advance(11)\n    wrapped(0)\n    assert len(fn.calls) == 101\n\n\ndef test_ttl_direct_decoration():\n    timer = FakeTimer()\n\n    @ttl_cache\n    def fn(x):\n        return x\n\n    # Direct decoration uses default timer/time.monotonic, so just check caching works\n    assert fn(1) == 1\n    assert fn(1) == 1\n    assert fn.cache_info().hits == 1\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n\n\n# ---------------------------------------------------------------------------\n# Cache stampede / thread-safety\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_thread_safety_single_call(decorator):\n    barrier = threading.Barrier(10)\n    calls = []\n    lock = threading.Lock()\n\n    @decorator(maxsize=10)\n    def fn(x):\n        with lock:\n            calls.append(x)\n        return x\n\n    results = []\n\n    def worker():\n        barrier.wait()\n        results.append(fn(5))\n\n    threads = [threading.Thread(target=worker) for _ in range(10)]\n    for t in threads:\n        t.start()\n    for t in threads:\n        t.join()\n\n    assert results == [5] * 10\n    assert len(calls) == 1\n    assert fn.cache_info().misses == 1\n    assert fn.cache_info().hits == 9\n\n\n# ---------------------------------------------------------------------------\n# cache_clear / cache_info semantics\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_clear(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=10)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    assert wrapped.cache_info().currsize == 2\n\n    wrapped.cache_clear()\n    info = wrapped.cache_info()\n    assert info.currsize == 0\n    assert info.hits == 0\n    assert info.misses == 0\n\n    wrapped(1)\n    assert len(fn.calls) == 3\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_info_type(decorator):\n    @decorator(maxsize=5)\n    def fn(x):\n        return x\n\n    info = fn.cache_info()\n    assert isinstance(info, _CacheInfo)\n    assert info.maxsize == 5\n    assert info.currsize == 0\n    assert info.hits == 0\n    assert info.misses == 0\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache])\ndef test_cache_info_currsize_after_eviction(decorator):\n    @decorator(maxsize=1)\n    def fn(x):\n        return x\n\n    fn(1)\n    fn(2)  # evicts 1\n    info = fn.cache_info()\n    assert info.currsize == 1\n    assert info.misses == 2\n\n\n# ---------------------------------------------------------------------------\n# Exceptions should not poison the cache\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_exception_propagates(decorator):\n    @decorator(maxsize=10)\n    def fn(x):\n        if x == 0:\n            raise ValueError(\"boom\")\n        return x\n\n    with pytest.raises(ValueError, match=\"boom\"):\n        fn(0)\n\n    assert fn(1) == 1\n    # A failing first call must not increment hits for the key\n    assert fn.cache_info().hits == 0\n\n\n# ---------------------------------------------------------------------------\n# ttl_cache edge: expiry on set triggers cleanup\n# ---------------------------------------------------------------------------\n\ndef test_ttl_expire_during_set():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=10, ttl=5, timer=timer)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    assert wrapped.cache_info().currsize == 2\n    timer.advance(6)\n    wrapped(3)  # inserting should expire previous entries\n    info = wrapped.cache_info()\n    # currsize counts live entries: 1 and 2 expired, only 3 remains\n    assert info.currsize == 1\n\n\n# ---------------------------------------------------------------------------\n# Key computation with kwargs\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_kwargs_caching(decorator):\n    fn = _counting(lambda *a, **kw: (a, tuple(sorted(kw.items()))))\n    wrapped = decorator(maxsize=10)(fn)\n\n    wrapped(1, x=2)\n    wrapped(1, x=2)\n    assert len(fn.calls) == 1\n\n    wrapped(1, x=3)\n    assert len(fn.calls) == 2\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 4414,
+      "cache_hit_tokens": 4224,
+      "completion_tokens": 3457,
+      "reasoning_tokens": 0,
+      "latency": 11.15
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:38:54+00:00",
+    "duration": 1.47,
+    "summary": "通过 86，失败 1，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_func.py"
+          ]
+        },
+        "duration": 1.47,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 7871
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T05:38:54+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 86]（提升）",
+    "tool_calls": [],
+    "tokens_total": 7871,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      86
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T05:38:54+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 7871
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:39:02+00:00",
+    "duration": 9.73,
+    "summary": "第 2 轮：生成 470 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_func.py",
+          "content": "<13385 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 19521,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test_func.py`)\n```python\nimport math\nimport threading\nimport time\n\nimport pytest\n\nfrom cachetools import _CacheInfo\nfrom cachetools.func import (\n    fifo_cache,\n    lfu_cache,\n    lru_cache,\n    rr_cache,\n    ttl_cache,\n)\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\ndef _counting(fn):\n    \"\"\"Wrap a function so each call increments a counter.\"\"\"\n    calls = []\n\n    def inner(*args, **kwargs):\n        calls.append((args, kwargs))\n        return fn(*args, **kwargs)\n\n    inner.calls = calls\n    return inner\n\n\nclass FakeTimer:\n    \"\"\"Deterministic timer implementing the required context manager API.\"\"\"\n\n    def __init__(self, start=0.0):\n        self.time = start\n\n    def __call__(self):\n        return self.time\n\n    def __enter__(self):\n        return self.time\n\n    def __exit__(self, *exc):\n        return False\n\n    def advance(self, delta):\n        self.time += delta\n\n\n# ---------------------------------------------------------------------------\n# _cache / cache_parameters shared across decorators\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_default(decorator):\n    @decorator()\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_typed(decorator):\n    @decorator(typed=True)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": True}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_maxsize(decorator):\n    @decorator(maxsize=42)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 42, \"typed\": False}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_unbounded(decorator):\n    @decorator(maxsize=None)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": None, \"typed\": False}\n\n\n# ---------------------------------------------------------------------------\n# Direct decoration without parentheses\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_direct_decoration(decorator):\n    @decorator\n    def fn(x):\n        return x * 2\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n    assert fn(3) == 6\n    assert fn(3) == 6\n    assert fn.cache_info().hits == 1\n    assert fn.cache_info().misses == 1\n\n\n# ---------------------------------------------------------------------------\n# Basic caching behaviour for all decorators\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_basic_caching(decorator):\n    def compute(x):\n        return x + 1\n\n    fn = _counting(compute)\n    wrapped = decorator(maxsize=10)(fn)\n\n    assert wrapped(1) == 2\n    assert wrapped(1) == 2\n    assert wrapped(2) == 3\n    assert len(fn.calls) == 2\n\n    info = wrapped.cache_info()\n    assert info.hits == 1\n    assert info.misses == 2\n    assert info.maxsize == 10\n    assert info.currsize == 2\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache])\ndef test_eviction(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(3)  # evicts one\n    assert wrapped.cache_info().currsize == 2\n\n    info = wrapped.cache_info()\n    assert info.misses == 3\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_typed_key(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(typed=True)(fn)\n\n    wrapped(1)\n    wrapped(1.0)\n    # 1 and 1.0 are different keys under typed key\n    assert len(fn.calls) == 2\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_untyped_key(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(typed=False)(fn)\n\n    wrapped(1)\n    wrapped(1.0)\n    # 1 == 1.0 -> same hashkey -> cached\n    assert len(fn.calls) == 1\n    assert wrapped.cache_info().hits == 1\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_unbounded_maxsize(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=None)(fn)\n\n    for i in range(1000):\n        wrapped(i)\n    assert len(fn.calls) == 1000\n    assert wrapped.cache_info().currsize == 1000\n\n    # second loop hits all\n    for i in range(1000):\n        wrapped(i)\n    assert len(fn.calls) == 1000\n    assert wrapped.cache_info().hits == 1000\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: FIFO\n# ---------------------------------------------------------------------------\n\ndef test_fifo_order():\n    fn = _counting(lambda x: x)\n    wrapped = fifo_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    # accessing 1 does not change FIFO order\n    wrapped(1)\n    wrapped(3)  # should evict 1 (first in)\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # miss\n    assert len(fn.calls) == 4\n    # 2 was evicted too? First in was 1 (evicted), then 2, then 3; now inserting 1 -> evicts 2\n    wrapped(2)  # miss\n    assert len(fn.calls) == 5\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: LRU\n# ---------------------------------------------------------------------------\n\ndef test_lru_order():\n    fn = _counting(lambda x: x)\n    wrapped = lru_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(1)  # touch 1\n    wrapped(3)  # should evict 2\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # hit\n    assert len(fn.calls) == 3\n    wrapped(2)  # miss\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: LFU\n# ---------------------------------------------------------------------------\n\ndef test_lfu_order():\n    fn = _counting(lambda x: x)\n    wrapped = lfu_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(1)  # 1 used twice\n    wrapped(3)  # should evict 2 (less frequently used)\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # hit\n    assert len(fn.calls) == 3\n    wrapped(2)  # miss\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: RR with deterministic choice\n# ---------------------------------------------------------------------------\n\ndef test_rr_choice_property():\n    def my_choice(seq):\n        return seq[0]\n\n    wrapped = rr_cache(maxsize=5, choice=my_choice)(lambda x: x)\n    # Access the cache through closure is not possible; use popitem side effect\n    # via eviction instead.\n    wrapped.cache_info()  # touch to ensure wrapper exists\n\n\ndef test_rr_deterministic_eviction():\n    chosen = []\n\n    def my_choice(seq):\n        chosen.append(list(seq))\n        return seq[0]\n\n    fn = _counting(lambda x: x)\n    wrapped = rr_cache(maxsize=2, choice=my_choice)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(3)  # popitem chooses first of keys; keys order after inserts: [1, 2]\n    assert chosen[-1][0] == 1\n    # 1 was evicted\n    wrapped(1)\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: TTL\n# ---------------------------------------------------------------------------\n\ndef test_ttl_expiry():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=10, ttl=5, timer=timer)(fn)\n\n    wrapped(1)\n    assert len(fn.calls) == 1\n    timer.advance(4)\n    wrapped(1)  # still valid\n    assert len(fn.calls) == 1\n    timer.advance(2)  # now expired\n    wrapped(1)\n    assert len(fn.calls) == 2\n\n\ndef test_ttl_unbounded():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=None, ttl=10, timer=timer)(fn)\n\n    assert wrapped.cache_parameters() == {\"maxsize\": None, \"typed\": False}\n    for i in range(100):\n        wrapped(i)\n    assert wrapped.cache_info().currsize == 100\n    timer.advance(11)\n    wrapped(0)\n    assert len(fn.calls) == 101\n\n\ndef test_ttl_direct_decoration():\n    timer = FakeTimer()\n\n    @ttl_cache\n    def fn(x):\n        return x\n\n    # Direct decoration uses default timer/time.monotonic, so just check caching works\n    assert fn(1) == 1\n    assert fn(1) == 1\n    assert fn.cache_info().hits == 1\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n\n\n# ---------------------------------------------------------------------------\n# Cache stampede / thread-safety\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_thread_safety_single_call(decorator):\n    barrier = threading.Barrier(10)\n    calls = []\n    lock = threading.Lock()\n\n    @decorator(maxsize=10)\n    def fn(x):\n        with lock:\n            calls.append(x)\n        return x\n\n    results = []\n\n    def worker():\n        barrier.wait()\n        results.append(fn(5))\n\n    threads = [threading.Thread(target=worker) for _ in range(10)]\n    for t in threads:\n        t.start()\n    for t in threads:\n        t.join()\n\n    assert results == [5] * 10\n    assert len(calls) == 1\n    assert fn.cache_info().misses == 1\n    assert fn.cache_info().hits == 9\n\n\n# ---------------------------------------------------------------------------\n# cache_clear / cache_info semantics\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_clear(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=10)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    assert wrapped.cache_info().currsize == 2\n\n    wrapped.cache_clear()\n    info = wrapped.cache_info()\n    assert info.currsize == 0\n    assert info.hits == 0\n    assert info.misses == 0\n\n    wrapped(1)\n    assert len(fn.calls) == 3\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_info_type(decorator):\n    @decorator(maxsize=5)\n    def fn(x):\n        return x\n\n    info = fn.cache_info()\n    assert isinstance(info, _CacheInfo)\n    assert info.maxsize == 5\n    assert info.currsize == 0\n    assert info.hits == 0\n    assert info.misses == 0\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache])\ndef test_cache_info_currsize_after_eviction(decorator):\n    @decorator(maxsize=1)\n    def fn(x):\n        return x\n\n    fn(1)\n    fn(2)  # evicts 1\n    info = fn.cache_info()\n    assert info.currsize == 1\n    assert info.misses == 2\n\n\n# ---------------------------------------------------------------------------\n# Exceptions should not poison the cache\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_exception_propagates(decorator):\n    @decorator(maxsize=10)\n    def fn(x):\n        if x == 0:\n            raise ValueError(\"boom\")\n        return x\n\n    with pytest.raises(ValueError, match=\"boom\"):\n        fn(0)\n\n    assert fn(1) == 1\n    # A failing first call must not increment hits for the key\n    assert fn.cache_info().hits == 0\n\n\n# ---------------------------------------------------------------------------\n# ttl_cache edge: expiry on set triggers cleanup\n# ---------------------------------------------------------------------------\n\ndef test_ttl_expire_during_set():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=10, ttl=5, timer=timer)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    assert wrapped.cache_info().currsize == 2\n    timer.advance(6)\n    wrapped(3)  # inserting should expire previous entries\n    info = wrapped.cache_info()\n    # currsize counts live entries: 1 and 2 expired, only 3 remains\n    assert info.currsize == 1\n\n\n# ---------------------------------------------------------------------------\n# Key computation with kwargs\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_kwargs_caching(decorator):\n    fn = _counting(lambda *a, **kw: (a, tuple(sorted(kw.items()))))\n    wrapped = decorator(maxsize=10)(fn)\n\n    wrapped(1, x=2)\n    wrapped(1, x=2)\n    assert len(fn.calls) == 1\n\n    wrapped(1, x=3)\n    assert len(fn.calls) == 2\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 86 passed, 1 failed, 0 errors.\n- `tests_testpilot.test_func::test_rr_deterministic_eviction` failed:\n```\nassert (1,) == 1\ndef test_rr_deterministic_eviction():\n        chosen = []\n    \n        def my_choice(seq):\n            chosen.append(list(seq))\n            return seq[0]\n    \n        fn = _counting(lambda x: x)\n        wrapped = rr_cache(maxsize=2, choice=my_choice)(fn)\n    \n        wrapped(1)\n        wrapped(2)\n        wrapped(3)  # popitem chooses first of keys; keys order after inserts: [1, 2]\n>       assert chosen[-1][0] == 1\nE       assert (1,) == 1\n\ntests_testpilot/test_func.py:276: AssertionError\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\nimport math\nimport threading\nimport time\n\nimport pytest\n\nfrom cachetools import _CacheInfo\nfrom cachetools.func import (\n    fifo_cache,\n    lfu_cache,\n    lru_cache,\n    rr_cache,\n    ttl_cache,\n)\n\n\n# ---------------------------------------------------------------------------\n# Helpers\n# ---------------------------------------------------------------------------\n\ndef _counting(fn):\n    \"\"\"Wrap a function so each call increments a counter.\"\"\"\n    calls = []\n\n    def inner(*args, **kwargs):\n        calls.append((args, kwargs))\n        return fn(*args, **kwargs)\n\n    inner.calls = calls\n    return inner\n\n\nclass FakeTimer:\n    \"\"\"Deterministic timer implementing the required context manager API.\"\"\"\n\n    def __init__(self, start=0.0):\n        self.time = start\n\n    def __call__(self):\n        return self.time\n\n    def __enter__(self):\n        return self.time\n\n    def __exit__(self, *exc):\n        return False\n\n    def advance(self, delta):\n        self.time += delta\n\n\n# ---------------------------------------------------------------------------\n# _cache / cache_parameters shared across decorators\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_default(decorator):\n    @decorator()\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_typed(decorator):\n    @decorator(typed=True)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": True}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_maxsize(decorator):\n    @decorator(maxsize=42)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": 42, \"typed\": False}\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_parameters_unbounded(decorator):\n    @decorator(maxsize=None)\n    def fn(x):\n        return x\n\n    assert fn.cache_parameters() == {\"maxsize\": None, \"typed\": False}\n\n\n# ---------------------------------------------------------------------------\n# Direct decoration without parentheses\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_direct_decoration(decorator):\n    @decorator\n    def fn(x):\n        return x * 2\n\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n    assert fn(3) == 6\n    assert fn(3) == 6\n    assert fn.cache_info().hits == 1\n    assert fn.cache_info().misses == 1\n\n\n# ---------------------------------------------------------------------------\n# Basic caching behaviour for all decorators\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_basic_caching(decorator):\n    def compute(x):\n        return x + 1\n\n    fn = _counting(compute)\n    wrapped = decorator(maxsize=10)(fn)\n\n    assert wrapped(1) == 2\n    assert wrapped(1) == 2\n    assert wrapped(2) == 3\n    assert len(fn.calls) == 2\n\n    info = wrapped.cache_info()\n    assert info.hits == 1\n    assert info.misses == 2\n    assert info.maxsize == 10\n    assert info.currsize == 2\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache])\ndef test_eviction(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(3)  # evicts one\n    assert wrapped.cache_info().currsize == 2\n\n    info = wrapped.cache_info()\n    assert info.misses == 3\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_typed_key(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(typed=True)(fn)\n\n    wrapped(1)\n    wrapped(1.0)\n    # 1 and 1.0 are different keys under typed key\n    assert len(fn.calls) == 2\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_untyped_key(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(typed=False)(fn)\n\n    wrapped(1)\n    wrapped(1.0)\n    # 1 == 1.0 -> same hashkey -> cached\n    assert len(fn.calls) == 1\n    assert wrapped.cache_info().hits == 1\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_unbounded_maxsize(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=None)(fn)\n\n    for i in range(1000):\n        wrapped(i)\n    assert len(fn.calls) == 1000\n    assert wrapped.cache_info().currsize == 1000\n\n    # second loop hits all\n    for i in range(1000):\n        wrapped(i)\n    assert len(fn.calls) == 1000\n    assert wrapped.cache_info().hits == 1000\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: FIFO\n# ---------------------------------------------------------------------------\n\ndef test_fifo_order():\n    fn = _counting(lambda x: x)\n    wrapped = fifo_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    # accessing 1 does not change FIFO order\n    wrapped(1)\n    wrapped(3)  # should evict 1 (first in)\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # miss\n    assert len(fn.calls) == 4\n    # 2 was evicted too? First in was 1 (evicted), then 2, then 3; now inserting 1 -> evicts 2\n    wrapped(2)  # miss\n    assert len(fn.calls) == 5\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: LRU\n# ---------------------------------------------------------------------------\n\ndef test_lru_order():\n    fn = _counting(lambda x: x)\n    wrapped = lru_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(1)  # touch 1\n    wrapped(3)  # should evict 2\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # hit\n    assert len(fn.calls) == 3\n    wrapped(2)  # miss\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: LFU\n# ---------------------------------------------------------------------------\n\ndef test_lfu_order():\n    fn = _counting(lambda x: x)\n    wrapped = lfu_cache(maxsize=2)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(1)  # 1 used twice\n    wrapped(3)  # should evict 2 (less frequently used)\n    assert len(fn.calls) == 3\n\n    wrapped(1)  # hit\n    assert len(fn.calls) == 3\n    wrapped(2)  # miss\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: RR with deterministic choice\n# ---------------------------------------------------------------------------\n\ndef test_rr_choice_property():\n    def my_choice(seq):\n        return seq[0]\n\n    wrapped = rr_cache(maxsize=5, choice=my_choice)(lambda x: x)\n    # Access the cache through closure is not possible; use popitem side effect\n    # via eviction instead.\n    wrapped.cache_info()  # touch to ensure wrapper exists\n\n\ndef test_rr_deterministic_eviction():\n    chosen = []\n\n    def my_choice(seq):\n        chosen.append(list(seq))\n        return seq[0]\n\n    fn = _counting(lambda x: x)\n    wrapped = rr_cache(maxsize=2, choice=my_choice)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    wrapped(3)  # popitem chooses first of keys; keys order after inserts: [1, 2]\n    # The cached key is a typed key tuple when using typed=False? No: hashkey\n    # returns a _HashedTuple, which is a tuple subclass; comparing to 1 fails.\n    # Just assert the first element of the last choice sequence is present, and\n    # that the chosen key corresponds to argument 1 (hashkey(1)).\n    assert chosen[-1][0] == (1,)\n    # 1 was evicted\n    wrapped(1)\n    assert len(fn.calls) == 4\n\n\n# ---------------------------------------------------------------------------\n# Algorithm specific behaviour: TTL\n# ---------------------------------------------------------------------------\n\ndef test_ttl_expiry():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=10, ttl=5, timer=timer)(fn)\n\n    wrapped(1)\n    assert len(fn.calls) == 1\n    timer.advance(4)\n    wrapped(1)  # still valid\n    assert len(fn.calls) == 1\n    timer.advance(2)  # now expired\n    wrapped(1)\n    assert len(fn.calls) == 2\n\n\ndef test_ttl_unbounded():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=None, ttl=10, timer=timer)(fn)\n\n    assert wrapped.cache_parameters() == {\"maxsize\": None, \"typed\": False}\n    for i in range(100):\n        wrapped(i)\n    assert wrapped.cache_info().currsize == 100\n    timer.advance(11)\n    wrapped(0)\n    assert len(fn.calls) == 101\n\n\ndef test_ttl_direct_decoration():\n    timer = FakeTimer()\n\n    @ttl_cache\n    def fn(x):\n        return x\n\n    # Direct decoration uses default timer/time.monotonic, so just check caching works\n    assert fn(1) == 1\n    assert fn(1) == 1\n    assert fn.cache_info().hits == 1\n    assert fn.cache_parameters() == {\"maxsize\": 128, \"typed\": False}\n\n\n# ---------------------------------------------------------------------------\n# Cache stampede / thread-safety\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_thread_safety_single_call(decorator):\n    barrier = threading.Barrier(10)\n    calls = []\n    lock = threading.Lock()\n\n    @decorator(maxsize=10)\n    def fn(x):\n        with lock:\n            calls.append(x)\n        return x\n\n    results = []\n\n    def worker():\n        barrier.wait()\n        results.append(fn(5))\n\n    threads = [threading.Thread(target=worker) for _ in range(10)]\n    for t in threads:\n        t.start()\n    for t in threads:\n        t.join()\n\n    assert results == [5] * 10\n    assert len(calls) == 1\n    assert fn.cache_info().misses == 1\n    assert fn.cache_info().hits == 9\n\n\n# ---------------------------------------------------------------------------\n# cache_clear / cache_info semantics\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_clear(decorator):\n    fn = _counting(lambda x: x)\n    wrapped = decorator(maxsize=10)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    assert wrapped.cache_info().currsize == 2\n\n    wrapped.cache_clear()\n    info = wrapped.cache_info()\n    assert info.currsize == 0\n    assert info.hits == 0\n    assert info.misses == 0\n\n    wrapped(1)\n    assert len(fn.calls) == 3\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_cache_info_type(decorator):\n    @decorator(maxsize=5)\n    def fn(x):\n        return x\n\n    info = fn.cache_info()\n    assert isinstance(info, _CacheInfo)\n    assert info.maxsize == 5\n    assert info.currsize == 0\n    assert info.hits == 0\n    assert info.misses == 0\n\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache])\ndef test_cache_info_currsize_after_eviction(decorator):\n    @decorator(maxsize=1)\n    def fn(x):\n        return x\n\n    fn(1)\n    fn(2)  # evicts 1\n    info = fn.cache_info()\n    assert info.currsize == 1\n    assert info.misses == 2\n\n\n# ---------------------------------------------------------------------------\n# Exceptions should not poison the cache\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_exception_propagates(decorator):\n    @decorator(maxsize=10)\n    def fn(x):\n        if x == 0:\n            raise ValueError(\"boom\")\n        return x\n\n    with pytest.raises(ValueError, match=\"boom\"):\n        fn(0)\n\n    assert fn(1) == 1\n    # A failing first call must not increment hits for the key\n    assert fn.cache_info().hits == 0\n\n\n# ---------------------------------------------------------------------------\n# ttl_cache edge: expiry on set triggers cleanup\n# ---------------------------------------------------------------------------\n\ndef test_ttl_expire_during_set():\n    timer = FakeTimer()\n    fn = _counting(lambda x: x)\n    wrapped = ttl_cache(maxsize=10, ttl=5, timer=timer)(fn)\n\n    wrapped(1)\n    wrapped(2)\n    assert wrapped.cache_info().currsize == 2\n    timer.advance(6)\n    wrapped(3)  # inserting should expire previous entries\n    info = wrapped.cache_info()\n    # currsize counts live entries: 1 and 2 expired, only 3 remains\n    assert info.currsize == 1\n\n\n# ---------------------------------------------------------------------------\n# Key computation with kwargs\n# ---------------------------------------------------------------------------\n\n@pytest.mark.parametrize(\"decorator\", [fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache])\ndef test_kwargs_caching(decorator):\n    fn = _counting(lambda *a, **kw: (a, tuple(sorted(kw.items()))))\n    wrapped = decorator(maxsize=10)(fn)\n\n    wrapped(1, x=2)\n    wrapped(1, x=2)\n    assert len(fn.calls) == 1\n\n    wrapped(1, x=3)\n    assert len(fn.calls) == 2\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 8117,
+      "cache_hit_tokens": 4352,
+      "completion_tokens": 3533,
+      "reasoning_tokens": 0,
+      "latency": 9.72
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:39:04+00:00",
+    "duration": 1.47,
+    "summary": "通过 87，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_func.py"
+          ]
+        },
+        "duration": 1.47,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 19521
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T05:39:07+00:00",
+    "duration": 2.84,
+    "summary": "分数 [1, 0.0, 1.0, 1.0, 87]（提升），行覆盖 100.0%，分支覆盖 100.0%",
+    "tool_calls": [
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "src/cachetools/func.py",
+          "tests": [
+            "tests_testpilot/test_func.py"
+          ]
+        },
+        "duration": 2.84,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 19521,
+    "score": [
+      1,
+      0.0,
+      1.0,
+      1.0,
+      87
+    ],
+    "coverage": {
+      "target": "src/cachetools/func.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 49,
+      "branches": 20,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T05:39:07+00:00",
+    "duration": 0.0,
+    "summary": "全部测试通过，pytest 反馈已无可改进之处",
+    "tool_calls": [],
+    "tokens_total": 19521
+  },
+  {
+    "node": "finalize",
+    "iteration": 2,
+    "at": "2026-10-20T05:39:07+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试通过，pytest 反馈已无可改进之处；采用第 2 轮，分数 [1, 0.0, 1.0, 1.0, 87]",
+    "tool_calls": [],
+    "tokens_total": 19521,
+    "best_iteration": 2
+  }
+]

@@ -1,0 +1,510 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T05:33:26+00:00",
+    "duration": 0.01,
+    "summary": "4 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "src/tomli/_re.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "match_to_datetime",
+      "cached_tz",
+      "match_to_localtime",
+      "match_to_number"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T05:33:26+00:00",
+    "duration": 0.04,
+    "summary": "依赖定义 0 个，调用处 3 个，提示词前缀 5559 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/tomli/_re.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/__future__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/__future__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/__future__/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/__future__/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/datetime.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/datetime.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/datetime/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/datetime/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/functools.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/functools.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "src/functools/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: src/functools/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "match_to_datetime(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "cached_tz(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "match_to_localtime(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "match_to_number(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `tomli._re` (file `src/tomli/_re.py`).\n\nSource of `src/tomli/_re.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | # SPDX-License-Identifier: MIT\n    2 | # SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n    3 | # Licensed to PSF under a Contributor Agreement.\n    4 | \n    5 | from __future__ import annotations\n    6 | \n    7 | from datetime import date, datetime, time, timedelta, timezone, tzinfo\n    8 | from functools import lru_cache\n    9 | import re\n   10 | \n   11 | TYPE_CHECKING = False\n   12 | if TYPE_CHECKING:\n   13 |     from typing import Any, Final\n   14 | \n   15 |     from ._types import ParseFloat\n   16 | \n   17 | _TIME_RE_STR: Final = r\"\"\"\n   18 | ([01][0-9]|2[0-3])             # hours\n   19 | :([0-5][0-9])                  # minutes\n   20 | (?:\n   21 |     :([0-5][0-9])              # optional seconds\n   22 |     (?:\\.([0-9]{1,6})[0-9]*)?  # optional fractions of a second\n   23 | )?\n   24 | \"\"\"\n   25 | \n   26 | RE_NUMBER: Final = re.compile(\n   27 |     r\"\"\"\n   28 | 0\n   29 | (?:\n   30 |     x[0-9A-Fa-f](?:_?[0-9A-Fa-f])*   # hex\n   31 |     |\n   32 |     b[01](?:_?[01])*                 # bin\n   33 |     |\n   34 |     o[0-7](?:_?[0-7])*               # oct\n   35 | )\n   36 | |\n   37 | [+-]?(?:0|[1-9](?:_?[0-9])*)         # dec, integer part\n   38 | (?P<floatpart>\n   39 |     (?:\\.[0-9](?:_?[0-9])*)?         # optional fractional part\n   40 |     (?:[eE][+-]?[0-9](?:_?[0-9])*)?  # optional exponent part\n   41 | )\n   42 | \"\"\",\n   43 |     flags=re.VERBOSE,\n   44 | )\n   45 | RE_LOCALTIME: Final = re.compile(_TIME_RE_STR, flags=re.VERBOSE)\n   46 | RE_DATETIME: Final = re.compile(\n   47 |     rf\"\"\"\n   48 | ([0-9]{{4}})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])  # date, e.g. 1988-10-27\n   49 | (?:\n   50 |     [Tt ]\n   51 |     {_TIME_RE_STR}\n   52 |     (?:([Zz])|([+-])([01][0-9]|2[0-3]):([0-5][0-9]))?  # optional time offset\n   53 | )?\n   54 | \"\"\",\n   55 |     flags=re.VERBOSE,\n   56 | )\n   57 | \n   58 | \n   59 | def match_to_datetime(match: re.Match[str]) -> datetime | date:\n   60 |     \"\"\"Convert a `RE_DATETIME` match to `datetime.datetime` or `datetime.date`.\n   61 | \n   62 |     Raises ValueError if the match does not correspond to a valid date\n   63 |     or datetime.\n   64 |     \"\"\"\n   65 |     (\n   66 |         year_str,\n   67 |         month_str,\n   68 |         day_str,\n   69 |         hour_str,\n   70 |         minute_str,\n   71 |         sec_str,\n   72 |         micros_str,\n   73 |         zulu_time,\n   74 |         offset_sign_str,\n   75 |         offset_hour_str,\n   76 |         offset_minute_str,\n   77 |     ) = match.groups()\n   78 |     year, month, day = int(year_str), int(month_str), int(day_str)\n   79 |     if hour_str is None:\n   80 |         return date(year, month, day)\n   81 |     hour, minute = int(hour_str), int(minute_str)\n   82 |     sec = int(sec_str) if sec_str else 0\n   83 |     micros = int(micros_str.ljust(6, \"0\")) if micros_str else 0\n   84 |     if offset_sign_str:\n   85 |         tz: tzinfo | None = cached_tz(\n   86 |             offset_hour_str, offset_minute_str, offset_sign_str\n   87 |         )\n   88 |     elif zulu_time:\n   89 |         tz = timezone.utc\n   90 |     else:  # local date-time\n   91 |         tz = None\n   92 |     return datetime(year, month, day, hour, minute, sec, micros, tzinfo=tz)\n   93 | \n   94 | \n   95 | # No need to limit cache size. This is only ever called on input\n   96 | # that matched RE_DATETIME, so there is an implicit bound of\n   97 | # 24 (hours) * 60 (minutes) * 2 (offset direction) = 2880.\n   98 | @lru_cache(maxsize=None)\n   99 | def cached_tz(hour_str: str, minute_str: str, sign_str: str) -> timezone:\n  100 |     sign = 1 if sign_str == \"+\" else -1\n  101 |     return timezone(\n  102 |         timedelta(\n  103 |             hours=sign * int(hour_str),\n  104 |             minutes=sign * int(minute_str),\n  105 |         )\n  106 |     )\n  107 | \n  108 | \n  109 | def match_to_localtime(match: re.Match[str]) -> time:\n  110 |     hour_str, minute_str, sec_str, micros_str = match.groups()\n  111 |     sec = int(sec_str) if sec_str else 0\n  112 |     micros = int(micros_str.ljust(6, \"0\")) if micros_str else 0\n  113 |     return time(int(hour_str), int(minute_str), sec, micros)\n  114 | \n  115 | \n  116 | def match_to_number(match: re.Match[str], parse_float: ParseFloat) -> Any:\n  117 |     if match.group(\"floatpart\"):\n  118 |         return parse_float(match.group())\n  119 |     return int(match.group(), 0)\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- src/tomli/_parser.py:753: `datetime_obj = match_to_datetime(datetime_match)`\n- src/tomli/_parser.py:759: `return localtime_match.end(), match_to_localtime(localtime_match)`\n- src/tomli/_parser.py:766: `return number_match.end(), match_to_number(number_match, parse_float)`\n\nPublic API to cover: `match_to_datetime`, `cached_tz`, `match_to_localtime`, `match_to_number`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from tomli._re import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:33:39+00:00",
+    "duration": 12.33,
+    "summary": "第 1 轮：生成 418 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__re.py",
+          "content": "<14374 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5925,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `tomli._re`. Return the complete test file in one ```python code block.",
+      "response": "```python\n# SPDX-License-Identifier: MIT\n\"\"\"Unit tests for tomli._re.\"\"\"\n\nfrom __future__ import annotations\n\nfrom datetime import date, datetime, time, timedelta, timezone\n\nimport pytest\n\nfrom tomli._re import (\n    RE_DATETIME,\n    RE_LOCALTIME,\n    RE_NUMBER,\n    cached_tz,\n    match_to_datetime,\n    match_to_localtime,\n    match_to_number,\n)\n\n\n# --------------------------------------------------------------------------- #\n# Helpers\n# --------------------------------------------------------------------------- #\ndef _dt_match(text: str):\n    match = RE_DATETIME.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_DATETIME\"\n    return match\n\n\ndef _localtime_match(text: str):\n    match = RE_LOCALTIME.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_LOCALTIME\"\n    return match\n\n\ndef _number_match(text: str):\n    match = RE_NUMBER.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_NUMBER\"\n    return match\n\n\ndef _parse_float_float(text: str) -> float:\n    return float(text.replace(\"_\", \"\"))\n\n\n# --------------------------------------------------------------------------- #\n# cached_tz\n# --------------------------------------------------------------------------- #\nclass TestCachedTz:\n    def test_positive_offset(self):\n        tz = cached_tz(\"05\", \"30\", \"+\")\n        assert isinstance(tz, timezone)\n        assert tz.utcoffset(None) == timedelta(hours=5, minutes=30)\n\n    def test_negative_offset(self):\n        tz = cached_tz(\"05\", \"30\", \"-\")\n        assert tz.utcoffset(None) == timedelta(hours=-5, minutes=-30)\n\n    def test_zero_offset(self):\n        tz = cached_tz(\"00\", \"00\", \"+\")\n        assert tz.utcoffset(None) == timedelta(0)\n        assert tz is timezone.utc or tz.utcoffset(None) == timedelta(0)\n\n    def test_negative_zero_offset(self):\n        tz = cached_tz(\"00\", \"00\", \"-\")\n        assert tz.utcoffset(None) == timedelta(0)\n\n    def test_max_positive_offset(self):\n        tz = cached_tz(\"23\", \"59\", \"+\")\n        assert tz.utcoffset(None) == timedelta(hours=23, minutes=59)\n\n    def test_max_negative_offset(self):\n        tz = cached_tz(\"23\", \"59\", \"-\")\n        assert tz.utcoffset(None) == timedelta(hours=-23, minutes=-59)\n\n    def test_caching_returns_identical_object(self):\n        first = cached_tz(\"03\", \"15\", \"+\")\n        second = cached_tz(\"03\", \"15\", \"+\")\n        assert first is second\n\n    def test_cache_exported(self):\n        # lru_cache exposes cache_info; sanity-check cache is working.\n        assert hasattr(cached_tz, \"cache_info\")\n        before = cached_tz.cache_info()\n        cached_tz(\"11\", \"11\", \"-\")\n        cached_tz(\"11\", \"11\", \"-\")\n        after = cached_tz.cache_info()\n        assert after.hits >= before.hits + 1\n\n    def test_sign_other_than_plus_is_negative(self):\n        # Any sign string that is not \"+\" is treated as negative.\n        tz = cached_tz(\"01\", \"00\", \"?\")\n        assert tz.utcoffset(None) == timedelta(hours=-1)\n\n\n# --------------------------------------------------------------------------- #\n# match_to_datetime\n# --------------------------------------------------------------------------- #\nclass TestMatchToDatetime:\n    def test_date_only(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27\"))\n        assert result == date(1988, 10, 27)\n        assert type(result) is date\n\n    def test_datetime_no_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03.123\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, 123000)\n        assert result.tzinfo is None\n\n    def test_datetime_space_separator(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27 01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    def test_datetime_lowercase_t(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27t01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    def test_time_no_seconds(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 0)\n\n    def test_time_with_seconds_no_fraction(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    @pytest.mark.parametrize(\n        \"frac, expected_micros\",\n        [\n            (\"1\", 100000),\n            (\"12\", 120000),\n            (\"123\", 123000),\n            (\"1234\", 123400),\n            (\"12345\", 123450),\n            (\"123456\", 123456),\n            (\"1234567\", 123456),  # extra digits truncated\n            (\"0000001\", 0),\n            (\"000001\", 1),\n        ],\n    )\n    def test_fractional_seconds(self, frac, expected_micros):\n        result = match_to_datetime(_dt_match(f\"1988-10-27T01:02:03.{frac}\"))\n        assert result.microsecond == expected_micros\n\n    def test_zulu_uppercase(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03Z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n        assert result.tzinfo is timezone.utc\n\n    def test_zulu_lowercase(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n        assert result.tzinfo is timezone.utc\n\n    def test_positive_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+05:30\"))\n        assert result == datetime(\n            1988, 10, 27, 1, 2, 3, tzinfo=timezone(timedelta(hours=5, minutes=30))\n        )\n        assert result.utcoffset() == timedelta(hours=5, minutes=30)\n\n    def test_negative_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03-05:30\"))\n        assert result.utcoffset() == timedelta(hours=-5, minutes=-30)\n\n    def test_offset_uses_cache(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+05:30\"))\n        expected_tz = cached_tz(\"05\", \"30\", \"+\")\n        assert result.tzinfo is expected_tz\n\n    def test_zero_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+00:00\"))\n        assert result.utcoffset() == timedelta(0)\n\n    def test_offset_without_seconds(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02+01:00\"))\n        assert result == datetime(\n            1988, 10, 27, 1, 2, 0, tzinfo=timezone(timedelta(hours=1))\n        )\n\n    def test_offset_with_fraction(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03.5+01:00\"))\n        assert result.microsecond == 500000\n        assert result.utcoffset() == timedelta(hours=1)\n\n    def test_offset_space_separator(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27 01:02:03Z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n\n    def test_invalid_date_raises(self):\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1988-02-30\"))\n\n    def test_invalid_date_non_leap(self):\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1900-02-29\"))\n\n    def test_valid_leap_day(self):\n        result = match_to_datetime(_dt_match(\"2000-02-29\"))\n        assert result == date(2000, 2, 29)\n\n    def test_invalid_time_hour(self):\n        # RE_DATETIME won't allow hour 24, so no match.\n        assert RE_DATETIME.fullmatch(\"1988-10-27T24:00:00\") is None\n\n    def test_invalid_month_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-13-01\") is None\n\n    def test_invalid_day_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-32\") is None\n\n    def test_invalid_minute_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:60:00\") is None\n\n    def test_invalid_second_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:00:60\") is None\n\n    def test_offset_hour_out_of_range_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:00:00+24:00\") is None\n\n    def test_day_zero(self):\n        # regex allows 0 day; ValueError from date\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1988-01-00\"))\n\n    def test_month_zero(self):\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1988-00-01\"))\n\n    def test_date_lowercase_boundaries(self):\n        # Year can be any 4 digits, including leading zeros.\n        result = match_to_datetime(_dt_match(\"0001-01-01\"))\n        assert result == date(1, 1, 1)\n\n\n# --------------------------------------------------------------------------- #\n# match_to_localtime\n# --------------------------------------------------------------------------- #\nclass TestMatchToLocaltime:\n    def test_hour_minute(self):\n        result = match_to_localtime(_localtime_match(\"01:02\"))\n        assert result == time(1, 2)\n        assert type(result) is time\n\n    def test_with_seconds(self):\n        result = match_to_localtime(_localtime_match(\"01:02:03\"))\n        assert result == time(1, 2, 3)\n\n    @pytest.mark.parametrize(\n        \"frac, expected_micros\",\n        [\n            (\"1\", 100000),\n            (\"12\", 120000),\n            (\"123\", 123000),\n            (\"123456\", 123456),\n            (\"1\".ljust(7, \"0\"), 100000),\n        ],\n    )\n    def test_fractional_seconds(self, frac, expected_micros):\n        result = match_to_localtime(_localtime_match(f\"01:02:03.{frac}\"))\n        assert result.microsecond == expected_micros\n\n    def test_extra_fraction_digits_truncated(self):\n        result = match_to_localtime(_localtime_match(\"01:02:03.1234567\"))\n        assert result.microsecond == 123456\n\n    def test_midnight(self):\n        assert match_to_localtime(_localtime_match(\"00:00\")) == time(0, 0)\n\n    def test_last_minute(self):\n        assert match_to_localtime(_localtime_match(\"23:59\")) == time(23, 59)\n\n    def test_no_match_bad_hour(self):\n        assert RE_LOCALTIME.fullmatch(\"24:00\") is None\n\n    def test_no_match_bad_minute(self):\n        assert RE_LOCALTIME.fullmatch(\"00:60\") is None\n\n    def test_no_match_missing_colon(self):\n        assert RE_LOCALTIME.fullmatch(\"0102\") is None\n\n    def test_no_match_bad_second(self):\n        assert RE_LOCALTIME.fullmatch(\"00:00:60\") is None\n\n\n# --------------------------------------------------------------------------- #\n# match_to_number\n# --------------------------------------------------------------------------- #\nclass TestMatchToNumber:\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0\", 0),\n            (\"1\", 1),\n            (\"42\", 42),\n            (\"+42\", 42),\n            (\"-42\", -42),\n            (\"1_000\", 1000),\n            (\"1_0_0\", 100),\n            (\"123_456_789\", 123456789),\n        ],\n    )\n    def test_integers(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0x0\", 0),\n            (\"0xDEADBEEF\", 0xDEADBEEF),\n            (\"0xdeadbeef\", 0xDEADBEEF),\n            (\"0x_1\".replace(\"_\", \"\"), 1),\n            (\"0xdead_beef\", 0xDEADBEEF),\n            (\"0xAA_BB\", 0xAABB),\n        ],\n    )\n    def test_hex(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0b0\", 0),\n            (\"0b1\", 1),\n            (\"0b1010\", 0b1010),\n            (\"0b1010_0101\", 0b10100101),\n        ],\n    )\n    def test_binary(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0o0\", 0),\n            (\"0o7\", 7),\n            (\"0o17\", 0o17),\n            (\"0o12_34\", 0o1234),\n        ],\n    )\n    def test_octal(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text\",\n        [\"1.5\", \"1.0\", \"-1.5\", \"+1.5\", \"1e10\", \"1E10\", \"1e+10\", \"1e-10\", \"1.5e10\"],\n    )\n    def test_floats_via_parse_float(self, text):\n        calls = []\n\n        def parse_float(s: str) -> float:\n            calls.append(s)\n            return float(s.replace(\"_\", \"\"))\n\n        result = match_to_number(_number_match(text), parse_float)\n        assert calls == [text]\n        assert isinstance(result, float)\n        assert result == float(text.replace(\"_\", \"\"))\n\n    def test_float_with_underscores(self):\n        result = match_to_number(_number_match(\"1_0.5\"), _parse_float_float)\n        assert result == 10.5\n\n    def test_float_part_with_integer_underscores_uses_parse_float(self):\n        calls = []\n\n        def parse_float(s: str) -> float:\n            calls.append(s)\n            return 0.0\n\n        result = match_to_number(_number_match(\"1_0\"), parse_float)\n        assert calls == []  # integer part only -> int path\n        assert result == 10\n\n    def test_parse_float_not_called_for_int(self):\n        def parse_float(s: str):\n            raise AssertionError(\"parse_float should not be called for ints\")\n\n        assert match_to_number(_number_match(\"42\"), parse_float) == 42\n        assert match_to_number(_number_match(\"0xFF\"), parse_float) == 0xFF\n\n    def test_returns_value_from_parse_float_verbatim(self):\n        sentinel = object()\n\n        def parse_float(s: str):\n            return sentinel\n\n        result = match_to_number(_number_match(\"1.5\"), parse_float)\n        assert result is sentinel\n\n    def test_no_match_empty(self):\n        assert RE_NUMBER.fullmatch(\"\") is None\n\n    def test_no_match_bare_leading_zeros(self):\n        # Leading zeros for decimal integers are not allowed.\n        assert RE_NUMBER.fullmatch(\"01\") is None\n\n    def test_no_match_plus_hex(self):\n        assert RE_NUMBER.fullmatch(\"+0x1\") is None\n\n    def test_no_match_double_underscore(self):\n        assert RE_NUMBER.fullmatch(\"1__0\") is None\n\n    def test_no_match_trailing_underscore(self):\n        assert RE_NUMBER.fullmatch(\"1_\") is None\n\n    def test_no_match_dot_without_digit(self):\n        assert RE_NUMBER.fullmatch(\"1.\") is None\n\n    def test_no_match_hex_without_digit(self):\n        assert RE_NUMBER.fullmatch(\"0x\") is None\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 1853,
+      "cache_hit_tokens": 1664,
+      "completion_tokens": 4072,
+      "reasoning_tokens": 0,
+      "latency": 12.32
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T05:33:40+00:00",
+    "duration": 1.32,
+    "summary": "通过 99，失败 2，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__re.py"
+          ]
+        },
+        "duration": 1.32,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5925
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T05:33:40+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 99]（提升）",
+    "tool_calls": [],
+    "tokens_total": 5925,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      99
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T05:33:40+00:00",
+    "duration": 0.0,
+    "summary": "继续：带反馈重写测试",
+    "tool_calls": [],
+    "tokens_total": 5925
+  },
+  {
+    "node": "write_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:33:50+00:00",
+    "duration": 10.78,
+    "summary": "第 2 轮：生成 418 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test__re.py",
+          "content": "<14453 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 16594,
+    "llm": {
+      "task": "## Current test file (`tests_testpilot/test__re.py`)\n```python\n# SPDX-License-Identifier: MIT\n\"\"\"Unit tests for tomli._re.\"\"\"\n\nfrom __future__ import annotations\n\nfrom datetime import date, datetime, time, timedelta, timezone\n\nimport pytest\n\nfrom tomli._re import (\n    RE_DATETIME,\n    RE_LOCALTIME,\n    RE_NUMBER,\n    cached_tz,\n    match_to_datetime,\n    match_to_localtime,\n    match_to_number,\n)\n\n\n# --------------------------------------------------------------------------- #\n# Helpers\n# --------------------------------------------------------------------------- #\ndef _dt_match(text: str):\n    match = RE_DATETIME.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_DATETIME\"\n    return match\n\n\ndef _localtime_match(text: str):\n    match = RE_LOCALTIME.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_LOCALTIME\"\n    return match\n\n\ndef _number_match(text: str):\n    match = RE_NUMBER.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_NUMBER\"\n    return match\n\n\ndef _parse_float_float(text: str) -> float:\n    return float(text.replace(\"_\", \"\"))\n\n\n# --------------------------------------------------------------------------- #\n# cached_tz\n# --------------------------------------------------------------------------- #\nclass TestCachedTz:\n    def test_positive_offset(self):\n        tz = cached_tz(\"05\", \"30\", \"+\")\n        assert isinstance(tz, timezone)\n        assert tz.utcoffset(None) == timedelta(hours=5, minutes=30)\n\n    def test_negative_offset(self):\n        tz = cached_tz(\"05\", \"30\", \"-\")\n        assert tz.utcoffset(None) == timedelta(hours=-5, minutes=-30)\n\n    def test_zero_offset(self):\n        tz = cached_tz(\"00\", \"00\", \"+\")\n        assert tz.utcoffset(None) == timedelta(0)\n        assert tz is timezone.utc or tz.utcoffset(None) == timedelta(0)\n\n    def test_negative_zero_offset(self):\n        tz = cached_tz(\"00\", \"00\", \"-\")\n        assert tz.utcoffset(None) == timedelta(0)\n\n    def test_max_positive_offset(self):\n        tz = cached_tz(\"23\", \"59\", \"+\")\n        assert tz.utcoffset(None) == timedelta(hours=23, minutes=59)\n\n    def test_max_negative_offset(self):\n        tz = cached_tz(\"23\", \"59\", \"-\")\n        assert tz.utcoffset(None) == timedelta(hours=-23, minutes=-59)\n\n    def test_caching_returns_identical_object(self):\n        first = cached_tz(\"03\", \"15\", \"+\")\n        second = cached_tz(\"03\", \"15\", \"+\")\n        assert first is second\n\n    def test_cache_exported(self):\n        # lru_cache exposes cache_info; sanity-check cache is working.\n        assert hasattr(cached_tz, \"cache_info\")\n        before = cached_tz.cache_info()\n        cached_tz(\"11\", \"11\", \"-\")\n        cached_tz(\"11\", \"11\", \"-\")\n        after = cached_tz.cache_info()\n        assert after.hits >= before.hits + 1\n\n    def test_sign_other_than_plus_is_negative(self):\n        # Any sign string that is not \"+\" is treated as negative.\n        tz = cached_tz(\"01\", \"00\", \"?\")\n        assert tz.utcoffset(None) == timedelta(hours=-1)\n\n\n# --------------------------------------------------------------------------- #\n# match_to_datetime\n# --------------------------------------------------------------------------- #\nclass TestMatchToDatetime:\n    def test_date_only(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27\"))\n        assert result == date(1988, 10, 27)\n        assert type(result) is date\n\n    def test_datetime_no_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03.123\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, 123000)\n        assert result.tzinfo is None\n\n    def test_datetime_space_separator(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27 01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    def test_datetime_lowercase_t(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27t01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    def test_time_no_seconds(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 0)\n\n    def test_time_with_seconds_no_fraction(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    @pytest.mark.parametrize(\n        \"frac, expected_micros\",\n        [\n            (\"1\", 100000),\n            (\"12\", 120000),\n            (\"123\", 123000),\n            (\"1234\", 123400),\n            (\"12345\", 123450),\n            (\"123456\", 123456),\n            (\"1234567\", 123456),  # extra digits truncated\n            (\"0000001\", 0),\n            (\"000001\", 1),\n        ],\n    )\n    def test_fractional_seconds(self, frac, expected_micros):\n        result = match_to_datetime(_dt_match(f\"1988-10-27T01:02:03.{frac}\"))\n        assert result.microsecond == expected_micros\n\n    def test_zulu_uppercase(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03Z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n        assert result.tzinfo is timezone.utc\n\n    def test_zulu_lowercase(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n        assert result.tzinfo is timezone.utc\n\n    def test_positive_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+05:30\"))\n        assert result == datetime(\n            1988, 10, 27, 1, 2, 3, tzinfo=timezone(timedelta(hours=5, minutes=30))\n        )\n        assert result.utcoffset() == timedelta(hours=5, minutes=30)\n\n    def test_negative_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03-05:30\"))\n        assert result.utcoffset() == timedelta(hours=-5, minutes=-30)\n\n    def test_offset_uses_cache(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+05:30\"))\n        expected_tz = cached_tz(\"05\", \"30\", \"+\")\n        assert result.tzinfo is expected_tz\n\n    def test_zero_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+00:00\"))\n        assert result.utcoffset() == timedelta(0)\n\n    def test_offset_without_seconds(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02+01:00\"))\n        assert result == datetime(\n            1988, 10, 27, 1, 2, 0, tzinfo=timezone(timedelta(hours=1))\n        )\n\n    def test_offset_with_fraction(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03.5+01:00\"))\n        assert result.microsecond == 500000\n        assert result.utcoffset() == timedelta(hours=1)\n\n    def test_offset_space_separator(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27 01:02:03Z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n\n    def test_invalid_date_raises(self):\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1988-02-30\"))\n\n    def test_invalid_date_non_leap(self):\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1900-02-29\"))\n\n    def test_valid_leap_day(self):\n        result = match_to_datetime(_dt_match(\"2000-02-29\"))\n        assert result == date(2000, 2, 29)\n\n    def test_invalid_time_hour(self):\n        # RE_DATETIME won't allow hour 24, so no match.\n        assert RE_DATETIME.fullmatch(\"1988-10-27T24:00:00\") is None\n\n    def test_invalid_month_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-13-01\") is None\n\n    def test_invalid_day_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-32\") is None\n\n    def test_invalid_minute_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:60:00\") is None\n\n    def test_invalid_second_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:00:60\") is None\n\n    def test_offset_hour_out_of_range_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:00:00+24:00\") is None\n\n    def test_day_zero(self):\n        # regex allows 0 day; ValueError from date\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1988-01-00\"))\n\n    def test_month_zero(self):\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1988-00-01\"))\n\n    def test_date_lowercase_boundaries(self):\n        # Year can be any 4 digits, including leading zeros.\n        result = match_to_datetime(_dt_match(\"0001-01-01\"))\n        assert result == date(1, 1, 1)\n\n\n# --------------------------------------------------------------------------- #\n# match_to_localtime\n# --------------------------------------------------------------------------- #\nclass TestMatchToLocaltime:\n    def test_hour_minute(self):\n        result = match_to_localtime(_localtime_match(\"01:02\"))\n        assert result == time(1, 2)\n        assert type(result) is time\n\n    def test_with_seconds(self):\n        result = match_to_localtime(_localtime_match(\"01:02:03\"))\n        assert result == time(1, 2, 3)\n\n    @pytest.mark.parametrize(\n        \"frac, expected_micros\",\n        [\n            (\"1\", 100000),\n            (\"12\", 120000),\n            (\"123\", 123000),\n            (\"123456\", 123456),\n            (\"1\".ljust(7, \"0\"), 100000),\n        ],\n    )\n    def test_fractional_seconds(self, frac, expected_micros):\n        result = match_to_localtime(_localtime_match(f\"01:02:03.{frac}\"))\n        assert result.microsecond == expected_micros\n\n    def test_extra_fraction_digits_truncated(self):\n        result = match_to_localtime(_localtime_match(\"01:02:03.1234567\"))\n        assert result.microsecond == 123456\n\n    def test_midnight(self):\n        assert match_to_localtime(_localtime_match(\"00:00\")) == time(0, 0)\n\n    def test_last_minute(self):\n        assert match_to_localtime(_localtime_match(\"23:59\")) == time(23, 59)\n\n    def test_no_match_bad_hour(self):\n        assert RE_LOCALTIME.fullmatch(\"24:00\") is None\n\n    def test_no_match_bad_minute(self):\n        assert RE_LOCALTIME.fullmatch(\"00:60\") is None\n\n    def test_no_match_missing_colon(self):\n        assert RE_LOCALTIME.fullmatch(\"0102\") is None\n\n    def test_no_match_bad_second(self):\n        assert RE_LOCALTIME.fullmatch(\"00:00:60\") is None\n\n\n# --------------------------------------------------------------------------- #\n# match_to_number\n# --------------------------------------------------------------------------- #\nclass TestMatchToNumber:\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0\", 0),\n            (\"1\", 1),\n            (\"42\", 42),\n            (\"+42\", 42),\n            (\"-42\", -42),\n            (\"1_000\", 1000),\n            (\"1_0_0\", 100),\n            (\"123_456_789\", 123456789),\n        ],\n    )\n    def test_integers(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0x0\", 0),\n            (\"0xDEADBEEF\", 0xDEADBEEF),\n            (\"0xdeadbeef\", 0xDEADBEEF),\n            (\"0x_1\".replace(\"_\", \"\"), 1),\n            (\"0xdead_beef\", 0xDEADBEEF),\n            (\"0xAA_BB\", 0xAABB),\n        ],\n    )\n    def test_hex(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0b0\", 0),\n            (\"0b1\", 1),\n            (\"0b1010\", 0b1010),\n            (\"0b1010_0101\", 0b10100101),\n        ],\n    )\n    def test_binary(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0o0\", 0),\n            (\"0o7\", 7),\n            (\"0o17\", 0o17),\n            (\"0o12_34\", 0o1234),\n        ],\n    )\n    def test_octal(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text\",\n        [\"1.5\", \"1.0\", \"-1.5\", \"+1.5\", \"1e10\", \"1E10\", \"1e+10\", \"1e-10\", \"1.5e10\"],\n    )\n    def test_floats_via_parse_float(self, text):\n        calls = []\n\n        def parse_float(s: str) -> float:\n            calls.append(s)\n            return float(s.replace(\"_\", \"\"))\n\n        result = match_to_number(_number_match(text), parse_float)\n        assert calls == [text]\n        assert isinstance(result, float)\n        assert result == float(text.replace(\"_\", \"\"))\n\n    def test_float_with_underscores(self):\n        result = match_to_number(_number_match(\"1_0.5\"), _parse_float_float)\n        assert result == 10.5\n\n    def test_float_part_with_integer_underscores_uses_parse_float(self):\n        calls = []\n\n        def parse_float(s: str) -> float:\n            calls.append(s)\n            return 0.0\n\n        result = match_to_number(_number_match(\"1_0\"), parse_float)\n        assert calls == []  # integer part only -> int path\n        assert result == 10\n\n    def test_parse_float_not_called_for_int(self):\n        def parse_float(s: str):\n            raise AssertionError(\"parse_float should not be called for ints\")\n\n        assert match_to_number(_number_match(\"42\"), parse_float) == 42\n        assert match_to_number(_number_match(\"0xFF\"), parse_float) == 0xFF\n\n    def test_returns_value_from_parse_float_verbatim(self):\n        sentinel = object()\n\n        def parse_float(s: str):\n            return sentinel\n\n        result = match_to_number(_number_match(\"1.5\"), parse_float)\n        assert result is sentinel\n\n    def test_no_match_empty(self):\n        assert RE_NUMBER.fullmatch(\"\") is None\n\n    def test_no_match_bare_leading_zeros(self):\n        # Leading zeros for decimal integers are not allowed.\n        assert RE_NUMBER.fullmatch(\"01\") is None\n\n    def test_no_match_plus_hex(self):\n        assert RE_NUMBER.fullmatch(\"+0x1\") is None\n\n    def test_no_match_double_underscore(self):\n        assert RE_NUMBER.fullmatch(\"1__0\") is None\n\n    def test_no_match_trailing_underscore(self):\n        assert RE_NUMBER.fullmatch(\"1_\") is None\n\n    def test_no_match_dot_without_digit(self):\n        assert RE_NUMBER.fullmatch(\"1.\") is None\n\n    def test_no_match_hex_without_digit(self):\n        assert RE_NUMBER.fullmatch(\"0x\") is None\n\n```\n\n## Feedback\nRunning pytest on the current implementation: 99 passed, 2 failed, 0 errors.\n- `tests_testpilot.test__re.TestMatchToDatetime::test_day_zero` failed:\n```\nAssertionError: '1988-01-00' did not match RE_DATETIME\nassert None is not None\nself = <test__re.TestMatchToDatetime object at 0x79b311a98c50>\n\n    def test_day_zero(self):\n        # regex allows 0 day; ValueError from date\n        with pytest.raises(ValueError):\n>           match_to_datetime(_dt_match(\"1988-01-00\"))\n                              ^^^^^^^^^^^^^^^^^^^^^^^\n\ntests_testpilot/test__re.py:223: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntext = '1988-01-00'\n\n    def _dt_match(text: str):\n        match = RE_DATETIME.fullmatch(text)\n>       assert match is not None, f\"{text!r} did not match RE_DATETIME\"\nE       AssertionError: '1988-01-00' did not match RE_DATETIME\nE       assert None is not None\n\ntests_testpilot/test__re.py:26: AssertionError\n```\n- `tests_testpilot.test__re.TestMatchToDatetime::test_month_zero` failed:\n```\nAssertionError: '1988-00-01' did not match RE_DATETIME\nassert None is not None\nself = <test__re.TestMatchToDatetime object at 0x79b311a997d0>\n\n    def test_month_zero(self):\n        with pytest.raises(ValueError):\n>           match_to_datetime(_dt_match(\"1988-00-01\"))\n                              ^^^^^^^^^^^^^^^^^^^^^^^\n\ntests_testpilot/test__re.py:227: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntext = '1988-00-01'\n\n    def _dt_match(text: str):\n        match = RE_DATETIME.fullmatch(text)\n>       assert match is not None, f\"{text!r} did not match RE_DATETIME\"\nE       AssertionError: '1988-00-01' did not match RE_DATETIME\nE       assert None is not None\n\ntests_testpilot/test__re.py:26: AssertionError\n```\n\n## Task\nRevise the test file according to the feedback. The implementation is the source of truth: when a test fails, fix the test so that it asserts what the code actually does — never assume the code is wrong. Keep the tests that already pass. Return the complete revised test file in one ```python code block.",
+      "response": "```python\n# SPDX-License-Identifier: MIT\n\"\"\"Unit tests for tomli._re.\"\"\"\n\nfrom __future__ import annotations\n\nfrom datetime import date, datetime, time, timedelta, timezone\n\nimport pytest\n\nfrom tomli._re import (\n    RE_DATETIME,\n    RE_LOCALTIME,\n    RE_NUMBER,\n    cached_tz,\n    match_to_datetime,\n    match_to_localtime,\n    match_to_number,\n)\n\n\n# --------------------------------------------------------------------------- #\n# Helpers\n# --------------------------------------------------------------------------- #\ndef _dt_match(text: str):\n    match = RE_DATETIME.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_DATETIME\"\n    return match\n\n\ndef _localtime_match(text: str):\n    match = RE_LOCALTIME.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_LOCALTIME\"\n    return match\n\n\ndef _number_match(text: str):\n    match = RE_NUMBER.fullmatch(text)\n    assert match is not None, f\"{text!r} did not match RE_NUMBER\"\n    return match\n\n\ndef _parse_float_float(text: str) -> float:\n    return float(text.replace(\"_\", \"\"))\n\n\n# --------------------------------------------------------------------------- #\n# cached_tz\n# --------------------------------------------------------------------------- #\nclass TestCachedTz:\n    def test_positive_offset(self):\n        tz = cached_tz(\"05\", \"30\", \"+\")\n        assert isinstance(tz, timezone)\n        assert tz.utcoffset(None) == timedelta(hours=5, minutes=30)\n\n    def test_negative_offset(self):\n        tz = cached_tz(\"05\", \"30\", \"-\")\n        assert tz.utcoffset(None) == timedelta(hours=-5, minutes=-30)\n\n    def test_zero_offset(self):\n        tz = cached_tz(\"00\", \"00\", \"+\")\n        assert tz.utcoffset(None) == timedelta(0)\n        assert tz is timezone.utc or tz.utcoffset(None) == timedelta(0)\n\n    def test_negative_zero_offset(self):\n        tz = cached_tz(\"00\", \"00\", \"-\")\n        assert tz.utcoffset(None) == timedelta(0)\n\n    def test_max_positive_offset(self):\n        tz = cached_tz(\"23\", \"59\", \"+\")\n        assert tz.utcoffset(None) == timedelta(hours=23, minutes=59)\n\n    def test_max_negative_offset(self):\n        tz = cached_tz(\"23\", \"59\", \"-\")\n        assert tz.utcoffset(None) == timedelta(hours=-23, minutes=-59)\n\n    def test_caching_returns_identical_object(self):\n        first = cached_tz(\"03\", \"15\", \"+\")\n        second = cached_tz(\"03\", \"15\", \"+\")\n        assert first is second\n\n    def test_cache_exported(self):\n        # lru_cache exposes cache_info; sanity-check cache is working.\n        assert hasattr(cached_tz, \"cache_info\")\n        before = cached_tz.cache_info()\n        cached_tz(\"11\", \"11\", \"-\")\n        cached_tz(\"11\", \"11\", \"-\")\n        after = cached_tz.cache_info()\n        assert after.hits >= before.hits + 1\n\n    def test_sign_other_than_plus_is_negative(self):\n        # Any sign string that is not \"+\" is treated as negative.\n        tz = cached_tz(\"01\", \"00\", \"?\")\n        assert tz.utcoffset(None) == timedelta(hours=-1)\n\n\n# --------------------------------------------------------------------------- #\n# match_to_datetime\n# --------------------------------------------------------------------------- #\nclass TestMatchToDatetime:\n    def test_date_only(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27\"))\n        assert result == date(1988, 10, 27)\n        assert type(result) is date\n\n    def test_datetime_no_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03.123\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, 123000)\n        assert result.tzinfo is None\n\n    def test_datetime_space_separator(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27 01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    def test_datetime_lowercase_t(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27t01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    def test_time_no_seconds(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 0)\n\n    def test_time_with_seconds_no_fraction(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3)\n\n    @pytest.mark.parametrize(\n        \"frac, expected_micros\",\n        [\n            (\"1\", 100000),\n            (\"12\", 120000),\n            (\"123\", 123000),\n            (\"1234\", 123400),\n            (\"12345\", 123450),\n            (\"123456\", 123456),\n            (\"1234567\", 123456),  # extra digits truncated\n            (\"0000001\", 0),\n            (\"000001\", 1),\n        ],\n    )\n    def test_fractional_seconds(self, frac, expected_micros):\n        result = match_to_datetime(_dt_match(f\"1988-10-27T01:02:03.{frac}\"))\n        assert result.microsecond == expected_micros\n\n    def test_zulu_uppercase(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03Z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n        assert result.tzinfo is timezone.utc\n\n    def test_zulu_lowercase(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n        assert result.tzinfo is timezone.utc\n\n    def test_positive_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+05:30\"))\n        assert result == datetime(\n            1988, 10, 27, 1, 2, 3, tzinfo=timezone(timedelta(hours=5, minutes=30))\n        )\n        assert result.utcoffset() == timedelta(hours=5, minutes=30)\n\n    def test_negative_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03-05:30\"))\n        assert result.utcoffset() == timedelta(hours=-5, minutes=-30)\n\n    def test_offset_uses_cache(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+05:30\"))\n        expected_tz = cached_tz(\"05\", \"30\", \"+\")\n        assert result.tzinfo is expected_tz\n\n    def test_zero_offset(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03+00:00\"))\n        assert result.utcoffset() == timedelta(0)\n\n    def test_offset_without_seconds(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02+01:00\"))\n        assert result == datetime(\n            1988, 10, 27, 1, 2, 0, tzinfo=timezone(timedelta(hours=1))\n        )\n\n    def test_offset_with_fraction(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27T01:02:03.5+01:00\"))\n        assert result.microsecond == 500000\n        assert result.utcoffset() == timedelta(hours=1)\n\n    def test_offset_space_separator(self):\n        result = match_to_datetime(_dt_match(\"1988-10-27 01:02:03Z\"))\n        assert result == datetime(1988, 10, 27, 1, 2, 3, tzinfo=timezone.utc)\n\n    def test_invalid_date_raises(self):\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1988-02-30\"))\n\n    def test_invalid_date_non_leap(self):\n        with pytest.raises(ValueError):\n            match_to_datetime(_dt_match(\"1900-02-29\"))\n\n    def test_valid_leap_day(self):\n        result = match_to_datetime(_dt_match(\"2000-02-29\"))\n        assert result == date(2000, 2, 29)\n\n    def test_invalid_time_hour(self):\n        # RE_DATETIME won't allow hour 24, so no match.\n        assert RE_DATETIME.fullmatch(\"1988-10-27T24:00:00\") is None\n\n    def test_invalid_month_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-13-01\") is None\n\n    def test_invalid_day_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-32\") is None\n\n    def test_invalid_minute_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:60:00\") is None\n\n    def test_invalid_second_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:00:60\") is None\n\n    def test_offset_hour_out_of_range_no_match(self):\n        assert RE_DATETIME.fullmatch(\"1988-01-01T00:00:00+24:00\") is None\n\n    def test_day_zero_no_match(self):\n        # The regex requires day to start with 0 followed by 1-9 (or 1x/2x/3x),\n        # so \"00\" and \"0\" do not match.\n        assert RE_DATETIME.fullmatch(\"1988-01-00\") is None\n\n    def test_month_zero_no_match(self):\n        # Month pattern is 0[1-9]|1[0-2], so 00 does not match.\n        assert RE_DATETIME.fullmatch(\"1988-00-01\") is None\n\n    def test_date_lowercase_boundaries(self):\n        # Year can be any 4 digits, including leading zeros.\n        result = match_to_datetime(_dt_match(\"0001-01-01\"))\n        assert result == date(1, 1, 1)\n\n\n# --------------------------------------------------------------------------- #\n# match_to_localtime\n# --------------------------------------------------------------------------- #\nclass TestMatchToLocaltime:\n    def test_hour_minute(self):\n        result = match_to_localtime(_localtime_match(\"01:02\"))\n        assert result == time(1, 2)\n        assert type(result) is time\n\n    def test_with_seconds(self):\n        result = match_to_localtime(_localtime_match(\"01:02:03\"))\n        assert result == time(1, 2, 3)\n\n    @pytest.mark.parametrize(\n        \"frac, expected_micros\",\n        [\n            (\"1\", 100000),\n            (\"12\", 120000),\n            (\"123\", 123000),\n            (\"123456\", 123456),\n            (\"1\".ljust(7, \"0\"), 100000),\n        ],\n    )\n    def test_fractional_seconds(self, frac, expected_micros):\n        result = match_to_localtime(_localtime_match(f\"01:02:03.{frac}\"))\n        assert result.microsecond == expected_micros\n\n    def test_extra_fraction_digits_truncated(self):\n        result = match_to_localtime(_localtime_match(\"01:02:03.1234567\"))\n        assert result.microsecond == 123456\n\n    def test_midnight(self):\n        assert match_to_localtime(_localtime_match(\"00:00\")) == time(0, 0)\n\n    def test_last_minute(self):\n        assert match_to_localtime(_localtime_match(\"23:59\")) == time(23, 59)\n\n    def test_no_match_bad_hour(self):\n        assert RE_LOCALTIME.fullmatch(\"24:00\") is None\n\n    def test_no_match_bad_minute(self):\n        assert RE_LOCALTIME.fullmatch(\"00:60\") is None\n\n    def test_no_match_missing_colon(self):\n        assert RE_LOCALTIME.fullmatch(\"0102\") is None\n\n    def test_no_match_bad_second(self):\n        assert RE_LOCALTIME.fullmatch(\"00:00:60\") is None\n\n\n# --------------------------------------------------------------------------- #\n# match_to_number\n# --------------------------------------------------------------------------- #\nclass TestMatchToNumber:\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0\", 0),\n            (\"1\", 1),\n            (\"42\", 42),\n            (\"+42\", 42),\n            (\"-42\", -42),\n            (\"1_000\", 1000),\n            (\"1_0_0\", 100),\n            (\"123_456_789\", 123456789),\n        ],\n    )\n    def test_integers(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0x0\", 0),\n            (\"0xDEADBEEF\", 0xDEADBEEF),\n            (\"0xdeadbeef\", 0xDEADBEEF),\n            (\"0x_1\".replace(\"_\", \"\"), 1),\n            (\"0xdead_beef\", 0xDEADBEEF),\n            (\"0xAA_BB\", 0xAABB),\n        ],\n    )\n    def test_hex(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0b0\", 0),\n            (\"0b1\", 1),\n            (\"0b1010\", 0b1010),\n            (\"0b1010_0101\", 0b10100101),\n        ],\n    )\n    def test_binary(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text, expected\",\n        [\n            (\"0o0\", 0),\n            (\"0o7\", 7),\n            (\"0o17\", 0o17),\n            (\"0o12_34\", 0o1234),\n        ],\n    )\n    def test_octal(self, text, expected):\n        result = match_to_number(_number_match(text), _parse_float_float)\n        assert result == expected\n        assert type(result) is int\n\n    @pytest.mark.parametrize(\n        \"text\",\n        [\"1.5\", \"1.0\", \"-1.5\", \"+1.5\", \"1e10\", \"1E10\", \"1e+10\", \"1e-10\", \"1.5e10\"],\n    )\n    def test_floats_via_parse_float(self, text):\n        calls = []\n\n        def parse_float(s: str) -> float:\n            calls.append(s)\n            return float(s.replace(\"_\", \"\"))\n\n        result = match_to_number(_number_match(text), parse_float)\n        assert calls == [text]\n        assert isinstance(result, float)\n        assert result == float(text.replace(\"_\", \"\"))\n\n    def test_float_with_underscores(self):\n        result = match_to_number(_number_match(\"1_0.5\"), _parse_float_float)\n        assert result == 10.5\n\n    def test_float_part_with_integer_underscores_uses_parse_float(self):\n        calls = []\n\n        def parse_float(s: str) -> float:\n            calls.append(s)\n            return 0.0\n\n        result = match_to_number(_number_match(\"1_0\"), parse_float)\n        assert calls == []  # integer part only -> int path\n        assert result == 10\n\n    def test_parse_float_not_called_for_int(self):\n        def parse_float(s: str):\n            raise AssertionError(\"parse_float should not be called for ints\")\n\n        assert match_to_number(_number_match(\"42\"), parse_float) == 42\n        assert match_to_number(_number_match(\"0xFF\"), parse_float) == 0xFF\n\n    def test_returns_value_from_parse_float_verbatim(self):\n        sentinel = object()\n\n        def parse_float(s: str):\n            return sentinel\n\n        result = match_to_number(_number_match(\"1.5\"), parse_float)\n        assert result is sentinel\n\n    def test_no_match_empty(self):\n        assert RE_NUMBER.fullmatch(\"\") is None\n\n    def test_no_match_bare_leading_zeros(self):\n        # Leading zeros for decimal integers are not allowed.\n        assert RE_NUMBER.fullmatch(\"01\") is None\n\n    def test_no_match_plus_hex(self):\n        assert RE_NUMBER.fullmatch(\"+0x1\") is None\n\n    def test_no_match_double_underscore(self):\n        assert RE_NUMBER.fullmatch(\"1__0\") is None\n\n    def test_no_match_trailing_underscore(self):\n        assert RE_NUMBER.fullmatch(\"1_\") is None\n\n    def test_no_match_dot_without_digit(self):\n        assert RE_NUMBER.fullmatch(\"1.\") is None\n\n    def test_no_match_hex_without_digit(self):\n        assert RE_NUMBER.fullmatch(\"0x\") is None\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 6548,
+      "cache_hit_tokens": 1792,
+      "completion_tokens": 4121,
+      "reasoning_tokens": 0,
+      "latency": 10.78
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 2,
+    "at": "2026-10-20T05:33:51+00:00",
+    "duration": 1.51,
+    "summary": "通过 101，失败 0，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__re.py"
+          ]
+        },
+        "duration": 1.51,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 16594
+  },
+  {
+    "node": "analyze",
+    "iteration": 2,
+    "at": "2026-10-20T05:34:26+00:00",
+    "duration": 35.92,
+    "summary": "分数 [1, 1.0, 1.0, 1.0, 101]（提升），行覆盖 100.0%，分支覆盖 100.0%，变异得分 100.0%（存活 0）",
+    "tool_calls": [
+      {
+        "name": "check_validity",
+        "args": {
+          "tests": [
+            "tests_testpilot/test__re.py"
+          ]
+        },
+        "duration": 27.23,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "coverage_report",
+        "args": {
+          "target": "src/tomli/_re.py",
+          "tests": [
+            "tests_testpilot/test__re.py::TestCachedTz::test_positive_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_negative_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_zero_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_negative_zero_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_max_positive_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_max_negative_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_caching_returns_identical_object",
+            "tests_testpilot/test__re.py::TestCachedTz::test_cache_exported",
+            "tests_testpilot/test__re.py::TestCachedTz::test_sign_other_than_plus_is_negative",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_date_only",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_datetime_no_offset",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_datetime_space_separator",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_datetime_lowercase_t",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_time_no_seconds",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_time_with_seconds_no_fraction",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_fractional_seconds",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_zulu_uppercase",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_zulu_lowercase",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_positive_offset",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_negative_offset",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_uses_cache",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_zero_offset",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_without_seconds",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_with_fraction",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_space_separator",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_date_raises",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_date_non_leap",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_valid_leap_day",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_time_hour",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_month_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_day_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_minute_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_second_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_hour_out_of_range_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_day_zero_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_month_zero_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_date_lowercase_boundaries",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_hour_minute",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_with_seconds",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_fractional_seconds",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_extra_fraction_digits_truncated",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_midnight",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_last_minute",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_no_match_bad_hour",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_no_match_bad_minute",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_no_match_missing_colon",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_no_match_bad_second",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_integers",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_hex",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_binary",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_octal",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_floats_via_parse_float",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_float_with_underscores",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_float_part_with_integer_underscores_uses_parse_float",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_parse_float_not_called_for_int",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_returns_value_from_parse_float_verbatim",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_empty",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_bare_leading_zeros",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_plus_hex",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_double_underscore",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_trailing_underscore",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_dot_without_digit",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_hex_without_digit"
+          ]
+        },
+        "duration": 2.35,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "run_mutation",
+        "args": {
+          "target": "src/tomli/_re.py",
+          "tests": [
+            "tests_testpilot/test__re.py::TestCachedTz::test_positive_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_negative_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_zero_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_negative_zero_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_max_positive_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_max_negative_offset",
+            "tests_testpilot/test__re.py::TestCachedTz::test_caching_returns_identical_object",
+            "tests_testpilot/test__re.py::TestCachedTz::test_cache_exported",
+            "tests_testpilot/test__re.py::TestCachedTz::test_sign_other_than_plus_is_negative",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_date_only",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_datetime_no_offset",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_datetime_space_separator",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_datetime_lowercase_t",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_time_no_seconds",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_time_with_seconds_no_fraction",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_fractional_seconds",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_zulu_uppercase",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_zulu_lowercase",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_positive_offset",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_negative_offset",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_uses_cache",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_zero_offset",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_without_seconds",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_with_fraction",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_space_separator",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_date_raises",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_date_non_leap",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_valid_leap_day",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_time_hour",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_month_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_day_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_minute_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_invalid_second_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_offset_hour_out_of_range_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_day_zero_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_month_zero_no_match",
+            "tests_testpilot/test__re.py::TestMatchToDatetime::test_date_lowercase_boundaries",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_hour_minute",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_with_seconds",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_fractional_seconds",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_extra_fraction_digits_truncated",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_midnight",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_last_minute",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_no_match_bad_hour",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_no_match_bad_minute",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_no_match_missing_colon",
+            "tests_testpilot/test__re.py::TestMatchToLocaltime::test_no_match_bad_second",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_integers",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_hex",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_binary",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_octal",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_floats_via_parse_float",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_float_with_underscores",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_float_part_with_integer_underscores_uses_parse_float",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_parse_float_not_called_for_int",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_returns_value_from_parse_float_verbatim",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_empty",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_bare_leading_zeros",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_plus_hex",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_double_underscore",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_trailing_underscore",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_dot_without_digit",
+            "tests_testpilot/test__re.py::TestMatchToNumber::test_no_match_hex_without_digit"
+          ],
+          "max_survivors": 200
+        },
+        "duration": 6.34,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 16594,
+    "score": [
+      1,
+      1.0,
+      1.0,
+      1.0,
+      101
+    ],
+    "coverage": {
+      "target": "src/tomli/_re.py",
+      "tests_all_passed": true,
+      "line_rate": 1.0,
+      "branch_rate": 1.0,
+      "statements": 36,
+      "branches": 8,
+      "missing_lines": [],
+      "missing_branches": [],
+      "error": ""
+    },
+    "validity": {
+      "total": 63,
+      "valid": 63,
+      "invalid": {},
+      "flaky": []
+    },
+    "mutation": {
+      "target": "src/tomli/_re.py",
+      "score": 1.0,
+      "total": 94,
+      "killed": 94,
+      "survived": 0,
+      "excluded": 0,
+      "status_counts": {
+        "killed": 94
+      },
+      "survivors_truncated": false,
+      "error": ""
+    }
+  },
+  {
+    "node": "decide",
+    "iteration": 2,
+    "at": "2026-10-20T05:34:26+00:00",
+    "duration": 0.0,
+    "summary": "全部测试有效，且没有存活的变异体",
+    "tool_calls": [],
+    "tokens_total": 16594
+  },
+  {
+    "node": "finalize",
+    "iteration": 2,
+    "at": "2026-10-20T05:34:26+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：全部测试有效，且没有存活的变异体；采用第 2 轮，分数 [1, 1.0, 1.0, 1.0, 101]",
+    "tool_calls": [],
+    "tokens_total": 16594,
+    "best_iteration": 2
+  }
+]

@@ -1,0 +1,171 @@
+{
+  "target": "sqlparse/lexer.py",
+  "validity": {
+    "total": 34,
+    "valid": 34,
+    "valid_ids": [
+      "tests_testpilot/test_lexer.py::test_clear_resets_state",
+      "tests_testpilot/test_lexer.py::test_set_SQL_REGEX_compiles_and_ignores_case",
+      "tests_testpilot/test_lexer.py::test_set_SQL_REGEX_handles_unicode",
+      "tests_testpilot/test_lexer.py::test_add_keywords_appends_in_order",
+      "tests_testpilot/test_lexer.py::test_default_initialization_sets_regx_and_keywords",
+      "tests_testpilot/test_lexer.py::test_default_initialization_is_idempotent",
+      "tests_testpilot/test_lexer.py::test_get_default_instance_singleton",
+      "tests_testpilot/test_lexer.py::test_get_default_instance_reuses_existing",
+      "tests_testpilot/test_lexer.py::test_is_keyword_found_returns_type_and_original_value",
+      "tests_testpilot/test_lexer.py::test_is_keyword_not_found_returns_name",
+      "tests_testpilot/test_lexer.py::test_is_keyword_uses_first_matching_dictionary",
+      "tests_testpilot/test_lexer.py::test_is_keyword_empty_keywords",
+      "tests_testpilot/test_lexer.py::test_get_tokens_basic_select",
+      "tests_testpilot/test_lexer.py::test_get_tokens_preserves_case_of_value",
+      "tests_testpilot/test_lexer.py::test_get_tokens_accepts_str",
+      "tests_testpilot/test_lexer.py::test_get_tokens_accepts_bytes_utf8_default",
+      "tests_testpilot/test_lexer.py::test_get_tokens_accepts_bytes_with_encoding",
+      "tests_testpilot/test_lexer.py::test_get_tokens_accepts_text_io",
+      "tests_testpilot/test_lexer.py::test_get_tokens_raises_on_unsupported_type",
+      "tests_testpilot/test_lexer.py::test_get_tokens_empty_string",
+      "tests_testpilot/test_lexer.py::test_get_tokens_whitespace_only",
+      "tests_testpilot/test_lexer.py::test_get_tokens_string_literal",
+      "tests_testpilot/test_lexer.py::test_get_tokens_string_with_embedded_double_quote",
+      "tests_testpilot/test_lexer.py::test_get_tokens_line_comment",
+      "tests_testpilot/test_lexer.py::test_get_tokens_multiline_comment",
+      "tests_testpilot/test_lexer.py::test_get_tokens_delimiter_inside_string_is_not_resolved",
+      "tests_testpilot/test_lexer.py::test_get_tokens_dollar_quoted_literal",
+      "tests_testpilot/test_lexer.py::test_get_tokens_unknown_character_is_error",
+      "tests_testpilot/test_lexer.py::test_get_tokens_is_a_generator",
+      "tests_testpilot/test_lexer.py::test_get_tokens_minimal_regex",
+      "tests_testpilot/test_lexer.py::test_get_tokens_process_as_keyword",
+      "tests_testpilot/test_lexer.py::test_tokenize_uses_default_instance",
+      "tests_testpilot/test_lexer.py::test_tokenize_returns_iterable_of_pairs",
+      "tests_testpilot/test_lexer.py::test_tokenize_with_encoding"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.34,
+        "passed": 34,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.32,
+        "passed": 34,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.25,
+        "passed": 34,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9743589743589743,
+  "branch_rate": 0.9285714285714286,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8441558441558441,
+    "total": 77,
+    "killed": 65,
+    "survived": 12,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 65,
+      "survived": 12
+    },
+    "survivors": [
+      {
+        "line": 129,
+        "original": "text = text.decode('utf-8')",
+        "mutated": "text = text.decode('UTF-8')",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "text = text.decode('unicode-escape')",
+        "mutated": "text = None",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "text = text.decode('unicode-escape')",
+        "mutated": "text = text.decode(None)",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "text = text.decode('unicode-escape')",
+        "mutated": "text = text.decode('XXunicode-escapeXX')",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "text = text.decode('unicode-escape')",
+        "mutated": "text = text.decode('UNICODE-ESCAPE')",
+        "status": "survived"
+      },
+      {
+        "line": 133,
+        "original": "raise TypeError(f\"Expected text or file-like object, got {type(text)!r}\")",
+        "mutated": "raise TypeError(f\"Expected text or file-like object, got {type(None)!r}\")",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "consume(iterable, end - pos - 1)",
+        "mutated": "consume(iterable, None)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "consume(iterable, end - pos - 1)",
+        "mutated": "consume(iterable, end - pos + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "consume(iterable, end - pos - 1)",
+        "mutated": "consume(iterable, end + pos - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 150,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "return Lexer.get_default_instance().get_tokens(sql, encoding)",
+        "mutated": "return Lexer.get_default_instance().get_tokens(sql, None)",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "return Lexer.get_default_instance().get_tokens(sql, encoding)",
+        "mutated": "return Lexer.get_default_instance().get_tokens(sql, )",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.91,
+    "coverage": 2.28,
+    "mutation": 7.42
+  }
+}

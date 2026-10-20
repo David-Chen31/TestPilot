@@ -1,0 +1,825 @@
+{
+  "target": "boltons/timeutils.py",
+  "validity": {
+    "total": 99,
+    "valid": 96,
+    "valid_ids": [
+      "tests_testpilot/test_timeutils_s1.py::test_total_seconds_alias",
+      "tests_testpilot/test_timeutils_s1.py::test_dt_to_timestamp_aware_utc",
+      "tests_testpilot/test_timeutils_s1.py::test_dt_to_timestamp_aware_constant_tz",
+      "tests_testpilot/test_timeutils_s1.py::test_dt_to_timestamp_naive_treated_as_utc",
+      "tests_testpilot/test_timeutils_s1.py::test_dt_to_timestamp_known_value",
+      "tests_testpilot/test_timeutils_s1.py::test_dt_to_timestamp_with_offset",
+      "tests_testpilot/test_timeutils_s1.py::test_dt_to_timestamp_fractional",
+      "tests_testpilot/test_timeutils_s1.py::test_isoparse_epoch_naive",
+      "tests_testpilot/test_timeutils_s1.py::test_isoparse_fractional",
+      "tests_testpilot/test_timeutils_s1.py::test_isoparse_fractional_short",
+      "tests_testpilot/test_timeutils_s1.py::test_isoparse_truncates_nanoseconds",
+      "tests_testpilot/test_timeutils_s1.py::test_isoparse_full_datetime",
+      "tests_testpilot/test_timeutils_s1.py::test_isoparse_roundtrip_isoformat",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_single_unit",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_docstring",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_words",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_negative",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_full_word_unit",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_seconds_unit",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_minutes",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_empty",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_invalid_unit",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_alias_is_same",
+      "tests_testpilot/test_timeutils_s1.py::test_parse_td_decimal_value",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_with_other_day",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_seconds_small",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_negative_future",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_cardinalize_false",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_singular_cardinalize",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_plural_cardinalize",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_weeks",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_hours",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_months",
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_zero",
+      "tests_testpilot/test_timeutils_s1.py::test_relative_time_same",
+      "tests_testpilot/test_timeutils_s1.py::test_relative_time_past",
+      "tests_testpilot/test_timeutils_s1.py::test_relative_time_future",
+      "tests_testpilot/test_timeutils_s1.py::test_relative_time_singular",
+      "tests_testpilot/test_timeutils_s1.py::test_relative_time_future_seconds",
+      "tests_testpilot/test_timeutils_s1.py::test_strpdate_simple",
+      "tests_testpilot/test_timeutils_s1.py::test_strpdate_with_literal",
+      "tests_testpilot/test_timeutils_s1.py::test_strpdate_with_time",
+      "tests_testpilot/test_timeutils_s1.py::test_strpdate_with_microseconds",
+      "tests_testpilot/test_timeutils_s1.py::test_strpdate_invalid",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_basic",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_single",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_inclusive_even",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_exclusive_tuple",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_timedelta_step",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_negative_step",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_negative_timedelta",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_empty_same_start_stop",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_zero_step_raises",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_zero_timedelta_raises",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_self_cancelling_tuple_raises",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_wrong_direction_yields_nothing",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_wrong_direction_positive_yields_nothing",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_start_type_error",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_stop_type_error",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_invalid_step_type",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_stop_none_infinite",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_year_step",
+      "tests_testpilot/test_timeutils_s1.py::test_constant_tz_defaults",
+      "tests_testpilot/test_timeutils_s1.py::test_constant_tz_attributes",
+      "tests_testpilot/test_timeutils_s1.py::test_constant_tz_methods",
+      "tests_testpilot/test_timeutils_s1.py::test_constant_tz_offset_hours",
+      "tests_testpilot/test_timeutils_s1.py::test_constant_tz_repr",
+      "tests_testpilot/test_timeutils_s1.py::test_utc_instance",
+      "tests_testpilot/test_timeutils_s1.py::test_epoch_aware",
+      "tests_testpilot/test_timeutils_s1.py::test_local_tz_is_tzinfo",
+      "tests_testpilot/test_timeutils_s1.py::test_local_tz_has_offsets",
+      "tests_testpilot/test_timeutils_s1.py::test_local_tz_repr",
+      "tests_testpilot/test_timeutils_s1.py::test_local_tz_methods_callable",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_repr",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_std_offset",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_none_returns_zero",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_naive_returns_zero",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_outside_dst",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_inside_dst",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_utcoffset_std",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_utcoffset_dst",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_tzname_std",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_tzname_dst",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_before_1967",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_range_none_old_years",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_range_2007",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_range_1987_2006",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_range_1967_1986",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_fromutc_wrong_tz",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_fromutc_old_year",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_fromutc_winter",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_fromutc_summer",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_dst_assert_wrong_tz",
+      "tests_testpilot/test_timeutils_s1.py::test_first_sunday_on_or_after_is_sunday",
+      "tests_testpilot/test_timeutils_s1.py::test_first_sunday_on_or_after_same_day",
+      "tests_testpilot/test_timeutils_s1.py::test_ustimezone_zero_constant"
+    ],
+    "invalid": {
+      "tests_testpilot/test_timeutils_s1.py::test_decimal_relative_time_minutes": "run 1: failed: assert 2.0 == 1.0",
+      "tests_testpilot/test_timeutils_s1.py::test_daterange_inclusive_overshoot_not_returned": "run 1: failed: assert [datetime.dat...(2020, 1, 10)] == [datetime.dat...e(2020, 1, 7)]",
+      "tests_testpilot/test_timeutils_s1.py::test_roundtrip_fromutc_for_summer": "run 1: failed: assert 12 == 16"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.55,
+        "passed": 96,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.39,
+        "passed": 96,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 1.29,
+        "passed": 96,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9360730593607306,
+  "branch_rate": 0.8421052631578947,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.6615384615384615,
+    "total": 325,
+    "killed": 215,
+    "survived": 110,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 215,
+      "survived": 110
+    },
+    "survivors": [
+      {
+        "line": 129,
+        "original": "dt_args[6] = int(parts[6].ljust(6, '0')[:6])",
+        "mutated": "dt_args[6] = int(parts[6].ljust(7, '0')[:6])",
+        "status": "survived"
+      },
+      {
+        "line": 180,
+        "original": "raise ValueError('invalid time unit %r, expected one of %r'\n                             % (unit, _PARSE_TD_KW_MAP.keys()))",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 180,
+        "original": "raise ValueError('invalid time unit %r, expected one of %r'",
+        "mutated": "raise ValueError('XXinvalid time unit %r, expected one of %rXX'",
+        "status": "survived"
+      },
+      {
+        "line": 180,
+        "original": "raise ValueError('invalid time unit %r, expected one of %r'",
+        "mutated": "raise ValueError('INVALID TIME UNIT %R, EXPECTED ONE OF %R'",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "raise ValueError('invalid time value for unit %r: %r'\n                             % (unit, value))",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "raise ValueError('invalid time value for unit %r: %r'\n                             % (unit, value))",
+        "mutated": "raise ValueError('invalid time value for unit %r: %r' / (unit, value))",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "raise ValueError('invalid time value for unit %r: %r'",
+        "mutated": "raise ValueError('XXinvalid time value for unit %r: %rXX'",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "raise ValueError('invalid time value for unit %r: %r'",
+        "mutated": "raise ValueError('INVALID TIME VALUE FOR UNIT %R: %R'",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "def decimal_relative_time(d, other=None, ndigits=0, cardinalize=True):",
+        "mutated": "def decimal_relative_time(d, other=None, ndigits=1, cardinalize=True):",
+        "status": "survived"
+      },
+      {
+        "line": 235,
+        "original": "if d.tzinfo is None:",
+        "mutated": "if d.tzinfo is not None:",
+        "status": "survived"
+      },
+      {
+        "line": 236,
+        "original": "other = datetime.now(timezone.utc).replace(tzinfo=None)",
+        "mutated": "other = None",
+        "status": "survived"
+      },
+      {
+        "line": 236,
+        "original": "other = datetime.now(timezone.utc).replace(tzinfo=None)",
+        "mutated": "other = datetime.now(None).replace(tzinfo=None)",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "other = datetime.now(d.tzinfo)",
+        "mutated": "other = None",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "other = datetime.now(d.tzinfo)",
+        "mutated": "other = datetime.now(None)",
+        "status": "survived"
+      },
+      {
+        "line": 251,
+        "original": "def relative_time(d, other=None, ndigits=0):",
+        "mutated": "def relative_time(d, other=None, ndigits=1):",
+        "status": "survived"
+      },
+      {
+        "line": 276,
+        "original": "drt, unit = decimal_relative_time(d, other, ndigits, cardinalize=True)",
+        "mutated": "drt, unit = decimal_relative_time(d, other, ndigits, )",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "raise TypeError(\"start expected datetime.date instance\")",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "raise TypeError(\"start expected datetime.date instance\")",
+        "mutated": "raise TypeError(\"XXstart expected datetime.date instanceXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 365,
+        "original": "raise TypeError(\"start expected datetime.date instance\")",
+        "mutated": "raise TypeError(\"START EXPECTED DATETIME.DATE INSTANCE\")",
+        "status": "survived"
+      },
+      {
+        "line": 367,
+        "original": "raise TypeError(\"stop expected datetime.date instance or None\")",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 367,
+        "original": "raise TypeError(\"stop expected datetime.date instance or None\")",
+        "mutated": "raise TypeError(\"XXstop expected datetime.date instance or NoneXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 367,
+        "original": "raise TypeError(\"stop expected datetime.date instance or None\")",
+        "mutated": "raise TypeError(\"stop expected datetime.date instance or none\")",
+        "status": "survived"
+      },
+      {
+        "line": 367,
+        "original": "raise TypeError(\"stop expected datetime.date instance or None\")",
+        "mutated": "raise TypeError(\"STOP EXPECTED DATETIME.DATE INSTANCE OR NONE\")",
+        "status": "survived"
+      },
+      {
+        "line": 379,
+        "original": "raise ValueError('step expected int, timedelta, or tuple'\n                         ' (year, month, day), not: %r' % step)",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 380,
+        "original": "' (year, month, day), not: %r' % step)",
+        "mutated": "' (year, month, day), not: %r' / step)",
+        "status": "survived"
+      },
+      {
+        "line": 379,
+        "original": "raise ValueError('step expected int, timedelta, or tuple'",
+        "mutated": "raise ValueError('XXstep expected int, timedelta, or tupleXX'",
+        "status": "survived"
+      },
+      {
+        "line": 379,
+        "original": "raise ValueError('step expected int, timedelta, or tuple'",
+        "mutated": "raise ValueError('STEP EXPECTED INT, TIMEDELTA, OR TUPLE'",
+        "status": "survived"
+      },
+      {
+        "line": 380,
+        "original": "' (year, month, day), not: %r' % step)",
+        "mutated": "'XX (year, month, day), not: %rXX' % step)",
+        "status": "survived"
+      },
+      {
+        "line": 380,
+        "original": "' (year, month, day), not: %r' % step)",
+        "mutated": "' (YEAR, MONTH, DAY), NOT: %R' % step)",
+        "status": "survived"
+      },
+      {
+        "line": 392,
+        "original": "finished = lambda now, stop: False",
+        "mutated": "finished = lambda now, stop: None",
+        "status": "survived"
+      },
+      {
+        "line": 393,
+        "original": "elif start <= stop:",
+        "mutated": "elif start < stop:",
+        "status": "survived"
+      },
+      {
+        "line": 396,
+        "original": "finished = operator.lt if inclusive else operator.le",
+        "mutated": "finished = operator.lt if (inclusive) and False else operator.le",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "raise ValueError('step does not advance: %r' % (step,))",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "raise ValueError('step does not advance: %r' % (step,))",
+        "mutated": "raise ValueError('XXstep does not advance: %rXX' % (step,))",
+        "status": "survived"
+      },
+      {
+        "line": 406,
+        "original": "raise ValueError('step does not advance: %r' % (step,))",
+        "mutated": "raise ValueError('STEP DOES NOT ADVANCE: %R' % (step,))",
+        "status": "survived"
+      },
+      {
+        "line": 407,
+        "original": "if stop is not None and start != stop and (probe > start) != (stop > start):",
+        "mutated": "if stop is not None and start != stop and (probe >= start) != (stop > start):",
+        "status": "survived"
+      },
+      {
+        "line": 407,
+        "original": "if stop is not None and start != stop and (probe > start) != (stop > start):",
+        "mutated": "if stop is not None and start != stop and (probe > start) != (stop >= start):",
+        "status": "survived"
+      },
+      {
+        "line": 414,
+        "original": "raise ValueError('step does not advance: %r' % (step,))",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 414,
+        "original": "raise ValueError('step does not advance: %r' % (step,))",
+        "mutated": "raise ValueError('step does not advance: %r' / (step,))",
+        "status": "survived"
+      },
+      {
+        "line": 414,
+        "original": "raise ValueError('step does not advance: %r' % (step,))",
+        "mutated": "raise ValueError('XXstep does not advance: %rXX' % (step,))",
+        "status": "survived"
+      },
+      {
+        "line": 414,
+        "original": "raise ValueError('step does not advance: %r' % (step,))",
+        "mutated": "raise ValueError('STEP DOES NOT ADVANCE: %R' % (step,))",
+        "status": "survived"
+      },
+      {
+        "line": 415,
+        "original": "if stop is not None and abs(stop - now) >= abs(stop - prev):",
+        "mutated": "if stop is not None and abs(stop - now) > abs(stop - prev):",
+        "status": "survived"
+      },
+      {
+        "line": 488,
+        "original": "dt.second, dt.weekday(), 0, -1)",
+        "mutated": "dt.second, dt.weekday(), 1, -1)",
+        "status": "survived"
+      },
+      {
+        "line": 488,
+        "original": "dt.second, dt.weekday(), 0, -1)",
+        "mutated": "dt.second, dt.weekday(), 0, +1)",
+        "status": "survived"
+      },
+      {
+        "line": 488,
+        "original": "dt.second, dt.weekday(), 0, -1)",
+        "mutated": "dt.second, dt.weekday(), 0, -2)",
+        "status": "survived"
+      },
+      {
+        "line": 489,
+        "original": "local_t = time.localtime(time.mktime(dt_t))",
+        "mutated": "local_t = time.localtime(None)",
+        "status": "survived"
+      },
+      {
+        "line": 490,
+        "original": "return local_t.tm_isdst > 0",
+        "mutated": "return local_t.tm_isdst >= 0",
+        "status": "survived"
+      },
+      {
+        "line": 490,
+        "original": "return local_t.tm_isdst > 0",
+        "mutated": "return local_t.tm_isdst > 1",
+        "status": "survived"
+      },
+      {
+        "line": 499,
+        "original": "return self._dst_offset - self._std_offset",
+        "mutated": "return self._dst_offset + self._std_offset",
+        "status": "survived"
+      },
+      {
+        "line": 552,
+        "original": "self.stdoffset = timedelta(hours=hours)",
+        "mutated": "self.stdoffset = None",
+        "status": "survived"
+      },
+      {
+        "line": 552,
+        "original": "self.stdoffset = timedelta(hours=hours)",
+        "mutated": "self.stdoffset = timedelta(hours=None)",
+        "status": "survived"
+      },
+      {
+        "line": 553,
+        "original": "self.reprname = reprname",
+        "mutated": "self.reprname = None",
+        "status": "survived"
+      },
+      {
+        "line": 554,
+        "original": "self.stdname = stdname",
+        "mutated": "self.stdname = None",
+        "status": "survived"
+      },
+      {
+        "line": 555,
+        "original": "self.dstname = dstname",
+        "mutated": "self.dstname = None",
+        "status": "survived"
+      },
+      {
+        "line": 570,
+        "original": "if year > 2006:",
+        "mutated": "if year >= 2006:",
+        "status": "survived"
+      },
+      {
+        "line": 570,
+        "original": "if year > 2006:",
+        "mutated": "if year > 2007:",
+        "status": "survived"
+      },
+      {
+        "line": 572,
+        "original": "elif 1986 < year < 2007:",
+        "mutated": "elif 1987 < year < 2007:",
+        "status": "survived"
+      },
+      {
+        "line": 572,
+        "original": "elif 1986 < year < 2007:",
+        "mutated": "elif 1986 <= year < 2007:",
+        "status": "survived"
+      },
+      {
+        "line": 572,
+        "original": "elif 1986 < year < 2007:",
+        "mutated": "elif 1986 < year <= 2007:",
+        "status": "survived"
+      },
+      {
+        "line": 572,
+        "original": "elif 1986 < year < 2007:",
+        "mutated": "elif 1986 < year < 2008:",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "elif 1966 < year < 1987:",
+        "mutated": "elif 1967 < year < 1987:",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "elif 1966 < year < 1987:",
+        "mutated": "elif 1966 <= year < 1987:",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "elif 1966 < year < 1987:",
+        "mutated": "elif 1966 < year <= 1987:",
+        "status": "survived"
+      },
+      {
+        "line": 574,
+        "original": "elif 1966 < year < 1987:",
+        "mutated": "elif 1966 < year < 1988:",
+        "status": "survived"
+      },
+      {
+        "line": 599,
+        "original": "if start + HOUR <= dt < end - HOUR:",
+        "mutated": "if start - HOUR <= dt < end - HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 599,
+        "original": "if start + HOUR <= dt < end - HOUR:",
+        "mutated": "if start + HOUR < dt < end - HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 599,
+        "original": "if start + HOUR <= dt < end - HOUR:",
+        "mutated": "if start + HOUR <= dt <= end - HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 599,
+        "original": "if start + HOUR <= dt < end - HOUR:",
+        "mutated": "if start + HOUR <= dt < end + HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 601,
+        "original": "if end - HOUR <= dt < end:",
+        "mutated": "if end + HOUR <= dt < end:",
+        "status": "survived"
+      },
+      {
+        "line": 601,
+        "original": "if end - HOUR <= dt < end:",
+        "mutated": "if end - HOUR < dt < end:",
+        "status": "survived"
+      },
+      {
+        "line": 601,
+        "original": "if end - HOUR <= dt < end:",
+        "mutated": "if end - HOUR <= dt <= end:",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if (getattr(dt, 'fold', 0)) and False else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if (getattr(dt, 'fold', 0)) or True else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr(None, 'fold', 0) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr(dt, None, 0) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr(dt, 'fold', None) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr('fold', 0) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr(dt, 0) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr(dt, 'fold', ) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr(dt, 'XXfoldXX', 0) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr(dt, 'FOLD', 0) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 602,
+        "original": "return ZERO if getattr(dt, 'fold', 0) else HOUR",
+        "mutated": "return ZERO if getattr(dt, 'fold', 1) else HOUR",
+        "status": "survived"
+      },
+      {
+        "line": 603,
+        "original": "if start <= dt < start + HOUR:",
+        "mutated": "if start < dt < start + HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 603,
+        "original": "if start <= dt < start + HOUR:",
+        "mutated": "if start <= dt <= start + HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 603,
+        "original": "if start <= dt < start + HOUR:",
+        "mutated": "if start <= dt < start - HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if (getattr(dt, 'fold', 0)) and False else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if (getattr(dt, 'fold', 0)) or True else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr(None, 'fold', 0) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr(dt, None, 0) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr(dt, 'fold', None) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr('fold', 0) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr(dt, 0) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr(dt, 'fold', ) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr(dt, 'XXfoldXX', 0) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr(dt, 'FOLD', 0) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 604,
+        "original": "return HOUR if getattr(dt, 'fold', 0) else ZERO",
+        "mutated": "return HOUR if getattr(dt, 'fold', 1) else ZERO",
+        "status": "survived"
+      },
+      {
+        "line": 609,
+        "original": "raise ValueError('fromutc: dt.tzinfo is not self')",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 609,
+        "original": "raise ValueError('fromutc: dt.tzinfo is not self')",
+        "mutated": "raise ValueError('XXfromutc: dt.tzinfo is not selfXX')",
+        "status": "survived"
+      },
+      {
+        "line": 609,
+        "original": "raise ValueError('fromutc: dt.tzinfo is not self')",
+        "mutated": "raise ValueError('FROMUTC: DT.TZINFO IS NOT SELF')",
+        "status": "survived"
+      },
+      {
+        "line": 620,
+        "original": "if end <= dst_time < end + HOUR:",
+        "mutated": "if end < dst_time < end + HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 620,
+        "original": "if end <= dst_time < end + HOUR:",
+        "mutated": "if end <= dst_time <= end + HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 620,
+        "original": "if end <= dst_time < end + HOUR:",
+        "mutated": "if end <= dst_time < end - HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 621,
+        "original": "return std_time.replace(fold=1)",
+        "mutated": "return std_time.replace(fold=None)",
+        "status": "survived"
+      },
+      {
+        "line": 621,
+        "original": "return std_time.replace(fold=1)",
+        "mutated": "return std_time.replace(fold=2)",
+        "status": "survived"
+      },
+      {
+        "line": 622,
+        "original": "if std_time < start or dst_time >= end:",
+        "mutated": "if std_time < start and dst_time >= end:",
+        "status": "survived"
+      },
+      {
+        "line": 622,
+        "original": "if std_time < start or dst_time >= end:",
+        "mutated": "if std_time <= start or dst_time >= end:",
+        "status": "survived"
+      },
+      {
+        "line": 622,
+        "original": "if std_time < start or dst_time >= end:",
+        "mutated": "if std_time < start or dst_time > end:",
+        "status": "survived"
+      },
+      {
+        "line": 624,
+        "original": "if start <= std_time < end - HOUR:",
+        "mutated": "if start < std_time < end - HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 624,
+        "original": "if start <= std_time < end - HOUR:",
+        "mutated": "if start <= std_time <= end - HOUR:",
+        "status": "survived"
+      },
+      {
+        "line": 624,
+        "original": "if start <= std_time < end - HOUR:",
+        "mutated": "if start <= std_time < end + HOUR:",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.25,
+    "coverage": 2.18,
+    "mutation": 15.49
+  }
+}

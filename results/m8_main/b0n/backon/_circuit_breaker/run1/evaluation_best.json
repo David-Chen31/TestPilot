@@ -1,0 +1,491 @@
+{
+  "target": "backon/_circuit_breaker.py",
+  "validity": {
+    "total": 42,
+    "valid": 42,
+    "valid_ids": [
+      "tests_testpilot/test__circuit_breaker_s5.py::test_state_enum_values",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_circuit_open_error_is_exception",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_initial_state_and_counters",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_default_name_empty",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_record_failure_below_threshold_stays_closed",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_record_failure_reaches_threshold_opens",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_record_success_resets_failure_count_and_increments_successes",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_record_failure_resets_success_count",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_open_transitions_to_half_open_after_recovery_timeout",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_state_property_half_open_resets_half_open_calls",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_record_success_in_half_open_closes",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_success_returns_value_and_records",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_passes_args_and_kwargs",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_failure_records_and_reraises",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_opens_after_enough_failures",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_raises_when_open",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_base_exception_is_recorded_and_reraised",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_half_open_limits_calls",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_half_open_max_calls_exceeded",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_call_half_open_success_closes",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_async_call_success",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_async_call_failure_records",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_async_call_open_raises",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_async_call_half_open_closes_on_success",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_async_call_half_open_limit",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_dunder_call_delegates_to_call",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_context_manager_sync",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_context_manager_sync_does_not_record_on_exception",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_context_manager_async",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_default_creates_breaker",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_uses_provided_breaker",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_success",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_retries_until_success",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_failure_open_on_threshold",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_raises_when_open",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_half_open_success_closes",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_half_open_limit",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_async_success",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_async_failure",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_async_open_raises",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_async_half_open",
+      "tests_testpilot/test__circuit_breaker_s5.py::test_breaker_retrying_async_half_open_limit"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.36,
+        "passed": 42,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.32,
+        "passed": 42,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.34,
+        "passed": 42,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.5733333333333334,
+    "total": 150,
+    "killed": 86,
+    "survived": 64,
+    "excluded": 0,
+    "status_counts": {
+      "survived": 64,
+      "killed": 86
+    },
+    "survivors": [
+      {
+        "line": 41,
+        "original": "failure_threshold: int = 5,",
+        "mutated": "failure_threshold: int = 6,",
+        "status": "survived"
+      },
+      {
+        "line": 42,
+        "original": "recovery_timeout: float = 60.0,",
+        "mutated": "recovery_timeout: float = 61.0,",
+        "status": "survived"
+      },
+      {
+        "line": 43,
+        "original": "half_open_max_calls: int = 1,",
+        "mutated": "half_open_max_calls: int = 2,",
+        "status": "survived"
+      },
+      {
+        "line": 53,
+        "original": "self._last_failure_time = 0.0",
+        "mutated": "self._last_failure_time = None",
+        "status": "survived"
+      },
+      {
+        "line": 53,
+        "original": "self._last_failure_time = 0.0",
+        "mutated": "self._last_failure_time = 1.0",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "self._half_open_calls = 0",
+        "mutated": "self._half_open_calls = None",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "self._half_open_calls = 0",
+        "mutated": "self._half_open_calls = 1",
+        "status": "survived"
+      },
+      {
+        "line": 103,
+        "original": "self._half_open_calls += 1",
+        "mutated": "self._half_open_calls = 1",
+        "status": "survived"
+      },
+      {
+        "line": 103,
+        "original": "self._half_open_calls += 1",
+        "mutated": "self._half_open_calls -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 103,
+        "original": "self._half_open_calls += 1",
+        "mutated": "self._half_open_calls += 2",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "raise CircuitOpenError(self._name)",
+        "mutated": "raise CircuitOpenError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "self._half_open_calls += 1",
+        "mutated": "self._half_open_calls = 1",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "self._half_open_calls += 1",
+        "mutated": "self._half_open_calls -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 122,
+        "original": "self._half_open_calls += 1",
+        "mutated": "self._half_open_calls += 2",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "return self.call(fn, *args, **kwargs)",
+        "mutated": "return self.call(fn, *args, )",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "logger: _MaybeLogger = \"backon\",",
+        "mutated": "logger: _MaybeLogger = \"XXbackonXX\",",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "logger: _MaybeLogger = \"backon\",",
+        "mutated": "logger: _MaybeLogger = \"BACKON\",",
+        "status": "survived"
+      },
+      {
+        "line": 172,
+        "original": "enabled: bool = True,",
+        "mutated": "enabled: bool = False,",
+        "status": "survived"
+      },
+      {
+        "line": 173,
+        "original": "name: str = \"\",",
+        "mutated": "name: str = \"XXXX\",",
+        "status": "survived"
+      },
+      {
+        "line": 182,
+        "original": "max_time=max_time,",
+        "mutated": "max_time=None,",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "jitter=jitter,",
+        "mutated": "jitter=None,",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "giveup=giveup,",
+        "mutated": "giveup=None,",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "condition=condition,",
+        "mutated": "condition=None,",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "stop=stop,",
+        "mutated": "stop=None,",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "on_success=on_success,",
+        "mutated": "on_success=None,",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "on_backoff=on_backoff,",
+        "mutated": "on_backoff=None,",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "on_giveup=on_giveup,",
+        "mutated": "on_giveup=None,",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "on_attempt=on_attempt,",
+        "mutated": "on_attempt=None,",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "before_sleep=before_sleep,",
+        "mutated": "before_sleep=None,",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "retry_error_callback=retry_error_callback,",
+        "mutated": "retry_error_callback=None,",
+        "status": "survived"
+      },
+      {
+        "line": 194,
+        "original": "logger=logger,",
+        "mutated": "logger=None,",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "sleep=sleep,",
+        "mutated": "sleep=None,",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "enabled=enabled,",
+        "mutated": "enabled=None,",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "name=name,",
+        "mutated": "name=None,",
+        "status": "survived"
+      },
+      {
+        "line": 178,
+        "original": "wait_gen,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 179,
+        "original": "predicate=predicate,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 182,
+        "original": "max_time=max_time,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 183,
+        "original": "jitter=jitter,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "giveup=giveup,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "condition=condition,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "stop=stop,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "on_success=on_success,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 188,
+        "original": "on_backoff=on_backoff,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "on_giveup=on_giveup,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 190,
+        "original": "on_attempt=on_attempt,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 191,
+        "original": "before_sleep=before_sleep,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "retry_error_callback=retry_error_callback,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 193,
+        "original": "raise_on_giveup=raise_on_giveup,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 194,
+        "original": "logger=logger,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 195,
+        "original": "backoff_log_level=backoff_log_level,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 196,
+        "original": "giveup_log_level=giveup_log_level,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "sleep=sleep,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 198,
+        "original": "enabled=enabled,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 199,
+        "original": "name=name,",
+        "mutated": "",
+        "status": "survived"
+      },
+      {
+        "line": 200,
+        "original": "**wait_gen_kwargs,\n    )",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "self._breaker._half_open_calls += 1",
+        "mutated": "self._breaker._half_open_calls = 1",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "self._breaker._half_open_calls += 1",
+        "mutated": "self._breaker._half_open_calls -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 215,
+        "original": "self._breaker._half_open_calls += 1",
+        "mutated": "self._breaker._half_open_calls += 2",
+        "status": "survived"
+      },
+      {
+        "line": 222,
+        "original": "return cast(R, result)",
+        "mutated": "return cast(None, result)",
+        "status": "survived"
+      },
+      {
+        "line": 233,
+        "original": "raise CircuitOpenError(self._breaker.name)",
+        "mutated": "raise CircuitOpenError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 234,
+        "original": "self._breaker._half_open_calls += 1",
+        "mutated": "self._breaker._half_open_calls = 1",
+        "status": "survived"
+      },
+      {
+        "line": 234,
+        "original": "self._breaker._half_open_calls += 1",
+        "mutated": "self._breaker._half_open_calls -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 234,
+        "original": "self._breaker._half_open_calls += 1",
+        "mutated": "self._breaker._half_open_calls += 2",
+        "status": "survived"
+      },
+      {
+        "line": 241,
+        "original": "return cast(R, result)",
+        "mutated": "return cast(None, result)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.03,
+    "coverage": 2.48,
+    "mutation": 12.97
+  }
+}

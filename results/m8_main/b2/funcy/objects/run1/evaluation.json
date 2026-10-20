@@ -1,0 +1,118 @@
+{
+  "target": "funcy/objects.py",
+  "validity": {
+    "total": 41,
+    "valid": 41,
+    "valid_ids": [
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_access_on_class_returns_descriptor",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_none",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_under_fget_name",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_fget_receives_instance",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises_even_when_cached",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_is_subclass_of_cached_property",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_type_passed_to_fget_on_first_access",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_super_get_receives_instance_and_type",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_super_get_type_is_owning_class",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_get",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_set",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_property_delete",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_no_set_when_prop_has_none",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_get_matches_plain_property",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_get_descriptor_via_class_returns_wrapper",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_get_passes_exact_instance_and_type_to_prop",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_with_name",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_class_strips_prefix",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_without_prefix_keeps_name",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_overwrites_existing_property_with_function",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_explicit_name_and_func",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_non_class_raises",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_returns_value",
+      "tests_testpilot/test_objects.py::TestMonkey::test_original_set_to_none_for_new",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_value",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_with_property_original_refers_to_existing",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_property_func_name_from_fget",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_init_on_attribute_access",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_class_rewritten_after_setup",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_setattr_triggers_setup",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_init_stores_init",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_on_object_with_dict",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_setup_only_once"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.32,
+        "passed": 41,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.24,
+        "passed": 41,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.33,
+        "passed": 41,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.9809523809523809,
+    "total": 105,
+    "killed": 103,
+    "survived": 2,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 103,
+      "survived": 2
+    },
+    "survivors": [
+      {
+        "line": 34,
+        "original": "return super().__get__(instance, type)",
+        "mutated": "return super().__get__(instance, None)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return super().__get__(instance, type)",
+        "mutated": "return super().__get__(instance, )",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.91,
+    "coverage": 2.4,
+    "mutation": 7.5
+  }
+}

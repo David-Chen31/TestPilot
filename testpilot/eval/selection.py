@@ -33,7 +33,7 @@ def union_files(rows: Sequence[dict]) -> list[str]:
     """并集只纳入单独筛查时至少有 1 个有效测试的样本文件。
 
     同一次 pytest 运行里任何一个文件收集失败（语法错误、导入失败），pytest 都会中断整个会话、
-    一个测试都不跑——M8 第一版 union 因此在 15 个目标上被一份坏样本拖成 0 个有效测试（docs/design.md §7.5）。
+    一个测试都不跑——M8 第一版 union 因此在 16 个目标上被坏样本拖成 0 个有效测试（docs/design.md §7.5）。
     这样的文件单独筛查时有效测试数就是 0，排除它们不改变“各样本有效测试的并集”这个定义。
     """
     return [r["file"] for r in rows if r["tests_valid"] > 0]

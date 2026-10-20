@@ -1,0 +1,1155 @@
+{
+  "target": "sqlparse/engine/grouping.py",
+  "validity": {
+    "total": 327,
+    "valid": 99,
+    "valid_ids": [
+      "tests_testpilot/test_grouping_s1.py::test_group_brackets_unbalanced",
+      "tests_testpilot/test_grouping_s1.py::test_group_parenthesis",
+      "tests_testpilot/test_grouping_s1.py::test_group_parenthesis_nested",
+      "tests_testpilot/test_grouping_s1.py::test_group_parenthesis_unbalanced_close",
+      "tests_testpilot/test_grouping_s1.py::test_group_case",
+      "tests_testpilot/test_grouping_s1.py::test_group_for",
+      "tests_testpilot/test_grouping_s1.py::test_group_begin",
+      "tests_testpilot/test_grouping_s1.py::test_group_typecasts",
+      "tests_testpilot/test_grouping_s1.py::test_group_typed_literal_no_match",
+      "tests_testpilot/test_grouping_s1.py::test_group_period",
+      "tests_testpilot/test_grouping_s1.py::test_group_as",
+      "tests_testpilot/test_grouping_s1.py::test_group_as_null_prev",
+      "tests_testpilot/test_grouping_s1.py::test_group_as_invalid_next",
+      "tests_testpilot/test_grouping_s1.py::test_group_assignment",
+      "tests_testpilot/test_grouping_s1.py::test_group_assignment_no_semicolon",
+      "tests_testpilot/test_grouping_s1.py::test_group_comparison",
+      "tests_testpilot/test_grouping_s1.py::test_group_identifier_name",
+      "tests_testpilot/test_grouping_s1.py::test_group_identifier_none",
+      "tests_testpilot/test_grouping_s1.py::test_group_arrays",
+      "tests_testpilot/test_grouping_s1.py::test_group_operator",
+      "tests_testpilot/test_grouping_s1.py::test_group_operator_current_date",
+      "tests_testpilot/test_grouping_s1.py::test_group_identifier_list",
+      "tests_testpilot/test_grouping_s1.py::test_group_identifier_list_null_role",
+      "tests_testpilot/test_grouping_s1.py::test_group_where",
+      "tests_testpilot/test_grouping_s1.py::test_group_where_to_end",
+      "tests_testpilot/test_grouping_s1.py::test_group_aliased",
+      "tests_testpilot/test_grouping_s1.py::test_group_functions",
+      "tests_testpilot/test_grouping_s1.py::test_group_functions_create_table_no_as",
+      "tests_testpilot/test_grouping_s1.py::test_group_functions_with_over",
+      "tests_testpilot/test_grouping_s1.py::test_group_order",
+      "tests_testpilot/test_grouping_s1.py::test_group_order_number",
+      "tests_testpilot/test_grouping_s1.py::test_align_comments",
+      "tests_testpilot/test_grouping_s1.py::test_group_values",
+      "tests_testpilot/test_grouping_s1.py::test_group_values_none",
+      "tests_testpilot/test_grouping_s1.py::test_group_pipeline_simple",
+      "tests_testpilot/test_grouping_s1.py::test_group_pipeline_complex",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_empty",
+      "tests_testpilot/test_grouping_s2.py::TestAlignComments::test_simple",
+      "tests_testpilot/test_grouping_s2.py::TestModuleConstants::test_t_numerical",
+      "tests_testpilot/test_grouping_s2.py::TestModuleConstants::test_t_string",
+      "tests_testpilot/test_grouping_s2.py::TestModuleConstants::test_t_name",
+      "tests_testpilot/test_grouping_s3.py::test_group_pipeline_function_call",
+      "tests_testpilot/test_grouping_s3.py::test_group_pipeline_typed_literal",
+      "tests_testpilot/test_grouping_s3.py::test_group_pipeline_case",
+      "tests_testpilot/test_grouping_s3.py::test_group_pipeline_identifier_list",
+      "tests_testpilot/test_grouping_s4.py::test_group_brackets_unbalanced_skipped",
+      "tests_testpilot/test_grouping_s4.py::test_group_matching_token_limit",
+      "tests_testpilot/test_grouping_s4.py::test_group_typecasts_no_cast",
+      "tests_testpilot/test_grouping_s4.py::test_group_tzcasts_invalid_next",
+      "tests_testpilot/test_grouping_s4.py::test_group_period_invalid_prev",
+      "tests_testpilot/test_grouping_s4.py::test_group_as_keyword_prev_rejected",
+      "tests_testpilot/test_grouping_s4.py::test_group_assignment_keyword_rejected",
+      "tests_testpilot/test_grouping_s4.py::test_group_comments_trailing_only_does_not_loop_forever",
+      "tests_testpilot/test_grouping_s4.py::test_group_functions_create_table_skipped",
+      "tests_testpilot/test_grouping_s4.py::test_group_values_no_parenthesis",
+      "tests_testpilot/test_grouping_s4.py::test_group_token_limit",
+      "tests_testpilot/test_grouping_s4.py::test_group_end_to_end",
+      "tests_testpilot/test_grouping_s4.py::test_group_returns_same_object",
+      "tests_testpilot/test_grouping_s5.py::TestGroupBrackets::test_unbalanced_open_bracket_not_grouped",
+      "tests_testpilot/test_grouping_s5.py::TestGroupBrackets::test_unbalanced_close_bracket_not_grouped",
+      "tests_testpilot/test_grouping_s5.py::TestGroupParenthesis::test_parenthesis_grouped",
+      "tests_testpilot/test_grouping_s5.py::TestGroupParenthesis::test_nested_parenthesis",
+      "tests_testpilot/test_grouping_s5.py::TestGroupParenthesis::test_unbalanced_close",
+      "tests_testpilot/test_grouping_s5.py::TestGroupCase::test_simple_case",
+      "tests_testpilot/test_grouping_s5.py::TestGroupCase::test_no_case",
+      "tests_testpilot/test_grouping_s5.py::TestGroupFor::test_for_grouped",
+      "tests_testpilot/test_grouping_s5.py::TestGroupBegin::test_begin_grouped",
+      "tests_testpilot/test_grouping_s5.py::TestGroupTypecasts::test_typecast",
+      "tests_testpilot/test_grouping_s5.py::TestGroupTzcasts::test_tzcast_keyword",
+      "tests_testpilot/test_grouping_s5.py::TestGroupPeriod::test_dot_identifier",
+      "tests_testpilot/test_grouping_s5.py::TestGroupPeriod::test_arrow_operator",
+      "tests_testpilot/test_grouping_s5.py::TestGroupAs::test_as_alias",
+      "tests_testpilot/test_grouping_s5.py::TestGroupAs::test_as_with_null_prev",
+      "tests_testpilot/test_grouping_s5.py::TestGroupAssignment::test_assignment",
+      "tests_testpilot/test_grouping_s5.py::TestGroupComparison::test_comparison",
+      "tests_testpilot/test_grouping_s5.py::TestGroupIdentifier::test_name",
+      "tests_testpilot/test_grouping_s5.py::TestGroupArrays::test_arrays",
+      "tests_testpilot/test_grouping_s5.py::TestGroupOperator::test_arithmetic_operation",
+      "tests_testpilot/test_grouping_s5.py::TestGroupIdentifierList::test_comma_list",
+      "tests_testpilot/test_grouping_s5.py::TestGroupComments::test_comment_at_end_terminates",
+      "tests_testpilot/test_grouping_s5.py::TestGroupComments::test_trailing_comments_no_terminator",
+      "tests_testpilot/test_grouping_s5.py::TestGroupWhere::test_where_grouped",
+      "tests_testpilot/test_grouping_s5.py::TestGroupAliased::test_aliased",
+      "tests_testpilot/test_grouping_s5.py::TestGroupFunctions::test_function_call",
+      "tests_testpilot/test_grouping_s5.py::TestGroupFunctions::test_create_table_skipped",
+      "tests_testpilot/test_grouping_s5.py::TestGroupOrder::test_order",
+      "tests_testpilot/test_grouping_s5.py::TestGroupOrder::test_order_number",
+      "tests_testpilot/test_grouping_s5.py::TestAlignComments::test_align",
+      "tests_testpilot/test_grouping_s5.py::TestGroupValues::test_values",
+      "tests_testpilot/test_grouping_s5.py::TestGroupValues::test_no_values",
+      "tests_testpilot/test_grouping_s5.py::TestGroupPipeline::test_group_returns_stmt",
+      "tests_testpilot/test_grouping_s5.py::TestGroupPipeline::test_group_nested_select",
+      "tests_testpilot/test_grouping_s5.py::TestGroupPipeline::test_group_function_call",
+      "tests_testpilot/test_grouping_s5.py::TestGroupPipeline::test_full_statement_types",
+      "tests_testpilot/test_grouping_s5.py::TestLimits::test_limits_none_disable",
+      "tests_testpilot/test_grouping_s8.py::test_group_tzcasts_invalid_next",
+      "tests_testpilot/test_grouping_s8.py::test_group_matching_recurses_into_group",
+      "tests_testpilot/test_grouping_s8.py::test_group_matching_skips_whitespace",
+      "tests_testpilot/test_grouping_s8.py::test_token_type_constants"
+    ],
+    "invalid": {
+      "tests_testpilot/test_grouping_s1.py::test_group_brackets": "run 1: failed: assert 0 == 1",
+      "tests_testpilot/test_grouping_s1.py::test_group_if": "run 1: failed: assert 0 == 1",
+      "tests_testpilot/test_grouping_s1.py::test_group_typecasts_no_match": "run 1: failed: assert not True",
+      "tests_testpilot/test_grouping_s1.py::test_group_tzcasts": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s1.py::test_group_tzcasts_no_match": "run 1: failed: assert not True",
+      "tests_testpilot/test_grouping_s1.py::test_group_typed_literal_date": "run 1: failed: assert 0 == 1",
+      "tests_testpilot/test_grouping_s1.py::test_group_period_invalid_next": "run 1: failed: AssertionError: assert '.' not in 'a.'",
+      "tests_testpilot/test_grouping_s1.py::test_group_comparison_null": "run 1: failed: assert 0 == 1",
+      "tests_testpilot/test_grouping_s1.py::test_group_over": "run 1: failed: assert 0 == 1",
+      "tests_testpilot/test_grouping_s1.py::test_group_over_no_parenthesis": "run 1: failed: assert not True",
+      "tests_testpilot/test_grouping_s1.py::test_group_comments_multiline": "run 1: failed: assert 0 == 1",
+      "tests_testpilot/test_grouping_s1.py::test_group_comments_trailing": "run 1: failed: assert 0 == 1",
+      "tests_testpilot/test_grouping_s1.py::test_max_depth_exceeded_group_matching": "run 1: failed: sqlparse.exceptions.SQLParseError: Maximum grouping depth exceeded (-1).",
+      "tests_testpilot/test_grouping_s1.py::test_max_depth_exceeded_group": "run 1: failed: sqlparse.exceptions.SQLParseError: Maximum grouping depth exceeded (-1).",
+      "tests_testpilot/test_grouping_s1.py::test_max_tokens_exceeded_group_matching": "run 1: failed: sqlparse.exceptions.SQLParseError: Maximum number of tokens exceeded (0).",
+      "tests_testpilot/test_grouping_s1.py::test_max_tokens_exceeded_group": "run 1: failed: sqlparse.exceptions.SQLParseError: Maximum number of tokens exceeded (0).",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_group_brackets": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_group_parenthesis": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_group_nested_parenthesis": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_group_case": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_group_if": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_group_for": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_group_begin": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatching::test_unbalanced_close_ignored": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatchingLimits::test_max_depth_exceeded": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupMatchingLimits::test_max_tokens_exceeded": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupTypecasts::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupTzcasts::test_with_as": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupTypedLiteral::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupPeriod::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupPeriod::test_no_valid_prev": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupAs::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupAssignment::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupComparison::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupComparison::test_null": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupIdentifier::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupOver::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupArrays::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupOperator::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupOperator::test_current_date": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupIdentifierList::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupComments::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupComments::test_only_comment": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupWhere::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupWhere::test_no_terminator": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupAliased::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupFunctions::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupFunctions::test_create_table_skipped": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupFunctions::test_with_over": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupOrder::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupOrder::test_without_identifier": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupValues::test_simple": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupLimits::test_group_depth_exceeded": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupLimits::test_group_tokens_exceeded": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupPipeline::test_returns_same_object": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s2.py::TestGroupPipeline::test_no_exception_on_basic_sql": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s3.py::test_group_brackets_simple": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_parenthesis_simple": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_parenthesis_nested": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_parenthesis_unbalanced_close_ignored": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_parenthesis_unbalanced_open_ignored": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_case": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_if": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_for": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_begin": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_matching_recurses_into_other_group": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_matching_max_depth": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_matching_max_tokens": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_typecasts": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_typecasts_no_prev_ignored": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_tzcasts_with_whitespace_next": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_tzcasts_with_as_next": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_tzcasts_invalid_next_unchanged": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_typed_literal": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_typed_literal_extend": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_period_dot": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_period_arrow": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_period_arrow_double": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_period_invalid_prev_unchanged": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_period_invalid_next_unchanged": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_as": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_as_null_prev": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_as_invalid_next_dml": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_assignment": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_assignment_semicolon_terminates": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_assignment_keyword_next_rejected": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_comparison": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_comparison_null": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_comparison_invalid_prev": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_identifier": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_identifier_recurses": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_over": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_over_with_name": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_over_no_next": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_arrays": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_arrays_invalid_prev": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_operator": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_operator_current_date": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_operator_no_prev": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_identifier_list": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_identifier_list_extends": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_identifier_list_invalid": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_comments": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_comments_trailing_without_terminator": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_where_basic": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_where_no_close": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_aliased": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_aliased_no_identifier_next": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_functions": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_functions_with_over": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_functions_create_table": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_functions_create_table_as": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_functions_no_parenthesis": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_order": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_order_with_number": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_order_no_prev": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_align_comments": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_align_comments_no_prev": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_values": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_values_no_parenthesis": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_values_no_values_keyword": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_func_max_depth": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_func_max_tokens": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_func_without_post_keeps_tidx_offset": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_func_recurses_into_groups": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s3.py::test_group_pipeline_simple_select": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s3.py::test_group_returns_same_object": "run 1: failed: TypeError: '_TokenType' object is not callable",
+      "tests_testpilot/test_grouping_s4.py::test_group_brackets_basic": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_parenthesis_basic": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_parenthesis_nested": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_matching_recurses_into_existing_groups": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_matching_depth_limit": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_case_basic": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_if_basic": "run 1: failed: AssertionError: assert 3 == 1",
+      "tests_testpilot/test_grouping_s4.py::test_group_for_basic": "run 1: failed: AssertionError: assert 3 == 1",
+      "tests_testpilot/test_grouping_s4.py::test_group_begin_basic": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_typecasts": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_tzcasts_with_as": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_typed_literal_basic": "run 1: failed: AssertionError: assert 3 == 1",
+      "tests_testpilot/test_grouping_s4.py::test_group_period": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_period_json_operator": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_as": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_assignment": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_assignment_with_semicolon": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_comparison": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_comparison_null": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_identifier": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_over": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_over_no_parenthesis": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_arrays": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_operator": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_operator_current_date": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_identifier_list": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_comments_basic": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_where": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_aliased": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s4.py::test_group_functions_basic": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_functions_create_table_with_as": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_order": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s4.py::test_align_comments": "run 1: failed: TypeError: 'tuple' object does not support item deletion",
+      "tests_testpilot/test_grouping_s4.py::test_align_comments_no_prev_token_list": "run 1: failed: assert not True",
+      "tests_testpilot/test_grouping_s4.py::test_group_values": "run 1: failed: TypeError: 'tuple' object does not support item assignment",
+      "tests_testpilot/test_grouping_s4.py::test_group_depth_limit": "run 1: failed: TypeError: 'NoneType' object is not callable",
+      "tests_testpilot/test_grouping_s5.py::TestGroupBrackets::test_brackets_grouped": "run 1: failed: AssertionError: assert False",
+      "tests_testpilot/test_grouping_s5.py::TestGroupBrackets::test_nested_brackets": "run 1: failed: AssertionError: assert False",
+      "tests_testpilot/test_grouping_s5.py::TestGroupIf::test_if_grouped": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s5.py::TestGroupTypedLiteral::test_string_typed_literal": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s5.py::TestGroupTypedLiteral::test_typed_literal_extend": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s5.py::TestGroupOver::test_over": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s5.py::TestGroupComments::test_single_line_comment": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s5.py::TestGroupPipeline::test_group_empty": "run 1: failed: IndexError: tuple index out of range",
+      "tests_testpilot/test_grouping_s5.py::TestLimits::test_max_grouping_depth": "run 1: failed: sqlparse.exceptions.SQLParseError: Maximum grouping depth exceeded (1).",
+      "tests_testpilot/test_grouping_s5.py::TestLimits::test_max_grouping_tokens": "run 1: failed: sqlparse.exceptions.SQLParseError: Maximum number of tokens exceeded (2).",
+      "tests_testpilot/test_grouping_s5.py::TestLimits::test_max_grouping_tokens_group": "run 1: failed: sqlparse.exceptions.SQLParseError: Maximum number of tokens exceeded (2).",
+      "tests_testpilot/test_grouping_s5.py::TestLimits::test_depth_limit_group": "run 1: failed: sqlparse.exceptions.SQLParseError: Maximum grouping depth exceeded (1).",
+      "tests_testpilot/test_grouping_s8.py::test_group_brackets": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_parenthesis": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_parenthesis_unbalanced_close": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_parenthesis_unbalanced_open": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_parenthesis_nested": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_case": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_if": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_for": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_begin": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_typecasts": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_typecasts_no_match": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_tzcasts": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s8.py::test_group_tzcasts_valid_next_whitespace": "run 1: failed: assert False",
+      "tests_testpilot/test_grouping_s8.py::test_group_typed_literal": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_typed_literal_extend": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_period": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_period_arrow": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_as": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_as_null_prev": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_assignment": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_assignment_semicolon": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_comparison": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_comparison_null": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_identifier": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_identifier_symbol": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_over": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_over_name_next": "run 1: failed: assert not True",
+      "tests_testpilot/test_grouping_s8.py::test_group_arrays": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_operator": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_operator_wildcard": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_identifier_list": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_identifier_list_no_match": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_comments": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_comments_only_comments": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_where": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_where_unterminated": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_aliased": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_functions": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_functions_create_table_no_as": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_functions_with_over": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_order": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_order_number": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_align_comments": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_values": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_values_no_values": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_main": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_group_function": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_max_grouping_depth_exceeded": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_max_grouping_depth_group": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_max_grouping_tokens_exceeded": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_max_grouping_tokens_group": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_max_grouping_depth_disabled": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'",
+      "tests_testpilot/test_grouping_s8.py::test_max_grouping_tokens_disabled": "run 1: failed: AttributeError: 'tuple' object has no attribute 'parent'"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 11.81,
+        "passed": 99,
+        "failed": 228,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 12.87,
+        "passed": 99,
+        "failed": 228,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 13.74,
+        "passed": 99,
+        "failed": 228,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9898305084745763,
+  "branch_rate": 0.9523809523809523,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.744466800804829,
+    "total": 497,
+    "killed": 370,
+    "survived": 127,
+    "excluded": 0,
+    "status_counts": {
+      "survived": 127,
+      "killed": 370
+    },
+    "survivors": [
+      {
+        "line": 27,
+        "original": "def _group_matching(tlist, cls, depth=0):",
+        "mutated": "def _group_matching(tlist, cls, depth=1):",
+        "status": "survived"
+      },
+      {
+        "line": 29,
+        "original": "if MAX_GROUPING_DEPTH is not None and depth > MAX_GROUPING_DEPTH:",
+        "mutated": "if MAX_GROUPING_DEPTH is not None and depth >= MAX_GROUPING_DEPTH:",
+        "status": "survived"
+      },
+      {
+        "line": 31,
+        "original": "f\"Maximum grouping depth exceeded ({MAX_GROUPING_DEPTH}).\"",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 36,
+        "original": "and len(tlist.tokens) > MAX_GROUPING_TOKENS:",
+        "mutated": "and len(tlist.tokens) >= MAX_GROUPING_TOKENS:",
+        "status": "survived"
+      },
+      {
+        "line": 38,
+        "original": "f\"Maximum number of tokens exceeded ({MAX_GROUPING_TOKENS}).\"",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "_group_matching(token, cls, depth + 1)",
+        "mutated": "_group_matching(token, cls, )",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "_group_matching(token, cls, depth + 1)",
+        "mutated": "_group_matching(token, cls, depth - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 58,
+        "original": "_group_matching(token, cls, depth + 1)",
+        "mutated": "_group_matching(token, cls, depth + 2)",
+        "status": "survived"
+      },
+      {
+        "line": 70,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 73,
+        "original": "tidx_offset += close_idx - open_idx",
+        "mutated": "tidx_offset = close_idx - open_idx",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "return token is not None",
+        "mutated": "return token is None",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')\n            or token.match(*sql.TypedLiteral.M_CLOSE)",
+        "mutated": "or token.match(T.Keyword, 'AS') and token.match(*sql.TypedLiteral.M_CLOSE)",
+        "status": "survived"
+      },
+      {
+        "line": 123,
+        "original": "token.is_whitespace\n            or token.match(T.Keyword, 'AS')",
+        "mutated": "token.is_whitespace and token.match(T.Keyword, 'AS')",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(None, 'AS')",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(T.Keyword, None)",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(T.Keyword, 'XXASXX')",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "or token.match(T.Keyword, 'AS')",
+        "mutated": "or token.match(T.Keyword, 'as')",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, post)",
+        "mutated": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, None)",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, post)",
+        "mutated": "_group(tlist, sql.Identifier, match, valid_next, post)",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, post)",
+        "mutated": "_group(tlist, sql.Identifier, match, valid_prev, valid_next, )",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "post, extend=False)",
+        "mutated": "post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "post, extend=False)",
+        "mutated": "post, )",
+        "status": "survived"
+      },
+      {
+        "line": 159,
+        "original": "post, extend=False)",
+        "mutated": "post, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "None, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, valid_final,",
+        "mutated": "_group(tlist, sql.TypedLiteral, valid_prev, valid_final,",
+        "status": "survived"
+      },
+      {
+        "line": 160,
+        "original": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_prev, valid_final,",
+        "mutated": "_group(tlist, sql.TypedLiteral, match_to_extend, valid_final,",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "post, )",
+        "status": "survived"
+      },
+      {
+        "line": 161,
+        "original": "post, extend=True)",
+        "mutated": "post, extend=False)",
+        "status": "survived"
+      },
+      {
+        "line": 168,
+        "original": "(T.Operator, '->>')):",
+        "mutated": "(T.Operator, 'XX->>XX')):",
+        "status": "survived"
+      },
+      {
+        "line": 174,
+        "original": "sqlcls = sql.SquareBrackets, sql.Identifier",
+        "mutated": "sqlcls = None",
+        "status": "survived"
+      },
+      {
+        "line": 176,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, i=None, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 176,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 184,
+        "original": "sqlcls = sql.SquareBrackets, sql.Function",
+        "mutated": "sqlcls = None",
+        "status": "survived"
+      },
+      {
+        "line": 185,
+        "original": "ttypes = T.Name, T.String.Symbol, T.Wildcard, T.String.Single",
+        "mutated": "ttypes = None",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "next_ = tlist[nidx] if nidx is not None else None",
+        "mutated": "next_ = None",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "next_ = tlist[nidx] if nidx is not None else None",
+        "mutated": "next_ = tlist[nidx] if (nidx is not None) and False else None",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "next_ = tlist[nidx] if nidx is not None else None",
+        "mutated": "next_ = tlist[nidx] if (nidx is not None) or True else None",
+        "status": "survived"
+      },
+      {
+        "line": 186,
+        "original": "next_ = tlist[nidx] if nidx is not None else None",
+        "mutated": "next_ = tlist[nidx] if nidx is None else None",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = None",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(None, i=sqlcls, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(next_, i=None, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(next_, i=sqlcls, t=None)",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(next_, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 187,
+        "original": "valid_next = imt(next_, i=sqlcls, t=ttypes)",
+        "mutated": "valid_next = imt(next_, i=sqlcls, )",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "return (pidx, nidx) if valid_next else (pidx, tidx)",
+        "mutated": "return (pidx, nidx) if (valid_next) and False else (pidx, tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 189,
+        "original": "return (pidx, nidx) if valid_next else (pidx, tidx)",
+        "mutated": "return (pidx, nidx) if (valid_next) or True else (pidx, tidx)",
+        "status": "survived"
+      },
+      {
+        "line": 213,
+        "original": "return token.match(T.Assignment, ':=')",
+        "mutated": "return token.match(T.Assignment, None)",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "m_semicolon = T.Punctuation, ';'",
+        "mutated": "m_semicolon = None",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "m_semicolon = T.Punctuation, ';'",
+        "mutated": "m_semicolon = T.Punctuation, 'XX;XX'",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "snidx, _ = tlist.token_next_by(m=m_semicolon, idx=nidx)",
+        "mutated": "snidx, _ = tlist.token_next_by(m=None, idx=nidx)",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "snidx, _ = tlist.token_next_by(m=m_semicolon, idx=nidx)",
+        "mutated": "snidx, _ = tlist.token_next_by(idx=nidx)",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "snidx, _ = tlist.token_next_by(m=m_semicolon, idx=nidx)",
+        "mutated": "snidx, _ = tlist.token_next_by(m=m_semicolon, )",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'NULL'))",
+        "mutated": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword or token.normalized == 'NULL'))",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'NULL'))",
+        "mutated": "return bool(imt(token, t=ttypes, i=sqlcls) or (token or token.is_keyword and token.normalized == 'NULL'))",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'NULL'))",
+        "mutated": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized != 'NULL'))",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'NULL'))",
+        "mutated": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'XXNULLXX'))",
+        "status": "survived"
+      },
+      {
+        "line": 237,
+        "original": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'NULL'))",
+        "mutated": "return bool(imt(token, t=ttypes, i=sqlcls) or (token and token.is_keyword and token.normalized == 'null'))",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, )",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 268,
+        "original": "sqlcls = sql.SquareBrackets, sql.Identifier, sql.Function",
+        "mutated": "sqlcls = None",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "ttypes = T.Name, T.String.Symbol",
+        "mutated": "ttypes = None",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, i=None, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, t=None)",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 275,
+        "original": "return imt(token, i=sqlcls, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, )",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=None, recurse=False)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True, recurse=None)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, recurse=False)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True, )",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=False, recurse=False)",
+        "status": "survived"
+      },
+      {
+        "line": 284,
+        "original": "valid_prev, valid_next, post, extend=True, recurse=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True, recurse=True)",
+        "status": "survived"
+      },
+      {
+        "line": 297,
+        "original": "or (token and token.match(",
+        "mutated": "or (token or token.match(",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "None))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('current_date', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('CURRENT_DATE', 'XXCURRENT_TIMEXX', 'CURRENT_TIMESTAMP')))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('CURRENT_DATE', 'current_time', 'CURRENT_TIMESTAMP')))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('CURRENT_DATE', 'CURRENT_TIME', 'XXCURRENT_TIMESTAMPXX')))",
+        "status": "survived"
+      },
+      {
+        "line": 299,
+        "original": "('CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP')))",
+        "mutated": "('CURRENT_DATE', 'CURRENT_TIME', 'current_timestamp')))",
+        "status": "survived"
+      },
+      {
+        "line": 302,
+        "original": "tlist[tidx].ttype = T.Operator",
+        "mutated": "tlist[tidx].ttype = None",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, )",
+        "status": "survived"
+      },
+      {
+        "line": 307,
+        "original": "valid_prev, valid_next, post, extend=False)",
+        "mutated": "valid_prev, valid_next, post, extend=True)",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = None",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = T.Keyword, ('XXnullXX', 'role')",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = T.Keyword, ('NULL', 'role')",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = T.Keyword, ('null', 'XXroleXX')",
+        "status": "survived"
+      },
+      {
+        "line": 311,
+        "original": "m_role = T.Keyword, ('null', 'role')",
+        "mutated": "m_role = T.Keyword, ('null', 'ROLE')",
+        "status": "survived"
+      },
+      {
+        "line": 314,
+        "original": "ttypes = (T_NUMERICAL + T_STRING + T_NAME\n              + (T.Keyword, T.Comment, T.Wildcard))",
+        "mutated": "ttypes = None",
+        "status": "survived"
+      },
+      {
+        "line": 318,
+        "original": "return token.match(T.Punctuation, ',')",
+        "mutated": "return token.match(T.Punctuation, None)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return imt(token, i=sqlcls, m=m_role, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, m=None, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return imt(token, i=sqlcls, m=m_role, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, m=m_role, t=None)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return imt(token, i=sqlcls, m=m_role, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, t=ttypes)",
+        "status": "survived"
+      },
+      {
+        "line": 321,
+        "original": "return imt(token, i=sqlcls, m=m_role, t=ttypes)",
+        "mutated": "return imt(token, i=sqlcls, m=m_role, )",
+        "status": "survived"
+      },
+      {
+        "line": 328,
+        "original": "valid_prev, valid_next, post, extend=True)",
+        "mutated": "valid_prev, valid_next, post, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 328,
+        "original": "valid_prev, valid_next, post, extend=True)",
+        "mutated": "valid_prev, valid_next, post, )",
+        "status": "survived"
+      },
+      {
+        "line": 328,
+        "original": "valid_prev, valid_next, post, extend=True)",
+        "mutated": "valid_prev, valid_next, post, extend=False)",
+        "status": "survived"
+      },
+      {
+        "line": 431,
+        "original": "tidx, token = tlist.token_next_by(m=(T.Keyword, 'VALUES'))",
+        "mutated": "tidx, token = tlist.token_next_by(m=(T.Keyword, 'values'))",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=True)",
+        "mutated": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=True)",
+        "mutated": "tlist.group_tokens(sql.Values, start_idx, end_idx, )",
+        "status": "survived"
+      },
+      {
+        "line": 439,
+        "original": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=True)",
+        "mutated": "tlist.group_tokens(sql.Values, start_idx, end_idx, extend=False)",
+        "status": "survived"
+      },
+      {
+        "line": 482,
+        "original": "extend=True,",
+        "mutated": "extend=False,",
+        "status": "survived"
+      },
+      {
+        "line": 483,
+        "original": "recurse=True,",
+        "mutated": "recurse=False,",
+        "status": "survived"
+      },
+      {
+        "line": 484,
+        "original": "depth=0",
+        "mutated": "depth=1",
+        "status": "survived"
+      },
+      {
+        "line": 487,
+        "original": "if MAX_GROUPING_DEPTH is not None and depth > MAX_GROUPING_DEPTH:",
+        "mutated": "if MAX_GROUPING_DEPTH is not None and depth >= MAX_GROUPING_DEPTH:",
+        "status": "survived"
+      },
+      {
+        "line": 489,
+        "original": "f\"Maximum grouping depth exceeded ({MAX_GROUPING_DEPTH}).\"",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 494,
+        "original": "and len(tlist.tokens) > MAX_GROUPING_TOKENS:",
+        "mutated": "and len(tlist.tokens) >= MAX_GROUPING_TOKENS:",
+        "status": "survived"
+      },
+      {
+        "line": 496,
+        "original": "f\"Maximum number of tokens exceeded ({MAX_GROUPING_TOKENS}).\"",
+        "mutated": "None",
+        "status": "survived"
+      },
+      {
+        "line": 504,
+        "original": "tidx = idx - tidx_offset",
+        "mutated": "tidx = idx + tidx_offset",
+        "status": "survived"
+      },
+      {
+        "line": 506,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 511,
+        "original": "if recurse and token.is_group and not isinstance(token, cls):",
+        "mutated": "if recurse and token.is_group and isinstance(token, cls):",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, None, True, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, None, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, True, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, True, )",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, False, depth + 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, True, depth - 1)",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "post, extend, True, depth + 1)",
+        "mutated": "post, extend, True, depth + 2)",
+        "status": "survived"
+      },
+      {
+        "line": 519,
+        "original": "grp = tlist.group_tokens(cls, from_idx, to_idx, extend=extend)",
+        "mutated": "grp = tlist.group_tokens(cls, from_idx, to_idx, extend=None)",
+        "status": "survived"
+      },
+      {
+        "line": 519,
+        "original": "grp = tlist.group_tokens(cls, from_idx, to_idx, extend=extend)",
+        "mutated": "grp = tlist.group_tokens(cls, from_idx, to_idx, )",
+        "status": "survived"
+      },
+      {
+        "line": 521,
+        "original": "tidx_offset += to_idx - from_idx",
+        "mutated": "tidx_offset = to_idx - from_idx",
+        "status": "survived"
+      },
+      {
+        "line": 521,
+        "original": "tidx_offset += to_idx - from_idx",
+        "mutated": "tidx_offset -= to_idx - from_idx",
+        "status": "survived"
+      },
+      {
+        "line": 521,
+        "original": "tidx_offset += to_idx - from_idx",
+        "mutated": "tidx_offset += to_idx + from_idx",
+        "status": "survived"
+      },
+      {
+        "line": 523,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 38.63,
+    "coverage": 6.22,
+    "mutation": 47.48
+  }
+}

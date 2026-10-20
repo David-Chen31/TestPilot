@@ -1,0 +1,718 @@
+{
+  "target": "boltons/cacheutils.py",
+  "validity": {
+    "total": 64,
+    "valid": 64,
+    "valid_ids": [
+      "tests_testpilot/test_cacheutils.py::test_lri_basic_set_get_and_stats",
+      "tests_testpilot/test_cacheutils.py::test_lri_eviction_is_least_recently_inserted",
+      "tests_testpilot/test_cacheutils.py::test_lri_max_size_validation",
+      "tests_testpilot/test_cacheutils.py::test_lri_default_max_size",
+      "tests_testpilot/test_cacheutils.py::test_lri_on_miss_callable",
+      "tests_testpilot/test_cacheutils.py::test_lri_on_miss_must_be_callable",
+      "tests_testpilot/test_cacheutils.py::test_lri_update_and_initial_values",
+      "tests_testpilot/test_cacheutils.py::test_lri_setdefault",
+      "tests_testpilot/test_cacheutils.py::test_lri_delete_and_pop",
+      "tests_testpilot/test_cacheutils.py::test_lri_clear",
+      "tests_testpilot/test_cacheutils.py::test_lri_copy",
+      "tests_testpilot/test_cacheutils.py::test_lri_eq_and_ne",
+      "tests_testpilot/test_cacheutils.py::test_lri_eq_other_mapping",
+      "tests_testpilot/test_cacheutils.py::test_lri_eq_non_lri_same_length",
+      "tests_testpilot/test_cacheutils.py::test_lri_repr",
+      "tests_testpilot/test_cacheutils.py::test_lri_internal_flattened_ll",
+      "tests_testpilot/test_cacheutils.py::test_lru_eviction_is_least_recently_used",
+      "tests_testpilot/test_cacheutils.py::test_lru_stats",
+      "tests_testpilot/test_cacheutils.py::test_lru_on_miss",
+      "tests_testpilot/test_cacheutils.py::test_lru_setitem_updates_existing_value",
+      "tests_testpilot/test_cacheutils.py::test_make_cache_key_basic",
+      "tests_testpilot/test_cacheutils.py::test_make_cache_key_fast_type_single",
+      "tests_testpilot/test_cacheutils.py::test_make_cache_key_no_fasttype_returns_hashedkey",
+      "tests_testpilot/test_cacheutils.py::test_make_cache_key_typed",
+      "tests_testpilot/test_cacheutils.py::test_make_cache_key_typed_with_kwargs",
+      "tests_testpilot/test_cacheutils.py::test_make_cache_key_ordering_of_kwargs",
+      "tests_testpilot/test_cacheutils.py::test_hashed_key_hash_cached",
+      "tests_testpilot/test_cacheutils.py::test_cached_function_basic",
+      "tests_testpilot/test_cacheutils.py::test_cached_function_scoped",
+      "tests_testpilot/test_cacheutils.py::test_cached_function_not_scoped",
+      "tests_testpilot/test_cacheutils.py::test_cached_function_typed",
+      "tests_testpilot/test_cacheutils.py::test_cached_function_custom_key",
+      "tests_testpilot/test_cacheutils.py::test_cached_function_callable_cache",
+      "tests_testpilot/test_cacheutils.py::test_cached_invalid_cache",
+      "tests_testpilot/test_cacheutils.py::test_cached_function_repr",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_str_attr",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_dict_cache",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_callable_cache",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_invalid_cache",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_scoped_distinguishes_objects",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_unscoped_shares_cache",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_typed",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_custom_key",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_repr_unbound_and_bound",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_abstractmethod_flag",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_class_access_returns_descriptor",
+      "tests_testpilot/test_cacheutils.py::test_cachedmethod_bind_obj_misses_calls_func_with_bound",
+      "tests_testpilot/test_cacheutils.py::test_cachedproperty",
+      "tests_testpilot/test_cacheutils.py::test_cachedproperty_class_access",
+      "tests_testpilot/test_cacheutils.py::test_cachedproperty_doc_and_repr",
+      "tests_testpilot/test_cacheutils.py::test_cachedproperty_abstractmethod_flag",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_invalid_threshold",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_basic",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_update_list",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_update_mapping",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_update_none_with_kwargs",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_compaction",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_most_common",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_counts",
+      "tests_testpilot/test_cacheutils.py::test_threshold_counter_iterators",
+      "tests_testpilot/test_cacheutils.py::test_minidmap_get_and_unique_ids",
+      "tests_testpilot/test_cacheutils.py::test_minidmap_drop_and_reuse",
+      "tests_testpilot/test_cacheutils.py::test_minidmap_iter",
+      "tests_testpilot/test_cacheutils.py::test_minidmap_drop_unknown_raises"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.34,
+        "passed": 64,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.23,
+        "passed": 64,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.18,
+        "passed": 64,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9657701711491442,
+  "branch_rate": 0.9659090909090909,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8063241106719368,
+    "total": 506,
+    "killed": 408,
+    "survived": 98,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 408,
+      "survived": 90,
+      "no tests": 8
+    },
+    "survivors": [
+      {
+        "line": 118,
+        "original": "if max_size <= 0:",
+        "mutated": "if max_size <= 1:",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "raise ValueError('expected max_size > 0, not %r' % max_size)",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "raise ValueError('expected max_size > 0, not %r' % max_size)",
+        "mutated": "raise ValueError('XXexpected max_size > 0, not %rXX' % max_size)",
+        "status": "survived"
+      },
+      {
+        "line": 119,
+        "original": "raise ValueError('expected max_size > 0, not %r' % max_size)",
+        "mutated": "raise ValueError('EXPECTED MAX_SIZE > 0, NOT %R' % max_size)",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "raise TypeError('expected on_miss to be a callable'\n                        ' (or None), not %r' % on_miss)",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "' (or None), not %r' % on_miss)",
+        "mutated": "' (or None), not %r' / on_miss)",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "raise TypeError('expected on_miss to be a callable'",
+        "mutated": "raise TypeError('XXexpected on_miss to be a callableXX'",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "raise TypeError('expected on_miss to be a callable'",
+        "mutated": "raise TypeError('EXPECTED ON_MISS TO BE A CALLABLE'",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "' (or None), not %r' % on_miss)",
+        "mutated": "'XX (or None), not %rXX' % on_miss)",
+        "status": "survived"
+      },
+      {
+        "line": 127,
+        "original": "' (or None), not %r' % on_miss)",
+        "mutated": "' (or none), not %r' % on_miss)",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "print('***')",
+        "mutated": "print(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 151,
+        "original": "print('***')",
+        "mutated": "print('XX***XX')",
+        "status": "no tests"
+      },
+      {
+        "line": 153,
+        "original": "print(key, val)",
+        "mutated": "print(None, val)",
+        "status": "no tests"
+      },
+      {
+        "line": 153,
+        "original": "print(key, val)",
+        "mutated": "print(key, None)",
+        "status": "no tests"
+      },
+      {
+        "line": 153,
+        "original": "print(key, val)",
+        "mutated": "print(val)",
+        "status": "no tests"
+      },
+      {
+        "line": 153,
+        "original": "print(key, val)",
+        "mutated": "print(key, )",
+        "status": "no tests"
+      },
+      {
+        "line": 154,
+        "original": "print('***')",
+        "mutated": "print(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 154,
+        "original": "print('***')",
+        "mutated": "print('XX***XX')",
+        "status": "no tests"
+      },
+      {
+        "line": 180,
+        "original": "second_newest[NEXT] = anchor[PREV] = newest",
+        "mutated": "second_newest[NEXT] = anchor[PREV] = None",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "oldanchor[KEY] = key",
+        "mutated": "oldanchor[KEY] = None",
+        "status": "survived"
+      },
+      {
+        "line": 207,
+        "original": "anchor[KEY] = anchor[VALUE] = _MISSING",
+        "mutated": "anchor[KEY] = anchor[VALUE] = None",
+        "status": "survived"
+      },
+      {
+        "line": 216,
+        "original": "link[PREV][NEXT] = link[NEXT]",
+        "mutated": "link[PREV][NEXT] = None",
+        "status": "survived"
+      },
+      {
+        "line": 222,
+        "original": "link = self._get_link_and_move_to_front_of_ll(key)",
+        "mutated": "link = self._get_link_and_move_to_front_of_ll(None)",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "self.hit_count += 1",
+        "mutated": "self.hit_count = 1",
+        "status": "survived"
+      },
+      {
+        "line": 252,
+        "original": "self.soft_miss_count += 1",
+        "mutated": "self.soft_miss_count = 1",
+        "status": "survived"
+      },
+      {
+        "line": 292,
+        "original": "self.soft_miss_count += 1",
+        "mutated": "self.soft_miss_count = 1",
+        "status": "survived"
+      },
+      {
+        "line": 326,
+        "original": "val_map = super().__repr__()",
+        "mutated": "val_map = None",
+        "status": "survived"
+      },
+      {
+        "line": 327,
+        "original": "return ('%s(max_size=%r, on_miss=%r, values=%s)'",
+        "mutated": "return ('XX%s(max_size=%r, on_miss=%r, values=%s)XX'",
+        "status": "survived"
+      },
+      {
+        "line": 370,
+        "original": "self.miss_count += 1",
+        "mutated": "self.miss_count = 1",
+        "status": "survived"
+      },
+      {
+        "line": 376,
+        "original": "self.hit_count += 1",
+        "mutated": "self.hit_count = 1",
+        "status": "survived"
+      },
+      {
+        "line": 426,
+        "original": "key.append(kwarg_mark)",
+        "mutated": "key.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 432,
+        "original": "elif len(key) == 1 and type(key[0]) in fasttypes:",
+        "mutated": "elif len(key) == 1 and type(None) in fasttypes:",
+        "status": "survived"
+      },
+      {
+        "line": 448,
+        "original": "elif not (callable(getattr(cache, '__getitem__', None))\n              and callable(getattr(cache, '__setitem__', None))):",
+        "mutated": "elif not (callable(getattr(cache, '__getitem__', None)) or callable(getattr(cache, '__setitem__', None))):",
+        "status": "survived"
+      },
+      {
+        "line": 449,
+        "original": "and callable(getattr(cache, '__setitem__', None))):",
+        "mutated": "and callable(getattr(cache, '__setitem__', ))):",
+        "status": "survived"
+      },
+      {
+        "line": 450,
+        "original": "raise TypeError('expected cache to be a dict-like object,'\n                        ' or callable returning a dict-like object, not %r'\n                        % cache)",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 451,
+        "original": "' or callable returning a dict-like object, not %r'\n                        % cache)",
+        "mutated": "' or callable returning a dict-like object, not %r' / cache)",
+        "status": "survived"
+      },
+      {
+        "line": 450,
+        "original": "raise TypeError('expected cache to be a dict-like object,'",
+        "mutated": "raise TypeError('XXexpected cache to be a dict-like object,XX'",
+        "status": "survived"
+      },
+      {
+        "line": 450,
+        "original": "raise TypeError('expected cache to be a dict-like object,'",
+        "mutated": "raise TypeError('EXPECTED CACHE TO BE A DICT-LIKE OBJECT,'",
+        "status": "survived"
+      },
+      {
+        "line": 451,
+        "original": "' or callable returning a dict-like object, not %r'",
+        "mutated": "'XX or callable returning a dict-like object, not %rXX'",
+        "status": "survived"
+      },
+      {
+        "line": 463,
+        "original": "key = self.key_func(args, kwargs, typed=self.typed)",
+        "mutated": "key = self.key_func(args, None, typed=self.typed)",
+        "status": "survived"
+      },
+      {
+        "line": 463,
+        "original": "key = self.key_func(args, kwargs, typed=self.typed)",
+        "mutated": "key = self.key_func(args, kwargs, typed=None)",
+        "status": "survived"
+      },
+      {
+        "line": 467,
+        "original": "ret = cache[key] = self.func(*args, **kwargs)",
+        "mutated": "ret = cache[key] = self.func(*args, )",
+        "status": "survived"
+      },
+      {
+        "line": 473,
+        "original": "return (\"%s(func=%r, scoped=%r, typed=%r)\"",
+        "mutated": "return (\"XX%s(func=%r, scoped=%r, typed=%r)XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 482,
+        "original": "def __init__(self, func, cache, scoped=True, typed=False, key=None):",
+        "mutated": "def __init__(self, func, cache, scoped=False, typed=False, key=None):",
+        "status": "survived"
+      },
+      {
+        "line": 482,
+        "original": "def __init__(self, func, cache, scoped=True, typed=False, key=None):",
+        "mutated": "def __init__(self, func, cache, scoped=True, typed=True, key=None):",
+        "status": "survived"
+      },
+      {
+        "line": 484,
+        "original": "self.__isabstractmethod__ = getattr(func, '__isabstractmethod__', False)",
+        "mutated": "self.__isabstractmethod__ = getattr(func, '__isabstractmethod__', None)",
+        "status": "survived"
+      },
+      {
+        "line": 484,
+        "original": "self.__isabstractmethod__ = getattr(func, '__isabstractmethod__', False)",
+        "mutated": "self.__isabstractmethod__ = getattr(func, '__isabstractmethod__', True)",
+        "status": "survived"
+      },
+      {
+        "line": 489,
+        "original": "elif not (callable(getattr(cache, '__getitem__', None))\n              and callable(getattr(cache, '__setitem__', None))):",
+        "mutated": "elif not (callable(getattr(cache, '__getitem__', None)) or callable(getattr(cache, '__setitem__', None))):",
+        "status": "survived"
+      },
+      {
+        "line": 490,
+        "original": "and callable(getattr(cache, '__setitem__', None))):",
+        "mutated": "and callable(getattr(cache, '__setitem__', ))):",
+        "status": "survived"
+      },
+      {
+        "line": 491,
+        "original": "raise TypeError('expected cache to be an attribute name,'\n                        ' dict-like object, or callable returning'\n                        ' a dict-like object, not %r' % cache)",
+        "mutated": "raise TypeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 493,
+        "original": "' a dict-like object, not %r' % cache)",
+        "mutated": "' a dict-like object, not %r' / cache)",
+        "status": "survived"
+      },
+      {
+        "line": 491,
+        "original": "raise TypeError('expected cache to be an attribute name,'",
+        "mutated": "raise TypeError('XXexpected cache to be an attribute name,XX'",
+        "status": "survived"
+      },
+      {
+        "line": 491,
+        "original": "raise TypeError('expected cache to be an attribute name,'",
+        "mutated": "raise TypeError('EXPECTED CACHE TO BE AN ATTRIBUTE NAME,'",
+        "status": "survived"
+      },
+      {
+        "line": 492,
+        "original": "' dict-like object, or callable returning'",
+        "mutated": "'XX dict-like object, or callable returningXX'",
+        "status": "survived"
+      },
+      {
+        "line": 492,
+        "original": "' dict-like object, or callable returning'",
+        "mutated": "' DICT-LIKE OBJECT, OR CALLABLE RETURNING'",
+        "status": "survived"
+      },
+      {
+        "line": 493,
+        "original": "' a dict-like object, not %r' % cache)",
+        "mutated": "'XX a dict-like object, not %rXX' % cache)",
+        "status": "survived"
+      },
+      {
+        "line": 501,
+        "original": "self.bound_to = None",
+        "mutated": "self.bound_to = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "obj = args[0] if self.bound_to is None else self.bound_to",
+        "mutated": "obj = args[0] if (self.bound_to is None) and False else self.bound_to",
+        "status": "survived"
+      },
+      {
+        "line": 513,
+        "original": "obj = args[0] if self.bound_to is None else self.bound_to",
+        "mutated": "obj = args[1] if self.bound_to is None else self.bound_to",
+        "status": "survived"
+      },
+      {
+        "line": 516,
+        "original": "key = self.key_func(key_args, kwargs, typed=self.typed)",
+        "mutated": "key = self.key_func(key_args, None, typed=self.typed)",
+        "status": "survived"
+      },
+      {
+        "line": 522,
+        "original": "ret = cache[key] = self.func(*args, **kwargs)",
+        "mutated": "ret = cache[key] = self.func(*args, )",
+        "status": "survived"
+      },
+      {
+        "line": 530,
+        "original": "return ('<%s func=%r scoped=%r typed=%r bound_to=%r>' % args)",
+        "mutated": "return ('XX<%s func=%r scoped=%r typed=%r bound_to=%r>XX' % args)",
+        "status": "survived"
+      },
+      {
+        "line": 531,
+        "original": "return (\"%s(func=%r, scoped=%r, typed=%r)\" % args)",
+        "mutated": "return (\"XX%s(func=%r, scoped=%r, typed=%r)XX\" % args)",
+        "status": "survived"
+      },
+      {
+        "line": 534,
+        "original": "def cached(cache, scoped=True, typed=False, key=None):",
+        "mutated": "def cached(cache, scoped=False, typed=False, key=None):",
+        "status": "survived"
+      },
+      {
+        "line": 534,
+        "original": "def cached(cache, scoped=True, typed=False, key=None):",
+        "mutated": "def cached(cache, scoped=True, typed=True, key=None):",
+        "status": "survived"
+      },
+      {
+        "line": 568,
+        "original": "return CachedFunction(func, cache, scoped=scoped, typed=typed, key=key)",
+        "mutated": "return CachedFunction(func, cache, scoped=None, typed=typed, key=key)",
+        "status": "survived"
+      },
+      {
+        "line": 568,
+        "original": "return CachedFunction(func, cache, scoped=scoped, typed=typed, key=key)",
+        "mutated": "return CachedFunction(func, cache, scoped=scoped, typed=None, key=key)",
+        "status": "survived"
+      },
+      {
+        "line": 568,
+        "original": "return CachedFunction(func, cache, scoped=scoped, typed=typed, key=key)",
+        "mutated": "return CachedFunction(func, cache, typed=typed, key=key)",
+        "status": "survived"
+      },
+      {
+        "line": 568,
+        "original": "return CachedFunction(func, cache, scoped=scoped, typed=typed, key=key)",
+        "mutated": "return CachedFunction(func, cache, scoped=scoped, key=key)",
+        "status": "survived"
+      },
+      {
+        "line": 572,
+        "original": "def cachedmethod(cache, scoped=True, typed=False, key=None):",
+        "mutated": "def cachedmethod(cache, scoped=True, typed=True, key=None):",
+        "status": "survived"
+      },
+      {
+        "line": 626,
+        "original": "self.__isabstractmethod__ = getattr(func, '__isabstractmethod__', False)",
+        "mutated": "self.__isabstractmethod__ = getattr(func, '__isabstractmethod__', None)",
+        "status": "survived"
+      },
+      {
+        "line": 626,
+        "original": "self.__isabstractmethod__ = getattr(func, '__isabstractmethod__', False)",
+        "mutated": "self.__isabstractmethod__ = getattr(func, '__isabstractmethod__', True)",
+        "status": "survived"
+      },
+      {
+        "line": 632,
+        "original": "value = obj.__dict__[self.func.__name__] = self.func(obj)",
+        "mutated": "value = obj.__dict__[self.func.__name__] = self.func(None)",
+        "status": "survived"
+      },
+      {
+        "line": 636,
+        "original": "cn = self.__class__.__name__",
+        "mutated": "cn = None",
+        "status": "survived"
+      },
+      {
+        "line": 684,
+        "original": "def __init__(self, threshold=0.001):",
+        "mutated": "def __init__(self, threshold=1.001):",
+        "status": "survived"
+      },
+      {
+        "line": 686,
+        "original": "raise ValueError('expected threshold between 0 and 1, not: %r'\n                         % threshold)",
+        "mutated": "raise ValueError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 686,
+        "original": "raise ValueError('expected threshold between 0 and 1, not: %r'",
+        "mutated": "raise ValueError('XXexpected threshold between 0 and 1, not: %rXX'",
+        "status": "survived"
+      },
+      {
+        "line": 686,
+        "original": "raise ValueError('expected threshold between 0 and 1, not: %r'",
+        "mutated": "raise ValueError('EXPECTED THRESHOLD BETWEEN 0 AND 1, NOT: %R'",
+        "status": "survived"
+      },
+      {
+        "line": 693,
+        "original": "self._cur_bucket = 1",
+        "mutated": "self._cur_bucket = 2",
+        "status": "survived"
+      },
+      {
+        "line": 709,
+        "original": "self._count_map[key] = [1, self._cur_bucket - 1]",
+        "mutated": "self._count_map[key] = [1, self._cur_bucket - 2]",
+        "status": "survived"
+      },
+      {
+        "line": 714,
+        "original": "self._cur_bucket += 1",
+        "mutated": "self._cur_bucket = 1",
+        "status": "survived"
+      },
+      {
+        "line": 714,
+        "original": "self._cur_bucket += 1",
+        "mutated": "self._cur_bucket -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 714,
+        "original": "self._cur_bucket += 1",
+        "mutated": "self._cur_bucket += 2",
+        "status": "survived"
+      },
+      {
+        "line": 728,
+        "original": "if n is not None and n <= 0:",
+        "mutated": "if n is not None and n < 0:",
+        "status": "survived"
+      },
+      {
+        "line": 728,
+        "original": "if n is not None and n <= 0:",
+        "mutated": "if n is not None and n <= 1:",
+        "status": "survived"
+      },
+      {
+        "line": 731,
+        "original": "if n is None or n >= len(ret):",
+        "mutated": "if n is None or n > len(ret):",
+        "status": "survived"
+      },
+      {
+        "line": 790,
+        "original": "\"Get count for *key*, defaulting to 0.\"",
+        "mutated": "\"XXGet count for *key*, defaulting to 0.XX\"",
+        "status": "survived"
+      },
+      {
+        "line": 790,
+        "original": "\"Get count for *key*, defaulting to 0.\"",
+        "mutated": "\"get count for *key*, defaulting to 0.\"",
+        "status": "survived"
+      },
+      {
+        "line": 790,
+        "original": "\"Get count for *key*, defaulting to 0.\"",
+        "mutated": "\"GET COUNT FOR *KEY*, DEFAULTING TO 0.\"",
+        "status": "survived"
+      },
+      {
+        "line": 840,
+        "original": "ref = weakref.ref(a, self._clean)",
+        "mutated": "ref = None",
+        "status": "survived"
+      },
+      {
+        "line": 840,
+        "original": "ref = weakref.ref(a, self._clean)",
+        "mutated": "ref = weakref.ref(a, None)",
+        "status": "survived"
+      },
+      {
+        "line": 840,
+        "original": "ref = weakref.ref(a, self._clean)",
+        "mutated": "ref = weakref.ref(a, )",
+        "status": "survived"
+      },
+      {
+        "line": 842,
+        "original": "self.ref_map[ref] = nxt",
+        "mutated": "self.ref_map[ref] = None",
+        "status": "survived"
+      },
+      {
+        "line": 852,
+        "original": "print(self.ref_map[ref])",
+        "mutated": "print(None)",
+        "status": "survived"
+      },
+      {
+        "line": 853,
+        "original": "heapq.heappush(self.free, self.ref_map[ref])",
+        "mutated": "heapq.heappush(None, self.ref_map[ref])",
+        "status": "survived"
+      },
+      {
+        "line": 853,
+        "original": "heapq.heappush(self.free, self.ref_map[ref])",
+        "mutated": "heapq.heappush(self.free, None)",
+        "status": "survived"
+      },
+      {
+        "line": 853,
+        "original": "heapq.heappush(self.free, self.ref_map[ref])",
+        "mutated": "heapq.heappush(self.ref_map[ref])",
+        "status": "survived"
+      },
+      {
+        "line": 853,
+        "original": "heapq.heappush(self.free, self.ref_map[ref])",
+        "mutated": "heapq.heappush(self.free, )",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.76,
+    "coverage": 2.18,
+    "mutation": 20.26
+  }
+}

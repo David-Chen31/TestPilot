@@ -1,0 +1,780 @@
+{
+  "target": "claude_converter/pi.py",
+  "validity": {
+    "total": 96,
+    "valid": 87,
+    "valid_ids": [
+      "tests_testpilot/test_pi.py::test_load_session_pi_reads_records",
+      "tests_testpilot/test_pi.py::test_load_session_pi_accepts_json_extension",
+      "tests_testpilot/test_pi.py::test_load_session_pi_missing_file",
+      "tests_testpilot/test_pi.py::test_load_session_pi_bad_extension",
+      "tests_testpilot/test_pi.py::test_load_session_pi_empty",
+      "tests_testpilot/test_pi.py::test_load_session_pi_skips_invalid_lines",
+      "tests_testpilot/test_pi.py::test_block_to_text_text",
+      "tests_testpilot/test_pi.py::test_block_to_text_text_missing_key",
+      "tests_testpilot/test_pi.py::test_block_to_text_thinking",
+      "tests_testpilot/test_pi.py::test_block_to_text_thinking_missing",
+      "tests_testpilot/test_pi.py::test_block_to_text_tool_call",
+      "tests_testpilot/test_pi.py::test_block_to_text_tool_call_ensure_ascii_false",
+      "tests_testpilot/test_pi.py::test_block_to_text_image",
+      "tests_testpilot/test_pi.py::test_block_to_text_unknown",
+      "tests_testpilot/test_pi.py::test_block_to_text_empty_type",
+      "tests_testpilot/test_pi.py::test_decode_image_empty_data",
+      "tests_testpilot/test_pi.py::test_decode_image_missing_data",
+      "tests_testpilot/test_pi.py::test_decode_image_invalid_base64",
+      "tests_testpilot/test_pi.py::test_message_of_non_message_record",
+      "tests_testpilot/test_pi.py::test_message_of_message_record",
+      "tests_testpilot/test_pi.py::test_message_of_null_message",
+      "tests_testpilot/test_pi.py::test_record_role_non_message",
+      "tests_testpilot/test_pi.py::test_record_role_user",
+      "tests_testpilot/test_pi.py::test_record_role_assistant",
+      "tests_testpilot/test_pi.py::test_record_role_tool_result_maps_to_user",
+      "tests_testpilot/test_pi.py::test_record_role_unknown_role",
+      "tests_testpilot/test_pi.py::test_record_type_of_message",
+      "tests_testpilot/test_pi.py::test_record_type_of_message_default_role",
+      "tests_testpilot/test_pi.py::test_record_type_of_non_message",
+      "tests_testpilot/test_pi.py::test_record_type_of_missing_type",
+      "tests_testpilot/test_pi.py::test_text_of_string_content",
+      "tests_testpilot/test_pi.py::test_text_of_list_content",
+      "tests_testpilot/test_pi.py::test_text_of_skips_empty_parts",
+      "tests_testpilot/test_pi.py::test_text_of_non_string_non_list_content",
+      "tests_testpilot/test_pi.py::test_text_of_non_message_record",
+      "tests_testpilot/test_pi.py::test_text_of_tool_result",
+      "tests_testpilot/test_pi.py::test_text_of_tool_result_image_becomes_tag",
+      "tests_testpilot/test_pi.py::test_text_of_tool_result_skips_non_dict_blocks",
+      "tests_testpilot/test_pi.py::test_text_of_tool_result_missing_keys",
+      "tests_testpilot/test_pi.py::test_message_parts_string_content",
+      "tests_testpilot/test_pi.py::test_message_parts_empty_string",
+      "tests_testpilot/test_pi.py::test_message_parts_whitespace_string",
+      "tests_testpilot/test_pi.py::test_message_parts_list_text",
+      "tests_testpilot/test_pi.py::test_message_parts_list_skips_empty_and_non_dict",
+      "tests_testpilot/test_pi.py::test_message_parts_non_string_non_list_content",
+      "tests_testpilot/test_pi.py::test_message_parts_non_message",
+      "tests_testpilot/test_pi.py::test_message_parts_tool_result_no_image",
+      "tests_testpilot/test_pi.py::test_message_parts_tool_result_no_image_empty_text",
+      "tests_testpilot/test_pi.py::test_message_parts_tool_result_with_bad_image_skipped",
+      "tests_testpilot/test_pi.py::test_simple_user_assistant_text",
+      "tests_testpilot/test_pi.py::test_skips_non_message_records",
+      "tests_testpilot/test_pi.py::test_skips_unknown_roles",
+      "tests_testpilot/test_pi.py::test_skips_empty_content",
+      "tests_testpilot/test_pi.py::test_message_with_no_message_field",
+      "tests_testpilot/test_pi.py::test_message_with_explicit_null_message",
+      "tests_testpilot/test_pi.py::test_empty_records_returns_empty_list",
+      "tests_testpilot/test_pi.py::test_tool_call_rendering",
+      "tests_testpilot/test_pi.py::test_tool_call_default_arguments_empty",
+      "tests_testpilot/test_pi.py::test_thinking_block_rendering",
+      "tests_testpilot/test_pi.py::test_unknown_block_type_dropped",
+      "tests_testpilot/test_pi.py::test_non_dict_blocks_in_list_skipped",
+      "tests_testpilot/test_pi.py::test_tool_result_becomes_user_text",
+      "tests_testpilot/test_pi.py::test_tool_result_empty_text_keeps_wrapper",
+      "tests_testpilot/test_pi.py::test_tool_result_missing_name_and_id",
+      "tests_testpilot/test_pi.py::test_merges_consecutive_same_role",
+      "tests_testpilot/test_pi.py::test_alternating_roles_not_merged",
+      "tests_testpilot/test_pi.py::test_nested_array_content_merged",
+      "tests_testpilot/test_pi.py::test_tool_result_merges_with_adjacent_user",
+      "tests_testpilot/test_pi.py::test_empty_image_data_skipped",
+      "tests_testpilot/test_pi.py::test_undecodable_image_skipped",
+      "tests_testpilot/test_pi.py::test_session_to_messages_reads_file",
+      "tests_testpilot/test_pi.py::test_session_to_messages_writes_output",
+      "tests_testpilot/test_pi.py::test_session_to_messages_no_output_no_file",
+      "tests_testpilot/test_pi.py::test_session_to_messages_missing_file",
+      "tests_testpilot/test_pi.py::test_timestamp_of_iso",
+      "tests_testpilot/test_pi.py::test_timestamp_of_missing",
+      "tests_testpilot/test_pi.py::test_total_tokens_of_empty",
+      "tests_testpilot/test_pi.py::test_total_tokens_of_no_usage",
+      "tests_testpilot/test_pi.py::test_total_tokens_of_sums_usage",
+      "tests_testpilot/test_pi.py::test_total_tokens_of_ignores_null_usage",
+      "tests_testpilot/test_pi.py::test_pi_schema_label",
+      "tests_testpilot/test_pi.py::test_pi_schema_callbacks",
+      "tests_testpilot/test_pi.py::test_inspect_session_pi_prints_report",
+      "tests_testpilot/test_pi.py::test_inspect_session_pi_show_blocks_renders_text",
+      "tests_testpilot/test_pi.py::test_inspect_session_pi_missing_file",
+      "tests_testpilot/test_pi.py::test_inspect_session_pi_token_usage",
+      "tests_testpilot/test_pi.py::test_inspect_session_pi_show_flow_prints_message_text"
+    ],
+    "invalid": {
+      "tests_testpilot/test_pi.py::test_decode_image_ok": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'",
+      "tests_testpilot/test_pi.py::test_message_parts_tool_result_with_image": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'",
+      "tests_testpilot/test_pi.py::test_message_parts_tool_result_with_image_skips_empty_text": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'",
+      "tests_testpilot/test_pi.py::test_message_parts_tool_result_skips_non_dict_blocks": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'",
+      "tests_testpilot/test_pi.py::test_image_block_in_user_message": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'",
+      "tests_testpilot/test_pi.py::test_image_only_message_becomes_list": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'",
+      "tests_testpilot/test_pi.py::test_image_in_tool_result_kept_multimodal": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'",
+      "tests_testpilot/test_pi.py::test_tool_result_image_only_multimodal": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'",
+      "tests_testpilot/test_pi.py::test_session_to_messages_output_image_serialized": "run 1: skipped: could not import 'PIL.Image': No module named 'PIL'"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.88,
+        "passed": 87,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 9
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.91,
+        "passed": 87,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 9
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.77,
+        "passed": 87,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 9
+      }
+    ]
+  },
+  "line_rate": 0.974025974025974,
+  "branch_rate": 0.9210526315789473,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.8199300699300699,
+    "total": 572,
+    "killed": 469,
+    "survived": 103,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 469,
+      "survived": 103
+    },
+    "survivors": [
+      {
+        "line": 32,
+        "original": "btype = block.get(\"type\", \"\")",
+        "mutated": "btype = block.get(\"type\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 32,
+        "original": "btype = block.get(\"type\", \"\")",
+        "mutated": "btype = block.get(\"type\", )",
+        "status": "survived"
+      },
+      {
+        "line": 32,
+        "original": "btype = block.get(\"type\", \"\")",
+        "mutated": "btype = block.get(\"type\", \"XXXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 41,
+        "original": "name = block.get(\"name\", \"\")",
+        "mutated": "name = block.get(\"name\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 41,
+        "original": "name = block.get(\"name\", \"\")",
+        "mutated": "name = block.get(\"name\", )",
+        "status": "survived"
+      },
+      {
+        "line": 41,
+        "original": "name = block.get(\"name\", \"\")",
+        "mutated": "name = block.get(\"name\", \"XXXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 42,
+        "original": "args = json.dumps(block.get(\"arguments\", {}), ensure_ascii=False)",
+        "mutated": "args = json.dumps(block.get(\"arguments\", {}), ensure_ascii=None)",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "data = block.get(\"data\", \"\")",
+        "mutated": "data = block.get(\"data\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "data = block.get(\"data\", \"\")",
+        "mutated": "data = block.get(\"data\", )",
+        "status": "survived"
+      },
+      {
+        "line": 59,
+        "original": "print(\"X Skipping image block with empty base64 data\", file=sys.stderr)",
+        "mutated": "print(\"XXX Skipping image block with empty base64 dataXX\", file=sys.stderr)",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "return convert_base64_to_pil_image(data)",
+        "mutated": "return convert_base64_to_pil_image(None)",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", )",
+        "status": "survived"
+      },
+      {
+        "line": 79,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", \"XXXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", )",
+        "status": "survived"
+      },
+      {
+        "line": 87,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", \"XXXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 95,
+        "original": "parts.append(b.get(\"text\", \"\"))",
+        "mutated": "parts.append(b.get(\"text\", None))",
+        "status": "survived"
+      },
+      {
+        "line": 95,
+        "original": "parts.append(b.get(\"text\", \"\"))",
+        "mutated": "parts.append(b.get(\"text\", ))",
+        "status": "survived"
+      },
+      {
+        "line": 95,
+        "original": "parts.append(b.get(\"text\", \"\"))",
+        "mutated": "parts.append(b.get(\"text\", \"XXXX\"))",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "text = \"\\n\".join(p for p in parts if p.strip())",
+        "mutated": "text = \"XX\\nXX\".join(p for p in parts if p.strip())",
+        "status": "survived"
+      },
+      {
+        "line": 103,
+        "original": "content = message.get(\"content\", \"\")",
+        "mutated": "content = message.get(\"content\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 103,
+        "original": "content = message.get(\"content\", \"\")",
+        "mutated": "content = message.get(\"content\", )",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", )",
+        "status": "survived"
+      },
+      {
+        "line": 121,
+        "original": "role = message.get(\"role\", \"\")",
+        "mutated": "role = message.get(\"role\", \"XXXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 132,
+        "original": "return [{\"type\": \"text\", \"text\": text}] if text.strip() else []",
+        "mutated": "return [{\"type\": \"text\", \"text\": text}] if (text.strip()) or True else []",
+        "status": "survived"
+      },
+      {
+        "line": 134,
+        "original": "tool_name = message.get(\"toolName\", \"\")",
+        "mutated": "tool_name = message.get(\"toolName\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 134,
+        "original": "tool_name = message.get(\"toolName\", \"\")",
+        "mutated": "tool_name = message.get(\"toolName\", )",
+        "status": "survived"
+      },
+      {
+        "line": 134,
+        "original": "tool_name = message.get(\"toolName\", \"\")",
+        "mutated": "tool_name = message.get(\"toolName\", \"XXXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "tool_id = message.get(\"toolCallId\", \"\")",
+        "mutated": "tool_id = message.get(\"toolCallId\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "tool_id = message.get(\"toolCallId\", \"\")",
+        "mutated": "tool_id = message.get(\"toolCallId\", )",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "tool_id = message.get(\"toolCallId\", \"\")",
+        "mutated": "tool_id = message.get(\"toolCallId\", \"XXXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"text\" or b.get(\"text\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(None) == \"text\" and b.get(\"text\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"XXtypeXX\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"TYPE\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") != \"text\" and b.get(\"text\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"XXtextXX\" and b.get(\"text\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"TEXT\" and b.get(\"text\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"text\" and b.get(None, \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"text\" and b.get(\"text\", None).strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"text\" and b.get(\"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"text\" and b.get(\"text\", ).strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"text\" and b.get(\"XXtextXX\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"text\" and b.get(\"TEXT\", \"\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 141,
+        "original": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"\").strip():",
+        "mutated": "if b.get(\"type\") == \"text\" and b.get(\"text\", \"XXXX\").strip():",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append({\"XXtypeXX\": \"text\", \"text\": b[\"text\"]})",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append({\"TYPE\": \"text\", \"text\": b[\"text\"]})",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append({\"type\": \"XXtextXX\", \"text\": b[\"text\"]})",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append({\"type\": \"TEXT\", \"text\": b[\"text\"]})",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append({\"type\": \"text\", \"XXtextXX\": b[\"text\"]})",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append({\"type\": \"text\", \"TEXT\": b[\"text\"]})",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append({\"type\": \"text\", \"text\": b[\"XXtextXX\"]})",
+        "status": "survived"
+      },
+      {
+        "line": 142,
+        "original": "parts.append({\"type\": \"text\", \"text\": b[\"text\"]})",
+        "mutated": "parts.append({\"type\": \"text\", \"text\": b[\"TEXT\"]})",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"XXtypeXX\": \"image\", \"image\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"TYPE\": \"image\", \"image\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"type\": \"XXimageXX\", \"image\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"type\": \"IMAGE\", \"image\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"type\": \"image\", \"XXimageXX\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"type\": \"image\", \"IMAGE\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "content = message.get(\"content\", \"\")",
+        "mutated": "content = message.get(\"content\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "content = message.get(\"content\", \"\")",
+        "mutated": "content = message.get(\"content\", )",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"XXtypeXX\": \"image\", \"image\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"TYPE\": \"image\", \"image\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"type\": \"XXimageXX\", \"image\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"type\": \"IMAGE\", \"image\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"type\": \"image\", \"XXimageXX\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 162,
+        "original": "parts.append({\"type\": \"image\", \"image\": image})",
+        "mutated": "parts.append({\"type\": \"image\", \"IMAGE\": image})",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "output.parent.mkdir(parents=True, exist_ok=True)",
+        "mutated": "output.parent.mkdir(parents=None, exist_ok=True)",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "output.parent.mkdir(parents=True, exist_ok=True)",
+        "mutated": "output.parent.mkdir(parents=True, exist_ok=None)",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "output.parent.mkdir(parents=True, exist_ok=True)",
+        "mutated": "output.parent.mkdir(exist_ok=True)",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "output.parent.mkdir(parents=True, exist_ok=True)",
+        "mutated": "output.parent.mkdir(parents=True, )",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "output.parent.mkdir(parents=True, exist_ok=True)",
+        "mutated": "output.parent.mkdir(parents=False, exist_ok=True)",
+        "status": "survived"
+      },
+      {
+        "line": 217,
+        "original": "output.parent.mkdir(parents=True, exist_ok=True)",
+        "mutated": "output.parent.mkdir(parents=True, exist_ok=False)",
+        "status": "survived"
+      },
+      {
+        "line": 218,
+        "original": "with open(output, \"w\", encoding=\"utf-8\") as f:",
+        "mutated": "with open(output, \"w\", encoding=None) as f:",
+        "status": "survived"
+      },
+      {
+        "line": 218,
+        "original": "with open(output, \"w\", encoding=\"utf-8\") as f:",
+        "mutated": "with open(output, \"w\", ) as f:",
+        "status": "survived"
+      },
+      {
+        "line": 218,
+        "original": "with open(output, \"w\", encoding=\"utf-8\") as f:",
+        "mutated": "with open(output, \"w\", encoding=\"UTF-8\") as f:",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, indent=2)",
+        "mutated": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=None, indent=2)",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, indent=2)",
+        "mutated": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, indent=None)",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, indent=2)",
+        "mutated": "json.dump(messages_to_json_safe(messages), f, indent=2)",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, indent=2)",
+        "mutated": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, )",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, indent=2)",
+        "mutated": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=True, indent=2)",
+        "status": "survived"
+      },
+      {
+        "line": 219,
+        "original": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, indent=2)",
+        "mutated": "json.dump(messages_to_json_safe(messages), f, ensure_ascii=False, indent=3)",
+        "status": "survived"
+      },
+      {
+        "line": 238,
+        "original": "found = False",
+        "mutated": "found = None",
+        "status": "survived"
+      },
+      {
+        "line": 242,
+        "original": "continue",
+        "mutated": "break",
+        "status": "survived"
+      },
+      {
+        "line": 247,
+        "original": "totals[\"input\"] += usage.get(\"input\", 0)",
+        "mutated": "totals[\"input\"] += usage.get(\"input\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 247,
+        "original": "totals[\"input\"] += usage.get(\"input\", 0)",
+        "mutated": "totals[\"input\"] += usage.get(\"input\", )",
+        "status": "survived"
+      },
+      {
+        "line": 247,
+        "original": "totals[\"input\"] += usage.get(\"input\", 0)",
+        "mutated": "totals[\"input\"] += usage.get(\"input\", 1)",
+        "status": "survived"
+      },
+      {
+        "line": 248,
+        "original": "totals[\"output\"] += usage.get(\"output\", 0)",
+        "mutated": "totals[\"output\"] += usage.get(\"output\", None)",
+        "status": "survived"
+      },
+      {
+        "line": 248,
+        "original": "totals[\"output\"] += usage.get(\"output\", 0)",
+        "mutated": "totals[\"output\"] += usage.get(\"output\", )",
+        "status": "survived"
+      },
+      {
+        "line": 248,
+        "original": "totals[\"output\"] += usage.get(\"output\", 0)",
+        "mutated": "totals[\"output\"] += usage.get(\"output\", 1)",
+        "status": "survived"
+      },
+      {
+        "line": 268,
+        "original": "show_flow: bool = False,",
+        "mutated": "show_flow: bool = True,",
+        "status": "survived"
+      },
+      {
+        "line": 269,
+        "original": "show_blocks: bool = False,",
+        "mutated": "show_blocks: bool = True,",
+        "status": "survived"
+      },
+      {
+        "line": 270,
+        "original": "show_raw: bool = False,",
+        "mutated": "show_raw: bool = True,",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "run_inspection(path, records, PI_SCHEMA, show_flow=show_flow, show_blocks=show_blocks)",
+        "mutated": "run_inspection(path, records, PI_SCHEMA, show_flow=None, show_blocks=show_blocks)",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "run_inspection(path, records, PI_SCHEMA, show_flow=show_flow, show_blocks=show_blocks)",
+        "mutated": "run_inspection(path, records, PI_SCHEMA, show_flow=show_flow, show_blocks=None)",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "run_inspection(path, records, PI_SCHEMA, show_flow=show_flow, show_blocks=show_blocks)",
+        "mutated": "run_inspection(path, records, PI_SCHEMA, show_blocks=show_blocks)",
+        "status": "survived"
+      },
+      {
+        "line": 274,
+        "original": "run_inspection(path, records, PI_SCHEMA, show_flow=show_flow, show_blocks=show_blocks)",
+        "mutated": "run_inspection(path, records, PI_SCHEMA, show_flow=show_flow, )",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 5.57,
+    "coverage": 3.14,
+    "mutation": 31.02
+  }
+}

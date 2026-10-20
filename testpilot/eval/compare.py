@@ -45,6 +45,19 @@ def load_runs(dirs: list[Path]) -> tuple[list[dict], list[dict]]:
     return ok, failed
 
 
+def load_human(preflight: Path) -> list[dict]:
+    """预检里仓库自带测试的得分，作为方法 "human" 参与比较（只取变异测试跑通的目标）。"""
+    rows = json.loads(preflight.read_text(encoding="utf-8"))
+    return [
+        {"repo": r["repo"], "target": r["target"], "run": "preflight", "path": preflight.as_posix(), "method": "human",
+         "mutation_score": r["human_mutation_score"], "mutation_error": "", "line_rate": r["human_line_rate"],
+         "branch_rate": None, "tests_valid": r["human_tests_valid"],
+         "valid_ratio": r["human_tests_valid"] / r["human_tests_total"], "total_tokens": 0, "cost_usd_peak": 0.0}
+        for r in rows
+        if r["human_mutation_score"] is not None and not r["mutation_error"]
+    ]  # fmt: skip
+
+
 def _row(summary: dict, usage: dict) -> dict:
     total = summary["tests_total"]
     return {
@@ -131,13 +144,18 @@ def main() -> None:
     parser.add_argument("dirs", nargs="+", type=Path)
     parser.add_argument("--reference", default="b2")
     parser.add_argument("--out", required=True, help="results/ 下的输出目录名")
+    parser.add_argument("--human", type=Path, help="预检结果 preflight.json：加入仓库自带测试作为方法 human")
+    parser.add_argument("--exclude", action="append", default=[], help="不参与比较的方法名（可重复）")
     args = parser.parse_args()
     runs, failed = load_runs(args.dirs)
+    if args.human:
+        runs += load_human(args.human)
+    runs = [r for r in runs if r["method"] not in args.exclude]
     text, data = report(runs, failed, args.reference)
     out = PROJECT_ROOT / "results" / args.out
     out.mkdir(parents=True, exist_ok=True)
     (out / "compare.md").write_text(text, encoding="utf-8")
-    (out / "compare.json").write_text(json.dumps({**data, "inputs": [d.as_posix() for d in args.dirs]}, ensure_ascii=False, indent=2), encoding="utf-8")
+    (out / "compare.json").write_text(json.dumps({**data, "inputs": [d.as_posix() for d in args.dirs], "human": args.human and args.human.as_posix(), "excluded": args.exclude}, ensure_ascii=False, indent=2), encoding="utf-8")
     sys.stdout.reconfigure(encoding="utf-8")  # Windows 管道默认 GBK
     print(text)
 

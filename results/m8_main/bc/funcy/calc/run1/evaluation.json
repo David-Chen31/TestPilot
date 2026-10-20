@@ -1,0 +1,282 @@
+{
+  "target": "funcy/calc.py",
+  "validity": {
+    "total": 37,
+    "valid": 37,
+    "valid_ids": [
+      "tests_testpilot/test_calc.py::test_skip_memory_is_exception",
+      "tests_testpilot/test_calc.py::test_memoize_returns_cached_values",
+      "tests_testpilot/test_calc.py::test_memoize_distinguishes_args",
+      "tests_testpilot/test_calc.py::test_memoize_kwargs_keys",
+      "tests_testpilot/test_calc.py::test_memoize_keyword_order_independent",
+      "tests_testpilot/test_calc.py::test_memoize_exposes_memory",
+      "tests_testpilot/test_calc.py::test_memoize_with_key_func",
+      "tests_testpilot/test_calc.py::test_memoize_called_with_func_directly",
+      "tests_testpilot/test_calc.py::test_memoize_invalidate",
+      "tests_testpilot/test_calc.py::test_memoize_invalidate_missing_key_no_error",
+      "tests_testpilot/test_calc.py::test_memoize_invalidate_all",
+      "tests_testpilot/test_calc.py::test_memoize_skip_memory",
+      "tests_testpilot/test_calc.py::test_memoize_skip_memory_without_args",
+      "tests_testpilot/test_calc.py::test_memoize_wraps_metadata",
+      "tests_testpilot/test_calc.py::test_cache_basic",
+      "tests_testpilot/test_calc.py::test_cache_timedelta_timeout",
+      "tests_testpilot/test_calc.py::test_cache_decorator_timedelta",
+      "tests_testpilot/test_calc.py::test_cache_memory_set_and_get",
+      "tests_testpilot/test_calc.py::test_cache_memory_expire_removes_entries",
+      "tests_testpilot/test_calc.py::test_cache_memory_expired_get_raises_keyerror",
+      "tests_testpilot/test_calc.py::test_cache_memory_clear",
+      "tests_testpilot/test_calc.py::test_cache_decorator_invalidate_and_all",
+      "tests_testpilot/test_calc.py::test_cache_skip_memory",
+      "tests_testpilot/test_calc.py::test_cache_memory_expire_with_replaced_key",
+      "tests_testpilot/test_calc.py::test_cache_memory_expire_removes_stale_entry",
+      "tests_testpilot/test_calc.py::test_has_arg_types_none",
+      "tests_testpilot/test_calc.py::test_has_arg_types_positional",
+      "tests_testpilot/test_calc.py::test_has_arg_types_keyword",
+      "tests_testpilot/test_calc.py::test_has_arg_types_both",
+      "tests_testpilot/test_calc.py::test_has_arg_types_varargs",
+      "tests_testpilot/test_calc.py::test_has_arg_types_positional_only",
+      "tests_testpilot/test_calc.py::test_make_lookuper_no_args",
+      "tests_testpilot/test_calc.py::test_silent_lookuper_no_args",
+      "tests_testpilot/test_calc.py::test_make_lookuper_with_args",
+      "tests_testpilot/test_calc.py::test_make_lookuper_rejects_kwargs_builder",
+      "tests_testpilot/test_calc.py::test_lookuper_builder_error_propagates",
+      "tests_testpilot/test_calc.py::test_silent_lookuper_missing_none"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.17,
+        "passed": 37,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.2,
+        "passed": 37,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.16,
+        "passed": 37,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.6739130434782609,
+    "total": 92,
+    "killed": 62,
+    "survived": 30,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 62,
+      "survived": 30
+    },
+    "survivors": [
+      {
+        "line": 32,
+        "original": "return memoize(key_func=key_func)(_func)",
+        "mutated": "return memoize(key_func=None)(_func)",
+        "status": "survived"
+      },
+      {
+        "line": 43,
+        "original": "return _memory_decorator(lambda: CacheMemory(timeout), key_func)",
+        "mutated": "return _memory_decorator(lambda: CacheMemory(timeout), None)",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "key = key_func(*args, **kwargs) if key_func else \\",
+        "mutated": "key = key_func(*args, **kwargs) if (key_func) and False else \\",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "key = key_func(*args, **kwargs) if key_func else \\",
+        "mutated": "key = key_func(**kwargs) if key_func else \\",
+        "status": "survived"
+      },
+      {
+        "line": 67,
+        "original": "key = key_func(*args, **kwargs) if key_func else \\",
+        "mutated": "key = key_func(*args, ) if key_func else \\",
+        "status": "survived"
+      },
+      {
+        "line": 68,
+        "original": "(_KWARGS_MARK, args, frozenset(kwargs.items())) if kwargs else args",
+        "mutated": "(_KWARGS_MARK, args, frozenset(kwargs.items())) if (kwargs) and False else args",
+        "status": "survived"
+      },
+      {
+        "line": 68,
+        "original": "(_KWARGS_MARK, args, frozenset(kwargs.items())) if kwargs else args",
+        "mutated": "(_KWARGS_MARK, args, frozenset(None)) if kwargs else args",
+        "status": "survived"
+      },
+      {
+        "line": 89,
+        "original": "self._expires.append(expires_at)",
+        "mutated": "self._expires.append(None)",
+        "status": "survived"
+      },
+      {
+        "line": 93,
+        "original": "if expires_at <= time.monotonic():",
+        "mutated": "if expires_at < time.monotonic():",
+        "status": "survived"
+      },
+      {
+        "line": 95,
+        "original": "raise KeyError(key)",
+        "mutated": "raise KeyError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 105,
+        "original": "self.pop(key, None)",
+        "mutated": "self.pop(key, )",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "has_args, has_keys = has_arg_types(func)",
+        "mutated": "has_args, has_keys = None",
+        "status": "survived"
+      },
+      {
+        "line": 124,
+        "original": "has_args, has_keys = has_arg_types(func)",
+        "mutated": "has_args, has_keys = has_arg_types(None)",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "assert not has_keys, \\",
+        "mutated": "assert has_keys, \\",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "'Lookup table building function should not have keyword arguments'",
+        "mutated": "'XXLookup table building function should not have keyword argumentsXX'",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "'Lookup table building function should not have keyword arguments'",
+        "mutated": "'lookup table building function should not have keyword arguments'",
+        "status": "survived"
+      },
+      {
+        "line": 126,
+        "original": "'Lookup table building function should not have keyword arguments'",
+        "mutated": "'LOOKUP TABLE BUILDING FUNCTION SHOULD NOT HAVE KEYWORD ARGUMENTS'",
+        "status": "survived"
+      },
+      {
+        "line": 135,
+        "original": "memory = {}",
+        "mutated": "memory = None",
+        "status": "survived"
+      },
+      {
+        "line": 138,
+        "original": "if not memory:",
+        "mutated": "if memory:",
+        "status": "survived"
+      },
+      {
+        "line": 140,
+        "original": "memory.update(func())",
+        "mutated": "memory.update(None)",
+        "status": "survived"
+      },
+      {
+        "line": 144,
+        "original": "memory[object()] = None # prevent continuos memory refilling",
+        "mutated": "memory[object()] = \"\" # prevent continuos memory refilling",
+        "status": "survived"
+      },
+      {
+        "line": 147,
+        "original": "return memory.get(arg)",
+        "mutated": "return memory.get(None)",
+        "status": "survived"
+      },
+      {
+        "line": 148,
+        "original": "elif arg in memory:",
+        "mutated": "elif arg not in memory:",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "raise LookupError(\"Failed to look up %s(%s)\" % (func.__name__, arg))",
+        "mutated": "raise LookupError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "raise LookupError(\"Failed to look up %s(%s)\" % (func.__name__, arg))",
+        "mutated": "raise LookupError(\"Failed to look up %s(%s)\" / (func.__name__, arg))",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "raise LookupError(\"Failed to look up %s(%s)\" % (func.__name__, arg))",
+        "mutated": "raise LookupError(\"XXFailed to look up %s(%s)XX\" % (func.__name__, arg))",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "raise LookupError(\"Failed to look up %s(%s)\" % (func.__name__, arg))",
+        "mutated": "raise LookupError(\"failed to look up %s(%s)\" % (func.__name__, arg))",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "raise LookupError(\"Failed to look up %s(%s)\" % (func.__name__, arg))",
+        "mutated": "raise LookupError(\"FAILED TO LOOK UP %S(%S)\" % (func.__name__, arg))",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "return wraps(func)(wrapper)",
+        "mutated": "return wraps(func)(None)",
+        "status": "survived"
+      },
+      {
+        "line": 153,
+        "original": "return wraps(func)(wrapper)",
+        "mutated": "return wraps(None)(wrapper)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 3.53,
+    "coverage": 2.26,
+    "mutation": 6.91
+  }
+}

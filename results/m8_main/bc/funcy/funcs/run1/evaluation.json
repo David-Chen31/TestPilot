@@ -1,0 +1,160 @@
+{
+  "target": "funcy/funcs.py",
+  "validity": {
+    "total": 53,
+    "valid": 53,
+    "valid_ids": [
+      "tests_testpilot/test_funcs.py::test_identity_returns_argument",
+      "tests_testpilot/test_funcs.py::test_constantly_returns_constant",
+      "tests_testpilot/test_funcs.py::test_constantly_with_mutable",
+      "tests_testpilot/test_funcs.py::test_caller",
+      "tests_testpilot/test_funcs.py::test_func_partial_basic",
+      "tests_testpilot/test_funcs.py::test_func_partial_kwargs_extension",
+      "tests_testpilot/test_funcs.py::test_func_partial_returns_function",
+      "tests_testpilot/test_funcs.py::test_func_partial_extends_old_kwargs_with_new",
+      "tests_testpilot/test_funcs.py::test_rpartial_basic",
+      "tests_testpilot/test_funcs.py::test_rpartial_kwargs",
+      "tests_testpilot/test_funcs.py::test_rpartial_extends_kwargs",
+      "tests_testpilot/test_funcs.py::test_curry_explicit_n",
+      "tests_testpilot/test_funcs.py::test_curry_n_le_1_returns_func",
+      "tests_testpilot/test_funcs.py::test_curry_n_2",
+      "tests_testpilot/test_funcs.py::test_curry_inference",
+      "tests_testpilot/test_funcs.py::test_rcurry_explicit_n",
+      "tests_testpilot/test_funcs.py::test_rcurry_n_2",
+      "tests_testpilot/test_funcs.py::test_rcurry_n_le_1",
+      "tests_testpilot/test_funcs.py::test_rcurry_inference",
+      "tests_testpilot/test_funcs.py::test_autocurry_basic",
+      "tests_testpilot/test_funcs.py::test_autocurry_explicit_n",
+      "tests_testpilot/test_funcs.py::test_autocurry_extra_args",
+      "tests_testpilot/test_funcs.py::test_autocurry_preserves_wraps",
+      "tests_testpilot/test_funcs.py::test_autocurry_varkw_behavior",
+      "tests_testpilot/test_funcs.py::test_autocurry_calls_when_required_args_satisfied",
+      "tests_testpilot/test_funcs.py::test_autocurry_required_branch_type_error_recurries",
+      "tests_testpilot/test_funcs.py::test_iffy_basic",
+      "tests_testpilot/test_funcs.py::test_iffy_default_non_callable",
+      "tests_testpilot/test_funcs.py::test_iffy_default_callable",
+      "tests_testpilot/test_funcs.py::test_iffy_single_arg_uses_bool",
+      "tests_testpilot/test_funcs.py::test_iffy_pred_true",
+      "tests_testpilot/test_funcs.py::test_compose_empty_is_identity",
+      "tests_testpilot/test_funcs.py::test_compose_functions",
+      "tests_testpilot/test_funcs.py::test_compose_single",
+      "tests_testpilot/test_funcs.py::test_compose_with_non_callable",
+      "tests_testpilot/test_funcs.py::test_compose_with_int",
+      "tests_testpilot/test_funcs.py::test_compose_kwargs_passed_to_inner",
+      "tests_testpilot/test_funcs.py::test_rcompose_functions",
+      "tests_testpilot/test_funcs.py::test_rcompose_empty",
+      "tests_testpilot/test_funcs.py::test_complement",
+      "tests_testpilot/test_funcs.py::test_complement_returns_bool",
+      "tests_testpilot/test_funcs.py::test_complement_with_non_callable",
+      "tests_testpilot/test_funcs.py::test_ljuxt_basic",
+      "tests_testpilot/test_funcs.py::test_ljuxt_returns_list",
+      "tests_testpilot/test_funcs.py::test_juxt_basic",
+      "tests_testpilot/test_funcs.py::test_juxt_returns_iterator",
+      "tests_testpilot/test_funcs.py::test_juxt_repeated_calls",
+      "tests_testpilot/test_funcs.py::test_ljuxt_repeated_calls",
+      "tests_testpilot/test_funcs.py::test_ljuxt_with_none",
+      "tests_testpilot/test_funcs.py::test_juxt_with_string",
+      "tests_testpilot/test_funcs.py::test_reexports",
+      "tests_testpilot/test_funcs.py::test_make_func_error_propagates",
+      "tests_testpilot/test_funcs.py::test_iffy_unsupported_type"
+    ],
+    "invalid": {},
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.34,
+        "passed": 53,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.42,
+        "passed": 53,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 0,
+        "timed_out": false,
+        "duration": 1.49,
+        "passed": 53,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.95,
+    "total": 140,
+    "killed": 133,
+    "survived": 7,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 133,
+      "survived": 7
+    },
+    "survivors": [
+      {
+        "line": 72,
+        "original": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), False))",
+        "mutated": "spec = _spec or (get_spec(func) if (n is EMPTY) or True else Spec(n, set(), n, set(), False))",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), False))",
+        "mutated": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), None))",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), False))",
+        "mutated": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), True))",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "return iffy(bool, pred, default)",
+        "mutated": "return iffy(None, pred, default)",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "return iffy(bool, pred, default)",
+        "mutated": "return iffy(bool, pred, )",
+        "status": "survived"
+      },
+      {
+        "line": 131,
+        "original": "return lambda *a, **kw: [f(*a, **kw) for f in extended_fs]",
+        "mutated": "return lambda *a, **kw: [f(*a, ) for f in extended_fs]",
+        "status": "survived"
+      },
+      {
+        "line": 137,
+        "original": "return lambda *a, **kw: (f(*a, **kw) for f in extended_fs)",
+        "mutated": "return lambda *a, **kw: (f(*a, ) for f in extended_fs)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 4.26,
+    "coverage": 2.35,
+    "mutation": 7.55
+  }
+}
