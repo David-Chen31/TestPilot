@@ -27,24 +27,26 @@ from datetime import datetime, timezone
 from pathlib import Path
 import asyncio
 
-from testpilot.agent.graph import B0, B1, B2, AgentConfig, run_agent
+from testpilot.agent.codegen import generated_test_path
+from testpilot.agent.graph import B0, B1, B2, BC, AgentConfig, run_agent
+from testpilot.agent.sampling import sample_tests
 from testpilot.config import PROJECT_ROOT, Settings
 from testpilot.eval.metrics import evaluate
 from testpilot.eval.repos import RepoSpec, eval_workspace, load_manifest, snapshot_commit
+from testpilot.eval.selection import screen_sample, select_best
 from testpilot.llm import make_chat_model
 
 log = logging.getLogger("testpilot.eval")
 
 # 所有方法都是同一张 Agent 图的不同配置
-METHODS: dict[str, AgentConfig] = {"b0": B0, "b1": B1, "b2": B2}
+METHODS: dict[str, AgentConfig] = {"b0": B0, "b1": B1, "b2": B2, "bc": BC}
+# 独立采样方法：N 次 B0 生成，产出两个变体（见 run_samples）
+SAMPLING_METHODS: dict[str, AgentConfig] = {"b0n": B0}
 RESULTS_DIR = PROJECT_ROOT / "results"
 
 
-async def run_one(
-    method: str, spec: RepoSpec, target: str, out_dir: Path, settings: Settings, with_mutation: bool
-) -> dict:
-    out_dir.mkdir(parents=True, exist_ok=True)
-    meta: dict = {
+def _meta(method: str, spec: RepoSpec, target: str, settings: Settings) -> dict:
+    return {
         "method": method,
         "repo": spec.name,
         "repo_commit": spec.commit,
@@ -57,6 +59,13 @@ async def run_one(
         "testpilot_commit": _testpilot_commit(),
         "python": platform.python_version(),
     }
+
+
+async def run_one(
+    method: str, spec: RepoSpec, target: str, out_dir: Path, settings: Settings, with_mutation: bool
+) -> dict:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    meta = _meta(method, spec, target, settings)
     model = make_chat_model(settings)
     with eval_workspace(spec) as ws:
         assert snapshot_commit(spec.path) == spec.commit
@@ -87,7 +96,67 @@ async def run_one(
     return meta
 
 
-def summarize(records: list[dict]) -> dict:
+async def run_samples(
+    method: str, spec: RepoSpec, target: str, out_dir: Path, settings: Settings, with_mutation: bool, n: int
+) -> dict:
+    """等成本对照：独立生成 n 份测试，评价两个变体（都不使用变异信号）：
+
+    - best：按有效测试的覆盖率挑出的一份（见 selection.coverage_key）；
+    - union：n 份样本放在一起，所有有效测试的并集。
+
+    n 份样本分别保存在 samples/ 下，M9 可以离线换选择器重新评价。
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    meta = _meta(method, spec, target, settings)
+    meta["samples"] = n
+    model = make_chat_model(settings)
+    config = SAMPLING_METHODS[method]
+    with eval_workspace(spec) as ws:
+        assert snapshot_commit(spec.path) == spec.commit
+        t0 = time.monotonic()
+        try:
+            gen = await sample_tests(model, ws.path, target, spec.python_paths, n, config)
+        except Exception as e:
+            log.exception("生成失败")
+            meta["error"] = _describe(e)
+            _dump(out_dir / "run.json", meta)
+            return meta
+        meta["generation_seconds"] = round(time.monotonic() - t0, 2)
+        meta["usage"] = gen.usage.to_dict(settings.llm_model)
+        meta["agent"] = {"config": _config_dict(config), "samples": gen.infos, "sample_tokens": gen.tokens}
+        _dump(out_dir / "trace.json", gen.traces)
+
+        # 每份样本存成单独的测试文件（文件名不同，pytest 才能在一次运行里同时收集）
+        default = Path(generated_test_path(target))
+        (ws.path / default).unlink()
+        files = []
+        (out_dir / "samples").mkdir(exist_ok=True)
+        for k, code in enumerate(gen.codes, 1):
+            f = (default.parent / f"{default.stem}_s{k}.py").as_posix()
+            ws.write_text(f, code)
+            (out_dir / "samples" / Path(f).name).write_text(code, encoding="utf-8")
+            files.append(f)
+
+        t0 = time.monotonic()
+        rows = [await asyncio.to_thread(screen_sample, ws.path, target, f, spec.python_paths) for f in files]
+        best = select_best(rows)
+        _dump(out_dir / "screening.json", {"samples": rows, "selected": best, "selector": "coverage"})
+        variants = {}
+        for name, chosen in (("best", [files[best]]), ("union", files)):
+            ev = await asyncio.to_thread(
+                evaluate, ws.path, target, chosen, spec.python_paths, with_mutation=with_mutation
+            )
+            _dump(out_dir / f"evaluation_{name}.json", ev.to_dict())
+            variants[name] = ev.summary()
+        meta["evaluation_seconds"] = round(time.monotonic() - t0, 2)
+    meta["variants"] = variants
+    _dump(out_dir / "run.json", meta)
+    return meta
+
+
+def summarize(records: list[dict], variant: str | None = None) -> dict:
+    if variant is not None:  # 独立采样方法：同一批生成的不同变体，各自汇总
+        records = [{**r, "summary": r["variants"][variant]} if "variants" in r else r for r in records]
     ok = [r for r in records if "summary" in r]
     rows = [
         {
@@ -141,7 +210,8 @@ def write_markdown(path: Path, title: str, groups: dict[str, dict], records: dic
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--method", required=True, choices=sorted(METHODS))
+    parser.add_argument("--method", required=True, choices=sorted({**METHODS, **SAMPLING_METHODS}))
+    parser.add_argument("--samples", type=int, default=8, help="独立采样方法（b0n）每次运行的样本数")
     parser.add_argument("--repo", required=True)
     parser.add_argument("--target", action="append", help="默认使用清单中的全部 targets")
     parser.add_argument("--runs", type=int, default=3)
@@ -177,10 +247,15 @@ async def _run_batch(args: argparse.Namespace, tag_dir: Path) -> None:
         for k in range(1, args.runs + 1):
             out_dir = tag_dir / args.method / spec.name / Path(target).stem / f"run{k}"
             log.info("%s run %d/%d -> %s", key, k, args.runs, out_dir)
-            rec = await run_one(args.method, spec, target, out_dir, settings, with_mutation=not args.no_mutation)
+            if args.method in SAMPLING_METHODS:
+                rec = await run_samples(
+                    args.method, spec, target, out_dir, settings, not args.no_mutation, args.samples
+                )
+            else:
+                rec = await run_one(args.method, spec, target, out_dir, settings, with_mutation=not args.no_mutation)
             rec["run_index"] = k
             rec["out_dir"] = out_dir.relative_to(PROJECT_ROOT).as_posix()
-            log.info("%s run %d 结果: %s", key, k, rec.get("summary") or rec.get("error"))
+            log.info("%s run %d 结果: %s", key, k, rec.get("summary") or rec.get("variants") or rec.get("error"))
             records.append(rec)
             # 连续两次连接失败说明是网络 / 基础设施问题，继续跑只会在重试里耗时间，直接中止整批
             connection_failures = connection_failures + 1 if _is_connection_error(rec) else 0
@@ -188,8 +263,14 @@ async def _run_batch(args: argparse.Namespace, tag_dir: Path) -> None:
                 log.error("连续 %d 次连接失败，中止本批（网络问题，与方法无关）", connection_failures)
                 aborted = True
                 break
-        groups[key] = summarize(records)
-        all_records[key] = records
+        if args.method in SAMPLING_METHODS:
+            for variant in ("best", "union"):
+                vkey = f"{args.method}{args.samples}-{variant} / {spec.name} / {target}"
+                groups[vkey] = summarize(records, variant)
+                all_records[vkey] = records
+        else:
+            groups[key] = summarize(records)
+            all_records[key] = records
         if aborted:
             break
 

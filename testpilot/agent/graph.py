@@ -10,7 +10,9 @@
 B0 / B1 / B2 是同一张图的三种配置：
 - B0：feedback 为空，只写一次（B0 的提示词就是 B1/B2 第一轮的提示词）；
 - B1：pytest 失败信息反馈；
-- B2：测试全部通过后，在有效测试上做变异测试，把存活变异体反馈回去。
+- B2：测试全部通过后，在有效测试上做变异测试，把存活变异体反馈回去；
+- BC（对照组）：同 B2，但反馈的是有效测试没有覆盖到的行和分支。
+  用来回答“变异反馈比覆盖率反馈好吗”——两者的流程、预算、提示词结构都相同，只换信号。
 """
 
 from __future__ import annotations
@@ -40,7 +42,7 @@ MAX_SURVIVORS_FETCHED = 200  # 从工具取回的存活变异体上限；反馈�
 @dataclass(frozen=True)
 class AgentConfig:
     name: str
-    feedback: frozenset[str] = frozenset()  # "pytest"、"mutation"
+    feedback: frozenset[str] = frozenset()  # "pytest"、"mutation"、"coverage"（后两者互斥）
     # 终止条件（满足任意一条即停止）：
     max_iterations: int = 5  # write_tests 最多调用次数
     patience: int = 2  # 连续多少轮进度分数没有提升
@@ -50,6 +52,7 @@ class AgentConfig:
 B0 = AgentConfig("b0", feedback=frozenset(), max_iterations=1)
 B1 = AgentConfig("b1", feedback=frozenset({"pytest"}))
 B2 = AgentConfig("b2", feedback=frozenset({"pytest", "mutation"}))
+BC = AgentConfig("bc", feedback=frozenset({"pytest", "coverage"}))
 
 
 class AgentState(TypedDict, total=False):
@@ -61,6 +64,7 @@ class AgentState(TypedDict, total=False):
     # 计划与上下文
     public_symbols: list[str]
     prompt_prefix: str
+    source_lines: list[str]  # 被测文件源码，覆盖率反馈里引用代码行
     # 当前一轮
     iteration: int  # 已调用 write_tests 的次数
     test_code: str
@@ -69,6 +73,7 @@ class AgentState(TypedDict, total=False):
     mutation: dict | None
     feedback: str  # 给下一轮 write_tests 的反馈；为空表示没有可改进之处
     shown_mutants: list[str]  # 已经在反馈中展示过的变异体（行号 + 变异后代码）
+    shown_gaps: list[str]  # 已经在反馈中展示过的未覆盖代码（行范围 / 分支）
     # 进度与终止
     score: list  # 进度分数（按字典序比较），见 progress_score
     best: dict  # 分数最高的一轮：code、score、iteration
@@ -81,11 +86,12 @@ class AgentState(TypedDict, total=False):
 
 
 def progress_score(run: dict, coverage: dict | None, mutation: dict | None) -> list:
-    """按字典序比较：全部通过 > 变异得分 > 行覆盖率 > 通过的测试数。"""
+    """按字典序比较：全部通过 > 变异得分 > 行覆盖率 > 分支覆盖率 > 通过的测试数。"""
     return [
         int(bool(run.get("all_passed"))),
         (mutation or {}).get("score") or 0.0,
         (coverage or {}).get("line_rate") or 0.0,
+        (coverage or {}).get("branch_rate") or 0.0,
         run.get("passed", 0),
     ]
 
@@ -157,7 +163,11 @@ class TestPilotAgent:
             requirements=prompts.TEST_REQUIREMENTS.format(module=state["module"]),
         )
         summary = f"依赖定义 {len(ctx.dependencies)} 个，调用处 {len(ctx.usages)} 个，提示词前缀 {len(prefix)} 字符"
-        return {"prompt_prefix": prefix, "trace": [await self._event("retrieve_context", state, t0, summary, prompt_prefix=prefix)]}
+        return {
+            "prompt_prefix": prefix,
+            "source_lines": ctx.source.splitlines(),
+            "trace": [await self._event("retrieve_context", state, t0, summary, prompt_prefix=prefix)],
+        }
 
     async def write_tests(self, state: AgentState) -> dict:
         t0 = time.monotonic()
@@ -211,22 +221,25 @@ class TestPilotAgent:
     async def analyze(self, state: AgentState) -> dict:
         """计算进度分数、更新最好的一轮，并准备给下一轮的反馈。
 
-        启用变异反馈（B2）且测试全部通过时：先在原代码上跑 3 次确定有效测试，
+        启用变异反馈（B2）或覆盖率反馈（BC）且测试全部通过时：先在原代码上跑 3 次确定有效测试，
         覆盖率和变异测试都**只用有效测试**——在原代码上不稳定的测试会把变异得分虚高。
         """
         t0 = time.monotonic()
         run = state["run"]
         target = state["target"]
+        fb = self.config.feedback
         coverage = mutation = validity = None
         shown = list(state.get("shown_mutants", []))
-        if run["all_passed"] and "mutation" in self.config.feedback:
+        shown_gaps = list(state.get("shown_gaps", []))
+        if run["all_passed"] and ("mutation" in fb or "coverage" in fb):
             validity = await self.tools.call("check_validity", {"tests": [state["test_file"]]})
             if validity["valid_ids"]:
                 tests = validity["valid_ids"]
                 coverage = await self.tools.call("coverage_report", {"target": target, "tests": tests})
-                mutation = await self.tools.call(
-                    "run_mutation", {"target": target, "tests": tests, "max_survivors": MAX_SURVIVORS_FETCHED}
-                )
+                if "mutation" in fb:
+                    mutation = await self.tools.call(
+                        "run_mutation", {"target": target, "tests": tests, "max_survivors": MAX_SURVIVORS_FETCHED}
+                    )
         elif run["all_passed"]:
             coverage = await self.tools.call("coverage_report", {"target": target, "tests": [state["test_file"]]})
 
@@ -240,8 +253,12 @@ class TestPilotAgent:
         feedback = ""
         if not run["all_passed"]:
             feedback = self._pytest_feedback(run) if "pytest" in self.config.feedback else ""
-        elif "mutation" in self.config.feedback:
+        elif "mutation" in fb:
             feedback, shown = self._mutation_feedback(target, run, validity, mutation, shown)
+        elif "coverage" in fb:
+            feedback, shown_gaps = self._coverage_feedback(
+                target, run, validity, coverage, state.get("source_lines", []), shown_gaps
+            )
 
         cov = f"，行覆盖 {coverage['line_rate']:.1%}，分支覆盖 {coverage['branch_rate'] or 0:.1%}" if coverage else ""
         mut = f"，变异得分 {mutation['score']:.1%}（存活 {mutation['survived']}）" if mutation and mutation["score"] is not None else ""
@@ -256,6 +273,7 @@ class TestPilotAgent:
             "stale_rounds": stale,
             "feedback": feedback,
             "shown_mutants": shown,
+            "shown_gaps": shown_gaps,
             "trace": [
                 await self._event(
                     "analyze", state, t0, summary,
@@ -274,12 +292,19 @@ class TestPilotAgent:
             stop = "单次生成（无反馈）"
         elif not state["feedback"]:
             # 没有可反馈的问题了
-            if "mutation" not in cfg.feedback:
-                stop = "全部测试通过，pytest 反馈已无可改进之处"
-            elif mutation.get("error"):
-                stop = f"变异测试出错，无法继续反馈：{mutation['error'][:200]}"
+            coverage = state.get("coverage") or {}
+            if "mutation" in cfg.feedback:
+                if mutation.get("error"):
+                    stop = f"变异测试出错，无法继续反馈：{mutation['error'][:200]}"
+                else:
+                    stop = "全部测试有效，且没有存活的变异体"
+            elif "coverage" in cfg.feedback:
+                if coverage.get("error"):
+                    stop = f"覆盖率统计出错，无法继续反馈：{coverage['error'][:200]}"
+                else:
+                    stop = "全部测试有效，且行与分支全部覆盖"
             else:
-                stop = "全部测试有效，且没有存活的变异体"
+                stop = "全部测试通过，pytest 反馈已无可改进之处"
         elif state["iteration"] >= cfg.max_iterations:
             stop = f"达到最大迭代数 {cfg.max_iterations}"
         elif state["tokens"] >= cfg.token_budget:
@@ -311,10 +336,7 @@ class TestPilotAgent:
         self, target: str, run: dict, validity: dict, mutation: dict | None, shown: list[str]
     ) -> tuple[str, list[str]]:
         """把不稳定的测试和存活变异体整理成反馈。返回 (反馈文本, 更新后的“已展示变异体”列表)。"""
-        parts = []
-        if validity["invalid"]:
-            items = "\n".join(f"- `{t}`: {r}" for t, r in list(validity["invalid"].items())[:MAX_FEEDBACK_ITEMS])
-            parts.append(prompts.FEEDBACK_FLAKY.format(n=len(validity["invalid"]), items=items))
+        parts = self._flaky_feedback(validity)
         if mutation and not mutation["error"] and mutation["survivors"]:
             # 排序：没展示过的优先（展示过还活着的，多半是等价变异体，不该一直占着反馈）；
             # 其次是没有任何测试执行到的；最后按行号
@@ -340,6 +362,37 @@ class TestPilotAgent:
             )
             shown = shown + [k for k in map(_mutant_key, chosen) if k not in shown]
         return "\n\n".join(parts), shown
+
+    def _coverage_feedback(
+        self, target: str, run: dict, validity: dict, coverage: dict | None, source: list[str], shown: list[str]
+    ) -> tuple[str, list[str]]:
+        """把不稳定的测试和未覆盖的行 / 分支整理成反馈，结构与 _mutation_feedback 相同。"""
+        parts = self._flaky_feedback(validity)
+        if coverage and not coverage["error"]:
+            gaps = coverage_gaps(coverage, source)
+            if gaps:
+                # 没展示过的优先，其次按行号（gaps 已按行号排好，sorted 是稳定的）
+                chosen = sorted(gaps, key=lambda g: g[0] in shown)[:MAX_FEEDBACK_ITEMS]
+                items = "\n".join(text for _, text in chosen)
+                more = len(gaps) - len(chosen)
+                parts.append(
+                    prompts.FEEDBACK_COVERAGE.format(
+                        passed=run["passed"],
+                        target=target,
+                        line_rate=coverage["line_rate"] or 0.0,
+                        branch_rate=coverage["branch_rate"] or 0.0,
+                        items=items + (f"\n... and {more} more uncovered places not shown." if more > 0 else ""),
+                    )
+                )
+                shown = shown + [k for k, _ in chosen if k not in shown]
+        return "\n\n".join(parts), shown
+
+    @staticmethod
+    def _flaky_feedback(validity: dict) -> list[str]:
+        if not validity["invalid"]:
+            return []
+        items = "\n".join(f"- `{t}`: {r}" for t, r in list(validity["invalid"].items())[:MAX_FEEDBACK_ITEMS])
+        return [prompts.FEEDBACK_FLAKY.format(n=len(validity["invalid"]), items=items)]
 
     def _pytest_feedback(self, run: dict) -> str:
         if run.get("no_code"):
@@ -373,6 +426,34 @@ class TestPilotAgent:
         if self.on_event is not None:
             await self.on_event(event)
         return event
+
+
+def coverage_gaps(coverage: dict, source: list[str]) -> list[tuple[str, str]]:
+    """未覆盖的代码，按行号排序：相邻的未执行行合成一段；只列出起点行已执行的分支
+    （起点行没执行的分支已经包含在未执行行里）。返回 [(去重用的 key, 反馈文本)]。"""
+
+    def code(n: int) -> str:
+        return source[n - 1].strip() if 0 < n <= len(source) else ""
+
+    missing = sorted(coverage["missing_lines"])
+    gaps: list[tuple[int, str, str]] = []
+    start = prev = None
+    for n in [*missing, None]:
+        # 相邻语句之间可能隔着续行、空行、注释：间隔不超过 2 行视为同一段
+        if n is not None and prev is not None and n - prev <= 2:
+            prev = n
+            continue
+        if start is not None:
+            where = f"line {start}" if start == prev else f"lines {start}-{prev}"
+            gaps.append((start, f"L{start}-{prev}", f"- {where} never executed: `{code(start)}`"))
+        start = prev = n
+    missing_set = set(missing)
+    for a, b in coverage["missing_branches"]:
+        if a in missing_set:
+            continue
+        dest = f"line {b}" if b > 0 else "the function exit"
+        gaps.append((a, f"B{a}>{b}", f"- line {a}: the branch to {dest} is never taken: `{code(a)}`"))
+    return [(key, text) for _, key, text in sorted(gaps, key=lambda g: g[0])]
 
 
 @dataclass

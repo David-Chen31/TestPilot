@@ -74,6 +74,16 @@ class Usage:
         if call.fingerprint and call.fingerprint not in self.fingerprints:
             self.fingerprints.append(call.fingerprint)
 
+    def merge(self, other: "Usage") -> None:
+        """把另一组调用（例如另一次独立采样）的用量累加进来。"""
+        self.calls += other.calls
+        self.prompt_tokens += other.prompt_tokens
+        self.completion_tokens += other.completion_tokens
+        self.reasoning_tokens += other.reasoning_tokens
+        self.cache_hit_tokens += other.cache_hit_tokens
+        self.latency += other.latency
+        self.fingerprints += [f for f in other.fingerprints if f not in self.fingerprints]
+
     @property
     def total_tokens(self) -> int:
         return self.prompt_tokens + self.completion_tokens

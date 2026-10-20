@@ -200,3 +200,45 @@ def test_b2_feeds_back_survivors_and_stops_on_equivalent_mutants(sample_repo: Pa
     assert result.info["stop_reason"] == "连续 2 轮没有提升"
     assert result.info["best_iteration"] == 2
     assert code == STRONG_TEST.lstrip()  # extract_code 去掉了首尾空行
+
+
+# ---------------- BC：覆盖率反馈（对照组） ----------------
+
+from testpilot.agent.graph import BC, coverage_gaps  # noqa: E402
+
+FULL = """import pytest
+from sample.calc import add, clamp
+
+def test_add():
+    assert add(1, 2) == 3
+
+def test_clamp():
+    with pytest.raises(ValueError):
+        clamp(0, 2, 1)
+    assert clamp(-1, 0, 10) == 0
+    assert clamp(11, 0, 10) == 10
+    assert clamp(5, 0, 10) == 5
+"""
+
+
+def test_coverage_gaps_groups_lines_and_skips_branches_from_unexecuted_lines():
+    source = [f"code{n}" for n in range(1, 13)]
+    cov = {"missing_lines": [6, 3, 4, 10], "missing_branches": [[10, 12], [8, 9], [8, -5]]}
+    gaps = coverage_gaps(cov, source)
+    assert [k for k, _ in gaps] == ["L3-6", "B8>9", "B8>-5", "L10-10"]
+    assert gaps[0][1] == "- lines 3-6 never executed: `code3`"
+    assert gaps[2][1] == "- line 8: the branch to the function exit is never taken: `code8`"
+
+
+def test_bc_feeds_back_uncovered_code_and_stops_at_full_coverage(sample_repo: Path, tmp_path: Path):
+    result, code = _run(sample_repo, tmp_path, [_reply(GOOD), _reply(FULL)], BC)
+    second = [e for e in result.trace if e["node"] == "write_tests"][1]["llm"]["task"]
+    assert '- line 10 never executed: `raise ValueError("low must not exceed high")`' in second
+    assert "- lines 13-15 never executed: `if x > high:`" in second
+    assert "- line 9: the branch to line 10 is never taken" in second
+    assert "60.0% of lines" in second
+    analyses = [e for e in result.trace if e["node"] == "analyze"]
+    assert analyses[-1]["coverage"]["line_rate"] == 1.0 and analyses[-1]["coverage"]["branch_rate"] == 1.0
+    assert all(a["mutation"] is None for a in analyses)  # BC 不做变异测试
+    assert result.info["stop_reason"] == "全部测试有效，且行与分支全部覆盖"
+    assert code == FULL

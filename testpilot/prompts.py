@@ -68,6 +68,17 @@ while all tests still pass on the current code. Check exact return values, bound
 messages. Some mutants may be equivalent (the change has no observable effect); skip those rather than \
 writing tests that rely on implementation details. Keep all existing tests."""
 
+# 覆盖率反馈（对照组 BC）：与 FEEDBACK_MUTATION 的结构和措辞尽量一致，只换信号
+FEEDBACK_COVERAGE = """\
+All {passed} tests pass. Coverage of `{target}` by these tests: {line_rate:.1%} of lines, \
+{branch_rate:.1%} of branches. The code below is NOT exercised by any test:
+{items}
+
+Add tests or extend existing ones so that this code is executed and its results are asserted precisely, \
+while all tests still pass on the current code. Check exact return values, boundary inputs and exception \
+messages. Some code may be unreachable through the public API; skip it rather than writing tests that \
+rely on implementation details. Keep all existing tests."""
+
 FEEDBACK_PYTEST_HEADER = (
     "Running pytest on the current implementation: {passed} passed, {failed} failed, {errors} errors."
 )
