@@ -37,3 +37,10 @@ def test_select_best_by_valid_coverage(sample_repo: Path, tmp_path: Path):
     assert rows[1]["line_rate"] == 0.6  # 失败的 test_wrong 不贡献覆盖率
     assert rows[2]["line_rate"] == 1.0
     assert select_best(rows) == 2  # 并列时取最早的一份
+
+
+def test_union_excludes_samples_without_valid_tests():
+    from testpilot.eval.selection import union_files
+
+    rows = [{"file": "a.py", "tests_valid": 3}, {"file": "broken.py", "tests_valid": 0}, {"file": "c.py", "tests_valid": 1}]
+    assert union_files(rows) == ["a.py", "c.py"]

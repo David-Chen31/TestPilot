@@ -33,7 +33,7 @@ from testpilot.agent.sampling import sample_tests
 from testpilot.config import PROJECT_ROOT, Settings
 from testpilot.eval.metrics import evaluate
 from testpilot.eval.repos import RepoSpec, eval_workspace, load_manifest, snapshot_commit
-from testpilot.eval.selection import screen_sample, select_best
+from testpilot.eval.selection import screen_sample, select_best, union_files
 from testpilot.llm import make_chat_model
 
 log = logging.getLogger("testpilot.eval")
@@ -145,7 +145,7 @@ async def run_samples(
         best = select_best(rows)
         _dump(out_dir / "screening.json", {"samples": rows, "selected": best, "selector": "coverage"})
         variants = {}
-        for name, chosen in (("first", [files[0]]), ("best", [files[best]]), ("union", files)):
+        for name, chosen in (("first", [files[0]]), ("best", [files[best]]), ("union", union_files(rows) or files)):
             ev = await asyncio.to_thread(
                 evaluate, ws.path, target, chosen, spec.python_paths, with_mutation=with_mutation
             )
