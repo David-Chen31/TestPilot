@@ -24,7 +24,9 @@ if command -v cygpath >/dev/null 2>&1 && [ -n "$TEMP" ]; then
 fi
 disk_report() {
     [ -n "$CRASH_DIR" ] || return 0
-    echo "[eval.sh] $1: C 盘剩余 $(df -h /c | awk 'NR==2{print $4}')，WSL 崩溃转储 $(ls "$CRASH_DIR" 2>/dev/null | wc -l) 个"
+    # pagefile.sys 是隐藏的系统文件，ls -l 能读到大小；读不到时显示 ?
+    PAGEFILE=$(ls -l /c/pagefile.sys 2>/dev/null | awk '{printf "%.1fG", $5/2^30}')
+    echo "[eval.sh] $1: C 盘剩余 $(df -h /c | awk 'NR==2{print $4}')，pagefile.sys ${PAGEFILE:-?}，WSL 崩溃转储 $(ls "$CRASH_DIR" 2>/dev/null | wc -l) 个"
 }
 DUMPS_BEFORE=$( [ -n "$CRASH_DIR" ] && ls "$CRASH_DIR" 2>/dev/null | wc -l || echo 0 )
 disk_report "开始"
