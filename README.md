@@ -78,6 +78,6 @@ testpilot/
   sandbox/    工作副本、带超时的进程执行、pytest / coverage / mutmut 封装
   retrieval/  AST 符号与依赖上下文
   eval/       评测仓库清单、有效性与指标、预检、批量评测、统计与汇总比较
-docs/         设计决策（design.md）、各里程碑面试题
+docs/         设计决策（design.md）、各里程碑面试题、提交哈希对照（commit-map.md：results/ 里记录的是改写前的旧哈希）
 results/      每次评测的原始日志（run.json、trace.json、evaluation.json、生成的测试）
 ```
