@@ -1,0 +1,241 @@
+{
+  "target": "funcy/objects.py",
+  "validity": {
+    "total": 37,
+    "valid": 34,
+    "valid_ids": [
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_caches_value",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_stores_in_instance_dict",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_class_access_returns_descriptor",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_fset_fdel_are_none",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_copied",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_docstring_missing_is_none",
+      "tests_testpilot/test_objects.py::TestCachedProperty::test_separate_instances",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_readonly_is_subclass",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_caches_value",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_set_raises",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_readonly_caches_and_protects",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_class_access_returns_descriptor",
+      "tests_testpilot/test_objects.py::TestCachedReadonly::test_docstring_copied",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_getter",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_class_access_returns_wrapper",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_repr_delegates_to_prop",
+      "tests_testpilot/test_objects.py::TestMonkey::test_patch_class",
+      "tests_testpilot/test_objects.py::TestMonkey::test_original_accessible",
+      "tests_testpilot/test_objects.py::TestMonkey::test_original_none_when_new",
+      "tests_testpilot/test_objects.py::TestMonkey::test_explicit_name",
+      "tests_testpilot/test_objects.py::TestMonkey::test_prefix_stripped",
+      "tests_testpilot/test_objects.py::TestMonkey::test_prefix_not_matching_kept",
+      "tests_testpilot/test_objects.py::TestMonkey::test_returns_value",
+      "tests_testpilot/test_objects.py::TestMonkey::test_property_support",
+      "tests_testpilot/test_objects.py::TestMonkey::test_original_property_support",
+      "tests_testpilot/test_objects.py::TestMonkey::test_monkey_module",
+      "tests_testpilot/test_objects.py::TestMonkey::test_non_class_non_module_raises",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_lazy_no_init_until_access",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_isinstance_after_setup",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_method_access",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_init_only_once",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_set_attr_triggers_setup",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_attribute_error_propagates",
+      "tests_testpilot/test_objects.py::TestLazyObject::test_getattr_after_setup"
+    ],
+    "invalid": {
+      "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_setter": "run 1: failed: AttributeError: 'WrapperProp' object has no attribute 'setter'",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_wraps_deleter": "run 1: failed: AttributeError: 'WrapperProp' object has no attribute 'deleter'",
+      "tests_testpilot/test_objects.py::TestWrapProp::test_no_setter_no_setter_method": "run 1: failed: AssertionError: assert (not True or '__set__' not in mappingproxy({'__module__': 'funcy.objects', '__repr__': <function wrap_prop.<locals>.decorator.<locals>.WrapperProp._...dict__' of 'WrapperProp' objects>, '__weakref__': <attribute '__weakref__' of 'WrapperProp' objects>, '__doc__': None}))"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.3,
+        "passed": 34,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.11,
+        "passed": 34,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.0,
+        "passed": 34,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9365079365079365,
+  "branch_rate": 0.8,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.780952380952381,
+    "total": 105,
+    "killed": 82,
+    "survived": 23,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 82,
+      "survived": 23
+    },
+    "survivors": [
+      {
+        "line": 25,
+        "original": "res = instance.__dict__[self.fget.__name__] = self.fget(instance)",
+        "mutated": "res = instance.__dict__[self.fget.__name__] = self.fget(None)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return super().__get__(instance, type)",
+        "mutated": "return super().__get__(instance, None)",
+        "status": "survived"
+      },
+      {
+        "line": 34,
+        "original": "return super().__get__(instance, type)",
+        "mutated": "return super().__get__(instance, )",
+        "status": "survived"
+      },
+      {
+        "line": 37,
+        "original": "raise AttributeError(\"property is read-only\")",
+        "mutated": "raise AttributeError(None)",
+        "status": "survived"
+      },
+      {
+        "line": 37,
+        "original": "raise AttributeError(\"property is read-only\")",
+        "mutated": "raise AttributeError(\"XXproperty is read-onlyXX\")",
+        "status": "survived"
+      },
+      {
+        "line": 37,
+        "original": "raise AttributeError(\"property is read-only\")",
+        "mutated": "raise AttributeError(\"PROPERTY IS READ-ONLY\")",
+        "status": "survived"
+      },
+      {
+        "line": 52,
+        "original": "return prop.__get__(instance, type)",
+        "mutated": "return prop.__get__(instance, None)",
+        "status": "survived"
+      },
+      {
+        "line": 52,
+        "original": "return prop.__get__(instance, type)",
+        "mutated": "return prop.__get__(type)",
+        "status": "survived"
+      },
+      {
+        "line": 52,
+        "original": "return prop.__get__(instance, type)",
+        "mutated": "return prop.__get__(instance, )",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "if hasattr(prop, '__set__'):",
+        "mutated": "if hasattr(None, '__set__'):",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "if hasattr(prop, '__set__'):",
+        "mutated": "if hasattr(prop, 'XX__set__XX'):",
+        "status": "survived"
+      },
+      {
+        "line": 54,
+        "original": "if hasattr(prop, '__set__'):",
+        "mutated": "if hasattr(prop, '__SET__'):",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "return prop.__set__(name, value)",
+        "mutated": "return prop.__set__(None, value)",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "return prop.__set__(name, value)",
+        "mutated": "return prop.__set__(name, None)",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "return prop.__set__(name, value)",
+        "mutated": "return prop.__set__(value)",
+        "status": "survived"
+      },
+      {
+        "line": 57,
+        "original": "return prop.__set__(name, value)",
+        "mutated": "return prop.__set__(name, )",
+        "status": "survived"
+      },
+      {
+        "line": 59,
+        "original": "if hasattr(prop, '__delete__'):",
+        "mutated": "if hasattr(None, '__delete__'):",
+        "status": "survived"
+      },
+      {
+        "line": 59,
+        "original": "if hasattr(prop, '__delete__'):",
+        "mutated": "if hasattr(prop, 'XX__delete__XX'):",
+        "status": "survived"
+      },
+      {
+        "line": 59,
+        "original": "if hasattr(prop, '__delete__'):",
+        "mutated": "if hasattr(prop, '__DELETE__'):",
+        "status": "survived"
+      },
+      {
+        "line": 62,
+        "original": "return prop.__delete__(instance)",
+        "mutated": "return prop.__delete__(None)",
+        "status": "survived"
+      },
+      {
+        "line": 74,
+        "original": "assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"",
+        "mutated": "assert isclass(cls) or ismodule(cls), \"XXAttempting to monkey patch non-class and non-moduleXX\"",
+        "status": "survived"
+      },
+      {
+        "line": 74,
+        "original": "assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"",
+        "mutated": "assert isclass(cls) or ismodule(cls), \"attempting to monkey patch non-class and non-module\"",
+        "status": "survived"
+      },
+      {
+        "line": 74,
+        "original": "assert isclass(cls) or ismodule(cls), \"Attempting to monkey patch non-class and non-module\"",
+        "mutated": "assert isclass(cls) or ismodule(cls), \"ATTEMPTING TO MONKEY PATCH NON-CLASS AND NON-MODULE\"",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 6.42,
+    "coverage": 3.29,
+    "mutation": 7.66
+  }
+}

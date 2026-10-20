@@ -13,7 +13,7 @@ if command -v powershell.exe >/dev/null 2>&1; then
     PARENT_WINPID=$(cat /proc/$$/winpid 2>/dev/null || echo $$)
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/keep_awake.ps1 -ParentPid "$PARENT_WINPID" &
     KEEP_AWAKE_PID=$!
-    trap 'kill $KEEP_AWAKE_PID 2>/dev/null' EXIT INT TERM
+    trap 'kill $KEEP_AWAKE_PID $WATCHDOG_PID 2>/dev/null' EXIT INT TERM
 fi
 
 # Windows 上报告 C 盘剩余空间与 WSL 崩溃转储数量：容器内进程 core dump 会被 WSL 写到
@@ -31,8 +31,29 @@ disk_report() {
 DUMPS_BEFORE=$( [ -n "$CRASH_DIR" ] && ls "$CRASH_DIR" 2>/dev/null | wc -l || echo 0 )
 disk_report "开始"
 
+# 看门狗：评测期间 C 盘剩余低于 MIN_FREE_GB 时停掉评测容器。容器内存上限管不住 WSL 虚拟机向
+# Windows 要的总内存，长批次里 pagefile.sys 仍会变大（M8 试跑中 4.5G → 10.5G）。
+# 每次运行的结果单独落盘，停下后已完成的部分仍可用 compare 汇总。
+CONTAINER="testpilot-eval-$$"
+WATCHDOG_PID=""
+if [ -n "$CRASH_DIR" ]; then
+    MIN_FREE_GB=${MIN_FREE_GB:-5}
+    (
+        while sleep 60; do
+            free_gb=$(df -BG /c | awk 'NR==2{gsub("G","",$4); print $4}')
+            if [ "$free_gb" -lt "$MIN_FREE_GB" ]; then
+                echo "[eval.sh] C 盘剩余 ${free_gb}G < ${MIN_FREE_GB}G，停止评测容器 $CONTAINER" >&2
+                docker kill "$CONTAINER" >/dev/null 2>&1
+                exit 0
+            fi
+        done
+    ) &
+    WATCHDOG_PID=$!
+fi
+
 status=0
-docker compose run --rm -e TESTPILOT_COMMIT="$(git describe --always --dirty)" app python -m testpilot.eval.run "$@" || status=$?
+docker compose run --rm --name "$CONTAINER" -e TESTPILOT_COMMIT="$(git describe --always --dirty)" app python -m testpilot.eval.run "$@" || status=$?
+[ -n "$WATCHDOG_PID" ] && kill "$WATCHDOG_PID" 2>/dev/null
 
 disk_report "结束"
 DUMPS_AFTER=$( [ -n "$CRASH_DIR" ] && ls "$CRASH_DIR" 2>/dev/null | wc -l || echo 0 )

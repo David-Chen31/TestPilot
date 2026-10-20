@@ -1,0 +1,307 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T03:54:32+00:00",
+    "duration": 0.04,
+    "summary": "9 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "funcy/decorators.py"
+        },
+        "duration": 0.04,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "decorator",
+      "make_decorator",
+      "Call",
+      "has_single_arg",
+      "has_1pos_and_kwonly",
+      "get_argnames",
+      "arggetter",
+      "update_wrapper",
+      "wraps"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T03:54:32+00:00",
+    "duration": 0.14,
+    "summary": "依赖定义 1 个，调用处 7 个，提示词前缀 9705 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/decorators.py",
+          "start_line": 1
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "contextlib.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.01,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: contextlib.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "contextlib/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.01,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: contextlib/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "inspect.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.01,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: inspect.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "inspect/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: inspect/__init__.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/colls.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "funcy/colls.py"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "funcy/colls.py",
+          "start_line": 266,
+          "end_line": 268
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "decorator(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "make_decorator(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "Call(",
+          "max_results": 50
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "has_single_arg(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "has_1pos_and_kwonly(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "get_argnames(",
+          "max_results": 50
+        },
+        "duration": 0.02,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "arggetter(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "update_wrapper(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "wraps(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `funcy.decorators` (file `funcy/decorators.py`).\n\nSource of `funcy/decorators.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | from contextlib import ContextDecorator, contextmanager  # reexport these for backwards compat\n    2 | import functools\n    3 | from inspect import unwrap  # reexport this for backwards compat\n    4 | import inspect\n    5 | \n    6 | from . colls import omit\n    7 | \n    8 | __all__ = ['decorator', 'wraps', 'unwrap', 'ContextDecorator', 'contextmanager']\n    9 | \n   10 | \n   11 | def decorator(deco):\n   12 |     \"\"\"\n   13 |     Transforms a flat wrapper into decorator::\n   14 | \n   15 |         @decorator\n   16 |         def func(call, methods, content_type=DEFAULT):  # These are decorator params\n   17 |             # Access call arg by name\n   18 |             if call.request.method not in methods:\n   19 |                 # ...\n   20 |             # Decorated functions and all the arguments are accesible as:\n   21 |             print(call._func, call_args, call._kwargs)\n   22 |             # Finally make a call:\n   23 |             return call()\n   24 |     \"\"\"\n   25 |     if has_single_arg(deco):\n   26 |         return make_decorator(deco)\n   27 |     elif has_1pos_and_kwonly(deco):\n   28 |         # Any arguments after first become decorator arguments\n   29 |         # And a decorator with arguments is essentially a decorator fab\n   30 |         # TODO: use pos-only arg once in Python 3.8+ only\n   31 |         def decorator_fab(_func=None, **dkwargs):\n   32 |             if _func is not None:\n   33 |                 return make_decorator(deco, (), dkwargs)(_func)\n   34 |             return make_decorator(deco, (), dkwargs)\n   35 |     else:\n   36 |         def decorator_fab(*dargs, **dkwargs):\n   37 |             return make_decorator(deco, dargs, dkwargs)\n   38 | \n   39 |     return wraps(deco)(decorator_fab)\n   40 | \n   41 | \n   42 | def make_decorator(deco, dargs=(), dkwargs={}):\n   43 |     @wraps(deco)\n   44 |     def _decorator(func):\n   45 |         def wrapper(*args, **kwargs):\n   46 |             call = Call(func, args, kwargs)\n   47 |             return deco(call, *dargs, **dkwargs)\n   48 |         return wraps(func)(wrapper)\n   49 | \n   50 |     # NOTE: should I update name to show args?\n   51 |     # Save these for introspection\n   52 |     _decorator._func, _decorator._args, _decorator._kwargs = deco, dargs, dkwargs\n   53 |     return _decorator\n   54 | \n   55 | \n   56 | class Call(object):\n   57 |     \"\"\"\n   58 |     A call object to pass as first argument to decorator.\n   59 | \n   60 |     Call object is just a proxy for decorated function\n   61 |     with call arguments saved in its attributes.\n   62 |     \"\"\"\n   63 |     def __init__(self, func, args, kwargs):\n   64 |         self._func, self._args, self._kwargs = func, args, kwargs\n   65 | \n   66 |     def __call__(self, *a, **kw):\n   67 |         if not a and not kw:\n   68 |             return self._func(*self._args, **self._kwargs)\n   69 |         else:\n   70 |             return self._func(*(self._args + a), **dict(self._kwargs, **kw))\n   71 | \n   72 |     def __getattr__(self, name):\n   73 |         try:\n   74 |             res = self.__dict__[name] = arggetter(self._func)(name, self._args, self._kwargs)\n   75 |             return res\n   76 |         except TypeError as e:\n   77 |             raise AttributeError(*e.args)\n   78 | \n   79 |     def __str__(self):\n   80 |         func = getattr(self._func, '__qualname__', str(self._func))\n   81 |         args = \", \".join(list(map(str, self._args)) + [\"%s=%s\" % t for t in self._kwargs.items()])\n   82 |         return \"%s(%s)\" % (func, args)\n   83 | \n   84 |     def __repr__(self):\n   85 |         return \"<Call %s>\" % self\n   86 | \n   87 | \n   88 | def has_single_arg(func):\n   89 |     sig = inspect.signature(func)\n   90 |     if len(sig.parameters) != 1:\n   91 |         return False\n   92 |     arg = next(iter(sig.parameters.values()))\n   93 |     return arg.kind not in (arg.VAR_POSITIONAL, arg.VAR_KEYWORD)\n   94 | \n   95 | def has_1pos_and_kwonly(func):\n   96 |     from collections import Counter\n   97 |     from inspect import Parameter as P\n   98 | \n   99 |     sig = inspect.signature(func)\n  100 |     kinds = Counter(p.kind for p in sig.parameters.values())\n  101 |     return kinds[P.POSITIONAL_ONLY] + kinds[P.POSITIONAL_OR_KEYWORD] == 1 \\\n  102 |         and kinds[P.VAR_POSITIONAL] == 0\n  103 | \n  104 | def get_argnames(func):\n  105 |     func = getattr(func, '__original__', None) or unwrap(func)\n  106 |     code = func.__code__\n  107 |     count = code.co_argcount + code.co_kwonlyargcount\n  108 |     count += bool(code.co_flags & inspect.CO_VARARGS)\n  109 |     count += bool(code.co_flags & inspect.CO_VARKEYWORDS)\n  110 |     return code.co_varnames[:count]\n  111 | \n  112 | def arggetter(func, _cache={}):\n  113 |     if func in _cache:\n  114 |         return _cache[func]\n  115 | \n  116 |     original = getattr(func, '__original__', None) or unwrap(func)\n  117 |     code = original.__code__\n  118 | \n  119 |     # Instrospect pos and kw names\n  120 |     posnames = code.co_varnames[:code.co_argcount]\n  121 |     posonly_n = getattr(code, 'co_posonlyargcount', 0)\n  122 |     if inspect.ismethod(func) or inspect.ismethod(original):\n  123 |         posnames = posnames[1:]\n  124 |         posonly_n = max(0, posonly_n - 1)\n  125 |     n = code.co_argcount\n  126 |     kwonlynames = code.co_varnames[n:n + code.co_kwonlyargcount]\n  127 |     n += code.co_kwonlyargcount\n  128 |     kwnames = posnames[posonly_n:] + kwonlynames\n  129 | \n  130 |     varposname = varkwname = None\n  131 |     if code.co_flags & inspect.CO_VARARGS:\n  132 |         varposname = code.co_varnames[n]\n  133 |         n += 1\n  134 |     if code.co_flags & inspect.CO_VARKEYWORDS:\n  135 |         varkwname = code.co_varnames[n]\n  136 | \n  137 |     allnames = set(code.co_varnames)\n  138 |     indexes = {name: i for i, name in enumerate(posnames)}\n  139 |     defaults = {}\n  140 |     if original.__defaults__:\n  141 |         defaults.update(zip(posnames[-len(original.__defaults__):], original.__defaults__))\n  142 |     if original.__kwdefaults__:\n  143 |         defaults.update(original.__kwdefaults__)\n  144 | \n  145 |     def get_arg(name, args, kwargs):\n  146 |         if name not in allnames:\n  147 |             raise TypeError(\"%s() doesn't have argument named %s\" % (func.__name__, name))\n  148 | \n  149 |         index = indexes.get(name)\n  150 |         if index is not None and index < len(args):\n  151 |             return args[index]\n  152 |         elif name in kwargs and name in kwnames:\n  153 |             return kwargs[name]\n  154 |         elif name == varposname:\n  155 |             return args[len(posnames):]\n  156 |         elif name == varkwname:\n  157 |             return omit(kwargs, kwnames)\n  158 |         elif name in defaults:\n  159 |             return defaults[name]\n  160 |         else:\n  161 |             raise TypeError(\"%s() missing required argument: '%s'\" % (func.__name__, name))\n  162 | \n  163 |     _cache[func] = get_arg\n  164 |     return get_arg\n  165 | \n  166 | \n  167 | ### Add __original__ to update_wrapper and @wraps\n  168 | \n  169 | def update_wrapper(wrapper,\n  170 |                    wrapped,\n  171 |                    assigned = functools.WRAPPER_ASSIGNMENTS,\n  172 |                    updated = functools.WRAPPER_UPDATES):\n  173 |     functools.update_wrapper(wrapper, wrapped, assigned, updated)\n  174 | \n  175 |     # Set an original ref for faster and more convenient access\n  176 |     wrapper.__original__ = getattr(wrapped, '__original__', None) or unwrap(wrapped)\n  177 | \n  178 |     return wrapper\n  179 | \n  180 | update_wrapper.__doc__ = functools.update_wrapper.__doc__\n  181 | \n  182 | \n  183 | def wraps(wrapped,\n  184 |           assigned = functools.WRAPPER_ASSIGNMENTS,\n  185 |           updated = functools.WRAPPER_UPDATES):\n  186 |     return functools.partial(update_wrapper, wrapped=wrapped, assigned=assigned, updated=updated)\n  187 | \n  188 | wraps.__doc__ = functools.wraps.__doc__\n```\n\nDefinitions imported by the module from elsewhere in the repository:\n\n# funcy/colls.py lines 266-268\n```python\ndef omit(mapping, keys):\n    \"\"\"Removes given keys from mapping.\"\"\"\n    return _factory(mapping)((k, v) for k, v in iteritems(mapping) if k not in keys)\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- funcy/calc.py:33: `return _memory_decorator(dict, key_func)`\n- funcy/calc.py:43: `return _memory_decorator(lambda: CacheMemory(timeout), key_func)`\n- funcy/debug.py:114: `cm.label = signature_repr(Call(func, args, kwargs), self.repr_len)`\n- funcy/flow.py:240: `return once_per(*get_argnames(func))(func)`\n- funcy/flow.py:216: `get_arg = arggetter(func)`\n- funcy/calc.py:52: `@wraps(func)`\n- funcy/calc.py:153: `return wraps(func)(wrapper)`\n\nPublic API to cover: `decorator`, `make_decorator`, `Call`, `has_single_arg`, `has_1pos_and_kwonly`, `get_argnames`, `arggetter`, `update_wrapper`, `wraps`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from funcy.decorators import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T03:54:41+00:00",
+    "duration": 8.85,
+    "summary": "第 1 轮：生成 481 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_decorators.py",
+          "content": "<10074 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5705,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `funcy.decorators`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport functools\nimport inspect\n\nimport pytest\n\nfrom funcy.decorators import (\n    decorator,\n    make_decorator,\n    Call,\n    has_single_arg,\n    has_1pos_and_kwonly,\n    get_argnames,\n    arggetter,\n    update_wrapper,\n    wraps,\n)\n\n\n# ---------------------------------------------------------------------------\n# helpers\n# ---------------------------------------------------------------------------\n\ndef sample(a, b=2, *args, c, d=4, **kwargs):\n    return (a, b, args, c, d, kwargs)\n\n\ndef plain(x, y):\n    return x + y\n\n\n# ---------------------------------------------------------------------------\n# has_single_arg\n# ---------------------------------------------------------------------------\n\ndef test_has_single_arg_true():\n    def f(call):\n        pass\n    assert has_single_arg(f) is True\n\n\ndef test_has_single_arg_false_multiple():\n    def f(a, b):\n        pass\n    assert has_single_arg(f) is False\n\n\ndef test_has_single_arg_varargs_only():\n    def f(*args):\n        pass\n    assert has_single_arg(f) is False\n\n\ndef test_has_single_arg_kwargs_only():\n    def f(**kwargs):\n        pass\n    assert has_single_arg(f) is False\n\n\ndef test_has_single_arg_zero():\n    def f():\n        pass\n    assert has_single_arg(f) is False\n\n\ndef test_has_single_arg_keyword_only_single():\n    def f(*, call):\n        pass\n    # single parameter, not var-positional / var-keyword -> True\n    assert has_single_arg(f) is True\n\n\n# ---------------------------------------------------------------------------\n# has_1pos_and_kwonly\n# ---------------------------------------------------------------------------\n\ndef test_has_1pos_and_kwonly_true():\n    def f(call, methods=\"GET\"):\n        pass\n    assert has_1pos_and_kwonly(f) is True\n\n\ndef test_has_1pos_and_kwonly_only_one_pos():\n    def f(call):\n        pass\n    assert has_1pos_and_kwonly(f) is True\n\n\ndef test_has_1pos_and_kwonly_two_pos():\n    def f(a, b):\n        pass\n    assert has_1pos_and_kwonly(f) is False\n\n\ndef test_has_1pos_and_kwonly_with_varargs():\n    def f(call, *args):\n        pass\n    assert has_1pos_and_kwonly(f) is False\n\n\ndef test_has_1pos_and_kwonly_zero_pos():\n    def f(**kwargs):\n        pass\n    assert has_1pos_and_kwonly(f) is False\n\n\n# ---------------------------------------------------------------------------\n# get_argnames\n# ---------------------------------------------------------------------------\n\ndef test_get_argnames_simple():\n    def f(a, b, c):\n        pass\n    assert get_argnames(f) == ('a', 'b', 'c')\n\n\ndef test_get_argnames_with_kwonly():\n    assert get_argnames(sample) == ('a', 'b', 'args', 'c', 'd', 'kwargs')\n\n\ndef test_get_argnames_method():\n    class A:\n        def m(self, x, y):\n            pass\n    assert get_argnames(A().m) == ('self', 'x', 'y')\n\n\ndef test_get_argnames_uses_original():\n    def f(a, b):\n        pass\n\n    def wrapper(*args, **kwargs):\n        return f(*args, **kwargs)\n    wrapper.__original__ = f\n    assert get_argnames(wrapper) == ('a', 'b')\n\n\ndef test_get_argnames_unwraps():\n    def f(a, b):\n        pass\n\n    @functools.wraps(f)\n    def wrapper(*args, **kwargs):\n        return f(*args, **kwargs)\n    assert get_argnames(wrapper) == ('a', 'b')\n\n\n# ---------------------------------------------------------------------------\n# arggetter\n# ---------------------------------------------------------------------------\n\ndef test_arggetter_positional():\n    get = arggetter(plain)\n    assert get('x', (1, 2), {}) == 1\n    assert get('y', (1, 2), {}) == 2\n\n\ndef test_arggetter_default():\n    def f(a, b=7):\n        pass\n    get = arggetter(f)\n    assert get('b', (1,), {}) == 7\n\n\ndef test_arggetter_kwonly_default():\n    def f(a, *, c=9):\n        pass\n    get = arggetter(f)\n    assert get('c', (1,), {}) == 9\n\n\ndef test_arggetter_kwonly_from_kwargs():\n    def f(a, *, c=9):\n        pass\n    get = arggetter(f)\n    assert get('c', (1,), {'c': 3}) == 3\n\n\ndef test_arggetter_varargs():\n    get = arggetter(sample)\n    assert get('args', (1, 2, 3, 4), {'c': 5}) == (3, 4)\n\n\ndef test_arggetter_varkw():\n    get = arggetter(sample)\n    assert get('kwargs', (1, 2), {'c': 5, 'extra': 6}) == {'extra': 6}\n\n\ndef test_arggetter_unknown_name():\n    get = arggetter(plain)\n    with pytest.raises(TypeError):\n        get('nope', (1, 2), {})\n\n\ndef test_arggetter_missing_required():\n    get = arggetter(plain)\n    with pytest.raises(TypeError):\n        get('y', (1,), {})\n\n\ndef test_arggetter_cache():\n    get1 = arggetter(plain)\n    get2 = arggetter(plain)\n    assert get1 is get2\n\n\ndef test_arggetter_method_skips_self():\n    class A:\n        def m(self, x, y=2):\n            pass\n    inst = A()\n    get = arggetter(inst.m)\n    assert get('x', (10,), {}) == 10\n    assert get('y', (10,), {}) == 2\n\n\ndef test_arggetter_positional_only():\n    def f(a, b, /, c=3):\n        pass\n    get = arggetter(f)\n    assert get('a', (1, 2), {}) == 1\n    assert get('b', (1, 2), {}) == 2\n    assert get('c', (1, 2), {}) == 3\n\n\n# ---------------------------------------------------------------------------\n# Call\n# ---------------------------------------------------------------------------\n\ndef test_call_basic():\n    call = Call(plain, (1, 2), {})\n    assert call() == 3\n    assert call._func is plain\n    assert call._args == (1, 2)\n    assert call._kwargs == {}\n\n\ndef test_call_extra_args_append():\n    def f(*args):\n        return args\n    call = Call(f, (1,), {})\n    assert call(2, 3) == (1, 2, 3)\n\n\ndef test_call_extra_kwargs_merge():\n    def f(a, b=0):\n        return (a, b)\n    call = Call(f, (1,), {})\n    assert call(b=5) == (1, 5)\n    assert call(b=5).__class__ is tuple\n\n\ndef test_call_attribute_lookup():\n    def f(x, y=2):\n        return x + y\n    call = Call(f, (1,), {})\n    assert call.x == 1\n    assert call.y == 2\n\n\ndef test_call_attribute_missing():\n    call = Call(plain, (1, 2), {})\n    with pytest.raises(AttributeError):\n        call.nonexistent\n\n\ndef test_call_str():\n    call = Call(plain, (1,), {'y': 2})\n    assert str(call) == \"plain(1, y=2)\"\n    assert repr(call) == \"<Call plain(1, y=2)>\"\n\n\ndef test_call_str_fallback():\n    obj = object()\n    call = Call(obj, (), {})\n    assert str(call) == \"%s()\" % str(obj)\n\n\n# ---------------------------------------------------------------------------\n# make_decorator\n# ---------------------------------------------------------------------------\n\ndef test_make_decorator_plain():\n    def deco(call):\n        return call() * 2\n\n    d = make_decorator(deco)\n    assert d._func is deco\n    assert d._args == ()\n    assert d._kwargs == {}\n\n    @d\n    def f(x):\n        return x + 1\n\n    assert f(3) == 8\n    assert f.__name__ == 'f'\n\n\ndef test_make_decorator_with_args():\n    def deco(call, mult):\n        return call() * mult\n\n    d = make_decorator(deco, (3,))\n    assert d._args == (3,)\n\n    @d\n    def f(x):\n        return x\n\n    assert f(2) == 6\n\n\ndef test_make_decorator_with_kwargs():\n    def deco(call, mult=1):\n        return call() * mult\n\n    d = make_decorator(deco, (), {'mult': 4})\n\n    @d\n    def f(x):\n        return x\n\n    assert f(2) == 8\n\n\n# ---------------------------------------------------------------------------\n# decorator\n# ---------------------------------------------------------------------------\n\ndef test_decorator_single_arg():\n    @decorator\n    def double(call):\n        return call() * 2\n\n    @double\n    def f(x):\n        return x + 1\n\n    assert f(5) == 12\n    assert f.__name__ == 'f'\n\n\ndef test_decorator_single_arg_wrapped_meta():\n    @decorator\n    def deco(call):\n        return call()\n\n    assert hasattr(deco, '__original__')\n    assert deco.__original__.__name__ == 'deco'\n\n\ndef test_decorator_with_args_positional():\n    @decorator\n    def multiply(call, factor, add=0):\n        return call() * factor + add\n\n    @multiply(2, add=10)\n    def f(x):\n        return x\n\n    assert f(3) == 16\n\n\ndef test_decorator_with_args_used_bare():\n    @decorator\n    def multiply(call, factor=1):\n        return call() * factor\n\n    @multiply\n    def f(x):\n        return x\n\n    assert f(3) == 3\n\n\ndef test_decorator_with_args_kwonly():\n    @decorator\n    def deco(call, factor=1):\n        return call() * factor\n\n    @deco(factor=5)\n    def f(x):\n        return x\n    assert f(2) == 10\n\n\ndef test_decorator_with_args_regular_fab():\n    @decorator\n    def deco(call, a, b=2):\n        return call() + a + b\n\n    @deco(1, b=10)\n    def f(x):\n        return x\n    assert f(5) == 16\n\n\ndef test_decorator_preserves_wrapper_call_meta():\n    @decorator\n    def deco(call):\n        return call()\n\n    @deco\n    def f(x, y=2):\n        return x + y\n\n    assert f.__name__ == 'f'\n    assert f.__original__ is f.__original__\n\n\n# ---------------------------------------------------------------------------\n# wraps / update_wrapper\n# ---------------------------------------------------------------------------\n\ndef test_wraps_copies_metadata():\n    def f(x):\n        \"\"\"docstring\"\"\"\n        return x\n\n    def w(*args, **kwargs):\n        return f(*args, **kwargs)\n\n    wrapped = wraps(f)(w)\n    assert wrapped.__name__ == 'f'\n    assert wrapped.__doc__ == 'docstring'\n    assert wrapped.__original__ is f\n\n\ndef test_wraps_copies_original():\n    def f(x):\n        return x\n\n    def w(*args, **kwargs):\n        return f(*args, **kwargs)\n\n    wraps(f)(w)\n    assert w.__original__ is f\n\n\ndef test_update_wrapper_sets_original():\n    def f(a):\n        \"\"\"doc\"\"\"\n        return a\n\n    def w(*args, **kwargs):\n        return f(*args, **kwargs)\n\n    result = update_wrapper(w, f)\n    assert result is w\n    assert w.__original__ is f\n    assert w.__name__ == 'f'\n    assert w.__doc__ == 'doc'\n\n\ndef test_update_wrapper_uses_existing_original():\n    def real(a):\n        return a\n\n    def f(*args, **kwargs):\n        return real(*args, **kwargs)\n    f.__original__ = real\n\n    def w():\n        pass\n\n    update_wrapper(w, f)\n    assert w.__original__ is real\n\n\ndef test_wraps_passes_assigned_updated():\n    def f(a):\n        \"\"\"doc\"\"\"\n        return a\n\n    def w():\n        pass\n    w.custom = 'x'\n\n    wraps(f, assigned=('__name__',), updated=())(w)\n    assert w.__name__ == 'f'\n    assert w.__original__ is f\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 2844,
+      "cache_hit_tokens": 0,
+      "completion_tokens": 2861,
+      "reasoning_tokens": 0,
+      "latency": 8.84
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T03:54:43+00:00",
+    "duration": 2.08,
+    "summary": "通过 46，失败 3，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_decorators.py"
+          ]
+        },
+        "duration": 2.08,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 5705
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T03:54:43+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 46]（提升）",
+    "tool_calls": [],
+    "tokens_total": 5705,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      46
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T03:54:43+00:00",
+    "duration": 0.0,
+    "summary": "单次生成（无反馈）",
+    "tool_calls": [],
+    "tokens_total": 5705
+  },
+  {
+    "node": "finalize",
+    "iteration": 1,
+    "at": "2026-10-20T03:54:43+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 46]",
+    "tool_calls": [],
+    "tokens_total": 5705,
+    "best_iteration": 1
+  }
+]

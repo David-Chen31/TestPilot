@@ -1,0 +1,700 @@
+{
+  "target": "boltons/excutils.py",
+  "validity": {
+    "total": 45,
+    "valid": 37,
+    "valid_ids": [
+      "tests_testpilot/test_excutils.py::test_mixin_without_cause",
+      "tests_testpilot/test_excutils.py::test_mixin_cause_class_attribute_default_is_none",
+      "tests_testpilot/test_excutils.py::test_mixin_chained_root_cause",
+      "tests_testpilot/test_excutils.py::test_mixin_non_exception_first_arg_is_normal_arg",
+      "tests_testpilot/test_excutils.py::test_mixin_no_args",
+      "tests_testpilot/test_excutils.py::test_math_error_subclassing",
+      "tests_testpilot/test_excutils.py::test_get_message_no_cause",
+      "tests_testpilot/test_excutils.py::test_get_message_with_cause",
+      "tests_testpilot/test_excutils.py::test_get_message_empty_when_no_args",
+      "tests_testpilot/test_excutils.py::test_get_message_falsy_first_arg",
+      "tests_testpilot/test_excutils.py::test_get_exc_str_with_message",
+      "tests_testpilot/test_excutils.py::test_get_exc_str_without_message",
+      "tests_testpilot/test_excutils.py::test_get_exc_str_incl_name_false",
+      "tests_testpilot/test_excutils.py::test_str_without_cause",
+      "tests_testpilot/test_excutils.py::test_whoops_math_raises_zero_division",
+      "tests_testpilot/test_excutils.py::test_math_lol_recursion_depth",
+      "tests_testpilot/test_excutils.py::test_math_lol_n_ge_three_still_raises",
+      "tests_testpilot/test_excutils.py::test_main_raises_caught_as_value_error",
+      "tests_testpilot/test_excutils.py::test_raised_math_error_populates_full_trace",
+      "tests_testpilot/test_excutils.py::test_raised_chain_preserves_full_trace",
+      "tests_testpilot/test_excutils.py::test_format_exc_basic",
+      "tests_testpilot/test_excutils.py::test_format_exc_with_message_override",
+      "tests_testpilot/test_excutils.py::test_format_exc_no_args",
+      "tests_testpilot/test_excutils.py::test_deferred_line_equality",
+      "tests_testpilot/test_excutils.py::test_deferred_line_str_reads_file",
+      "tests_testpilot/test_excutils.py::test_deferred_line_repr",
+      "tests_testpilot/test_excutils.py::test_deferred_line_len",
+      "tests_testpilot/test_excutils.py::test_deferred_line_strip",
+      "tests_testpilot/test_excutils.py::test_deferred_line_module_globals_filtered",
+      "tests_testpilot/test_excutils.py::test_deferred_line_module_globals_none",
+      "tests_testpilot/test_excutils.py::test_extract_from_tb_basic",
+      "tests_testpilot/test_excutils.py::test_extract_from_tb_limit",
+      "tests_testpilot/test_excutils.py::test_extract_from_tb_limit_one",
+      "tests_testpilot/test_excutils.py::test_extract_from_tb_none",
+      "tests_testpilot/test_excutils.py::test_extract_from_frame_default",
+      "tests_testpilot/test_excutils.py::test_extract_from_frame_limit",
+      "tests_testpilot/test_excutils.py::test_extract_from_frame_explicit_frame"
+    ],
+    "invalid": {
+      "tests_testpilot/test_excutils.py::test_mixin_stored_as_cause_first_arg": "run 1: failed: AssertionError: assert (ValueError('boom'), 'msg') == ('msg',)",
+      "tests_testpilot/test_excutils.py::test_math_error_construction": "run 1: failed: AssertionError: assert (ZeroDivision...ne messed up') == ('ya done messed up',)",
+      "tests_testpilot/test_excutils.py::test_str_with_cause_no_trace": "run 1: failed: AttributeError: 'ExceptionCauseMixin' object has no attribute 'full_trace'",
+      "tests_testpilot/test_excutils.py::test_get_str_without_cause": "run 1: failed: AttributeError: 'ExceptionCauseMixin' object has no attribute 'root_cause'",
+      "tests_testpilot/test_excutils.py::test_math_lol_raises_math_error": "run 1: failed: AssertionError: assert (ZeroDivision...ne messed up') == ('ya done messed up',)",
+      "tests_testpilot/test_excutils.py::test_main_raises_math_error": "run 1: failed: AssertionError: assert (MathError(Ze...ed up'), 'hi') == ('hi',)",
+      "tests_testpilot/test_excutils.py::test_deferred_line_missing_file_returns_none": "run 1: failed: TypeError: __str__ returned non-string (type NoneType)",
+      "tests_testpilot/test_excutils.py::test_tbitem_repr_includes_frame_id": "run 1: failed: TypeError: __str__ returned non-string (type NoneType)"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.33,
+        "passed": 37,
+        "failed": 8,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.19,
+        "passed": 37,
+        "failed": 8,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.09,
+        "passed": 37,
+        "failed": 8,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.8265895953757225,
+  "branch_rate": 0.7115384615384616,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.5545454545454546,
+    "total": 220,
+    "killed": 122,
+    "survived": 98,
+    "excluded": 0,
+    "status_counts": {
+      "no tests": 20,
+      "killed": 122,
+      "survived": 78
+    },
+    "survivors": [
+      {
+        "line": 109,
+        "original": "ret = []",
+        "mutated": "ret = None",
+        "status": "no tests"
+      },
+      {
+        "line": 110,
+        "original": "trace_str = self._get_trace_str()",
+        "mutated": "trace_str = None",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "ret.extend(['Traceback (most recent call last):\\n', trace_str])",
+        "mutated": "ret.extend(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "ret.extend(['Traceback (most recent call last):\\n', trace_str])",
+        "mutated": "ret.extend(['XXTraceback (most recent call last):\\nXX', trace_str])",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "ret.extend(['Traceback (most recent call last):\\n', trace_str])",
+        "mutated": "ret.extend(['traceback (most recent call last):\\n', trace_str])",
+        "status": "no tests"
+      },
+      {
+        "line": 112,
+        "original": "ret.extend(['Traceback (most recent call last):\\n', trace_str])",
+        "mutated": "ret.extend(['TRACEBACK (MOST RECENT CALL LAST):\\n', trace_str])",
+        "status": "no tests"
+      },
+      {
+        "line": 113,
+        "original": "ret.append(self._get_exc_str())",
+        "mutated": "ret.append(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 114,
+        "original": "return ''.join(ret)",
+        "mutated": "return ''.join(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 114,
+        "original": "return ''.join(ret)",
+        "mutated": "return 'XXXX'.join(ret)",
+        "status": "no tests"
+      },
+      {
+        "line": 117,
+        "original": "args = getattr(self, 'args', [])",
+        "mutated": "args = getattr(self, 'args', None)",
+        "status": "survived"
+      },
+      {
+        "line": 117,
+        "original": "args = getattr(self, 'args', [])",
+        "mutated": "args = getattr(self, 'args', )",
+        "status": "survived"
+      },
+      {
+        "line": 125,
+        "original": "if not self.cause:",
+        "mutated": "if self.cause:",
+        "status": "no tests"
+      },
+      {
+        "line": 128,
+        "original": "return ''.join(traceback.format_list(self.full_trace))",
+        "mutated": "return ''.join(None)",
+        "status": "no tests"
+      },
+      {
+        "line": 128,
+        "original": "return ''.join(traceback.format_list(self.full_trace))",
+        "mutated": "return 'XXXX'.join(traceback.format_list(self.full_trace))",
+        "status": "no tests"
+      },
+      {
+        "line": 128,
+        "original": "return ''.join(traceback.format_list(self.full_trace))",
+        "mutated": "return ''.join(traceback.format_list(None))",
+        "status": "no tests"
+      },
+      {
+        "line": 129,
+        "original": "return ''",
+        "mutated": "return 'XXXX'",
+        "status": "no tests"
+      },
+      {
+        "line": 138,
+        "original": "ret.extend([message, ' (caused by ', cause_str, ')'])",
+        "mutated": "ret.extend([message, ' (caused by ', cause_str, 'XX)XX'])",
+        "status": "survived"
+      },
+      {
+        "line": 146,
+        "original": "trace_str = self._get_trace_str()",
+        "mutated": "trace_str = None",
+        "status": "survived"
+      },
+      {
+        "line": 147,
+        "original": "ret = []",
+        "mutated": "ret = None",
+        "status": "survived"
+      },
+      {
+        "line": 149,
+        "original": "message = self._get_message()",
+        "mutated": "message = None",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "ret.extend([message, ' --- '])",
+        "mutated": "ret.extend(None)",
+        "status": "survived"
+      },
+      {
+        "line": 151,
+        "original": "ret.extend([message, ' --- '])",
+        "mutated": "ret.extend([message, 'XX --- XX'])",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "ret.extend(['Wrapped traceback (most recent call last):\\n',\n                    trace_str,\n                    self._get_exc_str(incl_name=True)])",
+        "mutated": "ret.extend(None)",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "ret.extend(['Wrapped traceback (most recent call last):\\n',",
+        "mutated": "ret.extend(['XXWrapped traceback (most recent call last):\\nXX',",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "ret.extend(['Wrapped traceback (most recent call last):\\n',",
+        "mutated": "ret.extend(['wrapped traceback (most recent call last):\\n',",
+        "status": "survived"
+      },
+      {
+        "line": 152,
+        "original": "ret.extend(['Wrapped traceback (most recent call last):\\n',",
+        "mutated": "ret.extend(['WRAPPED TRACEBACK (MOST RECENT CALL LAST):\\n',",
+        "status": "survived"
+      },
+      {
+        "line": 154,
+        "original": "self._get_exc_str(incl_name=True)])",
+        "mutated": "self._get_exc_str(incl_name=None)])",
+        "status": "survived"
+      },
+      {
+        "line": 154,
+        "original": "self._get_exc_str(incl_name=True)])",
+        "mutated": "self._get_exc_str(incl_name=False)])",
+        "status": "survived"
+      },
+      {
+        "line": 155,
+        "original": "return ''.join(ret)",
+        "mutated": "return ''.join(None)",
+        "status": "survived"
+      },
+      {
+        "line": 155,
+        "original": "return ''.join(ret)",
+        "mutated": "return 'XXXX'.join(ret)",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "return self._get_exc_str(incl_name=False)",
+        "mutated": "return self._get_exc_str(incl_name=None)",
+        "status": "survived"
+      },
+      {
+        "line": 157,
+        "original": "return self._get_exc_str(incl_name=False)",
+        "mutated": "return self._get_exc_str(incl_name=True)",
+        "status": "survived"
+      },
+      {
+        "line": 172,
+        "original": "ret = super().__repr__()",
+        "mutated": "ret = None",
+        "status": "no tests"
+      },
+      {
+        "line": 173,
+        "original": "ret += ' <%r>' % self.frame_id",
+        "mutated": "ret = ' <%r>' % self.frame_id",
+        "status": "no tests"
+      },
+      {
+        "line": 173,
+        "original": "ret += ' <%r>' % self.frame_id",
+        "mutated": "ret -= ' <%r>' % self.frame_id",
+        "status": "no tests"
+      },
+      {
+        "line": 173,
+        "original": "ret += ' <%r>' % self.frame_id",
+        "mutated": "ret += ' <%r>' / self.frame_id",
+        "status": "no tests"
+      },
+      {
+        "line": 173,
+        "original": "ret += ' <%r>' % self.frame_id",
+        "mutated": "ret += 'XX <%r>XX' % self.frame_id",
+        "status": "no tests"
+      },
+      {
+        "line": 173,
+        "original": "ret += ' <%r>' % self.frame_id",
+        "mutated": "ret += ' <%R>' % self.frame_id",
+        "status": "no tests"
+      },
+      {
+        "line": 192,
+        "original": "if hasattr(self, '_line'):",
+        "mutated": "if hasattr(None, '_line'):",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "if hasattr(self, '_line'):",
+        "mutated": "if hasattr(self, 'XX_lineXX'):",
+        "status": "survived"
+      },
+      {
+        "line": 192,
+        "original": "if hasattr(self, '_line'):",
+        "mutated": "if hasattr(self, '_LINE'):",
+        "status": "survived"
+      },
+      {
+        "line": 194,
+        "original": "linecache.checkcache(self.filename)",
+        "mutated": "linecache.checkcache(None)",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "self.module_globals)",
+        "mutated": "None)",
+        "status": "survived"
+      },
+      {
+        "line": 197,
+        "original": "self.module_globals)",
+        "mutated": ")",
+        "status": "survived"
+      },
+      {
+        "line": 201,
+        "original": "line = None",
+        "mutated": "line = \"\"",
+        "status": "survived"
+      },
+      {
+        "line": 202,
+        "original": "self._line = line",
+        "mutated": "self._line = None",
+        "status": "survived"
+      },
+      {
+        "line": 218,
+        "original": "f = sys._getframe(1)  # cross-impl yadayada",
+        "mutated": "f = sys._getframe(2)  # cross-impl yadayada",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "limit = getattr(sys, 'tracebacklimit', 1000)",
+        "mutated": "limit = getattr(None, 'tracebacklimit', 1000)",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "limit = getattr(sys, 'tracebacklimit', 1000)",
+        "mutated": "limit = getattr(sys, 'XXtracebacklimitXX', 1000)",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "limit = getattr(sys, 'tracebacklimit', 1000)",
+        "mutated": "limit = getattr(sys, 'TRACEBACKLIMIT', 1000)",
+        "status": "survived"
+      },
+      {
+        "line": 220,
+        "original": "limit = getattr(sys, 'tracebacklimit', 1000)",
+        "mutated": "limit = getattr(sys, 'tracebacklimit', 1001)",
+        "status": "survived"
+      },
+      {
+        "line": 224,
+        "original": "lineno = f.f_lineno",
+        "mutated": "lineno = None",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "line = _DeferredLine(filename, lineno, f.f_globals)",
+        "mutated": "line = None",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "line = _DeferredLine(filename, lineno, f.f_globals)",
+        "mutated": "line = _DeferredLine(None, lineno, f.f_globals)",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "line = _DeferredLine(filename, lineno, f.f_globals)",
+        "mutated": "line = _DeferredLine(filename, None, f.f_globals)",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "line = _DeferredLine(filename, lineno, f.f_globals)",
+        "mutated": "line = _DeferredLine(filename, lineno, None)",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "line = _DeferredLine(filename, lineno, f.f_globals)",
+        "mutated": "line = _DeferredLine(lineno, f.f_globals)",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "line = _DeferredLine(filename, lineno, f.f_globals)",
+        "mutated": "line = _DeferredLine(filename, f.f_globals)",
+        "status": "survived"
+      },
+      {
+        "line": 226,
+        "original": "line = _DeferredLine(filename, lineno, f.f_globals)",
+        "mutated": "line = _DeferredLine(filename, lineno, )",
+        "status": "survived"
+      },
+      {
+        "line": 227,
+        "original": "item = _TBItem(filename, lineno, name, line)",
+        "mutated": "item = _TBItem(filename, None, name, line)",
+        "status": "survived"
+      },
+      {
+        "line": 227,
+        "original": "item = _TBItem(filename, lineno, name, line)",
+        "mutated": "item = _TBItem(filename, lineno, name, None)",
+        "status": "survived"
+      },
+      {
+        "line": 231,
+        "original": "n += 1",
+        "mutated": "n = 1",
+        "status": "survived"
+      },
+      {
+        "line": 231,
+        "original": "n += 1",
+        "mutated": "n += 2",
+        "status": "survived"
+      },
+      {
+        "line": 239,
+        "original": "limit = getattr(sys, 'tracebacklimit', 1000)",
+        "mutated": "limit = getattr(None, 'tracebacklimit', 1000)",
+        "status": "survived"
+      },
+      {
+        "line": 239,
+        "original": "limit = getattr(sys, 'tracebacklimit', 1000)",
+        "mutated": "limit = getattr(sys, 'XXtracebacklimitXX', 1000)",
+        "status": "survived"
+      },
+      {
+        "line": 239,
+        "original": "limit = getattr(sys, 'tracebacklimit', 1000)",
+        "mutated": "limit = getattr(sys, 'TRACEBACKLIMIT', 1000)",
+        "status": "survived"
+      },
+      {
+        "line": 239,
+        "original": "limit = getattr(sys, 'tracebacklimit', 1000)",
+        "mutated": "limit = getattr(sys, 'tracebacklimit', 1001)",
+        "status": "survived"
+      },
+      {
+        "line": 243,
+        "original": "lineno = tb.tb_lineno",
+        "mutated": "lineno = None",
+        "status": "survived"
+      },
+      {
+        "line": 244,
+        "original": "name = tb.tb_frame.f_code.co_name",
+        "mutated": "name = None",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)",
+        "mutated": "line = None",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)",
+        "mutated": "line = _DeferredLine(None, lineno, tb.tb_frame.f_globals)",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)",
+        "mutated": "line = _DeferredLine(filename, None, tb.tb_frame.f_globals)",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)",
+        "mutated": "line = _DeferredLine(filename, lineno, None)",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)",
+        "mutated": "line = _DeferredLine(lineno, tb.tb_frame.f_globals)",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)",
+        "mutated": "line = _DeferredLine(filename, tb.tb_frame.f_globals)",
+        "status": "survived"
+      },
+      {
+        "line": 245,
+        "original": "line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)",
+        "mutated": "line = _DeferredLine(filename, lineno, )",
+        "status": "survived"
+      },
+      {
+        "line": 246,
+        "original": "item = _TBItem(filename, lineno, name, line)",
+        "mutated": "item = _TBItem(filename, None, name, line)",
+        "status": "survived"
+      },
+      {
+        "line": 246,
+        "original": "item = _TBItem(filename, lineno, name, line)",
+        "mutated": "item = _TBItem(filename, lineno, None, line)",
+        "status": "survived"
+      },
+      {
+        "line": 246,
+        "original": "item = _TBItem(filename, lineno, name, line)",
+        "mutated": "item = _TBItem(filename, lineno, name, None)",
+        "status": "survived"
+      },
+      {
+        "line": 247,
+        "original": "item.frame_id = id(tb.tb_frame)",
+        "mutated": "item.frame_id = None",
+        "status": "survived"
+      },
+      {
+        "line": 247,
+        "original": "item.frame_id = id(tb.tb_frame)",
+        "mutated": "item.frame_id = id(None)",
+        "status": "survived"
+      },
+      {
+        "line": 249,
+        "original": "tb = tb.tb_next",
+        "mutated": "tb = None",
+        "status": "survived"
+      },
+      {
+        "line": 250,
+        "original": "n += 1",
+        "mutated": "n = 1",
+        "status": "survived"
+      },
+      {
+        "line": 250,
+        "original": "n += 1",
+        "mutated": "n -= 1",
+        "status": "survived"
+      },
+      {
+        "line": 250,
+        "original": "n += 1",
+        "mutated": "n += 2",
+        "status": "survived"
+      },
+      {
+        "line": 262,
+        "original": "return 1/0",
+        "mutated": "return 2/0",
+        "status": "survived"
+      },
+      {
+        "line": 265,
+        "original": "def math_lol(n=0):",
+        "mutated": "def math_lol(n=1):",
+        "status": "survived"
+      },
+      {
+        "line": 266,
+        "original": "if n < 3:",
+        "mutated": "if n <= 3:",
+        "status": "survived"
+      },
+      {
+        "line": 266,
+        "original": "if n < 3:",
+        "mutated": "if n < 4:",
+        "status": "survived"
+      },
+      {
+        "line": 267,
+        "original": "return math_lol(n=n+1)",
+        "mutated": "return math_lol(n=n+2)",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "exc = MathError(zde, 'ya done messed up')",
+        "mutated": "exc = MathError(zde, None)",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "exc = MathError(zde, 'ya done messed up')",
+        "mutated": "exc = MathError(zde, )",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "exc = MathError(zde, 'ya done messed up')",
+        "mutated": "exc = MathError(zde, 'XXya done messed upXX')",
+        "status": "survived"
+      },
+      {
+        "line": 271,
+        "original": "exc = MathError(zde, 'ya done messed up')",
+        "mutated": "exc = MathError(zde, 'YA DONE MESSED UP')",
+        "status": "survived"
+      },
+      {
+        "line": 278,
+        "original": "exc = MathError(me, 'hi')",
+        "mutated": "exc = MathError(me, None)",
+        "status": "survived"
+      },
+      {
+        "line": 278,
+        "original": "exc = MathError(me, 'hi')",
+        "mutated": "exc = MathError(me, )",
+        "status": "survived"
+      },
+      {
+        "line": 278,
+        "original": "exc = MathError(me, 'hi')",
+        "mutated": "exc = MathError(me, 'XXhiXX')",
+        "status": "survived"
+      },
+      {
+        "line": 278,
+        "original": "exc = MathError(me, 'hi')",
+        "mutated": "exc = MathError(me, 'HI')",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 6.61,
+    "coverage": 3.14,
+    "mutation": 9.33
+  }
+}

@@ -1,0 +1,210 @@
+[
+  {
+    "node": "plan",
+    "iteration": 0,
+    "at": "2026-10-20T03:57:40+00:00",
+    "duration": 0.02,
+    "summary": "5 个公开符号",
+    "tool_calls": [
+      {
+        "name": "list_symbols",
+        "args": {
+          "path": "boltons/excutils.py"
+        },
+        "duration": 0.02,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "public_symbols": [
+      "ExceptionCauseMixin",
+      "MathError",
+      "whoops_math",
+      "math_lol",
+      "main"
+    ]
+  },
+  {
+    "node": "retrieve_context",
+    "iteration": 0,
+    "at": "2026-10-20T03:57:40+00:00",
+    "duration": 0.07,
+    "summary": "依赖定义 0 个，调用处 2 个，提示词前缀 12294 字符",
+    "tool_calls": [
+      {
+        "name": "read_file",
+        "args": {
+          "path": "boltons/excutils.py",
+          "start_line": 1
+        },
+        "duration": 0.0,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.01,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections.py"
+      },
+      {
+        "name": "read_file",
+        "args": {
+          "path": "collections/__init__.py",
+          "start_line": 1,
+          "end_line": 1
+        },
+        "duration": 0.01,
+        "ok": false,
+        "error": "Error executing tool read_file: no such file or directory: collections/__init__.py"
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "ExceptionCauseMixin(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "MathError(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "whoops_math(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "math_lol(",
+          "max_results": 50
+        },
+        "duration": 0.02,
+        "ok": true,
+        "error": ""
+      },
+      {
+        "name": "search_code",
+        "args": {
+          "query": "main(",
+          "max_results": 50
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 0,
+    "prompt_prefix": "Module under test: `boltons.excutils` (file `boltons/excutils.py`).\n\nSource of `boltons/excutils.py` (line numbers added for reference; they are not part of the code):\n```\n    1 | # Copyright (c) 2013, Mahmoud Hashemi\n    2 | #\n    3 | # Redistribution and use in source and binary forms, with or without\n    4 | # modification, are permitted provided that the following conditions are\n    5 | # met:\n    6 | #\n    7 | #    * Redistributions of source code must retain the above copyright\n    8 | #      notice, this list of conditions and the following disclaimer.\n    9 | #\n   10 | #    * Redistributions in binary form must reproduce the above\n   11 | #      copyright notice, this list of conditions and the following\n   12 | #      disclaimer in the documentation and/or other materials provided\n   13 | #      with the distribution.\n   14 | #\n   15 | #    * The names of the contributors may not be used to endorse or\n   16 | #      promote products derived from this software without specific\n   17 | #      prior written permission.\n   18 | #\n   19 | # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n   20 | # \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n   21 | # LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n   22 | # A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n   23 | # OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n   24 | # SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n   25 | # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n   26 | # DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n   27 | # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n   28 | # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n   29 | # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n   30 | \n   31 | \n   32 | import sys\n   33 | import traceback\n   34 | import linecache\n   35 | from collections import namedtuple\n   36 | \n   37 | # TODO: last arg or first arg?  (last arg makes it harder to *args\n   38 | #       into, but makes it more readable in the default exception\n   39 | #       __repr__ output)\n   40 | # TODO: Multiexception wrapper\n   41 | \n   42 | \n   43 | __all__ = ['ExceptionCauseMixin']\n   44 | \n   45 | \n   46 | class ExceptionCauseMixin(Exception):\n   47 |     \"\"\"\n   48 |     A mixin class for wrapping an exception in another exception, or\n   49 |     otherwise indicating an exception was caused by another exception.\n   50 | \n   51 |     This is most useful in concurrent or failure-intolerant scenarios,\n   52 |     where just because one operation failed, doesn't mean the remainder\n   53 |     should be aborted, or that it's the appropriate time to raise\n   54 |     exceptions.\n   55 | \n   56 |     This is still a work in progress, but an example use case at the\n   57 |     bottom of this module.\n   58 | \n   59 |     NOTE: when inheriting, you will probably want to put the\n   60 |     ExceptionCauseMixin first. Builtin exceptions are not good about\n   61 |     calling super()\n   62 |     \"\"\"\n   63 | \n   64 |     cause = None\n   65 | \n   66 |     def __new__(cls, *args, **kw):\n   67 |         cause = None\n   68 |         if args and isinstance(args[0], Exception):\n   69 |             cause, args = args[0], args[1:]\n   70 |         ret = super().__new__(cls, *args, **kw)\n   71 |         ret.cause = cause\n   72 |         if cause is None:\n   73 |             return ret\n   74 |         root_cause = getattr(cause, 'root_cause', None)\n   75 |         if root_cause is None:\n   76 |             ret.root_cause = cause\n   77 |         else:\n   78 |             ret.root_cause = root_cause\n   79 | \n   80 |         full_trace = getattr(cause, 'full_trace', None)\n   81 |         if full_trace is not None:\n   82 |             ret.full_trace = list(full_trace)\n   83 |             ret._tb = list(cause._tb)\n   84 |             ret._stack = list(cause._stack)\n   85 |             return ret\n   86 | \n   87 |         try:\n   88 |             exc_type, exc_value, exc_tb = sys.exc_info()\n   89 |             if exc_type is None and exc_value is None:\n   90 |                 return ret\n   91 |             if cause is exc_value or root_cause is exc_value:\n   92 |                 # handles when cause is the current exception or when\n   93 |                 # there are multiple wraps while handling the original\n   94 |                 # exception, but a cause was never provided\n   95 |                 ret._tb = _extract_from_tb(exc_tb)\n   96 |                 ret._stack = _extract_from_frame(exc_tb.tb_frame)\n   97 |                 ret.full_trace = ret._stack[:-1] + ret._tb\n   98 |         finally:\n   99 |             del exc_tb\n  100 |         return ret\n  101 | \n  102 |     def get_str(self):\n  103 |         \"\"\"\n  104 |         Get formatted the formatted traceback and exception\n  105 |         message. This function exists separately from __str__()\n  106 |         because __str__() is somewhat specialized for the built-in\n  107 |         traceback module's particular usage.\n  108 |         \"\"\"\n  109 |         ret = []\n  110 |         trace_str = self._get_trace_str()\n  111 |         if trace_str:\n  112 |             ret.extend(['Traceback (most recent call last):\\n', trace_str])\n  113 |         ret.append(self._get_exc_str())\n  114 |         return ''.join(ret)\n  115 | \n  116 |     def _get_message(self):\n  117 |         args = getattr(self, 'args', [])\n  118 |         if self.cause:\n  119 |             args = args[1:]\n  120 |         if args and args[0]:\n  121 |             return args[0]\n  122 |         return ''\n  123 | \n  124 |     def _get_trace_str(self):\n  125 |         if not self.cause:\n  126 |             return super().__repr__()\n  127 |         if self.full_trace:\n  128 |             return ''.join(traceback.format_list(self.full_trace))\n  129 |         return ''\n  130 | \n  131 |     def _get_exc_str(self, incl_name=True):\n  132 |         cause_str = _format_exc(self.root_cause)\n  133 |         message = self._get_message()\n  134 |         ret = []\n  135 |         if incl_name:\n  136 |             ret = [self.__class__.__name__, ': ']\n  137 |         if message:\n  138 |             ret.extend([message, ' (caused by ', cause_str, ')'])\n  139 |         else:\n  140 |             ret.extend([' caused by ', cause_str])\n  141 |         return ''.join(ret)\n  142 | \n  143 |     def __str__(self):\n  144 |         if not self.cause:\n  145 |             return super().__str__()\n  146 |         trace_str = self._get_trace_str()\n  147 |         ret = []\n  148 |         if trace_str:\n  149 |             message = self._get_message()\n  150 |             if message:\n  151 |                 ret.extend([message, ' --- '])\n  152 |             ret.extend(['Wrapped traceback (most recent call last):\\n',\n  153 |                         trace_str,\n  154 |                         self._get_exc_str(incl_name=True)])\n  155 |             return ''.join(ret)\n  156 |         else:\n  157 |             return self._get_exc_str(incl_name=False)\n  158 | \n  159 | \n  160 | def _format_exc(exc, message=None):\n  161 |     if message is None:\n  162 |         message = exc\n  163 |     exc_str = traceback._format_final_exc_line(exc.__class__.__name__, message)\n  164 |     return exc_str.rstrip()\n  165 | \n  166 | \n  167 | _BaseTBItem = namedtuple('_BaseTBItem', 'filename, lineno, name, line')\n  168 | \n  169 | \n  170 | class _TBItem(_BaseTBItem):\n  171 |     def __repr__(self):\n  172 |         ret = super().__repr__()\n  173 |         ret += ' <%r>' % self.frame_id\n  174 |         return ret\n  175 | \n  176 | \n  177 | class _DeferredLine:\n  178 |     def __init__(self, filename, lineno, module_globals=None):\n  179 |         self.filename = filename\n  180 |         self.lineno = lineno\n  181 |         module_globals = module_globals or {}\n  182 |         self.module_globals = {k: v for k, v in module_globals.items()\n  183 |                                     if k in ('__name__', '__loader__')}\n  184 | \n  185 |     def __eq__(self, other):\n  186 |         return (self.lineno, self.filename) == (other.lineno, other.filename)\n  187 | \n  188 |     def __ne__(self, other):\n  189 |         return (self.lineno, self.filename) != (other.lineno, other.filename)\n  190 | \n  191 |     def __str__(self):\n  192 |         if hasattr(self, '_line'):\n  193 |             return self._line\n  194 |         linecache.checkcache(self.filename)\n  195 |         line = linecache.getline(self.filename,\n  196 |                                  self.lineno,\n  197 |                                  self.module_globals)\n  198 |         if line:\n  199 |             line = line.strip()\n  200 |         else:\n  201 |             line = None\n  202 |         self._line = line\n  203 |         return line\n  204 | \n  205 |     def __repr__(self):\n  206 |         return repr(str(self))\n  207 | \n  208 |     def __len__(self):\n  209 |         return len(str(self))\n  210 | \n  211 |     def strip(self):\n  212 |         return str(self).strip()\n  213 | \n  214 | \n  215 | def _extract_from_frame(f=None, limit=None):\n  216 |     ret = []\n  217 |     if f is None:\n  218 |         f = sys._getframe(1)  # cross-impl yadayada\n  219 |     if limit is None:\n  220 |         limit = getattr(sys, 'tracebacklimit', 1000)\n  221 |     n = 0\n  222 |     while f is not None and n < limit:\n  223 |         filename = f.f_code.co_filename\n  224 |         lineno = f.f_lineno\n  225 |         name = f.f_code.co_name\n  226 |         line = _DeferredLine(filename, lineno, f.f_globals)\n  227 |         item = _TBItem(filename, lineno, name, line)\n  228 |         item.frame_id = id(f)\n  229 |         ret.append(item)\n  230 |         f = f.f_back\n  231 |         n += 1\n  232 |     ret.reverse()\n  233 |     return ret\n  234 | \n  235 | \n  236 | def _extract_from_tb(tb, limit=None):\n  237 |     ret = []\n  238 |     if limit is None:\n  239 |         limit = getattr(sys, 'tracebacklimit', 1000)\n  240 |     n = 0\n  241 |     while tb is not None and n < limit:\n  242 |         filename = tb.tb_frame.f_code.co_filename\n  243 |         lineno = tb.tb_lineno\n  244 |         name = tb.tb_frame.f_code.co_name\n  245 |         line = _DeferredLine(filename, lineno, tb.tb_frame.f_globals)\n  246 |         item = _TBItem(filename, lineno, name, line)\n  247 |         item.frame_id = id(tb.tb_frame)\n  248 |         ret.append(item)\n  249 |         tb = tb.tb_next\n  250 |         n += 1\n  251 |     return ret\n  252 | \n  253 | \n  254 | # An Example/Prototest:\n  255 | \n  256 | \n  257 | class MathError(ExceptionCauseMixin, ValueError):\n  258 |     pass\n  259 | \n  260 | \n  261 | def whoops_math():\n  262 |     return 1/0\n  263 | \n  264 | \n  265 | def math_lol(n=0):\n  266 |     if n < 3:\n  267 |         return math_lol(n=n+1)\n  268 |     try:\n  269 |         return whoops_math()\n  270 |     except ZeroDivisionError as zde:\n  271 |         exc = MathError(zde, 'ya done messed up')\n  272 |         raise exc\n  273 | \n  274 | def main():\n  275 |     try:\n  276 |         math_lol()\n  277 |     except ValueError as me:\n  278 |         exc = MathError(me, 'hi')\n  279 |         raise exc\n  280 | \n  281 | \n  282 | if __name__ == '__main__':\n  283 |     try:\n  284 |         main()\n  285 |     except Exception:\n  286 |         import pdb;pdb.post_mortem()\n  287 |         raise\n```\n\nHow the module's public API is used elsewhere in the repository:\n\n- boltons/ecoutils.py:464: `main()`\n- boltons/jsonutils.py:266: `_main()`\n\nPublic API to cover: `ExceptionCauseMixin`, `MathError`, `whoops_math`, `math_lol`, `main`\n\nRequirements for the tests:\n- Write a single, self-contained pytest test file.\n- Import the code under test by its absolute module path (e.g. `from boltons.excutils import ...`).\n- The tests must pass on the CURRENT implementation: assert the behavior the code actually has.\n- Cover the public functions and classes, including edge cases, branches and error handling (`pytest.raises`).\n- Use precise assertions on return values and side effects; avoid weak checks such as `is not None`.\n- Do not access the network, do not write files outside pytest's `tmp_path`, and do not depend on randomness or the current time."
+  },
+  {
+    "node": "write_tests",
+    "iteration": 1,
+    "at": "2026-10-20T03:57:49+00:00",
+    "duration": 9.51,
+    "summary": "第 1 轮：生成 393 行测试",
+    "tool_calls": [
+      {
+        "name": "write_test_file",
+        "args": {
+          "path": "tests_testpilot/test_excutils.py",
+          "content": "<11276 chars>"
+        },
+        "duration": 0.01,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 6301,
+    "llm": {
+      "task": "## Task\nWrite the pytest test file for `boltons.excutils`. Return the complete test file in one ```python code block.",
+      "response": "```python\nimport sys\nimport traceback\n\nimport pytest\n\nfrom boltons.excutils import (\n    ExceptionCauseMixin,\n    MathError,\n    whoops_math,\n    math_lol,\n    main,\n    _extract_from_tb,\n    _extract_from_frame,\n    _DeferredLine,\n    _TBItem,\n    _format_exc,\n)\n\n\n# ---------------------------------------------------------------------------\n# Basic construction / cause handling\n# ---------------------------------------------------------------------------\n\ndef test_mixin_stored_as_cause_first_arg():\n    cause = ValueError('boom')\n    exc = ExceptionCauseMixin(cause, 'msg')\n    assert exc.cause is cause\n    assert exc.args == ('msg',)\n    assert exc.root_cause is cause\n\n\ndef test_mixin_without_cause():\n    exc = ExceptionCauseMixin('just a message')\n    assert exc.cause is None\n    assert exc.args == ('just a message',)\n    # root_cause should be the class default None\n    assert getattr(exc, 'root_cause', None) is None\n\n\ndef test_mixin_cause_class_attribute_default_is_none():\n    assert ExceptionCauseMixin.cause is None\n\n\ndef test_mixin_chained_root_cause():\n    root = ValueError('root')\n    mid = ExceptionCauseMixin(root, 'mid')\n    assert mid.root_cause is root\n\n    outer = ExceptionCauseMixin(mid, 'outer')\n    assert outer.cause is mid\n    # root cause should be propagated from the inner wrap\n    assert outer.root_cause is root\n\n\ndef test_mixin_non_exception_first_arg_is_normal_arg():\n    exc = ExceptionCauseMixin('notexc', 'second')\n    assert exc.cause is None\n    assert exc.args == ('notexc', 'second')\n\n\ndef test_mixin_no_args():\n    exc = ExceptionCauseMixin()\n    assert exc.cause is None\n    assert exc.args == ()\n\n\n# ---------------------------------------------------------------------------\n# MathError is a subclass of both mixin and ValueError\n# ---------------------------------------------------------------------------\n\ndef test_math_error_subclassing():\n    assert issubclass(MathError, ExceptionCauseMixin)\n    assert issubclass(MathError, ValueError)\n\n\ndef test_math_error_construction():\n    cause = ZeroDivisionError('div')\n    exc = MathError(cause, 'ya done messed up')\n    assert isinstance(exc, ValueError)\n    assert isinstance(exc, ExceptionCauseMixin)\n    assert exc.cause is cause\n    assert exc.args == ('ya done messed up',)\n\n\n# ---------------------------------------------------------------------------\n# String formatting methods\n# ---------------------------------------------------------------------------\n\ndef test_get_message_no_cause():\n    exc = ExceptionCauseMixin('hello')\n    # cause None -> args kept intact\n    assert exc._get_message() == 'hello'\n\n\ndef test_get_message_with_cause():\n    cause = ValueError('c')\n    exc = ExceptionCauseMixin(cause, 'real message')\n    assert exc._get_message() == 'real message'\n\n\ndef test_get_message_empty_when_no_args():\n    exc = ExceptionCauseMixin()\n    assert exc._get_message() == ''\n\n\ndef test_get_message_falsy_first_arg():\n    cause = ValueError('c')\n    exc = ExceptionCauseMixin(cause, '', 'ignored')\n    # args[1:] -> ('', 'ignored'); first is falsy -> ''\n    assert exc._get_message() == ''\n\n\ndef test_get_exc_str_with_message():\n    cause = ValueError('c')\n    exc = ExceptionCauseMixin(cause, 'my msg')\n    s = exc._get_exc_str()\n    assert s.startswith('ExceptionCauseMixin: ')\n    assert 'my msg (caused by ' in s\n    assert 'ValueError: c' in s\n\n\ndef test_get_exc_str_without_message():\n    cause = ValueError('c')\n    exc = ExceptionCauseMixin(cause)\n    s = exc._get_exc_str()\n    assert s == 'ExceptionCauseMixin: ' + ' caused by ValueError: c'\n\n\ndef test_get_exc_str_incl_name_false():\n    cause = ValueError('c')\n    exc = ExceptionCauseMixin(cause, 'msg')\n    s = exc._get_exc_str(incl_name=False)\n    assert s.startswith('msg (caused by ')\n    assert 'ValueError: c' in s\n\n\ndef test_str_without_cause():\n    exc = ExceptionCauseMixin('plain message')\n    # no cause -> falls through to super().__str__\n    assert str(exc) == 'plain message'\n\n\ndef test_str_with_cause_no_trace():\n    # Cause exists but full_trace not populated (not raised)\n    cause = ValueError('c')\n    exc = ExceptionCauseMixin(cause, 'msg')\n    # full_trace attribute won't be set because we weren't handling exc\n    assert not hasattr(exc, 'full_trace')\n    s = str(exc)\n    # falls to _get_exc_str(incl_name=False) branch\n    assert s.startswith('msg (caused by ')\n    assert 'ValueError: c' in s\n\n\ndef test_get_str_without_cause():\n    exc = ExceptionCauseMixin('plain')\n    s = exc.get_str()\n    # No cause -> _get_trace_str returns super().__repr__() which is non-empty\n    assert 'ExceptionCauseMixin' in s\n    assert s.endswith('plain')\n\n\n# ---------------------------------------------------------------------------\n# Whoops / math_lol / main\n# ---------------------------------------------------------------------------\n\ndef test_whoops_math_raises_zero_division():\n    with pytest.raises(ZeroDivisionError):\n        whoops_math()\n\n\ndef test_math_lol_raises_math_error():\n    with pytest.raises(MathError) as excinfo:\n        math_lol()\n    exc = excinfo.value\n    assert isinstance(exc.cause, ZeroDivisionError)\n    assert exc.args == ('ya done messed up',)\n    assert 'ya done messed up' in str(exc)\n\n\ndef test_math_lol_recursion_depth():\n    # math_lol recurses until n == 3 then raises.\n    with pytest.raises(MathError) as excinfo:\n        math_lol(0)\n    exc = excinfo.value\n    assert isinstance(exc.cause, ZeroDivisionError)\n\n\ndef test_math_lol_n_ge_three_still_raises():\n    # When n >= 3, it goes directly to whoops_math\n    with pytest.raises(MathError) as excinfo:\n        math_lol(5)\n    assert isinstance(excinfo.value.cause, ZeroDivisionError)\n\n\ndef test_main_raises_math_error():\n    with pytest.raises(MathError) as excinfo:\n        main()\n    exc = excinfo.value\n    # top-level wrap catches a MathError (which is a ValueError)\n    assert isinstance(exc.cause, MathError)\n    assert exc.args == ('hi',)\n    # chained root cause\n    assert isinstance(exc.root_cause, ZeroDivisionError)\n\n\ndef test_main_raises_caught_as_value_error():\n    with pytest.raises(ValueError):\n        main()\n\n\ndef test_raised_math_error_populates_full_trace():\n    try:\n        math_lol()\n    except MathError as exc:\n        assert hasattr(exc, 'full_trace')\n        assert hasattr(exc, '_tb')\n        assert hasattr(exc, '_stack')\n        # full_trace is a non-empty list of _TBItem entries\n        assert len(exc.full_trace) > 0\n        assert all(isinstance(item, _TBItem) for item in exc.full_trace)\n\n\ndef test_raised_chain_preserves_full_trace():\n    try:\n        main()\n    except MathError as exc:\n        assert hasattr(exc, 'full_trace')\n        assert len(exc.full_trace) > 0\n        # inner cause is also MathError and should carry its trace\n        assert hasattr(exc.cause, 'full_trace')\n\n\n# ---------------------------------------------------------------------------\n# _format_exc\n# ---------------------------------------------------------------------------\n\ndef test_format_exc_basic():\n    exc = ValueError('boo')\n    s = _format_exc(exc)\n    assert s == 'ValueError: boo'\n\n\ndef test_format_exc_with_message_override():\n    exc = ValueError('boo')\n    s = _format_exc(exc, message='custom')\n    assert s == 'ValueError: custom'\n\n\ndef test_format_exc_no_args():\n    exc = ValueError()\n    s = _format_exc(exc)\n    assert s == 'ValueError'\n\n\n# ---------------------------------------------------------------------------\n# _DeferredLine\n# ---------------------------------------------------------------------------\n\ndef test_deferred_line_equality(tmp_path):\n    f = tmp_path / 'x.py'\n    f.write_text('line1\\nline2\\n')\n    a = _DeferredLine(str(f), 1)\n    b = _DeferredLine(str(f), 1)\n    c = _DeferredLine(str(f), 2)\n    assert a == b\n    assert a != c\n    assert not (a != b)\n\n\ndef test_deferred_line_str_reads_file(tmp_path):\n    f = tmp_path / 'sample.py'\n    f.write_text('first line\\nsecond line\\n')\n    dl = _DeferredLine(str(f), 2)\n    assert str(dl) == 'second line'\n    # cached\n    assert hasattr(dl, '_line')\n\n\ndef test_deferred_line_missing_file_returns_none():\n    dl = _DeferredLine('/nonexistent/path/xyz_zzz.py', 1)\n    assert str(dl) is None\n\n\ndef test_deferred_line_repr(tmp_path):\n    f = tmp_path / 'r.py'\n    f.write_text('hello\\n')\n    dl = _DeferredLine(str(f), 1)\n    assert repr(dl) == \"'hello'\"\n\n\ndef test_deferred_line_len(tmp_path):\n    f = tmp_path / 'l.py'\n    f.write_text('abcd\\n')\n    dl = _DeferredLine(str(f), 1)\n    assert len(dl) == 4\n\n\ndef test_deferred_line_strip(tmp_path):\n    f = tmp_path / 's.py'\n    f.write_text('   spaces   \\n')\n    dl = _DeferredLine(str(f), 1)\n    assert dl.strip() == 'spaces'\n\n\ndef test_deferred_line_module_globals_filtered():\n    dl = _DeferredLine('/x', 1, {'__name__': 'm', '__loader__': 1, 'other': 2})\n    assert dl.module_globals == {'__name__': 'm', '__loader__': 1}\n\n\ndef test_deferred_line_module_globals_none():\n    dl = _DeferredLine('/x', 1)\n    assert dl.module_globals == {}\n\n\n# ---------------------------------------------------------------------------\n# _TBItem\n# ---------------------------------------------------------------------------\n\ndef test_tbitem_repr_includes_frame_id():\n    dl = _DeferredLine('/x', 1)\n    item = _TBItem('/x', 1, 'name', dl)\n    item.frame_id = 12345\n    r = repr(item)\n    assert '12345' in r\n    assert '_TBItem' in r\n\n\n# ---------------------------------------------------------------------------\n# _extract_from_tb\n# ---------------------------------------------------------------------------\n\ndef test_extract_from_tb_basic():\n    try:\n        raise ValueError('x')\n    except ValueError:\n        _, _, tb = sys.exc_info()\n        items = _extract_from_tb(tb)\n    assert len(items) >= 1\n    assert all(isinstance(i, _TBItem) for i in items)\n    # Each item has frame_id\n    for item in items:\n        assert hasattr(item, 'frame_id')\n    # The filename includes this test file's path\n    assert any(__file__ in i.filename for i in items)\n\n\ndef test_extract_from_tb_limit():\n    try:\n        raise ValueError('x')\n    except ValueError:\n        _, _, tb = sys.exc_info()\n        items = _extract_from_tb(tb, limit=0)\n    assert items == []\n\n\ndef test_extract_from_tb_limit_one():\n    try:\n        raise ValueError('x')\n    except ValueError:\n        _, _, tb = sys.exc_info()\n        items = _extract_from_tb(tb, limit=1)\n    assert len(items) == 1\n\n\ndef test_extract_from_tb_none():\n    items = _extract_from_tb(None)\n    assert items == []\n\n\n# ---------------------------------------------------------------------------\n# _extract_from_frame\n# ---------------------------------------------------------------------------\n\ndef test_extract_from_frame_default():\n    items = _extract_from_frame()\n    assert len(items) >= 1\n    assert all(isinstance(i, _TBItem) for i in items)\n    # reversed so caller-outermost first\n    assert any(__file__ in i.filename for i in items)\n\n\ndef test_extract_from_frame_limit():\n    items = _extract_from_frame(limit=1)\n    assert len(items) == 1\n\n\ndef test_extract_from_frame_explicit_frame():\n    frame = sys._getframe(0)\n    items = _extract_from_frame(frame, limit=1)\n    assert len(items) == 1\n    assert items[0].frame_id == id(frame)\n    assert items[0].name == 'test_extract_from_frame_explicit_frame'\n```",
+      "finish_reason": "stop",
+      "prompt_tokens": 3453,
+      "cache_hit_tokens": 0,
+      "completion_tokens": 2848,
+      "reasoning_tokens": 0,
+      "latency": 9.5
+    }
+  },
+  {
+    "node": "run_tests",
+    "iteration": 1,
+    "at": "2026-10-20T03:57:52+00:00",
+    "duration": 2.25,
+    "summary": "通过 37，失败 8，错误 0",
+    "tool_calls": [
+      {
+        "name": "run_pytest",
+        "args": {
+          "tests": [
+            "tests_testpilot/test_excutils.py"
+          ]
+        },
+        "duration": 2.25,
+        "ok": true,
+        "error": ""
+      }
+    ],
+    "tokens_total": 6301
+  },
+  {
+    "node": "analyze",
+    "iteration": 1,
+    "at": "2026-10-20T03:57:52+00:00",
+    "duration": 0.0,
+    "summary": "分数 [0, 0.0, 0.0, 0.0, 37]（提升）",
+    "tool_calls": [],
+    "tokens_total": 6301,
+    "score": [
+      0,
+      0.0,
+      0.0,
+      0.0,
+      37
+    ],
+    "coverage": null,
+    "validity": null,
+    "mutation": null
+  },
+  {
+    "node": "decide",
+    "iteration": 1,
+    "at": "2026-10-20T03:57:52+00:00",
+    "duration": 0.0,
+    "summary": "单次生成（无反馈）",
+    "tool_calls": [],
+    "tokens_total": 6301
+  },
+  {
+    "node": "finalize",
+    "iteration": 1,
+    "at": "2026-10-20T03:57:52+00:00",
+    "duration": 0.0,
+    "summary": "停止原因：单次生成（无反馈）；采用第 1 轮，分数 [0, 0.0, 0.0, 0.0, 37]",
+    "tool_calls": [],
+    "tokens_total": 6301,
+    "best_iteration": 1
+  }
+]

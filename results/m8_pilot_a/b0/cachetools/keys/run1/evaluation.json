@@ -1,0 +1,112 @@
+{
+  "target": "src/cachetools/keys.py",
+  "validity": {
+    "total": 40,
+    "valid": 33,
+    "valid_ids": [
+      "tests_testpilot/test_keys.py::TestHashKey::test_no_args",
+      "tests_testpilot/test_keys.py::TestHashKey::test_positional_args",
+      "tests_testpilot/test_keys.py::TestHashKey::test_single_arg",
+      "tests_testpilot/test_keys.py::TestHashKey::test_args_vs_kwargs_distinct",
+      "tests_testpilot/test_keys.py::TestHashKey::test_empty_kwargs_no_marker",
+      "tests_testpilot/test_keys.py::TestHashKey::test_hashcall_once",
+      "tests_testpilot/test_keys.py::TestHashKey::test_unhashable_raises",
+      "tests_testpilot/test_keys.py::TestHashKey::test_add_returns_hashedtuple",
+      "tests_testpilot/test_keys.py::TestHashKey::test_radd_returns_hashedtuple",
+      "tests_testpilot/test_keys.py::TestHashKey::test_equality_with_plain_tuple",
+      "tests_testpilot/test_keys.py::TestHashKey::test_pickle_roundtrip",
+      "tests_testpilot/test_keys.py::TestHashKey::test_getstate",
+      "tests_testpilot/test_keys.py::TestMethodKey::test_drops_self",
+      "tests_testpilot/test_keys.py::TestMethodKey::test_with_kwargs",
+      "tests_testpilot/test_keys.py::TestMethodKey::test_no_args",
+      "tests_testpilot/test_keys.py::TestMethodKey::test_returns_hashedtuple",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_no_args",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_positional_args_types_appended",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_types_distinguish",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_same_type_same_key",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_kwargs_types_distinguish",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_kwargs_order_independent",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_hashcall_once",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_unhashable_raises",
+      "tests_testpilot/test_keys.py::TestTypedMethodKey::test_drops_self",
+      "tests_testpilot/test_keys.py::TestTypedMethodKey::test_types_distinguish",
+      "tests_testpilot/test_keys.py::TestTypedMethodKey::test_with_kwargs",
+      "tests_testpilot/test_keys.py::TestTypedMethodKey::test_returns_hashedtuple",
+      "tests_testpilot/test_keys.py::TestHashedTuple::test_subclass_of_tuple",
+      "tests_testpilot/test_keys.py::TestHashedTuple::test_hash_matches_tuple_hash",
+      "tests_testpilot/test_keys.py::TestHashedTuple::test_add_type",
+      "tests_testpilot/test_keys.py::TestHashedTuple::test_radd_type",
+      "tests_testpilot/test_keys.py::TestHashedTuple::test_getstate"
+    ],
+    "invalid": {
+      "tests_testpilot/test_keys.py::TestHashKey::test_kwargs_sorted": "run 1: failed: AssertionError: assert (1, <class 'c... 2), ('b', 3)) == (1, (<class '... 2), ('b', 3))",
+      "tests_testpilot/test_keys.py::TestHashKey::test_kwargs_only": "run 1: failed: AssertionError: assert (<class 'cach...e'>, ('a', 1)) == ((<class 'cac...>,), ('a', 1))",
+      "tests_testpilot/test_keys.py::TestHashKey::test_pickle_preserves_kwmark_identity": "run 1: failed: AssertionError: assert <class 'cachetools.keys._HashedTuple'> is (<class 'cachetools.keys._HashedTuple'>,)",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_kwargs": "run 1: failed: AssertionError: assert (<class 'cach...<class 'str'>) == ((<class 'cac...<class 'str'>)",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_args_and_kwargs": "run 1: failed: AssertionError: assert (1, <class 'c...<class 'int'>) == (1, (<class '...<class 'int'>)",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_types_ordering_args_after_kwargs": "run 1: failed: AssertionError: assert (True, <class...class 'bool'>) == (True, (<clas...class 'bool'>)",
+      "tests_testpilot/test_keys.py::TestTypedKey::test_pickle_roundtrip": "run 1: failed: AssertionError: assert 1 is (<class 'cachetools.keys._HashedTuple'>,)"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.57,
+        "passed": 33,
+        "failed": 7,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.59,
+        "passed": 33,
+        "failed": 7,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.83,
+        "passed": 33,
+        "failed": 7,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 1.0,
+  "branch_rate": 1.0,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.975609756097561,
+    "total": 41,
+    "killed": 40,
+    "survived": 1,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 40,
+      "survived": 1
+    },
+    "survivors": [
+      {
+        "line": 57,
+        "original": "key += tuple(type(v) for _, v in sorted_kwargs)",
+        "mutated": "key = tuple(type(v) for _, v in sorted_kwargs)",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 7.99,
+    "coverage": 3.84,
+    "mutation": 7.33
+  }
+}

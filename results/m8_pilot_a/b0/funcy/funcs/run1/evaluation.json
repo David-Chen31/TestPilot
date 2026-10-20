@@ -1,0 +1,157 @@
+{
+  "target": "funcy/funcs.py",
+  "validity": {
+    "total": 43,
+    "valid": 41,
+    "valid_ids": [
+      "tests_testpilot/test_funcs.py::test_identity_basic",
+      "tests_testpilot/test_funcs.py::test_constantly_any_args",
+      "tests_testpilot/test_funcs.py::test_caller",
+      "tests_testpilot/test_funcs.py::test_func_partial_positional",
+      "tests_testpilot/test_funcs.py::test_func_partial_returns_real_function",
+      "tests_testpilot/test_funcs.py::test_func_partial_kwargs",
+      "tests_testpilot/test_funcs.py::test_func_partial_can_become_method",
+      "tests_testpilot/test_funcs.py::test_rpartial_positional",
+      "tests_testpilot/test_funcs.py::test_rpartial_extends_positional",
+      "tests_testpilot/test_funcs.py::test_rpartial_kwargs_extend_and_override",
+      "tests_testpilot/test_funcs.py::test_curry_with_n",
+      "tests_testpilot/test_funcs.py::test_curry_three_args",
+      "tests_testpilot/test_funcs.py::test_curry_n_one_returns_func",
+      "tests_testpilot/test_funcs.py::test_curry_infers_n",
+      "tests_testpilot/test_funcs.py::test_rcurry_with_n",
+      "tests_testpilot/test_funcs.py::test_rcurry_three_args",
+      "tests_testpilot/test_funcs.py::test_rcurry_n_one_returns_func",
+      "tests_testpilot/test_funcs.py::test_rcurry_infers_n",
+      "tests_testpilot/test_funcs.py::test_autocurry_collects_until_enough",
+      "tests_testpilot/test_funcs.py::test_autocurry_can_pass_several_at_once",
+      "tests_testpilot/test_funcs.py::test_autocurry_explicit_n",
+      "tests_testpilot/test_funcs.py::test_autocurry_kwargs",
+      "tests_testpilot/test_funcs.py::test_autocurry_returns_partial_when_not_enough",
+      "tests_testpilot/test_funcs.py::test_autocurry_wraps_name",
+      "tests_testpilot/test_funcs.py::test_iffy_with_action",
+      "tests_testpilot/test_funcs.py::test_iffy_no_action_delegates_to_bool_pred",
+      "tests_testpilot/test_funcs.py::test_iffy_default_non_callable",
+      "tests_testpilot/test_funcs.py::test_iffy_default_callable",
+      "tests_testpilot/test_funcs.py::test_compose_empty_is_identity",
+      "tests_testpilot/test_funcs.py::test_compose_single",
+      "tests_testpilot/test_funcs.py::test_compose_multiple",
+      "tests_testpilot/test_funcs.py::test_compose_order",
+      "tests_testpilot/test_funcs.py::test_rcompose_order",
+      "tests_testpilot/test_funcs.py::test_complement",
+      "tests_testpilot/test_funcs.py::test_ljuxt_returns_list",
+      "tests_testpilot/test_funcs.py::test_ljuxt_reusable",
+      "tests_testpilot/test_funcs.py::test_juxt_returns_iterator",
+      "tests_testpilot/test_funcs.py::test_juxt_reusable",
+      "tests_testpilot/test_funcs.py::test_juxt_args_kwargs",
+      "tests_testpilot/test_funcs.py::test_ljuxt_args_kwargs",
+      "tests_testpilot/test_funcs.py::test_iffy_with_string_pred"
+    ],
+    "invalid": {
+      "tests_testpilot/test_funcs.py::test_compose_args_kwargs": "run 1: failed: AssertionError: assert ((((1, 2), {'x': 3}),), {}) == (((1, 2), {'x': 3}), {})",
+      "tests_testpilot/test_funcs.py::test_compose_with_mapping_as_func": "run 1: failed: KeyError: 'anything'"
+    },
+    "flaky": [],
+    "runs": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.24,
+        "passed": 41,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.09,
+        "passed": 41,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "timed_out": false,
+        "duration": 2.04,
+        "passed": 41,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "line_rate": 0.9295774647887324,
+  "branch_rate": 0.9090909090909091,
+  "coverage_error": "",
+  "mutation": {
+    "score": 0.9428571428571428,
+    "total": 140,
+    "killed": 132,
+    "survived": 8,
+    "excluded": 0,
+    "status_counts": {
+      "killed": 132,
+      "survived": 8
+    },
+    "survivors": [
+      {
+        "line": 72,
+        "original": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), False))",
+        "mutated": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), None))",
+        "status": "survived"
+      },
+      {
+        "line": 72,
+        "original": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), False))",
+        "mutated": "spec = _spec or (get_spec(func) if n is EMPTY else Spec(n, set(), n, set(), True))",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "return iffy(bool, pred, default)",
+        "mutated": "return iffy(None, pred, default)",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "return iffy(bool, pred, default)",
+        "mutated": "return iffy(bool, None, default)",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "return iffy(bool, pred, default)",
+        "mutated": "return iffy(pred, default)",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "return iffy(bool, pred, default)",
+        "mutated": "return iffy(bool, default)",
+        "status": "survived"
+      },
+      {
+        "line": 98,
+        "original": "return iffy(bool, pred, default)",
+        "mutated": "return iffy(bool, pred, )",
+        "status": "survived"
+      },
+      {
+        "line": 110,
+        "original": "pair = lambda f, g: lambda *a, **kw: f(g(*a, **kw))",
+        "mutated": "pair = lambda f, g: lambda *a, **kw: f(g(*a, ))",
+        "status": "survived"
+      }
+    ],
+    "error": ""
+  },
+  "durations": {
+    "validity": 6.38,
+    "coverage": 3.35,
+    "mutation": 8.66
+  }
+}
