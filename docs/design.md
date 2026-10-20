@@ -459,3 +459,30 @@ B0×8 批次期间 C 盘剩余从 9.0 GB 降到 2.1 GB，WSL 崩溃转储 0 个�
 - 处理：`docker-compose.yml` 给评测容器加 `mem_limit: 4g`（页缓存计入 cgroup，超过后在容器内回收，不再推高虚拟机内存）；`scripts/eval.sh` 在开始 / 结束时报告 pagefile.sys 的大小。
 - 没有改系统的页面文件设置（系统级配置，归用户决定）。系统托管的页面文件在重启后会恢复到初始大小。
 - 局限：没有批次开始前的 pagefile 大小记录，“pagefile 扩大”是根据排除法和时间吻合得出的推断，不是直接观测。加上 eval.sh 的记录后，下一批可以直接确认。
+
+## 7. 主评测（M8）
+
+### 7.1 仓库与目标
+
+清单见 `testpilot/eval/repos.toml`，每个仓库都固定 commit。
+
+- **old 组**（2026-05 之前就存在的流行纯 Python 库，它们的源码和自带测试很可能在训练数据里）：toolz、boltons、funcy、jmespath、humanize、tomli、cachetools、sqlparse。
+- **new 组**（2026-06 之后才创建的仓库，作为数据污染对照）：backon（重试 / 熔断）、llmground（LLM 输出与原文的匹配）、booth（结构化输出检查）、claude_converter（会话格式转换）。用 GitHub API 按创建时间、语言、星数检索，再人工排除 AI 技能包、提示词集合这类不是代码库的仓库。DeepSeek 没有公布训练截止日期，“2026-06 之后创建”只是近似。
+- **目标筛选规则**（看结果之前定的）：60–1200 行，至少一个公开函数 / 类；排除只做重导出的 `__init__`、命令行入口、兼容层、常量表、只有异常定义的文件，以及依赖操作系统 / 外部环境的模块（socket、gc、traceback、调试器、trio 等）。初选 69 个目标（old 51、new 18）。
+- 所有仓库都没有运行时依赖。humanize 的 `_version.py` 由打包工具生成，快照里没有，用清单里的 `stub_files` 补一个。
+
+### 7.2 预检（`eval/preflight.py`，不调用 LLM）
+
+对每个目标用**仓库自带的测试**跑一遍完整评价：检查能否导入、mutmut 能否跑通、变异体数量和耗时，顺便得到“开发者手写测试”的参照得分（`results/m8_preflight/preflight.json`）。
+
+- 第一版预检只写了一个 `import` 测试，全部失败：它不执行任何函数，mutmut 发现没有测试覆盖变异代码会直接报错。改成用自带测试。
+- 48/69 通过。没通过的原因有三类：自带测试在评测环境里跑不起来（funcy 缺测试依赖 `whatever`，humanize 缺 `freezegun`，cachetools 的 unittest 测试用相对导入）；mutmut 和自带测试一起运行时失败（toolz、boltons 的 excutils / namedutils / typeutils、tomli 的 `_parser`）；变异测试过慢。toolz 在 M3–M5.5 用生成的测试跑通过很多次，说明后一类失败可能只和自带测试有关。
+- 对这些不确定的目标先用 B0 试跑一次（`results/m8_pilot_*`），确认生成的测试能否跑通变异测试，再决定去留。
+- **耗时规则**：预检中变异测试超过 600 秒的目标剔除（backon `_decorator.py` 用自带测试要 1379 秒，B2 每次运行最多做 5 次变异测试，按并发度算跑不完）。
+
+### 7.3 方法与运行
+
+- 方法：B1、BC、B2、B0×8（first / best / union）。**B0 用 B0×8 的第 1 份样本**：它就是一次标准的 B0 运行，不再单独花钱。
+- 每个目标每个方法 1 次运行。统计推断的单位是目标（同一目标的多次运行不独立，见 `eval/stats.py`），在预算内把钱花在更多目标上比花在重复运行上更有效。
+- 同一批里所有方法交错运行（先排目标、再排方法），4 路并发；任何时刻在跑的都是各方法的混合，后台模型版本中途变化对各方法的影响相同。并发时每个 mutmut 的子进程数限制为 CPU 核数 / 并发数（`TESTPILOT_MUTATION_CHILDREN`，经 MCP server 转发），容器内存上限 8 GB。
+- 汇总：`python -m testpilot.eval.compare <结果目录...> --reference b2 --out <名字>`。各方法与 B2 按目标配对：差值均值、95% bootstrap 置信区间、符号翻转检验 p 值、胜 / 负 / 平；全部目标、old 组、new 组各算一遍。运行失败的不计入，在报告里单独列出。

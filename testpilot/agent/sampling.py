@@ -26,6 +26,7 @@ class SampleSet:
     codes: list[str] = field(default_factory=list)  # 每份样本最终的测试文件内容
     infos: list[dict] = field(default_factory=list)  # 每份样本的停止原因等
     tokens: list[int] = field(default_factory=list)  # 每份样本的 token 数（输入 + 输出）
+    usages: list[Usage] = field(default_factory=list)  # 每份样本各自的用量
     traces: list[list[dict]] = field(default_factory=list)
     usage: Usage = field(default_factory=Usage)  # 全部样本合计
 
@@ -50,6 +51,7 @@ async def sample_tests(
         out.codes.append((Path(workdir) / gen.test_files[0]).read_text(encoding="utf-8"))
         out.infos.append(gen.info)
         out.tokens.append(gen.usage.total_tokens)
+        out.usages.append(gen.usage)
         out.traces.append(gen.trace)
         out.usage.merge(gen.usage)
     return out

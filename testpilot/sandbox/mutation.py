@@ -119,6 +119,8 @@ def run_mutation(
     env = sandbox_env()
     env["PYTHONPATH"] = os.pathsep.join(str((workdir / p).resolve()) for p in python_paths)
     cmd = [sys.executable, "-m", "mutmut", "run"]
+    # 多个评测并发时由评测入口设置，避免每个 mutmut 都按 CPU 核数起子进程
+    max_children = max_children or int(os.environ.get("TESTPILOT_MUTATION_CHILDREN", "0")) or None
     if max_children:
         cmd += ["--max-children", str(max_children)]
     report.exec = run(cmd, cwd=workdir, timeout=timeout, env=env, max_output_chars=3000)

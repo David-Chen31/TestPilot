@@ -99,8 +99,9 @@ async def run_one(
 async def run_samples(
     method: str, spec: RepoSpec, target: str, out_dir: Path, settings: Settings, with_mutation: bool, n: int
 ) -> dict:
-    """等成本对照：独立生成 n 份测试，评价两个变体（都不使用变异信号）：
+    """等成本对照：独立生成 n 份测试，评价三个变体（都不使用变异信号）：
 
+    - first：第 1 份样本，本身就是一次标准的 B0 运行（M8 用它代替单独跑 B0，不重复花钱）；
     - best：按有效测试的覆盖率挑出的一份（见 selection.coverage_key）；
     - union：n 份样本放在一起，所有有效测试的并集。
 
@@ -124,6 +125,8 @@ async def run_samples(
         meta["generation_seconds"] = round(time.monotonic() - t0, 2)
         meta["usage"] = gen.usage.to_dict(settings.llm_model)
         meta["agent"] = {"config": _config_dict(config), "samples": gen.infos, "sample_tokens": gen.tokens}
+        total = meta["usage"]
+        meta["variant_usage"] = {"first": gen.usages[0].to_dict(settings.llm_model), "best": total, "union": total}
         _dump(out_dir / "trace.json", gen.traces)
 
         # 每份样本存成单独的测试文件（文件名不同，pytest 才能在一次运行里同时收集）
@@ -142,7 +145,7 @@ async def run_samples(
         best = select_best(rows)
         _dump(out_dir / "screening.json", {"samples": rows, "selected": best, "selector": "coverage"})
         variants = {}
-        for name, chosen in (("best", [files[best]]), ("union", files)):
+        for name, chosen in (("first", [files[0]]), ("best", [files[best]]), ("union", files)):
             ev = await asyncio.to_thread(
                 evaluate, ws.path, target, chosen, spec.python_paths, with_mutation=with_mutation
             )
@@ -156,7 +159,10 @@ async def run_samples(
 
 def summarize(records: list[dict], variant: str | None = None) -> dict:
     if variant is not None:  # 独立采样方法：同一批生成的不同变体，各自汇总
-        records = [{**r, "summary": r["variants"][variant]} if "variants" in r else r for r in records]
+        records = [
+            {**r, "summary": r["variants"][variant], "usage": r["variant_usage"][variant]} if "variants" in r else r
+            for r in records
+        ]
     ok = [r for r in records if "summary" in r]
     rows = [
         {
@@ -210,14 +216,23 @@ def write_markdown(path: Path, title: str, groups: dict[str, dict], records: dic
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--method", required=True, choices=sorted({**METHODS, **SAMPLING_METHODS}))
+    parser.add_argument(
+        "--method", action="append", required=True, choices=sorted({**METHODS, **SAMPLING_METHODS}),
+        help="可重复：同一批里交错运行多个方法，它们处在同一个时间窗口（模型版本漂移对各方法影响相同）",
+    )  # fmt: skip
     parser.add_argument("--samples", type=int, default=8, help="独立采样方法（b0n）每次运行的样本数")
-    parser.add_argument("--repo", required=True)
-    parser.add_argument("--target", action="append", help="默认使用清单中的全部 targets")
+    parser.add_argument("--repo", action="append", help="可重复；默认清单中的全部仓库")
+    parser.add_argument("--target", action="append", help="默认使用清单中的全部 targets（只能配合单个 --repo）")
     parser.add_argument("--runs", type=int, default=3)
+    parser.add_argument("--concurrency", type=int, default=1, help="同时进行的运行数")
     parser.add_argument("--tag", required=True, help="本批实验的名字，作为 results/ 下的目录名")
     parser.add_argument("--no-mutation", action="store_true")
     args = parser.parse_args()
+    if args.target and len(args.repo or []) != 1:
+        parser.error("--target 只能配合单个 --repo 使用")
+    if args.concurrency > 1 and "TESTPILOT_MUTATION_CHILDREN" not in os.environ:
+        # 并发时每个 mutmut 只分到一部分 CPU：否则 4 个运行 × 16 个子进程，内存和调度都会挤爆
+        os.environ["TESTPILOT_MUTATION_CHILDREN"] = str(max(2, (os.cpu_count() or 4) // args.concurrency))
 
     tag_dir = RESULTS_DIR / args.tag
     tag_dir.mkdir(parents=True, exist_ok=True)
@@ -236,45 +251,66 @@ def main() -> None:
 
 async def _run_batch(args: argparse.Namespace, tag_dir: Path) -> None:
     settings = Settings.from_env()
-    spec = load_manifest()[args.repo]
-    targets = args.target or list(spec.targets)
-    groups: dict[str, dict] = {}
-    all_records: dict[str, list[dict]] = {}
-    connection_failures, aborted = 0, False
-    for target in targets:
-        key = f"{args.method} / {spec.name} / {target}"
-        records = []
-        for k in range(1, args.runs + 1):
-            out_dir = tag_dir / args.method / spec.name / Path(target).stem / f"run{k}"
-            log.info("%s run %d/%d -> %s", key, k, args.runs, out_dir)
-            if args.method in SAMPLING_METHODS:
-                rec = await run_samples(
-                    args.method, spec, target, out_dir, settings, not args.no_mutation, args.samples
-                )
+    manifest = load_manifest()
+    specs = [manifest[r] for r in (args.repo or manifest)]
+    # 先排目标、再排方法：同一目标的各方法相邻，任何时刻在跑的都是各方法的混合
+    jobs = [
+        (method, spec, target, k)
+        for spec in specs
+        for target in (args.target or spec.targets)
+        for k in range(1, args.runs + 1)
+        for method in args.method
+    ]
+    results: dict[tuple, dict] = {}
+    sem = asyncio.Semaphore(args.concurrency)
+    state = {"connection_failures": 0, "aborted": False, "done": 0}
+
+    async def run_job(method: str, spec: RepoSpec, target: str, k: int) -> None:
+        async with sem:
+            if state["aborted"]:
+                return
+            out_dir = tag_dir / method / spec.name / Path(target).stem / f"run{k}"
+            log.info("开始 %s / %s / %s run%d -> %s", method, spec.name, target, k, out_dir)
+            if method in SAMPLING_METHODS:
+                rec = await run_samples(method, spec, target, out_dir, settings, not args.no_mutation, args.samples)
             else:
-                rec = await run_one(args.method, spec, target, out_dir, settings, with_mutation=not args.no_mutation)
+                rec = await run_one(method, spec, target, out_dir, settings, with_mutation=not args.no_mutation)
             rec["run_index"] = k
             rec["out_dir"] = out_dir.relative_to(PROJECT_ROOT).as_posix()
-            log.info("%s run %d 结果: %s", key, k, rec.get("summary") or rec.get("variants") or rec.get("error"))
-            records.append(rec)
-            # 连续两次连接失败说明是网络 / 基础设施问题，继续跑只会在重试里耗时间，直接中止整批
-            connection_failures = connection_failures + 1 if _is_connection_error(rec) else 0
-            if connection_failures >= MAX_CONSECUTIVE_CONNECTION_FAILURES:
-                log.error("连续 %d 次连接失败，中止本批（网络问题，与方法无关）", connection_failures)
-                aborted = True
-                break
-        if args.method in SAMPLING_METHODS:
-            for variant in ("best", "union"):
-                vkey = f"{args.method}{args.samples}-{variant} / {spec.name} / {target}"
-                groups[vkey] = summarize(records, variant)
-                all_records[vkey] = records
-        else:
-            groups[key] = summarize(records)
-            all_records[key] = records
-        if aborted:
-            break
+            results[(method, spec.name, target, k)] = rec
+            state["done"] += 1
+            log.info(
+                "[%d/%d] %s / %s / %s run%d 结果: %s", state["done"], len(jobs), method, spec.name, target, k,
+                rec.get("summary") or rec.get("variants") or rec.get("error"),
+            )  # fmt: skip
+            # 连续连接失败说明是网络 / 基础设施问题，继续跑只会在重试里耗时间，直接中止整批
+            state["connection_failures"] = state["connection_failures"] + 1 if _is_connection_error(rec) else 0
+            if state["connection_failures"] >= MAX_CONSECUTIVE_CONNECTION_FAILURES and not state["aborted"]:
+                log.error("连续 %d 次连接失败，中止本批（网络问题，与方法无关）", state["connection_failures"])
+                state["aborted"] = True
 
-    _dump(tag_dir / "summary.json", {"groups": groups, "records": all_records, "aborted": aborted})
+    await asyncio.gather(*(run_job(*job) for job in jobs))
+
+    groups: dict[str, dict] = {}
+    all_records: dict[str, list[dict]] = {}
+    for spec in specs:
+        for target in args.target or spec.targets:
+            for method in args.method:
+                records = [results[(method, spec.name, target, k)] for k in range(1, args.runs + 1)
+                           if (method, spec.name, target, k) in results]  # fmt: skip
+                if not records:
+                    continue
+                if method in SAMPLING_METHODS:
+                    for variant in ("first", "best", "union"):
+                        vkey = f"{method}{args.samples}-{variant} / {spec.name} / {target}"
+                        groups[vkey] = summarize(records, variant)
+                        all_records[vkey] = records
+                else:
+                    key = f"{method} / {spec.name} / {target}"
+                    groups[key] = summarize(records)
+                    all_records[key] = records
+
+    _dump(tag_dir / "summary.json", {"groups": groups, "records": all_records, "aborted": state["aborted"]})
     write_markdown(tag_dir / "summary.md", f"{args.tag}", groups, all_records)
     log.info("汇总写入 %s", tag_dir / "summary.md")
 

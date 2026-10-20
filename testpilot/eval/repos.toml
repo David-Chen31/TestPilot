@@ -5,5 +5,115 @@
 url = "https://github.com/pytoolz/toolz.git"
 commit = "451af60dec590a6010e2babdbf391ea8f815122f"  # 2026-09-18
 python_paths = ["."]
+tests = "toolz/tests"
 remove = ["toolz/tests", "toolz/sandbox/tests", "bench"]
+group = "old"
 targets = ["toolz/dicttoolz.py", "toolz/itertoolz.py", "toolz/functoolz.py"]
+
+# ---- M8 ----
+# group：old = 2026-05 之前就存在的流行库（可能出现在模型训练数据里，包括它们自带的测试）；
+#        new = 2026-06 之后才创建的仓库（作为数据污染对照）。DeepSeek 没有公布训练截止日期，这个划分是近似。
+# tests：仓库自带测试的位置（评测时删除；预检时保留，用来得到“开发者手写测试”的参照得分）。
+# 目标筛选规则（docs/design.md §7.1）：60–1200 行，至少一个公开函数 / 类；排除只做重导出的 __init__、
+# 命令行入口、兼容层、常量表、只有异常定义的文件，以及依赖操作系统 / 外部环境的模块
+# （socket、gc、traceback、调试器、trio 等）。
+
+[boltons]
+url = "https://github.com/mahmoud/boltons.git"
+commit = "4e5faa3d7e4008d89e0d8bf1ea87b6d9a061a16d"  # 2026-09-23
+group = "old"
+python_paths = ["."]
+tests = "tests"
+remove = ["tests", "misc", "docs"]
+targets = ["boltons/cacheutils.py", "boltons/dictutils.py", "boltons/excutils.py", "boltons/fileutils.py", "boltons/formatutils.py", "boltons/funcutils.py", "boltons/ioutils.py", "boltons/jsonutils.py", "boltons/listutils.py", "boltons/mathutils.py", "boltons/namedutils.py", "boltons/pathutils.py", "boltons/queueutils.py", "boltons/setutils.py", "boltons/statsutils.py", "boltons/tableutils.py", "boltons/timeutils.py", "boltons/typeutils.py"]
+
+[funcy]
+url = "https://github.com/Suor/funcy.git"
+commit = "e8febffd57f80db8ca3a55fb1edd0feee2290d61"  # 2026-10-13
+group = "old"
+python_paths = ["."]
+tests = "tests"
+remove = ["tests", "docs"]
+targets = ["funcy/calc.py", "funcy/colls.py", "funcy/decorators.py", "funcy/flow.py", "funcy/funcs.py", "funcy/objects.py", "funcy/seqs.py", "funcy/strings.py"]
+
+[jmespath]
+url = "https://github.com/jmespath/jmespath.py.git"
+commit = "2812594e69d43098ef60f81f4efc404c071b0418"  # 2026-01-22
+group = "old"
+python_paths = ["."]
+tests = "tests"
+remove = ["tests", "extra", "perf"]
+targets = ["jmespath/functions.py", "jmespath/lexer.py", "jmespath/parser.py", "jmespath/visitor.py"]
+
+[humanize]
+url = "https://github.com/python-humanize/humanize.git"
+commit = "785e5dcc0d0308ad0dff3f6cc0faa7085ad0375b"  # 2026-10-06
+group = "old"
+python_paths = ["src"]
+tests = "tests"
+remove = ["tests", "docs"]
+# _version.py 由 hatch-vcs 在构建时生成，源码快照里没有
+stub_files = { "src/humanize/_version.py" = "__version__ = version = \"0.0.0+testpilot\"\n" }
+targets = ["src/humanize/filesize.py", "src/humanize/number.py", "src/humanize/time.py"]
+
+[tomli]
+url = "https://github.com/hukkin/tomli.git"
+commit = "43a86ade8b795c6ef9b4ec53372a607cd1ed426f"  # 2026-10-07
+group = "old"
+python_paths = ["src"]
+tests = "tests"
+remove = ["tests", "fuzzer", "benchmark", "profiler"]
+targets = ["src/tomli/_parser.py", "src/tomli/_re.py"]
+
+[cachetools]
+url = "https://github.com/tkem/cachetools.git"
+commit = "6f23e2a7b75a42d30cb9d890ab3ca4059ee01bfd"  # 2026-10-19
+group = "old"
+python_paths = ["src"]
+tests = "tests"
+remove = ["tests", "docs"]
+targets = ["src/cachetools/__init__.py", "src/cachetools/func.py", "src/cachetools/keys.py"]
+
+[sqlparse]
+url = "https://github.com/andialbrecht/sqlparse.git"
+commit = "60cdc649726bf1bc4f1b336050560b336da715ec"  # 2026-08-13
+group = "old"
+python_paths = ["."]
+tests = "tests"
+remove = ["tests", "examples", "benchmarks", "docs"]
+targets = ["sqlparse/engine/grouping.py", "sqlparse/engine/statement_splitter.py", "sqlparse/filters/aligned_indent.py", "sqlparse/filters/others.py", "sqlparse/filters/output.py", "sqlparse/filters/reindent.py", "sqlparse/formatter.py", "sqlparse/lexer.py", "sqlparse/sql.py", "sqlparse/utils.py"]
+
+[backon]
+url = "https://github.com/Llucs/backon.git"
+commit = "fb97b0ddc99e1a9e64d3684f85d05279694bea8c"  # 2026-09-26
+group = "new"
+python_paths = ["."]
+tests = "tests"
+remove = ["tests", "site"]
+targets = ["backon/_circuit_breaker.py", "backon/_common.py", "backon/_conditions.py", "backon/_decorator.py", "backon/_hedging.py", "backon/_retry/_api.py", "backon/_retry/_classes.py", "backon/_state.py", "backon/_wait_gen.py"]
+
+[llmground]
+url = "https://github.com/Anas-Khan93/llmground.git"
+commit = "bfc2580077b69002faf9b13880e359c7ed244464"  # 2026-08-13
+group = "new"
+python_paths = ["src"]
+tests = "tests"
+remove = ["tests", "demo"]
+targets = ["src/llmground/matchers.py", "src/llmground/normalize.py", "src/llmground/verify.py"]
+
+[booth]
+url = "https://github.com/Vedantgitbot/booth.git"
+commit = "e7a5532f1c0efc315bf03b587cf07c1e50d229d2"  # 2026-10-19
+group = "new"
+python_paths = ["src"]
+tests = "tests"
+remove = ["tests", "examples"]
+targets = ["src/booth/core.py"]
+
+[claude_converter]
+url = "https://github.com/FredyRivera-dev/claude_converter.git"
+commit = "3185717b0519fd69191fcb90f68e4c0a7a2f03f1"  # 2026-07-10
+group = "new"
+python_paths = ["."]
+remove = ["example"]
+targets = ["claude_converter/claude.py", "claude_converter/codex.py", "claude_converter/converter.py", "claude_converter/pi.py", "claude_converter/utils.py"]

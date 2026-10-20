@@ -24,7 +24,7 @@ from testpilot.sandbox.workspace import Workspace
 MANIFEST = Path(__file__).with_name("repos.toml")
 DATA_DIR = PROJECT_ROOT / "data" / "repos"
 COMMIT_MARKER = ".testpilot-commit"
-_GITHUB = re.compile(r"https://github\.com/([^/]+)/([^/.]+)(?:\.git)?/?$")
+_GITHUB = re.compile(r"https://github\.com/([^/]+)/([^/]+?)(?:\.git)?/?$")  # 仓库名可以带点（jmespath.py）
 
 
 @dataclass(frozen=True)
@@ -35,6 +35,9 @@ class RepoSpec:
     python_paths: tuple[str, ...] = (".",)
     remove: tuple[str, ...] = ()
     targets: tuple[str, ...] = field(default_factory=tuple)
+    group: str = "old"  # old：可能在训练数据里的流行库；new：晚于训练截止创建的仓库（污染对照）
+    tests: str = ""  # 仓库自带测试的位置（预检时用作参照，评测时删除）
+    stub_files: tuple[tuple[str, str], ...] = ()  # 构建时才生成、源码快照里没有的文件：(路径, 内容)
 
     @property
     def path(self) -> Path:
@@ -58,6 +61,9 @@ def load_manifest(path: Path = MANIFEST) -> dict[str, RepoSpec]:
             python_paths=tuple(cfg.get("python_paths", ["."])),
             remove=tuple(cfg.get("remove", [])),
             targets=tuple(cfg.get("targets", [])),
+            group=cfg.get("group", "old"),
+            tests=cfg.get("tests", ""),
+            stub_files=tuple(cfg.get("stub_files", {}).items()),
         )
         for name, cfg in raw.items()
     }
@@ -88,11 +94,15 @@ def ensure_repo(spec: RepoSpec) -> Path:
 
 
 @contextmanager
-def eval_workspace(spec: RepoSpec, keep: bool = False) -> Iterator[Workspace]:
-    """固定 commit 的工作副本，已删除清单中的自带测试。"""
+def eval_workspace(spec: RepoSpec, keep: bool = False, keep_tests: bool = False) -> Iterator[Workspace]:
+    """固定 commit 的工作副本，已删除清单中的自带测试（``keep_tests`` 时保留，预检用）。"""
     source = ensure_repo(spec)
     with Workspace(source, keep=keep) as ws:
+        for rel, content in spec.stub_files:
+            ws.write_text(rel, content)
         for rel in spec.remove:
+            if keep_tests and rel == spec.tests:
+                continue
             target = ws.resolve(rel)
             if target.is_dir():
                 shutil.rmtree(target)

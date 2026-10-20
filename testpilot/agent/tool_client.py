@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import sys
 import time
 from contextlib import asynccontextmanager
@@ -19,6 +20,7 @@ from typing import AsyncIterator, Protocol, Sequence
 from langchain_core.tools import BaseTool
 from langchain_mcp_adapters.tools import load_mcp_tools
 from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import get_default_environment
 from mcp.client.stdio import stdio_client
 
 from testpilot.tools.repo_tools import RepoTools
@@ -102,7 +104,9 @@ async def mcp_tool_client(root: str | Path, python_paths: Sequence[str] = (".",)
     args = ["-m", "testpilot.tools.server", "--root", str(root)]
     for p in python_paths:
         args += ["--python-path", p]
-    params = StdioServerParameters(command=sys.executable, args=args)
+    # stdio_client 默认只传 PATH、HOME 等少数变量；另外只转发 TESTPILOT_ 开头的设置（不含任何密钥）
+    env = {**get_default_environment(), **{k: v for k, v in os.environ.items() if k.startswith("TESTPILOT_")}}
+    params = StdioServerParameters(command=sys.executable, args=args, env=env)
     async with stdio_client(params) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
